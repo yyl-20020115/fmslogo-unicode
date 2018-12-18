@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMSLogo", "FMSLogo.vcxproj", "{7E7EC7EA-E827-444A-A911-78A299F2FD31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Debug|x64.ActiveCfg = Debug|x64
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Debug|x64.Build.0 = Debug|x64
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Debug|x86.ActiveCfg = Debug|Win32
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Debug|x86.Build.0 = Debug|Win32
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Release|x64.ActiveCfg = Release|x64
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Release|x64.Build.0 = Release|x64
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Release|x86.ActiveCfg = Release|Win32
+		{7E7EC7EA-E827-444A-A911-78A299F2FD31}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA78A995-DA06-4874-AA53-3053E24858AB}
+	EndGlobalSection
+EndGlobal
