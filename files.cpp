@@ -677,6 +677,7 @@ void silent_load(NODE *arg, const wchar_t *prefix)
     if (arg != NIL)
     {
         arg = cnv_node_to_strnode(arg);
+
         if (arg == Unbound)
         {
             return;
@@ -844,7 +845,8 @@ NODE *lreadchar(NODE *)
 {
     input_blocking = true;
 
-    wchar_t c;
+    wchar_t c =L'\0';
+
     if (!setjmp(iblk_buf))
     {
         if (g_Reader.GetStream() == stdin)
@@ -898,7 +900,7 @@ NODE *lreadchars(NODE *args)
 
     input_blocking = true;
 
-    wchar_t *strhead, *strptr;
+    wchar_t *strhead = 0, *strptr = 0;
     if (!setjmp(iblk_buf))
     {
         // TODO: Don't allocate more bytes than the file contains.

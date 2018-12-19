@@ -967,7 +967,7 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
         // Cleanup the file that we created.
         if (!fileNameIsTempPathName)
         {
-            _unlink(wxString(TempPathName));
+            _wunlink(TempPathName);
         }
         return;
     }

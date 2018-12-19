@@ -582,7 +582,7 @@ void CWorkspaceEditor::OnSaveToWorkspace(wxCommandEvent& Event)
     {
         EndEdit();
 
-        _unlink(wxString(TempPathName));
+        _wunlink(TempPathName);
 
         if (m_ErrorDetected)
         {
@@ -957,7 +957,7 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
                     m_EditArguments,
                     m_CheckForErrors,
                     true); // open the editor to the error
-				_unlink(wxString(TempPathName));
+				_wunlink(TempPathName);
             }
             else
             {
@@ -1002,7 +1002,7 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
 
             // Delete the temporary file which held the workspace
             // while we were re-reading it.
-			_unlink(wxString(TempPathName));
+			_wunlink(TempPathName);
 
             // Give focus back to the commander so that the user
             // can give Logo more commands.

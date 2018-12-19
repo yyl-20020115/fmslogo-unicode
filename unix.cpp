@@ -64,7 +64,7 @@ mputcombobox(
     g_ComboBuffer.AppendString(str);
 
     // process lines
-	wchar_t * rawBuffer       = g_ComboBuffer.GetBuffer();
+	wchar_t * rawBuffer    = g_ComboBuffer.GetBuffer();
     size_t rawBufferLength = g_ComboBuffer.GetBufferLength();
 
 	wchar_t * next_line = rawBuffer;
@@ -114,38 +114,27 @@ int printfx(const wchar_t *str)
 
 int printfx(const wchar_t *fmt, const wchar_t *str)
 {
-    size_t bufferSize =
-        wcslen(fmt) +
-        (str ? wcslen(str) : 0) +
-        1;
+	wxString w;
+	w.Format(fmt, str);
 
-	wchar_t * buff = new wchar_t[bufferSize + 1];
-	//TODO: need to check override
-    int cnt = _swprintf(buff, /*bufferSize, */fmt, str);
+    mputcombobox(w);
 
-    // check for a buffer overflow
-    assert(cnt < (int)bufferSize);
-
-    mputcombobox(buff);
-
-    delete [] buff;
-
-    return cnt;
+    return w.length();
 }
 
 NODE *lchdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_chdir(wxString(directoryName)))
+    if (_wchdir(directoryName))
     {
         printfx(LOCALIZED_FILE_CHDIRFAILED, directoryName);
     }
     else
     {
         // Get the directory that we are now in.
-        char newDirectoryName[MAX_BUFFER_SIZE + 1];
-        _getcwd(newDirectoryName, sizeof newDirectoryName);
+		char newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
+        _getcwd(newDirectoryName, sizeof(newDirectoryName));
 
         printfx(LOCALIZED_FILE_CHDIRSUCCEEDED, wxString(newDirectoryName).wc_str());
     }
@@ -155,10 +144,10 @@ NODE *lchdir(NODE *arg)
 
 NODE *lpopdir(NODE *)
 {
-    _chdir("..");
+    _wchdir(L"..");
 
-    char fname[MAX_BUFFER_SIZE + 1];
-    _getcwd(fname, sizeof fname);
+    char fname[MAX_BUFFER_SIZE + 1] = { 0 };
+    _getcwd(fname, sizeof(fname));
 
     printfx(LOCALIZED_FILE_POPPEDTO, wxString(fname));
 
@@ -170,7 +159,7 @@ NODE *lmkdir(NODE *arg)
     CStringPrintedNode directoryName(car(arg));
 
 #ifndef WX_PURE
-    if (_mkdir(wxString(directoryName)))
+    if (_wmkdir(directoryName))
     {
         // mkdir returns -1 on error
         printfx(LOCALIZED_FILE_MKDIRFAILED, directoryName);
@@ -178,7 +167,7 @@ NODE *lmkdir(NODE *arg)
     else
     {
         // mkdir returns 0 on success
-        _chdir(wxString(directoryName));
+        _wchdir(directoryName);
         printfx(LOCALIZED_FILE_MKDIRSUCCEEDED, directoryName);
     }
 #endif
