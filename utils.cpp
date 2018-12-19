@@ -228,7 +228,7 @@ GetConfigurationString(
 
     // Copy the configuration into the Value buffer
     size_t lengthToCopy = std::min(ValueLength - 1, value.Len());
-    memcpy(Value, WXSTRING_TO_STRING(value), lengthToCopy);
+    memcpy(Value, (value), lengthToCopy);
     Value[lengthToCopy] = '\0';
 #else
     bool useDefaultValue = true;
@@ -239,7 +239,7 @@ GetConfigurationString(
         DWORD valueSize = (ValueLength - 1)*sizeof(wchar_t);  // leave room for NUL
         BYTE *valuePtr  = reinterpret_cast<BYTE*>(Value);
         DWORD valueType = 0;
-
+		memset(valuePtr, 0, valueSize);
         LONG result = RegQueryValueEx(
             fmslogoKey,
             Name,
@@ -252,17 +252,17 @@ GetConfigurationString(
             valueSize < ValueLength - sizeof(wchar_t))
         {
             // we successfully read the value as a string
-            Value[valueSize] = L'\0';
+			//Value[valueSize] = L'\0';
             useDefaultValue  = false;
         }
 
         RegCloseKey(fmslogoKey);
     }
 
-    if (useDefaultValue)
+    if (useDefaultValue &&Value!=0 && DefaultValue!=0)
     {
-        wcscpy(Value, DefaultValue);
-    }
+		wcscpy(Value, DefaultValue);
+	}
 #endif // WX_PURE
 }
 
@@ -353,10 +353,8 @@ GetConfigurationFont(
 {
     memset(&LogFont, 0, sizeof(LogFont));
 
-	wxString fullyQualifiedName = Name;
-
     // find the end of the fullyQualifiedName
-	wxString relativeName = GetRelativeFontPropertyPointer(fullyQualifiedName);
+	wxString relativeName = GetRelativeFontPropertyPointer(Name);
    
     GetConfigurationString(
         relativeName + FONTPROPERTY_FaceName,
