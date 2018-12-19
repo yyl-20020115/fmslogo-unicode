@@ -565,4 +565,12 @@
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <MASM Include="helpers32.asm">
+      <Filter>源文件</Filter>
+    </MASM>
+    <MASM Include="helpers64.asm">
+      <Filter>源文件</Filter>
+    </MASM>
+  </ItemGroup>
 </Project>

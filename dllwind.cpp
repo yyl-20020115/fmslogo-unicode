@@ -58,8 +58,7 @@
 //#else
 //  #error Unsupported compiler
 //#endif
-
-
+extern "C" void __stdcall _do_push(void*);
 
 class CLoadedDll
 {
@@ -503,7 +502,7 @@ NODE *ldllcall(NODE *args)
         return Unbound;
     }
 
-    const char returnType = fkind.GetString()[0];
+    const wchar_t returnType = fkind.GetString()[0];
 
     CAppendableList outParameters; // a list of "out" parameter lists to return
 
@@ -531,18 +530,18 @@ NODE *ldllcall(NODE *args)
 
         switch (kind.GetString()[0])
         {
-        case 'w':
-        case 'W':
+        case L'w':
+        case L'W':
             parameters[nextParameter++] = (int) (_wtoi(value) & 0xFFFF);
             break;
 
-        case 'l':
-        case 'L':
+        case L'l':
+        case L'L':
             parameters[nextParameter++] = (int) _wtol(value);
             break;
 
-        case 'f':
-        case 'F':
+        case L'f':
+        case L'F':
             {
                 // A double is 8 bytes, so we must push it
                 // as two four-byte parameters.
@@ -553,21 +552,21 @@ NODE *ldllcall(NODE *args)
             }
             break;
 
-        case 's':
-        case 'S':
+        case L's':
+        case L'S':
             values[nextValue] = _wcsdup(value);
             parameters[nextParameter++] = (int) values[nextValue];
             nextValue++;
             break;
 
-        case 'b':
-        case 'B':
+        case L'b':
+        case L'B':
             {
                 // This is a buffer type.
                 // Unlike the other types which predate FMSLogo and are maintained
                 // as only checking the first character for backward-compatibility,
                 // we check the "B" type specifier for strict conformance.
-                if (kind.GetString()[1] != '\0')
+                if (kind.GetString()[1] != L'\0')
                 {
                     err_logo(BAD_DATA_UNREC, functionArgs);
                     break;
@@ -580,7 +579,7 @@ NODE *ldllcall(NODE *args)
                 // would overwrite it.
                 wchar_t * endPtr;
                 long int size = wcstol(value, &endPtr, 10);
-                if (size == LONG_MAX || size < 0 || *endPtr != '\0')
+                if (size == LONG_MAX || size < 0 || *endPtr != L'\0')
                 {
                     // value is a bad number for an allocation size
                     // (negative, too large, or not a number all).
@@ -610,8 +609,8 @@ NODE *ldllcall(NODE *args)
             }
             break;
 
-        case 'v':
-        case 'V':
+        case L'v':
+        case L'V':
             // void type
             break;
 
@@ -626,10 +625,11 @@ NODE *ldllcall(NODE *args)
     {
         // Now that we have all of the parameters, it's time to copy them
         // them from the "parameters" stack variable to the real stack.
-        for (int i = 0; i < nextParameter; i++) 
-        {
+		for (int i = 0; i < nextParameter; i++)
+		{
 			//TODO: fix me
-            //pushl(parameters[i]);
+			//pushl(parameters[i]);
+			_do_push((void*)parameters[i]);
         }
 
         // IMPORTANT: From here until we call theFunc, there cannot be any
@@ -638,32 +638,32 @@ NODE *ldllcall(NODE *args)
 
         switch (returnType)
         {
-        case 'w':
-        case 'W':
+        case L'w':
+        case L'W':
             {
                 WORD w = (*(WORD(WINAPI *)()) theFunc)();
                 wprintf(areturn, L"%d", w);
             }
             break;
 
-        case 'l':
-        case 'L':
+		case L'l':
+        case L'L':
             {
                 DWORD dw = (*(DWORD(WINAPI *)()) theFunc)();
 				wprintf(areturn, L"%ld", dw);
             }
             break;
 
-        case 'f':
-        case 'F':
+        case L'f':
+        case L'F':
             {
                 double dw = (*(double (WINAPI *)()) theFunc)();
 				wprintf(areturn, L"%f", dw);
             }
             break;
 
-        case 's':
-        case 'S':
+        case L's':
+        case L'S':
             {
                 LPWSTR lp = (*(LPWSTR(WINAPI *)()) theFunc)();
 
@@ -676,8 +676,8 @@ NODE *ldllcall(NODE *args)
             }
             break;
 
-        case 'v':
-        case 'V':
+        case L'v':
+        case L'V':
             // "void" return type
             (*(void (WINAPI *)()) theFunc)();
             areturn[0] = L'\0';
