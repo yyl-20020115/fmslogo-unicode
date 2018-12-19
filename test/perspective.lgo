@@ -1,0 +1,80 @@
+LOAD "testlib.lgo
+
+TO BUG56TEST
+
+   ; switch to perspective mode
+   PERSPECTIVE
+
+   ; these statements used to crash
+
+   REPORTTESTINFO [executing regression test for bug #56]
+   RIGHT     1e30
+   LEFT      1e30
+   UPPITCH   1e30
+   DOWNPITCH 1e30
+   RIGHTROLL 1e30
+   LEFTROLL  1e30
+
+   REPORTTESTPASSED ["|Bug #56 is fixed; turning by a large number in perspective mode did not crash.| ]
+
+   ; go back to the default mode
+   CLEARSCREEN
+   WRAP
+
+END
+
+TO PERSPECTIVETEST.SMOKETEST
+
+   ; switch to perspective mode
+   PERSPECTIVE
+   CLEARSCREEN
+ 
+   ; draw a cube
+   SETPENCOLOR 0
+   REPEAT 4 [ FD 100 RT 90 ] FD 100 DOWN 90
+   REPEAT 4 [ FD 100 RT 90 ] FD 100 DOWN 90
+   REPEAT 4 [ FD 100 RT 90 ] FD 100 DOWN 90
+   REPEAT 4 [ FD 100 RT 90 ] FD 100 DOWN 90
+
+   ; draw flags for the cube
+   FD 120
+   REPEAT 3 [ FD 50 RT 120 ] FD 50 RIGHTROLL 120
+   REPEAT 3 [ FD 50 RT 120 ] FD 50 RIGHTROLL 120
+   REPEAT 3 [ FD 50 RT 120 ] FD 50 RIGHTROLL 120
+
+   ; draw a sphere atop the flagpole
+   FD 40
+   REPEAT 10 [ CIRCLE 25 UP       36 ]
+   REPEAT 10 [ CIRCLE 25 LEFTROLL 36 ]
+
+   CHECKSCREEN "3d-smoke-test
+
+   ; go back to the default mode
+   CLEARSCREEN
+   WRAP
+END
+
+TO PERSPECTIVETEST.BADINPUT
+
+   FENCE 
+   HOME
+
+   ; bad input tests (shouldn't change modes)
+   RUNTOOMANYINPUTSTEST [(PERSPECTIVE "toomany)]
+
+   ; The only way to test that the mode hasn't changed 
+   ; is to force an out-of-bounds error.
+   RUNOUTOFBOUNDSTEST [FD 1000]
+
+   WRAP
+   CLEARSCREEN
+END
+
+TO PERSPECTIVETEST
+
+   PERSPECTIVETEST.SMOKETEST
+
+   BUG56TEST
+   PERSPECTIVETEST.BADINPUT
+
+END

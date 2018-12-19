@@ -1,0 +1,43 @@
+LOAD "testlib.lgo
+
+TO REMDUPTEST.SMOKETEST
+
+   ; from the manual
+   SIMPLEREPORTTEST [REMDUP [a b c c b]] [a c b]
+   SIMPLEREPORTTEST [REMDUP "Hello     ] "Helo
+
+   ; no duplicates
+   SIMPLEREPORTTEST [REMDUP [q w e r T y]    ] [q w e r T y]
+   SIMPLEREPORTTEST [REMDUP "qwerTy          ] "qwerTy
+   SIMPLEREPORTTEST [REMDUP [ab ac ad ae af] ] [ab ac ad ae af]
+
+   ; empty values
+   SIMPLEREPORTTEST [REMDUP []  ] []
+   SIMPLEREPORTTEST [REMDUP "|| ] "||
+
+   ; all duplicates
+   SIMPLEREPORTTEST [REMDUP [abc abc abc abc abc] ] [abc]
+   SIMPLEREPORTTEST [REMDUP "aaaaaaaaaaaaaaaaaaa  ] "a
+
+   ; mixed content
+   SIMPLEREPORTTEST [REMDUP [[a] [a] a b [a] [a] c [a]]]  [a b c [a]]
+
+END
+
+TO REMDUPTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(REMDUP)]
+   RUNTOOMANYINPUTSTEST   [(REMDUP [1 2 3] "toomany)]
+
+   ; bad inputs
+   RUNBADINPUTTEST [REMDUP {1 2 3} ]
+
+END
+
+TO REMDUPTEST
+
+   REMDUPTEST.SMOKETEST
+   REMDUPTEST.BADINPUT
+
+END

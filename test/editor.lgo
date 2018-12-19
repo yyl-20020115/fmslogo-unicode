@@ -1,0 +1,181 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO EDALLTEST.DISPLAYBYHWND
+
+  ; Create a window with the caption "Editor" to try to confuse
+  ; EDALL into thinking that the editor is already open.
+  WINDOWCREATE "root "edalltest "Editor 100 100 100 100 []
+  EDALL
+  WINDOWDELETE "edalltest
+
+  ; Doc and undock the commander while the editor is open.
+  ; This has caused a crash in wxWidgets if the parent is
+  ; set to the commander, as it is in MSWLogo.
+  TEXTSCREEN
+  SPLITSCREEN
+
+  LOCALMAKE "isok YESNOBOX [Question] [Is the editor showing?  If so, close it before pressing "Yes".]
+  IFELSE :isok [
+    REPORTTESTPASSED [The editor window was displayed, as expected.]
+  ][
+    REPORTTESTFAILED [The editor window did not popup.  We expected it to be displayed.]
+  ]
+
+END
+
+TO EDALLTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(EDALL "toomany)]
+
+END
+
+
+TO EDITTEST.MANYVARIABLES
+  ; Opens a large amount of data in the editor.
+  ; This is a regression test for bug #53.
+
+  LOCAL [variables variablename testpassed totalvariables]
+
+  MAKE "totalvariables 10000
+
+  ; create lots of variables
+  LOCALMAKE "variables []
+  FOR (list "i :totalvariables 1) [
+    MAKE "variablename (WORD "largeedittest :i)
+    MAKE :variablename :i
+    PUSH "variables :variablename
+  ]
+
+  ; open the variables in the editor and erase them
+  EDIT NAMELIST :variables
+  ERASE NAMELIST :variables
+  MESSAGEBOX [Notice] (list "|The editor should now be displaying| :totalvariables "|variables.  Add a newline, save the contents of the editor to the workspace, then press OK.|)
+
+  ; verify that the variable were written to the workspace
+  MAKE "testpassed "true
+  FOR (list "i 1 :totalvariables) [
+    MAKE "variablename (WORD "largeedittest :i)
+
+    IFELSE NOT NAMEP :variablename [
+      REPORTTESTFAILED (sentence "|The editor did not save the value of| :variablename "|(the variable does not exist)|)
+      MAKE "testpassed "false
+    ][
+      IF NOT :i = RUN (word ": :variablename) [ 
+        REPORTTESTFAILED (sentence "|The editor did not save the value of| :variablename "|(the value is incorrect)|)
+        MAKE "testpassed "false
+      ]
+    ]
+
+    ; error-out so we don't report the failure 9999 more times
+    IF NOT :testpassed [ STOP ]
+  ]
+
+  if :testpassed [
+    REPORTTESTPASSED (sentence "|The editor saved the values of all| :totalvariables "variables.)
+  ]
+
+  ; remove these variables
+  ERASE NAMELIST :variables
+
+END
+
+TO EDITTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [ (EDIT [[][][]] "toomany) ]
+
+   RUNBADINPUTTEST [ EDIT {1}         ]
+   RUNBADINPUTTEST [ EDIT [{1}      ] ]
+   RUNBADINPUTTEST [ EDIT [[] {1}   ] ]
+   RUNBADINPUTTEST [ EDIT [[] [] {1}] ]
+END
+
+TO EDITORTEST.ISEDITORSHOWING
+  WAIT 12 ; wait 200 ms for the editor to appear
+  OUTPUT NOTEQUALP 0 UIAUTOMATION.FINDWINDOW "Editor 0
+END
+
+TO EDITORTEST.OPENTOERROR
+   LOCAL [isok]
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+     ; Implicitly load a file that contains a parse error.
+     ; and automatically press "Yes" on the resulting dialog.
+     TRACEINSTRUCTION [ERASE "FileWithParseError]
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Error in File| "&Yes
+     SIMPLEREPORTTEST [FileWithParseError] "success
+
+     IF NOT EDITORTEST.ISEDITORSHOWING [
+       REPORTTESTFAILED [Editor did not appear after requesting that it open.]
+     ]
+
+     MAKE "isok YESNOBOX ~
+       "Question ~
+       "|Press "Yes" if and only if
+
+1) A dialog box notifying you an error appeared (and was automatically dismissed by the test)
+
+2) The editor opened with the caret is positioned on the line that says:
+   CARET SHOULD BE HERE WHEN EDITOR IS OPENED
+
+3) The commander window shows the following explanation:
+   unexpected ']' in SIMPLEREPORTTEST
+   [To ProcedureWithError]
+
+Fix the error then save the editor before answering.|
+     IFELSE :isok [
+       REPORTTESTPASSED [The caret was positioned to the error, as expected.]
+     ][
+       REPORTTESTFAILED [The caret was not positioned to the error.]
+     ]
+  ]
+
+  IGNORE FAILIFERROR "EDITORTEST.OPENTOERROR
+
+  UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO EDITORTEST.DONOTOPENTOERROR
+
+   LOCAL [isok]
+
+   UIAUTOMATION.INITIALIZE
+
+   IF EDITORTEST.ISEDITORSHOWING [
+       REPORTTESTFAILED [TEST BUG: the editor must not be showing when EDITORTEST.DONOTOPENTOERROR is run.]
+   ]
+
+   CATCH "ERROR [
+     ; Implicitly load a file that contains a parse error
+     ; and automatically press "No" on the resulting dialog.
+     TRACEINSTRUCTION [ERASE "FileWithParseError]
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Error in File| "&No
+     SIMPLEREPORTTEST [FileWithParseError] "success
+
+     IFELSE EDITORTEST.ISEDITORSHOWING [
+       REPORTTESTFAILED [Editor appeared after requesting that it not open.]
+     ][
+       REPORTTESTPASSED [Editor did not appear after requesting that it not open, as expected.]
+     ]
+  ]
+
+  IGNORE FAILIFERROR "EDITORTEST.DONOTOPENTOERROR
+
+  UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO EDITORTEST
+
+  EDALLTEST.DISPLAYBYHWND
+  EDALLTEST.BADINPUT
+
+  EDITTEST.MANYVARIABLES
+  EDITTEST.BADINPUT
+
+  EDITORTEST.OPENTOERROR
+  EDITORTEST.DONOTOPENTOERROR
+END

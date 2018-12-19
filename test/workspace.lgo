@@ -1,0 +1,215 @@
+LOAD "testlib.lgo
+
+TO WORKSPACETEST.SAVEPARTOFWORKSPACE :contentslist :filename
+
+   ; write this word to a file using the same mechanism that SAVE uses
+   REPORTTESTINFO (list "Saving :contentslist "to :filename)
+
+   localmake "previousWriter WRITER
+
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PO :contentslist
+   CLOSE     :filename
+
+   SETWRITE :previousWriter
+
+END
+
+
+TO WORKSPACETEST.SAVEANDLOADSHORTWORD :value
+
+   ; save this value in the same way that SAVE would
+   WORKSPACETEST.SAVEPARTOFWORKSPACE NAMELIST "binaryword "testworkspace.lgo
+
+   ; Modify the value of "binaryword so we know that LOAD has the expected effect
+   MAKE "binaryword "some-other-value
+
+   ; Now load the value back into the workspace.
+   ; This should revert it back to the original value
+   TRACEINSTRUCTION [ LOAD "testworkspace.lgo ]
+
+   ; confirm that saving/loading the variable didn't alter anything.
+   ; We cannot use SIMPLEREPORTTEST, because that would put binary
+   ; data into the text log, which most diffing programs cannot handle.
+   ifelse :binaryword = (WORD "a CHAR :value "z) [
+     REPORTTESTPASSED (WORD "|:binaryword is as expected for value | :value ".)
+   ][
+     REPORTTESTFAILED (WORD "|:binaryword is not expected for value | :value ".)
+   ]
+
+   ; cleanup
+   ERASEFILE "testworkspace.lgo
+
+END
+
+
+TO WORKSPACETEST.WORDWITHBINARYDATA.EACHVALUESEPARATELY
+
+   local "binaryword
+
+   ; create and test 256 arrays each with a different character.
+   REPEAT 256 [
+      ; Initialize the word to the expected value.
+      ; We use (LIST) so that the value of REPCOUNT-1 shows up in the test log
+      TRACEINSTRUCTION (LIST "MAKE ""binaryword "WORD ""a "WORD "CHAR (REPCOUNT - 1) ""z  )
+
+      ; Save the array to a workspace, then load it and confirm that it's the same.
+      ; This tests that the saved value can be loaded without a loss of information.
+      WORKSPACETEST.SAVEANDLOADSHORTWORD (REPCOUNT - 1)
+
+      ; Now resave and reload the array.
+      ; This tests that the loaded value can be saved without a loss of information.
+      WORKSPACETEST.SAVEANDLOADSHORTWORD (REPCOUNT - 1)
+   ]
+
+END
+
+
+TO WORKSPACETEST.WORDWITHBINARYDATA.ALLVALUES
+
+   local "binaryword
+
+   ; create a word that contains each character
+   TRACEINSTRUCTION [ make "binaryword "|| ]
+   TRACEINSTRUCTION [ repeat 256 [ make "binaryword (word :binaryword char (REPCOUNT - 1)) ] ]
+
+   ; save this value in the same way that SAVE would
+   WORKSPACETEST.SAVEPARTOFWORKSPACE NAMELIST "binaryword "testworkspace.lgo
+
+   ; Modify the value of "binaryword so we know that LOAD has the expected effect
+   MAKE "binaryword "changed-value
+
+   ; Now load the value back into the workspace.
+   ; This should revert it back to the original value
+   TRACEINSTRUCTION [ LOAD "testworkspace.lgo ]
+
+   ; confirm that saving/loading the variable didn't alter anything
+   SIMPLEREPORTTEST [ COUNT :binaryword ] 256
+
+   if (COUNT :binaryword) > 255 [
+
+       ; check each value individually
+       REPEAT 256 [
+
+          ; We cannot use SIMPLEREPORTTEST, because that would put binary
+          ; data into the text log, which most diffing programs cannot handle.
+          IFELSE (ITEM REPCOUNT :binaryword) = (CHAR REPCOUNT) [
+             REPORTTESTPASSED (WORD "|ITEM REPCOUNT :binaryword = CHAR | REPCOUNT "|, as expected.|)
+          ][
+             REPORTTESTFAILED (WORD "|ITEM REPCOUNT :binaryword does not equal CHAR | REPCOUNT ".)
+          ]
+       ]
+   ]
+
+   ; cleanup
+   ERASEFILE "testworkspace.lgo
+END
+
+TO WORKSPACETEST.SAVEANDLOADSHORTARRAY :value
+
+   ; save this value in the same way that SAVE would
+   WORKSPACETEST.SAVEPARTOFWORKSPACE NAMELIST "binaryarray "testworkspace.lgo
+
+   ; Modify the value of "binaryarray so we know that LOAD has the expected effect
+   MAKE "binaryarray "some-other-value
+
+   ; Now load the value back into the workspace.
+   ; This should revert it back to the original value
+   TRACEINSTRUCTION [ LOAD "testworkspace.lgo ]
+
+   ; Confirm that saving/loading the variable didn't alter anything
+   ; Be care not to log any binary data that would confuse our diffing program.
+   SIMPLEREPORTTEST [ COUNT :binaryarray ] 2
+
+   IF 1 <= COUNT :binaryarray [
+     IFELSE EQUAL? (ITEM 1 :binaryarray) (CHAR :value) [
+       REPORTTESTPASSED (WORD "|ITEM 1 :binaryarray = CHAR | :value "|, as expected.|)
+     ][
+       REPORTTESTFAILED (WORD "|ITEM 1 :binaryarray does not equal CHAR | :value "|.|)
+     ]
+   ]
+
+   IF 2 <= COUNT :binaryarray [
+      SIMPLEREPORTTEST [ ITEM 2 :binaryarray ] []
+   ]
+
+   ; cleanup
+   ERASEFILE "testworkspace.lgo
+
+END
+
+TO WORKSPACETEST.ARRAYWITHBINARYDATA.EACHVALUESEPARATELY
+
+   local "binaryarray
+
+   ; create and test 256 arrays each with a different character.
+   REPEAT 256 [
+      ; Create the one-item array
+      TRACEINSTRUCTION [ MAKE "binaryarray ARRAY 2 ]
+
+      ; Initialize the array to the expected value.
+      ; We use (LIST) so that the value of REPCOUNT-1 shows up in the test log
+      TRACEINSTRUCTION (LIST "SETITEM "1 ":binaryarray "CHAR (REPCOUNT - 1) )
+
+      ; Save the array to a workspace, then load it and confirm that it's the same.
+      ; This tests that the saved value can be loaded without a loss of information.
+      WORKSPACETEST.SAVEANDLOADSHORTARRAY (REPCOUNT - 1)
+
+      ; Now resave and reload the array.
+      ; This tests that the loaded value can be saved without a loss of information.
+      WORKSPACETEST.SAVEANDLOADSHORTARRAY (REPCOUNT - 1)
+   ]
+
+END
+
+TO WORKSPACETEST.ARRAYWITHBINARYDATA.ALLVALUES.SAVEANDLOAD
+
+   ; save this value in the same way that SAVE would
+   WORKSPACETEST.SAVEPARTOFWORKSPACE NAMELIST "binaryarray "testworkspace.lgo
+
+   ; Modify the value of "binaryarray so we know that LOAD has the expected effect
+   MAKE "binaryarray {0}
+
+   ; Now load the value back into the workspace.
+   ; This should revert it back to the original value
+   TRACEINSTRUCTION [ LOAD "testworkspace.lgo ]
+
+   ; confirm that saving/loading the variable didn't alter anything
+   SIMPLEREPORTTEST [ COUNT :binaryarray ] 256
+
+   if (COUNT :binaryarray) > 255 [
+       ; check each value individually
+       REPEAT 256 [ SIMPLEREPORTTEST [ ITEM REPCOUNT :binaryarray ] CHAR (REPCOUNT - 1) ]
+   ]
+
+   ; cleanup
+   ERASEFILE "testworkspace.lgo
+
+END
+
+TO WORKSPACETEST.ARRAYWITHBINARYDATA.ALLVALUES
+
+   local "binaryarray
+
+   ; create an array contains all possible values, from 0-255
+   TRACEINSTRUCTION [ MAKE "binaryarray ARRAY 256 ]
+   TRACEINSTRUCTION [ REPEAT 256 [ SETITEM REPCOUNT :binaryarray char (REPCOUNT - 1) ] ]
+
+   ; Save and load a workspace containing the array then
+   ; check that the array contains the expected value.
+   ; This tests that an array that was saved can be loaded.
+   WORKSPACETEST.ARRAYWITHBINARYDATA.ALLVALUES.SAVEANDLOAD
+
+   ; Repeat the process.
+   ; This tests that an array that was loaded can be saved.
+   WORKSPACETEST.ARRAYWITHBINARYDATA.ALLVALUES.SAVEANDLOAD
+END
+
+TO WORKSPACETEST
+  WORKSPACETEST.WORDWITHBINARYDATA.ALLVALUES
+  WORKSPACETEST.WORDWITHBINARYDATA.EACHVALUESEPARATELY
+
+  WORKSPACETEST.ARRAYWITHBINARYDATA.ALLVALUES
+  WORKSPACETEST.ARRAYWITHBINARYDATA.EACHVALUESEPARATELY
+END

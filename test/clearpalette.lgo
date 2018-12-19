@@ -1,0 +1,8 @@
+LOAD "testlib.lgo
+
+TO CLEARPALETTETEST
+   ; This is a compatibility test to ensure that CLEARPALETTE
+   ; continues to be ignored so that older programs work.
+   CLEARPALETTE
+   RUNTOOMANYINPUTSTEST [(CLEARPALETTE "toomany)]
+END

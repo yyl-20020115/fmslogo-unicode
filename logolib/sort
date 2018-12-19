@@ -1,0 +1,73 @@
+to .fmslogo.sort.listtoword :list
+  op apply "word :list
+end
+
+to .fmslogo.sort.wordtolist :word
+  op map.se [?] :word
+end
+
+to .fmslogo.sort.merge :.fmslogo.sort.list1 :.fmslogo.sort.list2 :.fmslogo.sort.cmp
+  if empty? :.fmslogo.sort.list1 [op :.fmslogo.sort.list2]
+  if empty? :.fmslogo.sort.list2 [op :.fmslogo.sort.list1]
+  if apply :.fmslogo.sort.cmp (list first :.fmslogo.sort.list2 first :.fmslogo.sort.list1) [
+      op fput first :.fmslogo.sort.list2 .fmslogo.sort.merge :.fmslogo.sort.list1 butfirst :.fmslogo.sort.list2 :.fmslogo.sort.cmp
+  ]
+  op fput first :.fmslogo.sort.list1 .fmslogo.sort.merge butfirst :.fmslogo.sort.list1 :.fmslogo.sort.list2 :.fmslogo.sort.cmp
+end
+
+to .fmslogo.sort.mergepairwise :.fmslogo.sort.listoflists :.fmslogo.sort.cmp
+  if empty? :.fmslogo.sort.listoflists          [op :.fmslogo.sort.listoflists] 
+  if empty? butfirst :.fmslogo.sort.listoflists [op :.fmslogo.sort.listoflists]
+  op fput (.fmslogo.sort.merge
+     first :.fmslogo.sort.listoflists
+     first butfirst :.fmslogo.sort.listoflists
+     :.fmslogo.sort.cmp) (.fmslogo.sort.mergepairwise butfirst butfirst :.fmslogo.sort.listoflists :.fmslogo.sort.cmp)
+end
+
+to .fmslogo.sort.mergesort :.fmslogo.sort.list :.fmslogo.sort.cmp
+  if empty? :.fmslogo.sort.list [ op :.fmslogo.sort.list ]
+  op first cascade [empty? butfirst ?] [.fmslogo.sort.mergepairwise ? :.fmslogo.sort.cmp] map [(list ?)] :.fmslogo.sort.list
+end
+
+to .fmslogo.sort.defaultsortpredicate :.fmslogo.sort.seq
+  if word? :.fmslogo.sort.seq [op "before?]
+
+  if list? :.fmslogo.sort.seq [
+    if empty? :.fmslogo.sort.seq        [op "before?]
+    if number? first :.fmslogo.sort.seq [op "less?]
+    op "before?
+  ]
+
+  if array? :.fmslogo.sort.seq [
+    if equalp 0 count :.fmslogo.sort.seq                        [op "before?]
+    if number? item first :.fmslogo.sort.seq :.fmslogo.sort.seq [op "less?]
+    op "before?
+  ]
+
+  op "less?
+end
+
+to sort :.fmslogo.sort.seq [:.fmslogo.sort.cmp .fmslogo.sort.defaultsortpredicate :.fmslogo.sort.seq]
+  if list?  :.fmslogo.sort.seq [op                           .fmslogo.sort.mergesort                          :.fmslogo.sort.seq :.fmslogo.sort.cmp]
+  if word?  :.fmslogo.sort.seq [op .fmslogo.sort.listtoword  .fmslogo.sort.mergesort .fmslogo.sort.wordtolist :.fmslogo.sort.seq :.fmslogo.sort.cmp]
+
+  if array? :.fmslogo.sort.seq [
+    ifelse equalp 0 count :.fmslogo.sort.seq [
+      op :.fmslogo.sort.seq
+    ][
+      op listtoarray .fmslogo.sort.mergesort arraytolist :.fmslogo.sort.seq :.fmslogo.sort.cmp
+    ]
+  ]
+
+  op :.fmslogo.sort.seq
+end
+
+bury [
+  sort
+  .fmslogo.sort.mergesort
+  .fmslogo.sort.mergepairwise
+  .fmslogo.sort.merge
+  .fmslogo.sort.listtoword
+  .fmslogo.sort.wordtolist
+  .fmslogo.sort.defaultsortpredicate
+]

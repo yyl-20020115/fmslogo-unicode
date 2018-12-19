@@ -1,0 +1,134 @@
+LOAD "testlib.lgo
+
+TO FOREACHTEST.SMOKETEST
+
+   LOCAL [questionmarklist hashlist restlist]
+
+   ;
+   ; smoke test: a simple datalist
+   ;
+   MAKE "questionmarklist []
+   MAKE "hashlist         []
+   MAKE "restlist         []
+
+   TRACEINSTRUCTION [ FOREACH [abc def ghi] [
+       QUEUE "questionmarklist ?
+       QUEUE "hashlist         #
+       QUEUE "restlist         ?REST
+   ] ]
+
+   SIMPLEREPORTTEST [:questionmarklist] [abc def ghi]
+   SIMPLEREPORTTEST [:hashlist]         [1 2 3]
+   SIMPLEREPORTTEST [:restlist]         [[def ghi] [ghi] []]
+
+
+   ;
+   ; the datalist is a word
+   ;
+   MAKE "questionmarklist []
+   MAKE "hashlist         []
+   MAKE "restlist         []
+
+   TRACEINSTRUCTION [ FOREACH "xyz [
+       QUEUE "questionmarklist ?
+       QUEUE "hashlist         # 
+       QUEUE "restlist         ?REST
+   ] ]
+
+   SIMPLEREPORTTEST [:questionmarklist] [x y z]
+   SIMPLEREPORTTEST [:hashlist]         [1 2 3]
+   SIMPLEREPORTTEST [:restlist]         (LIST "yz "z "||)
+
+   ;
+   ; multiple data lists
+   ;
+   MAKE "questionmarklist []
+   MAKE "hashlist         []
+   MAKE "restlist         []
+
+   TRACEINSTRUCTION [(FOREACH [a b c] [x y z] [
+       QUEUE "questionmarklist (LIST ?1 ?2)
+       QUEUE "hashlist         #
+       QUEUE "restlist         (LIST (?REST 1) (?REST 2))
+   ])]
+
+   SIMPLEREPORTTEST [:questionmarklist] [[a x] [b y] [c z]]
+   SIMPLEREPORTTEST [:hashlist]         [1 2 3]
+   SIMPLEREPORTTEST [:restlist]         [ [[b c] [y z]] [[c] [z]] [[] []] ]
+
+END
+
+TO FOREACHTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(FOREACH [1 2 3])]
+
+   RUNDOESNTLIKEINPUTTEST              [FOREACH {1 2 3} [PRINT ?] ]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST [FOREACH [1 2 3] "badinput ]
+
+END
+
+TO FOREACHTEST.STOP
+   ; Test that FOREACH is a macro.
+   ; In particular that it will run the STOP instruction in
+   ; in the caller's context.
+
+   REPORTTESTINFO [Running FOREACH [1 2 3] [STOP] ]
+   FOREACH [1 2 3] [STOP]
+   REPORTTESTFAILED [FOREACH [1 2 3] [STOP] failed to stop the caller.]
+END
+
+
+TO FOREACHTEST.OUTPUT.WORKER
+
+   ; Test that FOREACH is a macro.
+   ; In particular that it will run the OUTPUT instruction in
+   ; in the caller's context.
+
+   FOREACH [1 2 3] [
+     if ?=2 [ output ? ]
+     if ?=3 [ output ? ]
+   ]
+
+   ; indicates an error
+   OUTPUT 0
+END
+
+TO FOREACHTEST.OUTPUT
+   REPORTTESTINFO [Running FOREACH with an OUTPUT in the instruction list]
+   SIMPLEREPORTTEST [FOREACHTEST.OUTPUT.WORKER] 2
+END
+
+
+TO FOREACHTEST.OUTPUT.FROM.VARIABLE.WORKER :TestList
+
+   ; I'm not exactly sure what this tests, but I caused a regression
+   ; in this test when I fixed FOREACH to throw a "not enough inputs" error
+   ; when given fewer than two inputs.  I suspect that my fix was correct,
+   ; but that it happened to hit a different bug.
+   ; See bug #285.
+
+   FOREACH :TestList [
+     if #=1 [ output ? ]
+     if #=2 [ output ? ]
+     if #=3 [ output ? ]
+   ]
+
+   ; indicates an error
+   OUTPUT 0
+END
+
+TO FOREACHTEST.OUTPUT.FROM.VARIABLE
+   REPORTTESTINFO [Running FOREACH with an OUTPUT ? in the instruction list]
+   SIMPLEREPORTTEST [FOREACHTEST.OUTPUT.FROM.VARIABLE.WORKER [a b c]] "a
+END
+
+
+TO FOREACHTEST
+
+   FOREACHTEST.SMOKETEST
+   FOREACHTEST.STOP
+   FOREACHTEST.OUTPUT
+   FOREACHTEST.OUTPUT.FROM.VARIABLE
+   FOREACHTEST.BADINPUT
+
+END

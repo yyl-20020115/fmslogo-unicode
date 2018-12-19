@@ -1,0 +1,37 @@
+LOAD "testlib.lgo
+
+TO LOADTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(LOAD)]
+   RUNTOOMANYINPUTSTEST   [(LOAD "testlib.lgo "toomany)]
+
+   ; bad inputs
+   RUNFILESYSTEMERRORTEST [LOAD  "doesnotexist.lgo ]
+END
+
+TO LOADTEST.SMOKETEST
+
+   ; load a file by running a procedure with the same name
+   TRACEINSTRUCTION [ERASE "procedureinworkingdirectory]
+   SIMPLEREPORTTEST [procedureinworkingdirectory] 123
+
+   ; Test that when LOAD fails because the file
+   ; contains a parse error, that everything before the failure
+   ; is successfully parsed.
+   TRACEINSTRUCTION [ ERASE [FileWithParseError ProcedureWithError ProcedureThatShouldNotBeDefined] ]
+   RUNEXPECTERRORTEST [LOAD "filewithparseerror.lgo] 26
+   SIMPLEREPORTTEST [ DEFINED? "FileWithParseError              ] LOCALETRUE
+   SIMPLEREPORTTEST [ DEFINED? "ProcedureWithError              ] LOCALEFALSE
+   SIMPLEREPORTTEST [ DEFINED? "ProcedureThatShouldNotBeDefined ] LOCALEFALSE
+
+   ; Test what happens when loading a file that outputs a value at the top level.
+   ; I'm not sure exactly what should happen,  but this at least exercises the
+   ; code path.
+   RUNEXPECTERRORTEST [LOAD "outputattoplevel.lgo] 30
+END
+
+TO LOADTEST
+   LOADTEST.BADINPUT
+   LOADTEST.SMOKETEST
+END

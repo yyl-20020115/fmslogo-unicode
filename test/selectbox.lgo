@@ -1,0 +1,185 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO SELECTBOXTEST.SMOKETEST
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+     localmake "downarrow 40
+
+     ; Select the first value.  (no keypresses).
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Select First] "OK
+     SIMPLEREPORTTEST  [ SELECTBOX [SELECTBOX Test: Select First]  [First Second Third] ] 1
+
+     ; Select the second value.  (one down arrow presses).
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Select Second] "Listbox :downarrow
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Select Second] "OK
+     SIMPLEREPORTTEST [ SELECTBOX [SELECTBOX Test: Select Second] [First Second Third] ] 2
+
+     ; Select the third value.  (two down arrow presses)
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Select Third] "Listbox :downarrow
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Select Third] "Listbox :downarrow
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Select Third] "OK
+     SIMPLEREPORTTEST  [ SELECTBOX [SELECTBOX Test: Select Third]  [First Second Third] ] 3
+
+     ; Press cancel
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Press Cancel] "Listbox :downarrow
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Press Cancel] "Cancel
+     RUNSTOPPINGTEST  [ SELECTBOX [SELECTBOX Test: Press Cancel]  [First Second Third] ]
+
+     ; the choicelist input is empty
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: No Choice (press ok)] "OK
+     SIMPLEREPORTTEST [ SELECTBOX [SELECTBOX Test: No Choice (press ok)] [] ] 1
+   ]
+
+   IGNORE FAILIFERROR "SELECTBOXTEST.SMOKETEST
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO SELECTBOXTEST.CANCELTEST.MANUAL
+
+   CATCH "ERROR [
+
+     ; Press ESC (can't be automated)
+     RUNSTOPPINGTEST  [ SELECTBOX [SELECTBOX Test: Press ESC]   [First Second Third] ]
+
+     ; Press the X (can't be automated)
+     RUNSTOPPINGTEST  [ SELECTBOX [SELECTBOX Test: Press the X] [First Second Third] ]
+   ]
+
+   IGNORE FAILIFERROR "SELECTBOXTEST.CANCELTEST.MANUAL
+
+END
+
+TO SELECTBOXTEST.MANYCHOICES
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+     localmake "pagedown 34
+
+     ; Many choices
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Many Choices] "OK
+     SIMPLEREPORTTEST [ SELECTBOX [SELECTBOX Test: Many Choices] (LIST
+        "|First Choice|
+        "|Second Choice|
+        "|Third Choice|
+        "|Fouth Choice|
+        "|Fifth Choice|
+        "|Sixth Choice|
+        "|Seventh Choice|
+        "|Eight Choice|
+        "|Ninth Choice|
+        "|Tenth Choice|
+        "|Eleventh Choice|
+        "|Twelveth Choice|
+        "|Thirteenth Choice|
+        "|Fourteenth Choice|
+        "|Fifteenth Choice|
+        "|Sixteenth Choice|
+        "|Seventeenth Choice|
+        "|Eighteenth Choice|
+        "|Nineteenth Choice|
+        "|Twentieth Choice|
+     ) ] 20
+   ]
+
+   IGNORE FAILIFERROR "SELECTBOXTEST.MANYCHOICES
+
+   UIAUTOMATION.UNINITIALIZE
+END
+
+TO SELECTBOXTEST.LONGCHOICES
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+     localmake "pagedown 34
+
+     ; Many choices
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTKEYTOWINDOW        [SELECTBOX Test: Many Choices] "Listbox :pagedown
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [SELECTBOX Test: Many Choices] "OK
+     SIMPLEREPORTTEST [ SELECTBOX [SELECTBOX Test: Many Choices] (LIST
+        (word "|This is a | (REPEATWORD "|very, | 00) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 05) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 10) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 15) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 20) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 25) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 30) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 35) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 40) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 45) "|long choice|)
+        (word "|This is a | (REPEATWORD "|very, | 50) "|long choice|)
+     ) ] 11
+   ]
+
+   IGNORE FAILIFERROR "SELECTBOX.LONGCHOICES
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO SELECTBOXTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [ IGNORE (SELECTBOX [Title]) ]
+   RUNTOOMANYINPUTSTEST   [ IGNORE (SELECTBOX [Title] [1 2 3] "toomany) ]
+
+   RUNBADINPUTTEST [ IGNORE SELECTBOX [Title] {1 2 3}  ]
+   RUNBADINPUTTEST [ IGNORE SELECTBOX [Title] "choices ]
+   RUNBADINPUTTEST [ IGNORE SELECTBOX [Title] 12345    ]
+END
+
+TO SELECTBOXTEST.FROMSTARTUP
+   ; This is a regression test for bug #438, which is that creating
+   ; a custom window from the startup proceedure of a program that
+   ; is loaded from the commandline cause it to run repeatedly.
+   LOCALMAKE "statusfile "selectboxfromstartup.status
+
+   IF FILEEXISTS :statusfile [ ERASEFILE :statusfile ]
+
+   RUNLOGOPROGRAM (WORD
+        "|LOAD "testlib.lgo\n|
+        "|LOAD "uiautomationlib.lgo\n|
+        "|\n|
+        "|MAKE "startup [\n|
+        "|  UIAUTOMATION.INITIALIZE\n|
+        "|  UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Choose] "OK\n|
+        "|\n|
+        "|  IGNORE SELECTBOX [Choose] [A B C]\n|
+        "|  UIAUTOMATION.UNINITIALIZE\n|
+        "|\n|
+        "|  ; Write a file to indicate success\n|
+        "|  WRITEBINARYDATA "| :statusfile "| "success\n|
+        "|  BYE\n|
+        "|]\n|
+   )
+
+   IFELSE FILEEXISTS :statusfile [
+     REPORTTESTPASSED [SELECTBOX from startup did not result in instability.]
+     ERASEFILE :statusfile
+   ][
+     REPORTTESTFAILED [SELECTBOX from startup did not run correctly.]
+   ]
+
+END
+
+TO SELECTBOXTEST
+
+  SELECTBOXTEST.SMOKETEST
+  SELECTBOXTEST.CANCELTEST.MANUAL
+  SELECTBOXTEST.MANYCHOICES
+  SELECTBOXTEST.LONGCHOICES
+  SELECTBOXTEST.FROMSTARTUP
+  SELECTBOXTEST.BADINPUT
+END

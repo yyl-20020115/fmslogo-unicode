@@ -1,0 +1,41 @@
+to slowdraw :slowness
+
+if not number? :slowness              [(throw "error 4 :slowness)]
+if not equal? :slowness int :slowness [(throw "error 4 :slowness)]
+if less? :slowness 0                  [(throw "error 4 :slowness)]
+
+local "redefp ; don't change the caller's redefp setting
+make "redefp "true 
+
+; Restore things if already slow
+if primitivep "origforward~
+   [
+   copydef "forward "origforward
+   copydef "fd      "origforward
+   erase "origforward
+   ]
+if primitivep "origback~
+   [
+   copydef "back    "origback
+   copydef "bk      "origback
+   erase "origback
+   ]
+
+; if a delay was specified, define new slow draw routines
+if not :slowness = 0~
+   [
+   copydef "origforward "forward
+   erase "fd
+   define "fd (list [d] (list "repeat :slowness (list "origforward (word ": "d) "/ :slowness "wait 1)))
+   copydef "forward "fd
+   bury "fd
+
+   copydef "origback    "back
+   erase "bk
+   define "bk (list [d] (list "repeat :slowness (list "origback    (word ": "d) "/ :slowness "wait 1)))
+   copydef "back    "bk
+   bury "bk
+   ]
+
+end
+bury "slowdraw

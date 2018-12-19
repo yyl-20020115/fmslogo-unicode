@@ -1,0 +1,12 @@
+LOAD "testlib.lgo
+
+if NOT ISPSEUDOLOCBUILD [
+  REPORTTESTFAILED [You must be using a pseudo-loc build of FMSLogo to run this test]
+]
+
+to ps.startup.routine
+  REPORTTESTPASSED [Pseudo-loc startup routine is working properly]
+end
+
+make "pseudo.startup [ps.startup.routine]
+

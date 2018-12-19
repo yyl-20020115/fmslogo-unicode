@@ -1,0 +1,6 @@
+; this test throws "SYSTEM at the top-level.
+; This should immediately exit Logo with an error code of 1.
+
+THROW "SYSTEM
+; control flow should never reach here
+TONE 1000 10000

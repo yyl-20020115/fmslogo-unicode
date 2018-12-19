@@ -1,0 +1,22 @@
+;
+; Bug 204 is that FMSLogo crashes when this file is loaded.
+;
+
+to bug204.oneinput :n
+OP []
+end
+
+to bug204.defaultrest :a [:b] 2
+output []
+end
+
+to bug204.applysum
+op apply "sum bug204.defaultrest [u] "xyz
+end
+
+to bug204.crash ~
+  [:x bug204.applysum ] ~
+  [:y bug204.oneinput bug204.defaultrest [t] "abc ]
+end
+
+bug204.crash

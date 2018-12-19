@@ -1,0 +1,49 @@
+LOAD "testlib.lgo
+
+TO REDUCETEST.MAX :a :b
+  OUTPUT IFELSE :a > :b [:a] [:b]
+END
+
+TO REDUCETEST.MAX.REST [:inputs] 2
+  IF EMPTYP :inputs [(THROW "error [not enough inputs to max])]
+  OUTPUT REDUCE [IFELSE ?1 > ?2 [?1] [?2]] :inputs
+END
+
+TO REDUCETEST.SMOKETEST
+
+  ; sample from the manual -- template is name of a procedure
+  SIMPLEREPORTTEST [REDUCE "REDUCETEST.MAX [2 3 8 7 9 0]] 9
+
+  ; sample from the manual -- "rest" function uses reduce
+  SIMPLEREPORTTEST [(REDUCETEST.MAX.REST 2 3 8 7 9 0)] 9
+
+  ; use a questionmark template
+  SIMPLEREPORTTEST [REDUCE [IFELSE ?1 > ?2 [?1] [?2]] [2 3 8 7 9 0]] 9
+
+  ; if only one input is given, then the template is not applied
+  SIMPLEREPORTTEST [REDUCE "DOESNOTEXIST [100]] 100
+
+  ; the data can be a word
+  SIMPLEREPORTTEST [REDUCE "WORD "abcde] "abcde
+
+END
+
+TO REDUCETEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(REDUCE "REDUCETEST.MAX)]
+   RUNTOOMANYINPUTSTEST   [(REDUCE "REDUCETEST.MAX [1 2 3] "toomany)]
+
+   RUNYOUDONTSAYWHATTODOWITHTEST [ REDUCE 100 [1] ]
+
+   RUNBADINPUTTEST [REDUCE "SUM {1 2 3}  ] 
+   RUNBADINPUTTEST [REDUCE "SUM []       ]
+   RUNBADINPUTTEST [REDUCE "WORD "||     ]
+
+END
+
+TO REDUCETEST
+
+   REDUCETEST.SMOKETEST
+   REDUCETEST.BADINPUT
+
+END

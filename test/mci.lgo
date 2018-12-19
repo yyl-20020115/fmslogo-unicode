@@ -1,0 +1,40 @@
+LOAD "testlib.lgo
+
+TO MCITEST.SMOKETEST
+
+  ; Open a wave file
+  SIMPLEREPORTTEST [ MCI [open test.wav type waveaudio alias wa1] ] [1]
+
+  ; Play the wave file synchrously
+  TRACEINSTRUCTION [ MCI [seek wa1 to start] ]
+  TRACEINSTRUCTION [ MCI [play wa1 wait]     ]
+
+  ; Play the wave file again, using a callback
+  LOCALMAKE "mcicallback 0
+  TRACEINSTRUCTION [ MCI [seek wa1 to start] ]
+  TRACEINSTRUCTION [ (MCI [play wa1 notify] [make "mcicallback :mcicallback + 1]) ]
+
+  ; Wait long enough for the callback to have been called
+  ; and confirm that it was by testing the value of :mcicallback
+  WAIT 120
+  SIMPLEREPORTTEST [ :mcicallback ] 1
+
+  ; Close the wave file
+  TRACEINSTRUCTION [ MCI [close wa1] ]
+
+END
+
+TO MCITEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST  [(MCI)]
+   RUNTOOMANYINPUTSTEST    [(MCI [open test.wav type waveaudio alias wa1] [] "toomany)]
+   RUNSTOPPINGTEST         [MCI [unrecognized commands] ]
+
+END
+
+TO MCITEST
+
+   MCITEST.SMOKETEST
+   MCITEST.BADINPUT
+
+END

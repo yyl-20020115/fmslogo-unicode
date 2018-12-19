@@ -1,0 +1,11 @@
+TO A.WELLFORMED.PROCEDURE
+  ; a procedure that comes before the other one
+END
+
+TO MALFORMED.PROCEDURE
+  PRINT "{Hello{a{b
+END
+
+TO WELLFORMED.PROCEDURE
+  ; a procedure that comes after the other one
+END

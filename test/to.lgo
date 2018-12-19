@@ -1,0 +1,238 @@
+LOAD "testlib.lgo
+
+TO TOTEST.OUTPUTDEFAULTINPUT :a [:b 123]
+  ; a test procedure that:
+  ; - has one required input
+  ; - has one default input
+  ; - takes one input by default
+  OUTPUT :b
+END
+
+TO TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS :a [:b 123] 2
+  ; a test procedure that:
+  ; - has one required input
+  ; - has one default input
+  ; - takes two inputs by default
+  OUTPUT :b
+END
+
+TO TOTEST.NOOUTPUT
+  ; a test procedure that:
+  ; - has no inputs 
+  ; - does not output anything
+END
+
+TO TOTEST.OUTPUT5
+  ; a test procedure that:
+  ; - has no inputs 
+  ; - outputs a value
+  OUTPUT 5
+END
+
+TO TOTEST.SINGLEINPUT :input
+  ; a test procedure that a single input
+  OUTPUT :input
+END
+
+TO TOTEST.OUTPUTREST [:rest]
+   ; A test procedure that has rest input and takes no inputs by default
+  OUTPUT :rest
+END
+
+TO TOTEST.OUTPUTREST.TWOINPUTS [:rest] 2
+   ; A test procedure that has rest input and takes two inputs by default
+  OUTPUT :rest
+END
+
+
+TO TOTEST.REPEATEDINPUT :input :input
+
+   ; A test procedure that has two inputs name :input
+   ; This is legal in LISP and Logo.
+  OUTPUT :input
+END
+
+TO TOTEST.CHAINEDDEFAULTS [:a 100] [:b :a + 2] [:c :b * 4]
+
+   ; A test procedure that has default values which 
+   ; depend on the previous value
+  OUTPUT :c
+END
+
+
+TO TOTEST.SMOKETEST
+
+   ; basic smoke test
+   TRACEINSTRUCTION [TOTEST.NOOUTPUT        ]
+   SIMPLEREPORTTEST [TOTEST.OUTPUT5         ] 5
+   SIMPLEREPORTTEST [TOTEST.SINGLEINPUT 123 ] 123
+
+END
+
+TO TOTEST.DEFAULTINPUT
+
+   RUNNOTENOUGHINPUTSTEST         [ TOTEST.OUTPUTDEFAULTINPUT       ]
+   SIMPLEREPORTTEST               [ TOTEST.OUTPUTDEFAULTINPUT 1     ] 123
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTDEFAULTINPUT 1)    ] 123
+   RUNYOUDONTSAYWHATTODOWITHTEST  [ TOTEST.OUTPUTDEFAULTINPUT 1 321 ]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTDEFAULTINPUT 1 321)] 321
+   RUNTOOMANYINPUTSTEST           [(TOTEST.OUTPUTDEFAULTINPUT 1 321 "toomany)]
+
+END
+
+TO TOTEST.DEFAULTNUMBEROFINPUTS
+
+   RUNNOTENOUGHINPUTSTEST         [ TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1     ]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1)    ] 123
+   SIMPLEREPORTTEST               [ TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1 321 ] 321
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1 321)] 321
+   RUNYOUDONTSAYWHATTODOWITHTEST  [ TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1 321 "toomany ]
+   RUNTOOMANYINPUTSTEST           [(TOTEST.OUTPUTDEFAULTINPUT.TWOINPUTS 1 321 "toomany)]
+END
+
+TO TOTEST.REST
+
+   SIMPLEREPORTTEST               [ TOTEST.OUTPUTREST       ] []
+   RUNYOUDONTSAYWHATTODOWITHTEST  [ TOTEST.OUTPUTREST 1     ]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST 1)    ] [1]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST 1 2)  ] [1 2]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST 1 2 3)] [1 2 3]
+
+   RUNNOTENOUGHINPUTSTEST         [ TOTEST.OUTPUTREST.TWOINPUTS 1     ]
+   SIMPLEREPORTTEST               [ TOTEST.OUTPUTREST.TWOINPUTS 1 2   ] [1 2]
+   RUNYOUDONTSAYWHATTODOWITHTEST  [ TOTEST.OUTPUTREST.TWOINPUTS 1 2 3 ]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST.TWOINPUTS 1)    ] [1]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST.TWOINPUTS 1 2)  ] [1 2]
+   SIMPLEREPORTTEST               [(TOTEST.OUTPUTREST.TWOINPUTS 1 2 3)] [1 2 3]
+END
+
+TO TOTEST.REPEATEDINPUTTEST
+
+   SIMPLEREPORTTEST [ TOTEST.REPEATEDINPUT 123 456 ] 456
+
+END
+
+TO TOTEST.CHAINEDDEFAULTSTEST
+
+   SIMPLEREPORTTEST [(TOTEST.CHAINEDDEFAULTS 1 2 3)] 3
+   SIMPLEREPORTTEST [(TOTEST.CHAINEDDEFAULTS 1 2)  ] 8
+   SIMPLEREPORTTEST [(TOTEST.CHAINEDDEFAULTS 1)    ] 12
+   SIMPLEREPORTTEST [(TOTEST.CHAINEDDEFAULTS)      ] 408
+
+END
+
+TO TOTEST
+
+   TOTEST.SMOKETEST
+   TOTEST.DEFAULTINPUT
+   TOTEST.DEFAULTNUMBEROFINPUTS
+   TOTEST.REST
+   TOTEST.REPEATEDINPUTTEST
+   TOTEST.CHAINEDDEFAULTSTEST
+
+   ; the bad input tests at the top level should not result in defining anything
+   SIMPLEREPORTTEST [ DEFINED? "TOTEST.BADINPUT ]         "false
+   SIMPLEREPORTTEST [ DEFINED? "TOTEST.BADDEFAULTINPUTS ] "false
+
+END
+
+;;
+;; bad input tests for TO must be run at the top-level.
+;;
+
+;; bug #131
+IGNORE ERROR
+CATCH "ERROR [TO]
+CHECKERROR "|TO with no inputs| 6 "|not enough inputs to TO| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO [1]]
+CHECKERROR "|TO [1]| 4 "|TO doesn't like [1] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO {1}]
+CHECKERROR "|TO {1}| 4 "|TO doesn't like {1} as input| [] []
+
+;; bug #132
+IGNORE ERROR
+CATCH "ERROR [TO 1]
+CHECKERROR "|TO 1| 4 "|TO doesn't like 1 as input| [] []
+
+
+; bug #131
+;IGNORE ERROR
+;CATCH "ERROR [(TO)]
+;CHECKERROR "|(TO)| 6 "|not enough inputs to TO| [] []
+
+
+
+; NOTE: TO used to leak formal parameters when one of them is bad
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A {:B} :C]
+CHECKERROR "|TO TOTEST.BADINPUT :A {:B} :C| 4 "|TO doesn't like {:B} as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A B]
+CHECKERROR "|TO TOTEST.BADINPUT :A B| 4 "|TO doesn't like B as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A []]
+CHECKERROR "|TO TOTEST.BADINPUT :A []| 4 "|TO doesn't like [] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A [B]]
+CHECKERROR "|TO TOTEST.BADINPUT :A [B]| 4 "|TO doesn't like [B] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A [:B 123] :C]
+CHECKERROR "|TO TOTEST.BADINPUT :A [:B 123] :C| 4 "|TO doesn't like :C as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A [:B] :C]
+CHECKERROR "|TO TOTEST.BADINPUT :A [:B] :C| 4 "|TO doesn't like :C as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A [:B] [:C]]
+CHECKERROR "|TO TOTEST.BADINPUT :A [:B] [:C]| 4 "|TO doesn't like [:C] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADINPUT :A [:B] [:C 123]]
+CHECKERROR "|TO TOTEST.BADINPUT :A [:B] [:C 123]| 4  "|TO doesn't like [:C 123] as input| [] []
+
+; bug #191
+;IGNORE ERROR
+;CATCH "ERROR [TO TOTEST.BADINPUT [:A "foo "toomany]]
+;CHECKERROR "|TO TOTEST.BADINPUT [:A "foo "toomany]| 4 "|TO doesn't like "toomany as input| [] []
+
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 0]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 0| 4 "|TO doesn't like 0 as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 2]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 2| 4 "|TO doesn't like 2 as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a -1]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a -1| 4 "|TO doesn't like -1 as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 1.5]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 1.5| 4 "|TO doesn't like 1.5 as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 1 :b]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 1 :b| 4 "|TO doesn't like :b as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 1 [:b]]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 1 [:b]| 4 "|TO doesn't like [:b] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 1 [:b 123]]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 1 [:b]| 4 "|TO doesn't like [:b 123] as input| [] []
+
+IGNORE ERROR
+CATCH "ERROR [TO TOTEST.BADDEFAULTINPUTS :a 1 2]
+CHECKERROR "|TO TOTEST.BADDEFAULTINPUTS :a 1 2| 4 "|TO doesn't like 2 as input| [] []

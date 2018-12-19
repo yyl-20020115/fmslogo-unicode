@@ -1,0 +1,149 @@
+load "testlib.lgo
+
+TO BENCHMARK.RESIZECONSOLE :width :height
+
+  ; Load the User System Kernel
+  DLLLOAD "user32.dll
+
+  ; Get Handle to Main Window (Note args are in REVERSE order)
+  LOCALMAKE "hwnd DLLCALL [l FindWindowA s FMSLogo l 0]
+
+  ; Resize Main Window
+  LOCALMAKE "status DLLCALL (LIST "l "MoveWindow "w "1 "l :width "l :height "l "0 "l "0 "l :hwnd)
+
+  DLLFREE
+
+END
+
+
+TO BENCHMARK.NONTAILRECURSIVEADD :a :b
+
+   ; base-case
+   if :b = 0  [ output :a ]
+
+   ; call this non-tail recursively
+   OUTPUT (1 + BENCHMARK.NONTAILRECURSIVEADD :a (:b - 1))
+
+END
+
+
+TO BENCHMARK.TAILRECURSIVEADD :a :b
+
+   ; base-case
+   if :b = 0  [ output :a ]
+
+   ; call this tail recursively
+   OUTPUT BENCHMARK.TAILRECURSIVEADD (:a + 1) (:b - 1)
+
+END
+
+TO BENCHMARK.READWORD :bytesperline :totallines
+
+   ; setup - create the file
+   OPENWRITE "benchmark.readword.txt
+   SETWRITE  "benchmark.readword.txt
+
+   REPEAT :totallines [
+      REPEAT :bytesperline [ PRINT "A ]
+      PRINT "\n
+   ]
+
+   CLOSE WRITER
+
+   ; open the file for reading
+
+   OPENREAD "benchmark.readword.txt
+   SETREAD  "benchmark.readword.txt
+
+   ; time how long it takes to read file
+   IGNORE TIMECOMMAND [ WHILE [ NOT EOF? ] [ IGNORE READWORD ] ]
+
+   CLOSE READER
+
+   ; cleanup - erase the file
+   ERASEFILE "benchmark.readword.txt
+END
+
+TO BENCHMARK.PLIST :totalvalues
+   ; Add a lot of values
+   REPEAT :totalvalues [
+      PPROP "benchmark.plist REPCOUNT REPCOUNT
+   ]
+
+   ; Remove half of the values
+   REPEAT :totalvalues/2 [
+      REMPROP "benchmark.plist REPCOUNT*2
+   ]
+
+   ; Get the remaining values
+   REPEAT :totalvalues [
+      IGNORE GPROP "benchmark.plist REPCOUNT
+   ]
+
+   ; Erase the property list
+   ERN "benchmark.plist
+END
+
+TO SPRITEPERFTEST
+
+   BITLOAD "uparrow.bmp
+
+   SETTURTLE 0
+   HIDETURTLE
+
+   SETTURTLE 1
+   SETBITINDEX 1
+   BITCUT 75 101
+   (BITMAPTURTLE "TRUE)
+
+   HOME
+   SCROLLX 0
+   SCROLLY 0
+   IGNORE TIMECOMMAND [ 
+       ZOOM 1   REPEAT 360 [ RT 1 FD 1 ]
+       ZOOM 0.5 REPEAT 360 [ LT 1 BK 1 ]
+       ZOOM 2   REPEAT 360 [ RT 1 BK 1 ]
+   ]
+
+   CLEARSCREEN
+
+END
+
+TO BENCHMARK 
+
+   REPORTTESTINFO LOGOVERSION ; put the version into the test log
+
+   ; for consistent results when drawing
+   ICON "Commander
+   BENCHMARK.RESIZECONSOLE 600 800
+
+   ; time property lists
+   IGNORE TIMECOMMAND [BENCHMARK.PLIST 100000]
+
+   ; time file IO
+   BENCHMARK.READWORD 1024 1024
+
+   ; time the tail-recurision optimization 
+   IGNORE TIMECOMMAND [BENCHMARK.TAILRECURSIVEADD    0 1000000 ]
+   IGNORE TIMECOMMAND [BENCHMARK.NONTAILRECURSIVEADD 0 1000000 ]
+
+   ; time creating/manipulating a large list
+   IGNORE TIMECOMMAND [REVERSE ISEQ 1 300000 ]
+
+   ; time drawing concentric circles
+   CLEARSCREEN
+   IGNORE TIMECOMMAND [REPEAT 1000  [ CIRCLE REPCOUNT ] ]
+
+   ; time drawing a large squiral
+   CLEARSCREEN
+   IGNORE TIMECOMMAND [REPEAT 20000 [ FORWARD REPCOUNT RIGHT 91 ] ]
+
+   ; Time moving a sprite (rotating bitmap turtle)
+   CLEARSCREEN
+   SPRITEPERFTEST
+
+   SPLITSCREEN
+END
+
+make "startup [BENCHMARK]
+

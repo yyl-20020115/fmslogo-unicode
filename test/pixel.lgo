@@ -1,0 +1,129 @@
+LOAD "testlib.lgo
+
+
+TO SETPIXELTEST.SMOKETEST
+
+   TRACEINSTRUCTION [ SETPIXEL 5 ]
+   SIMPLEREPORTTEST [ PIXEL ]  5
+
+   TRACEINSTRUCTION [ SETPIXEL [255 255 255] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [255 255 255] 
+
+   TRACEINSTRUCTION [ SETPIXEL [255 0 0] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [255 0 0] 
+
+   TRACEINSTRUCTION [ SETPIXEL [0 255 0] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [0 255 0] 
+
+   TRACEINSTRUCTION [ SETPIXEL [0 0 255] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [0 0 255] 
+
+   TRACEINSTRUCTION [ SETPIXEL "blue ]
+   SIMPLEREPORTTEST [ PIXEL  ] [0 0 255]
+
+   TRACEINSTRUCTION [ SETPIXEL [ 10.5 20.3 30.7 ] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [ 11 20 31 ] 
+
+   TRACEINSTRUCTION [ SETPIXEL [ 256 522 1023.2 ] ]
+   SIMPLEREPORTTEST [ PIXEL  ] [  0   10  255 ]
+
+END
+
+TO SETPIXELTEST.PENMODE
+   ; bug #472 is that SETPIXEL was subject to the last raster mode
+   ; that was used by the turtle
+   PENREVERSE                     ; enter penreverse mode
+   FORWARD 1                      ; use the penreverse mode
+   SETSCREENCOLOR [255 255 255]   ; white background
+   SETPENCOLOR    [0     0   0]   ; black pen
+
+   TRACEINSTRUCTION [ SETPIXEL [ 255 0 0 ] ] ; set a red pixel
+   SIMPLEREPORTTEST [ PIXEL  ] [ 255 0 0 ]   ; confirm that it was drawn red
+
+   PENPAINT   ; reset state
+   FORWARD 1  ; use the new raster
+   PENUP      ; SETPIXEL should work when pen is up
+
+   TRACEINSTRUCTION [ SETPIXEL [ 0 255 0 ] ] ; set a green pixel
+   SIMPLEREPORTTEST [ PIXEL  ] [ 0 255 0 ]   ; confirm that it was drawn green
+
+   PENDOWN    ; restore state
+END
+
+TO SETPIXELTEST.ZOOMTEST
+   ; Calls SETPIXEL when zoomed.
+   ; This exercises a different code path for refreshing the screen.
+
+   TRACEINSTRUCTION [ ZOOM 5 ]
+
+   ; draw a pixel and get it
+   TRACEINSTRUCTION [ SETPIXEL 5 ]
+   SIMPLEREPORTTEST [ PIXEL ]  5
+
+   TRACEINSTRUCTION [ ZOOM 1 ]
+
+END
+
+TO SETPIXELTEST.BADINPUT
+
+   ; Draw a pixel so that we can ensure that none of the
+   ; bad input instructions below don't have any side-effects.
+   TRACEINSTRUCTION [ SETPIXEL [1 2 3 ] ]
+
+   RUNNOTENOUGHINPUTSTEST [(SETPIXEL)]
+   RUNTOOMANYINPUTSTEST   [(SETPIXEL 5 "toomany)]
+
+   RUNBADINPUTTEST [ SETPIXEL "word             ]
+   RUNBADINPUTTEST [ SETPIXEL -1                ]
+   RUNBADINPUTTEST [ SETPIXEL 1e20              ]
+   RUNBADINPUTTEST [ SETPIXEL  4.5              ]
+   RUNBADINPUTTEST [ SETPIXEL [255]             ]
+   RUNBADINPUTTEST [ SETPIXEL [255 255]         ]
+   RUNBADINPUTTEST [ SETPIXEL [  -1   0    0  ] ]
+   RUNBADINPUTTEST [ SETPIXEL [ 1e20  0    0  ] ]
+   RUNBADINPUTTEST [ SETPIXEL [  0    -1   0  ] ]
+   RUNBADINPUTTEST [ SETPIXEL [  0   1e20  0  ] ]
+   RUNBADINPUTTEST [ SETPIXEL [  0    0    -1 ] ]
+   RUNBADINPUTTEST [ SETPIXEL [  0    0   1e20] ]
+   RUNBADINPUTTEST [ SETPIXEL [255 255 255 255] ]
+   RUNBADINPUTTEST [ SETPIXEL {255 255 255}     ]
+
+   SIMPLEREPORTTEST [ PIXEL ] [1 2 3]
+
+END
+
+
+TO PIXELTEST.SMOKETEST
+
+   ; draw a pixel and get it
+   TRACEINSTRUCTION [ SETPENCOLOR 5 ]
+   TRACEINSTRUCTION [ FORWARD     1 ]
+   TRACEINSTRUCTION [ BACK        1 ]
+   SIMPLEREPORTTEST [ PIXEL ]     5
+
+   ; draw a pixel and get it
+   TRACEINSTRUCTION [ SETPENCOLOR [255 255 255] ]
+   TRACEINSTRUCTION [ FORWARD     1 ]
+   TRACEINSTRUCTION [ BACK        1 ]
+   SIMPLEREPORTTEST [ PIXEL ]     [255 255 255]
+
+END
+
+
+TO PIXELTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(PIXEL "toomany)]
+
+END
+
+TO PIXELTEST
+
+  SETPIXELTEST.SMOKETEST
+  SETPIXELTEST.ZOOMTEST
+  SETPIXELTEST.BADINPUT
+  SETPIXELTEST.PENMODE
+
+  PIXELTEST.SMOKETEST
+  PIXELTEST.BADINPUT
+
+END

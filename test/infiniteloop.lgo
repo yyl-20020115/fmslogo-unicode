@@ -1,0 +1,4 @@
+
+; go into an infinite loop at the main scope
+FOREVER []
+

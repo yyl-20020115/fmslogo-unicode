@@ -1,0 +1,175 @@
+LOAD "testlib.lgo
+
+TO ERRACTTEST.BUG172.CONTINUE5
+   (CONTINUE 5)
+END
+
+TO ERRACTTEST.OUTPUT.5
+   OUTPUT 5
+END
+
+TO ERRACTTEST.OUTPUT.NEXTERRACTVALUE
+
+   LOCALMAKE "value POP "erractvalues
+
+   REPORTTESTINFO (SENTENCE [ERRACT handler outputs] :value)
+   OUTPUT :value
+END
+
+
+TO ERRACTTEST.BUG172 
+
+   LOCALMAKE "erract [ERRACTTEST.BUG172.CONTINUE5]
+   IGNORE BITAND 1 1.2 ; force a recoverable error
+   REPORTTESTPASSED [Bug #172 passed.  Bad ERRACT did not halt Logo]
+END
+
+TO ERRACTTEST.CATCHBLOCKSERRACT
+
+   ;
+   ; make sure erract is not invoked if within a CATCH "ERROR block
+   ;
+   REPORTTESTINFO [ Setting ERRACT to a value such that we can verify if it is called. ]
+   LOCALMAKE "erract.was.called "false
+   LOCALMAKE "ERRACT [ MAKE "erract.was.called "true ]
+
+   REPORTTESTINFO [ Causing a recoverable error inside of a CATCH "ERROR [] block. ]
+   RUNIDONTKNOWHOWTOTEST [ FUNCTION.DOES.NOT.EXIST ]
+
+   SIMPLEREPORTTEST [ :erract.was.called ] "false
+   SIMPLEREPORTTEST [ :erract            ] [ MAKE "erract.was.called "true ]
+
+END
+
+TO ERRACTTEST.SMOKETEST
+
+   ;
+   ; make sure that erract can output a value
+   ;
+   REPORTTESTINFO [ Setting ERRACT to a procedure that outputs 5 ]
+   localmake "erract [ERRACTTEST.OUTPUT.5]
+
+   REPORTTESTINFO [ Calling "SUM 1 [1]", which should run :erract to replace [1] with 5 ]
+   LOCALMAKE "thesum SUM 1 [1]
+   SIMPLEREPORTTEST [ :thesum ] 6
+
+   REPORTTESTINFO [ Calling "SUM 1 [1]" again.  This used to crash (bug #172) ]
+   MAKE "thesum SUM 1 [1]
+   SIMPLEREPORTTEST [ :thesum ] 6
+
+END
+
+TO ERRACTTEST.CHANGEERRACT.OUTPUT.6
+   REPORTTESTINFO   [Entering ERRACTTEST.CHANGEERRACT.OUTPUT.6]
+
+   SIMPLEREPORTTEST [ :erract ] [ERRACTTEST.CHANGEERRACT.OUTPUT.6]
+
+   REPORTTESTINFO   [Changing the value of :erract to [ERRACTTEST.OUTPUT.5] ]
+   make "erract [ERRACTTEST.OUTPUT.5]
+   SIMPLEREPORTTEST [ :erract ] [ERRACTTEST.OUTPUT.5]
+
+   REPORTTESTINFO   [Exiting ERRACTTEST.CHANGEERRACT.OUTPUT.6]
+   OUTPUT 6
+END
+
+TO ERRACTTEST.CHANGEERRACTINERRACT
+
+   REPORTTESTINFO [ Setting ERRACT to a procedure changes erract and outputs 6 ]
+   localmake "erract [ERRACTTEST.CHANGEERRACT.OUTPUT.6]
+
+   REPORTTESTINFO [ Calling "SUM 1 [1]", which should run :erract to replace [1] with 6 ]
+   LOCALMAKE "thesum SUM 1 [1]
+   SIMPLEREPORTTEST [ :thesum ] 7
+
+   REPORTTESTINFO [ Calling "SUM 1 [1]" again.  This should use the new erract value ]
+   MAKE "thesum SUM 1 [1]
+   SIMPLEREPORTTEST [ :thesum ] 6
+
+END
+
+
+TO ERRACTTEST.OUTPUTWRONGVALUE
+
+   REPORTTESTINFO [Setting ERRACT to a procedure outputs the next value in :erractvalues]
+   LOCALMAKE "erract [ERRACTTEST.OUTPUT.NEXTERRACTVALUE]
+
+   LOCAL "erractvalues
+   TRACEINSTRUCTION [MAKE "erractvalues [[100] 5]]
+
+   REPORTTESTINFO [Calling "SUM 1 [1]" this should keep calling :ERRACT until it gets a good value]
+   LOCALMAKE "thesum SUM 1 [1]
+   SIMPLEREPORTTEST [ :thesum ] 6
+
+END
+
+
+TO ERRACTTEST.ERRORINERRACT
+
+   LOCAL [erract]
+   TRACEINSTRUCTION [ make "erract [THROW "Error] ]
+
+   REPORTTESTINFO [Calling "SUM 1 [1].  This should call Erract which throws an error"]
+   LOCALMAKE "thesum SUM 1 [1]
+
+END
+
+
+TO ERRACTTEST.RECOVERABLEERROR.OUTPUTNOTHING
+
+   REPORTTESTINFO [ Setting ERRACT to a value that does not output anything ]
+   MAKE "ERRACT [ print [in erract instructionlist] ]
+
+   REPORTTESTINFO [ Causing a recoverable error outside of a CATCH block ]
+   SUM 1 [10]
+
+END
+
+TO ERRACTTEST.UNRECOVERABLEERROR.OUTPUTNOTHING
+
+   REPORTTESTINFO [ Setting ERRACT to a value that does not output anything ]
+   LOCALMAKE "ERRACT [ print [in erract instructionlist] ]
+
+   REPORTTESTINFO [ Causing an unrecoverable error outside of a CATCH block ]
+   FUNCTION.DOES.NOT.EXIST
+
+END
+
+TO ERRACTTEST.UNRECOVERABLEERROR.OUTPUTVALUE
+
+   REPORTTESTINFO [ Setting ERRACT to a value that outputs 5 ]
+   LOCALMAKE "ERRACT [ ERRACTTEST.OUTPUT.5 ]
+
+   REPORTTESTINFO [ Causing an unrecoverable error outside of a CATCH block ]
+   FUNCTION.DOES.NOT.EXIST
+
+END
+
+
+TO ERRACTTEST.ERRACTAFTERCATCH
+   ; tests that the use of erract is restored after a catch block
+   LOCAL [outputvalue]
+
+   REPORTTESTINFO [ Setting ERRACT to a value that outputs 5 ]
+   LOCALMAKE "ERRACT [ ERRACTTEST.OUTPUT.5 ]
+
+   REPORTTESTINFO [ Causing a recoverable error just after a CATCH block ]
+   CATCH "ERROR [ MAKE :outputvalue SUM 1 2 ] MAKE "outputvalue SUM 1 [1]
+   SIMPLEREPORTTEST [:outputvalue] 6
+
+END
+
+TO ERRACTTEST
+
+  ERRACTTEST.SMOKETEST
+  ERRACTTEST.CATCHBLOCKSERRACT
+  ERRACTTEST.OUTPUTWRONGVALUE
+  ERRACTTEST.CHANGEERRACTINERRACT
+  ERRACTTEST.ERRACTAFTERCATCH
+
+  ;ERRACTTEST.BUG172
+  ;ERRACTTEST.ERRORINERRACT
+  ;ERRACTTEST.UNRECOVERABLEERROR.OUTPUTVALUE
+  ;ERRACTTEST.UNRECOVERABLEERROR.OUTPUTNOTHING
+  ;ERRACTTEST.RECOVERABLEERROR.OUTPUTNOTHING
+
+END

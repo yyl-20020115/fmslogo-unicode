@@ -1,0 +1,123 @@
+LOAD "testlib.lgo
+
+TO READCHARSTEST.READBINARYDATA :filename :data
+
+   LOCALMAKE "previousreader READER
+
+   (OPENREAD :filename LOCALETRUE)
+   SETREAD   :filename
+
+   WHILE [ NOT EMPTY? :data ] [
+      LOCALMAKE "datum POP "data
+      SIMPLEREPORTTEST [READCHARS 1] :datum
+   ]
+   SIMPLEREPORTTEST [READCHAR] []
+
+   CLOSE :filename
+
+END
+
+TO READCHARSTEST.COMMANDER
+   LOCALMAKE "oldreader READER
+
+   ; set the read stream to the commander
+   TRACEINSTRUCTION [ SETREAD []  ]
+
+   ; reading from the commander always outputs the empty list
+   SIMPLEREPORTTEST [ READCHARS 0   ] []
+   SIMPLEREPORTTEST [ READCHARS 100 ] []
+
+   SETREAD :oldreader
+END
+
+TO READCHARSTEST.EOFTEST
+
+   LOCALMAKE "data MAP "CHAR ISEQ 0 255
+   LOCALMAKE "filename "readchars-test.txt
+
+   WRITEBINARYDATA :filename APPLY "WORD :data
+
+   (OPENREAD :filename LOCALETRUE)
+   SETREAD   :filename
+
+   ; read exactly the size of the file
+   TRACEINSTRUCTION [READCHARS 256]
+
+   ; reading zero characters should output []
+   SIMPLEREPORTTEST [READCHARS 0] []
+
+   CLOSE     :filename
+   ERASEFILE :filename
+END
+
+TO READCHARSTEST.SMOKETEST
+   ; note: FMSLogo provides no way to write binary values smaller
+   ; than 32 because it implicitly "backslashes" them to a different
+   ; value.
+   LOCALMAKE "data MAP "CHAR ISEQ 32 255
+   LOCALMAKE "filename "readchars-test.txt
+
+   WRITEBINARYDATA :filename APPLY "WORD :data
+
+   (OPENREAD :filename LOCALETRUE)
+   SETREAD   :filename
+
+
+   ; reading zero characters should output the empty word
+   SIMPLEREPORTTEST [READCHARS 0] "||
+
+   ; reading one character should output that character
+   SIMPLEREPORTTEST [READCHARS 1] CHAR 32
+
+   ; reading one character should output that character
+   SIMPLEREPORTTEST [READCHARS 2] WORD CHAR 33 CHAR 34
+
+   ; Read more bytes than remain in the file. 
+   ; This should output however much data is left.
+   SIMPLEREPORTTEST [READCHARS 1000] APPLY "WORD MAP "CHAR ISEQ 35 255
+
+   ; Read beyond the end of the file.  This outputs [].
+   SIMPLEREPORTTEST [READCHARS 1] []
+
+   ; there is no more data, so READCHARS should always output the empty list
+   SIMPLEREPORTTEST [READCHARS 0] []
+
+   CLOSE     :filename
+   ERASEFILE :filename
+END
+
+TO READCHARSTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(READCHARS)]
+   RUNTOOMANYINPUTSTEST   [(READCHARS 100 "toomany)]
+
+   RUNDOESNTLIKEINPUTTEST [READCHARS 12.5 ]
+   RUNDOESNTLIKEINPUTTEST [READCHARS []   ]
+   RUNDOESNTLIKEINPUTTEST [READCHARS [1]  ]
+   RUNDOESNTLIKEINPUTTEST [READCHARS -1   ]
+   RUNDOESNTLIKEINPUTTEST [READCHARS {1}  ]
+   RUNDOESNTLIKEINPUTTEST [READCHARS "ten ]
+
+   ; Open a file so that READCHARS won't simply return []
+   LOCALMAKE "filename "readchars-badinput.txt
+   WRITEBINARYDATA :filename "|This is a test file for READCHARS|
+
+   (OPENREAD :filename LOCALETRUE)
+   SETREAD   :filename
+
+   RUNOUTOFMEMORYTEST     [READCHARS 2147483647] ; malloc() fails
+   RUNDOESNTLIKEINPUTTEST [READCHARS 2147483648] ; must be a signed int
+
+   CLOSE     :filename
+   ERASEFILE :filename
+
+END
+
+TO READCHARSTEST
+
+   READCHARSTEST.SMOKETEST
+   READCHARSTEST.EOFTEST
+   READCHARSTEST.COMMANDER
+   READCHARSTEST.BADINPUT
+
+END

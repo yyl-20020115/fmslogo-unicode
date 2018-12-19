@@ -1,0 +1,24 @@
+LOAD "testlib.lgo
+
+TO LISTTEST.SMOKETEST
+
+   ; smoke test
+   LOCALMAKE "testlist (LIST 1 2 3)
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [(LIST)      ] []
+   SIMPLEREPORTTEST [(LIST 1)    ] [1]
+   SIMPLEREPORTTEST [(LIST 1 2)  ] [1 2]
+   SIMPLEREPORTTEST [(LIST 1 2 3)] [1 2 3]
+   SIMPLEREPORTTEST [(LIST [1])  ] [[1]]
+   SIMPLEREPORTTEST [(LIST [])   ] [[]]
+
+END
+
+
+TO LISTTEST
+
+   LISTTEST.SMOKETEST
+
+END
+

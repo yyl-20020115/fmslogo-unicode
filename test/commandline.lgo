@@ -1,0 +1,243 @@
+LOAD "testlib.lgo
+
+TO COMMANDLINETEST.ALREADYRUNNING
+
+   ; Spawning another FMSLogo while this one is running.
+   ; This should give focus to the running instance, instead
+   ; of spawining a new instance.
+   TRACEINSTRUCTION [WINDOWCREATE "main "mywindow "focuswindow 100 100 100 100 []] 
+   TRACEINSTRUCTION [SETFOCUS "focuswindow] 
+   SIMPLEREPORTTEST [(SHELL [fmslogo] "true)] "true
+   SIMPLEREPORTTEST [GETFOCUS] "FMSLogo
+   TRACEINSTRUCTION [WINDOWDELETE "mywindow] 
+
+END
+
+TO COMMANDLINETEST.RUNTEST :commandline [:expectedwidth 1000] [:expectedheight 1000]
+   ; This is a helper that spawns an instance of FMSLogo with
+   ; the given string.
+   ; It is expected that this program will create a file called
+   ; "commandline-createfile.txt" whose contents are two numbers,
+   ; each on their own line.
+
+   ; erase the file, if it exists
+   TRACEINSTRUCTION [ERASEFILE "commandline-createfile.txt]
+
+   ; Spawn a new FMSLogo.exe to create the file.
+   ; Note that the logo program is not enclosed in quotes
+   SIMPLEREPORTTEST (LIST "\( "SHELL :commandline ""true "\) ) "true
+
+   ; Confirm that the new instance of FMSLogo was created
+   ; by testing for the existence of the file.
+   SIMPLEREPORTTEST [ FILEEXISTS "commandline-createfile.txt ] "true
+
+   IF NOT FILEEXISTS "commandline-createfile.txt [ STOP ]
+
+   ; read the contents of the file to confirm the width and height
+   localmake "savedReader READER
+
+   OPENREAD  "commandline-createfile.txt
+   SETREAD   "commandline-createfile.txt
+
+   SIMPLEREPORTTEST [READWORD] :expectedWidth
+   SIMPLEREPORTTEST [READWORD] :expectedHeight
+
+   ; cleanup
+   SETREAD   :savedReader
+   CLOSE     "commandline-createfile.txt
+   ERASEFILE "commandline-createfile.txt
+
+END
+
+TO COMMANDLINETEST.PARAMETER.L
+
+   ; test the -L parameter
+   COMMANDLINETEST.RUNTEST [fmslogo -L commandline-createfile.lgo]
+
+   ; test the -L parameter on a file with a space in its name
+   COMMANDLINETEST.RUNTEST [fmslogo -L commandline createfile.lgo]
+
+   ; test the -L parameter with no whitespace between the L and the filename
+   COMMANDLINETEST.RUNTEST [fmslogo -Lcommandline-createfile.lgo]
+
+   ; test a lowercase switch
+   COMMANDLINETEST.RUNTEST [fmslogo -l commandline-createfile.lgo]
+
+   ; test the -L parameter on a file with extra whitespace around the name
+   COMMANDLINETEST.RUNTEST (LIST "fmslogo "-L  "|   | "commandline "createfile.lgo "|   |)
+
+END
+
+TO COMMANDLINETEST.PARAMETER.FILENAME
+
+   ; supply a filename without the -L
+   COMMANDLINETEST.RUNTEST [fmslogo commandline-createfile.lgo]
+
+   ; enclose the filename in quotes
+   COMMANDLINETEST.RUNTEST [fmslogo "commandline createfile.lgo"]
+
+   ; add extra whitespace around the name
+   COMMANDLINETEST.RUNTEST (LIST "fmslogo "|   | "commandline-createfile.lgo "|   |)
+
+   ; add extra whitespace around the name (with quotes)
+   COMMANDLINETEST.RUNTEST (LIST "fmslogo "|   | ""commandline "createfile.lgo" "|   |)
+
+END
+
+TO COMMANDLINETEST.WIDTHHEIGHT
+
+   ; width only with -L
+   (COMMANDLINETEST.RUNTEST [fmslogo -w 200 -L commandline-createfile.lgo] 200 1000)
+
+   ; height only with -L
+   (COMMANDLINETEST.RUNTEST [fmslogo -h 200 -L commandline-createfile.lgo] 1000 200)
+
+   ; uppercase switches with -L
+   (COMMANDLINETEST.RUNTEST [fmslogo -H 200 -W 300 -L commandline-createfile.lgo] 300 200)
+
+   ; no whitespace between switch and number with -L
+   (COMMANDLINETEST.RUNTEST [fmslogo -H200 -W300 -L commandline-createfile.lgo] 300 200)
+
+   ; extra whitespace
+   (COMMANDLINETEST.RUNTEST
+       (LIST "fmslogo "|  | "-w  "|  | 200 "|  | "-h "|  | 300 "-L "commandline-createfile.lgo)
+       200
+       300)
+
+   ; width/height without the -L
+   (COMMANDLINETEST.RUNTEST [fmslogo -H 200 -W 300 commandline-createfile.lgo] 300 200)
+
+END
+
+TO COMMANDLINETEST.PARAMETER.F.RUNTEST :script :width :height
+   LOCALMAKE "scriptfile "commandlinetest-script.lgo
+
+   IF FILEEXISTS :scriptfile [ ERASEFILE :scriptfile ]
+
+   WRITEBINARYDATA :scriptfile :script
+
+   (COMMANDLINETEST.RUNTEST
+      (list "fmslogo "-H :height "-W :width "-F "-L :scriptfile)
+      :width
+      :height)
+
+   ERASEFILE :scriptfile
+END
+
+TO COMMANDLINETEST.PARAMETER.F
+
+   ; Test the screen size (even width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 200 300
+
+   ; Test the screen size (odd width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 201 301
+
+   ; Test when going from docked to undocked commander (even width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  FULLSCREEN\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 200 300
+
+   ; Test when going from docked to undocked commander (odd width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  FULLSCREEN\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 201 301
+
+   ; Test when going from undocked to docked commander (even width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  REPEAT 5 [ FULLSCREEN SPLITSCREEN ]\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 200 300
+
+   ; Test when going from undocked to docked (odd width/height)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  REPEAT 5 [ FULLSCREEN SPLITSCREEN ]\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) 201 301
+
+   ; Test when the width/height is the working area size, then
+   ; additional room is made by undocking the commander.
+   ; The width  is computed as -12 (2 * 4=frame + 2=3D edge)
+   ; The height is computed as -20 (2 * 4=frame + 2=3D edge + 8=???)
+   COMMANDLINETEST.PARAMETER.F.RUNTEST (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  FULLSCREEN\n|
+       "|  ; Write out the screen window size\n|
+       "|  WRITEBINARYDATA "commandline-createfile.txt (WORD\n|
+       "|     ITEM 14 MACHINE CHAR 10 ; screen width  - newline\n|
+       "|     ITEM 15 MACHINE CHAR 10 ; screen height - newline\n|
+       "|  )\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   ) (ITEM 8 MACHINE) - 12 (ITEM 9 MACHINE) - 20
+
+END
+
+TO COMMANDLINETEST
+   COMMANDLINETEST.ALREADYRUNNING
+   COMMANDLINETEST.PARAMETER.L
+   COMMANDLINETEST.PARAMETER.F
+   COMMANDLINETEST.PARAMETER.FILENAME
+   COMMANDLINETEST.WIDTHHEIGHT
+END

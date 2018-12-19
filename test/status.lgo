@@ -1,0 +1,165 @@
+LOAD "testlib.lgo
+
+TO STATUSTEST.SMOKETEST
+
+   LOCAL "isok
+   LOCALMAKE "oldfloodcolor  FLOODCOLOR
+   LOCALMAKE "oldscreencolor SCREENCOLOR
+   LOCALMAKE "oldturtleshown SHOWN?
+   LOCALMAKE "oldpen         PEN
+
+   TRACEINSTRUCTION [ SPLITSCREEN ]
+   TRACEINSTRUCTION [ PERSPECTIVE ]
+   TRACEINSTRUCTION [ PENPAINT    ]
+
+   ; put some interesting values into the status window
+   TRACEINSTRUCTION [ CS BK 100 LT 90 FD 50 LR 10 UP 20 ]
+   TRACEINSTRUCTION [ SETPENSIZE [3 3] ST ]
+   TRACEINSTRUCTION [ SETPC [10 20 30] SETFC [40 50 60] SETSC [70 80 90] ]
+   TRACEINSTRUCTION [ PENREVERSE PENDOWN ]
+
+   ; open the status window
+   TRACEINSTRUCTION [ STATUS ]
+
+   ; reopening the status window should not throw an error
+   TRACEINSTRUCTION [ STATUS ]
+
+   ; make sure that the initial values are correct
+   MAKE "isok YESNOBOX [Question] [
+|Does the status window show:
+
+Pen
+Contact: Down
+Width:   3
+Style:   Reverse
+
+Orientation
+Heading: 266.55
+Pitch:   9.39
+Roll:    20.28
+
+Turtle
+XYZ:        -50,-100,0
+Which:      0
+Visibility: Shown
+
+Color
+Pen:    10,20,30
+Flood:  40,50,60
+Screen: 70,80,90|
+   ]
+
+   IFELSE :isok [
+     REPORTTESTPASSED [The status window displayed the correct information.]
+   ][
+     REPORTTESTFAILED [The status window did not display the correct info.]
+   ]
+
+   ; Give turtle 1 its own pen and move it someplace new
+   TRACEINSTRUCTION [ (SETTURTLE 1 "true) FD 100 RT 90 FD 50 LR 10 DOWN 20 ]
+   TRACEINSTRUCTION [ HT SETPENSIZE [6 6] ]
+   TRACEINSTRUCTION [ SETPC [1 2 3] SETFC [4 5 6] SETSC [7 8 9] ]
+   TRACEINSTRUCTION [ PENERASE PENUP ]
+
+   MAKE "isok YESNOBOX [Question] [
+|Does the status window show:
+
+Pen
+Contact: Up
+Width:   6
+Style:   Erase
+
+Orientation
+Heading: 93.45
+Pitch:   350.61
+Roll:    20.28
+
+Turtle
+XYZ:        50,100,0
+Which:      1
+Visibility: Hidden
+
+Color
+Pen:    1,2,3
+Flood:  4,5,6
+Screen: 7,8,9|
+   ]
+
+   IFELSE :isok [
+     REPORTTESTPASSED [The status window displayed the correct information.]
+   ][
+     REPORTTESTFAILED [The status window did not display the correct info.]
+   ]
+
+
+   ; Switch back to turtle 0.  This should show the original status
+   TRACEINSTRUCTION [ SETTURTLE 0 ]
+
+   ; make sure that the initial values are correct
+   MAKE "isok YESNOBOX [Question] [
+|Does the status window show:
+
+Pen
+Contact: Down
+Width:   3
+Style:   Reverse
+
+Orientation
+Heading: 266.55
+Pitch:   9.39
+Roll:    20.28
+
+Turtle
+XYZ:        -50,-100,0
+Which:      0
+Visibility: Shown
+
+Color
+Pen:    10,20,30
+Flood:  4,5,6
+Screen: 7,8,9|
+   ]
+
+   IFELSE :isok [
+     REPORTTESTPASSED [The status window displayed the correct information.]
+   ][
+     REPORTTESTFAILED [The status window did not display the correct info.]
+   ]
+
+
+   ; close the status window
+   TRACEINSTRUCTION [ NOSTATUS ]
+
+   ; closing a closed status window should not throw an error
+   TRACEINSTRUCTION [ NOSTATUS ]
+
+   ; open the status in one window layout and close it in another
+   TRACEINSTRUCTION [ FULLSCREEN  ]
+   TRACEINSTRUCTION [ STATUS      ]
+   TRACEINSTRUCTION [ SPLITSCREEN ]
+   TRACEINSTRUCTION [ NOSTATUS    ]
+
+
+   ; restore the status
+   WRAP
+   CLEARSCREEN
+   SETPEN         :oldpen
+   SETFLOODCOLOR  :oldfloodcolor
+   SETSCREENCOLOR :oldscreencolor
+   IFELSE :oldturtleshown [ SHOWTURTLE ] [ HIDETURTLE ]
+END
+
+TO STATUSTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(STATUS "toomany)]
+   RUNTOOMANYINPUTSTEST [(NOSTATUS "toomany)]
+
+END
+
+TO STATUSTEST
+
+   STATUSTEST.SMOKETEST
+   STATUSTEST.BADINPUT
+
+END
+

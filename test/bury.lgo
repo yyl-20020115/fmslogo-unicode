@@ -1,0 +1,164 @@
+LOAD "testlib.lgo
+
+TO BURYTEST.BURIEDPROCEDURE
+END
+
+TO BURYTEST.PROCEDURE
+
+   ; make sure the procedure exists and is not buried
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPROCEDURE (ITEM 1 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPROCEDURE PROCEDURES      ]
+
+   ; bury the procedure
+   TRACEINSTRUCTION [BURY "BURYTEST.BURIEDPROCEDURE]
+
+   ; make sure the procedure is buried
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPROCEDURE (ITEM 1 BURIED) ]
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPROCEDURE PROCEDURES      ]
+
+   ; make sure the buried procedure is still callable
+   TRACEINSTRUCTION [BURYTEST.BURIEDPROCEDURE]
+
+   ; unbury the procedure
+   TRACEINSTRUCTION [UNBURY "BURYTEST.BURIEDPROCEDURE]
+
+   ; make sure the procedure is not buried anymore
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPROCEDURE (ITEM 1 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPROCEDURE PROCEDURES      ]
+
+END
+
+
+TO BURYTEST.VARIABLE
+
+   LOCALMAKE "BURYTEST.BURIEDVARIABLE 123
+
+   ; make sure the variable exists and is not buried
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 NAMES)  ]
+
+   ; bury the variable
+   TRACEINSTRUCTION [BURY NAMELIST "BURYTEST.BURIEDVARIABLE]
+
+   ; make sure the variable is buried
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 BURIED) ]
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 NAMES)  ]
+
+   ; make sure the buried variable can still be used
+   FAILIFNOTTRUE [:BURYTEST.BURIEDVARIABLE = 123]
+
+   ; unbury the variable
+   TRACEINSTRUCTION [UNBURY NAMELIST "BURYTEST.BURIEDVARIABLE]
+
+   ; make sure the variable is not buried anymore
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDVARIABLE (ITEM 2 NAMES)  ]
+
+END
+
+TO BURYTEST.PROPERTYLIST
+
+   ; create the propery list
+   TRACEINSTRUCTION [PPROP "BURYTEST.BURIEDPLIST "SOMEPROPERTY 123 ]
+
+   ; make sure the propery list is not already stepped
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 PLISTS) ]
+
+   ; step the propery list
+   TRACEINSTRUCTION [BURY PLLIST "BURYTEST.BURIEDPLIST]
+
+   ; make sure the propery list is buried
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 BURIED) ]
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 PLISTS) ]
+
+   ; make sure the property list is still accessible
+   SIMPLEREPORTTEST [GPROP "BURYTEST.BURIEDPLIST "SOMEPROPERTY] 123
+
+   ; unbury the propery list
+   TRACEINSTRUCTION [UNBURY PLLIST "BURYTEST.BURIEDPLIST]
+
+   ; make sure the propery list is not buried anymore
+   FAILIFNOTFALSE [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 BURIED) ]
+   FAILIFNOTTRUE  [MEMBERP "BURYTEST.BURIEDPLIST (ITEM 3 PLISTS) ]
+
+   ; cleanup
+   ERASE PLLIST "BURYTEST.BURIEDPLIST
+
+END
+
+TO BURYTEST.BURYALL
+
+   ; determine the real workspace contents
+   BURYALL                    ; make sure BURYALL is loaded
+   UNBURYALL                  ; move everything into CONTENTS
+   LOCALMAKE "realcontents [] ; create a local so it will be in CONTENTS
+   LOCALMAKE "instruction  [] ; create a local so it will be in CONTENTS
+   MAKE "realcontents CONTENTS
+ 
+   ; bury everything
+   TRACEINSTRUCTION [BURYALL]
+
+   ; verify that everything in the workspace is buried
+   SIMPLEREPORTTEST [BURIED]     :realcontents
+
+   ; SIMPLEREPORTTEST defines local variables, so it will change CONTENTS.
+   ; Therefore we do the comparison ourselves.
+   IFELSE CONTENTS = [[][][]] [
+      REPORTTESTPASSED [CONTENTS returned [[][][]], as expected.]
+   ] [
+      REPORTTESTPASSED [CONTENTS did not return [[][][]]]
+   ]
+
+   ; unbury everything
+   UNBURYALL
+   REPORTTESTINFO [Called UNBURYALL]
+
+   SIMPLEREPORTTEST [BURIED] [[][][]]
+END
+
+TO BURYTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(BURIED "toomany)]
+
+   TRACEINSTRUCTION       [(BURY [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(BURY)]
+   RUNTOOMANYINPUTSTEST   [(BURY "name "toomany)]
+   RUNBADINPUTTEST        [(BURY {name})]
+   RUNBADINPUTTEST        [(BURY [[a][b]{c}])]
+   RUNBADINPUTTEST        [(BURY [a b {c}])]
+   RUNBADINPUTTEST        [(BURY [[a b {c}]])]
+   RUNBADINPUTTEST        [(BURY [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(BURY [[[a]]])]
+
+   TRACEINSTRUCTION       [(UNBURY [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(UNBURY)]
+   RUNTOOMANYINPUTSTEST   [(UNBURY "name "toomany)]
+   RUNBADINPUTTEST        [(UNBURY {name})]
+   RUNBADINPUTTEST        [(UNBURY [[a][b]{c}])]
+   RUNBADINPUTTEST        [(UNBURY [a b {c}])]
+   RUNBADINPUTTEST        [(UNBURY [[a b {c}]])]
+   RUNBADINPUTTEST        [(UNBURY [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(UNBURY [[[a]]])]
+
+   RUNTOOMANYINPUTSTEST [(BURYALL "toomany)]
+
+   RUNTOOMANYINPUTSTEST [(UNBURYALL "toomany)]
+END
+
+TO BURYTEST
+
+   ; backup the set of things that are buried
+   LOCALMAKE "savedburied BURIED
+
+   BURYTEST.PROCEDURE
+   BURYTEST.VARIABLE
+   BURYTEST.PROPERTYLIST
+   BURYTEST.BADINPUT
+   BURYTEST.BURYALL
+
+   ; restore the set of things that are buried
+   UNBURYALL
+   BURY :savedburied
+
+END

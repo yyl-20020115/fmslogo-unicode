@@ -1,0 +1,34 @@
+LOAD "testlib.lgo
+
+TO PLAYWAVETEST.SMOKETEST
+
+   ; loop the default sound
+   PLAYWAVE "doesnotexit.wav 1+8
+
+   ; wait two seconds
+   WAIT 2*60 
+
+   ; stop the sound
+   PLAYWAVE [] 0
+
+END
+
+TO PLAYWAVETEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(PLAYWAVE "wavefile)]
+   RUNTOOMANYINPUTSTEST   [(PLAYWAVE "wavefile 1 "toomany)]
+
+   RUNBADINPUTTEST [PLAYWAVE [] -1        ]
+   RUNBADINPUTTEST [PLAYWAVE [] 10.5      ]
+   RUNBADINPUTTEST [PLAYWAVE [] "badinput ]
+   RUNBADINPUTTEST [PLAYWAVE [] [1 2 3]   ]
+   RUNBADINPUTTEST [PLAYWAVE [] {1 2 3}   ]
+
+END
+
+TO PLAYWAVETEST
+
+   PLAYWAVETEST.SMOKETEST
+   PLAYWAVETEST.BADINPUT
+
+END

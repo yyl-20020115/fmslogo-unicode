@@ -1,0 +1,49 @@
+to aaa
+;
+; The MIDIFILE command plays play a MIDI (.MID) file.
+; The :filename is the midi file you wish to play.
+; It plays it asynchronously and you can stop it any time
+; by issuing the command midistop.
+; It will loop until you stop it.
+;
+; To run:
+;
+; load "midifile.lgo
+; Call midifile file
+;
+; Example:
+;
+midifile "sonata.mid
+;
+; System requirements:
+;
+; You must have a sound card that supports being a MIDI sequencer
+;
+end
+
+to midifile :filename
+  print sentence [opened sequencer on channel] mci (sentence [open] :filename [type sequencer alias music])
+  print sentence [playing the music] :filename
+  make "midi.stopped "false
+  midiplay
+end
+
+to midiplay
+  if not :midi.stopped [
+    (mci [seek music to start])
+    (mci [play music notify] [midiplay])
+  ]
+end
+
+to midistop
+  make "midi.stopped "true
+  mci [stop music wait]
+  mci [close music wait]
+  print [Midi stopped]
+end
+
+to zzz
+  ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

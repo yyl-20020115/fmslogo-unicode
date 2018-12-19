@@ -27,12 +27,528 @@
     <ClInclude Include="FMSLogo.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="3dsolid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aboutfmslogo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aboutmultiplesclerosis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="activearea.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="appendablelist.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="argumentutils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="avltree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commander.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commanderbutton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commanderhistory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commanderinput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commandertogglebutton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="coms.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="devwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dlgwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dllwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamicbuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="editproceduredialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="eraseproceduredialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="eval.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="files.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fileswnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fontutils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gbm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gbmbmp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gbmgif.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gbmhelp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphwin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="guiutils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="helputils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ibmterm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="init.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="intern.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lists.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizednode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-de.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-en.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-es.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-fr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-gr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-hr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-it.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-pl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-ps.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-pt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-ru.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-zh-cn.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logocodectrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logocore.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logodata.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logoeventqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logomath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logorc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mainframe.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mainwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="messagebox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="minieditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="minieditortextctrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mmwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="netwind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="paren.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="parse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="print.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="questionbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="savebeforeexitdialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="screen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="screenwindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="selectbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="selectproceduredialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="selectstartupinstruction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="setactivearea.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="setcolor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="setpensize.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="smartnode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sort.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="startup.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="status.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="statusdialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stringadapter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stringprintednode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="term.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="threed.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="unix.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="workspaceeditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="wrksp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FMSLogo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3dsolid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="aboutfmslogo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="aboutmultiplesclerosis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="activearea.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="appendablelist.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="argumentutils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="avltree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commander.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commanderbutton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commanderhistory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commanderinput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commandertogglebutton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="coms.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cursor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="devwind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamicbuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="editproceduredialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="eraseproceduredialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="error.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="eval.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="files.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fileswnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fontutils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gbm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gbmbmp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gbmgif.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gbmhelp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gbmsize.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphwin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="guiutils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="helputils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ibmterm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="init.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="intern.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lists.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="localizednode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logocodectrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logodata.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logodialogboxes.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logoeventqueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logomath.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mainframe.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="messagebox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="minieditor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="minieditortextctrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mmwind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="netwind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="paren.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="parse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="print.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="questionbox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="savebeforeexitdialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="screen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="selectbox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="selectproceduredialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="selectstartupinstruction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="setactivearea.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="setcolor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="setpensize.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sort.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="startup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="statusdialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stringprintednode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="term.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="threed.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="unix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="workspaceeditor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="wrksp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="wxpurestubs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllwind.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

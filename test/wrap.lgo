@@ -1,0 +1,69 @@
+LOAD "testlib.lgo
+
+TO WRAPTEST.SMOKETEST
+
+   ; switch to wrap mode
+   WRAP
+   CLEARSCREEN
+
+   ; draw a circle whose edges fall outside the window boundaries
+   SETPENCOLOR 0
+   CIRCLE 600
+
+   FD 1000
+   RT 90
+   FD 1000
+
+   CHECKSCREEN "wrap-test
+
+   ; go back to the default mode
+   CLEARSCREEN
+   WRAP
+END
+
+TO WRAPTEST.NOWRAPLIMIT
+
+  ; This is a regression test for a specific bug that cuts off
+  ; turtle movement after 32 wraps.
+
+  ; Enter WRAP mode
+  WRAP
+
+  ; Start at the center, facing up
+  CLEARSCREEN
+
+  ; Move forward 2,000,000 steps (wrapping 1000 times)
+  TRACEINSTRUCTION [ FORWARD 2000 * ITEM 4 MACHINE ]
+
+  ; By wrapping, we should remain where we started.
+  ; The bug is that we end up at the border when the wrap
+  ; limit is exceeded.
+  SIMPLEREPORTTEST [ POS ] [0 0]
+
+END
+
+
+TO WRAPTEST.BADINPUT
+
+   FENCE
+
+   ; bad input tests (shouldn't change modes)
+   RUNTOOMANYINPUTSTEST [(WRAP "toomany)]
+
+   ; The easiest way to test that we're not in wrap mode
+   ; is to try to force an out-of-bounds error in fence mode
+   HOME
+   RUNOUTOFBOUNDSTEST [ FD 1000 ]
+
+   WRAP
+   CLEARSCREEN
+END
+
+TO WRAPTEST
+
+   WRAPTEST.SMOKETEST
+   WRAPTEST.NOWRAPLIMIT
+   WRAPTEST.BADINPUT
+
+END
+

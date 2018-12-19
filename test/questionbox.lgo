@@ -1,0 +1,68 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO QUESTIONBOXTEST.SMOKETEST
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+       ; press OK without entering anything
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX [QUESTIONBOX Test] [Press OK without typing anything. ] ] []
+
+       ; enter "Hello" and press OK
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [QUESTIONBOX Test] "Edit "Hello
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX [QUESTIONBOX Test] [Enter "Hello" and press OK. ] ] [Hello]
+
+       ; enter "Hi Bye" and press OK
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [QUESTIONBOX Test] "Edit "|Hi Bye|
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX [QUESTIONBOX Test] [Enter "Hi Bye" and press OK. ] ] [Hi Bye]
+
+       ; enter a lot of text and press OK
+       LOCALMAKE "longanswer (WORD "This\ is\ a\ (REPEATWORD "very,\  100) "long\ answer.)
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [QUESTIONBOX Test] "Edit :longanswer
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX [QUESTIONBOX Test] [Enter the very long answer and press OK. ] ] (RUNPARSE :longanswer)
+
+       ; press Cancel
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [QUESTIONBOX Test] "Edit "ToBeCancelled
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "Cancel
+       RUNSTOPPINGTEST  [ QUESTIONBOX [QUESTIONBOX Test] [Press Cancel.] ]
+
+       ; Long title
+       LOCALMAKE "longtitle (WORD "|QUESTIONBOX Test: A | REPEATWORD "|Very, | 6 "|Long Title|)
+       UIAUTOMATION.POSTSTRINGTOWINDOW     :longtitle "Edit "Yes
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW :longtitle "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX :longtitle [If you can read the entire title, enter "Yes" and press OK.] ] [Yes]
+
+       ; Long multi-line question
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [QUESTIONBOX Test] "Edit "Yes
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [QUESTIONBOX Test] "OK
+       SIMPLEREPORTTEST [ QUESTIONBOX [QUESTIONBOX Test] (WORD
+         "|This line ends in a newline.| (char 10)
+         "|This line ends in a carriage return - newline sequence.| (char 13) (char 10)
+         "|This line ends in a carriage return.| (char 13)
+         "|If you can read this line, enter "Yes" and press OK.|
+       ) ] [Yes]
+   ]
+
+   IGNORE FAILIFERROR "QUESTIONBOXTEST.SMOKETEST
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO QUESTIONBOXTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [ IGNORE (QUESTIONBOX [Title]) ]
+   RUNTOOMANYINPUTSTEST   [ IGNORE (QUESTIONBOX [Title] [Question] "toomany) ]
+END
+
+TO QUESTIONBOXTEST
+
+  QUESTIONBOXTEST.SMOKETEST
+  QUESTIONBOXTEST.BADINPUT
+
+END

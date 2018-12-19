@@ -1,0 +1,49 @@
+LOAD "testlib.lgo
+
+TO SCREENTEST.SMOKETEST
+
+  ; Previous tests have left an unknown amount of text in the
+  ; commander's history, which can affect the performance of this.
+  ; In order to have a well-behaved test pass, we replace the commander
+  ; history with a known amount of text.
+  CLEARTEXT
+  PRINT [This is the first line in the history]
+  PRINT [This is the second line in the history.  It is long enough
+         that it will need to be wrapped, as it has a lot of text
+         all given on the same line, more than can fit on a normal
+         sized screen, let along in a normal-sized window when the
+         commander is undocked.]
+
+  REPEAT 10 [ 
+    FULLSCREEN 
+    WAIT 6
+    TEXTSCREEN
+    WAIT 6
+    SPLITSCREEN
+  ]
+
+END
+
+TO SCREENTEST.LARGETEXT
+
+   ; Seed the commander history with many long lines.
+   CLEARTEXT
+   PRINT REPEATWORD (WORD "|This is a | REPEATWORD "|very, | 1000 "| long.\n|) 1000
+
+   TEXTSCREEN
+   SPLITSCREEN
+
+END
+
+
+TO SCREENTEST.BADINPUT
+  RUNTOOMANYINPUTSTEST [(SPLITSCREEN 1)]
+  RUNTOOMANYINPUTSTEST [(TEXTSCREEN  1)]
+  RUNTOOMANYINPUTSTEST [(FULLSCREEN  1)]
+END
+
+
+TO SCREENTEST
+  SCREENTEST.SMOKETEST
+  SCREENTEST.BADINPUT
+END

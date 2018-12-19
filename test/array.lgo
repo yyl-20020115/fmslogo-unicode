@@ -1,0 +1,198 @@
+LOAD "testlib.lgo
+
+TO ARRAYORIGINTEST
+
+   LOCALMAKE "myarray (ARRAY 3 0)
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [COUNT :myarray ] 3
+   SIMPLEREPORTTEST [ITEM 0 :myarray] []
+   SIMPLEREPORTTEST [ITEM 1 :myarray] []
+   SIMPLEREPORTTEST [ITEM 2 :myarray] []
+
+   ; fill in the items
+   SETITEM 0 :myarray 0
+   SETITEM 1 :myarray 1
+   SETITEM 2 :myarray 2
+
+   SIMPLEREPORTTEST [ITEM 0 :myarray] 0
+   SIMPLEREPORTTEST [ITEM 1 :myarray] 1
+   SIMPLEREPORTTEST [ITEM 2 :myarray] 2
+
+   .SETITEM 0 :myarray [0]
+   .SETITEM 1 :myarray [1]
+   .SETITEM 2 :myarray [2]
+
+   SIMPLEREPORTTEST [ITEM 0 :myarray] [0]
+   SIMPLEREPORTTEST [ITEM 1 :myarray] [1]
+   SIMPLEREPORTTEST [ITEM 2 :myarray] [2]
+
+   MAKE "myarray (ARRAY 3 -100)
+   SIMPLEREPORTTEST [COUNT :myarray ] 3
+
+   SETITEM -100 :myarray 0
+   SETITEM -99  :myarray 1
+   SETITEM -98  :myarray 2
+
+   SIMPLEREPORTTEST [ITEM -100 :myarray] 0
+   SIMPLEREPORTTEST [ITEM -99  :myarray] 1
+   SIMPLEREPORTTEST [ITEM -98  :myarray] 2
+
+   MAKE "myarray {1 2 3 4}@2
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM 2 :myarray] 1
+   SIMPLEREPORTTEST [ITEM 3 :myarray] 2
+   SIMPLEREPORTTEST [ITEM 4 :myarray] 3
+   SIMPLEREPORTTEST [ITEM 5 :myarray] 4
+
+   MAKE "myarray {1 2 3 4}@-2
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM -2 :myarray] 1
+   SIMPLEREPORTTEST [ITEM -1 :myarray] 2
+   SIMPLEREPORTTEST [ITEM  0 :myarray] 3
+   SIMPLEREPORTTEST [ITEM  1 :myarray] 4
+
+   MAKE "myarray {1 2 3 4}@0
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM  0 :myarray] 1
+   SIMPLEREPORTTEST [ITEM  1 :myarray] 2
+   SIMPLEREPORTTEST [ITEM  2 :myarray] 3
+   SIMPLEREPORTTEST [ITEM  3 :myarray] 4
+
+   MAKE "myarray {1 2 3 4}@-100
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM  -100 :myarray] 1
+   SIMPLEREPORTTEST [ITEM  -99  :myarray] 2
+   SIMPLEREPORTTEST [ITEM  -98  :myarray] 3
+   SIMPLEREPORTTEST [ITEM  -97  :myarray] 4
+
+   MAKE "myarray {1 2 3 4}@+12345
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM  12345 :myarray]  1
+   SIMPLEREPORTTEST [ITEM  12346  :myarray] 2
+   SIMPLEREPORTTEST [ITEM  12347  :myarray] 3
+   SIMPLEREPORTTEST [ITEM  12348  :myarray] 4
+
+   ; bad input to origin
+   (RUNEXPECTERRORTEST 
+        [ MAKE "myarray {1 2 3 4}@1e10]
+        13 
+        "|I don't know how to e10|)
+
+   (RUNEXPECTERRORTEST 
+        [ MAKE "myarray {1 2 3 4}@1.23 SHOW 1]  
+        9 
+        "|You don't say what to do with 0.23|)
+
+END
+
+
+TO ARRAYSMOKETEST
+
+   LOCALMAKE "myarray ARRAY 4
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [COUNT :myarray ] 4
+   SIMPLEREPORTTEST [ITEM 1 :myarray] []
+   SIMPLEREPORTTEST [ITEM 2 :myarray] []
+   SIMPLEREPORTTEST [ITEM 3 :myarray] []
+   SIMPLEREPORTTEST [ITEM 4 :myarray] []
+
+   ; fill in the items of different types
+   SETITEM 4 :myarray {array}
+   SETITEM 3 :myarray [list]
+   SETITEM 2 :myarray "hi
+   SETITEM 1 :myarray 42
+
+   SIMPLEREPORTTEST [ITEM 1 :myarray] 42
+   SIMPLEREPORTTEST [ITEM 2 :myarray] "hi
+   SIMPLEREPORTTEST [ITEM 3 :myarray] [list]
+
+   .SETITEM 1 :myarray 1
+   .SETITEM 2 :myarray 2
+   .SETITEM 3 :myarray 3
+   .SETITEM 4 :myarray 4
+
+   SIMPLEREPORTTEST [ITEM 1 :myarray] 1
+   SIMPLEREPORTTEST [ITEM 2 :myarray] 2
+   SIMPLEREPORTTEST [ITEM 3 :myarray] 3
+   SIMPLEREPORTTEST [ITEM 4 :myarray] 4
+
+   ; create an array from a literal
+   LOCALMAKE "newarray {1 2 3 4}
+   SIMPLEREPORTTEST [COUNT :newarray ] 4
+   SIMPLEREPORTTEST [ITEM 1 :newarray] 1
+   SIMPLEREPORTTEST [ITEM 2 :newarray] 2
+   SIMPLEREPORTTEST [ITEM 3 :newarray] 3
+   SIMPLEREPORTTEST [ITEM 4 :newarray] 4
+END
+
+TO ARRAYBADINPUTTEST
+
+   RUNBADINPUTTEST [ARRAY -1]
+   RUNBADINPUTTEST [ARRAY 1.23]
+   RUNBADINPUTTEST [ARRAY "two]
+   RUNBADINPUTTEST [ARRAY {}]
+   RUNBADINPUTTEST [ARRAY []]
+
+   RUNBADINPUTTEST [(ARRAY 5  "origin)]
+   RUNBADINPUTTEST [(ARRAY 5  1.23)]
+   RUNBADINPUTTEST [(ARRAY 5  {5})]
+   RUNBADINPUTTEST [(ARRAY 5  [5])]
+
+   RUNOUTOFMEMORYTEST [ ARRAY 1073741823 ] ; does not overflow
+   RUNOUTOFMEMORYTEST [ ARRAY 1073741824 ] ; overflows to 0 in size
+   RUNOUTOFMEMORYTEST [ ARRAY 1073741825 ] ; overflows to 4 in size
+END
+
+TO BUG32TEST
+   REPORTTESTINFO [Creating an empty array (regression test for bug #32)]
+   LOCALMAKE "myarray ARRAY 0
+END
+
+TO SETITEMTEST
+   LOCALMAKE "array {1 2 3}
+
+   ; wrong number of inputs
+   RUNNOTENOUGHINPUTSTEST [(SETITEM)]
+   RUNNOTENOUGHINPUTSTEST [(SETITEM 1)]
+   RUNNOTENOUGHINPUTSTEST [(SETITEM 1 :array)]
+   RUNTOOMANYINPUTSTEST   [(SETITEM 1 :array "value "toomany)]
+
+   ; bad input
+   RUNDOESNTLIKEINPUTTEST               [SETITEM "one  :array "value]
+   RUNDOESNTLIKEINPUTTEST               [SETITEM    1 [1 2 3] "value]
+   RUNDOESNTLIKEINPUTTEST               [SETITEM    1 "string "value]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [SETITEM    4 :array  "outofbounds]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [SETITEM    0 :array  "outofbounds]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [SETITEM    1  {1}@0  "value]
+
+   ; Can't create circular arrays.
+   RUNDOESNTLIKEINPUTTEST [SETITEM 1 :array :array]
+
+   ; Nodes shouldn't be freed until after set.
+   SETITEM 1 :array ITEM 1 :array
+   SETITEM 2 :array ITEM 2 :array
+   SETITEM 3 :array ITEM 3 :array
+
+   ; None of the tests should have modified the array
+   SIMPLEREPORTTEST [ITEM 1 :array] 1
+   SIMPLEREPORTTEST [ITEM 2 :array] 2
+   SIMPLEREPORTTEST [ITEM 3 :array] 3
+END
+
+TO ARRAYGCCRASHTEST
+   IGNORE MAKEDEEPARRAY 100000 ; create a deeply nested array
+   REPORTTESTPASSED [|Bug #468 is fixed; garbage collecting a deeply nested array didn't crash.|]
+END
+
+TO ARRAYTEST
+
+   ARRAYSMOKETEST
+   ARRAYORIGINTEST
+   ARRAYBADINPUTTEST
+   BUG32TEST
+   SETITEMTEST
+
+   ARRAYGCCRASHTEST
+END

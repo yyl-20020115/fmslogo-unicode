@@ -1,0 +1,8 @@
+#ifndef __VERSION_H__
+#define __VERSION_H__
+#define LOCALE 2052
+#define FMSLOGO_MAJOR_VERSION 7
+#define FMSLOGO_MINOR_VERSION 3
+#define FMSLOGO_MICRO_VERSION 0
+#define FMSLOGO_VERSION L"7.3.0"
+#endif

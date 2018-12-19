@@ -1,0 +1,47 @@
+LOAD "testlib.lgo
+
+TO TIMEWAIT :TimeToWait
+
+    LOCALMAKE "instructions (list "WAIT :TimeToWait)
+    LOCALMAKE "executionTime TIMECOMMAND :instructions
+    
+    LOCALMAKE "minAcceptableTime :TimeToWait * 1000 / 60
+    LOCALMAKE "maxAcceptableTime :minAcceptableTime + 20
+
+    CHECKEXECUTIONTIME :instructions :executionTime :minAcceptableTime :maxAcceptableTime
+END
+
+TO WAITTEST.SMOKETEST
+
+   TIMEWAIT 0
+   TIMEWAIT 1
+   TIMEWAIT 6
+   TIMEWAIT 10
+   TIMEWAIT 60
+   TIMEWAIT 100
+
+   TIMEWAIT 60.5
+
+END
+
+
+TO WAITTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(WAIT)]
+   RUNTOOMANYINPUTSTEST   [(WAIT 10 10)]
+
+   RUNBADINPUTTEST        [WAIT -0.1]
+   RUNBADINPUTTEST        [WAIT -1]
+   RUNBADINPUTTEST        [WAIT "ABC]
+   RUNBADINPUTTEST        [WAIT [1]]
+   RUNBADINPUTTEST        [WAIT {1}]
+
+END
+
+TO WAITTEST
+
+   WAITTEST.SMOKETEST
+   WAITTEST.BADINPUT
+
+END
+

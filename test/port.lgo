@@ -1,0 +1,360 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; This file contains tests for the hardware procedures:
+; That is, it contains tests for the PORTxxx procedures, as well as
+; INPORT, INPORTB, OUTPORT, OUTPORTB, and INGAMEPORT.
+;
+; However, since many modern computers (including mine) don't have COM ports,
+; the tests only test the interface for the PORTxxx procedures.  A manual test,
+; which assumes a pair of COM ports with a null modem is porttest-nullmodem.lgo.
+;
+; Similarly, INPORT, INPORTB, OUTPORT, and OUTPORTB were implemented using
+; x86 instructions that are now illegal to execute from user mode.  As a result,
+; these test essentially only test that running them doesn't crash.
+;
+; Similarly, INGAMEPORT requires that the computer have a game card, so only
+; basic input tests are used.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LOAD "testlib.lgo
+
+TO PORTOPENTEST
+
+  ; Open a port.
+  ; The name of the port isn't important for this test.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; Open a port while a port is open.
+  RUNSTOPPINGTEST  [ PORTOPEN "alreadyopen ]
+  TRACEINSTRUCTION [ PORTCLOSE ]
+
+  ; Bad input
+  RUNTOOMANYINPUTSTEST [(PORTCLOSE "COM1)]
+END
+
+TO PORTFLUSHTEST
+
+  ; Flushing when the port is not open is an error.
+  RUNSTOPPINGTEST [ PORTFLUSH "1 ]
+
+  ; Flush when the port is open.
+  ; Since this test does not assume that a particuilar port exists,
+  ; it expects an error when flushing.
+  TRACEINSTRUCTION [ PORTOPEN "doesnotexist ]
+  RUNSTOPPINGTEST [ PORTFLUSH "ignored  ]
+  RUNSTOPPINGTEST [ PORTFLUSH [1]       ]
+  RUNSTOPPINGTEST [ PORTFLUSH {ignored} ]
+  TRACEINSTRUCTION [ PORTCLOSE ]
+
+  ; Bad input
+  RUNNOTENOUGHINPUTSTEST [(PORTFLUSH)]
+  RUNTOOMANYINPUTSTEST   [(PORTFLUSH "198 "toomany)]
+
+END
+
+TO PORTMODETEST
+
+  ; Setting the mode of a port when none is open is an error.
+  RUNSTOPPINGTEST [ PORTMODE "com1:9600,n,8,1 ]
+
+  ; Open a port.
+  ; The name of the port isn't important for this test.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; Bad input  
+  RUNNOTENOUGHINPUTSTEST [(PORTMODE)]
+  RUNSTOPPINGTEST        [ PORTMODE "malformed-string ]
+  RUNSTOPPINGTEST        [ PORTMODE "9600,n,8,1  ] ; well-formed but cannot be set on fake port
+  RUNSTOPPINGTEST        [ PORTMODE [9600,n,8,1] ] ; lists are accepted (problem is fake port)
+  RUNTOOMANYINPUTSTEST   [(PORTMODE "9600,n,8,1 "toomany)]
+
+  ; Cleanup
+  TRACEINSTRUCTION [ PORTCLOSE ]
+  
+END
+
+TO PORTREADCHARTEST.BADINPUT
+  ; bad input tests 
+  RUNSTOPPINGTEST      [ PORTREADCHAR ]  ; port not open message box
+  RUNTOOMANYINPUTSTEST [(PORTREADCHAR "toomany)]
+
+  ; Open a port that isn't really a port.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; There should be an error reading from the port.
+  SIMPLEREPORTTEST [ PORTREADCHAR ] -1
+  SIMPLEREPORTTEST [ PORTREADCHAR ] -1
+
+  ; Cleanup
+  TRACEINSTRUCTION [ PORTCLOSE ]
+
+END
+
+
+TO PORTREADARRAYTEST.BADINPUT
+  LOCALMAKE "buffer {A B C D E F G H I J}
+
+  ; Most of the bad input tests can be run without opening a port.
+  RUNNOTENOUGHINPUTSTEST [(PORTREADARRAY 1)]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY []    :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY "||   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY "word :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY -1    :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY [1]   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY {1}   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY  1    []      ]
+  RUNDOESNTLIKEINPUTTEST [ PORTREADARRAY  1    "||     ]
+  RUNTOOMANYINPUTSTEST   [(PORTREADARRAY  1    :buffer "toomany)]
+
+  ; Providing a non-array second argument does NOT throw an error, but
+  ; it also does not read anything.
+  SIMPLEREPORTTEST [ PORTREADARRAY 1 "badinput ] 0
+  SIMPLEREPORTTEST [ PORTREADARRAY 1 [list]    ] 0
+  SIMPLEREPORTTEST [ PORTREADARRAY 1 100       ] 0
+
+  ; Reading from a port that isn't open shows a message box.
+  RUNSTOPPINGTEST  [ PORTREADARRAY 1 :buffer ]
+
+  ; Open a port.
+  ; The name of the port isn't important for this test.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; There should be an error reading from the port.
+  ; The error isn't reported, but no data is read into :buffer.
+  SIMPLEREPORTTEST [ PORTREADARRAY 1 :buffer ] 0
+
+  ; None of the tests above should have modified the contents of the array.
+  SIMPLEREPORTTEST [ ITEM  1 :buffer ] "A
+  SIMPLEREPORTTEST [ ITEM  2 :buffer ] "B
+  SIMPLEREPORTTEST [ ITEM  3 :buffer ] "C
+  SIMPLEREPORTTEST [ ITEM  4 :buffer ] "D
+  SIMPLEREPORTTEST [ ITEM  5 :buffer ] "E
+  SIMPLEREPORTTEST [ ITEM  6 :buffer ] "F
+  SIMPLEREPORTTEST [ ITEM  7 :buffer ] "G
+  SIMPLEREPORTTEST [ ITEM  8 :buffer ] "H
+  SIMPLEREPORTTEST [ ITEM  9 :buffer ] "I
+  SIMPLEREPORTTEST [ ITEM 10 :buffer ] "J
+
+  ; Cleanup
+  TRACEINSTRUCTION [ PORTCLOSE ]
+  
+END
+
+TO PORTWRITECHARTEST.BADINPUT
+
+  ; bad input tests 
+  RUNNOTENOUGHINPUTSTEST [(PORTWRITECHAR)   ]
+  RUNSTOPPINGTEST        [ PORTWRITECHAR 10 ]  ; port not open message box
+  RUNTOOMANYINPUTSTEST   [(PORTWRITECHAR 10 "toomany)]
+
+  ; Open a port that isn't really a port.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; There should be an error writing to the port.
+  ; These are reported by the output value, not by throwing an error.
+  SIMPLEREPORTTEST [ PORTWRITECHAR 65 ] -1
+  SIMPLEREPORTTEST [ PORTWRITECHAR 65 ] -1
+
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITECHAR -1   ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITECHAR 1.1  ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITECHAR "one ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITECHAR [1]  ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITECHAR {1}  ]
+
+  ; Large positive numbers are silently truncated.
+  SIMPLEREPORTTEST [ PORTWRITECHAR 256 ] -1
+  SIMPLEREPORTTEST [ PORTWRITECHAR 257 ] -1
+
+  ; Cleanup
+  TRACEINSTRUCTION [ PORTCLOSE ]
+
+END
+
+
+TO PORTWRITEARRAYTEST.BADINPUT
+  LOCALMAKE "buffer {1 2 3 4 5 6 7 8 9 10}
+
+  ; Most of the bad input tests can be run without opening a port.
+  RUNNOTENOUGHINPUTSTEST [(PORTWRITEARRAY 1)]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY []    :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY "||   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY "word :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY -1    :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY [1]   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY {1}   :buffer ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY  1    []      ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY  1    "||     ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY  1    "bad    ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY  1    [list]  ]
+  RUNDOESNTLIKEINPUTTEST [ PORTWRITEARRAY  1    100     ]
+  RUNTOOMANYINPUTSTEST   [(PORTWRITEARRAY  1    :buffer "toomany)]
+
+  ; Writing to a port that isn't open shows a message box.
+  RUNSTOPPINGTEST  [ PORTWRITEARRAY 1 :buffer ]
+
+  ; Open a port that isn't really a port.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+
+  ; There should be an error writing to the port.
+  ; No error is thrown, instead the error is reported as no data being written.
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 10 :buffer ] 0
+
+  ; Simple bounds testing.
+  ; We can't test that data got written without a real port, but
+  ; this shouldn't crash FMSLogo.
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 1000 :buffer      ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 10   {1 2 3}@100  ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 10   {1 2 3}@-100 ] 0
+
+  ; The array should contain byte-sized numbers, but for compatibility
+  ; reasons providing bad values in an array is not considered an error.
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 bad 3} ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 [1] 3} ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 {3} 3} ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 -1  3} ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 1.2 3} ] 0
+  SIMPLEREPORTTEST [ PORTWRITEARRAY 3 {1 256 3} ] 0
+
+  ; None of the tests above should have modified the contents of the array.
+  SIMPLEREPORTTEST [ ITEM  1 :buffer ] "1
+  SIMPLEREPORTTEST [ ITEM  2 :buffer ] "2
+  SIMPLEREPORTTEST [ ITEM  3 :buffer ] "3
+  SIMPLEREPORTTEST [ ITEM  4 :buffer ] "4
+  SIMPLEREPORTTEST [ ITEM  5 :buffer ] "5
+  SIMPLEREPORTTEST [ ITEM  6 :buffer ] "6
+  SIMPLEREPORTTEST [ ITEM  7 :buffer ] "7
+  SIMPLEREPORTTEST [ ITEM  8 :buffer ] "8
+  SIMPLEREPORTTEST [ ITEM  9 :buffer ] "9
+  SIMPLEREPORTTEST [ ITEM 10 :buffer ] "10
+
+  ; Cleanup
+  TRACEINSTRUCTION [ PORTCLOSE ]
+  
+END
+
+
+TO PORTCLOSETEST
+
+  ; Open and close a port.
+  ; The name of the port isn't important for this test.
+  TRACEINSTRUCTION [ PORTOPEN "someportname ]
+  TRACEINSTRUCTION [ PORTCLOSE ]
+
+  ; Close a port when it's not open is an error.
+  RUNSTOPPINGTEST [ PORTCLOSE ]
+
+  ; Bad input
+  RUNTOOMANYINPUTSTEST [(PORTCLOSE "COM1)]
+END
+
+TO INPORTTEST
+
+  LOCAL "value
+
+  MAKE "value INPORT 198
+  REPORTTESTPASSED [INPORT did not crash]
+
+  ; bad input
+  RUNNOTENOUGHINPUTSTEST [(INPORT)]
+  RUNBADINPUTTEST        [INPORT [192]]
+  RUNBADINPUTTEST        [INPORT -1]
+  RUNBADINPUTTEST        [INPORT {}]
+  RUNBADINPUTTEST        [INPORT "hello]
+  RUNTOOMANYINPUTSTEST   [(INPORT "198 "toomany)]
+
+  MAKE "value INPORTB 198
+  REPORTTESTPASSED [INPORTB did not crash]
+
+  ; bad input
+  RUNNOTENOUGHINPUTSTEST [(INPORTB)]
+  RUNBADINPUTTEST        [INPORTB [192]]
+  RUNBADINPUTTEST        [INPORTB -1]
+  RUNBADINPUTTEST        [INPORTB {}]
+  RUNBADINPUTTEST        [INPORTB "hello]
+  RUNTOOMANYINPUTSTEST   [(INPORTB "198 "toomany)]
+END
+
+
+TO OUTPORTTEST
+
+  OUTPORT 198 0
+  REPORTTESTPASSED [OUTPORT did not crash]
+
+  ; bad input
+  RUNNOTENOUGHINPUTSTEST [(OUTPORT)]
+  RUNNOTENOUGHINPUTSTEST [(OUTPORT 192)]
+  RUNBADINPUTTEST        [OUTPORT [192]  0]
+  RUNBADINPUTTEST        [OUTPORT -1     0]
+  RUNBADINPUTTEST        [OUTPORT {}     0]
+  RUNBADINPUTTEST        [OUTPORT "hello 0]
+  RUNTOOMANYINPUTSTEST   [(OUTPORT 198 0 "toomany)]
+
+  OUTPORTB 198 0
+  REPORTTESTPASSED [OUTPORTB did not crash]
+
+  ; bad input
+  RUNNOTENOUGHINPUTSTEST [(OUTPORTB)]
+  RUNNOTENOUGHINPUTSTEST [(OUTPORTB 192)]
+  RUNBADINPUTTEST        [OUTPORTB  [192]  0]
+  RUNBADINPUTTEST        [OUTPORTB  -1     0]
+  RUNBADINPUTTEST        [OUTPORTB  {}     0]
+  RUNBADINPUTTEST        [OUTPORTB  "hello 0]
+  RUNTOOMANYINPUTSTEST   [(OUTPORTB 198 0 "toomany)]
+
+END
+
+TO INGAMEPORTTEST
+   LOCAL "value
+
+   ; Since we don't know if a joystick is connected, or what it's
+   ; state is if it is connected, we can only test that INGAMEPORT
+   ; returns a number in the expected range (0 - 1000) or an error (-1)
+   MAKE "value INGAMEPORT 1
+   FAILIFNOTTRUE [AND -1 <= :value :value <= 1000]
+
+   MAKE "value INGAMEPORT 2
+   FAILIFNOTTRUE [AND -1 <= :value :value <= 1000]
+
+   MAKE "value INGAMEPORT 4
+   FAILIFNOTTRUE [AND -1 <= :value :value <= 1000]
+
+   MAKE "value INGAMEPORT 8
+   FAILIFNOTTRUE [AND -1 <= :value :value <= 1000]
+
+   ; For backward compatibility, you can specify a "port"
+   MAKE "value (INGAMEPORT 1 513)
+   FAILIFNOTTRUE [AND -1 <= :value :value <= 1000]
+
+   ; A unsupported mask always outputs -1
+   SIMPLEREPORTTEST [INGAMEPORT 0  ] -1
+   SIMPLEREPORTTEST [INGAMEPORT 3  ] -1
+   SIMPLEREPORTTEST [INGAMEPORT 255] -1
+
+   ; bad input
+   RUNNOTENOUGHINPUTSTEST [ (INGAMEPORT)         ]
+   RUNDOESNTLIKEINPUTTEST [ INGAMEPORT [1]       ]
+   RUNDOESNTLIKEINPUTTEST [ INGAMEPORT {1}       ]
+   RUNDOESNTLIKEINPUTTEST [ INGAMEPORT "bad      ]
+   RUNDOESNTLIKEINPUTTEST [ INGAMEPORT 1.2       ]
+   RUNDOESNTLIKEINPUTTEST [ (INGAMEPORT 1 "bad)  ]
+   RUNDOESNTLIKEINPUTTEST [ (INGAMEPORT 1 -1)    ]
+   RUNDOESNTLIKEINPUTTEST [ (INGAMEPORT 1 [513]) ]
+   RUNDOESNTLIKEINPUTTEST [ (INGAMEPORT 1 {513}) ]
+   RUNTOOMANYINPUTSTEST   [ (INGAMEPORT 1 512 "toomany) ]
+
+END
+
+TO PORTTEST
+
+  PORTOPENTEST
+  PORTFLUSHTEST
+  PORTMODETEST
+  PORTREADCHARTEST.BADINPUT
+  PORTREADARRAYTEST.BADINPUT
+  PORTWRITEARRAYTEST.BADINPUT
+  PORTWRITECHARTEST.BADINPUT
+  PORTCLOSETEST
+
+  INGAMEPORTTEST
+
+  INPORTTEST
+  OUTPORTTEST
+END

@@ -1,0 +1,8 @@
+; NOTE: ELLIPSA2 is kept for backward compatability.
+; The perferred name is ellipsearc2.
+
+to ellipsa2 :ang :radius_x :radius_y :startang
+  ellipsearc2 :ang :radius_x :radius_y :startang
+end
+
+bury "ellipsa2

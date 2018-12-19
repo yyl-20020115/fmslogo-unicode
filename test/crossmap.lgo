@@ -1,0 +1,41 @@
+LOAD "testlib.lgo
+
+TO CROSSMAPTEST.SMOKETEST
+
+   ; template from the manual
+   SIMPLEREPORTTEST ~
+      [(CROSSMAP [WORD ?1 ?2] [a b c] [1 2 3 4])] ~
+      [a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4]
+
+   ; special case when only one data input is given
+   SIMPLEREPORTTEST [ CROSSMAP [WORD ?1 ?2] [[a b c] [1 2 3 4]] ] ~
+      [a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4]
+
+   ; compatibility with Computer Science Logo Style (:1 instead of ?1)
+   SIMPLEREPORTTEST ~
+      [(CROSSMAP [WORD :1 :2] [a b c] [1 2 3 4])] ~
+      [a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4]
+
+END
+
+TO CROSSMAPTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(CROSSMAP)]
+
+   ; first input is not a procedure or a template
+   RUNBADINPUTTEST                     [CROSSMAP 12.5 [1 2 3] ]
+   RUNBADINPUTTEST                     [CROSSMAP -1   [1 2 3] ]
+   RUNBADINPUTTEST                     [CROSSMAP {1}  [1 2 3] ]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST [CROSSMAP "ten [1 2 3] ]
+
+   ; the data input is not a list or a word
+   RUNBADINPUTTEST [CROSSMAP [1] {1 2 3} ]
+
+END
+
+TO CROSSMAPTEST
+
+   CROSSMAPTEST.SMOKETEST
+   CROSSMAPTEST.BADINPUT
+
+END

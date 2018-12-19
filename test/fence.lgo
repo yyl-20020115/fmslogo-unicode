@@ -1,0 +1,133 @@
+LOAD "testlib.lgo
+
+TO FENCETEST.BUG213
+
+   ; move outside the boundries
+   WINDOW 
+   SETXY 0 1000
+   RT 90 
+
+   ; start enforcing the bounrdies
+   FENCE
+ 
+   ; move paralell to the boundry that the turtle is outside
+   FD 1
+
+   REPORTTESTPASSED [|Bug #213 is fixed; Running FENCE while outside the boundries doesn't crash.|]
+END
+
+
+TO FENCETEST.SMOKETEST
+
+   ; Determine the world extents
+   LOCAL [minX maxX minY maxY]
+   MAKE "maxX INT (QUOTIENT ITEM 3 MACHINE 2)
+   MAKE "minX MINUS :maxX
+   MAKE "maxY INT (QUOTIENT ITEM 4 MACHINE 2)
+   MAKE "minY MINUS :maxY
+
+   ; Switch to fence mode
+   FENCE
+
+   ; Test walking past the North border
+   TRACEINSTRUCTION   [ HOME ]
+   RUNOUTOFBOUNDSTEST [ FORWARD (SUM :maxY 1) ]
+   SIMPLEREPORTTEST   [ POS ] (LIST 0 :maxY)
+   RUNOUTOFBOUNDSTEST [ FORWARD  1 ]
+   SIMPLEREPORTTEST   [ POS ] (LIST 0 :maxY)
+
+   ; Test walking past the East border
+   TRACEINSTRUCTION   [ HOME RIGHT 90 ]
+   RUNOUTOFBOUNDSTEST [ FORWARD (SUM :maxX 1) ]
+   SIMPLEREPORTTEST   [ POS ] (LIST :maxX 0)
+   RUNOUTOFBOUNDSTEST [ FORWARD  1 ]
+   SIMPLEREPORTTEST   [ POS ] (LIST :maxX 0)
+
+   ; Test walking past the South border
+   TRACEINSTRUCTION   [ HOME RIGHT 180 ]
+   RUNOUTOFBOUNDSTEST [ FORWARD (SUM :maxY 1) ]
+   SIMPLEREPORTTEST   [ POS ] (LIST 0 :minY)
+   RUNOUTOFBOUNDSTEST [ FORWARD  1 ]
+   SIMPLEREPORTTEST   [ POS ] (LIST 0 :minY)
+
+   ; Test walking past the West border
+   TRACEINSTRUCTION   [ HOME RIGHT 270 ]
+   RUNOUTOFBOUNDSTEST [ FORWARD (SUM :maxX 1) ]
+   SIMPLEREPORTTEST   [ POS ] (LIST :minY 0)
+   RUNOUTOFBOUNDSTEST [ FORWARD  1 ]
+   SIMPLEREPORTTEST   [ POS ] (LIST :minY 0)
+
+   ; It should be possible to walk along the fence
+   TRACEINSTRUCTION [ RIGHT 90 FORWARD :maxY ]
+   SIMPLEREPORTTEST [ POS ] (LIST :minX :maxY)
+   TRACEINSTRUCTION [ RIGHT 90 FORWARD PRODUCT 2 :maxX ]
+   SIMPLEREPORTTEST [ POS ] (LIST :maxX :maxY)
+   TRACEINSTRUCTION [ RIGHT 90 FORWARD PRODUCT 2 :maxY ]
+   SIMPLEREPORTTEST [ POS ] (LIST :maxX :minY)
+   TRACEINSTRUCTION [ RIGHT 90 FORWARD PRODUCT 2 :maxX ]
+   SIMPLEREPORTTEST [ POS ] (LIST :minX :minY)
+   TRACEINSTRUCTION [ RIGHT 90 FORWARD PRODUCT 2 :maxY ]
+   SIMPLEREPORTTEST [ POS ] (LIST :minX :maxY)
+
+   ; go back to the default mode
+   CLEARSCREEN
+   WRAP
+END
+
+TO FENCETEST.SETXY
+
+   ; Determine the world extents
+   LOCAL [minX maxX minY maxY]
+   MAKE "maxX INT QUOTIENT ITEM 3 MACHINE 2
+   MAKE "minX MINUS :maxX
+   MAKE "maxY INT QUOTIENT ITEM 4 MACHINE 2
+   MAKE "minY MINUS :maxY
+
+   ; switch to fence mode
+   FENCE
+
+   ; these should be within the boundries 
+   TRACEINSTRUCTION [ SETXY  0    :maxY ]
+   TRACEINSTRUCTION [ SETXY :maxX :maxY ]
+   TRACEINSTRUCTION [ SETXY :maxX     0 ]
+   TRACEINSTRUCTION [ SETXY :maxY :minY ]
+   TRACEINSTRUCTION [ SETXY  0    :minY ]
+   TRACEINSTRUCTION [ SETXY :minX :minY ]
+   TRACEINSTRUCTION [ SETXY :minX     0 ]
+   TRACEINSTRUCTION [ SETXY :minX :maxY ]
+
+   ; these should be out of bounds
+   RUNOUTOFBOUNDSTEST [ SETXY   0                         (SUM   :maxY 1) ]
+   RUNOUTOFBOUNDSTEST [ SETXY  (SUM :maxX 1)                           0  ]
+   RUNOUTOFBOUNDSTEST [ SETXY   0                    (DIFFERENCE :minY 1) ]
+   RUNOUTOFBOUNDSTEST [ SETXY  (DIFFERENCE  :minX 1)                   0  ]
+
+   ; go back to the default mode
+   WRAP
+END
+
+
+TO FENCETEST.BADINPUT
+
+   WRAP
+
+   ; bad input tests (shouldn't change modes)
+   RUNTOOMANYINPUTSTEST [(FENCE "toomany)]
+
+   ; The easiest way to test that we're not is fence mode
+   ; is to try to force an out-of-bounds error.
+   HOME
+   FORWARD 1000
+
+   WRAP
+   CLEARSCREEN
+END
+
+TO FENCETEST
+
+   FENCETEST.SMOKETEST
+   FENCETEST.SETXY
+   ; FENCETEST.BUG213
+   FENCETEST.BADINPUT
+
+END

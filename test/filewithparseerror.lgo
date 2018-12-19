@@ -1,0 +1,26 @@
+; NOTE: FileWithParseError has the same base name as the file and
+; is listed first so that the file can be loaded implicitly by 
+; running "FileWithParseError" when the current working directory
+; contains this file.
+To FileWithParseError
+  ; This file has a syntax error.
+  ; When it is loaded by running "fmslogo.exe filewithparseerror.lgo",
+  ; FMSLogo should let the user open the editor directly to the error.
+  ; The error should be position on the TO line of ProcedureWithError
+
+  ; To continue with the tests, remove the error and
+  ; save the workspace.
+  Output "success
+End
+
+To ProcedureWithError ; <--- CARET SHOULD BE HERE WHEN EDITOR IS OPENED
+; No error on this line
+ ] ; error on this line (unexpected ']')
+; No error on this line
+End
+
+To ProcedureThatShouldNotBeDefined
+; Because the previous procdure contains
+; a parse error, the parser should abort
+; before it reads this procedure.
+End

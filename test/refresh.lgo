@@ -1,0 +1,12 @@
+LOAD "testlib.lgo
+
+TO REFRESHTEST
+   ; REFRESH and NOREFRESH are provided for compatibility with UCBLogo.
+   ; They are no-op library routines in FMSLogo.
+
+   TRACEINSTRUCTION     [ REFRESH ]
+   RUNTOOMANYINPUTSTEST [ (REFRESH "toomany) ]
+
+   TRACEINSTRUCTION     [ NOREFRESH ]
+   RUNTOOMANYINPUTSTEST [ (NOREFRESH "toomany) ]
+END

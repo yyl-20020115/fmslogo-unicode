@@ -1,0 +1,104 @@
+LOAD "testlib.lgo
+
+TO RANDOMTEST.SMOKETEST
+
+   ; RANDOM 10 should output a value between 0 and 9
+   REPEAT 20 [
+     FAILIFNOTTRUE [(RANDOM 10) >= 0]
+     FAILIFNOTTRUE [(RANDOM 10) < 10]
+   ]
+
+   ; RANDOM 1 always outputs 0
+   SIMPLEREPORTTEST [RANDOM 1] 0
+
+   ; RANDOM 0 always outputs 0
+   SIMPLEREPORTTEST [RANDOM 0] 0
+
+END
+
+TO RANDOMTEST.LARGENUMBERTEST
+   ; Tests that RANDOM can output numbers greater than 16 bits.
+   LOCAL [randomNumber]
+
+   REPEAT 10000 [
+     MAKE "randomNumber RANDOM 2147483647
+     IF (POWER 2 16) < :randomNumber [
+       REPORTTESTPASSED (WORD "|RANDOM 2147483647 output | :randomNumber "|, which is larger than 16 bits.|)
+       STOP
+     ]
+   ]
+   REPORTTESTFAILED "|After 10000 attempts, RANDOM 2147483647 never output a number larger than 16 bits.|
+END
+
+TO RANDOMTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(RANDOM)]
+   RUNTOOMANYINPUTSTEST   [(RANDOM 10 "toomany)]
+
+   RUNDOESNTLIKEINPUTTEST [RANDOM {1} ]
+   RUNDOESNTLIKEINPUTTEST [RANDOM [1] ]
+   RUNDOESNTLIKEINPUTTEST [RANDOM 1.5 ]
+   RUNDOESNTLIKEINPUTTEST [RANDOM -1  ]
+   RUNDOESNTLIKEINPUTTEST [RANDOM 2147483648 ]
+
+END
+
+TO RERANDOMTEST.SMOKETEST
+
+   LOCALMAKE "sequence1 []
+   LOCALMAKE "sequence2 []
+
+   ; seed and generate
+   TRACEINSTRUCTION [ RERANDOM ]
+   TRACEINSTRUCTION [ REPEAT 10 [ push "sequence1 RANDOM 1000 ] ]
+
+   ; reseed and regenerate
+   TRACEINSTRUCTION [ RERANDOM ]
+   TRACEINSTRUCTION [ REPEAT 10 [ push "sequence2 RANDOM 1000 ] ]
+
+   ; both sequences should be the same
+   SIMPLEREPORTTEST [:sequence1 = :sequence2] "true
+
+   LOCALMAKE "sequence3 []
+   LOCALMAKE "sequence4 []
+
+   ; seed and generate
+   TRACEINSTRUCTION [ (RERANDOM 10) ]
+   TRACEINSTRUCTION [ REPEAT 10 [ push "sequence1 RANDOM 1000 ] ]
+
+   ; reseed and regenerate
+   TRACEINSTRUCTION [ (RERANDOM 10) ]
+   TRACEINSTRUCTION [ REPEAT 10 [ push "sequence2 RANDOM 1000 ] ]
+
+   ; sequences starting from different seeds should be different
+   SIMPLEREPORTTEST [:sequence1 = :sequence3] "false
+
+   ; sequences starting from the same seed should be the same
+   SIMPLEREPORTTEST [:sequence3 = :sequence4] "true
+
+   ; make RANDOM random again
+   (RERANDOM TIMEMILLI)
+END
+
+
+TO RERANDOMTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST   [(RERANDOM 10 "toomany)]
+
+   RUNDOESNTLIKEINPUTTEST [(RERANDOM {1}) ]
+   RUNDOESNTLIKEINPUTTEST [(RERANDOM [1]) ]
+   RUNDOESNTLIKEINPUTTEST [(RERANDOM 1.5) ]
+
+END
+
+
+TO RANDOMTEST
+
+   RANDOMTEST.SMOKETEST
+   RANDOMTEST.LARGENUMBERTEST
+   RANDOMTEST.BADINPUT
+
+   RERANDOMTEST.SMOKETEST
+   RERANDOMTEST.BADINPUT
+
+END

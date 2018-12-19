@@ -1,0 +1,331 @@
+LOAD "testlib.lgo
+
+TO NETWORKTEST.SERVERCOMMAND :test :port
+   OUTPUT (LIST "perl.exe "networkserver.pl :test :port)
+END
+
+TO CLIENT.ONREADYTOSEND
+  LOCALMAKE "payload [This is my payload]
+
+  make "NetConnectOnCall :NetConnectOnCall + 1
+  (print "Client.OnReadySend "call "# :NetConnectOnCall)
+
+  if :NetConnectOnCall > 2 [
+     (print "Sending: :payload)
+     LOCALMAKE "isok NETCONNECTSENDVALUE :payload
+     (print "Send "Status: :isok)
+  ]
+
+  WAIT 100
+END
+
+TO NETWORKTEST.SMOKETEST
+
+  LOCAL [serverport]
+
+  NETSTARTUP
+
+  MAKE "serverport 5960
+  IGNORE NETACCEPTON :serverport [print [ready to send]] [print (list "|Received:| NETCONNECTRECEIVEVALUE)]
+
+  ; connect to the port 5960
+  LOCALMAKE "NetConnectOnCall 0
+
+  (print "Connecting)
+  localmake "isok NETCONNECTON "localhost :serverport "CLIENT.ONREADYTOSEND []
+  (print "Connect "Status: :isok)
+
+  WAIT 60 * 10 ; 10 seconds
+
+  ; close the client socket
+  NETCONNECTOFF
+
+  ; close the server socket
+  NETACCEPTOFF
+
+  NETSHUTDOWN
+END
+
+TO NETWORKTEST.NETSHUTDOWNCRASH
+  TRACEINSTRUCTION [(NETSTARTUP 1)] ; must be synchronous
+  TRACEINSTRUCTION [ IGNORE NETCONNECTON "localhost 9999 [] [] ]
+  TRACEINSTRUCTION [ NETSHUTDOWN ]
+  TRACEINSTRUCTION [ NETSHUTDOWN ] ; crashes (bug #48)
+END
+
+
+TO NETWORKTEST.SERVER.RECEIVEUNFRAMEDPACKET
+
+   LOCAL [localport server.data onsendreadycounter shellcommand]
+
+   MAKE "localport   1234
+   MAKE "server.data []
+   MAKE "onsendreadycounter 0
+
+   ; start the server
+   TRACEINSTRUCTION [ NETSTARTUP ]
+   FAILIFNOTTRUE [
+      NETACCEPTON
+         :localport
+         [ MAKE  "onsendreadycounter :onsendreadycounter + 1 ]
+         [ QUEUE "server.data        NETACCEPTRECEIVEVALUE   ]
+      ]
+
+   TRACEINSTRUCTION [ WAIT 60 * 2 ]
+
+   ; spawn a client to send some data such that the data do not end in NUL.
+   ; This is a regression test for Bug #49, which sent FMSLogo into a tight loop.
+   MAKE "shellcommand (SENTENCE [perl.exe sendtologo.pl] "localhost :localport)
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+ 
+   ; wait two seconds for the network connection
+   TRACEINSTRUCTION [ WAIT 60 * 2 ]
+
+   ; shutdown the server
+   TRACEINSTRUCTION [ NETACCEPTOFF ]
+   TRACEINSTRUCTION [ NETSHUTDOWN  ]
+
+
+   ; Verify that the "send ready" callback was called three times.
+   ; 1) When the accept() is successful and the server
+   ;    is ready to receive connections.
+   ; 2) When the client connects to the server.
+   ; 3) When the server is ready to send data.
+   SIMPLEREPORTTEST [:onsendreadycounter] 3
+
+   ; verify that we received the expected data
+   SIMPLEREPORTTEST [:server.data]    [[hello]]
+
+END
+
+TO NETWORKTEST.SERVER.TWOCONNECTIONS
+
+   LOCAL [localport server.data shellcommand]
+
+   MAKE "localport 2222
+   MAKE "server.data []
+
+   NETSTARTUP
+
+   ; start the server
+   FAILIFNOTTRUE [ NETACCEPTON :localport [] [QUEUE "server.data NETACCEPTRECEIVEVALUE ]]
+
+   ; spawn a client to open a connection to the server
+   MAKE "shellcommand (SENTENCE [perl.exe sendtologo.pl] "localhost :localport)
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait two seconds for the network connection
+   WAIT 60*2
+
+   ; spawn a client to open a second connection to the server
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait two seconds for the network connection
+   WAIT 60*2
+
+   ; shutdown the server
+   NETACCEPTOFF
+
+   NETSHUTDOWN
+
+   ; verify that both connections succeeded
+   SIMPLEREPORTTEST [:server.data] [[hello] [hello]]
+
+END
+
+TO NETWORKTEST.CLIENT.SMOKETEST
+
+   LOCAL [remoteport client.data shellcommand]
+
+   MAKE "remoteport  5556
+   MAKE "client.data []
+
+   ; spawn a server
+   MAKE "shellcommand NETWORKTEST.SERVERCOMMAND "simple :remoteport
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait a second for the server to come online
+   TRACEINSTRUCTION [ WAIT 60 ]
+
+   ; connect the client to the server
+   TRACEINSTRUCTION [ NETSTARTUP ]
+   FAILIFNOTTRUE    [ NETCONNECTON "localhost :remoteport [] [QUEUE "client.data NETCONNECTRECEIVEVALUE] ]
+
+   ; wait two seconds for the network connection
+   TRACEINSTRUCTION  [ WAIT 60*2 ]
+
+   TRACEINSTRUCTION  [ NETCONNECTOFF ]
+   TRACEINSTRUCTION  [ NETSHUTDOWN   ]
+
+   SIMPLEREPORTTEST [:client.data] [[hello]]
+END
+
+TO NETWORKTEST.CLIENT.ECHO
+
+   LOCAL [remoteport client.data onsendreadycounter shellcommand]
+
+   MAKE "remoteport  5557
+   MAKE "client.data []
+   MAKE "onsendreadycounter 0
+
+   ; spawn a server
+   MAKE "shellcommand NETWORKTEST.SERVERCOMMAND "echo :remoteport
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait a second for the server to come online
+   TRACEINSTRUCTION  [ WAIT 60 ]
+
+   ; connect the client to the server
+   TRACEINSTRUCTION  [ NETSTARTUP ]
+
+   FAILIFNOTTRUE [ 
+      NETCONNECTON 
+         "localhost
+         :remoteport
+         [ MAKE   "onsendreadycounter :onsendreadycounter + 1 ]
+         [ QUEUE "client.data         NETCONNECTRECEIVEVALUE  ]
+   ]
+
+   ; wait two seconds for the network connection
+   TRACEINSTRUCTION  [ WAIT 60*2 ]
+
+   ; send the data that we expect to see echo'd back to us
+   FAILIFNOTTRUE  [ NETCONNECTSENDVALUE "yodle ]
+
+   ; we shouldn't be able to send right away (the client should be busy)
+   FAILIFNOTFALSE [ NETCONNECTSENDVALUE "XXXXX ]
+
+   ; wait two seconds for the server to echo the data
+   TRACEINSTRUCTION  [ WAIT 60*2 ]
+
+   TRACEINSTRUCTION  [ NETCONNECTOFF ]
+   TRACEINSTRUCTION  [ NETSHUTDOWN   ]
+
+   SIMPLEREPORTTEST [:onsendreadycounter ] 4
+   SIMPLEREPORTTEST [:client.data]         [[yodle]]
+END
+
+TO NETWORKTEST.CLIENT.RECEIVELARGEPACKET
+
+   LOCAL [remoteport client.data onsendreadycounter shellcommand expecteddata]
+
+   MAKE "remoteport  5556
+   MAKE "client.data []
+   MAKE "onsendreadycounter 0
+
+   ; spawn a server
+   MAKE "shellcommand NETWORKTEST.SERVERCOMMAND "largepacket :remoteport
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait a second for the server to come online
+   TRACEINSTRUCTION  [ WAIT 60 ]
+
+   ; connect the client to the server
+   TRACEINSTRUCTION  [ NETSTARTUP ]
+
+   FAILIFNOTTRUE [
+      NETCONNECTON
+         "localhost
+         :remoteport
+         [ MAKE "onsendreadycounter :onsendreadycounter + 1 ]
+         [ QUEUE "client.data ITEM 1 NETCONNECTRECEIVEVALUE ]
+   ]
+
+   ; wait two seconds for the network connection
+   TRACEINSTRUCTION  [ WAIT 60*2 ]
+
+   TRACEINSTRUCTION  [ NETCONNECTOFF ]
+   TRACEINSTRUCTION  [ NETSHUTDOWN   ]
+
+   MAKE "expecteddata REPEATWORD "abcdefghijklmnopqrstuvwxyz 1000
+
+   SIMPLEREPORTTEST [:onsendreadycounter ] 3
+
+   ; TESTBUG: we shouldn't have to concatenate the data because it should have come in a single packet.
+   ;SIMPLEREPORTTEST [:client.data] (LIST :expecteddata)
+   SIMPLEREPORTTEST [APPLY "WORD :client.data] :expecteddata
+END
+
+
+TO NETWORKTEST.CLIENT.RECEIVEUNFRAMEDPACKET
+
+   LOCAL [remoteport client.data shellcommand]
+
+   MAKE "remoteport  5555
+   MAKE "client.data []
+
+   ; spawn a server
+   MAKE "shellcommand NETWORKTEST.SERVERCOMMAND "nonul :remoteport
+   FAILIFNOTTRUE (LIST "SHELL :shellcommand)
+
+   ; wait a second for the server to come online
+   TRACEINSTRUCTION [ WAIT 60 ]
+
+   ; connect the client to the server
+   TRACEINSTRUCTION [ NETSTARTUP ]
+   FAILIFNOTTRUE [ 
+      NETCONNECTON 
+         "localhost
+         :remoteport 
+         [] 
+         [QUEUE "client.data NETCONNECTRECEIVEVALUE]
+   ]
+
+   ; wait two seconds for the network connection
+   TRACEINSTRUCTION  [ WAIT 60*2 ]
+
+   TRACEINSTRUCTION  [ NETCONNECTOFF ]
+   TRACEINSTRUCTION  [ NETSHUTDOWN   ]
+
+   SIMPLEREPORTTEST [:client.data] [[Hello]]
+END
+
+TO NETWORKTEST.SERVER.SHUTDOWNRACE
+
+   ; start the network system
+   TRACEINSTRUCTION [ NETSTARTUP ]
+
+   ; Start a server.  This schedules an asynchronous callback.
+   FAILIFNOTTRUE [ NETACCEPTON 12345 [] [] ]
+
+   ; Immediately shutdown (before the server's sendready gets called)
+   ; This forces a race condition where the WSAAsyncGetHostByName message
+   ; comes in after the network subsystem has been shut down.
+   ; This is a regression test for Bug #181, which is a crash.
+   TRACEINSTRUCTION [ NETSHUTDOWN ]
+
+END
+
+TO NETWORKTEST.CLIENT.SHUTDOWNRACE
+
+   ; start the network system
+   TRACEINSTRUCTION  [ NETSTARTUP ]
+
+   ; make an outbound connection.  Because this is asynchronous, 
+   ; we don't even need a server, we are going to shutdown before
+   ; the call to connect() is made.
+   FAILIFNOTTRUE [ NETCONNECTON "localhost 4444 [] [] ]
+
+   ; Immediately shutdown (before the client's sendready gets called).
+   ; This forces a race condition where the WSAAsyncGetHostByName message
+   ; comes in after the network subsystem has been shut down.
+   ; This is a regression test for bug #181, which is a crash.
+   TRACEINSTRUCTION [ NETSHUTDOWN ]
+END
+
+TO NETWORKTEST
+
+  NETWORKTEST.SMOKETEST
+  NETWORKTEST.NETSHUTDOWNCRASH
+
+  NETWORKTEST.SERVER.RECEIVEUNFRAMEDPACKET
+  NETWORKTEST.SERVER.TWOCONNECTIONS
+  NETWORKTEST.SERVER.SHUTDOWNRACE
+
+  NETWORKTEST.CLIENT.SMOKETEST
+  NETWORKTEST.CLIENT.ECHO
+  NETWORKTEST.CLIENT.RECEIVEUNFRAMEDPACKET
+  NETWORKTEST.CLIENT.RECEIVELARGEPACKET
+  NETWORKTEST.CLIENT.SHUTDOWNRACE
+
+END

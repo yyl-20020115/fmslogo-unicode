@@ -1,0 +1,111 @@
+LOAD "testlib.lgo
+
+TO ARITYTEST.SMOKETEST
+
+   ; Test some primitives with types of inputs
+   SIMPLEREPORTTEST [ARITY "ARITY]        [1 1 1]
+   SIMPLEREPORTTEST [ARITY "BITMODE]      [0 0 0]
+   SIMPLEREPORTTEST [ARITY "BITMAPTURTLE] [0 0 1]
+   SIMPLEREPORTTEST [ARITY "LIST]         [0 2 -1]
+   SIMPLEREPORTTEST [ARITY "list]         [0 2 -1]
+
+   ; macros are supported
+   SIMPLEREPORTTEST [ARITY "localmake]    [2 2 2]
+
+   ; primitives with non-alphanumeric names are supported
+   SIMPLEREPORTTEST [ARITY "`]            [1 1 1]
+
+   ; infix operators supported
+   SIMPLEREPORTTEST [ARITY "*  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "+  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "-  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "/  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "<  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "=  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY ">  ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "<= ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "<> ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY ">= ] [2 2 2]
+   SIMPLEREPORTTEST [ARITY "-- ] [1 1 1] ; negative
+
+   ; primitives that can take no arguments without parens,
+   ; even though they take one by default.
+   SIMPLEREPORTTEST [ARITY "CO       ]  [0 1 1]
+   SIMPLEREPORTTEST [ARITY "CONTINUE ]  [0 1 1]
+   SIMPLEREPORTTEST [ARITY "HELP     ]  [0 1 1]
+   
+
+   ; Tests some library procedures that are not loaded
+   ; This confirms that ARITY can work on unloaded procedures.
+   TRACEINSTRUCTION [ERASE "TUTOR]
+   SIMPLEREPORTTEST [ARITY "TUTOR]     [0 0 0]
+
+END
+
+
+TO ARITYTEST.VARIATIONS.HELPER :toline :procedurename :expectedarity
+   ; This is a helper that writes the contents of a "TO line" to
+   ; a file with a given name, then appends "END".  It then
+   ; runs ARITY on the command and checks the results.
+   ;
+   ; The intent is enable testing of the automatic loading of
+   ; previously unknown procedures and variations on TO lines
+   ; without adding supplemental files to the source tree.
+
+   LOCALMAKE "filename (WORD :procedurename ".lgo)
+
+   ; Write the file
+   WRITEBINARYDATA :filename (WORD :toline "|\nend\n|)
+
+   ; Invoke ARITY, which should load the file.
+   ERASE (LIST :procedurename)
+   SIMPLEREPORTTEST (LIST "ARITY WORD "" :procedurename) :expectedarity
+
+   ; cleanup
+   ERASEFILE :filename
+
+END
+
+
+TO ARITYTEST.VARIATIONS
+   ; no inputs
+   ARITYTEST.VARIATIONS.HELPER "|TO ARITYTEST.PROC1| "aritytest.proc1 [0 0 0]
+
+   ; one input
+   ARITYTEST.VARIATIONS.HELPER "|TO ARITYTEST.PROC2 :oneinput| "aritytest.proc2 [1 1 1]
+
+   ; rest input
+   ARITYTEST.VARIATIONS.HELPER "|TO ARITYTEST.PROC3 [:rest]| "aritytest.proc3 [0 0 -1]
+
+   ; custom default
+   ARITYTEST.VARIATIONS.HELPER "|TO ARITYTEST.PROC4 :one :two [:three 3] 2| "aritytest.proc4 [2 2 3]
+
+   ; default values
+   ARITYTEST.VARIATIONS.HELPER "|TO ARITYTEST.PROC5 :one [:two 2] [:three 3]| "aritytest.proc5 [1 1 3]
+
+END
+
+TO ARITYTEST.BADINPUT
+
+   ; input must be a word
+   RUNDOESNTLIKEINPUTTEST [ ARITY {1 2 3}       ]
+   RUNDOESNTLIKEINPUTTEST [ ARITY [1 2 3]       ]
+
+   ; command must exist
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST  [ARITY "this.command.does.not.exist.in.fmslogo]
+
+   ; special forms
+   (RUNEXPECTERRORTEST [ARITY "TO]     2001 "|ARITY doesn't like TO as input because it has a special form|)
+   (RUNEXPECTERRORTEST [ARITY ".MACRO] 2001 "|ARITY doesn't like .MACRO as input because it has a special form|)
+
+   RUNNOTENOUGHINPUTSTEST [(ARITY)]
+   RUNTOOMANYINPUTSTEST   [(ARITY "FORWARD "toomany)]
+
+END
+
+
+TO ARITYTEST
+  ARITYTEST.SMOKETEST
+  ARITYTEST.VARIATIONS
+  ARITYTEST.BADINPUT
+END

@@ -1,0 +1,44 @@
+; This program is a manual regression test for Bug #145, which is that
+; FMSLogo sometimes prints out:
+;
+;    You must be in a procedure to use OUTPUT or STOP.
+;
+; While playing tetrads.
+;
+
+to handler
+   if not equal? :myvalue 1 [ 
+      print [Test Failed!] 
+   ]
+end
+
+to myoutput
+   repeat 1 [ if :myvalue=repcount [ output "true ] ]
+   output "false
+end
+
+to runtest
+
+   localmake "isdone "false
+   localmake "myvalue 1
+
+   print [move the mouse around inside the screen window]
+   print [press 'q' to quit]
+
+   keyboardon [if keyboardvalue=ascii "q [make "isdone "true]]
+   mouseon   [handler] [handler] [handler] [handler] [handler]
+   setfocus  "FMSLogo
+  
+   while [not :isdone] [ 
+     if not equal? myoutput "true [ 
+        print [Test Failed!]
+     ]
+   ]
+
+   mouseoff
+   keyboardoff
+
+   bye
+end
+
+make "startup [runtest]

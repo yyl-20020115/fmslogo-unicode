@@ -1,0 +1,444 @@
+LOAD "testlib.lgo
+
+TO BITLOADSIZETEST :width :height :bitdepth
+  ; this is a regression test for Bug #1
+  CLEARSCREEN
+  HIDETURTLE
+  REPEAT 500 [ FORWARD REPCOUNT RIGHT 91 ]
+  SHOWTURTLE
+  PENUP
+  HOME
+  PENDOWN
+
+  ; save the bitmap
+  LOCALMAKE "oldactivearea ACTIVEAREA
+  SETACTIVEAREA (list 0 0 :width :height)
+  (BITSAVE "bitmap-test.bmp :bitdepth)
+
+  CLEARSCREEN
+
+  SIMPLEREPORTTEST [ BITLOADSIZE "bitmap-test.bmp ] (list :width :height)
+  ERASEFILE "bitmap-test.bmp
+
+  ; restore the previous active area
+  SETACTIVEAREA :oldactivearea
+END
+
+
+TO PASTEINCIRCLE :imagewidth :radius
+
+  REPEAT 18 [
+    RIGHT   20
+    FORWARD :radius
+
+    ; move such that the paste will be centered
+    LOCALMAKE "x XCOR
+    LOCALMAKE "y YCOR
+    SETXY :x - :imagewidth :y - :imagewidth
+    BITPASTE 
+    SETXY :x :y
+
+    BACK    :radius
+  ]
+END
+
+
+; smoke test for BITCUT, BITCOPY, and BITPASTE
+TO BITCOPYTEST
+
+  CLEARSCREEN
+  SETBITMODE 1
+  PENDOWN
+
+  ; draw a red pattern
+  SETPENSIZE [2 2]
+  REPEAT 72 [
+    REPEAT 4 [FORWARD 100 RIGHT 90] 
+    SETPENCOLOR (LIST REPCOUNT*3 0 0)
+    RIGHT 5
+  ]
+
+  ; cut out part of the pattern to the clipboard
+  PENUP
+  SETXY -50 -50
+  SETBITINDEX 0
+  BITCUT 100 100
+
+  ; draw a green pattern
+  CLEARSCREEN
+  PENDOWN
+  SETPENSIZE [1 1]
+  REPEAT 36 [
+    REPEAT 4 [FORWARD 100 RIGHT 90] 
+    SETPENCOLOR (LIST 0 REPCOUNT*6 0)
+    RIGHT 10
+  ]
+
+  ; cut out the green pattern to index 1
+  PENUP
+  SETXY -20 -20
+  SETBITINDEX 1
+  BITCUT 40 40
+
+
+  ; erase everything
+  CLEARSCREEN
+
+  ; paste the red pattern in a circle
+  SETBITINDEX 0
+  PASTEINCIRCLE 50 150
+
+  ; paste the green pattern in a smaller circle
+  SETBITINDEX 1
+  PASTEINCIRCLE 20 50
+
+  ; copy and paste some of the image
+  SETBITINDEX 2
+  BITCOPY 200 200
+  RIGHT    90
+  FORWARD  200
+  BITPASTE
+
+  CHECKSCREEN "bitpaste-pattern
+
+  PENDOWN
+  
+END
+
+TO BITPASTETOINDEXTEST.SMOKETEST
+
+    LOCALMAKE "savedScreenColor SCREENCOLOR
+
+    LOCALMAKE "sprite     1
+    LOCALMAKE "background 2
+    LOCALMAKE "backbuffer 3
+
+    ; create a recognizable shape to copy & paste
+    TRACEINSTRUCTION [ SETSCREENCOLOR 3 ]
+    TRACEINSTRUCTION [ SETPENCOLOR    4 ]
+    TRACEINSTRUCTION [ CLEARSCREEN      ]
+    TRACEINSTRUCTION [ REPEAT 3 [ FORWARD 20  RIGHT 120 ] ]
+
+    ; initialize bitindex 1 to the sprite
+    TRACEINSTRUCTION [ SETBITINDEX :sprite ]
+    TRACEINSTRUCTION [ BITCUT 25 25 ]
+
+    ; initialize bitindex 2 to the background
+    TRACEINSTRUCTION [ SETBITINDEX :background  ]
+    TRACEINSTRUCTION [ SETPENCOLOR 1  ]
+    TRACEINSTRUCTION [ REPEAT 20 [ CIRCLE2 100 RIGHT 18 ] ]
+    TRACEINSTRUCTION [ BITCUT 100 100 ]
+
+    ; initialize bitindex 3 to the drawing surface
+    TRACEINSTRUCTION [ SETBITINDEX :backbuffer ]
+    TRACEINSTRUCTION [ BITCUT 100 100 ]
+
+    ; create a simple animation
+    TRACEINSTRUCTION [ SETSCREENCOLOR 5 ]
+    TRACEINSTRUCTION [ HIDETURTLE       ]
+
+    REPEAT 12 [ 
+
+       ; clear the back-buffer to the background image
+       TRACEINSTRUCTION [ SETBITINDEX :background ]
+       TRACEINSTRUCTION [ BITPASTETOINDEX :backbuffer 0 0 ]
+
+       ; copy the sprites into position
+       TRACEINSTRUCTION [ SETBITINDEX :sprite ]
+       TRACEINSTRUCTION [ BITPASTETOINDEX :backbuffer          50            (10 - REPCOUNT) * 10 ]
+       TRACEINSTRUCTION [ BITPASTETOINDEX :backbuffer (REPCOUNT - 2) * 10            0            ]
+
+       ; copy the back buffer to the screen
+       TRACEINSTRUCTION [ SETBITINDEX :backbuffer ]
+       TRACEINSTRUCTION [ BITPASTE ]
+       TRACEINSTRUCTION [ WAIT 10  ]
+    ]
+
+    TRACEINSTRUCTION [ SHOWTURTLE ]
+
+    SETSCREENCOLOR :savedScreenColor
+END
+
+TO BITPASTETOINDEXTEST.BADINPUT
+
+    ; initialize bitindex 1 and fill it with a valid bitmap
+    TRACEINSTRUCTION [ SETBITINDEX 1  ]
+    TRACEINSTRUCTION [ BITCUT 100 100 ]
+
+    RUNNOTENOUGHINPUTSTEST [ (BITPASTETOINDEX 1 0)            ]
+    RUNTOOMANYINPUTSTEST   [ (BITPASTETOINDEX 1 0 0 "toomany) ]
+
+    RUNSTOPPINGTEST [ BITPASTETOINDEX 10000 0   0 ] ; out of range
+
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX -1   0   0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX 1.5  0   0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX [1]  0   0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX {1}  0   0 ]
+
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1  1.5  0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1  [0]  0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1  {0}  0 ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1  "one 0 ]
+
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1   0  1.5  ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1   0  [0]  ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1   0  {0}  ]
+    RUNDOESNTLIKEINPUTTEST [ BITPASTETOINDEX  1   0  "one ]
+
+
+    ; now set the bitmap index to something that probably
+    ; doesn't have bitmap stored in it.
+    ; This should show a messagebox and throw a stopping error.
+    TRACEINSTRUCTION  [ SETBITINDEX 41  ]
+    RUNSTOPPINGTEST   [ BITPASTETOINDEX  41  0  0 ]
+
+END
+
+TO BITSAVE.TESTHELPER :bitdepth :activearea :pictureinstructions
+
+    LOCALMAKE "savedActiveArea ACTIVEAREA
+    LOCALMAKE "savedPenColor   PENCOLOR
+    LOCALMAKE "filename (WORD "bitsave- :bitdepth "bpp.bmp)
+
+    ; Draw a distinctive picture.
+    CLEARSCREEN
+    HIDETURTLE
+    RUN :pictureinstructions
+    SHOWTURTLE
+
+    ; save the picture
+    SETACTIVEAREA :activearea
+    (BITSAVE :filename :bitdepth)
+
+    ; Check that the bitmap was saved correctly.
+    IF FILEEXISTS :filename [
+
+       LOCALMAKE "expectedDimensions (LIST 
+           (ITEM 3 :activearea) - (ITEM 1 :activearea)
+           (ITEM 4 :activearea) - (ITEM 2 :activearea))
+
+       SIMPLEREPORTTEST [ BITLOADSIZE :filename ] :expectedDimensions
+    ]
+    CHECKFILEAGAINSTBASELINE :filename (word "testimage- :filename)
+
+    ; cleanup
+    SETACTIVEAREA :savedActiveArea
+    SETPENCOLOR   :savedPenColor
+END
+
+TO BITSAVE.1BPP
+
+    ; Use a width that isn't DWORD-aligned to test that
+    ; BITSAVE adds the necessary padding.
+    LOCALMAKE "activearea [ -100 -100 103 203 ]
+
+    ; Draw the picture in blue to make it obvious that it gets
+    ; saved in monochrome.
+    LOCALMAKE "pictureinstructions [
+       SETPENCOLOR 1
+       REPEAT 500 [ FORWARD REPCOUNT RIGHT 90 ]
+    ]
+
+    ; Run the test
+    BITSAVE.TESTHELPER 1 :activearea :pictureinstructions
+END
+
+TO BITSAVE.4BPP
+
+    ; Use a width that isn't DWORD-aligned to test that
+    ; BITSAVE adds the necessary padding.
+    LOCALMAKE "activearea [ -50 -50 103 203 ]
+
+    ; Draw the picture with 16 colors to make it obvious
+    ; that it gets saved in four colors.
+    LOCALMAKE "pictureinstructions [
+       REPEAT 500 [ FORWARD REPCOUNT RIGHT 90 SETPENCOLOR REPCOUNT ]
+    ]
+
+    BITSAVE.TESTHELPER 4 :activearea :pictureinstructions
+END
+
+TO BITSAVE.HIGHBPP :bitdepth
+    ; Use a width that isn't DWORD-aligned to test that
+    ; BITSAVE adds the necessary padding.
+    LOCALMAKE "activearea [ -200 -200 203 203 ]
+
+    ; Draw a picture with 24-bit colors to make it obvious
+    ; if it gets saved with a lower bit-depth.
+    LOCALMAKE "counter 0
+    LOCALMAKE "pictureinstructions [
+
+        PENUP
+        REPEAT 512 [
+            SETXY REPCOUNT-210 -210
+            REPEAT 512 [
+                SETPIXEL (LIST
+                    BITAND 255 (SUM 128 ASHIFT :counter -16)
+                    BITAND 255 ASHIFT :counter -8
+                    BITAND 255 :counter)
+                FORWARD 1
+                MAKE "counter :counter + 1
+            ]
+        ]
+        PENDOWN
+    ]
+
+    BITSAVE.TESTHELPER :bitdepth :activearea :pictureinstructions
+END
+
+TO BITSAVE.8BPP
+    BITSAVE.HIGHBPP 8
+END
+
+TO BITSAVE.16BPP
+    BITSAVE.HIGHBPP 16
+END
+
+TO BITSAVE.24BPP
+    BITSAVE.HIGHBPP 24
+END
+
+TO BITSAVE.32BPP
+    BITSAVE.HIGHBPP 32
+END
+
+TO BITSAVE.WITHACTIVEAREA
+    ; This is a regression test for bug #301.
+
+    LOCALMAKE "savedActiveArea ACTIVEAREA
+    LOCALMAKE "savedPenColor   PENCOLOR
+
+    CLEARSCREEN
+    REPEAT 500 [ FORWARD REPCOUNT RIGHT 91 SETPENCOLOR REPCOUNT ]
+    
+    SETACTIVEAREA [ 0 0 200 200 ]
+    BITSAVE "bitsave-withactivearea.bmp
+
+    CLEARSCREEN
+    BITLOAD  "bitsave-withactivearea.bmp
+
+    ; did the image get restored correctly?
+    CHECKSCREEN "bitsave-200x200
+
+    ; cleanup
+    SETACTIVEAREA :savedActiveArea
+    SETPENCOLOR   :savedPenColor
+    ERASEFILE     "bitsave-withactivearea.bmp
+END
+
+TO BITSAVE.LARGEBITMAP
+    ; This is a regression test for bug #425
+
+    ; Erase the bitmap, if it exists.
+    TRACEINSTRUCTION [ERASEFILE "bitsave-largebitmap.bmp]
+
+    ; Spawn an instance of FMSLogo with a large with and height that will
+    ; create a bitmap.
+    SIMPLEREPORTTEST [ (SHELL [fmslogo -w 6614 -h 4677 -l bitsave-largebitmap.lgo] LOCALETRUE) ] LOCALETRUE
+
+    ; Confirm that the bitmap was saved as expected.
+    CHECKFILEAGAINSTBASELINE "bitsave-largebitmap.bmp "testimage-bitsave-largebitmap.bmp
+END
+
+TO SETBITINDEX.SMOKETEST
+    TRACEINSTRUCTION [ SETBITINDEX 4 ] 
+    SIMPLEREPORTTEST [ BITINDEX  ] 4
+END
+
+TO SETBITINDEX.BADINPUT
+
+    ; initialize bitindex 4
+    TRACEINSTRUCTION [ SETBITINDEX 4  ]
+
+
+    RUNNOTENOUGHINPUTSTEST [ (SETBITINDEX)            ]
+    RUNTOOMANYINPUTSTEST   [ (SETBITINDEX 1 "toomany) ]
+
+    RUNTOOMANYINPUTSTEST   [ (BITINDEX "toomany) ]
+
+    RUNDOESNTLIKEINPUTTEST [ SETBITINDEX -1   ]
+    RUNDOESNTLIKEINPUTTEST [ SETBITINDEX 1.5  ]
+    RUNDOESNTLIKEINPUTTEST [ SETBITINDEX [1]  ]
+    RUNDOESNTLIKEINPUTTEST [ SETBITINDEX {1}  ]
+    RUNDOESNTLIKEINPUTTEST [ SETBITINDEX "one ]
+
+    RUNOUTOFMEMORYTEST [SETBITINDEX 100000000 ]  ; allocation failure
+    RUNOUTOFMEMORYTEST [SETBITINDEX 2000000000 ] ; integer overflow
+
+    ; make sure that the selected bitmap didn't change
+    SIMPLEREPORTTEST [ BITINDEX  ] 4
+END
+
+TO BITLOAD.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(BITLOAD)]
+   RUNTOOMANYINPUTSTEST   [(BITLOAD "file.gif "toomany)]
+
+   ; bad input
+   RUNBITMAPOPENERRORTEST [ BITLOAD "doesnotexist.bmp ]
+   RUNDOESNTLIKEINPUTTEST [ BITLOAD {a b c}           ]
+   RUNDOESNTLIKEINPUTTEST [ BITLOAD [a b c]           ]
+
+   ; try to open something that isn't a BMP as a BMP
+   RUNBITMAPINVALIDERRORTEST [ BITLOAD "bitmap.lgo   ]
+
+   ; try to open a directory as a BMP
+   TRACEINSTRUCTION       [ MKDIR "bmptest.bmp POPDIR ]
+   RUNBITMAPOPENERRORTEST [ BITLOAD "bmptest.bmp      ]
+   TRACEINSTRUCTION       [ RMDIR "bmptest.bmp        ]
+
+END
+
+TO BITSAVE.BADINPUT
+
+   ; bad filename input (must be a word)
+   RUNDOESNTLIKEINPUTTEST [ BITSAVE {1 2 3}       ]
+   RUNDOESNTLIKEINPUTTEST [ BITSAVE [1 2 3]       ]
+   RUNBITMAPOPENERRORTEST [ BITSAVE "||           ]
+   RUNBITMAPOPENERRORTEST [ BITSAVE "bad>file.bmp ]
+
+   ; max color depth (must be a member of {1,2,4,24,32})
+   RUNDOESNTLIKEINPUTTEST [ (BITSAVE "file.bmp 3        ) ]
+   RUNDOESNTLIKEINPUTTEST [ (BITSAVE "file.bmp "nonint  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (BITSAVE "file.bmp [1 2 3]  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (BITSAVE "file.bmp {1 2 3}  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (BITSAVE "file.bmp -1       ) ]
+
+   ; make sure that none of the above created the file
+   SIMPLEREPORTTEST [FILEEXISTS "file.bmp] "false
+
+   ; cleanup, just in case
+   TRACEINSTRUCTION [ ERASEFILE "file.bmp ]
+
+   ; try to save a gif over a directory
+   TRACEINSTRUCTION       [ MKDIR   "bmptest.bmp POPDIR ]
+   RUNBITMAPOPENERRORTEST [ BITSAVE "bmptest.bmp        ]
+   TRACEINSTRUCTION       [ RMDIR   "bmptest.bmp        ]
+
+END
+
+
+TO BITMAPTEST
+  BITLOADSIZETEST 100 100 1
+  BITLOADSIZETEST 100 101 1
+  BITLOADSIZETEST 101 100 1
+
+  BITLOAD.BADINPUT
+  BITSAVE.BADINPUT
+
+  BITCOPYTEST
+
+  BITPASTETOINDEXTEST.BADINPUT
+  BITPASTETOINDEXTEST.SMOKETEST
+
+  SETBITINDEX.SMOKETEST
+  SETBITINDEX.BADINPUT
+
+  BITSAVE.1BPP
+  BITSAVE.4BPP
+  BITSAVE.8BPP
+  BITSAVE.16BPP
+  BITSAVE.24BPP
+  BITSAVE.32BPP
+  BITSAVE.WITHACTIVEAREA
+  BITSAVE.LARGEBITMAP
+END

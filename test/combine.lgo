@@ -1,0 +1,35 @@
+LOAD "testlib.lgo
+
+TO COMBINETEST.SMOKETEST
+
+   ; when the second input is a word, COMBINE acts like WORD.
+   SIMPLEREPORTTEST [ COMBINE "o "k         ] "ok
+   SIMPLEREPORTTEST [ COMBINE "4 "2         ] 42
+
+   ; when the second input is a list, COMBINE acts like FPUT.
+   SIMPLEREPORTTEST [ COMBINE "o []      ] [o]
+   SIMPLEREPORTTEST [ COMBINE "1 [2 3]   ] [1 2 3]
+   SIMPLEREPORTTEST [ COMBINE [] []      ] [[]]
+
+END
+
+TO COMBINETEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(COMBINE "a)]
+   RUNTOOMANYINPUTSTEST   [(COMBINE "a "b "toomany)]
+
+   ; bad input
+   RUNBADINPUTTEST [COMBINE [] "a]
+   RUNBADINPUTTEST [COMBINE {} "a]
+   RUNBADINPUTTEST [COMBINE "a {}]
+
+END
+
+
+TO COMBINETEST
+
+   COMBINETEST.SMOKETEST
+   COMBINETEST.BADINPUT
+
+END

@@ -1,0 +1,222 @@
+LOAD "testlib.lgo
+
+TO TURTLETEST.SMOKETEST
+
+   ; reset to 0 turtles
+   TRACEINSTRUCTION [ CLEARSCREEN ]
+   SIMPLEREPORTTEST [TURTLE ] 0
+   SIMPLEREPORTTEST [TURTLES] 0
+
+   TRACEINSTRUCTION [SETTURTLE 2]
+   SIMPLEREPORTTEST [TURTLES]  2
+   SIMPLEREPORTTEST [TURTLE]   2
+
+   TRACEINSTRUCTION [SETTURTLE 1]
+   SIMPLEREPORTTEST [TURTLES]  2
+   SIMPLEREPORTTEST [TURTLE]   1
+
+   ; SETTURTLE 3.0 is the same as SETTURTLE 3
+   TRACEINSTRUCTION [SETTURTLE 3.0]
+   SIMPLEREPORTTEST [TURTLES]  3
+   SIMPLEREPORTTEST [TURTLE]   3
+
+   TRACEINSTRUCTION [SETTURTLE 1024]
+   SIMPLEREPORTTEST [TURTLES]  1024
+   SIMPLEREPORTTEST [TURTLE]   1024
+
+   ; negative turtles are meaningful in perspective mode
+   TRACEINSTRUCTION [SETTURTLE -1]
+   TRACEINSTRUCTION [SETTURTLE -2]
+   TRACEINSTRUCTION [SETTURTLE -3]
+   SIMPLEREPORTTEST [TURTLES]  1024
+   SIMPLEREPORTTEST [TURTLE]   -3
+
+   ; reset to 0 turtles
+   TRACEINSTRUCTION [ CLEARSCREEN ]
+   SIMPLEREPORTTEST [TURTLE ] 0
+   SIMPLEREPORTTEST [TURTLES] 0
+END
+
+TO TURTLETEST.WITHOWNPEN
+
+   ; reset to 0 turtles
+   TRACEINSTRUCTION [ CLEARSCREEN ]
+
+   ; make sure that the default turtle does not have its own pen
+   SIMPLEREPORTTEST [ HASOWNPENP ] LOCALEFALSE
+
+   ; set the global pen state to some non-default (recognizable) value
+   TRACEINSTRUCTION [ SETPENSIZE  2 ]
+   TRACEINSTRUCTION [ SETPENCOLOR 2 ]
+   TRACEINSTRUCTION [ PENREVERSE    ]
+
+   ; move the turtle to draw with its pen
+   FORWARD 100
+
+   ; create two turtles that have their own pen
+   TRACEINSTRUCTION [(SETTURTLE 2 "true)]
+
+   ; make sure that the new turtle has its own pen
+   SIMPLEREPORTTEST [ HASOWNPENP ] LOCALETRUE
+
+   ; set the TURTLE 2's pen state to some non-default (recognizable) values
+   TRACEINSTRUCTION [ SETPENSIZE  3 ]
+   TRACEINSTRUCTION [ SETPENCOLOR 3 ]
+   TRACEINSTRUCTION [ PENERASE      ]
+
+   ; move the turtle to draw with its pen
+   RIGHT   180
+   FORWARD 100
+
+   ; create a new turtle that uses the global pen state
+   TRACEINSTRUCTION [(SETTURTLE 3 "false)]
+
+   ; check that this turtle uses the global pen
+   SIMPLEREPORTTEST [ HASOWNPEN? ] LOCALEFALSE
+   SIMPLEREPORTTEST [ PENSIZE    ] [2 2]
+   SIMPLEREPORTTEST [ PENCOLOR   ] 2
+   SIMPLEREPORTTEST [ PENMODE    ] "reverse
+
+   ; move the turtle to draw with its pen
+   RIGHT   270
+   FORWARD 100
+
+   ; change this turtle's pen.  It should change the global pen.
+   TRACEINSTRUCTION [ SETPENSIZE  4 ]
+   TRACEINSTRUCTION [ SETPENCOLOR 4 ]
+   TRACEINSTRUCTION [ PENPAINT      ]
+   FORWARD 100
+
+   ; set back to the zeroth turtle (which also uses the global pen)
+   TRACEINSTRUCTION [ SETTURTLE 0 ]
+
+   ; check that TURTLE 0 uses the same pen as TURTLE 3
+   SIMPLEREPORTTEST [ HASOWNPEN? ] LOCALEFALSE
+   SIMPLEREPORTTEST [ PENSIZE    ] [4 4]
+   SIMPLEREPORTTEST [ PENCOLOR   ] 4
+   SIMPLEREPORTTEST [ PENMODE    ] "paint
+
+   ; switch to TURTLE 1.  This has its own pen and should still use
+   ; the initial values.
+   TRACEINSTRUCTION [ SETTURTLE 1 ]
+   SIMPLEREPORTTEST [ HASOWNPEN?  ] LOCALETRUE
+   SIMPLEREPORTTEST [ PENSIZE     ] [1 1]
+   SIMPLEREPORTTEST [ PENCOLOR    ] 0
+   SIMPLEREPORTTEST [ PENMODE     ] "paint
+
+   RIGHT   90
+   FORWARD 100
+
+   ; make TURTLE 2 use the global pen by using the pen mode override
+   TRACEINSTRUCTION [ (SETTURTLE 2 "false) ]
+   SIMPLEREPORTTEST [ HASOWNPEN? ] LOCALEFALSE
+   SIMPLEREPORTTEST [ PENSIZE    ] [4 4]
+   SIMPLEREPORTTEST [ PENCOLOR   ] 4
+   SIMPLEREPORTTEST [ PENMODE    ] "paint
+   FORWARD 100
+
+   ; Make TURTLE 0 use its own pen by using the pen mode override.
+   ; This should no longer use the global pen, but instead use the default values.
+   TRACEINSTRUCTION [ (SETTURTLE 0 "true) ]
+   SIMPLEREPORTTEST [ HASOWNPENP ] LOCALETRUE
+   SIMPLEREPORTTEST [ PENSIZE    ] [1 1]
+   SIMPLEREPORTTEST [ PENCOLOR   ] 0
+   SIMPLEREPORTTEST [ PENMODE    ] "paint
+   FORWARD 100
+
+   ; switch back to TURTLE 3 to check that the global pen state hasn't changed
+   TRACEINSTRUCTION [ SETTURTLE 3 ]
+   SIMPLEREPORTTEST [ HASOWNPENP ] LOCALEFALSE
+   SIMPLEREPORTTEST [ PENSIZE    ] [4 4]
+   SIMPLEREPORTTEST [ PENCOLOR   ] 4
+   SIMPLEREPORTTEST [ PENMODE    ] "paint
+   FORWARD 100
+
+   ; check that the picture was drawn correctly (that the pen was changed, as expected)
+   CHECKSCREEN "turtle-has-own-pen
+END
+
+TO TURTLETEST.CHARACTERISTICS
+
+   ; test that the individual turtles maintain their own state
+   TRACEINSTRUCTION [ CLEARSCREEN ]
+
+   ; give some unique characteristics to turtle #0
+   TRACEINSTRUCTION [ SETXY 130 15 ]
+   TRACEINSTRUCTION [ PENUP        ]
+   ; TODO: give more characteristics
+
+
+   ; switch to a fresh turtle
+   TRACEINSTRUCTION [ SETTURTLE 1  ]
+
+   ; test the initial starting conditions of turtle #1
+   SIMPLEREPORTTEST [ POS          ] [0 0]
+   SIMPLEREPORTTEST [ PENDOWNP     ] LOCALETRUE
+
+   ; give turtle #1 some unique characteritics
+   TRACEINSTRUCTION [ SETXY 70 120 ]
+
+   ; switch back to turtle #0 and test that the characteristics were restored
+   TRACEINSTRUCTION [ SETTURTLE 0  ]
+   SIMPLEREPORTTEST [ POS          ] [130 15]
+   SIMPLEREPORTTEST [ PENDOWNP     ] LOCALEFALSE
+
+END
+
+TO TURTLETEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST   [(TURTLE  "toomany)]
+   RUNTOOMANYINPUTSTEST   [(TURTLES "toomany)]
+
+   
+   CLEARSCREEN ; set the total turtles to 0
+
+   ; Set the turtle to 1, so we can confirm that
+   ; bad input doesn't inadvertantly select turtle 0.
+   ; See bug #254.
+   SETTURTLE 1
+
+   RUNNOTENOUGHINPUTSTEST [(SETTURTLE)]
+   RUNTOOMANYINPUTSTEST   [(SETTURTLE -1 "toomany)]
+   RUNTOOMANYINPUTSTEST   [(SETTURTLE 10 "true "toomany)]
+
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE "ten  ]
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE [10]  ]
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE {10}  ]
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE 10.5  ]
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE -4    ]
+   RUNDOESNTLIKEINPUTTEST [SETTURTLE 1e20  ]
+
+   RUNDOESNTLIKEINPUTTEST [(SETTURTLE 10 "maybe )]
+   RUNDOESNTLIKEINPUTTEST [(SETTURTLE 10 [true] )]
+   RUNDOESNTLIKEINPUTTEST [(SETTURTLE 10 {true} )]
+   RUNDOESNTLIKEINPUTTEST [(SETTURTLE 10   10   )]
+   RUNDOESNTLIKEINPUTTEST [(SETTURTLE 10  1e20  )]
+
+   RUNOUTOFMEMORYTEST [SETTURTLE 100000000 ]  ; allocation failure
+   RUNOUTOFMEMORYTEST [SETTURTLE 2000000000 ] ; integer overflow
+
+   ; test that the bad input tests didn't change the turtle
+   SIMPLEREPORTTEST [TURTLE]  1
+   SIMPLEREPORTTEST [TURTLES] 1
+
+   ; the special turtles don't support a pen mode
+   RUNTOOMANYINPUTSTEST [(SETTURTLE -1 "toomany)]
+
+   RUNTOOMANYINPUTSTEST [(HASOWNPENP "toomany)]
+   RUNTOOMANYINPUTSTEST [(HASOWNPEN? "toomany)]
+
+END
+
+TO TURTLETEST
+
+   ; tests TURTLE, TURTLES, and SETTURTLE
+
+   TURTLETEST.SMOKETEST
+   TURTLETEST.WITHOWNPEN
+   TURTLETEST.CHARACTERISTICS
+   TURTLETEST.BADINPUT
+
+END
+

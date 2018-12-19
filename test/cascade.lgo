@@ -1,0 +1,68 @@
+LOAD "testlib.lgo
+
+TO CASCADETEST.VOWELP :letter
+   OUTPUT (MEMBERP :letter "aeiou)
+END
+
+TO CASCADETEST.SMOKETEST
+
+   ; Examples from the manual
+   SIMPLEREPORTTEST [CASCADE 5                   [LPUT # ?] []                   ] [1 2 3 4 5]
+   SIMPLEREPORTTEST [CASCADE [CASCADETEST.VOWELP FIRST ?]   [BUTFIRST ?] "spring ] "ing
+   SIMPLEREPORTTEST [CASCADE 5                   [# * ?]    1                    ] 120
+
+   ; Non-integer number for endtest (works, but weird)
+   SIMPLEREPORTTEST [CASCADE 5.9 [# * ?] 1 ] 120
+
+   ; Use an expression for the endtest template
+   SIMPLEREPORTTEST [CASCADE [# > 5] [# * ?] 1 ] 120
+
+   ; Evaluate template zero times
+   SIMPLEREPORTTEST [CASCADE 0       [2 * ?] 10 ] 10
+   SIMPLEREPORTTEST [CASCADE ["TRUE] [2 * ?] 10 ] 10
+
+END
+
+
+TO CASCADETEST.FIBONACCI :n
+  ; odd number of inputs (no finaltemplate)
+  OUTPUT (CASCADE :n [?1 + ?2] 1 [?1] 0)
+END
+
+TO CASCADETEST.PIGLATIN :word
+  ; even number of inputs (finaltemplate)
+  OUTPUT (CASCADE [CASCADETEST.VOWELP FIRST ?]
+                  [WORD BUTFIRST ? FIRST ?]
+                  :word
+                  [WORD ? "ay])
+END
+
+TO CASCADETEST.MULTITEMPLATE
+
+   ; Multi-template examples from the manual
+   SIMPLEREPORTTEST [CASCADETEST.FIBONACCI 5] 8
+   SIMPLEREPORTTEST [CASCADETEST.FIBONACCI 6] 13
+
+   SIMPLEREPORTTEST [CASCADETEST.PIGLATIN  "apple]  "appleay
+   SIMPLEREPORTTEST [CASCADETEST.PIGLATIN  "banana] "ananabay
+
+END
+
+
+TO CASCADETEST.BADINPUT
+
+   ; unexpected number of inputs
+   RUNNOTENOUGHINPUTSTEST [(CASCADE 5 [LPUT # ?]) ]
+
+   ; bad inputs
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [CASCADE -1   [LPUT # ?] [] ]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST  [CASCADE "bad [LPUT # ?] [] ]
+END
+
+TO CASCADETEST
+
+   CASCADETEST.SMOKETEST
+   CASCADETEST.MULTITEMPLATE
+   CASCADETEST.BADINPUT
+
+END

@@ -1,0 +1,19 @@
+to iseq.integer? :a
+if not number? :a       [op "false]
+if not equal? :a int :a [op "false]
+op "true
+end
+
+to iseq :a :b
+if not iseq.integer? :a [(throw "error 4 :a)]
+if not iseq.integer? :b [(throw "error 4 :b)]
+if not (:a > :b) [output iseq1 :a :b]
+output map [-?] iseq1 -:a -:b
+end
+
+to iseq1 :a :b
+if :a > :b [output []]
+output fput :a iseq1 :a + 1 :b
+end
+
+bury [iseq iseq1 iseq.integer?]

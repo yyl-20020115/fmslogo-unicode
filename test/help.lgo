@@ -1,0 +1,35 @@
+LOAD "testlib.lgo
+
+TO HELPTEST
+
+  LOCAL [isok]
+
+  HELP [wor]
+  MAKE "isok YESNOBOX [Question] [Is the index open to "WORD"?]
+  IFELSE :isok [
+    REPORTTESTPASSED (sentence "|"HELP [wor]" opened the index to WORD|) 
+  ] [
+    REPORTTESTFAILED (sentence "|"HELP [wor]" did not open the index to WORD|) 
+  ]
+
+  HELP "TO
+  MAKE "isok YESNOBOX [Question] [Is the documentation for TO showing?]
+  IFELSE :isok [
+    REPORTTESTPASSED (sentence "|"HELP TO" opened the documentation for TO|) 
+  ] [
+    REPORTTESTFAILED (sentence "|"HELP TO" did not opened the documentation for TO|) 
+  ]
+
+  (HELP)
+  MAKE "isok YESNOBOX [Question] [Is the manual open to the table of contents?]
+  IFELSE :isok [
+    REPORTTESTPASSED (sentence "|"(HELP)" opened the manual to the table of contents|) 
+  ] [
+    REPORTTESTFAILED (sentence "|"(HELP)" did not open the manual to the table of contents|) 
+  ]
+
+
+  RUNTOOMANYINPUTSTEST [(HELP "TOO "MANY)]
+
+END
+

@@ -1,0 +1,58 @@
+LOAD "testlib.lgo
+
+TO SAVETEST.SMOKETEST.HELPER :filename
+
+   LOCAL [savedWriter savedWorkspace]
+
+   ; Set the workspace to a known quantity.
+   MAKE "savedWorkspace CONTENTS
+   BURYALL
+
+   ; Create one of each type of object
+   TRACEINSTRUCTION [ DEFINE "MyProcedure    [[x y] [OUTPUT :x + :y]] ]
+   TRACEINSTRUCTION [ MAKE   "MyVariable     "abc                     ]
+   TRACEINSTRUCTION [ PPROP  "MyPropertyList "Property 1              ]
+
+   ; Save the workspace and verify the contents
+   (RUNPRINTTEST
+     (list "SAVE QUOTED :filename)
+     (list
+         "|to myprocedure :x :y|
+         "|OUTPUT :x + :y|
+         "|end|
+         "||
+         "|Make "myvariable "abc|
+         "|Pprop "mypropertylist "Property 1|
+     )
+     :filename
+   )
+
+   ; Restore the workspace.
+   ERASE [[MyProcedure] [MyVariable] [MyPropertyList]]
+   UNBURY :savedWorkspace
+   ERASEFILE :filename
+END
+
+TO SAVETEST.SMOKETEST
+  SAVETEST.SMOKETEST.HELPER "savetest.smoketest.txt
+END
+
+TO SAVETEST.NUMBERFILENAME
+  SAVETEST.SMOKETEST.HELPER 123.4
+END
+
+TO SAVETEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(SAVE)]
+   RUNTOOMANYINPUTSTEST   [(SAVE "testfile.txt "toomany)]
+
+   RUNFILESYSTEMERRORTEST [SAVE  [] ]
+   RUNFILESYSTEMERRORTEST [SAVE  [1]]
+   RUNFILESYSTEMERRORTEST [SAVE  {1}]
+END
+
+TO SAVETEST
+  SAVETEST.SMOKETEST
+  SAVETEST.NUMBERFILENAME
+  SAVETEST.BADINPUT
+END
+

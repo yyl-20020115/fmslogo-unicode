@@ -1,0 +1,1380 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO WINDOWSTEST.SETUP :toplevelwindow
+  ; A shared helper command that adds one of each widget to a window
+
+  ; On the main window, the dialog boxes use the turtle coordinate system
+  localmake "ydir  IFELSE :toplevelwindow = "main [ -1   ] [ 1   ]
+  localmake "xpos  IFELSE :toplevelwindow = "main [ -100 ] [ 10  ]
+  localmake "ypos  IFELSE :toplevelwindow = "main [  200 ] [ 10  ]
+  localmake "width IFELSE :toplevelwindow = "main [  200 ] [ 100 ]
+
+  STATICCREATE :toplevelwindow "statictext [This is static text] :xpos :ypos :width 15
+  make "ypos :ypos + 15*:ydir
+
+  COMBOBOXCREATE :toplevelwindow "combobox  :xpos :ypos :width 50
+  COMBOBOXADDSTRING "combobox [banana]
+  COMBOBOXADDSTRING "combobox [apple]
+  COMBOBOXADDSTRING "combobox [orange]
+  make "ypos :ypos + 55*:ydir
+
+  LISTBOXCREATE     :toplevelwindow "listbox :xpos :ypos :width 40
+  LISTBOXADDSTRING  "listbox [option C]
+  LISTBOXADDSTRING  "listbox [option B]
+  LISTBOXADDSTRING  "listbox [option A]
+  make "ypos :ypos + 45*:ydir
+
+  SCROLLBARCREATE :toplevelwindow "horziontalscrollbar :xpos :ypos :width 20 []
+  make "ypos :ypos + 25*:ydir
+
+  SCROLLBARCREATE :toplevelwindow "verticalscrollbar1 :xpos + 10 :ypos 20 80 []
+  SCROLLBARCREATE :toplevelwindow "verticalscrollbar2 :xpos + 70 :ypos 20 80 []
+  make "ypos :ypos + 100*:ydir
+
+  ; create a group box with some radio buttons
+  GROUPBOXCREATE :toplevelwindow "radiogroupbox :xpos :ypos :width 45
+  RADIOBUTTONCREATE :toplevelwindow "radiogroupbox "radiooptiona [Choice A] :xpos+10 :ypos+:ydir*10 :width-20 15
+  RADIOBUTTONCREATE :toplevelwindow "radiogroupbox "radiooptionb [Choice B] :xpos+10 :ypos+:ydir*25 :width-20 15
+  RADIOBUTTONSET "radiooptiona "true  ; "true should be okay in all locales
+  RADIOBUTTONSET "radiooptionb "false ; "false should be okay in all locales
+  make "ypos :ypos + 50*:ydir
+
+  ; create a group box for some checkboxes
+  GROUPBOXCREATE :toplevelwindow "checkboxgroupbox :xpos :ypos :width 45
+  CHECKBOXCREATE :toplevelwindow "checkboxgroupbox "checkboxa [Checkbox A] :xpos+10 :ypos+:ydir*10 :width-20 15
+  CHECKBOXCREATE :toplevelwindow "checkboxgroupbox "checkboxb [Checkbox B] :xpos+10 :ypos+:ydir*25 :width-20 15
+  CHECKBOXSET "checkboxa "true
+  CHECKBOXSET "checkboxb "false
+  make "ypos :ypos + 50*:ydir
+
+  ; make this an exit button for dialogs, just in case
+  BUTTONCREATE :toplevelwindow "button "|Press to Continue| :xpos :ypos :width 15 (list "dialogdelete quoted :toplevelwindow)
+  make "ypos :ypos + 25*:ydir
+
+END
+
+TO WINDOWSTEST.WINDOW.SMOKETEST
+
+  ; create a root window, add a widget of each type 
+  windowcreate "root "testwindow [window smoke test] 0 0 120 380 [WINDOWSTEST.SETUP "testwindow]
+
+  wait 60
+
+  ; delete the root window
+  windowdelete "testwindow
+
+  ; Delete a window from the context of its callback
+  ; Commented out because of bug #385
+  ; windowcreate "root "testwindow [delete window from callback] 0 0 120 380 [
+  ;   windowdelete "testwindow
+  ; ]
+
+END
+
+
+TO WINDOWSTEST.WINDOW.BADINPUT
+
+  ; note: all text inputs accept anything (lists, array, numbers, etc.)
+
+  ;
+  ; bad input for WINDOWCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(windowcreate "main "name [caption] 0 0 120 400)]
+  RUNTOOMANYINPUTSTEST   [(windowcreate "main "name [caption] 0 0 120 400 [] "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name10 [caption] [0]  0   120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name20 [caption] {0}  0   120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name25 [caption] 10.5 0   120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name30 [caption]  0  [0]  120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name40 [caption]  0  {0}  120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name45 [caption]  0  10.5 120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name50 [caption]  0   0  [120] 400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name60 [caption]  0   0  {120} 400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name70 [caption]  0   0  -120  400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name75 [caption]  0   0   10.5 400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name80 [caption]  0   0   120 [400] [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name90 [caption]  0   0   120 {400} [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name00 [caption]  0   0   120 -400  [] ]
+  RUNDOESNTLIKEINPUTTEST  [windowcreate "main "name05 [caption]  0   0   120  10.5 [] ]
+
+
+  ; create a good window for the rest of the tests
+  TRACEINSTRUCTION [ windowcreate "main "goodwindow [caption] 0 0 100 100 [] ]
+
+  ; already exists
+  RUNWINDOWALREADYEXISTSTEST "goodwindow [ windowcreate "main "goodwindow [newcaption] 0 0 100 100 [] ]
+
+
+  ;
+  ; bad input for WINDOWENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (windowenable "goodwindow) ]
+  RUNTOOMANYINPUTSTEST   [ (windowenable "goodwindow LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ windowenable "nonexistent LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST [ windowenable "goodwindow  1      ]
+  RUNDOESNTLIKEINPUTTEST [ windowenable "goodwindow  [true] ]
+  RUNDOESNTLIKEINPUTTEST [ windowenable "goodwindow  {true} ]
+
+
+  ;
+  ; bad input for WINDOWDELETE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (windowdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (windowdelete "goodwindow "toomany) ]
+
+  windowdelete "goodwindow
+
+END
+
+TO WINDOWSTEST.DIALOG.SMOKETEST
+
+  ; create a root dialog, add a widget of each type, then delete the dialog
+  dialogcreate "root "testdialog [dialog smoke test] 0 0 120 380 [
+    WINDOWSTEST.SETUP "testdialog
+    SETTIMER 31 1000 [dialogdelete "testdialog CLEARTIMER 31]
+  ]
+
+END
+
+TO WINDOWSTEST.DIALOG.BADINPUT.FROMCALLBACK
+
+  ; create something that is not a dialog control for bad input tests
+  TRACEINSTRUCTION [ listboxcreate "main "notadialog 0 100 100 100 ]
+
+  ; already exists
+  RUNWINDOWALREADYEXISTSTEST "gooddialog [ dialogcreate "main "gooddialog [newcaption] 0 0 100 100 [] ]
+
+  ;
+  ; bad input for DIALOGENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (dialogenable "gooddialog) ]
+  RUNTOOMANYINPUTSTEST   [ (dialogenable "gooddialog LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ dialogenable "nonexistent LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notadialog  [ dialogenable "notadialog  LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST  [ dialogenable "gooddialog  1      ]
+  RUNDOESNTLIKEINPUTTEST  [ dialogenable "gooddialog  [true] ]
+  RUNDOESNTLIKEINPUTTEST  [ dialogenable "gooddialog  {true} ]
+
+  ;
+  ; bad input for DIALOGDELETE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (dialogdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (dialogdelete "gooddialog "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ dialogdelete "nonexistent ]
+  RUNWINDOWDOESNOTEXISTTEST "notadialog  [ dialogdelete "notadialog  ]
+
+  TRACEINSTRUCTION [ dialogdelete  "gooddialog ]
+  TRACEINSTRUCTION [ listboxdelete "notadialog ]
+
+END
+
+TO WINDOWSTEST.DIALOG.BADINPUT
+
+  ; note: all text inputs accept anything (lists, array, numbers, etc.)
+
+  ;
+  ; bad input for DIALOGCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(dialogcreate "main "name [caption] 0 0 120 400)]
+  RUNTOOMANYINPUTSTEST   [(dialogcreate "main "name [caption] 0 0 120 400 [] "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name10 [caption] [0]  0   120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name20 [caption] {0}  0   120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name25 [caption] 10.5 0   120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name30 [caption]  0  [0]  120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name40 [caption]  0  {0}  120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name45 [caption]  0  10.5 120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name50 [caption]  0   0  [120]  400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name60 [caption]  0   0  {120}  400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name70 [caption]  0   0  -120   400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name75 [caption]  0   0   10.5  400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name80 [caption]  0   0   120  [400] [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name90 [caption]  0   0   120  {400} [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name00 [caption]  0   0   120  -400  [] ]
+  RUNDOESNTLIKEINPUTTEST [dialogcreate "main "name05 [caption]  0   0   120  400.5 [] ]
+
+  ; Create a good dialog for the rest of the tests
+  ; Note that, because dialogs are modal, the rest of the tests must be run from
+  ; the dialog box's callback routine.
+  TRACEINSTRUCTION [ dialogcreate "main "gooddialog [caption] 0 0 100 100 [WINDOWSTEST.DIALOG.BADINPUT.FROMCALLBACK] ]
+
+END
+
+TO WINDOWSTEST.MAINWINDOW.SMOKETEST
+
+  ; pull a widget of each type onto the screen window
+  WINDOWSTEST.SETUP "main
+
+  ; create a non-modal window on the desktop
+  WINDOWCREATE "main "mywindow [This should disappear when you click the button] 0 0 150 30 []
+
+  ; Create a modal window on the desktop that will block until deleted
+  DIALOGCREATE "main "mydialog "mytitle 0 50 130 50 [
+    BUTTONCREATE "mydialog "myok [Press to continue tests] 10 10 100 20 [ WINDOWDELETE "main ]
+  ]
+END
+
+
+TO WINDOWSTEST.STATIC
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.static "mytitle 0 0 100 100 []      ]
+
+  TRACEINSTRUCTION [ STATICCREATE "windowstest.static "static [Initial Value] 0 0 100 20 ]
+
+  ; the second static goes on the main window, because the first static is not a window
+  TRACEINSTRUCTION [ STATICCREATE "static "static2 [Initial Value] 0 0 100 20 ]
+
+  TRACEINSTRUCTION [ STATICUPDATE "static [New Value] ]
+  TRACEINSTRUCTION [ STATICDELETE "static  ]
+  TRACEINSTRUCTION [ STATICDELETE "static2 ]
+
+  TRACEINSTRUCTION [ WINDOWDELETE "windowtest.static ]
+
+END
+
+
+TO WINDOWSTEST.STATIC.BADINPUT
+
+  ;
+  ; bad input for STATICCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(staticcreate "main "name [caption] 0 0 120)]
+  RUNTOOMANYINPUTSTEST   [(staticcreate "main "name [caption] 0 0 120 400 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name10 [caption] [0]  0   120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name20 [caption] {0}  0   120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name25 [caption] 10.5 0   120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name30 [caption]  0  [0]  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name40 [caption]  0  {0}  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name45 [caption]  0  10.5 120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name50 [caption]  0   0  [120] 400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name60 [caption]  0   0  {120} 400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name70 [caption]  0   0  -120  400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name75 [caption]  0   0   10.5 400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name80 [caption]  0   0   120 [400] ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name90 [caption]  0   0   120 {400} ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name00 [caption]  0   0   120 -400  ]
+  RUNDOESNTLIKEINPUTTEST [staticcreate "main "name05 [caption]  0   0   120  10.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ staticcreate "main "goodstatic [newcaption] 0 0 100 100 ]
+  RUNWINDOWALREADYEXISTSTEST "goodstatic [ staticcreate "main "goodstatic [newcaption] 0 0 100 100 ]
+
+  ; create something that is not a static control for bad input tests
+  TRACEINSTRUCTION [ listboxcreate "main "notastatic 0 100 100 100 ]
+
+  ;
+  ; bad input for STATICUPDATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (staticupdate "goodstatic) ]
+  RUNTOOMANYINPUTSTEST   [ (staticupdate "goodstatic "newtext "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ staticupdate "nonexistent "newtext ]
+  RUNWINDOWDOESNOTEXISTTEST "notastatic  [ staticupdate "notastatic  "newtext ]
+
+  ;
+  ; bad input for STATICDELETE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (staticdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (staticdelete "goodstatic "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ staticdelete "nonexistent ]
+  RUNWINDOWDOESNOTEXISTTEST "notastatic  [ staticdelete "notastatic  ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ staticdelete  "goodstatic ]
+  TRACEINSTRUCTION [ listboxdelete "notastatic ]
+
+END
+
+
+TO WINDOWSTEST.LISTBOX
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.listbox "mytitle 0 0 100 100 [] ]
+
+  TRACEINSTRUCTION [ LISTBOXCREATE "windowstest.listbox "testlist 5 5 90 90 ]
+
+  ; get a string when none is select.
+  SIMPLEREPORTTEST [ LISTBOXGETSELECT "testlist ] []
+
+
+  ; add, get, and remove a string
+  TRACEINSTRUCTION [ LISTBOXADDSTRING    "testlist "firststring ]
+  SIMPLEREPORTTEST [ LISTBOXGETSELECT    "testlist ] [firststring]
+  TRACEINSTRUCTION [ LISTBOXDELETESTRING "testlist 0 ]
+
+  ; deleteing a non-existing item is okay
+  TRACEINSTRUCTION [ LISTBOXDELETESTRING "testlist 100 ]
+
+  ; add a different string and get it
+  TRACEINSTRUCTION [ LISTBOXADDSTRING    "testlist [secondstring] ]
+  TRACEINSTRUCTION [ LISTBOXADDSTRING    "testlist [thirdstring]  ]
+  SIMPLEREPORTTEST [ LISTBOXGETSELECT    "testlist ] [secondstring]
+
+  ; make sure we can add a lot of items
+  repeat 100 [
+    LISTBOXADDSTRING "testlist word "option repcount
+  ]
+
+  ; "true and "false should be valid input in all locales
+  TRACEINSTRUCTION [ LISTBOXENABLE "testlist "false ]
+  TRACEINSTRUCTION [ LISTBOXENABLE "testlist "false ]
+  TRACEINSTRUCTION [ LISTBOXENABLE "testlist "true  ]
+
+  LISTBOXDELETE "testlist
+  WINDOWDELETE  "windowstest.listbox
+
+END
+
+
+TO WINDOWSTEST.LISTBOX.BADINPUT
+
+  ;
+  ; bad input for LISTBOXCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(listboxcreate "main "name 0 0 120)]
+  RUNTOOMANYINPUTSTEST   [(listboxcreate "main "name 0 0 120 400 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name10 [0]  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name20 {0}  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name25 10.5 0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name30 0  [0]  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name40 0  {0}  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name45 0  10.5 120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name50 0   0  [120] 400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name60 0   0  {120} 400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name70 0   0  -120  400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name75 0   0   10.5 400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name80 0   0   120 [400] ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name90 0   0   120 {400} ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name00 0   0   120 -400  ]
+  RUNDOESNTLIKEINPUTTEST [listboxcreate "main "name05 0   0   120  10.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ listboxcreate "main "goodlistbox 0 0 100 100 ]
+  RUNWINDOWALREADYEXISTSTEST "goodlistbox [ listboxcreate "main "goodlistbox 0 0 100 100 ]
+
+  ; create something that is not a listbox for bad input tests
+  TRACEINSTRUCTION [ staticcreate  "main "notalistbox [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for LISTBOXENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (listboxenable "goodlistbox) ]
+  RUNTOOMANYINPUTSTEST   [ (listboxenable "goodlistbox LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ listboxenable "doesnotexist LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notalistbox  [ listboxenable "notalistbox  LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST  [ listboxenable "goodlistbox  1      ]
+  RUNDOESNTLIKEINPUTTEST  [ listboxenable "goodlistbox  [true] ]
+  RUNDOESNTLIKEINPUTTEST  [ listboxenable "goodlistbox  {true} ]
+
+
+  ;
+  ; bad input for LISTBOXADDSTRING
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (listboxaddstring) ]
+  RUNTOOMANYINPUTSTEST   [ (listboxaddstring "goodlistbox "item "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ listboxaddstring "nonexistent "item ]
+  RUNWINDOWDOESNOTEXISTTEST "notalistbox [ listboxaddstring "notalistbox "item ]
+
+
+  ;
+  ; bad input for LISTBOXDELETESTRING
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (listboxdeletestring "goodlistbox) ]
+  RUNTOOMANYINPUTSTEST   [ (listboxdeletestring "goodlistbox 0 "toomany) ]
+
+  ; Add a string to make sure we don't delete it.
+  ; (regression test for bug #163)
+  TRACEINSTRUCTION [ listboxaddstring "goodlistbox [selection] ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ listboxdeletestring "doesnotexist 0 ]
+  RUNWINDOWDOESNOTEXISTTEST "notalistbox  [ listboxdeletestring "notalistbox  0 ]
+
+  RUNDOESNTLIKEINPUTTEST [ listboxdeletestring "goodlistbox  -1    ]
+  RUNDOESNTLIKEINPUTTEST [ listboxdeletestring "goodlistbox  10.5  ]
+  RUNDOESNTLIKEINPUTTEST [ listboxdeletestring "goodlistbox  [0]   ]
+  RUNDOESNTLIKEINPUTTEST [ listboxdeletestring "goodlistbox  {0}   ]
+  RUNDOESNTLIKEINPUTTEST [ listboxdeletestring "goodlistbox  "zero ]
+
+  ; verify that nothing was deleted
+  SIMPLEREPORTTEST [ listboxgetselect "goodlistbox ] [selection]
+
+  ;
+  ; bad input for LISTBOXGETSELECT
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (listboxgetselect) ]
+  RUNTOOMANYINPUTSTEST   [ (listboxgetselect "goodlistbox "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ ignore listboxgetselect "doesnotexist ]
+  RUNWINDOWDOESNOTEXISTTEST "notalistbox  [ ignore listboxgetselect "notalistbox  ]
+
+ 
+
+  ;
+  ; bad input for LISTBOXDELETE
+  ;
+
+  RUNNOTENOUGHINPUTSTEST [ (listboxdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (listboxdelete "goodlistbox "toomany) ]
+
+  ; LISTBOXDELETE on a widget that is not a listbox control
+  RUNWINDOWDOESNOTEXISTTEST "notalistbox  [ listboxdelete "notalistbox ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ listboxdelete "doesnotexist ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ listboxdelete "goodlistbox ]
+  TRACEINSTRUCTION [ staticdelete  "notalistbox ]
+
+END
+
+
+TO WINDOWSTEST.COMBOBOX
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.combobox "mytitle 0 0 100 100 [] ]
+
+  TRACEINSTRUCTION [ COMBOBOXCREATE "windowstest.combobox "combobox 5 5 90 90         ]
+
+  ; add, get, and remove a string
+  SIMPLEREPORTTEST [ COMBOBOXGETTEXT      "combobox ] []
+  TRACEINSTRUCTION [ COMBOBOXADDSTRING    "combobox  "firststring ]
+  SIMPLEREPORTTEST [ COMBOBOXGETTEXT      "combobox ] [firststring]
+  TRACEINSTRUCTION [ COMBOBOXDELETESTRING "combobox 0 ]
+  SIMPLEREPORTTEST [ COMBOBOXGETTEXT      "combobox ] []
+
+  ; deleteing a non-existing item is okay
+  TRACEINSTRUCTION [ COMBOBOXDELETESTRING "combobox 100 ]
+
+  ; add a different string and get it
+  TRACEINSTRUCTION [ COMBOBOXADDSTRING "combobox   [secondstring] ]
+  TRACEINSTRUCTION [ COMBOBOXADDSTRING "combobox   [thirdstring]  ]
+  SIMPLEREPORTTEST [ COMBOBOXGETTEXT   "combobox ] [secondstring]
+
+  ; set and get the text in the edit control portion
+  TRACEINSTRUCTION [ COMBOBOXSETTEXT   "combobox   "text ]
+  SIMPLEREPORTTEST [ COMBOBOXGETTEXT   "combobox ] [text]
+
+  ; make sure we can add a lot of items
+  REPEAT 100 [
+    COMBOBOXADDSTRING "combobox REPCOUNT
+  ]
+
+  ; "true and "false should be valid input in all locales
+  TRACEINSTRUCTION [ COMBOBOXENABLE "combobox "false ]
+  TRACEINSTRUCTION [ COMBOBOXENABLE "combobox "false ]
+  TRACEINSTRUCTION [ COMBOBOXENABLE "combobox "true  ]
+
+  TRACEINSTRUCTION [ COMBOBOXDELETE "combobox                 ]
+  TRACEINSTRUCTION [ WINDOWDELETE  "windowstest.combocombobox ]
+
+END
+
+TO WINDOWSTEST.COMBOBOX.BADINPUT
+
+  ;
+  ; bad input for COMBOBOXCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(comboboxcreate "main "name 0 0 120)]
+  RUNTOOMANYINPUTSTEST   [(comboboxcreate "main "name 0 0 120 400 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name10 [0]  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name20 {0}  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name25 10.5 0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name30 0  [0]  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name40 0  {0}  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name45 0  10.5 120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name50 0   0  [120] 400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name60 0   0  {120} 400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name70 0   0  -120  400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name75 0   0   10.5 400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name80 0   0   120 [400] ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name90 0   0   120 {400} ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name00 0   0   120 -400  ]
+  RUNDOESNTLIKEINPUTTEST [comboboxcreate "main "name05 0   0   120  10.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ comboboxcreate "main "goodcombobox 0 0 100 100 ]
+  RUNWINDOWALREADYEXISTSTEST "goodcombobox [ comboboxcreate "main "goodcombobox 0 0 100 100 ]
+
+  ; create something that is not a combobox for bad input tests
+  TRACEINSTRUCTION [ staticcreate  "main "notacombobox [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for COMBOBOXENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (comboboxenable "goodcombobox) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxenable "goodcombobox LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ comboboxenable "doesnotexist LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ comboboxenable "notacombobox LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST  [ comboboxenable "goodcombobox 1      ]
+  RUNDOESNTLIKEINPUTTEST  [ comboboxenable "goodcombobox [true] ]
+  RUNDOESNTLIKEINPUTTEST  [ comboboxenable "goodcombobox {true} ]
+
+
+  ;
+  ; bad input for COMBOBOXADDSTRING
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (comboboxaddstring) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxaddstring "goodcombobox "item "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent  [ comboboxaddstring "nonexistent  "item ]
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ comboboxaddstring "notacombobox "item ]
+
+
+  ;
+  ; bad input for COMBOBOXDELETESTRING
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (comboboxdeletestring "goodcombobox) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxdeletestring "goodcombobox 0 "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ comboboxdeletestring "doesnotexist 0 ]
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ comboboxdeletestring "notacombobox 0 ]
+
+  RUNDOESNTLIKEINPUTTEST [ comboboxdeletestring "goodcombobox  -1    ]
+  RUNDOESNTLIKEINPUTTEST [ comboboxdeletestring "goodcombobox  10.5  ]
+  RUNDOESNTLIKEINPUTTEST [ comboboxdeletestring "goodcombobox  [0]   ]
+  RUNDOESNTLIKEINPUTTEST [ comboboxdeletestring "goodcombobox  {0}   ]
+  RUNDOESNTLIKEINPUTTEST [ comboboxdeletestring "goodcombobox  "zero ]
+
+  ;
+  ; bad input for COMBOBOXGETTEXT
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (comboboxgettext) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxgettext "goodcombobox "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ ignore comboboxgettext "doesnotexist ]
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ ignore comboboxgettext "notacombobox ]
+
+
+  ;
+  ; bad input for COMBOBOXSETTEXT
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (comboboxsettext "goodcombobox) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxsettext "goodcombobox "text "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ comboboxsettext "doesnotexist "text ]
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ comboboxsettext "notacombobox "text ]
+ 
+
+  ;
+  ; bad input for COMBOBOXDELETE
+  ;
+
+  ; COMBOBOXDELETE on a widget that is not a combobox control
+  RUNNOTENOUGHINPUTSTEST [ (comboboxdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (comboboxdelete "goodcombobox "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "notacombobox [ comboboxdelete "notacombobox ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ comboboxdelete "doesnotexist ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ comboboxdelete "goodcombobox ]
+  TRACEINSTRUCTION [ staticdelete   "notacombobox ]
+
+END
+
+
+TO WINDOWSTEST.GROUPBOX
+
+  WINDOWCREATE "main "windowstest.groupbox "mytitle 0 0 100 100 []
+  GROUPBOXCREATE "windowstest.groupbox "mygroupbox 10 5 80 60
+  GROUPBOXDELETE "mygroupbox
+  WINDOWDELETE "windowstest.groupbox
+END
+
+
+TO WINDOWSTEST.GROUPBOX.BADINPUT
+
+  ;
+  ; bad input for GROUPBOXCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(groupboxcreate "main "name 0 0 120)]
+  RUNTOOMANYINPUTSTEST   [(groupboxcreate "main "name 0 0 120 400 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name10 [0]  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name20 {0}  0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name25 10.5 0  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name30 0  [0]  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name40 0  {0}  120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name45 0  10.5 120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name50 0   0  [120] 400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name60 0   0  {120} 400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name70 0   0  -120  400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name75 0   0   10.5 400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name80 0   0   120 [400] ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name90 0   0   120 {400} ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name00 0   0   120 -400  ]
+  RUNDOESNTLIKEINPUTTEST [groupboxcreate "main "name05 0   0   120  10.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ groupboxcreate "main "goodgroupbox 0 0 100 100 ]
+  RUNWINDOWALREADYEXISTSTEST "goodgroupbox [ groupboxcreate "main "goodgroupbox 0 0 100 100 ]
+
+
+  TRACEINSTRUCTION [ listboxcreate  "main "notagroupbox 0 100 100 100 ]
+
+  ;
+  ; bad input for GROUPBOXDELETE
+  ;
+
+  ; GROUPBOXDELETE on a widget that is not a groupbox control
+  RUNNOTENOUGHINPUTSTEST [(groupboxdelete)]
+  RUNTOOMANYINPUTSTEST   [(groupboxdelete "groupbox "toomany)]
+
+  RUNWINDOWDOESNOTEXISTTEST "notagroupbox [ groupboxdelete "notagroupbox ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ groupboxdelete "doesnotexist ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ listboxdelete  "notagroupbox ]
+  TRACEINSTRUCTION [ groupboxdelete "goodgroupbox ]
+
+END
+
+
+TO WINDOWSTEST.RADIOBUTTON
+
+  WINDOWCREATE "main "windowstest.radiobutton "mytitle 0 0 100 100 []
+  GROUPBOXCREATE    "windowstest.radiobutton "mygroupbox 10 5 80 60
+  RADIOBUTTONCREATE "windowstest.radiobutton "mygroupbox "radio1 [Radio #1] 20 15 60 20
+  RADIOBUTTONCREATE "windowstest.radiobutton "mygroupbox "radio2 [Radio #2] 20 35 60 20
+
+
+  ; "true and "false should be valid input in all locales
+  RADIOBUTTONSET "radio1 "true
+  RADIOBUTTONSET "radio2 "false
+
+  FAILIFNOTTRUE  [ RADIOBUTTONGET "radio1 ]
+  FAILIFNOTFALSE [ RADIOBUTTONGET "radio2 ]
+
+  TRACEINSTRUCTION [ RADIOBUTTONSET "radio1 "false ]
+  FAILIFNOTFALSE   [ RADIOBUTTONGET "radio1 ]
+
+  TRACEINSTRUCTION [ RADIOBUTTONSET "radio2 "true  ]
+  FAILIFNOTTRUE    [ RADIOBUTTONGET "radio2 ]
+
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio1 "false ]
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio1 "false ]
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio1 "true ]
+
+  TRACEINSTRUCTION [ RADIOBUTTONDELETE "radio1 ]
+  TRACEINSTRUCTION [ RADIOBUTTONDELETE "radio2 ]
+
+  WINDOWDELETE "windowstest.radiobutton
+END
+
+
+TO WINDOWSTEST.RADIOBUTTON.BADINPUT
+
+  TRACEINSTRUCTION [ GROUPBOXCREATE "main "groupbox 10 5 80 60 ]
+
+  ;
+  ; bad input for RADIOBUTTONCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(radiobuttoncreate "main "groupbox "name "label 0 0 10)]
+  RUNTOOMANYINPUTSTEST   [(radiobuttoncreate "main "groupbox "name "label 0 0 10 80 "toomany)]
+
+  ; group name does not exist
+  RUNWINDOWDOESNOTEXISTTEST "notfound [radiobuttoncreate "main "notfound "name "label 10 10 80 20 ]
+
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name10 "label [10]  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name20 "label {10}  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name25 "label 10.5  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name30 "label  10   [10] 80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name40 "label  10   {10} 80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name45 "label  10  10.5  80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name50 "label  10   10  [80]  20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name60 "label  10   10  {80}  20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name70 "label  10   10  -80   20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name75 "label  10   10   8.5  20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name80 "label  10   10   80  [20] ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name90 "label  10   10   80  {20} ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name00 "label  10   10   80  -20  ]
+  RUNDOESNTLIKEINPUTTEST [radiobuttoncreate "main "groupbox "name05 "label  10   10   80  20.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ radiobuttoncreate "main "groupbox "goodradiobutton "label 10 10 80 20 ]
+  RUNWINDOWALREADYEXISTSTEST "goodradiobutton [ radiobuttoncreate "main "groupbox "goodradiobutton "label 10 10 80 20 ]
+
+  ; create something that is not a radiobutton for bad input tests
+  TRACEINSTRUCTION [ staticcreate  "main "notaradiobutton [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for RADIOBUTTONENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (radiobuttonenable "goodradiobutton) ]
+  RUNTOOMANYINPUTSTEST   [ (radiobuttonenable "goodradiobutton LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist    [ radiobuttonenable "doesnotexist    LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notaradiobutton [ radiobuttonenable "notaradiobutton LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST  [ radiobuttonenable "goodradiobutton  1      ]
+  RUNDOESNTLIKEINPUTTEST  [ radiobuttonenable "goodradiobutton  [true] ]
+  RUNDOESNTLIKEINPUTTEST  [ radiobuttonenable "goodradiobutton  {true} ]
+
+
+  ;
+  ; bad input for RADIOBUTTONGET
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (radiobuttonget) ]
+  RUNTOOMANYINPUTSTEST   [ (radiobuttonget "goodradiobutton "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist    [ radiobuttonget "doesnotexist    "item ]
+  RUNWINDOWDOESNOTEXISTTEST "notaradiobutton [ radiobuttonget "notaradiobutton "item ]
+
+
+  ;
+  ; bad input for RADIOBUTTONSET
+  ;
+
+  ; Set the radio button to false so we can detect if RADIOBUTTONSET 
+  ; has side-effects on bad input.
+  ; (This is a regression test for bug #164)
+  TRACEINSTRUCTION [ radiobuttonset "goodradiobutton "false ]
+
+  RUNNOTENOUGHINPUTSTEST [ (radiobuttonset "goodradiobutton) ]
+  RUNTOOMANYINPUTSTEST   [ (radiobuttonset "goodradiobutton LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist    [ radiobuttonset "doesnotexist    LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notaradiobutton [ radiobuttonset "notaradiobutton LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST [ radiobuttonset "goodradiobutton  1      ]
+  RUNDOESNTLIKEINPUTTEST [ radiobuttonset "goodradiobutton  [true] ]
+  RUNDOESNTLIKEINPUTTEST [ radiobuttonset "goodradiobutton  {true} ]
+
+  ; The radio button should still be unchecked
+  FAILIFNOTFALSE [ radiobuttonget "goodradiobutton ]
+
+
+  ;
+  ; bad input for RADIOBUTTONDELETE
+  ;
+
+  ; RADIOBUTTONDELETE on a widget that is not a radiobutton control
+  RUNNOTENOUGHINPUTSTEST [ (radiobuttondelete) ]
+  RUNTOOMANYINPUTSTEST   [ (radiobuttondelete "goodradiobutton "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "notaradiobutton [ radiobuttondelete "notaradiobutton ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist    [ radiobuttondelete "doesnotexist    ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ radiobuttondelete "goodradiobutton ]
+  TRACEINSTRUCTION [ groupboxdelete    "groupbox        ]
+  TRACEINSTRUCTION [ staticdelete      "notaradiobutton ]
+
+END
+
+TO WINDOWSTEST.RADIOBUTTON.DELETEGROUPBOX
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.radiobutton "mytitle 0 0 100 100 [] ]
+  TRACEINSTRUCTION [ GROUPBOXCREATE     "windowstest.radiobutton "groupbox 10 5 80 60    ]
+  TRACEINSTRUCTION [ RADIOBUTTONCREATE  "windowstest.radiobutton "groupbox "radio [Radio] 20 15 60 20 ]
+
+  ; delete the group to which the radio buttons belong
+  TRACEINSTRUCTION [ GROUPBOXDELETE "groupbox ]
+
+  ; manipulate the radio buttons
+  TRACEINSTRUCTION [ RADIOBUTTONSET "radio "false ]
+  FAILIFNOTFALSE   [ RADIOBUTTONGET "radio ]
+
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio "false ]
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio "false ]
+  TRACEINSTRUCTION [ RADIOBUTTONENABLE "radio "true  ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ RADIOBUTTONDELETE "radio ]
+  TRACEINSTRUCTION [ WINDOWDELETE "windowstest.radiobutton ]
+END
+
+
+TO WINDOWSTEST.CHECKBOX
+
+  WINDOWCREATE "main "windowstest.checkbox "mytitle 0 0 100 100 []
+  GROUPBOXCREATE "windowstest.checkbox "mygroupbox 10 5 80 60
+  CHECKBOXCREATE "windowstest.checkbox "mygroupbox "checkbox1 [Checkbox #1] 20 15 60 20
+  CHECKBOXCREATE "windowstest.checkbox "mygroupbox "checkbox2 [Checkbox #2] 20 35 60 20
+
+  TRACEINSTRUCTION [ CHECKBOXSET "checkbox1 "true  ]
+  TRACEINSTRUCTION [ CHECKBOXSET "checkbox2 "false ]
+
+  FAILIFNOTTRUE  [ CHECKBOXGET "checkbox1 ]
+  FAILIFNOTFALSE [ CHECKBOXGET "checkbox2 ]
+
+  TRACEINSTRUCTION [ CHECKBOXSET "checkbox1 "false ]
+  FAILIFNOTFALSE   [ CHECKBOXGET "checkbox1 ]
+  FAILIFNOTFALSE   [ CHECKBOXGET "checkbox2 ]
+
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox1 "false ]
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox1 "false ]
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox1 "true  ]
+
+  TRACEINSTRUCTION [ CHECKBOXDELETE "checkbox1 ]
+  TRACEINSTRUCTION [ CHECKBOXDELETE "checkbox2 ]
+
+  WINDOWDELETE "windowstest.checkbox
+END
+
+
+TO WINDOWSTEST.CHECKBOX.BADINPUT
+
+  TRACEINSTRUCTION [ GROUPBOXCREATE "main "groupbox 10 5 80 60 ]
+
+  ;
+  ; bad input for CHECKBOXCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(checkboxcreate "main "groupbox "name "label 0 0 10)]
+  RUNTOOMANYINPUTSTEST   [(checkboxcreate "main "groupbox "name "label 0 0 10 80 "toomany)]
+
+  RUNWINDOWDOESNOTEXISTTEST "notfound [checkboxcreate "main "notfound "name01 "label 10 10 80 20 ]
+
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name10 "label [10]  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name20 "label {10}  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name25 "label 10.5  10   80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name30 "label  10   [10] 80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name40 "label  10   {10} 80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name45 "label  10  10.5  80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name50 "label  10   10  [80]  20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name60 "label  10   10  {80}  20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name70 "label  10   10  -80   20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name75 "label  10   10   8.5  20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name80 "label  10   10   80  [20] ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name90 "label  10   10   80  {20} ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name00 "label  10   10   80  -20  ]
+  RUNDOESNTLIKEINPUTTEST [checkboxcreate "main "groupbox "name05 "label  10   10   80  20.5 ]
+
+  ; already exists
+  TRACEINSTRUCTION [ checkboxcreate "main "groupbox "goodcheckbox "label 10 10 80 20 ]
+  RUNWINDOWALREADYEXISTSTEST "goodcheckbox [ checkboxcreate "main "groupbox "goodcheckbox "label 10 10 80 20 ]
+
+  ; create something that is not a checkbox for bad input tests
+  TRACEINSTRUCTION [ staticcreate  "main "notacheckbox [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for CHECKBOXENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (checkboxenable "goodcheckbox) ]
+  RUNTOOMANYINPUTSTEST   [ (checkboxenable "goodcheckbox LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ checkboxenable "doesnotexist LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notacheckbox [ checkboxenable "notacheckbox LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST  [ checkboxenable "goodcheckbox  1      ]
+  RUNDOESNTLIKEINPUTTEST  [ checkboxenable "goodcheckbox  [true] ]
+  RUNDOESNTLIKEINPUTTEST  [ checkboxenable "goodcheckbox  {true} ]
+
+
+  ;
+  ; bad input for CHECKBOXGET
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (checkboxget) ]
+  RUNTOOMANYINPUTSTEST   [ (checkboxget "goodcheckbox "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ checkboxget "doesnotexist "item ]
+  RUNWINDOWDOESNOTEXISTTEST "notacheckbox [ checkboxget "notacheckbox "item ]
+
+
+  ;
+  ; bad input for CHECKBOXSET
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (checkboxset "goodcheckbox) ]
+  RUNTOOMANYINPUTSTEST   [ (checkboxset "goodcheckbox LOCALETRUE "toomany) ]
+
+  ; Set the checkbox to false so we can detect if CHECKBOXSET 
+  ; has side-effects on bad input.
+  ; (This is a regression test for Bug #164)
+  TRACEINSTRUCTION [ checkboxset "goodcheckbox "false ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ checkboxset "doesnotexist LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notacheckbox [ checkboxset "notacheckbox LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST [ checkboxset "goodcheckbox  1      ]
+  RUNDOESNTLIKEINPUTTEST [ checkboxset "goodcheckbox  [true] ]
+  RUNDOESNTLIKEINPUTTEST [ checkboxset "goodcheckbox  {true} ]
+
+  ; The checkbox should still be unchecked
+  FAILIFNOTFALSE [ checkboxget "goodcheckbox ]
+
+
+  ;
+  ; bad input for CHECKBOXDELETE
+  ;
+
+  ; CHECKBOXDELETE on a widget that is not a checkbox control
+  RUNNOTENOUGHINPUTSTEST [ (checkboxdelete) ]
+  RUNTOOMANYINPUTSTEST   [ (checkboxdelete "goodcheckbox "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "notacheckbox [ checkboxdelete "notacheckbox ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ checkboxdelete "doesnotexist ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ checkboxdelete "goodcheckbox ]
+  TRACEINSTRUCTION [ groupboxdelete "groupbox     ]
+  TRACEINSTRUCTION [ staticdelete   "notacheckbox ]
+
+END
+
+
+TO WINDOWSTEST.CHECKBOX.DELETEGROUPBOX
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.checkbox "mytitle 0 0 100 100 []                ]
+  TRACEINSTRUCTION [ GROUPBOXCREATE "windowstest.checkbox "groupbox 10 5 80 60                       ]
+  TRACEINSTRUCTION [ CHECKBOXCREATE "windowstest.checkbox "groupbox "checkbox [Checkbox] 20 15 60 20 ]
+
+  ; delete the group to which the checkbox controls belong
+  TRACEINSTRUCTION [ GROUPBOXDELETE "groupbox ]
+
+  ; manipulate the checkbox buttons
+  TRACEINSTRUCTION [ CHECKBOXSET "checkbox "false ]
+  FAILIFNOTFALSE   [ CHECKBOXGET "checkbox ]
+
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox "false ]
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox "false ]
+  TRACEINSTRUCTION [ CHECKBOXENABLE "checkbox "true  ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ CHECKBOXDELETE "checkbox ]
+  TRACEINSTRUCTION [ WINDOWDELETE "windowstest.checkbox ]
+END
+
+
+TO WINDOWSTEST.SCROLLBAR
+
+  TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.scrollbar "mytitle 0 0 100 100 []   ]
+  TRACEINSTRUCTION [ SCROLLBARCREATE "windowstest.scrollbar "horizontal 0  90 100 20  [] ]
+  TRACEINSTRUCTION [ SCROLLBARCREATE "windowstest.scrollbar "vertical   90 0  20  100 [] ]
+
+  ; the default position of the scrollbar is 0
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] 0
+
+  ; Change the position of the horizontal scrollbar
+  TRACEINSTRUCTION [ SCROLLBARSET "horizontal  0  100 27 ]
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] 27
+
+  TRACEINSTRUCTION [ SCROLLBARSET "horizontal  0  100 91 ]
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] 91
+
+  TRACEINSTRUCTION [ SCROLLBARSET "horizontal -10  10  -10 ]
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] -10 
+
+  TRACEINSTRUCTION [ SCROLLBARSET "horizontal -20 -10 -15 ]
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] -15
+
+  ; verify that the horizontal scrollbar's position doesn't 
+  ; change when the vertical position changes
+  TRACEINSTRUCTION [ SCROLLBARSET "vertical 50 60 55 ]
+  SIMPLEREPORTTEST [ SCROLLBARGET "vertical ] 55
+  SIMPLEREPORTTEST [ SCROLLBARGET "horizontal ] -15
+
+  ; test enabling/disabling the scrollbar
+  TRACEINSTRUCTION [ SCROLLBARENABLE "horizontal  "false ]
+  TRACEINSTRUCTION [ SCROLLBARENABLE "horizontal  "false ]
+  TRACEINSTRUCTION [ SCROLLBARENABLE "horizontal  "true  ]
+
+  TRACEINSTRUCTION [ SCROLLBARDELETE "horizontal ]
+  TRACEINSTRUCTION [ SCROLLBARDELETE "vertical   ]
+  TRACEINSTRUCTION [ WINDOWDELETE "windowstest.scrollbar ]
+END
+
+TO WINDOWSTEST.SCROLLBAR.BADINPUT.OUTPUT.5
+  ; used to test bad input recovery
+  OUTPUT 5
+END
+
+TO WINDOWSTEST.SCROLLBAR.BADINPUT
+
+  ;
+  ; bad input for SCROLLBARCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(scrollbarcreate "main "name 0 0 100 10)]
+  RUNTOOMANYINPUTSTEST   [(scrollbarcreate "main "name 0 0 100 10 [] "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name10 [0]  0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name20 {0}  0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name25 10.5 0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name30 0  [0]  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name40 0  {0}  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name45 0  10.5 120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name50 0   0  [120] 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name60 0   0  {120} 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name70 0   0  -120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name75 0   0   10.5 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name80 0   0   120 [10]  [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name90 0   0   120 {10}  [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name00 0   0   120 -10   [] ]
+  RUNDOESNTLIKEINPUTTEST [scrollbarcreate "main "name05 0   0   120  10.5 [] ]
+
+  ; already exists
+  TRACEINSTRUCTION [ scrollbarcreate "main "goodscrollbar 0 0 100 10 [] ]
+  RUNWINDOWALREADYEXISTSTEST "goodscrollbar [ scrollbarcreate "main "goodscrollbar 0 0 100 10 [] ]
+
+  ; create something that isn't a scrollbar
+  TRACEINSTRUCTION [ staticcreate  "main "notascrollbar [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for SCROLLBARENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (scrollbarenable "goodscrollbar) ]
+  RUNTOOMANYINPUTSTEST   [ (scrollbarenable "goodscrollbar LOCALETRUE "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist  [ scrollbarenable "doesnotexist  LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notascrollbar [ scrollbarenable "notascrollbar LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST [ scrollbarenable "goodscrollbar 1      ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarenable "goodscrollbar [true] ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarenable "goodscrollbar {true} ]
+
+
+  ;
+  ; bad input for SCROLLBARGET
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (scrollbarget) ]
+  RUNTOOMANYINPUTSTEST   [ (scrollbarget "goodscrollbar "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent   [ ignore scrollbarget "nonexistent   ]
+  RUNWINDOWDOESNOTEXISTTEST "notascrollbar [ ignore scrollbarget "notascrollbar ]
+
+
+  ;
+  ; bad input for SCROLLBARSET
+  ;
+
+  RUNNOTENOUGHINPUTSTEST [ (scrollbarset "goodscrollbar 0 100) ]
+  RUNTOOMANYINPUTSTEST   [ (scrollbarset "goodscrollbar 0 100 50 "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist  [ scrollbarset "doesnotexist  0 100 50 ]
+  RUNWINDOWDOESNOTEXISTTEST "notascrollbar [ scrollbarset "notascrollbar 0 100 50 ]
+  
+  ; change the position so that we can detect if any of the bad input 
+  ; tests altered the position
+  TRACEINSTRUCTION [ scrollbarset "goodscrollbar 110 111 110 ]
+
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset {not a string}  [0]  10   5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar  [0]  10   5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar  {0}  10   5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar  0.5  10   5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar "zero 10   5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0  [10]  5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0  {10}  5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0  10.5  5    ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0  "ten [5]   ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0   10  {5}   ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0   10  5.5   ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   0   10  "five ]
+  RUNDOESNTLIKEINPUTTEST [ scrollbarset "goodscrollbar   10  0   5     ]
+
+  ; verify that the scrollbar position did not change
+  SIMPLEREPORTTEST [ scrollbarget "goodscrollbar ] 110
+
+  ; Test that a bad range (max < min) is recoverable
+  local "erract
+  make "erract [WINDOWSTEST.SCROLLBAR.BADINPUT.OUTPUT.5]
+  TRACEINSTRUCTIONNOCATCH [ scrollbarset "goodscrollbar  1 0 2 ]
+  SIMPLEREPORTTEST        [ scrollbarget "goodscrollbar ] 2
+  make "erract []
+
+
+
+  ;
+  ; bad input for SCROLLBARDELETE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (scrollbardelete) ]
+  RUNTOOMANYINPUTSTEST   [ (scrollbardelete "goodscrollbar "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "notascrollbar [ scrollbardelete "notascrollbar ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist  [ scrollbardelete "doesnotexist  ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ staticdelete    "notascrollbar ]
+  TRACEINSTRUCTION [ scrollbardelete "goodscrollbar ]
+
+END
+
+
+TO WINDOWSTEST.BUTTON
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+     localmake "value 0
+
+     ; create a window with a button on it
+     TRACEINSTRUCTION [ WINDOWCREATE "main "windowstest.button "mytitle 0 0 100 100 [] ]
+     TRACEINSTRUCTION [ BUTTONCREATE "windowstest.button "button [initial text] 10 40 80 20 [make "value :value + 1] ]
+
+     ; press the button with the spacebar.
+     ; This should run the instruction list and increment :value.
+     localmake "VK_SPACE 32
+     TRACEINSTRUCTION [ UIAUTOMATION.SENDKEYTOWINDOW "mytitle "Button :VK_SPACE ]
+     SIMPLEREPORTTEST [ :value ] 1
+
+     ; Replace the text on the button
+     TRACEINSTRUCTION [ BUTTONUPDATE "button [new text] ]
+
+     ; press the button with the spacebar
+     TRACEINSTRUCTION [ UIAUTOMATION.SENDFOCUSTOWINDOW      "mytitle "Button ]
+     TRACEINSTRUCTION [ UIAUTOMATION.SENDBUTTONPUSHTOWINDOW "mytitle [new text] ]
+     SIMPLEREPORTTEST [ :value ] 2
+
+     ; test enabling/disabling the button
+     TRACEINSTRUCTION [ BUTTONENABLE "button  "false ]
+     TRACEINSTRUCTION [ BUTTONENABLE "button  "false ]
+     TRACEINSTRUCTION [ BUTTONENABLE "button  "true  ]
+
+     TRACEINSTRUCTION [ BUTTONDELETE "button ]
+     TRACEINSTRUCTION [ WINDOWDELETE "windowstest.button ]
+   ]
+
+   IGNORE FAILIFERROR "WINDOWSTEST.BUTTON
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO WINDOWSTEST.BUTTON.BADINPUT
+
+  ;
+  ; bad input for BUTTONCREATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [(buttoncreate "main "name "label 0 0 100 10)]
+  RUNTOOMANYINPUTSTEST   [(buttoncreate "main "name "label 0 0 100 10 [] "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name10 "label [0]  0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name20 "label {0}  0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name25 "label 10.5 0  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name30 "label 0  [0]  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name40 "label 0  {0}  120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name45 "label 0  10.5 120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name50 "label 0   0  [120] 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name60 "label 0   0  {120} 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name70 "label 0   0  -120  10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name75 "label 0   0   10.5 10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name80 "label 0   0   120 [10]  [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name90 "label 0   0   120 {10}  [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name00 "label 0   0   120 -10   [] ]
+  RUNDOESNTLIKEINPUTTEST [buttoncreate "main "name05 "label 0   0   120  10.5 [] ]
+
+  ; already exists
+  TRACEINSTRUCTION [ buttoncreate "main "goodbutton "label 0 0 100 10 [] ]
+  RUNWINDOWALREADYEXISTSTEST "goodbutton [ buttoncreate "main "goodbutton "label 0 0 100 10 [] ]
+
+  ; create something that isn't a button
+  TRACEINSTRUCTION [ staticcreate "main "notabutton [text] 0 100 100 100 ]
+
+  ;
+  ; bad input for BUTTONENABLE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (buttonenable "goodbutton) ]
+  RUNTOOMANYINPUTSTEST   [ (buttonenable "goodbutton "true "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ buttonenable "doesnotexist LOCALETRUE ]
+  RUNWINDOWDOESNOTEXISTTEST "notabutton   [ buttonenable "notabutton   LOCALETRUE ]
+
+  RUNDOESNTLIKEINPUTTEST [ buttonenable "goodbutton    1      ]
+  RUNDOESNTLIKEINPUTTEST [ buttonenable "goodbutton    [true] ]
+  RUNDOESNTLIKEINPUTTEST [ buttonenable "goodbutton    {true} ]
+
+
+  ;
+  ; bad input for BUTTONUPDATE
+  ;
+  RUNNOTENOUGHINPUTSTEST [ (buttonupdate "goodbutton) ]
+  RUNTOOMANYINPUTSTEST   [ (buttonupdate "goodbutton "newlabel "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "nonexistent [ buttonupdate "nonexistent "newlabel ]
+  RUNWINDOWDOESNOTEXISTTEST "notabutton  [ buttonupdate "notabutton  "newlabel ]
+
+
+
+  ;
+  ; bad input for BUTTONDELETE
+  ;
+
+  ; BUTTONDELETE on a widget that is not a button control
+  RUNNOTENOUGHINPUTSTEST [ (buttondelete) ]
+  RUNTOOMANYINPUTSTEST   [ (buttondelete "goodbutton "toomany) ]
+
+  RUNWINDOWDOESNOTEXISTTEST "notabutton   [ buttondelete "notabutton   ]
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [ buttondelete "doesnotexist ]
+
+  ; cleanup
+  TRACEINSTRUCTION [ staticdelete "notabutton ]
+  TRACEINSTRUCTION [ buttondelete "goodbutton ]
+
+END
+
+TO WINDOWSTEST.DEBUGWINDOWS
+
+  ; call DEBUGWINDOWS
+  TRACEINSTRUCTION [ windowdelete "all ]
+  TRACEINSTRUCTION [ debugwindows ]
+
+  ; create a root window, add a widget of each type 
+  TRACEINSTRUCTION [ windowcreate "root "testwindow [window smoke test] 0 0 120 400 [] ]
+  TRACEINSTRUCTION [ windowstest.setup "testwindow ]
+
+  TRACEINSTRUCTION [ debugwindows ]
+
+  TRACEINSTRUCTION [ windowdelete "testwindow ]
+
+END
+
+TO WINDOWSTEST.DEBUGWINDOWS.STRESS
+
+  ; create a window with a long caption
+  LOCALMAKE "longname REPEATWORD "A 252
+
+  ; create several top-level windows that contain widgets with very long names
+  repeat 20 [
+    localmake "parentname (word repcount :longname)
+    TRACEINSTRUCTION [ windowcreate "root :parentname "caption 0 0 100 200 [] ]
+    TRACEINSTRUCTION [   staticcreate      :parentname (word "s :parentname) "text 10 10 80 20 ]
+    TRACEINSTRUCTION [   groupboxcreate    :parentname (word "g :parentname) 10 30 80 40 ]
+    TRACEINSTRUCTION [   radiobuttoncreate :parentname (word "g :parentname) (word "r :parentname) [Radio] 20 40 60 20 ]
+  ]
+
+  ; print out heirarchy for all windows
+  TRACEINSTRUCTION [ debugwindows ]
+
+  ; print heirarchy for a single window
+  TRACEINSTRUCTION [ (debugwindows word 15 :longname) ]
+
+  repeat 20 [
+    TRACEINSTRUCTION [ WINDOWDELETE (word repcount :longname) ]
+  ]
+
+END
+
+TO WINDOWSTEST.DEBUGWINDOWS.BADINPUT
+  TRACEINSTRUCTION     [ WINDOWCREATE "root "window "caption 0 0 120 400 [] ]
+
+  RUNTOOMANYINPUTSTEST [(DEBUGWINDOWS "window "toomany)]
+
+  RUNWINDOWDOESNOTEXISTTEST "doesnotexist [(DEBUGWINDOWS "doesnotexist)]
+
+  TRACEINSTRUCTION     [ WINDOWDELETE "window ]
+END
+
+TO WINDOWSTEST.REGRESSIONTEST
+
+  ; this is a regression test for a crashing bug 
+  ; caused by an inconsistent dialog list
+
+  windowcreate "root "regresiontestwindow [window regression test] 0 0 120 400 []
+  WINDOWSTEST.SETUP "root
+  windowdelete "regresiontestwindow
+  windowcreate "root "newwindow [window regression test] 0 0 120 400 []
+
+  windowdelete "all
+
+  REPORTTESTPASSED [The regression test for an inconsistent dialogthing list did not crash.]
+
+END
+
+TO WINDOWSTEST.SINGLEWIDGET.SETUP
+  BUTTONCREATE "windowstest.singletest "b1 [Close Window] 5 5 80 20 [
+    WINDOWDELETE "windowstest.singletest ; close the window
+  ]
+END
+
+TO WINDOWSTEST.SINGLEWIDGET
+
+   ; This is a regression test for Bug #499, which is that adding a widget to a window
+   ; from the "setup" instruction list causes it to fill the entire space of the window,
+   ; instead of honoring the x/y/width/height inputs.
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+
+     LOCALMAKE "title "|Window With Single Button|
+
+     ; create a window with a single button on it
+     TRACEINSTRUCTION [ 
+       WINDOWCREATE "main "windowstest.singletest :title 50 50 300 300 [WINDOWSTEST.SINGLEWIDGET.SETUP]
+     ]
+
+     LOCALMAKE "parenthwnd UIAUTOMATION.FINDWINDOW :title 0
+     if :parenthwnd = 0 [
+       REPORTTESTBUG (word "|Couldn't find window named "| :title "|"|)
+       STOP
+     ]
+
+     LOCALMAKE "button UIAUTOMATION.FINDCHILDWINDOW :parenthwnd "|Close Window| 0
+     if :button = 0 [
+       REPORTTESTBUG (word "|Couldn't find button named "| :buttontext "|" on "| :parentwindowtitle "|"|)
+       STOP
+     ]
+
+     LOCALMAKE "rect UIAUTOMATION.GETWINDOWRECT :button
+     IF NOTEQUAL? :rect [] [
+        LOCALMAKE "left   ITEM 1 :rect
+        LOCALMAKE "top    ITEM 2 :rect
+        LOCALMAKE "right  ITEM 3 :rect
+        LOCALMAKE "bottom ITEM 4 :rect
+        FAILIFNOTTRUE [ :right  - :left < 200 ]
+        FAILIFNOTTRUE [ :bottom - :top  < 200 ]
+     ]
+
+     ; Close the window
+     WINDOWDELETE "windowstest.singletest
+   ]
+
+   IGNORE FAILIFERROR "WINDOWSTEST.SINGLEWIDGET
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+
+TO WINDOWSTEST
+
+   WINDOWSTEST.WINDOW.SMOKETEST
+   WINDOWSTEST.WINDOW.BADINPUT
+
+   WINDOWSTEST.DIALOG.SMOKETEST
+   WINDOWSTEST.DIALOG.BADINPUT
+
+   WINDOWSTEST.MAINWINDOW.SMOKETEST
+
+   WINDOWSTEST.STATIC
+   WINDOWSTEST.STATIC.BADINPUT
+
+   WINDOWSTEST.LISTBOX
+   WINDOWSTEST.LISTBOX.BADINPUT
+
+   WINDOWSTEST.COMBOBOX
+   WINDOWSTEST.COMBOBOX.BADINPUT
+
+   WINDOWSTEST.GROUPBOX
+   WINDOWSTEST.GROUPBOX.BADINPUT
+
+   WINDOWSTEST.RADIOBUTTON
+   WINDOWSTEST.RADIOBUTTON.BADINPUT
+   WINDOWSTEST.RADIOBUTTON.DELETEGROUPBOX
+
+   WINDOWSTEST.CHECKBOX
+   WINDOWSTEST.CHECKBOX.BADINPUT
+   WINDOWSTEST.CHECKBOX.DELETEGROUPBOX
+
+   WINDOWSTEST.SCROLLBAR
+   WINDOWSTEST.SCROLLBAR.BADINPUT
+
+   WINDOWSTEST.BUTTON
+   WINDOWSTEST.BUTTON.BADINPUT
+
+   WINDOWSTEST.DEBUGWINDOWS
+   WINDOWSTEST.DEBUGWINDOWS.STRESS
+   WINDOWSTEST.DEBUGWINDOWS.BADINPUT
+
+   WINDOWSTEST.REGRESSIONTEST
+END

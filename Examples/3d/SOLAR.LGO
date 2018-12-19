@@ -1,0 +1,108 @@
+to aaa
+;
+; Example of drawing random spheres in random oribits around
+; a larger sphere.
+;
+; An obvious project would be to get the correct relative
+; sizes and orbits of your solar system and plug them in.
+; 
+; For folks living in solar systems with 2 suns you'll
+; have some tricky math to work out first :-).
+;
+; Try mapping a turtle to halley's comet trajectory
+; and fly it through the solar system.
+;
+; Elliptical orbits should not be hard to do (for a high school
+; student). But if I recall most of our planet's orbits are
+; very near circular, so you won't see much.
+;
+; Orbits off axis should be easy once you get the hang of things.
+;
+; You can move the planets along their respective orbits
+; and take snap shots and play them back like the GROW.LGO example.
+; Or save the snap shots as .BMP files and make a GIF movie
+; for a web page.
+;
+SolarSystem
+end
+
+to SolarSystem
+perspective
+
+; We are in deep space
+setscreencolor [0 0 0]
+cs
+ht
+
+; Space is big so back up
+setturtle -1
+setxyz 1000 1000 2000
+setturtle 0
+pendown
+
+; Draw a big sun in yellow
+setpc [255 255 0]
+sphere 200 20
+penup
+
+; Now do some random planets oribiting the sun
+repeat 10 [
+   ; Random position in orbit
+   make "angle random 360
+
+   ; Random radius of orbit
+   make "dist 200 + random 2000
+   downpitch 90
+   pendown
+   setpc (list 56+random 200 56+random 200 56+random 200)
+
+   ; Show oribit path
+   circle :dist
+   penup
+
+   ; go to planet position
+   rt :angle
+   fd :dist
+   uppitch 90
+   pendown
+
+   ; draw planet
+   sphere 10 + random 100 20
+   penup
+   downpitch 90
+
+   ; get back to the sun
+   bk :dist
+   lt :angle
+   uppitch 90
+]
+end
+
+to sphere :rad :step
+
+; Some help with this function was given by
+;   Garry Clark
+;   Lecturer,
+;   Dept. of Curriculum Studies
+;   University of New England 2351
+
+; Longitude lines
+repeat 180/:step [circle :rad rightroll :step]
+rightroll 180
+
+; Latitude lines
+repeat 180/:step [
+   make "q repcount*:step-90
+   fd :rad*sin :q
+   downpitch 90
+   circle :rad*cos :q
+   uppitch 90
+   bk :rad*sin :q
+]
+end
+
+to zzz
+ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

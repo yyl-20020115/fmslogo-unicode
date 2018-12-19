@@ -1,0 +1,474 @@
+LOAD "testlib.lgo
+
+TO .EQTEST
+  LOCALMAKE "x 1000
+  LOCALMAKE "y 1000
+
+  FAILIFNOTFALSE [.EQ 1000 1000]
+  FAILIFNOTFALSE [.EQ :x   :y  ]
+  FAILIFNOTTRUE  [.EQ :x   :x  ]
+
+  ; test singleton objects that are globally unique
+  FAILIFNOTTRUE [.EQ "||    "||    ]
+  FAILIFNOTTRUE [.EQ "false "false ]
+  FAILIFNOTTRUE [.EQ "true  "true  ]
+  FAILIFNOTTRUE [.EQ []     []     ]
+
+  RUNNOTENOUGHINPUTSTEST [(.EQ)]
+  RUNNOTENOUGHINPUTSTEST [(.EQ 1)]
+  RUNTOOMANYINPUTSTEST   [(.EQ 1 1 "toomany)]
+END
+
+TO EQUALPTEST.SMOKETEST
+
+  LOCAL "CASEIGNOREDP ; default CASEIGNOREDP
+
+  LOCAL "myarray
+  FAILIFNOTTRUE [EQUALP 1    1                      ]
+  FAILIFNOTTRUE [EQUALP 0    0                      ]
+  FAILIFNOTTRUE [EQUALP 3.14 3.14                   ]
+  FAILIFNOTTRUE [EQUALP "hi  "hi                    ]
+  FAILIFNOTTRUE [EQUAL? ["a 1 "ab]    ["a 1 "ab]    ]
+  FAILIFNOTTRUE [EQUAL? [[1 2 3] [1]] [[1 2 3] [1]] ]
+  FAILIFNOTTRUE [EQUAL? 0 0                         ]
+  FAILIFNOTTRUE [EQUALP "||  "||                    ]
+  FAILIFNOTTRUE [EQUALP "true  "TRUE                ]
+  FAILIFNOTTRUE [EQUALP "false "FALSE               ]
+  FAILIFNOTTRUE [EQUALP "HELLO "hello               ]
+  FAILIFNOTTRUE [EQUALP "hello "HELLO               ]
+  FAILIFNOTTRUE [EQUALP "HELLO "HELLO               ]
+  FAILIFNOTTRUE [EQUALP "hello "hello               ]
+
+  MAKE "myarray {1 2 3}
+  FAILIFNOTTRUE [EQUAL? :myarray :myarray           ]
+
+  MAKE "myarray {}
+  FAILIFNOTTRUE [EQUAL? :myarray :myarray           ]
+
+  ; arrays are never equal to other arrays
+  FAILIFNOTFALSE [EQUAL? {} {}                      ]
+  FAILIFNOTFALSE [EQUAL? {1 2 3} {1 2 3}            ]
+
+  FAILIFNOTFALSE [EQUALP 1       1.1                ]
+  FAILIFNOTFALSE [EQUALP 0       1                  ]
+  FAILIFNOTFALSE [EQUALP "hi     "hil               ]
+  FAILIFNOTFALSE [EQUALP "hil    "hi                ]
+  FAILIFNOTFALSE [EQUALP "true   "false             ]
+  FAILIFNOTFALSE [EQUALP []      "false             ]
+  FAILIFNOTFALSE [EQUALP "false  []                 ]
+  FAILIFNOTFALSE [EQUALP [1 2]   [1 2 3]            ]
+  FAILIFNOTFALSE [EQUALP [1 2 3] [1 2]              ]
+  FAILIFNOTFALSE [EQUALP {1}     [1]                ]
+  FAILIFNOTFALSE [EQUALP [1]     {1}                ]
+
+  ; test the EQUALP infix operator
+  FAILIFNOTTRUE [      1 = 1                   ]
+  FAILIFNOTTRUE [      0 = 0                   ]
+  FAILIFNOTTRUE [   3.14 = 3.14                ]
+  FAILIFNOTTRUE [    "|| = "||                 ]
+  FAILIFNOTTRUE [ "true  = "TRUE               ]
+  FAILIFNOTTRUE [ "false = "FALSE              ]
+  FAILIFNOTTRUE [ "HELLO = "hello              ]
+  FAILIFNOTTRUE [ "hello = "HELLO              ]
+  FAILIFNOTTRUE [ "HELLO = "HELLO              ]
+  FAILIFNOTTRUE [ "hello = "hello              ]
+  FAILIFNOTTRUE [["a 1 "ab]    = ["a 1 "ab]    ]
+  FAILIFNOTTRUE [[[1 2 3] [1]] = [[1 2 3] [1]] ]
+
+  ; very small floating point numbers are not equal to 0 (bug #289)
+  FAILIFNOTFALSE [ EQUALP   1e-16      0  ]
+  FAILIFNOTFALSE [ EQUALP  -1e-16      0  ]
+  FAILIFNOTFALSE [ EQUALP    0      1e-16 ]
+  FAILIFNOTFALSE [ EQUALP    0     -1e-16 ]
+
+  ; now test case-sensitive comparisons
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP LOCALEFALSE]
+
+  FAILIFNOTTRUE  [ EQUALP "HELLO "HELLO  ]
+  FAILIFNOTTRUE  [ EQUALP "hello "hello  ]
+  FAILIFNOTFALSE [ EQUALP "HELLO "hello  ]
+  FAILIFNOTFALSE [ EQUALP "hello "HELLO  ]
+  FAILIFNOTFALSE [ EQUALP "hello "hellox ]
+
+  ; Even "true and "false obey the rules of caseignoredp
+  FAILIFNOTTRUE  [ EQUALP "true  "true    ]
+  FAILIFNOTTRUE  [ EQUALP "false "false   ]
+  FAILIFNOTFALSE [ EQUALP "true  "TRUE    ]
+  FAILIFNOTFALSE [ EQUALP "false "FALSE   ]
+  FAILIFNOTFALSE [ EQUALP "true  "trueish ]
+
+  ; Now test explicitly case-insensitive comparisons
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP LOCALETRUE]
+
+  FAILIFNOTTRUE  [ EQUALP "HELLO "HELLO  ]
+  FAILIFNOTTRUE  [ EQUALP "hello "hello  ]
+  FAILIFNOTTRUE  [ EQUALP "HELLO "hello  ]
+  FAILIFNOTTRUE  [ EQUALP "hello "HELLO  ]
+  FAILIFNOTFALSE [ EQUALP "hello "hellox ]
+
+  ; Even "true and "false obey the rules of caseignoredp
+  FAILIFNOTTRUE  [ EQUALP "true  "true    ]
+  FAILIFNOTTRUE  [ EQUALP "false "false   ]
+  FAILIFNOTTRUE  [ EQUALP "true  "TRUE    ]
+  FAILIFNOTTRUE  [ EQUALP "false "FALSE   ]
+  FAILIFNOTFALSE [ EQUALP "true  "trueish ]
+
+  ; Now test a non-boolean CASEIGNOREDP value.
+  ; This should behave as if it were FALSE
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP 1]
+
+  FAILIFNOTTRUE  [ EQUALP "HELLO "HELLO  ]
+  FAILIFNOTTRUE  [ EQUALP "hello "hello  ]
+  FAILIFNOTFALSE [ EQUALP "HELLO "hello  ]
+  FAILIFNOTFALSE [ EQUALP "hello "HELLO  ]
+  FAILIFNOTFALSE [ EQUALP "hello "hellox ]
+
+END
+
+TO EQUALPTEST.DEEPLYNESTEDLIST
+
+  LOCALMAKE "nestedlist1 []
+  REPEAT 50000 [ MAKE "nestedlist1 FPUT :nestedlist1 [] ]
+
+  LOCALMAKE "nestedlist2 []
+  REPEAT 50000 [ MAKE "nestedlist2 FPUT :nestedlist2 [] ]
+
+  SIMPLEREPORTTEST [EQUALP :nestedlist1 :nestedlist2] "true
+  
+END
+
+TO EQUALPTEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(EQUAL?)]
+  RUNNOTENOUGHINPUTSTEST [(EQUAL? 1)]
+  RUNTOOMANYINPUTSTEST   [(EQUAL? 1 1 "toomany)]
+END
+
+TO EQUALPTEST.INTERNATIONAL
+
+  ; Test uppercase/lowercase string comparisons for character 
+  ; from Latin-1 set that are not in ASCII
+
+  ; NOTE: We can't put the characters in here directly or else this
+  ;       won't look like a text file to CVS, so we use their numeric value
+  local [pairs lowercase capital word1 word2]
+
+  make "pairs [
+    [253 221]
+    [241 209]
+    [225 193]
+    [226 194]
+    [227 195]
+    [228 196]
+    [231 199]
+    [232 200]
+    [233 201]
+    [234 202]
+    [235 203]
+    [236 204]
+    [237 205]
+    [238 206]
+    [239 207]
+    [240 208]
+    [241 209]
+    [243 211]
+    [244 212]
+    [245 213]
+    [246 214]
+    [248 216]
+    [249 217]
+  ]
+
+  foreach :pairs [
+     make "lowercase CHAR (ITEM 1 ?)
+     make "capital   CHAR (ITEM 2 ?)
+
+     make "word1 (WORD "" :lowercase :capital)
+     make "word2 (WORD "" :capital   :lowercase)
+
+     FAILIFNOTTRUE (LIST "EQUALP :word1 :word2)
+  ]
+
+END
+
+TO EQUALPTEST
+  EQUALPTEST.SMOKETEST
+  ;EQUALPTEST.DEEPLYNESTEDLIST
+  EQUALPTEST.INTERNATIONAL
+  EQUALPTEST.BADINPUT
+END
+
+TO NOTEQUALPTEST.SMOKETEST
+
+  LOCAL "CASEIGNOREDP ; default behavior
+
+  LOCAL "myarray
+  FAILIFNOTFALSE [NOTEQUALP 1    1                      ]
+  FAILIFNOTFALSE [NOTEQUALP 0    0                      ]
+  FAILIFNOTFALSE [NOTEQUALP 3.14 3.14                   ]
+  FAILIFNOTFALSE [NOTEQUALP "hi  "hi                    ]
+  FAILIFNOTFALSE [NOTEQUAL? ["a 1 "ab]    ["a 1 "ab]    ]
+  FAILIFNOTFALSE [NOTEQUAL? [[1 2 3] [1]] [[1 2 3] [1]] ]
+  FAILIFNOTFALSE [NOTEQUAL? 0 0                         ]
+  FAILIFNOTFALSE [NOTEQUALP "||  "||                    ]
+  FAILIFNOTFALSE [NOTEQUALP "true  "TRUE                ]
+  FAILIFNOTFALSE [NOTEQUALP "false "FALSE               ]
+  FAILIFNOTFALSE [NOTEQUALP "HELLO "hello               ]
+  FAILIFNOTFALSE [NOTEQUALP "hello "HELLO               ]
+  FAILIFNOTFALSE [NOTEQUALP "HELLO "HELLO               ]
+  FAILIFNOTFALSE [NOTEQUALP "hello "hello               ]
+
+  MAKE "myarray {1 2 3}
+  FAILIFNOTFALSE [NOTEQUAL? :myarray :myarray ]
+
+  MAKE "myarray {}
+  FAILIFNOTFALSE [NOTEQUAL? :myarray :myarray ]
+
+  ; arrays are never equal to other arrays
+  FAILIFNOTTRUE [NOTEQUAL? {} {}              ]
+  FAILIFNOTTRUE [NOTEQUAL? {1 2 3} {1 2 3}    ]
+
+  FAILIFNOTTRUE [NOTEQUALP 1       1.1        ]
+  FAILIFNOTTRUE [NOTEQUALP 0       1          ]
+  FAILIFNOTTRUE [NOTEQUALP "hi     "hil       ]
+  FAILIFNOTTRUE [NOTEQUALP "hil    "hi        ]
+  FAILIFNOTTRUE [NOTEQUALP "true   "false     ]
+  FAILIFNOTTRUE [NOTEQUALP []      "false     ]
+  FAILIFNOTTRUE [NOTEQUALP "false  []         ]
+  FAILIFNOTTRUE [NOTEQUALP [1 2]   [1 2 3]    ]
+  FAILIFNOTTRUE [NOTEQUALP [1 2 3] [1 2]      ]
+  FAILIFNOTTRUE [NOTEQUALP {1}     [1]        ]
+  FAILIFNOTTRUE [NOTEQUALP [1]     {1}        ]
+
+  ; test the NOTEQUALP infix operator
+  FAILIFNOTFALSE [     1 <> 1                     ]
+  FAILIFNOTFALSE [     0 <> 0                     ]
+  FAILIFNOTFALSE [  3.14 <> 3.14                  ]
+  FAILIFNOTFALSE [   "|| <> "||                   ]
+  FAILIFNOTFALSE ["true  <> "TRUE                 ]
+  FAILIFNOTFALSE ["false <> "FALSE                ]
+  FAILIFNOTFALSE ["HELLO <> "hello                ]
+  FAILIFNOTFALSE ["hello <> "HELLO                ]
+  FAILIFNOTFALSE ["HELLO <> "HELLO                ]
+  FAILIFNOTFALSE ["hello <> "hello                ]
+  FAILIFNOTFALSE [ ["a 1 "ab]    <> ["a 1 "ab]    ]
+  FAILIFNOTFALSE [ [[1 2 3] [1]] <> [[1 2 3] [1]] ]
+
+
+  ; Now test explicitly case-sensitive comparisons
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP LOCALEFALSE]
+
+  ; Even "true and "false obey the rules of caseignoredp
+  FAILIFNOTFALSE [ NOTEQUALP "true  "true     ]
+  FAILIFNOTFALSE [ NOTEQUALP "false "false    ]
+  FAILIFNOTTRUE  [ NOTEQUALP "true  "TRUE     ]
+  FAILIFNOTTRUE  [ NOTEQUALP "false "FALSE    ]
+  FAILIFNOTTRUE  [ NOTEQUALP "false "falseish ]
+
+  FAILIFNOTFALSE [ NOTEQUALP "HELLO "HELLO ]
+  FAILIFNOTFALSE [ NOTEQUALP "hello "hello ]
+  FAILIFNOTTRUE  [ NOTEQUALP "HELLO "hello ]
+  FAILIFNOTTRUE  [ NOTEQUALP "hello "HELLO ]
+
+  ; Now test explicitly case-insensitive comparisons
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP LOCALETRUE]
+
+  FAILIFNOTFALSE [ NOTEQUALP "HELLO "HELLO  ]
+  FAILIFNOTFALSE [ NOTEQUALP "hello "hello  ]
+  FAILIFNOTFALSE [ NOTEQUALP "HELLO "hello  ]
+  FAILIFNOTFALSE [ NOTEQUALP "hello "HELLO  ]
+  FAILIFNOTTRUE  [ NOTEQUALP "HELLO "HELLOx ]
+
+  ; Now test a non-boolean CASEIGNOREDP setting.
+  ; This should behave the same as FALSE
+  TRACEINSTRUCTION [MAKE "CASEIGNOREDP 1]
+
+  FAILIFNOTFALSE [ NOTEQUALP "HELLO "HELLO ]
+  FAILIFNOTFALSE [ NOTEQUALP "hello "hello ]
+  FAILIFNOTTRUE  [ NOTEQUALP "HELLO "hello ]
+  FAILIFNOTTRUE  [ NOTEQUALP "hello "HELLO ]
+
+END
+
+TO NOTEQUALPTEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(NOTEQUAL?)]
+  RUNNOTENOUGHINPUTSTEST [(NOTEQUAL? 1)]
+  RUNTOOMANYINPUTSTEST   [(NOTEQUAL? 1 1 "toomany)]
+END
+
+TO NOTEQUALPTEST
+  NOTEQUALPTEST.SMOKETEST
+  NOTEQUALPTEST.BADINPUT
+END
+
+TO EMPTYPTEST
+  FAILIFNOTTRUE  [EMPTYP [] ]
+  FAILIFNOTTRUE  [EMPTY? [] ]
+  FAILIFNOTFALSE [EMPTY? [1]]
+  FAILIFNOTFALSE [EMPTY? [0]]
+  FAILIFNOTFALSE [EMPTY? 0]
+  FAILIFNOTTRUE  [EMPTY? "||]
+  FAILIFNOTFALSE [EMPTY? "| |]
+
+  FAILIFNOTFALSE [EMPTY? {}]
+
+  RUNNOTENOUGHINPUTSTEST [(EMPTY?)]
+  RUNTOOMANYINPUTSTEST   [(EMPTY? [] "toomany)]
+END
+
+TO NUMBERPTEST
+  FAILIFNOTTRUE [NUMBERP 1     ]
+  FAILIFNOTTRUE [NUMBER? 1     ]
+  FAILIFNOTTRUE [NUMBER? 0     ]
+  FAILIFNOTTRUE [NUMBER? -1    ]
+  FAILIFNOTTRUE [NUMBER? 3.14  ]
+  FAILIFNOTTRUE [NUMBER? "-1   ]
+  FAILIFNOTTRUE [NUMBER? "0    ]
+  FAILIFNOTTRUE [NUMBER? "1    ]
+  FAILIFNOTTRUE [NUMBER? "2    ]
+  FAILIFNOTTRUE [NUMBER? "3    ]
+  FAILIFNOTTRUE [NUMBER? "4    ]
+  FAILIFNOTTRUE [NUMBER? "5    ]
+  FAILIFNOTTRUE [NUMBER? "6    ]
+  FAILIFNOTTRUE [NUMBER? "7    ]
+  FAILIFNOTTRUE [NUMBER? "8    ]
+  FAILIFNOTTRUE [NUMBER? "9    ]
+
+  FAILIFNOTFALSE [NUMBER? "/] ; ASCII value just before '0'
+  FAILIFNOTFALSE [NUMBER? ":] ; ASCII value just after  '0'
+  FAILIFNOTFALSE [NUMBER? {}]
+  FAILIFNOTFALSE [NUMBER? {2}]
+  FAILIFNOTFALSE [NUMBER? []]
+  FAILIFNOTFALSE [NUMBER? [1]]
+  FAILIFNOTFALSE [NUMBER? "one]
+  FAILIFNOTFALSE [NUMBER? "1A]
+  FAILIFNOTFALSE [NUMBER? "A1]
+  FAILIFNOTFALSE [NUMBER? "||]
+  FAILIFNOTFALSE [NUMBER? CHAR 194 ] ; bug #342
+
+
+  RUNNOTENOUGHINPUTSTEST [(NUMBER?)]
+  RUNTOOMANYINPUTSTEST   [(NUMBER? 1 "toomany)]
+END
+
+TO LISTPTEST
+  FAILIFNOTTRUE [LISTP [1 2 3] ]
+  FAILIFNOTTRUE [LIST? [1 2 3] ]
+  FAILIFNOTTRUE [LIST? []      ]
+
+  FAILIFNOTFALSE [LIST? "list  ]
+  FAILIFNOTFALSE [LIST? "|[1]| ]
+  FAILIFNOTFALSE [LIST? 1      ]
+  FAILIFNOTFALSE [LIST? 3.14   ]
+  FAILIFNOTFALSE [LIST? {1}    ]
+  FAILIFNOTFALSE [LIST? {}     ]
+  FAILIFNOTFALSE [LIST? "||    ]
+
+  RUNNOTENOUGHINPUTSTEST [(LIST?)]
+  RUNTOOMANYINPUTSTEST   [(LIST? [] "toomany)]
+END
+
+TO WORDPTEST
+  FAILIFNOTTRUE [WORDP "hello ]
+  FAILIFNOTTRUE [WORD? "hello ]
+  FAILIFNOTTRUE [WORD? 123    ]
+  FAILIFNOTTRUE [WORD? 3.14   ]
+  FAILIFNOTTRUE [WORD? "||    ]
+  FAILIFNOTTRUE [WORD? "|[1]| ]
+
+  FAILIFNOTFALSE [WORD? []       ]
+  FAILIFNOTFALSE [WORD? ["hello] ]
+  FAILIFNOTFALSE [WORD? {}       ]
+  FAILIFNOTFALSE [WORD? {"hello} ]
+
+  RUNNOTENOUGHINPUTSTEST [(WORD?)]
+  RUNTOOMANYINPUTSTEST   [(WORD? [] "toomany)]
+END
+
+TO ARRAYPTEST
+  FAILIFNOTTRUE [ARRAYP {1 2 3} ]
+  FAILIFNOTTRUE [ARRAY? {1 2 3} ]
+  FAILIFNOTTRUE [ARRAY? {}      ]
+
+  FAILIFNOTFALSE [ARRAY? "word  ]
+  FAILIFNOTFALSE [ARRAY? "|{}|  ]
+  FAILIFNOTFALSE [ARRAY? 1      ]
+  FAILIFNOTFALSE [ARRAY? 3.14   ]
+  FAILIFNOTFALSE [ARRAY? [1]    ]
+  FAILIFNOTFALSE [ARRAY? []     ]
+  FAILIFNOTFALSE [ARRAY? "||    ]
+
+  RUNNOTENOUGHINPUTSTEST [(ARRAY?)]
+  RUNTOOMANYINPUTSTEST   [(ARRAY? {1} "toomany)]
+END
+
+TO MEMBERPTEST
+  FAILIFNOTTRUE  [MEMBERP 2 [1 2 3] ]
+  FAILIFNOTTRUE  [MEMBER? 2 [1 2 3] ]
+
+  FAILIFNOTTRUE  [MEMBER? 1   [1]           ]
+  FAILIFNOTTRUE  [MEMBER? 1   [1 1 1]       ]
+  FAILIFNOTFALSE [MEMBER? 0   [1 2 3]       ]
+  FAILIFNOTTRUE  [MEMBER? [2] [[1] [2] [3]] ]
+  FAILIFNOTFALSE [MEMBER? 2   [[1] [2] [3]] ]
+  FAILIFNOTFALSE [MEMBER? [2] [1 2 3]       ]
+  FAILIFNOTFALSE [MEMBER? 1   []            ]
+
+  FAILIFNOTTRUE  [MEMBER? 1   {1}        ]
+  FAILIFNOTTRUE  [MEMBER? 1   {1 1 1}    ]
+  FAILIFNOTTRUE  [MEMBER? 12  {11 12 13} ]
+  FAILIFNOTFALSE [MEMBER? 12  {}         ]
+
+  FAILIFNOTTRUE  [MEMBER? 1   123  ]
+  FAILIFNOTFALSE [MEMBER? 4   123  ]
+  FAILIFNOTFALSE [MEMBER? 23  123  ]
+  FAILIFNOTFALSE [MEMBER? 1   "||  ]
+  FAILIFNOTFALSE [MEMBER? [1] "123 ]
+
+  FAILIFNOTFALSE [MEMBER? "|| "hello     ]
+  FAILIFNOTTRUE  [MEMBER? "|| (LIST "||) ]
+
+  LOCALMAKE "arrayofemptystring ARRAY 1
+  SETITEM 1 :arrayofemptystring "||
+  FAILIFNOTTRUE [MEMBER? "|| :arrayofemptystring ]
+
+  RUNNOTENOUGHINPUTSTEST [(MEMBER?)]
+  RUNNOTENOUGHINPUTSTEST [(MEMBER? 1)]
+  RUNTOOMANYINPUTSTEST   [(MEMBER? 2 [1 2 3] "toomany)]
+END
+
+TO BEFOREPTEST 
+
+  LOCALMAKE "CASEIGNOREDP LOCALETRUE
+
+  FAILIFNOTTRUE  [BEFOREP "ABC "ABD ]
+  FAILIFNOTTRUE  [BEFORE? "ABC "ABD ]
+  FAILIFNOTFALSE [BEFORE? "ABD "ABC ]
+  FAILIFNOTFALSE [BEFORE? "ABC "ABC ]
+
+  FAILIFNOTTRUE  [BEFORE? "ABC  "ABCD ]
+  FAILIFNOTFALSE [BEFORE? "ABCD "ABC  ]
+
+  FAILIFNOTTRUE  [BEFORE? "||  "A]
+  FAILIFNOTFALSE [BEFORE? "Z   "||]
+ 
+  RUNNOTENOUGHINPUTSTEST [(BEFORE?)]
+  RUNNOTENOUGHINPUTSTEST [(BEFORE? "ABC)]
+  RUNBADINPUTTEST        [(BEFORE? "ABC [])]
+  RUNBADINPUTTEST        [(BEFORE? []   "ABC)]
+  RUNTOOMANYINPUTSTEST   [(BEFORE? "ABC "ABC "toomany)]
+END
+
+TO PREDICATETEST
+
+  .EQTEST
+  EQUALPTEST
+  NOTEQUALPTEST
+
+  EMPTYPTEST
+  NUMBERPTEST
+  LISTPTEST
+  WORDPTEST  
+  ARRAYPTEST
+  MEMBERPTEST
+  BEFOREPTEST
+END

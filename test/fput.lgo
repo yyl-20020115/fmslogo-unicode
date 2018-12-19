@@ -1,0 +1,41 @@
+LOAD "testlib.lgo
+
+TO FPUTTEST.SMOKETEST
+
+   SIMPLEREPORTTEST [ FPUT  1  [2 3]    ] [1 2 3]
+   SIMPLEREPORTTEST [ FPUT  1  []       ] [1]
+   SIMPLEREPORTTEST [ FPUT [1] [[2][3]] ] [[1] [2] [3]]
+
+
+   REPORTTESTINFO [Testing that FPUT can put an array into a list]
+   LOCALMAKE "array {1 2 3}
+   SIMPLEREPORTTEST [ FPUT :array [1 2 3] ] (LIST :array 1 2 3)
+
+
+   REPORTTESTINFO [Testing that FPUT isn't destructive]
+   LOCALMAKE "originallist [2 3]
+   SIMPLEREPORTTEST [ FPUT 1 :originallist ] [1 2 3]
+   SIMPLEREPORTTEST [ :originallist ]        [2 3]
+
+END
+
+TO FPUTTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(FPUT 3)]
+   RUNTOOMANYINPUTSTEST   [(FPUT 3 [1 2] "toomany)]
+
+   ; bad input
+   RUNBADINPUTTEST [ FPUT  3 12    ]
+   RUNBADINPUTTEST [ FPUT "c "ab   ]
+   RUNBADINPUTTEST [ FPUT "3 {1 2} ]
+
+END
+
+
+TO FPUTTEST
+
+   FPUTTEST.SMOKETEST
+   FPUTTEST.BADINPUT
+
+END

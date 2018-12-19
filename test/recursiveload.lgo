@@ -1,0 +1,2 @@
+; a simple test to see what happens when loading a file loads itself.
+LOAD "recursiveload.lgo

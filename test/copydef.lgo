@@ -1,0 +1,256 @@
+LOAD "testlib.lgo
+
+TO COPYDEF.ALLOW.REDEFINITIONS :target :source
+
+   ; backup the current value of :REDEFP
+   LOCALMAKE "redefp.was.defined "false
+   LOCALMAKE "redefp.saved       "false
+   IF NAME? "redefp [
+      MAKE "redefp.was.defined "true
+      MAKE "redefp.saved       :redefp
+   ]
+
+   ; allow redefinitions
+   MAKE "redefp "true
+
+   ; do the COPYDEF
+   COPYDEF :target :source
+
+   ; restore the previous value of :redefp
+   IFELSE :redefp.was.defined [
+       MAKE "redefp :redefp.saved
+   ][
+       ERASE NAMELIST "redefp
+   ]
+
+END
+
+TO MYADD :a :b
+  OUTPUT SUM :a :b
+END
+
+TO COPYDEFSTOPTEST
+   COPYDEF.ALLOW.REDEFINITIONS "MYSTOP "STOP
+   MYSTOP
+   REPORTTESTFAILED [A COPYDEF of STOP did not behave like STOP]
+END
+
+TO COPYDEFOUTPUTTEST
+   COPYDEF.ALLOW.REDEFINITIONS "MYOUTPUT "OUTPUT
+   MYOUTPUT 373
+   REPORTTESTFAILED [A COPYDEF of OUTPUT did not behave like OUTPUT]
+END
+
+TO COPYDEFMAYBEOUTPUTTEST
+   COPYDEF.ALLOW.REDEFINITIONS "MYMAYBEOUTPUT ".MAYBEOUTPUT
+   MYMAYBEOUTPUT 373
+   REPORTTESTFAILED [A COPYDEF of .MAYBEOUTPUT did not behave like .MAYBEOUTPUT]
+END
+
+
+TO COPYDEFTEST.PRIMITIVEWITHINPUTS
+
+   ; Copydef a primitive that takes two inputs by default.
+   ; When this procedure is first tree-ified, the copydef won't exist
+   ; FMSLogo must notice that something has changed and re-treeify
+   ; the entire procedure.
+
+   TRACEINSTRUCTION [ COPYDEF.ALLOW.REDEFINITIONS "COPYDEF.SETXY "SETXY ]
+   REPORTTESTINFO   [ Running COPYDEF.SETXY 123 456 ]
+   COPYDEF.SETXY 123 456
+   SIMPLEREPORTTEST [ POS ] [123 456]
+END
+
+
+TO COPYDEFTEST.LIBRARYPROCEDURE
+
+   ; Copydef a library procedure that isn't loaded.
+   ; This tests that copydef'ing a library procedure loads it on demand.
+
+   TRACEINSTRUCTION [ ERASE "XCOR ]
+   TRACEINSTRUCTION [ COPYDEF "COPYDEF.XCOR "XCOR ]
+   TRACEINSTRUCTION [ SETX 10 ]
+   SIMPLEREPORTTEST [ COPYDEF.XCOR ] 10
+
+END
+
+
+TO COPYDEFOPTEST
+   COPYDEF.ALLOW.REDEFINITIONS "MYOP "OP
+   MYOP 373
+   REPORTTESTFAILED [A COPYDEF of OP did not behave like OP]
+END
+
+;
+; A copydef of TO should only work at the top-level
+;
+COPYDEF "TOCOPY "TO
+TOCOPY COPYDEFTOTEST
+  OUTPUT 373
+END
+
+
+TO COPYDEFTEST.PRIMITIVE
+
+   ; copydef a primitive procedure
+   COPYDEF.ALLOW.REDEFINITIONS "SUMCOPY "SUM
+   
+   ; does the copy behave line the original
+   SIMPLEREPORTTEST [SUMCOPY 1 2    ] 3
+   SIMPLEREPORTTEST [(SUMCOPY 1 2 3)] 6
+   SIMPLEREPORTTEST [(SUMCOPY)      ] 0
+
+   RUNDOESNTLIKEINPUTTEST [SUMCOPY 1    "ten]
+   RUNDOESNTLIKEINPUTTEST [SUMCOPY "ten 1]
+
+END
+
+TO COPYDEFTEST.REDEFP
+
+   ; backup the current value of :REDEFP
+   LOCALMAKE "redefp.was.defined "false
+   LOCALMAKE "redefp.saved       "false
+   IF NAME? "redefp [
+      MAKE "redefp.was.defined "true
+      MAKE "redefp.saved       :redefp
+   ]
+
+   ; allow redefinitions
+   TRACEINSTRUCTION [ MAKE "redefp "true  ]
+   TRACEINSTRUCTION [ COPYDEF "mysum "sum ]
+   TRACEINSTRUCTION [ COPYDEF "mysum "sum ]
+
+   ; disallow redefinitions
+   TRACEINSTRUCTION    [ MAKE "redefp "false  ]
+   RUNISAPRIMITIVETEST [ COPYDEF "mysum "sum ]
+
+   ; restore the previous value of :redefp
+   IFELSE :redefp.was.defined [
+       MAKE "redefp :redefp.saved
+   ][
+       ERASE NAMELIST "redefp
+   ]
+
+END
+
+TO COPYDEFTEST.INFIX
+
+   ; copydef an infix procedure
+   COPYDEF.ALLOW.REDEFINITIONS "MYPLUS "+
+
+   SIMPLEREPORTTEST [1 MYPLUS 2         ] 3
+   SIMPLEREPORTTEST [1 MYPLUS 2 MYPLUS 3] 6
+
+   RUNDOESNTLIKEINPUTTEST [1    MYPLUS "ten]
+   RUNDOESNTLIKEINPUTTEST ["ten MYPLUS 1   ]
+   RUNNOTENOUGHINPUTSTEST [(MYPLUS)]
+
+END
+
+TO COPYDEFTEST.USERDEFINED
+
+   ; copydef a user-defined procedure
+   COPYDEF "MYADDCOPY "MYADD
+   
+   ; test that the copy behaves like the original
+   SIMPLEREPORTTEST [MYADDCOPY 1 2] 3
+
+   ; test that the copy was buried.
+   FAILIFNOTTRUE [MEMBERP "MYADDCOPY ITEM 1 BURIED ]
+
+   ; test that the copy has the new name, instead of the old one
+   ; See Bug #317
+   RUNPRINTTEST [POT "MYADDCOPY ] "|TO MYADDCOPY :a :b|
+
+END
+
+TO COPYDEFTEST.NONTAILRECURSIVECOUNT :depth
+
+   ; base-case
+   if :depth = 0  [ output 0 ]
+
+   ; call this recursively
+   MAKE "count 1 + COPYDEFTEST.NONTAILRECURSIVECOUNT :depth - 1 
+
+   ; some code after the recursive call to force it to 
+   ; be non-tail recursive
+
+   COPYDEF.ALLOW.REDEFINITIONS "COPYDEFTEST.OUTPUT "OUTPUT
+   COPYDEFTEST.OUTPUT :count
+
+END
+
+TO COPYDEFTEST.INNONTAILRECURSIVEPROCEDURE
+
+   SIMPLEREPORTTEST [COPYDEFTEST.NONTAILRECURSIVECOUNT 55 ] 55
+
+END
+
+TO COPYDEFTEST.ERASEORIGINAL
+
+   ; define a simple procedure
+   TRACEINSTRUCTION [ DEFINE "COPYDEFTEST.ERASEME [[] [OUTPUT 12345]] ]
+
+   ; copy its definition
+   TRACEINSTRUCTION [ COPYDEF "COPYDEFTEST.ERASEMECOPY "COPYDEFTEST.ERASEME ]
+
+   ; erase the original
+   TRACEINSTRUCTION [ ERASE "COPYDEFTEST.ERASEME ]
+
+   ; confirm that it is erased
+   RUNIDONTKNOWHOWTOTEST [ COPYDEFTEST.ERASEME ]
+
+   ; call the copy (which should not have been erased)
+   SIMPLEREPORTTEST [ COPYDEFTEST.ERASEMECOPY ] 12345
+END
+
+TO COPYDEFTEST.BADINPUT
+
+   ; bad inputs
+   RUNNOTENOUGHINPUTSTEST [(COPYDEF)]
+   RUNNOTENOUGHINPUTSTEST [(COPYDEF "MYLIST)]
+   RUNTOOMANYINPUTSTEST   [(COPYDEF "MYLIST "LIST "TOOMANY)]
+
+   RUNISAPRIMITIVETEST    [(COPYDEF "SUM     "PRODUCT)]
+   RUNIDONTKNOWHOWTOTEST  [(COPYDEF "XXXCOPY "DOESNOTEXIT)]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF [1]      "SUM)]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF {1}      "SUM)]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF 1        "SUM)]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF -1       "SUM)]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF "NEWCOPY  [1])]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF "NEWCOPY  {1})]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF "NEWCOPY   1 )]
+   RUNDOESNTLIKEINPUTTEST [(COPYDEF "NEWCOPY  -1 )]
+   RUNIDONTKNOWHOWTOTEST  [(NEWCOPY)]
+   RUNISAPRIMITIVETEST    [(COPYDEF "SUMCOPY "SUM)]
+
+END
+
+TO COPYDEFTEST.SPECIALFORM
+
+   ; copydef procedures with special forms
+   TRACEINSTRUCTION [COPYDEFSTOPTEST            ]     ; Bug #118
+   SIMPLEREPORTTEST [COPYDEFOUTPUTTEST          ] 373 ; Bug #126
+   SIMPLEREPORTTEST [COPYDEFOPTEST              ] 373 ; Bug #126
+   SIMPLEREPORTTEST [COPYDEFMAYBEOUTPUTTEST     ] 373 ; Bug #126
+   SIMPLEREPORTTEST [COPYDEFTOTEST              ] 373
+
+END
+
+
+TO COPYDEFTEST
+
+   COPYDEFTEST.PRIMITIVE
+   COPYDEFTEST.INFIX
+   COPYDEFTEST.USERDEFINED
+   COPYDEFTEST.SPECIALFORM
+   COPYDEFTEST.PRIMITIVEWITHINPUTS
+   COPYDEFTEST.LIBRARYPROCEDURE
+   COPYDEFTEST.REDEFP
+   COPYDEFTEST.ERASEORIGINAL
+
+   COPYDEFTEST.BADINPUT
+
+   ;COPYDEFTEST.INNONTAILRECURSIVEPROCEDURE
+END
+

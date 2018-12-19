@@ -1,0 +1,7 @@
+
+TO UNEXPECTED.CLOSE.BRACKET
+   ; This file contains a single procedure that has a close bracket (])
+   ; that doesn't match up with an open bracket ([)
+   ; This is illegal and loading the file should throw an error.
+   ]
+END

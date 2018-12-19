@@ -1,0 +1,182 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+; helper function for reading words from READLIST when the
+; word comes from the UI.
+TO READLISTTEST.READLISTFROMUI :wordtoread
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+
+       ; enter the line and press press OK
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [List Mode (Cancel to Halt)] "Edit :wordtoread
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [List Mode (Cancel to Halt)] "OK
+
+       make "theword READLIST
+   ]
+
+   IGNORE FAILIFERROR (list "UI "Automation "to "read :wordtoread)
+
+   UIAUTOMATION.UNINITIALIZE
+
+   OUTPUT :theword
+
+END
+
+TO READLISTTEST.UI
+
+   SIMPLEREPORTTEST [READLISTTEST.READLISTFROMUI "easytest]    [easytest]
+   SIMPLEREPORTTEST [READLISTTEST.READLISTFROMUI "|Two Words|] [Two Words]
+
+END
+
+TO READLISTTEST.UICANCEL
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+      ; enter the line and press press Cancel
+      UIAUTOMATION.POSTSTRINGTOWINDOW     [List Mode (Cancel to Halt)] "Edit   "|UI will press Cancel|
+      UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [List Mode (Cancel to Halt)] "Cancel
+   ]
+
+   IGNORE FAILIFERROR "READLISTTEST.UICANCEL
+
+   RUNSTOPPINGTEST [IGNORE READLIST]
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO READLISTTEST.HELPER :data :expecteddata
+
+   LOCALMAKE "filename "readlisttest.txt
+
+   WRITEBINARYDATA :filename :data
+
+   OPENREAD :filename
+   SETREAD  :filename
+   SIMPLEREPORTTEST [ READLIST ] :expecteddata
+   SIMPLEREPORTTEST [ READLIST ] "||
+   CLOSE    :filename
+
+   ERASEFILE :filename
+END
+
+TO READLISTTEST.SMOKETEST
+
+   ; read a single word
+   READLISTTEST.HELPER  "Hello\n  [Hello]
+
+   ; read two words
+   READLISTTEST.HELPER  "|Hello Hello\n| [Hello Hello]
+
+   ; a file with a blank line
+   READLISTTEST.HELPER  "|\n| []
+
+   ; empty files read as EOF
+   READLISTTEST.HELPER "|| "||
+
+   ; tilde is a line concatenator
+   READLISTTEST.HELPER "|Hello~\nHello\n| [HelloHello]
+
+   ; linear whitespace after a tilde is ignored
+   READLISTTEST.HELPER "|Hello~  \nHello\n| [HelloHello]
+
+   ; linear whitespace on the line after a tilde is honored
+   READLISTTEST.HELPER "|Hello~  \n Hello\n| [Hello Hello]
+
+   ; vertical bars are removed from the input stream,
+   ; but their effect remains
+   READLISTTEST.HELPER "\|A\ B\ C\|\n (LIST "A\ B\ C)
+
+   ; vertical bars allow the text to span newlines
+   READLISTTEST.HELPER "A\|B\nC\n\|D\n (LIST "AB\nC\nD )
+
+   ; comments are not ignored
+   READLISTTEST.HELPER "AB\ \;\ CD\n (LIST "AB "|;| "CD)
+
+   ; vertical bars in comments are treated normally
+   ;READLISTTEST.HELPER "A\;B\|C\nD\|\n (LIST "A "|;| "BC\nD )
+
+   ; an end-of-file reached within a vertical bar preserves the bar.
+   ;BUG? READLISTTEST.HELPER "A\|B\nC\n (LIST "A "|;| "B\nC )
+
+   ; backslashes are not preserved
+   READLISTTEST.HELPER "A\\B\\C\n [ABC]
+
+   ; brackets are okay, if matched
+   READLISTTEST.HELPER "A\[B\]C\n [A [B] C]
+
+   ; brackets can span newlines without treating it as a new line.
+   READLISTTEST.HELPER "A\[B\nC\]D\n [A [B C] D]
+
+   ; nested brackets are honored and the outermost bracket determines the line brake.
+   READLISTTEST.HELPER "A\[B\[\nC\n\]D\]E\n [A [B [C] D] E]
+
+   ; brackets can nest across a semi-colon because comments are ignored
+   READLISTTEST.HELPER "A\[\;B\]C\n         (LIST "A (LIST "|;|B) "C)
+
+END
+
+TO READLISTTEST.FILEWITHNOEOL
+
+   ; Test READLIST on files that has no newline at the end.
+   ; This is a regression test for bug #439.
+   READLISTTEST.HELPER  "No\ Newline               [No Newline]
+   READLISTTEST.HELPER  "End\ With\ Continuation~  [End With Continuation]
+   ;BUG? READLISTTEST.HELPER  "End\ \|\ In\ Bar    [End In Bar]
+
+END
+
+TO READLISTTEST.PARSEERROR.HELPER :data :expectederror
+
+   LOCALMAKE "filename "readlistparseerrortest.txt
+
+   WRITEBINARYDATA :filename :data
+
+   OPENREAD :filename
+   SETREAD  :filename
+
+   RUNEXPECTERRORTEST [READLIST] :expectederror
+
+   CLOSE     :filename
+   ERASEFILE :filename
+END
+
+TO READLISTTEST.PARSEERROR
+
+   ; Unexpected ]
+   READLISTTEST.PARSEERROR.HELPER "A\ \]\ B\n" 26
+
+   ; Unexpected }
+   READLISTTEST.PARSEERROR.HELPER "A\ \}\ B\n" 27
+
+   ; Brackets after semi-colons are treated as brackets,
+   ; because comment characters are ignored.
+   READLISTTEST.PARSEERROR.HELPER "A\;\] 26
+
+END
+
+TO READLISTTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(READLIST "toomany)]
+   RUNTOOMANYINPUTSTEST [(RL       "toomany)]
+
+END
+
+TO READLISTTEST
+
+   READLISTTEST.SMOKETEST
+   READLISTTEST.FILEWITHNOEOL
+   READLISTTEST.PARSEERROR
+   READLISTTEST.UI
+   READLISTTEST.UICANCEL
+   READLISTTEST.BADINPUT
+
+END

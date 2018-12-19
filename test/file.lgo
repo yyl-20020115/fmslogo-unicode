@@ -1,0 +1,514 @@
+LOAD "testlib.lgo
+
+TO FILETEST.SMOKETEST.HELPER :filename
+
+   ; erase the file, just in case
+   ERASEFILE :filename
+
+   ;
+   ; Write some simple data to a test file
+   ;
+   OPENWRITE :filename
+   SETWRITE  :filename
+   SIMPLEREPORTTEST [WRITER] :filename
+   SIMPLEREPORTTEST [WRITEPOS] 0
+   PRINT "Hello
+   SIMPLEREPORTTEST [WRITEPOS] 7
+   PRINT [Good Bye]
+   SIMPLEREPORTTEST [WRITEPOS] 17
+
+   SETWRITE []
+   SIMPLEREPORTTEST [WRITER] []
+   CLOSE :filename
+
+   ;
+   ; Now, read the file
+   ;
+   OPENREAD :filename
+   SETREAD  :filename
+   SIMPLEREPORTTEST [READER] :filename
+
+   SIMPLEREPORTTEST [READPOS] 0
+   FAILIFNOTFALSE   [EOFP]
+
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SIMPLEREPORTTEST [READPOS] 7
+   FAILIFNOTFALSE   [EOFP]
+
+   SIMPLEREPORTTEST [READLIST] [Good Bye]
+   SIMPLEREPORTTEST [READPOS] 17
+   FAILIFNOTTRUE    [EOFP]
+
+   SETREAD []
+   SIMPLEREPORTTEST [READER] []
+
+   CLOSE :filename
+
+   ERASEFILE :filename
+END
+
+TO FILETEST.SMOKETEST
+   FILETEST.SMOKETEST.HELPER "smoketest.txt
+END
+
+TO FILETEST.NUMBERFILENAME
+   FILETEST.SMOKETEST.HELPER 123
+END
+
+
+TO FILETEST.SETREADPOS
+
+   LOCALMAKE "filename "setreadpostest.txt
+ 
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PRINT "Hello
+   PRINT [Good Bye]
+   SETWRITE []
+   CLOSE :filename
+
+   OPENREAD :filename
+   SETREAD :filename
+   SIMPLEREPORTTEST [READLIST] [Hello]
+
+   SETREADPOS 0
+
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SETREAD []
+   CLOSE :filename
+
+   ERASEFILE :filename
+END
+
+TO FILETEST.SETWRITEPOS
+
+   LOCALMAKE "filename "setwritepostest.txt
+ 
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PRINT "Hello
+   SETWRITEPOS 0
+   TYPE "J
+   SETWRITE []
+   CLOSE :filename
+
+   OPENREAD :filename
+   SETREAD :filename
+   SIMPLEREPORTTEST [READLIST] [Jello]
+   SETREAD []
+   CLOSE :filename
+
+   ERASEFILE :filename
+END
+
+
+TO FILETEST.ALLOPEN
+   LOCALMAKE "filename1 "filealltest-1.txt
+   LOCALMAKE "filename2 "filealltest-2.txt
+
+   TRACEINSTRUCTION [OPENWRITE :filename1]
+   TRACEINSTRUCTION [OPENWRITE :filename2]
+
+   ; make sure that ALLOPEN returns both open files
+   FAILIFNOTTRUE [ MEMBERP :filename1 ALLOPEN ]
+   FAILIFNOTTRUE [ MEMBERP :filename2 ALLOPEN ]
+
+   TRACEINSTRUCTION [CLOSE :filename1]
+   TRACEINSTRUCTION [CLOSE :filename2]
+
+   ; make sure that ALLOPEN returns neither file
+   FAILIFNOTFALSE [ MEMBERP :filename1 ALLOPEN ]
+   FAILIFNOTFALSE [ MEMBERP :filename2 ALLOPEN ]
+
+   ; cleanup
+   ERASEFILE :filename1
+   ERASEFILE :filename2
+END
+
+TO FILETEST.CLOSEALL
+   ; This can't be integrated into the test harness because it
+   ; would close the file to which the test results are written.
+
+   LOCALMAKE "filename1 "filealltest-1.txt
+   LOCALMAKE "filename2 "filealltest-2.txt
+
+   TRACEINSTRUCTION [OPENWRITE :filename1]
+   TRACEINSTRUCTION [OPENWRITE :filename2]
+
+   ; make sure that ALLOPEN returns both open files
+   FAILIFNOTTRUE [ MEMBERP :filename1 ALLOPEN ]
+   FAILIFNOTTRUE [ MEMBERP :filename2 ALLOPEN ]
+
+   TRACEINSTRUCTION [CLOSEALL]
+
+   ; make sure that ALLOPEN returns neither file
+   FAILIFNOTFALSE [ MEMBERP :filename1 ALLOPEN ]
+   FAILIFNOTFALSE [ MEMBERP :filename2 ALLOPEN ]
+
+   ERASEFILE :filename2
+   ERASEFILE :filename1
+END
+
+TO FILETEST.OPENAPPEND
+
+   LOCALMAKE "filename "openappendtest.txt
+ 
+   ; delete the file, in case it exists
+   ERASEFILE :filename
+ 
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PRINT "Hello
+   SETWRITE []
+   CLOSE :filename
+ 
+   OPENAPPEND :filename
+   SETWRITE  :filename
+   PRINT [Good Bye]
+   SETWRITE []
+   CLOSE :filename
+
+   OPENREAD :filename
+   SETREAD :filename
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SIMPLEREPORTTEST [READLIST] [Good Bye]
+   SETREAD []
+   CLOSE :filename
+
+   ERASEFILE :filename
+
+   ; shouldn't be able to open a file that was erased
+   RUNFILESYSTEMERRORTEST [OPENREAD :filename]
+END
+
+
+TO FILETEST.OPENUPDATE
+
+   LOCALMAKE "filename "openupdatetest.txt
+
+   ; delete the file, in case it exists
+   ERASEFILE :filename
+ 
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PRINT "Hello
+   PRINT [Good Bye]
+   SETWRITE []
+   CLOSE :filename
+ 
+   OPENUPDATE :filename
+   SETREAD :filename
+   SETREADPOS 0
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SETWRITE :filename
+   SETWRITEPOS 7
+   PRINT [And how are you today]
+   SETWRITE []
+   SETREAD :filename
+
+   SETREADPOS 0
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SIMPLEREPORTTEST [READLIST] [And how are you today]
+
+   CLOSE :filename
+
+   ERASEFILE :filename
+END
+
+TO FILETEST.DRIBBLE
+
+   LOCALMAKE "filename "dribbletest.txt
+ 
+   ; ask the user to dribble some commands
+   DRIBBLE :filename
+   PRINT "Hello
+   PRINT [Good Bye]
+   
+   ; TODO: have the user type something at the keyboard
+   NODRIBBLE
+
+   ; validate the dribble file
+   OPENREAD :filename
+   SETREAD  :filename
+   SIMPLEREPORTTEST [READLIST] [Hello]
+   SIMPLEREPORTTEST [READLIST] [Good Bye]
+   SETREAD []
+   CLOSE :filename
+
+   ERASEFILE :filename
+END
+
+
+TO FILETEST.BADINPUT
+
+   ; a long file name used to overflow an internal buffer
+   LOCALMAKE "longfilename REPEATWORD "A 5000
+
+   ; bad value for "binary parameter"
+   RUNBADINPUTTEST [(OPENREAD   "testfile.txt 1)]
+   RUNBADINPUTTEST [(OPENWRITE  "testfile.txt 1)]
+   RUNBADINPUTTEST [(OPENAPPEND "testfile.txt 1)]
+   RUNBADINPUTTEST [(OPENUPDATE "testfile.txt 1)]
+   
+   ; not enough inputs
+   RUNNOTENOUGHINPUTSTEST [(OPENREAD)]
+   RUNNOTENOUGHINPUTSTEST [(OPENWRITE)]
+   RUNNOTENOUGHINPUTSTEST [(OPENAPPEND)]
+   RUNNOTENOUGHINPUTSTEST [(OPENUPDATE)]
+
+   ; too many inputs
+   RUNTOOMANYINPUTSTEST [(OPENREAD   "testfile.txt LOCALETRUE "toomany)]
+   RUNTOOMANYINPUTSTEST [(OPENWRITE  "testfile.txt LOCALETRUE "toomany)]
+   RUNTOOMANYINPUTSTEST [(OPENAPPEND "testfile.txt LOCALETRUE "toomany)]
+   RUNTOOMANYINPUTSTEST [(OPENUPDATE "testfile.txt LOCALETRUE "toomany)]
+
+   ; empty list is bad input
+   RUNFILESYSTEMERRORTEST [OPENREAD   []]
+   RUNFILESYSTEMERRORTEST [OPENWRITE  []]
+   RUNFILESYSTEMERRORTEST [OPENAPPEND []]
+   RUNFILESYSTEMERRORTEST [OPENUPDATE []]
+
+   ; an array is bad input
+   RUNFILESYSTEMERRORTEST [OPENREAD   {1}]
+   RUNFILESYSTEMERRORTEST [OPENWRITE  {1}]
+   RUNFILESYSTEMERRORTEST [OPENAPPEND {1}]
+   RUNFILESYSTEMERRORTEST [OPENUPDATE {1}]
+
+   ; try to overflow an internal buffer
+   RUNFILESYSTEMERRORTEST [OPENREAD   :longfilename]
+   RUNFILESYSTEMERRORTEST [OPENWRITE  :longfilename]
+   RUNFILESYSTEMERRORTEST [OPENAPPEND :longfilename]
+   RUNFILESYSTEMERRORTEST [OPENUPDATE :longfilename]
+
+   ; test CLOSE
+   RUNFILESYSTEMERRORTEST [CLOSE :longfilename]
+   RUNFILESYSTEMERRORTEST [CLOSE "nonexistent.txt]
+   RUNDOESNTLIKEINPUTTEST [CLOSE [] ] ; bug #240
+   RUNDOESNTLIKEINPUTTEST [CLOSE [testfile.txt] ]
+   RUNDOESNTLIKEINPUTTEST [CLOSE {testfile.txt} ]
+   RUNNOTENOUGHINPUTSTEST [(CLOSE)]
+   RUNTOOMANYINPUTSTEST   [(CLOSE "testfile.txt "many)]
+
+   ; test ERASEFILE
+   RUNNOTENOUGHINPUTSTEST [(ERASEFILE)]
+   RUNTOOMANYINPUTSTEST   [(ERASEFILE "too "many)]
+
+   ; test CLOSEALL
+   RUNTOOMANYINPUTSTEST   [(CLOSEALL "toomany)]
+
+   ; test ALLOPEN
+   RUNTOOMANYINPUTSTEST   [(ALLOPEN "toomany)]
+
+   ; test EOFP
+   RUNTOOMANYINPUTSTEST   [(EOFP "toomany)]
+
+   ; test SETREAD
+   RUNFILESYSTEMERRORTEST [SETREAD    {1}]
+   RUNFILESYSTEMERRORTEST [SETREAD    :longfilename]
+   RUNNOTENOUGHINPUTSTEST [(SETREAD)]
+   RUNTOOMANYINPUTSTEST   [(SETREAD "file.txt "toomany)]
+
+   ; test SETWRITE
+   RUNFILESYSTEMERRORTEST [SETWRITE   {1}]
+   RUNFILESYSTEMERRORTEST [SETWRITE   :longfilename]
+   RUNNOTENOUGHINPUTSTEST [(SETWRITE)]
+   RUNTOOMANYINPUTSTEST   [(SETWRITE "file.txt "toomany)]
+
+END
+
+TO FILETEST.ERASEFILE
+
+   ; try to erase a non-existent file (should fail silently)
+   ERASEFILE "nonexistent
+
+   ; try to erase a file that does exist
+   OPENWRITE "mytestfile
+   ERASEFILE "mytestfile
+   FAILIFNOTTRUE [MEMBERP "mytestfile FILES]
+   CLOSE     "mytestfile
+   ERASEFILE "mytestfile
+   FAILIFNOTFALSE [MEMBERP "mytestfile FILES]
+
+   ; erase a device (should fail silently)
+   ERASEFILE "NUL
+
+   ; erase a directory (should fail silently)
+   MKDIR "mytestdir
+   POPDIR
+   ERASEFILE "mytestdir
+   FAILIFNOTTRUE [MEMBERP "mytestdir DIRECTORIES]
+   RMDIR     "mytestdir
+
+   ; erase a long file name to overflow an internal buffer
+   LOCALMAKE "longfilename REPEATWORD "A 5000
+   ERASEFILE :longfilename
+END
+
+TO FILETEST.OPENOPENFILE.HELPER
+
+   ; We can't open a file that is already open
+   RUNFILESYSTEMERRORTEST [ OPENREAD   "my-test-file ]
+   RUNFILESYSTEMERRORTEST [ OPENWRITE  "my-test-file ]
+   RUNFILESYSTEMERRORTEST [ OPENAPPEND "my-test-file ]
+   RUNFILESYSTEMERRORTEST [ OPENUPDATE "my-test-file ]
+
+   ; ...unless we change the case of the filename
+   TRACEINSTRUCTION [ OPENREAD   "my-Test-file ]
+   TRACEINSTRUCTION [ OPENWRITE  "my-tEst-file ]
+   TRACEINSTRUCTION [ OPENAPPEND "my-teSt-file ]
+   TRACEINSTRUCTION [ OPENUPDATE "my-tesT-file ]
+   
+   ; cleanup
+   TRACEINSTRUCTION [ CLOSE "my-test-file ]
+   TRACEINSTRUCTION [ CLOSE "my-Test-file ]
+   TRACEINSTRUCTION [ CLOSE "my-tEst-file ]
+   TRACEINSTRUCTION [ CLOSE "my-teSt-file ]
+   TRACEINSTRUCTION [ CLOSE "my-tesT-file ]
+END
+
+TO FILETEST.OPENOPENFILE
+
+   ; Test opening a file that has been opened with OPENWRITE
+   TRACEINSTRUCTION [OPENWRITE "my-test-file]
+   FILETEST.OPENOPENFILE.HELPER
+
+   ; Test opening a file that has been opened with OPENREAD
+   TRACEINSTRUCTION [OPENREAD "my-test-file]
+   FILETEST.OPENOPENFILE.HELPER
+
+   ; cleanup
+   ERASEFILE "my-test-file
+   FAILIFNOTFALSE [MEMBERP "my-test-file FILES]
+
+END
+
+TO FILETEST.OPENDIRECTORYASFILE
+
+   ; can't open a directory as file
+   MKDIR  "testdir
+   POPDIR
+
+   RUNFILESYSTEMERRORTEST [OPENREAD   "testdir]
+   RUNFILESYSTEMERRORTEST [OPENWRITE  "testdir]
+   RUNFILESYSTEMERRORTEST [OPENAPPEND "testdir]
+   RUNFILESYSTEMERRORTEST [OPENUPDATE "testdir]
+
+   RMDIR "testdir
+   FAILIFNOTFALSE [MEMBERP "mytestfile DIRECTORIES]
+END
+
+
+TO FILETEST.CLOSEREADER
+   ; Closes the active reader and writer.
+   ; This is a regression test for bug #241.
+
+   LOCALMAKE "filename  "closereadertest.txt
+   LOCALMAKE "oldreader READER
+   LOCALMAKE "oldwriter WRITER
+
+   OPENWRITE :filename
+   SETWRITE  :filename
+   PRINT [This is line 1]
+
+   ; closing the active writer should switch the writer to stdout
+   TRACEINSTRUCTION [ CLOSE WRITER ]
+   SIMPLEREPORTTEST [WRITER] []
+
+   PRINT [This goes to stdout]
+
+
+   ; now open the file for reading and do the same thing
+   OPENREAD  :filename
+   SETREAD   :filename
+   SIMPLEREPORTTEST [READWORD] "|This is line 1|
+
+   ; closing the active reader should switch the reader to stdin
+   TRACEINSTRUCTION [ CLOSE READER ]
+   SIMPLEREPORTTEST [READER] []
+
+   ; cleanup
+   ERASEFILE :filename
+
+END
+
+TO FILETEST.SETREAD.CLOSEDFILE
+
+   ; Sets the READER/WRITER to a closed file.
+
+   LOCALMAKE "openfile    "openfile.txt
+   LOCALMAKE "closedfile  "closedfile.txt
+
+   LOCALMAKE "oldreader READER
+   LOCALMAKE "oldwriter WRITER
+
+   ; set the reader/writer to something
+   OPENAPPEND :openfile
+   SETREAD    :openfile
+   SETWRITE   :openfile
+
+   ; create the file that we will close
+   OPENWRITE :closedfile
+   CLOSE     :closedfile
+
+   ; try to set the writer to the closed file
+   RUNFILESYSTEMERRORTEST [SETWRITE :closedfile]
+   SIMPLEREPORTTEST       [WRITER]  :openfile
+
+   OPENREAD  :closedfile
+   CLOSE     :closedfile
+
+   RUNFILESYSTEMERRORTEST [SETREAD :closedfile]
+   SIMPLEREPORTTEST       [READER] :openfile
+
+   CLOSE     :openfile
+
+   ; cleanup
+   ERASEFILE :openfile
+   ERASEFILE :closedfile
+END
+
+TO FILETEST.EOFPONSTDIN
+
+    LOCALMAKE "oldreader READER
+
+    ; change the reader to STDIN
+    TRACEINSTRUCTION [ SETREAD [] ]
+
+    ; EOFP should return false
+    FAILIFNOTFALSE [ EOFP ]
+    FAILIFNOTFALSE [ EOF? ]
+
+    ; restore the original reader
+    SETREAD :oldreader
+END
+
+
+TO FILETEST
+
+  ; This tests the basic functionality of the following functions
+  ; OPENWRITE, SETWRITE, WRITER, WRITEPOS, READER, READPOS, and EOFP
+
+  FILETEST.SMOKETEST
+  FILETEST.NUMBERFILENAME
+  FILETEST.CLOSEREADER
+
+  FILETEST.SETREADPOS
+  FILETEST.SETWRITEPOS
+
+  FILETEST.ALLOPEN
+
+  FILETEST.OPENAPPEND
+  FILETEST.OPENUPDATE
+
+  FILETEST.DRIBBLE
+
+  FILETEST.ERASEFILE
+  FILETEST.OPENOPENFILE
+  FILETEST.OPENDIRECTORYASFILE
+
+  FILETEST.EOFPONSTDIN
+
+  FILETEST.BADINPUT
+  FILETEST.SETREAD.CLOSEDFILE
+END
+

@@ -1,0 +1,470 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO BUG59TEST
+   REPORTTESTINFO [Executing regression test for Bug #59]
+   ELLIPSEARC 1e20 50 50 0
+   REPORTTESTPASSED "|Bug #59 is fixed; 'ELLIPSEARC 1e20 50 50 0' did not crash.|
+END
+
+
+TO BUG54TEST
+   ; Tests that CIRCLE with a large number can be halted.
+
+   TEXTSCREEN
+   UIAUTOMATION.INITIALIZE
+
+   ; Schedule a timer that simulates pressing the Halt button after two seconds.
+   ; This should halt CIRCLE command, not the test pass.
+   SETTIMER 1 2000 [
+     CLEARTIMER 1
+     (UIAUTOMATION.PUSHCOMMANDERBUTTON "Halt "False)
+   ]
+
+   RUNSTOPPINGTEST [ CIRCLE 1e50 ]
+
+   ; cleanup
+   UIAUTOMATION.UNINITIALIZE
+   SPLITSCREEN
+
+   REPORTTESTPASSED "|Bug #54 is fixed; 'CIRCLE 1e50' halted.|
+END
+
+TO ARCSMOKETEST
+
+  ; draw partial arcs
+  CLEARSCREEN
+  REPEAT 10 [ ARC  45  repcount*10.5 ]
+  REPEAT 10 [ ARC  45 -repcount*10.5 ]
+  REPEAT 10 [ ARC -45  repcount*10.5 ]
+  REPEAT 10 [ ARC -45 -repcount*10.5 ]
+
+  ; draw a full circle with arc
+  ARC   360   120
+  ARC   360  -130
+  ARC  -360   140
+  ARC  -360  -150
+  ARC  1e50   160
+  ARC  1e50  -170
+  ARC -1e50   180
+  ARC -1e50  -190
+
+END
+
+TO ARCBADINPUTTEST
+
+  RUNNOTENOUGHINPUTSTEST [(ARC)]
+  RUNNOTENOUGHINPUTSTEST [(ARC 10)]
+  RUNTOOMANYINPUTSTEST   [(ARC 10 10 10)]
+
+  RUNDOESNTLIKEINPUTTEST [ARC [10] 10  ]
+  RUNDOESNTLIKEINPUTTEST [ARC {10} 10  ]
+  RUNDOESNTLIKEINPUTTEST [ARC 10   [10]]
+  RUNDOESNTLIKEINPUTTEST [ARC 10   {10}]
+
+END
+
+; A helper function that tests that all of the points in :points
+; have the given color.
+TO CURVETEST.CHECKPOINTS :points :color
+
+  PENUP
+
+  REPEAT COUNT :points [
+    ; Move to the next point in the list
+    TRACEINSTRUCTION (LIST "SETPOS ITEM REPCOUNT :points)
+
+    ; Test that the point has the expected color
+    SIMPLEREPORTTEST [ PIXEL ] :color
+  ]
+
+  PENDOWN
+
+END
+
+TO ELLIPSETEST.SMOKETEST
+
+  ; Draw a simple ellipse
+  PENDOWN
+  SETPENSIZE 1
+  CLEARSCREEN
+  TRACEINSTRUCTION [ SETPENCOLOR 0   ]
+  TRACEINSTRUCTION [ ELLIPSE 100 200 ]
+
+  ; Check the extrema of the ellipse were drawn black
+  CURVETEST.CHECKPOINTS [
+    [  100     0 ] ; x-max
+    [    0   200 ] ; y-max
+    [ -100     0 ] ; x-min
+    [    0  -200 ] ; y-min
+  ] 0
+
+  ; Check outside the extrema of the ellipse is still white
+  CURVETEST.CHECKPOINTS [
+    [   99     0 ] ; x-max - 1
+    [  101     0 ] ; x-max + 1
+    [    0   199 ] ; y-max - 1
+    [    0   201 ] ; y-max + 1
+    [ -101     0 ] ; x-min - 1
+    [  -99     0 ] ; x-min + 1
+    [    0  -201 ] ; y-min + 1
+    [    0  -199 ] ; y-min - 1
+  ] 7
+
+  ; draw another with the pen up
+  CLEARSCREEN
+  TRACEINSTRUCTION [ PENUP           ]
+  TRACEINSTRUCTION [ ELLIPSE 100 200 ]
+
+  ; Check that nothing was drawn in the same points.
+  CURVETEST.CHECKPOINTS [
+    [  100     0 ] ; x-max
+    [    0   200 ] ; y-max
+    [ -100     0 ] ; x-min
+    [    0  -200 ] ; y-min
+  ] 7
+
+  ; Ellipse should use the turtle's pen color
+  CLEARSCREEN
+  PENDOWN
+  TRACEINSTRUCTION [ SETPENCOLOR 6   ]
+  TRACEINSTRUCTION [ ELLIPSE 100 200 ]
+  CURVETEST.CHECKPOINTS [
+    [  100     0 ] ; x-max
+    [    0   200 ] ; y-max
+    [ -100     0 ] ; x-min
+    [    0  -200 ] ; y-min
+  ] 6
+
+  ; Ellipse should use the turtle's pen size
+  CLEARSCREEN
+  PENDOWN
+  TRACEINSTRUCTION [ SETPENSIZE 3    ]
+  TRACEINSTRUCTION [ SETPENCOLOR 2   ]
+  TRACEINSTRUCTION [ ELLIPSE 100 200 ]
+  CURVETEST.CHECKPOINTS [
+    [   99     0 ] ; x-max - 1
+    [  100     0 ] ; x-max
+    [  101     0 ] ; x-max + 1
+    [    0   199 ] ; y-max - 1
+    [    0   200 ] ; y-max
+    [    0   201 ] ; y-max + 1
+    [ -101     0 ] ; x-min - 1
+    [ -100     0 ] ; x-min
+    [  -99     0 ] ; x-min + 1
+    [    0  -201 ] ; y-min + 1
+    [    0  -200 ] ; y-min
+    [    0  -199 ] ; y-min - 1
+  ] 2
+
+  SETPENSIZE  1
+  SETPENCOLOR 0
+  TRACEINSTRUCTION [ MOVETO 100 200 ]
+  TRACEINSTRUCTION [ ELLIPSE 0 0 ] ; draws a dot
+  CURVETEST.CHECKPOINTS [
+    [  100   200 ]
+  ] 0
+  CURVETEST.CHECKPOINTS [
+    [  101   200 ] ; right
+    [   99   200 ] ; left
+    [  100   201 ] ; above
+    [  100   199 ] ; below
+  ] 7
+
+  ; Draw an ellipse with 0 width
+  CLEARSCREEN
+  TRACEINSTRUCTION [ ELLIPSE 10 0 ] ; a line
+  CURVETEST.CHECKPOINTS [
+    [   10     0 ] ; x-max
+    [  -10     0 ] ; x-min
+  ] 0
+  CURVETEST.CHECKPOINTS [
+    [   11    0 ] ; x-max + 1
+    [  -11    0 ] ; x-min - 1
+    [   0     1 ] ; y-max + 1
+    [   0    -1 ] ; y-max - 1
+  ] 7
+
+
+  ; Now draw several ellipses in various positions
+  PENDOWN
+  CLEARSCREEN
+
+  SETPENSIZE  0
+  SETPENCOLOR 0
+  
+  ELLIPSE 50 100
+  RIGHT 30
+  ELLIPSE 50 100
+
+  SETPENCOLOR 2
+  SETPENSIZE 3
+  RIGHT 30
+  ELLIPSE 100 200
+  SETPENSIZE  1
+  SETPENCOLOR 2
+
+  ; an ellipse offset from the origin
+  MOVETO 200 -100
+  ELLIPSE 25 50
+
+  ; Ellipse with 0 as each axis
+  MOVETO -200 -100
+  ELLIPSE 0  50
+  ELLIPSE 30 0
+
+  ; Ellipse in PENREVERSE
+  MOVETO 100 200
+  PENREVERSE
+  ELLIPSE 20 30
+  ELLIPSE 30 20
+  PENPAINT
+
+  ; wrap mode
+  WRAP
+  MOVETO 490 490
+  ELLIPSE 20 20
+
+  ; window mode
+  MOVETO 0 490
+  WINDOW
+  ELLIPSE 20 20
+  WRAP
+
+  CHECKSCREEN "ellipsetest
+
+END
+
+TO ELLIPSETEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(ELLIPSE 100)]
+  RUNTOOMANYINPUTSTEST   [(ELLIPSE 100 200 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE [10]  100 ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE {10}  100 ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE "ten  100 ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE 100  [10] ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE 100  {10} ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSE 100  "ten ]
+
+END
+
+TO ELLIPSETEST.FENCEMODE
+   CLEARSCREEN
+   FENCE
+   RUNOUTOFBOUNDSTEST [ ELLIPSE 1000 10 ] 
+   SIMPLEREPORTTEST   [ POS ] [ 0 0 ]
+   WRAP
+   CLEARSCREEN
+END
+
+
+TO ELLIPSEARC2TEST.SMOKETEST
+
+  ; Draw a simple ellipse
+  PENDOWN
+  SETPENSIZE 1
+  CLEARSCREEN
+  TRACEINSTRUCTION [ SETPENCOLOR 0   ]
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 100 200 0 ]
+
+  ; Check the extrema of the ellipse were drawn black
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ] ; starting point
+    [   200  100 ] ; ending point
+  ] 0
+
+  ; Check that the ellipse arc did not continue beyond 90 degrees
+  CURVETEST.CHECKPOINTS [ [400 0] ] 7
+
+  ; The turtle should remain tangent to the line drawn.
+  SIMPLEREPORTTEST [ HEADING ] 90
+
+  ; draw another with the pen up
+  CLEARSCREEN
+  TRACEINSTRUCTION [ PENUP           ]
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 100 200 0 ]
+
+  ; Check that nothing was drawn in the same points.
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ] ; starting point
+    [   200  100 ] ; ending point
+  ] 7
+
+  ; EllipseArc2 should use the turtle's pen color
+  CLEARSCREEN
+  PENDOWN
+  TRACEINSTRUCTION [ SETPENCOLOR 3 ]
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 100 200 0 ]
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ] ; starting point
+    [   200  100 ] ; ending point
+  ] 3
+
+  ; EllipseArc2 should use the turtle's pen size
+  CLEARSCREEN
+  PENDOWN
+  TRACEINSTRUCTION [ SETPENSIZE  3   ]
+  TRACEINSTRUCTION [ SETPENCOLOR 2   ]
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 100 200 0 ]
+  CURVETEST.CHECKPOINTS [
+    [ 0    0 ] [  -1  0  ] [  1    0  ] ; starting point (width 3)
+    [ 200 99 ] [ 200 100 ] [ 200  101 ] ; ending point (width 3)
+  ] 2
+
+  SETPENSIZE  1
+  SETPENCOLOR 0
+  TRACEINSTRUCTION [ MOVETO -100 -200 ]
+  TRACEINSTRUCTION [ ELLIPSEARC2 0 0 0 0 ] ; draws a dot
+  CURVETEST.CHECKPOINTS [
+    [ -100 -200 ] ; dot at turtle's location
+  ] 0
+  CURVETEST.CHECKPOINTS [
+    [  -101   -200 ] ; right
+    [  -99    -200 ] ; left
+    [  -100   -201 ] ; above
+    [  -100   -199 ] ; below
+  ] 7
+
+  ; Draw an ellipse arc with 0 y-axis
+  CLEARSCREEN
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 0 10 0 ] ; a horizontal line
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ] ; x-max
+    [   10     0 ] ; x-min
+  ] 0
+  CURVETEST.CHECKPOINTS [
+    [  -1     0 ] ; x-min - 1
+    [  -11    0 ] ; x-max + 1
+    [   0     1 ] ; y-max + 1
+    [   0    -1 ] ; y-max - 1
+  ] 7
+  SIMPLEREPORTTEST [ HEADING ] 90
+
+  ; Draw an ellipse arc with 0 x-axis
+  CLEARSCREEN
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 20 0 0 ] ; a vertical line
+  CURVETEST.CHECKPOINTS [
+    [ 0 20 ] ; y-max
+    [ 0 0  ] ; y-min
+  ] 0
+  CURVETEST.CHECKPOINTS [
+    [ -1   0 ] ; x-min - 1
+    [  1   0 ] ; x-max + 1
+    [  0  21 ] ; y-max + 1
+    [  0  -1 ] ; y-max - 1
+  ] 7
+  SIMPLEREPORTTEST [ HEADING ] 90
+
+  ; Draw an ellipse arc starting at 90 degrees
+  CLEARSCREEN
+  TRACEINSTRUCTION [ ELLIPSEARC2 90 100 200 90 ]
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ] ; starting point
+    [   100  200 ] ; ending point
+  ] 0
+
+  ; Draw an ellipse arc with a negative sweep angle
+  CLEARSCREEN
+  TRACEINSTRUCTION [ ELLIPSEARC2 -90 100 200 0 ]
+  CURVETEST.CHECKPOINTS [
+    [    0     0 ]  ; starting point
+    [   200  -100 ] ; ending point
+  ] 0
+  SIMPLEREPORTTEST [ HEADING ] 270
+
+  ;
+  ; Now draw several ellipse arcs in various positions
+  ;
+  PENDOWN
+  CLEARSCREEN
+
+  ; Example from Manual (color ellipse)
+  SETPENSIZE 10
+  SETPENCOLOR "RED
+  ELLIPSEARC2 90 150 100 0
+  SETPENCOLOR "LIME
+  ELLIPSEARC2 90 150 100 90
+  SETPENCOLOR "BLUE
+  ELLIPSEARC2 90 150 100 180
+  SETPENCOLOR "YELLOW
+  ELLIPSEARC2 90 150 100 270
+
+  ; Move to a different position/orientation
+  SETPENSIZE 1
+  SETPENCOLOR 0
+  MOVETO -100 -20
+  RIGHT 45
+
+
+  ; Example from Manual (dashed ellipse)
+  REPEAT 36 [
+   PENDOWN
+   ELLIPSEARC2 10 50 200 REPCOUNT*20-20
+   PENUP
+   ELLIPSEARC2 10 50 200 REPCOUNT*20-10
+  ]
+
+  ; EllipseArc2 in PENREVERSE
+  MOVETO 100 200
+  PENREVERSE
+  ELLIPSEARC2 360 50 50 180
+  PENPAINT
+
+  ; wrap mode
+  WRAP
+  MOVETO 490 490
+  ELLIPSEARC2 180 20 20 0
+
+  ; window mode
+  MOVETO 0 490
+  WINDOW
+  ELLIPSEARC2 180 20 20 0
+  WRAP
+
+  CHECKSCREEN "ellipsearc2test
+
+END
+
+TO ELLIPSEARC2TEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(ELLIPSEARC2 60 100 200)]
+  RUNTOOMANYINPUTSTEST   [(ELLIPSEARC2 60 100 200 0 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2 [60]   100    200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2 {60}   100    200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2 "six   100    200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    [100]  200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    {100}  200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    "ten   200    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   [200]   0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   {200}   0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   "two    0   ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   200    [0]  ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   200    {0}  ]
+  RUNDOESNTLIKEINPUTTEST [ELLIPSEARC2  60    100   200    "one ]
+
+END
+
+TO ELLIPSEARC2TEST.FENCEMODE
+   CLEARSCREEN
+   FENCE
+   RUNOUTOFBOUNDSTEST [ ELLIPSEARC2 180 1000 1000 0 ]
+   SIMPLEREPORTTEST   [ POS ] [ 500 500 ]
+   WRAP
+   CLEARSCREEN
+END
+
+TO CURVESTEST
+   ARCSMOKETEST
+   ARCBADINPUTTEST
+
+   ELLIPSETEST.SMOKETEST
+   ELLIPSETEST.BADINPUT
+   ELLIPSETEST.FENCEMODE
+
+   ELLIPSEARC2TEST.SMOKETEST
+   ELLIPSEARC2TEST.BADINPUT
+   ELLIPSEARC2TEST.FENCEMODE
+
+   BUG59TEST
+   BUG54TEST
+END

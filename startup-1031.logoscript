@@ -1,0 +1,476 @@
+; dllload "io.dll
+; show shell [paportmo]
+
+catch "error [ copydef "alleerstes      "aer        ]
+catch "error [ copydef "ascii?          "asc        ]
+catch "error [ copydef "bb              "Bitblock   ]
+catch "error [ copydef "el              "Element    ]
+catch "error [ copydef "gib             "dzl        ]
+catch "error [ copydef "it              "igeltext   ]
+catch "error [ copydef "Tastaturaus     "keyboardaus]
+catch "error [ copydef "Tastaturein     "keyboardein]
+catch "error [ copydef "Tastenwert      "TastEg     ]
+catch "error [ copydef "nimmEg          "vgEg       ]
+catch "error [ copydef "löschebild      "lb         ]
+catch "error [ copydef "NB              "lb         ]
+catch "error [ copydef "NeuBild         "lb         ]
+catch "error [ copydef "lerne           "pr         ]
+catch "error [ copydef "letztes         "lz         ]
+catch "error [ copydef "miterstem       "me         ]
+catch "error [ copydef "mitletztem      "ml         ]
+catch "error [ copydef "or              "eines?     ]
+catch "error [ copydef "^               "Potenz     ]
+catch "error [ copydef "SZeichne        "SMale      ]
+catch "error [ copydef "und             "alle?      ]
+catch "error [ copydef "vergrabe        "verstecke  ]
+catch "error [ copydef "vergraben       "versteckt  ]
+catch "error [ copydef "WertEg          "gibEg      ]
+catch "error [ copydef "wiederhole      "wh         ]
+catch "error [ copydef "ztl             "Titelliste ]
+
+
+
+; copydef of library routines
+
+catch "error [ copydef "ArrayzurListe           "arraytolist    ]
+catch "error [ copydef "bestellen               "ask            ]
+catch "error [ copydef "vergrabealles           "buryall        ]
+catch "error [ copydef "vergrabeName            "buryname       ]
+catch "error [ copydef "Kreis                   "circle         ]
+catch "error [ copydef "kreis2                  "circle2        ]
+catch "error [ copydef "kombiniere              "combine        ]
+catch "error [ copydef "verbinde                "combine        ]
+catch "error [ copydef "erfassealles            "crossmap       ]
+
+catch "error [ copydef "Inhalt                  "dir            ]
+catch "error [ copydef "ih                      "dir            ]
+catch "error [ copydef "Distanz                 "distance       ]
+catch "error [ copydef "Distanzxyz              "distancexyz    ]
+catch "error [ copydef "führeaus.bis            "do.until       ]
+catch "error [ copydef "führeaus.solange        "do.while       ]
+catch "error [ copydef "eda                     "edall          ]
+catch "error [ copydef "edalles                 "edall          ]
+catch "error [ copydef "edName                  "edn            ]
+catch "error [ copydef "edNamen                 "edns           ]
+catch "error [ copydef "edn                     "edns           ]
+catch "error [ copydef "edEgliste               "edpl           ]
+catch "error [ copydef "edegli                  "edpl           ]
+catch "error [ copydef "edEglisten              "edpls          ]
+
+catch "error [ copydef "edprn                   "edps           ]
+
+catch "error [ copydef "vga                     "erall          ]
+catch "error [ copydef "vgName                  "ern            ]
+
+catch "error [ copydef "vgNamen                 "erns           ]
+catch "error [ copydef "vgn                     "erns           ]
+catch "error [ copydef "vgpl                    "erpl           ]
+catch "error [ copydef "vgpls                   "erpls          ]
+catch "error [ copydef "vgps                    "erps           ]
+catch "error [ copydef "Datei?                  "filep          ]
+
+catch "error [ copydef "filter                  "filter         ]
+catch "error [ copydef "finde                   "find           ]
+catch "error [ copydef "whfür                   "for            ]
+catch "error [ copydef "wiederholefür           "for            ]
+catch "error [ copydef "fürjedes                "foreach        ]
+catch "error [ copydef "GoldenerSchnitt         "goldenratio    ]
+
+catch "error [ copydef "minimieren              "minimize       ]
+catch "error [ copydef "ignoriere               "ignore         ]
+catch "error [ copydef "anrufen                 "invoke         ]
+catch "error [ copydef "ListezumArray           "listtoarray    ]
+catch "error [ copydef "setzelokal              "localmake      ]
+catch "error [ copydef "entfalteMakro           "macroexpand    ]
+
+catch "error [ copydef "setzeIgel               "maketurtle     ]
+catch "error [ copydef "erfasse                 "map            ]
+catch "error [ copydef "erfasse.Satz            "map.se         ]
+
+catch "error [ copydef "mdfixiereItem           "mdsetitem      ]
+catch "error [ copydef "kopiereMaus             "mousecopy      ]
+
+catch "error [ copydef "NamenListe              "namelist       ]
+catch "error [ copydef "Auffrischenaus          "norefresh      ]
+catch "error [ copydef "Orientierung            "orientation    ]
+catch "error [ copydef "Stift                   "pen            ]
+catch "error [ copydef "Normalstift             "pennormal      ]
+catch "error [ copydef "Zufallswahl             "pick           ]
+catch "error [ copydef "zglliste                "pllist         ]
+catch "error [ copydef "zglli                   "pllist         ]
+catch "error [ copydef "zga                     "poall          ]
+catch "error [ copydef "zgname                  "pon            ]
+catch "error [ copydef "zgn                     "pons           ]
+catch "error [ copydef "Stapelwert              "pop            ]
+catch "error [ copydef "zgEgliste               "popl           ]
+catch "error [ copydef "zgEglisten              "popls          ]
+catch "error [ copydef "zgprn                   "pops           ]
+catch "error [ copydef "zgprtitel               "pots           ]
+catch "error [ copydef "stapeln                 "push           ]
+
+catch "error [ copydef "zitiert                 "quoted         ]
+
+catch "error [ copydef "vermindere              "reduce         ]
+
+catch "error [ copydef "Auffrischenein          "refresh        ]
+catch "error [ copydef "rückgängig              "remdup         ]
+
+catch "error [ copydef "entferne                "remove         ]
+catch "error [ copydef "lösche                  "remove         ]
+catch "error [ copydef "invers                  "reverse        ]
+catch "error [ copydef "bewahreli               "savel          ]
+catch "error [ copydef "fixiereOrientierung     "setorientation ]
+catch "error [ copydef "fixiereStift            "setpen         ]
+catch "error [ copydef "Vorzeichen              "sign           ]
+catch "error [ copydef "langsammalen            "slowdraw       ]
+catch "error [ copydef "sortieren               "sort           ]
+catch "error [ copydef "Soundaus                "soundoff       ]
+catch "error [ copydef "Tonaus                  "soundoff       ]
+catch "error [ copydef "Ton                     "Tone           ]
+catch "error [ copydef "Soundan                 "soundon        ]
+
+catch "error [ copydef "Tonan                   "soundon        ]
+catch "error [ copydef "Schrift                 "textfont       ]
+catch "error [ copydef "transfer                "transfer       ]
+
+catch "error [ copydef "allesausgraben          "unburyall      ]
+
+catch "error [ copydef "Nameausgraben    "unburyname     ]
+
+catch "error [ copydef "restauriere      "restore        ]
+catch "error [ copydef "bis              "until          ]
+catch "error [ copydef "solange          "while          ]
+
+
+
+
+
+catch "error [ copydef "xko              "xcor           ]
+catch "error [ copydef "yko              "ycor           ]
+catch "error [ copydef "zko              "zcor           ]
+  
+to PortOutb :adress :num
+catch "error [ if namep "io.dll.is.loaded [ if :io.dll.is.loaded [ dllload "io.dll make "io.dll.is.loaded "true ] ] ]
+dllcall (list "v "PortOut "w :num "w :adress)
+end
+bury [PortOutb]
+
+to PortInb :adress
+catch "error [ if namep "io.dll.is.loaded [ if :io.dll.is.loaded [ dllload "io.dll make "io.dll.is.loaded "true ] ] ]
+op (first dllcall (list "w "PortIn "w :adress)) - 768
+end
+bury  [PortInb]
+
+catch "error [ copydef "Ausg                    "PortOutb       ]
+catch "error [ copydef "Ausgang                 "PortOutb       ]
+catch "error [ copydef "Eing                    "PortInb        ]
+catch "error [ copydef "Eingang                 "PortInb        ]
+
+
+to plus :L1 :L2
+op (list (first :L1) + (first :L2) (first bf :L1) + (first bf :L2) ~
+   (first bf bf :L1) + (first bf bf :L2) (last :L1) + (last :L2)) 
+end
+
+to smotor :l :sz :g
+if :g > 100 [pr [speed too fast! (0 < g-value <= 100)] stop]
+if :g = 0 [pr [speed too slow!] stop]
+show shell (list "MotorS 888 :l :sz int (300 / :g))  
+end
+
+bury [plus smotor]
+
+
+to LedTestTafel
+  ;;  Control is both a toolbox and a microworld.
+  ;;
+  ;;  Control of the eight output line can be either directly 
+  ;;  from the 'ControlPanel' or can be effected from the direct use 
+  ;;  of the six 'primitives':
+  ;; 
+  ;;  turn.off :lines i.e. <turn.off 3> or <turn.off [1 3 6 7]>
+  ;;
+  ;;  turn.off.all
+  ;;
+  ;;  turn.on :lines i.e. <turn.on 2> or <turn.off [0 2 4]>
+  ;;
+  ;;  turn.on.all
+  ;;
+  ;; You will note that these 'primitives' have a direct effect on 
+  ;; the "ControlPanel' wheras the choices on the panel have to be 
+  ;; initiated by the [Enter Data] button.
+  ;;
+  ;; You can write new procedures to manipulate the control panel 
+  ;; using the four new 'primitives' supplied here.
+
+  define "bin.to.dec [ [arg]
+    [ localmake "count 12 ]
+    [ localmake "result 0 ]
+    [ make.decimal ]
+    [ rg :result ]
+  ]
+  bury "bin.to.dec
+
+  define "convert [ [arg]
+    [ localmake "next first :arg]
+    [ checkboxset word "data :next :state ]
+    [ make "total :total + power 2 :next  ]
+    [ make "arg bf :arg ]
+    [ifelse :next > 7 [make "total2 :total][]]
+    [ ifelse emptyp :arg[stop][convert :arg] ]
+
+
+  ]
+  bury "convert
+
+  define "control [ []
+    [ windowcreate "main "ControlWindow "LEDTestTafel 30 30 300 100 [] ]
+    [ groupboxcreate "ControlWindow "groupbox1 5 1 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox1 "data0 [1. LED] 10 6 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox2 55 1 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox2 "data1 [2. LED] 60 6 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox3 105 1 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox3 "data2 [3. LED] 110 6 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox4 155 1 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox4 "data3 [4. LED] 160 6 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox5 5 31 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox5 "data4 [5. LED] 10 36 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox6 55 31 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox6 "data5 [6. LED] 60 36 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox7 105 31 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox7 "data6 [7. LED] 110 36 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox8 155 31 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox8 "data7 [8. LED] 160 36 35 15 ]
+
+[ groupboxcreate "ControlWindow "groupbox9 5 61 45 22 ]
+[ checkboxcreate "ControlWindow "groupbox9 "data8 [9. LED] 10 66 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox10 55 61 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox10 "data9 [10. LED] 60 66 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox11 105 61 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox11 "data10 [11. LED] 110 66 35 15 ]
+    [ groupboxcreate "ControlWindow "groupbox12 155 61 45 22 ]
+    [ checkboxcreate "ControlWindow "groupbox12 "data11 [12. LED] 160 66 35 15 ]
+
+
+
+    [ buttoncreate   "ControlWindow "checkbutton [LEDs ansteuern] 220 32 60 10 [gather.choices] ]
+    [ buttoncreate   "ControlWindow "Close "X 287 0 10 10 [windowdelete "LEDTestTafel.ControlWindow] ]
+    [ buttoncreate   "ControlWindow "OFF [Alle LEDs AUS] 220 55 60 10 [turn.off.all] ]
+    [ buttoncreate   "ControlWindow "ON [Alle LEDs AN] 220 10 60 10 [turn.on.all] ]
+  ]
+  bury "control
+
+  define "dec.to.bin [ [arg]
+    [ localmake "count 12 ]
+    [ localmake "result [] ]
+    [ until [:count=0][make.binary] ]
+    [ rg :result ][if :total2 = 256 [make "outn 10]]
+
+  ]
+  bury "dec.to.bin
+
+  define "gather.choices [ []
+    [ localmake "count -1 ]
+    [ localmake "lines [] ]
+    [ until [:count=11][read.choice] ]
+    [ localmake "outlines 0 ]
+    [ turn.on :lines ]
+  ]
+  bury "gather.choices
+
+  define "turn.off.all [ []
+    [ localmake "count 12 ]
+    [ until [:count=0][make "count :count-1 checkboxset word "data :count "false] ]
+    [ localmake "outlines 0 ]
+    [ portoutb 888 :outlines portoutb 890 :outlines + 11]
+  ]
+  bury "turn.off.all
+
+  define "turn.off [ [lines]
+    [ localmake "merge.result [] ]
+    [ localmake "changes [0 0 0 0 0 0 0 0 0 0 0 0] ]
+    [ make "changes listtoarray :changes ]
+    [ ifelse not emptyp :lines [implement.off][stop] ]
+    [ localmake "current dec.to.bin :outlines ]
+    [ make "changes arraytolist :changes  ]
+    [ merge ]
+    [ localmake "outlines LEDTestTafel.bin.to.dec :merge.result ]
+    [ portoutb 888 :outlines ]
+  ]
+  bury "turn.off
+
+  define "turn.on [ [lines]
+    [ localmake "total 0 localmake "total2 0]
+    [ localmake "state "true ]
+    [localmake "outn 11]
+    [ if not emptyp :lines [convert :lines] ]
+
+    [localmake "outlines bitor int :outlines int :total ]
+[if :total2 = 256 [make "outn 10]]
+[if :total2 = 512 [make "outn 9]]
+[if :total2 = 2816 [make "outn 16]]
+[if :total2 = 1024 [make "outn 15]]
+
+[if :total2 = 1280 [make "outn 14]]
+[if :total2 = 1536 [make "outn 13]]
+[if :total2 = 1792 [make "outn 12]]
+[if :total2 =  768 [make "outn 8]]
+[if :total2 = 3072 [make "outn 7]]
+[if :total2 = 3328 [make "outn 6]]
+[if :total2 = 3584 [make "outn 5]]
+[if :total2 = 3840 [make "outn 4]]
+[if :total2 = 2048 [make "outn 3]]
+[if :total2 = 2304 [make "outn 2]]
+[if :total2 = 2560 [make "outn 1]]
+
+
+
+
+    [ portoutb 888 :outlines portoutb 890 :outn]
+  ]
+  bury "turn.on
+
+  define "turn.on.all [ []
+    [ localmake "count 12 ]
+    [ until [:count=0][make "count :count-1 checkboxset word "data :count "true] ]
+    [ localmake "outlines 255 ]
+    [ portoutb 888 :outlines portoutb 890 :outlines - 251]
+   ]
+  bury "turn.on.all
+
+  define "make.decimal [ []
+    [ make "count :count-1 ]
+    [ localmake "next 0 ]
+    [ if equalp first :arg 1 [make "next power 2 :count]  ]
+    [ make "result :result + :next ]
+    [ make "arg bf :arg ]
+    [ ifelse emptyp :arg[stop][make.decimal] ]
+  ]
+  bury "make.decimal
+
+  define "make.binary [ []
+    [ make "count :count-1 ]
+    [ make "result se :result (int quotient :arg power 2 :count) ]
+    [ make "arg remainder :arg power 2 :count ]
+  ]
+  bury "make.binary
+
+  define "merge [ []
+    [ ifelse equalp (sum first :current first :changes) 2 [make "merge.result se :merge.result 0] [make "merge.result se :merge.result first :current] ]
+    [ make "current bf :current ]
+    [ make "changes bf :changes ]
+    [ ifelse emptyp :current[stop][merge] ]
+  ]
+  bury "merge
+
+  define "read.choice [ []
+    [ make "count :count+1 ]
+    [ if checkboxget word "data :count [make "lines se :count :lines] ]
+  ]
+  bury "read.choice
+
+  define "implement.off [ []
+    [ localmake "next first :lines ]
+    [ checkboxset word "data :next "false ]
+    [ setitem (12 - :next) :changes "1 ]
+    [ make "lines bf :lines ]
+    [ ifelse emptyp :lines [stop][implement.off] ]
+  ]
+  bury "implement.off
+
+  catch "error [ if namep "io.dll.is.loaded [ if :io.dll.is.loaded [ dllload "io.dll make "io.dll.is.loaded "true ] ] ]
+  ignore shell [paportmo]
+
+  control
+  turn.off.all
+
+end
+
+
+pr make.binary
+make "count :count - 1
+make "result se :result ( int quotient :arg power 2 :count )
+make "arg remainder :arg power 2 :count
+ende
+
+pr make.decimal
+make "count :count - 1
+localmake "next 0
+if equalp first :arg 1 [make "next power 2 :count]
+make "result :result + :next
+make "arg bf :arg
+ifelse emptyp :arg [stop] [make.decimal]
+ende
+
+pr merge
+ifelse equalp ( sum first :current first :changes ) 2 [make "merge.result se :merge.result 0] [make "merge.result se :merge.result first :current]
+make "current bf :current
+make "changes bf :changes
+ifelse emptyp :current [stop] [merge]
+ende
+
+pr read.choice
+make "count :count + 1
+if checkboxget word "data :count [make "lines se :count :lines]
+ende
+
+pr turn.off :lines
+localmake "merge.result []
+localmake "changes [0 0 0 0 0 0 0 0 0 0 0 0]
+make "changes listtoarray :changes
+ifelse not emptyp :lines [implement.off] [stop]
+localmake "current dec.to.bin :outlines
+make "changes arraytolist :changes
+merge
+localmake "outlines LEDTestTafel.bin.to.dec :merge.result
+portoutb 888 :outlines
+ende
+
+pr turn.off.all
+localmake "count 12
+until [:count=0] [make "count :count-1 checkboxset word "data :count "false]
+localmake "outlines 0
+portoutb 888 :outlines portoutb 890 :outlines + 11
+ende
+
+pr turn.on :lines
+localmake "total 0 localmake "total2 0
+localmake "state "true
+localmake "outn 11
+if not emptyp :lines [convert :lines]
+localmake "outlines bitor int :outlines int :total
+if :total2 = 256 [make "outn 10]
+if :total2 = 512 [make "outn 9]
+if :total2 = 2816 [make "outn 16]
+if :total2 = 1024 [make "outn 15]
+if :total2 = 1280 [make "outn 14]
+if :total2 = 1536 [make "outn 13]
+if :total2 = 1792 [make "outn 12]
+if :total2 = 768 [make "outn 8]
+if :total2 = 3072 [make "outn 7]
+if :total2 = 3328 [make "outn 6]
+if :total2 = 3584 [make "outn 5]
+if :total2 = 3840 [make "outn 4]
+if :total2 = 2048 [make "outn 3]
+if :total2 = 2304 [make "outn 2]
+if :total2 = 2560 [make "outn 1]
+portoutb 888 :outlines portoutb 890 :outn
+ende
+
+pr turn.on.all
+localmake "count 12
+until [:count=0] [make "count :count-1 checkboxset word "data :count "true]
+localmake "outlines 255
+portoutb 888 :outlines portoutb 890 :outlines - 251
+ende
+
+
+bury [LEDTestTafel bin.to.dec dec.to.bin implement.off turn.on.all turn.on turn.off.all turn.off convert make.decimal make.binary merge read.choice gather.choices control]
+make "io.dll.is.loaded "false
+bury [ [] [io.dll.is.loaded]]
+
+
+bury "LEDTestTafel
+
+make "io.dll.is.loaded "false
+bury [ [] [io.dll.is.loaded]]

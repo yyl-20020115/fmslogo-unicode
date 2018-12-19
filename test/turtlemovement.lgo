@@ -1,0 +1,51 @@
+LOAD "testlib.lgo
+; This file contains tests for the basic input handling of
+; the 2D turtle movement commands: FORWARD, BACK, RIGHT, LEFT.
+;
+; It does not contain tests for movement in particular window
+; modes, such as FENCE, WINDOW, or WRAP.  Those are included
+; in tests that are specific to that mode.
+
+TO FORWARDTEST.BADINPUT
+
+   TRACEINSTRUCTION [ HOME ] ; known position
+
+   RUNDOESNTLIKEINPUTTEST [ FORWARD "word ]
+   RUNDOESNTLIKEINPUTTEST [ FORWARD [1]   ]
+   RUNDOESNTLIKEINPUTTEST [ FORWARD {1}   ]
+   RUNTOOMANYINPUTSTEST   [(FORWARD 10 "toomany)]
+   RUNNOTENOUGHINPUTSTEST [(FORWARD)]
+
+   RUNDOESNTLIKEINPUTTEST [ FD "word ]
+   RUNDOESNTLIKEINPUTTEST [ FD [1]   ]
+   RUNDOESNTLIKEINPUTTEST [ FD {1}   ]
+   RUNTOOMANYINPUTSTEST   [(FD 10 "toomany)]
+   RUNNOTENOUGHINPUTSTEST [(FD)]
+
+   ; None of the above commands should have moved the turtle
+   SIMPLEREPORTTEST [POS] [0 0]
+END
+
+TO FORWARDTEST.SMOKETEST
+
+   TRACEINSTRUCTION [ HOME ]
+
+   ; forward integer
+   TRACEINSTRUCTION [ FORWARD 10 ]
+   SIMPLEREPORTTEST [ POS ] [ 0 10 ]
+
+   ; forward word (converts to integer)
+   TRACEINSTRUCTION [ FORWARD "10 ]
+   SIMPLEREPORTTEST [ POS ] [ 0 20 ]
+
+   ; forward float
+   TRACEINSTRUCTION [ FORWARD 5.5 ]
+   SIMPLEREPORTTEST [ POS ] [ 0 25.5 ]
+
+END
+
+TO TURTLEMOVEMENTTEST
+   FORWARDTEST.SMOKETEST
+   FORWARDTEST.BADINPUT
+END
+

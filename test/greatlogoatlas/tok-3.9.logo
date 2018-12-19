@@ -1,0 +1,2 @@
+print [|bars in |..| bars|]
+print [|bars in \|..\| bars|]

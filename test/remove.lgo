@@ -1,0 +1,56 @@
+LOAD "testlib.lgo
+
+TO REMOVETEST.SMOKETEST
+
+   ; from the manual
+   SIMPLEREPORTTEST [REMOVE "b [a b c b]] [a c]
+   SIMPLEREPORTTEST [REMOVE "e "Hello   ] "Hllo
+
+   ; two character values
+   SIMPLEREPORTTEST [REMOVE "ab [ab cd ef] ] [cd ef]
+   SIMPLEREPORTTEST [REMOVE "ab "ababab    ] "ababab
+
+   ; remove all contents
+   SIMPLEREPORTTEST [REMOVE "a "aaaa   ] "||
+   SIMPLEREPORTTEST [REMOVE "a [a a a] ] []
+
+   ; remove from empty list/string
+   SIMPLEREPORTTEST [REMOVE "a "|| ]  "||
+   SIMPLEREPORTTEST [REMOVE 2  []  ]  []
+
+   ; remove empty string from word (okay)
+   SIMPLEREPORTTEST [REMOVE "|| "abc     ]  "abc
+   SIMPLEREPORTTEST [REMOVE  [] [a [] b] ]  [a b]
+
+   ; not found
+   SIMPLEREPORTTEST [REMOVE "z [a b c d e]   ] [a b c d e]
+   SIMPLEREPORTTEST [REMOVE "z "abcde        ] "abcde
+
+
+   ; remove an array from a set
+   LOCALMAKE "myarray {a b c}
+   SIMPLEREPORTTEST [REMOVE :myarray (LIST :myarray "a "b "c :myarray)] [a b c]
+
+   ; trying to remove an array from a word is legal, but it's impossible
+   ; for the word to contain the array
+   SIMPLEREPORTTEST [REMOVE :myarray "abc] "abc
+
+END
+
+TO REMOVETEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(REMOVE "a)]
+   RUNTOOMANYINPUTSTEST   [(REMOVE "a "abc "toomany)]
+
+   ; bad inputs
+   RUNDOESNTLIKEINPUTTEST [REMOVE "1 {1 2 3} ]
+
+END
+
+TO REMOVETEST
+
+   REMOVETEST.SMOKETEST
+   REMOVETEST.BADINPUT
+
+END

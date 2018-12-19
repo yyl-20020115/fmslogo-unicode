@@ -1,0 +1,329 @@
+; This is the testharness.
+; It loads all unit tests and executes them.
+
+LOAD "testlib.lgo
+
+LOAD "greatlogoatlas.lgo
+LOAD "to.lgo
+LOAD "list.lgo
+LOAD "sentence.lgo
+LOAD "fput.lgo
+LOAD "lput.lgo
+LOAD "reverse.lgo
+LOAD "bug204.lgo
+LOAD "remdup.lgo
+LOAD "first.lgo
+LOAD "firsts.lgo
+LOAD "butfirst.lgo
+LOAD "butfirsts.lgo
+LOAD "butlast.lgo
+LOAD "last.lgo
+LOAD "setfirst.lgo
+LOAD "setbf.lgo
+LOAD "array.lgo
+LOAD "queue.lgo
+LOAD "stack.lgo
+LOAD "repeat.lgo
+LOAD "forever.lgo
+LOAD "repcount.lgo
+LOAD "wait.lgo
+LOAD "predicate.lgo
+LOAD "logic.lgo
+LOAD "math.lgo
+LOAD "bitwise.lgo
+LOAD "reduce.lgo
+LOAD "activearea.lgo
+LOAD "turtlemovement.lgo
+LOAD "bitmap.lgo
+LOAD "bitfit.lgo
+LOAD "bitmapturtle.lgo
+LOAD "gif.lgo
+LOAD "form.lgo
+LOAD "plist.lgo
+LOAD "editor.lgo
+LOAD "port.lgo
+LOAD "fontfacenames.lgo
+LOAD "label.lgo
+LOAD "pen.lgo
+LOAD "clearpalette.lgo
+LOAD "curves.lgo
+LOAD "fill.lgo
+LOAD "directory.lgo
+LOAD "file.lgo
+LOAD "macro.lgo
+LOAD "procedure.lgo
+LOAD "parse.lgo
+LOAD "eval.lgo
+LOAD "word.lgo
+LOAD "uppercase.lgo
+LOAD "lowercase.lgo
+LOAD "color.lgo
+LOAD "pensize.lgo
+LOAD "pixel.lgo
+LOAD "screen.lgo
+LOAD "misc.lgo
+LOAD "machine.lgo
+LOAD "network.lgo
+LOAD "controlflow.lgo
+LOAD "fence.lgo
+LOAD "wrap.lgo
+LOAD "window.lgo
+LOAD "perspective.lgo
+LOAD "orientation.lgo
+LOAD "scrunch.lgo
+LOAD "help.lgo
+LOAD "windowset.lgo
+LOAD "sort.lgo
+LOAD "run.lgo
+LOAD "dll.lgo
+LOAD "error.lgo
+LOAD "erract.lgo
+LOAD "copydef.lgo
+LOAD "iseq.lgo
+LOAD "save.lgo
+LOAD "load.lgo
+LOAD "trace.lgo
+LOAD "step.lgo
+LOAD "bury.lgo
+LOAD "erase.lgo
+LOAD "logoversion.lgo
+LOAD "apply.lgo
+LOAD "arity.lgo
+LOAD "quoted.lgo
+LOAD "mouse.lgo
+LOAD "windows.lgo
+LOAD "windowfileedit.lgo
+LOAD "midi.lgo
+LOAD "mci.lgo
+LOAD "sound.lgo
+LOAD "playwave.lgo
+LOAD "messagebox.lgo
+LOAD "yesnobox.lgo
+LOAD "selectbox.lgo
+LOAD "questionbox.lgo
+LOAD "dialogfile.lgo
+LOAD "shellscript.lgo
+LOAD "timer.lgo
+LOAD "shell.lgo
+LOAD "time.lgo
+LOAD "thing.lgo
+LOAD "catch.lgo
+LOAD "refresh.lgo
+LOAD "combine.lgo
+LOAD "print.lgo
+LOAD "standout.lgo
+LOAD "runresult.lgo
+LOAD "slowdraw.lgo
+LOAD "status.lgo
+LOAD "type.lgo
+LOAD "scroll.lgo
+LOAD "zoom.lgo
+LOAD "bitblock.lgo
+LOAD "turtle.lgo
+LOAD "readlist.lgo
+LOAD "readword.lgo
+LOAD "readrawline.lgo
+LOAD "readchar.lgo
+LOAD "readchars.lgo
+LOAD "bitmode.lgo
+LOAD "turtlemode.lgo
+LOAD "map.lgo
+LOAD "crossmap.lgo
+LOAD "polygon.lgo
+LOAD "item.lgo
+LOAD "arraytolist.lgo
+LOAD "listtoarray.lgo
+LOAD "remove.lgo
+LOAD "smallwindowhang.lgo
+LOAD "mdarray.lgo
+LOAD "foreach.lgo
+LOAD "bye.lgo
+LOAD "backtick.lgo
+LOAD "cascade.lgo
+LOAD "commandline.lgo
+LOAD "random.lgo
+LOAD "workspace.lgo
+LOAD "runparse.lgo
+LOAD "macroexpand.lgo
+LOAD "setpensizedialog.lgo
+
+TO TESTALL
+
+  REPORTTESTINITIALIZE "testlog.baseline.txt
+
+  ; Preallocate startnodes and endnodes to account for their memory.
+  localmake "endnodes   ITEM 1 NODES
+  localmake "startnodes ITEM 1 NODES
+
+  ; Determine the number of nodes in use at the start of the test.
+  make "startnodes ITEM 1 NODES
+
+
+  GREATLOGOATLASTEST   ; from greatlogoatlas.lgo
+  PARSETEST            ; from parse.lgo
+  SAVETEST             ; from save.lgo
+  LOADTEST             ; from load.lgo
+  RUNTEST              ; from run.lgo
+  RUNRESULTTEST        ; from runresult.lgo
+  RUNPARSETEST         ; from runparse.lgo
+  TOTEST               ; from to.lgo
+  ERRORTEST            ; from error.lgo
+  ERRACTTEST           ; from erract.lgo
+  CATCHTEST            ; from catch.lgo
+  EVALTEST             ; from eval.lgo
+  LISTTEST             ; from list.lgo
+  LPUTTEST             ; from lput.lgo
+  FPUTTEST             ; from fput.lgo
+  SENTENCETEST         ; from sentence.lgo
+  PREDICATETEST        ; from predicate.lgo
+  WORDTEST             ; from word.lgo
+  UPPERCASETEST        ; from uppercase.lgo
+  LOWERCASETEST        ; from lowercase.lgo
+  THINGTEST            ; from thing.lgo
+  ITEMTEST             ; from item.lgo
+  FIRSTTEST            ; from first.lgo
+  FIRSTSTEST           ; from firsts.lgo
+  BUTFIRSTTEST         ; from butfirst.lgo
+  BUTFIRSTSTEST        ; from butfirsts.lgo
+  BUTLASTTEST          ; from butlast.lgo
+  LASTTEST             ; from last.lgo
+  SETFIRSTTEST         ; from setfirst.lgo
+  SETBFTEST            ; from setbf.lgo
+  ARRAYTEST            ; from array.lgo
+  QUEUETEST            ; from queue.lgo
+  STACKTEST            ; from stack.lgo
+  COMBINETEST          ; from combine.lgo
+  ARRAYTOLISTTEST      ; from arraytolist.lgo
+  LISTTOARRAYTEST      ; from listtoarray.lgo
+  REVERSETEST          ; from reverse.lgo
+  REMOVETEST           ; from remove.lgo
+  REMDUPTEST           ; from remdup.lgo
+  LOGICTEST            ; from logic.lgo
+  APPLYTEST            ; from apply.lgo
+  REPEATTEST           ; from repeat.lgo
+  FOREVERTEST          ; from forever.lgo
+  REPCOUNTTEST         ; from repcount.lgo
+  FOREACHTEST          ; from foreach.lgo
+  MATHTEST             ; from math.lgo
+  RANDOMTEST           ; from random.lgo
+  BITWISETEST          ; from bitwise.lgo
+  PROCEDURETEST        ; from procedure.lgo
+  MACROTEST            ; from macro.lgo
+  REDUCETEST           ; from reduce.lgo
+  COPYDEFTEST          ; from copydef.lgo
+  ARITYTEST            ; from arity.lgo
+  PLISTTEST            ; from plist.lgo
+  CONTROLFLOWTEST      ; from controlflow.lgo
+  CASCADETEST          ; from cascade.lgo
+  ACTIVEAREATEST       ; from activearea.lgo
+  TURTLEMOVEMENTTEST   ; from turtlemovement.lgo
+  BITMAPTEST           ; from bitmap.lgo
+  BITFITTEST           ; from bitfit.lgo
+  GIFTEST              ; from gif.lgo
+  BITMODETEST          ; from bitmode.lgo
+  BITBLOCKTEST         ; from bitblock.lgo
+  TURTLETEST           ; from turtle.lgo
+  TURTLEMODETEST       ; from turtlemode.lgo
+  BITMAPTURTLETEST     ; from bitmapturtle.lgo
+  FORMTEST             ; from form.lgo
+  PRINTTEST            ; from print.lgo
+  STANDOUTTEST         ; from standout.lgo
+  READLISTTEST         ; from readlist.lgo
+  READWORDTEST         ; from readword.lgo
+  READRAWLINETEST      ; from readrawline.lgo
+  READCHARTEST         ; from readchar.lgo
+  READCHARSTEST        ; from readchars.lgo
+  WINDOWSETTEST        ; from windowset.lgo
+  EDITORTEST           ; from editor.lgo 
+  WINDOWFILEEDITTEST   ; from windowfileedit.lgo
+  PORTTEST             ; from port.lgo
+  FONTFACENAMESTEST    ; from fontfacenames.lgo
+  LABELTEST            ; from label.lgo
+  PENTEST              ; from pen.lgo
+  CLEARPALETTETEST     ; from clearpalette.lgo
+  CURVESTEST           ; from curves.lgo
+  FILLTEST             ; from fill.lgo
+  FILETEST             ; from file.lgo
+  COLORTEST            ; from color.lgo
+  PENSIZETEST          ; from pensize.lgo
+  PIXELTEST            ; from pixel.lgo
+  TIMERTEST            ; from timer.lgo
+  SCREENTEST           ; from screen.lgo
+  WAITTEST             ; from wait.lgo
+  TIMETEST             ; from time.lgo
+  SHELLTEST            ; from shell.lgo
+  DIRECTORYTEST        ; from directory.lgo
+  MACHINETEST          ; from machine.lgo
+  MISCTEST             ; from misc.lgo
+  FENCETEST            ; from fence.lgo
+  WRAPTEST             ; from wrap.lgo
+  TYPETEST             ; from type.lgo
+  WINDOWTEST           ; from window.lgo
+  PERSPECTIVETEST      ; from perspective.lgo
+  ORIENTATIONTEST      ; from orientation.lgo
+  POLYGONTEST          ; from polygon.lgo
+  SCRUNCHTEST          ; from scrunch.lgo
+  SCROLLTEST           ; from scroll.lgo
+  ZOOMTEST             ; from zoom.lgo
+  HELPTEST             ; from help.lgo
+  DLLTEST              ; from dll.lgo
+  MAPTEST              ; from map.lgo
+  CROSSMAPTEST         ; from crossmap.lgo
+  SORTTEST             ; from sort.lgo
+  ISEQTEST             ; from iseq.lgo
+  MDARRAYTEST          ; from mdarray.lgo
+  TRACETEST            ; from trace.lgo
+  STEPTEST             ; from step.lgo
+  BURYTEST             ; from bury.lgo
+  ERASETEST            ; from erase.lgo
+  LOGOVERSIONTEST      ; from logoversion.lgo
+  REFRESHTEST          ; from refresh.lgo
+  QUOTEDTEST           ; from quoted.lgo
+  BACKTICKTEST         ; from backtick.lgo
+  MACROEXPANDTEST      ; from macroexpand.lgo
+  WORKSPACETEST        ; from workspace.lgo
+  MESSAGEBOXTEST       ; from messagebox.lgo
+  YESNOBOXTEST         ; from yesnobox.lgo
+  SELECTBOXTEST        ; from selectbox.lgo
+  QUESTIONBOXTEST      ; from questionbox.lgo
+  DIALOGFILETEST       ; from dialogfile.lgo
+  WINDOWSTEST          ; from windows.lgo
+  MOUSETEST            ; from mouse.lgo
+  MIDITEST             ; from midi.lgo
+  MCITEST              ; from mci.lgo
+  SOUNDTEST            ; from sound.lgo
+  PLAYWAVETEST         ; from playwave.lgo
+  COMMANDLINETEST      ; from commandline.lgo
+  NETWORKTEST          ; from network.lgo
+  SLOWDRAWTEST         ; from slowdraw.lgo
+  STATUSTEST           ; from status.lgo
+  TESTSMALLWINDOWHANG  ; from smallwindowhang.lgo
+  SETPENSIZEDIALOGTEST ; from setpensizedialog.lgo
+  BYETEST              ; from bye.lgo
+
+  ; Make sure that no test case accidently leaks a variable name.
+  IF NOT EQUAL? NAMES [[] [endnodes startnodes startup testlog]] [
+    REPORTTESTBUG  (se [The following variables are defined] BUTFIRST NAMES)
+    REPORTTESTINFO [Only [endnodes startnodes startup testlog] should be defined.]
+  ]
+
+  ; Make sure that no test case accidently leaks a plist.
+  IF NOT EQUAL? PLISTS [[] [] []] [
+    REPORTTESTBUG  (se [The following property lists are defined] BUTFIRST BUTFIRST PLISTS)
+    REPORTTESTINFO [No property lists should be defined.]
+  ]
+
+  ; Determine if any nodes were leaked.
+  make "endnodes ITEM 1 NODES
+  IFELSE EQUALP :startnodes :endnodes [
+    REPORTTESTINFO (se [Node usage remained at] :startnodes [for the duration of the tests.])
+  ] [
+    REPORTTESTFAILED (se [Node usage went from] :startnodes [to] :endnodes [( change =] :endnodes - :startnodes [).])
+  ]
+  REPORTTESTUNINITIALIZE
+
+  print [The tests are now complete!]
+END
+
+; execute all tests on startup
+make "startup [TESTALL]

@@ -1,0 +1,226 @@
+LOAD "testlib.lgo
+
+TO LABELCIRCLETEST
+
+  CLEARSCREEN
+  SETSCREENCOLOR 7
+
+  HIDETURTLE
+  PENUP
+  REPEAT 360 / 15 [
+    FORWARD 175 
+    SETPENCOLOR (LIST 0 REPCOUNT*8 0) 
+    SETTEXTFONT (LIST [Arial] 10 + REPCOUNT * 2 0 0 400 0 0 0)
+    LABEL (LIST REPCOUNT)
+    BACK 175
+    RIGHT 15
+  ]
+  PENDOWN
+  SHOWTURTLE
+
+  CHECKSCREEN "font-circle
+
+END
+
+TO LABELTEST.PRINTLIMITS
+  LOCAL [text printdepthlimit printwidthlimit originalsize]
+
+  SETLABELFONT [System]
+  make "text [ABCDEFGHIJKLMNOPQRSTUVWXYZ [12 34 56 78 90] {AB CD EF GH IJ KL MN OP QR ST UV WX YZ}]
+
+  ; Determine the size of the text when there are no limits
+  TRACEINSTRUCTION [ make "originalsize LABELSIZE :text ]
+
+  ; Set the print limits
+  TRACEINSTRUCTION [ make "printdepthlimit 2 ]
+  TRACEINSTRUCTION [ make "printwidthlimit 3 ]
+
+  ; Confirm that the size is not as wide, but is as high
+  FAILIFNOTTRUE [ LESSP  ITEM 1 LABELSIZE :text ITEM 1 :originalSize ]
+  FAILIFNOTTRUE [ EQUALP ITEM 2 LABELSIZE :text ITEM 2 :originalSize ]
+
+  ; Call LABEL on the text
+  SETSCREENCOLOR "White
+  SETPENCOLOR    "Black
+  CLEARSCREEN
+  HIDETURTLE
+  RIGHT 90
+  LABEL :text
+
+  CHECKSCREEN "label-with-print-limits
+  SHOWTURTLE
+END
+
+
+TO LABELBADINPUTTEST
+  RUNNOTENOUGHINPUTSTEST [(LABEL)]
+  RUNTOOMANYINPUTSTEST   [(LABEL 1 1)]
+END
+
+TO SETLABELFONTTEST
+
+  CLEARSCREEN
+  SETPENCOLOR    2
+  SETSCREENCOLOR 7
+
+  ; Setting the label font to an unknown font is defined to 
+  ; enumerate all known fonts.
+  SETLABELFONT [unknown]
+
+  SETLABELFONT [System]
+  CLEARSCREEN
+  SETSCREENCOLOR 4
+  SETPENCOLOR    3
+  RIGHT 90
+  LABEL [This is the system font]
+
+  ; verify the font is correct
+  CHECKSCREEN "system-font
+
+
+  ; Draw a large Arial, also testing LABELSIZE
+  SETLABELFONT [[Arial] 32 0 0 400 0 0 0 0 0 0 0 0]
+  CLEARSCREEN
+  SETSCREENCOLOR 3
+  SETPENCOLOR    4
+
+  ; Set a background for the text
+  SETFLOODCOLOR  6
+  RIGHT 90
+  LOCALMAKE "size LABELSIZE [This is Arial]
+  LEFT 90
+  BITBLOCK ITEM 1 :size ITEM 2 :size
+  PENUP
+  FORWARD ITEM 2 :size
+  PENDOWN
+
+  ; Draw the text
+  RIGHT 90
+  LABEL [This is Arial]
+  CHECKSCREEN "arial-font
+
+
+  ; verify that the LABELFONT was set as expected
+  FAILIFNOTTRUE    [ LIST? LABELFONT ]
+  SIMPLEREPORTTEST [ COUNT LABELFONT ] 13
+  SIMPLEREPORTTEST [ITEM  1 LABELFONT] [Arial]
+  SIMPLEREPORTTEST [ITEM  2 LABELFONT] 32
+  SIMPLEREPORTTEST [ITEM  3 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM  4 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM  5 LABELFONT] 400
+  SIMPLEREPORTTEST [ITEM  6 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM  7 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM  8 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM  9 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM 10 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM 11 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM 12 LABELFONT] 0
+  SIMPLEREPORTTEST [ITEM 13 LABELFONT] 0
+
+
+  ; These result in a font-not-found behavior
+  SETLABELFONT [0]
+  SETLABELFONT []   ; Bug #105
+  SETLABELFONT [[]]
+  SETLABELFONT [[unknownfont]]
+
+  ; bad input tests
+  RUNBADINPUTTEST [SETLABELFONT "Courier]
+  RUNBADINPUTTEST [SETLABELFONT 1.1]
+  RUNBADINPUTTEST [SETLABELFONT {0}]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial] bad   0   0 400   0   0   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24 bad   0 400   0   0   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0 bad 400   0   0   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 bad   0   0   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400 bad   0   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0 bad   0   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0 bad   0   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0   0 bad   0   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0   0   0 bad   0   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0   0   0   0 bad   0   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0   0   0   0   0 bad   0]]
+  RUNBADINPUTTEST [SETLABELFONT [[Arial]  24   0   0 400   0   0   0   0   0   0   0 bad]]
+
+  RUNNOTENOUGHINPUTSTEST [(SETLABELFONT)]
+  RUNTOOMANYINPUTSTEST   [(SETLABELFONT [[Arial]] "toomany)]
+
+
+  REPORTTESTINFO "|Testing that SETLABELFONT doesn't modify its input list on error.|
+  LOCALMAKE "original [SETLABELFONT [[Arial] 24 0 0 400 0 0 bad 0 0 0 0 0]]
+  LOCALMAKE "used     [SETLABELFONT [[Arial] 24 0 0 400 0 0 bad 0 0 0 0 0]]
+  CATCH "ERROR :used
+  IGNORE ERROR
+  REPORTTESTINFO "|Now comparing the original instruction to the one that was used.|
+  SIMPLEREPORTTEST [:used] :original
+
+END
+
+TO LABELSIZETEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(LABELSIZE)]
+   RUNTOOMANYINPUTSTEST   [(LABELSIZE [text] "toomany)]
+END
+
+TO LABELSIZETEST.SMOKETEST
+
+   LOCAL [size]
+
+   ; LABELSIZE accepts words and wordlists interchangably
+   MAKE "size LABELSIZE 1234
+   SIMPLEREPORTTEST [LABELSIZE [1234] ] :size
+   SIMPLEREPORTTEST [LABELSIZE "1234  ] :size
+
+   MAKE "size LABELSIZE "two\ words
+   SIMPLEREPORTTEST [LABELSIZE [two words] ] :size
+
+   ; LABELSIZE accepts arrays
+   IGNORE LABELSIZE {1 2 3}
+
+   ; LABELSIZE is independent of the turtle's orientation
+   TRACEINSTRUCTION [ SETHEADING 0 ]
+   SIMPLEREPORTTEST [LABELSIZE [two words] ] :size
+   TRACEINSTRUCTION [ SETHEADING 45 ]
+   SIMPLEREPORTTEST [LABELSIZE [two words] ] :size
+   TRACEINSTRUCTION [ SETHEADING 90 ]
+   SIMPLEREPORTTEST [LABELSIZE [two words] ] :size
+
+   ; LABELSIZE is indepenent of the turtle's position.
+   ; (That is, the size is not clipped, even if the text would be)
+   TRACEINSTRUCTION [ SETXY 499 499 ]
+   SIMPLEREPORTTEST [LABELSIZE [two words] ] :size
+
+   ; The height is independent of the size of the text.
+   SIMPLEREPORTTEST [ITEM 2 LABELSIZE "Tg ] ITEM 2 LABELSIZE ".
+END
+
+TO LABELSIZETEST.BUG469
+   ; Bug #469 is that the LABELSIZE changes after running LABEL
+   ; (or, rather, that LABELSIZE was incorrect until running LABEL)
+
+   CLEARSCREEN
+
+   ; Change the label font to known font.
+   SETLABELFONT [[Arial] 16]
+
+   ; Get the initial size (before using LABEL)
+   LOCALMAKE "size LABELSIZE [This is my Sentence]
+
+   ; Now use the new font.
+   LABEL [This is my Sentence]
+
+   ; The size should not have changed.
+   SIMPLEREPORTTEST [LABELSIZE [This is my Sentence]] :size
+   CLEARSCREEN
+END
+
+TO LABELTEST
+  LABELCIRCLETEST
+  LABELBADINPUTTEST
+
+  SETLABELFONTTEST
+  LABELTEST.PRINTLIMITS
+
+  LABELSIZETEST.BADINPUT
+  LABELSIZETEST.SMOKETEST
+  LABELSIZETEST.BUG469
+END
+

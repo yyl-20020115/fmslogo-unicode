@@ -1,0 +1,5 @@
+to arc2 :ang :rad
+ellipsearc2 :ang :rad :rad 0
+end
+
+bury "arc2

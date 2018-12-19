@@ -1,0 +1,29 @@
+to aaa
+;
+; Function:
+;
+; Sends 360 packets of 2 commands each out the network and back.
+;
+; To run:
+;
+; load "netlocal.lgo
+; Call NETLOCAL
+;
+; Example:
+;
+  NETLOCAL
+end
+
+to netlocal
+  netstartup
+  show netaccepton 5124 [] [run netacceptreceivevalue]
+  show netconnecton "localhost 5124 [print "aok] []
+  wait 100 ; Wait for net to start
+  repeat 360 [make "foo netconnectsendvalue [fd 1 rt 1]]
+end
+
+to zzz
+  ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

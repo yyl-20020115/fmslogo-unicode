@@ -1,0 +1,170 @@
+LOAD "testlib.lgo
+
+TO SORTTEST.SORTBYLEGS :a :b
+  OUTPUT (LESSP (ITEM 2 :a) (ITEM 2 :b))
+END
+
+TO SORTTEST.SORTBYNAME :a :b
+  OUTPUT (BEFOREP (ITEM 1 :a) (ITEM 1 :b))
+END
+
+TO SORTTEST.ONEINPUTPROC :a
+  ; A predicate that takes one input.
+  ; This is bad input for SORT
+  OUTPUT LOCALETRUE
+END
+
+TO SORTTEST.THREEINPUTPROC :a :b :c
+  ; A predicate that takes one input.
+  ; This is bad input for SORT
+  OUTPUT LOCALETRUE
+END
+
+TO SORTTEST.ONEINPUTBYDEFAULT :a [:b 0]
+   OUTPUT LESSP :a :b
+END
+
+TO SORTTEST.NONPREDICATE :a :b
+  ; A function that takes two inputs but isn't a predicate.
+  OUTPUT 1
+END
+
+TO SORTTEST.AFTER? :a :b
+  ; a custom sort routine for sorting words
+  OUTPUT NOT BEFORE? :a :b
+END
+
+TO SORTTEST.REGRESSION
+
+  ;
+  ; smoke test for SORT
+  ;
+  SIMPLEREPORTTEST [SORT [] ]     []
+  SIMPLEREPORTTEST [SORT [1]]     [1]
+  SIMPLEREPORTTEST [SORT [1 2 3]] [1 2 3]
+  SIMPLEREPORTTEST [SORT [3 2 1]] [1 2 3]
+
+  SIMPLEREPORTTEST [SORT [c   b   a  ] ] [a b c]
+  SIMPLEREPORTTEST [SORT ["c  "b "a  ] ] ["a "b "c]
+  SIMPLEREPORTTEST [SORT [efg abc hij] ] [abc efg hij]
+
+  SIMPLEREPORTTEST [(SORT [c   b   a  ] "SORTTEST.AFTER?) ]   [c b a]
+  SIMPLEREPORTTEST [(SORT ["c  "b "a  ] "SORTTEST.AFTER?) ]   ["c "b "a]
+  SIMPLEREPORTTEST [(SORT [efg abc hij] "SORTTEST.AFTER?) ]   [hij efg abc]
+
+  SIMPLEREPORTTEST [SORT [1 2 3 1 2 3 1 2 3]] [1 1 1 2 2 2 3 3 3]
+
+  SIMPLEREPORTTEST [(SORT [1 2 3 1 2 3 1 2 3] "greaterp) ] [3 3 3 2 2 2 1 1 1]
+
+  SIMPLEREPORTTEST [(SORT [3 2 1] "SORTTEST.ONEINPUTBYDEFAULT)] [1 2 3]
+
+  ;
+  ; make a database of records {name #legs #eyes}
+  ; and sort the records with different sort routines
+  ;
+  LOCALMAKE "cat    {cat    4 2}
+  LOCALMAKE "spider {spider 8 8}
+  LOCALMAKE "human  {human  2 2}
+  LOCALMAKE "database (list :cat :spider :human)
+
+  SIMPLEREPORTTEST [(SORT :database "SORTTEST.SORTBYNAME)] (list :cat :human :spider)
+  SIMPLEREPORTTEST [(SORT :database "SORTTEST.SORTBYLEGS)] (list :human :cat :spider)
+
+  ; Test that sorting with BEFOREP is stable
+  SIMPLEREPORTTEST [(SORT [[B 3] [A 1] [B 4] [A 2]] [BEFOREP first ?1 first ?2])] [[A 1] [A 2] [B 3] [B 4]]
+
+  ; Test that sorting with LESSP is stable
+  SIMPLEREPORTTEST [(SORT [[1 A] [2 C] [2 D] [1 B]] [LESSP first ?1 first ?2])] [[1 A] [1 B] [2 C] [2 D]]
+
+
+  ;
+  ; sort a word
+  ;
+  SIMPLEREPORTTEST [SORT "hello]     "ehllo
+  SIMPLEREPORTTEST [SORT "FMSLogo]   "FgLMooS
+  SIMPLEREPORTTEST [SORT "FgLMooS]   "FgLMooS
+  SIMPLEREPORTTEST [SORT "Z]         "Z
+  SIMPLEREPORTTEST [SORT "||]        "||
+
+  ; Goes into infinite loop (Bug #165)
+  SIMPLEREPORTTEST [(SORT "hello "SORTTEST.AFTER?)] "ollhe
+
+  ;
+  ; sort an array
+  ;
+  local [sortedarray]
+  TRACEINSTRUCTION [make "sortedarray SORT {3 2 1 1 2 3 3 2 1}]
+  FAILIFNOTTRUE    [ARRAY? :sortedarray]
+  SIMPLEREPORTTEST [COUNT  :sortedarray] 9
+  SIMPLEREPORTTEST [ITEM 1 :sortedarray] 1
+  SIMPLEREPORTTEST [ITEM 2 :sortedarray] 1
+  SIMPLEREPORTTEST [ITEM 3 :sortedarray] 1
+  SIMPLEREPORTTEST [ITEM 4 :sortedarray] 2
+  SIMPLEREPORTTEST [ITEM 5 :sortedarray] 2
+  SIMPLEREPORTTEST [ITEM 6 :sortedarray] 2
+  SIMPLEREPORTTEST [ITEM 7 :sortedarray] 3
+  SIMPLEREPORTTEST [ITEM 8 :sortedarray] 3
+  SIMPLEREPORTTEST [ITEM 9 :sortedarray] 3
+
+  ;
+  ; sort an array of words
+  ;
+  TRACEINSTRUCTION [make "sortedarray SORT {ghi abc def}]
+  FAILIFNOTTRUE    [ARRAY? :sortedarray]
+  SIMPLEREPORTTEST [COUNT  :sortedarray] 3
+  SIMPLEREPORTTEST [ITEM 1 :sortedarray] "abc
+  SIMPLEREPORTTEST [ITEM 2 :sortedarray] "def
+  SIMPLEREPORTTEST [ITEM 3 :sortedarray] "ghi
+
+  ; Sort the empty array
+  TRACEINSTRUCTION [make "sortedarray SORT {}]
+  SIMPLEREPORTTEST [COUNT  :sortedarray] 0
+  SIMPLEREPORTTEST [array? :sortedarray] LOCALETRUE
+
+  ;
+  ; sort a long list in reverse order
+  ;
+  SIMPLEREPORTTEST [SORT ISEQ 100 1] ISEQ 1 100
+
+END
+
+TO SORTTEST.BADINPUT
+
+  RUNNOTENOUGHINPUTSTEST [(SORT)]
+
+  RUNBADINPUTTEST        [(SORT [[1][2]])]
+  RUNBADINPUTTEST        [(SORT {[1][2]})]
+  RUNBADINPUTTEST        [(SORT [3 2 1] "FMSLogo)]
+  RUNBADINPUTTEST        [(SORT [3 2 1] [1])]
+  RUNBADINPUTTEST        [(SORT [3 2 1] {1})]
+  RUNTOOMANYINPUTSTEST   [(SORT [3 2 1] "SORTTEST.ONEINPUTPROC)]
+  RUNNOTENOUGHINPUTSTEST [(SORT [3 2 1] "SORTTEST.THREEINPUTPROC)]
+  RUNBADINPUTTEST        [(SORT [3 2 1] "SORTTEST.NONPREDICATE)]
+
+  RUNTOOMANYINPUTSTEST   [(SORT [3 2 1] "lessp "toomany)]
+
+END
+
+TO SORTTEST.PERFORMANCE
+
+  REPORTTESTINFO [Sorting a sequence that is in random order]
+  localmake "randomsequence map [random 1000] iseq 1 100000
+  ignore timecommand [sort :randomsequence]
+
+  REPORTTESTINFO [Sorting a sequence that is already sorted]
+  localmake "orderedsequence iseq 1 100000
+  ignore timecommand [sort :orderedsequence]
+
+  REPORTTESTINFO [Sorting a sequence that is in reverse order]
+  localmake "reversesequence iseq 100000 1
+  ignore timecommand [sort :reversesequence]
+END
+
+TO SORTTEST
+
+  SORTTEST.REGRESSION
+  SORTTEST.BADINPUT
+
+  ;SORTTEST.PERFORMANCE
+
+END

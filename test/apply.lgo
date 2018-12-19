@@ -1,0 +1,223 @@
+LOAD "testlib.lgo
+
+TO APPLYTEST.NONPRIMITIVE :A :B
+   OUTPUT SUM :A :B
+END
+
+TO APPLYTEST.NOOUTPUT
+   STOP
+END
+
+TO APPLYTEST.APPLYOUTPUT
+  APPLY [OUTPUT ?] [3]
+END
+
+TO APPLYTEST.BUG174
+  ; Bug #174 -- this used to leak memory 
+  SIMPLEREPORTTEST [ APPLYTEST.APPLYOUTPUT ] 3
+
+  ; REVISIT: I can't figure out how to run this code without
+  ; halting automation.
+  ; RUNEXPECTERRORTEST [ APPLY [ OUTPUT ? ] [3] ] 30
+END
+
+
+TO APPLYTEST.SMOKETEST
+
+   ; apply a primitive
+   SIMPLEREPORTTEST [APPLY "SUM [123]      ] 123
+   SIMPLEREPORTTEST [APPLY "SUM [100 20 3] ] 123
+
+   ; apply a non-primitive procedure that has already been defined
+   SIMPLEREPORTTEST [APPLY "APPLYTEST.NONPRIMITIVE [120 3] ] 123
+
+   ; apply a library procedure that must get loaded
+   TRACEINSTRUCTION [ERASE "ARRAYTOLIST]
+   SIMPLEREPORTTEST [APPLY "ARRAYTOLIST [{1 2 3}] ] [1 2 3]
+
+   ; apply a procedure in the current directory that must get loaded
+   TRACEINSTRUCTION [ERASE "procedureinworkingdirectory]
+   SIMPLEREPORTTEST [APPLY "procedureinworkingdirectory [] ] 123
+
+   TRACEINSTRUCTION [APPLY "APPLYTEST.NOOUTPUT [] ]
+
+   ; this is legal for some reason
+   SIMPLEREPORTTEST [APPLY [1] []] 1
+
+   ; apply can be nested
+   SIMPLEREPORTTEST [APPLY "APPLY [SUM [100 20 3]]] 123
+END
+
+
+TO APPLYTEST.BADINPUT
+    
+   RUNNOTENOUGHINPUTSTEST [(APPLY "SUM)]
+   RUNTOOMANYINPUTSTEST   [(APPLY "SUM [1 2 3] "toomany)]
+
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST  [APPLY "NONEXISTENT [1 2 3]]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST  [APPLY "TO          []]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST  [APPLY 1            []]
+
+   RUNBADINPUTTEST   [APPLY {1 2 3} [1 2 3]]
+   RUNBADINPUTTEST   [APPLY [1 2 3] [1 2 3]]
+   RUNBADINPUTTEST   [APPLY "SUM    {1 2 3}]
+
+   ; the function being called has bad inputs
+   RUNNOTENOUGHINPUTSTEST [APPLY "APPLYTEST.NONPRIMITIVE [1]]
+   RUNTOOMANYINPUTSTEST   [APPLY "APPLYTEST.NONPRIMITIVE [1 2 3]]
+
+   ; lambda template has bad inputs
+   RUNNOTENOUGHINPUTSTEST [APPLY [[A] IGNORE :A] []     ]
+   RUNTOOMANYINPUTSTEST   [APPLY [[A] IGNORE :A] [1 2]  ]
+
+   ; procedure text template has bad inputs
+   RUNNOTENOUGHINPUTSTEST [APPLY [[A] [IGNORE :A]] []     ]
+   RUNTOOMANYINPUTSTEST   [APPLY [[A] [IGNORE :A]] [1 2]  ]
+
+   ; questionmark template has bad inputs
+   RUNBADINPUTTEST        [APPLY [IGNORE ?2] [1] ]
+
+   ; ?0 should return a bad input error (Bug #350)
+   RUNDOESNTLIKEINPUTTEST [APPLY [SHOW ?0] [a b c]]
+
+   ; fill the questionmark list
+   TRACEINSTRUCTION [ APPLY [] [1 2 3 4 5] ]
+ 
+   ; make sure the questionmark list is empty
+   RUNBADINPUTTEST [ SHOW ? ]
+
+END
+
+TO APPLYTEST.LAMBDATEMPLATE.NEWSCOPETEST
+
+   ; Tests that APPLY properly creates a local variable scope
+   ; for the lambda template.
+
+   LOCALMAKE "input        5
+   LOCALMAKE "input.before 5
+
+   APPLY [[input ignored] 
+          FAILIFNOTTRUE    [NAME? "ignored]
+          SIMPLEREPORTTEST [:input] :input.before + 1
+   ] (LIST :input + 1 1234)
+
+   FAILIFNOTFALSE   [NAME? "ignored]
+   SIMPLEREPORTTEST [:input.before]  :input
+END
+
+TO APPLYTEST.PROCEDURETEXTTEMPLATE.NEWSCOPETEST
+
+   ; Tests that APPLY properly creates a local variable scope
+   ; for the procedure text template.
+
+   LOCALMAKE "input        5
+   LOCALMAKE "input.before 5
+   APPLY [[input ignored] 
+          [FAILIFNOTTRUE    [NAME? "ignored]                   ]
+          [SIMPLEREPORTTEST [:input]         :input.before + 1 ]
+   ] (LIST :input + 1 1234)
+
+   FAILIFNOTFALSE   [NAME? "ignored]
+   SIMPLEREPORTTEST [:input.before] :input
+END
+
+
+TO APPLYTEST.LAMBDATEMPLATE
+
+   LOCAL [lambda.function.ran]
+
+   ;
+   ; lambda form template
+   ;
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran 0]
+   TRACEINSTRUCTION  [APPLY [[] MAKE "lambda.function.ran 1] [] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] 1
+
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran 0]
+   TRACEINSTRUCTION  [APPLY [[A] MAKE "lambda.function.ran :A] [1]]
+   SIMPLEREPORTTEST  [:lambda.function.ran] 1
+
+   SIMPLEREPORTTEST  [APPLY [[A] SUM 1 :A] [2] ] 3
+END
+
+
+TO APPLYTEST.PROCEDURETEXTTEMPLATE
+
+   LOCAL [lambda.function.ran]
+
+   ; applying a template with empty lines used to crash
+   TRACEINSTRUCTION [ APPLY [[][]] [] ]
+
+   ;
+   ; procedure text template
+   ;
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran 0]
+   TRACEINSTRUCTION  [APPLY [[] [MAKE "lambda.function.ran 1]] [] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] 1
+
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran 0]
+   TRACEINSTRUCTION  [APPLY [[A] [MAKE "lambda.function.ran :A]] [1] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] 1
+
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran "0]
+   TRACEINSTRUCTION  [APPLY [[A] [] [MAKE "lambda.function.ran :A] []] [1] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] 1
+
+   SIMPLEREPORTTEST  [APPLY [[A] [OUTPUT SUM 1 :A]] [2] ] 3
+END
+
+
+TO APPLYTEST.QUESTIONMARKTEMPLATE
+
+   LOCAL [lambda.function.ran]
+
+   ;
+   ; question-mark template
+   ;
+
+   ; no inputs
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran "false]
+   TRACEINSTRUCTION  [APPLY [MAKE "lambda.function.ran "true] [] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] "true
+
+   ; one input
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran "false]
+   TRACEINSTRUCTION  [APPLY [MAKE "lambda.function.ran ?] [true] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] "true
+
+   ; nested questionmark
+   TRACEINSTRUCTION  [MAKE "lambda.function.ran "false]
+   TRACEINSTRUCTION  [APPLY [APPLY [MAKE "lambda.function.ran ?] ?] [[true]] ]
+   SIMPLEREPORTTEST  [:lambda.function.ran] "true
+
+   ; questionmark template that outputs
+   SIMPLEREPORTTEST  [APPLY [SUM 1 ?] [2] ] 3
+
+   ; nested questionmark template (outer template list should be restored)
+   ; This is a regression test for bug #199.
+   SIMPLEREPORTTEST [APPLY [ IGNORE APPLY [1] [BAD] ? ] [GOOD] ] "GOOD
+
+END
+
+TO APPLYTEST.NESTEDAPPLY
+  ; this is a regression test for Bug #273
+  SIMPLEREPORTTEST [ APPLY [ APPLY [IGNORE ?1] ? ? ] [[1 2 3]] ] [1 2 3]
+END
+
+TO APPLYTEST
+
+   APPLYTEST.SMOKETEST
+   APPLYTEST.BADINPUT
+   APPLYTEST.BUG174
+
+   APPLYTEST.NESTEDAPPLY
+
+   APPLYTEST.LAMBDATEMPLATE
+   APPLYTEST.LAMBDATEMPLATE.NEWSCOPETEST
+
+   APPLYTEST.PROCEDURETEXTTEMPLATE
+   APPLYTEST.PROCEDURETEXTTEMPLATE.NEWSCOPETEST
+
+   APPLYTEST.QUESTIONMARKTEMPLATE
+END
+

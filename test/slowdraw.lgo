@@ -1,0 +1,116 @@
+LOAD "testlib.lgo
+
+TO SLOWDRAWTEST.TIMECOMMAND :instructions :mintime :maxtime
+
+   ; A helper for running and timing a command and testing
+   ; that it is within the expected range.
+
+   LOCALMAKE "executiontime TIMECOMMAND :instructions
+   CHECKEXECUTIONTIME :instructions :executiontime :mintime :maxtime
+END
+
+TO SLOWDRAWTEST.SMOKETEST
+   CLEARSCREEN ; so we can see what we're drawing
+   HIDETURTLE  ; for more consistent drawing times
+
+   ; slowdraw at 100
+   TRACEINSTRUCTION [ SLOWDRAW 100 ]
+   SLOWDRAWTEST.TIMECOMMAND [FD      100] 100*(1000/60) 100*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [FORWARD 100] 100*(1000/60) 100*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [BK      100] 100*(1000/60) 100*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [BACK    100] 100*(1000/60) 100*(1000/60)*2
+
+   ; slowdraw at 200
+   TRACEINSTRUCTION [ SLOWDRAW 200 ]
+   SLOWDRAWTEST.TIMECOMMAND [FD      100] 200*(1000/60) 200*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [FORWARD 100] 200*(1000/60) 200*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [BK      100] 200*(1000/60) 200*(1000/60)*2
+   SLOWDRAWTEST.TIMECOMMAND [BACK    100] 200*(1000/60) 200*(1000/60)*2
+
+   ; back to normal
+   TRACEINSTRUCTION [ SLOWDRAW 0 ]
+   SLOWDRAWTEST.TIMECOMMAND [FD      100] 0 20
+   SLOWDRAWTEST.TIMECOMMAND [FORWARD 100] 0 20
+   SLOWDRAWTEST.TIMECOMMAND [BK      100] 0 20
+   SLOWDRAWTEST.TIMECOMMAND [BACK    100] 0 20
+
+   SHOWTURTLE
+
+END
+
+TO SLOWDRAWTEST.REDEFPTEST
+   
+   ; tests that SLOWDRAW doesn't change the value of REDEFP
+   LOCAL [redefp]
+
+   ; call SLOWDRAW while redefp is unbound
+   TRACEINSTRUCTION  [ SLOWDRAW 100 ]
+   RUNHASNOVALUETEST [ :redefp ]
+
+   ; call SLOWDRAW while redefp is false
+   TRACEINSTRUCTION [ MAKE "redefp LOCALEFALSE ]
+   TRACEINSTRUCTION [ SLOWDRAW 100 ]
+   FAILIFNOTFALSE   [ :redefp ]
+
+   ; call SLOWDRAW while redefp is true
+   TRACEINSTRUCTION [ MAKE "redefp LOCALETRUE ]
+   TRACEINSTRUCTION [ SLOWDRAW 100 ]
+   FAILIFNOTTRUE    [ :redefp ]
+
+   ; restore the original movement commands
+   SLOWDRAW 0
+
+END
+
+TO SLOWDRAWTEST.BURIED
+
+   LOCALMAKE "contentsBefore []
+   LOCALMAKE "contentsAfter  []
+   
+   ; tests that SLOWDRAW doesn't pollute the unburied workspace
+   MAKE "contentsBefore CONTENTS
+   SLOWDRAW 100
+   MAKE "contentsAfter  CONTENTS
+
+   IFELSE EQUALP :contentsBefore :contentsAfter [
+      REPORTTESTPASSED [SLOWDRAW buried all procedures that it defined.]
+   ][
+      REPORTTESTFAILED [SLOWDRAW did not bury all procedures that it defined.]
+      REPORTTESTINFO   (LIST "Contents "Before "= :contentsBefore)
+      REPORTTESTINFO   (LIST "Contents "After "= :contentsAfter)
+   ]
+
+   ; restore the original movement commands
+   SLOWDRAW 0
+
+END
+
+TO SLOWDRAWTEST.BADINPUT
+
+   ; clear any slowdraw that may already exist
+   TRACEINSTRUCTION [ SLOWDRAW 0 ]
+
+   RUNNOTENOUGHINPUTSTEST [(SLOWDRAW)]
+   RUNTOOMANYINPUTSTEST   [(SLOWDRAW 10 "toomany)]
+
+   RUNBADINPUTTEST [SLOWDRAW -100]
+   RUNBADINPUTTEST [SLOWDRAW 100.5]
+   RUNBADINPUTTEST [SLOWDRAW [100]]
+   RUNBADINPUTTEST [SLOWDRAW {100}]
+
+   ; make sure that FD and BK still work
+   REPEAT 4 [ FORWARD 100 RIGHT 90 ]
+   REPEAT 4 [ FD      100 LEFT  90 ]
+   REPEAT 4 [ BACK    100 RIGHT 90 ]
+   REPEAT 4 [ BK      100 LEFT  90 ]
+
+END
+
+TO SLOWDRAWTEST
+
+   SLOWDRAWTEST.SMOKETEST
+   SLOWDRAWTEST.REDEFPTEST
+   SLOWDRAWTEST.BURIED
+   SLOWDRAWTEST.BADINPUT
+
+END

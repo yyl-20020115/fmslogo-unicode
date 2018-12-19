@@ -1,0 +1,1419 @@
+;copydef "# "#
+
+PARA #
+SI NO VAR? "template.number [DEV CUENTAREPITE]
+DEV :template.number
+FIN
+
+TAPA "#
+
+
+;copydef "` "`
+
+PARA ` :backq.lista
+   SI NO LISTA? :backq.lista [(LANZA "error 4 :backq.lista)]
+   DEVUELVE backq.recursive :backq.lista 0
+FIN
+
+PARA backq.recursive :backq.lista :backq.depth
+
+SI VACIO? :backq.lista [DEVUELVE []]
+
+SI IGUALES? PRIMERO :backq.lista "` ~
+   [DEVUELVE PONPRIMERO "`
+            PONPRIMERO (backq.recursive PRIMERO MENOSPRIMERO :backq.lista :backq.depth+1)
+                 (backq.recursive MENOSPRIMERO MENOSPRIMERO :backq.lista :backq.depth)]
+
+SI PALABRA? PRIMERO :backq.lista [
+   SI IGUALES? PRIMERO PRIMERO :backq.lista ", ~
+     [DEVUELVE backq.unquote (MENOSPRIMERO PRIMERO :backq.lista) (MENOSPRIMERO :backq.lista) :backq.depth]
+
+   SI MIEMBRO? PRIMERO PRIMERO :backq.lista [" :] ~
+     [DEVUELVE backq.palabra (PRIMERO PRIMERO :backq.lista) (MENOSPRIMERO PRIMERO :backq.lista)
+                    (MENOSPRIMERO :backq.lista) :backq.depth]
+
+   DEVUELVE PONPRIMERO PRIMERO :backq.lista (backq.recursive MENOSPRIMERO :backq.lista :backq.depth)
+]
+DEVUELVE PONPRIMERO (backq.recursive PRIMERO :backq.lista :backq.depth) ~
+        (backq.recursive MENOSPRIMERO :backq.lista :backq.depth)
+FIN
+
+PARA backq.palabra :backq.symbol :backq.palabra :backq.rest :backq.depth
+SI VACIO? :backq.palabra ~
+   [DEVUELVE PONPRIMERO :backq.symbol (backq.recursive :backq.rest :backq.depth)]
+SI NO IGUALES? PRIMERO :backq.palabra ", ~
+   [DEVUELVE PONPRIMERO (PALABRA :backq.symbol :backq.palabra)
+                (backq.recursive :backq.rest :backq.depth)]
+HAZLOCAL "result backq.unquote (MENOSPRIMERO :backq.palabra) :backq.rest :backq.depth
+SI PALABRA? :result [DEVUELVE PALABRA :backq.symbol :result]
+DEVUELVE PONPRIMERO (PALABRA :backq.symbol PRIMERO :result) MENOSPRIMERO :result
+FIN
+
+PARA backq.unquote :unquote.symbol :unquote.rest :unquote.depth
+HAZLOCAL "unquote.splicing "falso
+SI NO VACIO? :unquote.symbol [
+   SI IGUALES? PRIMERO :unquote.symbol "@ [
+      HAZ "unquote.splicing "cierto
+      HAZ "unquote.symbol MENOSPRIMERO :unquote.symbol
+]]
+SI :unquote.depth=0 [
+  SI VACIO? :unquote.symbol
+     [DEVUELVE backq.combine run PRIMERO :unquote.rest
+                           (backq.recursive MENOSPRIMERO :unquote.rest :unquote.depth)]
+  DEVUELVE backq.combine run :unquote.symbol (backq.recursive :unquote.rest :unquote.depth)
+]
+SI VACIO? :unquote.symbol ~
+   [DEVUELVE PONPRIMERO (SISINO :unquote.splicing [",@] [",])
+                PONPRIMERO (backq.recursive PRIMERO :unquote.rest :unquote.depth-1)
+                     (backq.recursive MENOSPRIMERO :unquote.rest :unquote.depth)]
+SI backq.all.commas :unquote.symbol ~
+   [DEVUELVE PONPRIMERO (SISINO :unquote.splicing [",@] [",])
+                PONPRIMERO (backq.recursive (LISTA :unquote.symbol PRIMERO :unquote.rest)
+                        :unquote.depth-1)
+                     (backq.recursive MENOSPRIMERO :unquote.rest :unquote.depth)]
+DEVUELVE PONPRIMERO (SISINO :unquote.splicing [",@] [",]) ~
+            PONPRIMERO (backq.recursive (LISTA :unquote.symbol) :unquote.depth-1) ~
+                 (backq.recursive :unquote.rest :unquote.depth)
+FIN
+
+PARA backq.combine :esto :aquellos
+DEVUELVE SISINO :unquote.splicing [frase :esto :aquellos] [PONPRIMERO :esto :aquellos]
+FIN
+
+PARA backq.all.commas :palabra
+SI VACIO? :palabra [DEVUELVE "cierto]
+SI IGUALES? PRIMERO :palabra ", ~
+   [SI VACIO? MENOSPRIMERO :palabra [DEVUELVE "cierto]
+    SI IGUALES? PRIMERO MENOSPRIMERO :palabra "@ [DEVUELVE backq.all.commas MENOSPRIMERO MENOSPRIMERO :palabra]
+    DEVUELVE backq.all.commas MENOSPRIMERO :palabra]
+DEVUELVE "falso
+FIN
+
+TAPA [` backq.recursive backq.palabra backq.unquote backq.combine backq.all.commas]
+
+
+;copydef "abs "abs
+
+PARA ABS :arg
+SI :arg > 0 [DEVUELVE :arg]
+DEVUELVE -:arg
+FIN
+
+TAPA "ABS
+
+
+;copydef "apagasonido "soundoff
+
+PARA APAGASONIDO
+   ESCRIBEPUERTO 97 BITAND 252 LEEPUERTO 97
+FIN
+TAPA "APAGASONIDO
+
+
+;copydef "apila "push
+
+PARA APILA :push.stack.name :item
+HAZ :push.stack.name PONPRIMERO :item VALOR :push.stack.name
+FIN
+
+TAPA "APILA
+
+
+;copydef "archivop "filep
+
+PARA ARCHIVOP :filename
+IGNORA ERROR
+ATRAPA "error [ABRELECTURA :filename CIERRA :filename]
+DEVUELVE VACIO? ERROR
+FIN
+
+TAPA "ARCHIVOP
+
+
+;copydef "arco "arc
+
+PARA ARCO :ang :rad
+ARCOELIPSE :ang :rad :rad 0
+FIN
+
+TAPA "ARCO
+
+;copydef "arco2 "arc2
+
+PARA ARCO2 :ang :rad
+ELIPSA2 :ang :rad :rad 0
+FIN
+
+TAPA "ARCO2
+
+
+;copydef "arcoelipse2 "ellipsearc2
+
+PARA ARCOELIPSE2 :ang :radius_x :radius_y :startang
+LOCAL "penstate 
+HAZ "penstate BAJALAPIZ?
+LOCAL "x
+HAZ "x -(SEN :startang) * :radius_x
+LOCAL "y
+HAZ "y -(COS :startang) * :radius_y
+SL
+GD 90
+AV RC (:x*:x + :y*:y)
+GI :startang
+SI :penstate [BL]
+ARCOELIPSE :ang :radius_x :radius_y :startang
+HAZ "x -(SEN :ang + :startang) * :radius_x
+HAZ "y -(COS :ang + :startang) * :radius_y
+SL
+GD :ang + :startang - 180
+AV RC (:x * :x + :y * :y)
+GD 90
+SI :penstate [BL]
+FIN
+
+TAPA "ARCOELIPSE2
+
+
+;copydef "bnombres "erns
+
+PARA BNOMBRES
+BORRA LVARS
+FIN
+
+TAPA "BNOMBRES
+
+
+;copydef "bovar "ern
+
+PARA BOVAR :names
+BORRA LISTANOMBRES :names
+FIN
+
+TAPA "BOVAR
+
+
+;copydef "bprocs "erps
+
+PARA BPROCS
+BORRA LPROCS
+FIN
+
+TAPA "BPROCS
+
+
+;copydef "bprops "erpls
+
+PARA BPROPS
+BORRA LPROPS
+FIN
+
+TAPA "BPROPS
+
+
+;copydef "btodo "erall
+
+PARA BTODO [:warning 1 = 1]
+SI :warning [SI NO SINOBOX [Atención] [¿Estás seguro que deseas borrar todo?] [ALTO]]
+BORRA CONTENIDO
+FIN
+
+TAPA "BTODO
+
+
+;copydef "cascada "cascade
+
+PARA CASCADA :cascade.limit [:cascade.inputs] 3
+SI NUMERO? :cascade.limit [
+  SI :cascade.limit < 0 [(LANZA "error 4 :cascade.limit)]
+  HAZ "cascade.limit `[MAYOR? :template.number ,[ENTERO :cascade.limit]]
+]
+LOCAL [cascade.templates template.vars cascade.final]
+HAZ "cascade.templates []
+HAZ "template.vars []
+HAZ "cascade.final [?1]
+CASCADA.setup :cascade.inputs
+DEV cascade1 1 :template.vars
+FIN
+
+PARA CASCADA.setup :inputs
+SI VACIO? :inputs [ALTO]
+SI VACIO? MP :inputs [HAZ "cascade.final PRIMERO :inputs ALTO]
+HAZ "cascade.templates PONULTIMO PRIMERO :inputs :cascade.templates
+HAZ "template.vars PONULTIMO PRIMERO MP :inputs :template.vars
+CASCADA.setup MP MP :inputs
+FIN
+
+PARA cascade1 :template.number :template.vars
+SI APLICA :cascade.limit :template.vars [DEV APLICA :cascade.final :template.vars]
+DEV cascade1 (:template.number+1) (CASCADA.eval :cascade.templates)
+FIN
+
+PARA CASCADA.eval :cascade.templates
+SI VACIO? :cascade.templates [DEV []]
+DEV PONPRIMERO (APLICA PRIMERO :cascade.templates :template.vars) ~
+        (CASCADA.eval MP :cascade.templates)
+FIN
+
+TAPA [CASCADA CASCADA.setup cascade1 CASCADA.eval]
+
+
+;copydef "cascada.2 "cascade.2
+
+PARA CASCADA.2 [:cascade2.inputs] 5
+DEV APLICA "cascade :cascade2.inputs
+FIN
+
+TAPA "CASCADA.2
+
+
+;copydef "circulo "circle
+
+PARA CIRCULO :rad
+ARCOELIPSE 360 :rad :rad 0
+FIN
+
+TAPA "CIRCULO
+
+;copydef "circulo2 "circle2
+
+PARA CIRCULO2 :rad
+ARCO2 360 :rad
+FIN
+
+TAPA "CIRCULO2
+
+;copydef "combina "combine
+
+PARA COMBINA :this :those
+SI PALABRA? :those [DEVUELVE PALABRA :this :those]
+DEVUELVE PONPRIMERO :this :those
+FIN
+
+TAPA "COMBINA
+
+
+;copydef "coorx "xcor
+
+PARA COORX
+DEVUELVE PRIMERO POS
+FIN
+
+TAPA "COORX
+
+
+;copydef "coory "ycor
+
+PARA COORY
+DEVUELVE ULTIMO POS
+FIN
+
+TAPA "COORY
+
+
+;copydef "coorz "zcor
+
+PARA COORZ
+DEVUELVE ULTIMO POS3D
+FIN
+
+TAPA "COORZ
+
+
+;copydef "copiaraton "mousecopy
+
+PARA COPIARATON.down
+; Init P1 and P2 and SelectionBox
+HAZ "mousecopy.p1 POSRATON
+HAZ "mousecopy.p2 POSRATON
+TAPAVAR "mousecopy.p1
+TAPAVAR "mousecopy.p2
+COPIARATON.selection
+; Activate Mouse Move
+INHABILITARATON [COPIARATON.down] [COPIARATON.up] [] [] [COPIARATON.move]
+FIN
+
+PARA COPIARATON.move
+; Erase Box, Reset P2 and draw Again
+COPIARATON.selection
+HAZ "mousecopy.p2 POSRATON
+COPIARATON.selection
+PONPOS POSRATON
+FIN
+
+PARA COPIARATON.selection
+; Draw a bounding PX Box
+HAZLOCAL "x1 PRIMERO :mousecopy.p1
+HAZLOCAL "y1 ULTIMO  :mousecopy.p1
+HAZLOCAL "x2 PRIMERO :mousecopy.p2
+HAZLOCAL "y2 ULTIMO  :mousecopy.p2
+SL
+PONXY :x1 :y1
+LINVIERTE
+PONXY :x2 :y1
+PONXY :x2 :y2
+PONXY :x1 :y2
+PONXY :x1 :y1
+SL
+FIN
+
+PARA COPIARATON.up
+; Erase Box
+COPIARATON.selection
+; Get Final P2
+HAZ "mousecopy.p2 POSRATON
+HAZLOCAL "x1 PRIMERO :mousecopy.p1
+HAZLOCAL "y1 ULTIMO  :mousecopy.p1
+HAZLOCAL "x2 PRIMERO :mousecopy.p2
+HAZLOCAL "y2 ULTIMO  :mousecopy.p2
+; Calculate Width, Height and Lower Left Corner
+HAZLOCAL "width ABS :x1 - :x2
+HAZLOCAL "height ABS :y1 - :y2
+HAZLOCAL "x SISINO :x1 < :x2 [:x1] [:x2]
+HAZLOCAL "y SISINO :y1 < :y2 [:y1] [:y2]
+SL
+; Copy selection to clipboard
+PONXY :x :y
+PONINDICEBIT 0
+(ESCRIBE "Ancho :width "Alto :height)
+COPIAAREA :width :height
+; Done
+HABILITARATON
+PONLAPIZ :mouse.savepen
+PONRONZAL PRIMERO :mouse.savescrunch ULTIMO :mouse.savescrunch
+PONGROSOR :mouse.savepensize
+FIN
+
+PARA COPIARATON
+; Will not work while Perspective is on
+HAZ "mouse.savepen LAPIZ
+TAPAVAR "mouse.savepen
+HAZ "mouse.savescrunch RONZAL
+TAPAVAR "mouse.savescrunch
+HAZ "mouse.savepensize GROSOR
+TAPAVAR "mouse.savepensize
+PONRONZAL 1 1
+PONGROSOR [1 1]
+MODOVUELTA
+INHABILITARATON [COPIARATON.down] [COPIARATON.up] [] [] []
+ESCRIBE [Usa el ratón para seleccionar un área para copiar al portapapeles]
+FIN
+
+TAPA "COPIARATON
+TAPA "COPIARATON.down
+TAPA "COPIARATON.move
+TAPA "COPIARATON.selection
+TAPA "COPIARATON.up
+
+
+;copydef "desapila "pop
+
+PARA DESAPILA :pop.stack.name
+LOCAL "result
+HAZ "result PRIMERO VALOR :pop.stack.name
+HAZ :pop.stack.name MENOSPRIMERO VALOR :pop.stack.name
+DEVUELVE :result
+FIN
+
+TAPA "DESAPILA
+
+
+;copydef "descola "dequeue
+
+PARA DESCOLA :queue
+LOCAL "result
+HAZ "result PRIMERO VALOR :queue
+HAZ :queue MENOSPRIMERO VALOR :queue
+DEVUELVE :result
+FIN
+
+TAPA "DESCOLA
+
+
+;copydef "desde "for
+
+.MACRO DESDE :for.values :for.instr ~
+   [:for.var PRIMERO :for.values] ~
+   [:for.initial EJECUTA PRIMERO MP :for.values] ~
+   [:for.final EJECUTA PRIMERO MP MP :for.values] ~
+   [:for.step forstep] ~
+   [:for.tester (SISINO :for.step < 0 ~
+                        [[:for.initial < :for.final]] ~
+                        [[:for.initial > :for.final]])]
+LOCAL :for.var
+ATRAPA "for.catchtag [DEV DESDE.done RESULTADOEJECUTA [forloop :for.initial]]
+DEV []
+FIN
+
+PARA forloop :for.initial
+HAZ :for.var :for.initial
+SI EJECUTA :for.tester [LANZA "for.catchtag]
+EJECUTA :for.instr
+.QUIZADEVUELVE forloop (:for.initial + :for.step)
+FIN
+
+PARA DESDE.done :for.result
+SI VACIO? :for.result [DEV [ALTO]]
+DEV LISTA "DEVUELVE ENTRECOMILLAS PRIMERO :for.result
+FIN
+
+PARA forstep
+SI IGUALES? CUENTA :for.values 4 [DEV EJECUTA ULTIMO :for.values]
+DEV SISINO :for.initial > :for.final [-1] [1]
+FIN
+
+TAPA [DESDE forstep forloop DESDE.done]
+
+
+;copydef "destapanombre "unburyname
+
+PARA DESTAPANOMBRE :names
+DESTAPA LISTANOMBRES :names
+FIN
+
+TAPA "DESTAPANOMBRE
+
+
+;copydef "destapatodo "unburyall
+
+PARA DESTAPATODO
+DESTAPA TAPADO
+FIN
+
+TAPA "DESTAPATODO
+
+
+;copydef "dibujalento "slowdraw
+
+PARA DIBUJALENTO :slowness
+
+SI NO NUMERO? :slowness              [(LANZA "error (FRASE [A dibujalento no le gusta] :slowness [como entrada]))]
+SI NO IGUALES? :slowness ENTERO :slowness [(LANZA "error (FRASE [A dibujalento no le gusta] :slowness [como entrada]))]
+SI :slowness < 0                  [(LANZA "error (FRASE [A dibujalento no le gusta] :slowness [como entrada]))]
+
+LOCAL "redefp ; don't change the caller's redefp setting
+HAZ "redefp 1 = 1
+
+; Restore things if already slow
+SI PRIMITIVA? "origforward [
+   COPIADEF "AVANZA "origforward
+   COPIADEF "AV      "origforward
+   BORRA "origforward
+   ]
+SI PRIMITIVA? "origback [
+   COPIADEF "RETROCEDE    "origback
+   COPIADEF "RE      "origback
+   BORRA "origback
+   ]
+
+; if a delay was specified, define new slow draw routines
+SI NO :slowness = 0 [
+   COPIADEF "origforward "AVANZA
+   BORRA "AV
+   DEFINE "AV (LISTA [d] (LISTA "REPITE :slowness (LISTA "origforward ":d "/ :slowness "ESPERA 1)))
+   COPIADEF "AVANZA "AV
+   TAPA "AV
+
+   COPIADEF "origback    "RETROCEDE
+   BORRA "RE
+   DEFINE "RE (LISTA [d] (LISTA "REPITE :slowness (LISTA "origback    ":d "/ :slowness "ESPERA 1)))
+   COPIADEF "RETROCEDE    "RE
+   TAPA "RE
+   ]
+
+FIN
+TAPA "DIBUJALENTO
+
+
+;copydef "dir "dir
+
+PARA DIR
+REPITE CUENTA LISTAARCHIVOS [(ESCRIBE "ARCHIVO ELEMENTO CUENTAREPITE LISTAARCHIVOS)]
+REPITE CUENTA DIRECTORIOS [(ESCRIBE "DIRECTORIO ELEMENTO CUENTAREPITE DIRECTORIOS)]
+FIN
+
+TAPA "DIR
+
+
+;copydef "distancia "distance
+
+PARA DISTANCIA :point
+HAZLOCAL "dx (ELEMENTO 1 POS) - (ELEMENTO 1 :point)
+HAZLOCAL "dy (ELEMENTO 2 POS) - (ELEMENTO 2 :point)
+DEVUELVE RC (:dx*:dx + :dy*:dy)
+FIN
+
+TAPA "DISTANCIA
+
+PARA DISTANCIAXYZ :point
+HAZLOCAL "dx (ELEMENTO 1 POS3D) - (ELEMENTO 1 :point)
+HAZLOCAL "dy (ELEMENTO 2 POS3D) - (ELEMENTO 2 :point)
+HAZLOCAL "dz (ELEMENTO 3 POS3D) - (ELEMENTO 3 :point)
+DEVUELVE RC (:dx*:dx + :dy*:dy + :dz*:dz)
+FIN
+
+TAPA "DISTANCIAXYZ
+
+;copydef "distanciaxyz "distancexyz
+
+PARA DISTANCIAXYZ :point
+HAZLOCAL "dx (ELEMENTO 1 POS3D) - (ELEMENTO 1 :point)
+HAZLOCAL "dy (ELEMENTO 2 POS3D) - (ELEMENTO 2 :point)
+HAZLOCAL "dz (ELEMENTO 3 POS3D) - (ELEMENTO 3 :point)
+DEVUELVE RC (:dx*:dx + :dy*:dy + :dz*:dz)
+FIN
+
+TAPA "DISTANCIAXYZ
+
+
+;copydef "ednombre "edn
+
+PARA EDNOMBRE :names
+EDITA LISTANOMBRES :names
+FIN
+
+TAPA "EDNOMBRE
+
+
+;copydef "ednombres "edns
+
+PARA EDNOMBRES
+EDITA LVARS
+FIN
+
+TAPA "EDNOMBRES
+
+
+;copydef "edprocs "edps
+
+PARA EDPROCS
+EDITA LPROCS
+FIN
+
+TAPA "EDPROCS
+
+
+;copydef "edprop "edpl
+
+PARA EDPROP :names
+EDITA LISTAPROPIEDADES :names
+FIN
+
+TAPA "EDPROP
+
+
+;copydef "edprops "edpls
+
+PARA EDPROPS
+EDITA LPROPS
+FIN
+
+TAPA "EDPROPS
+
+
+;copydef "edtodo "edall
+
+PARA EDTODO
+EDITA CONTENIDO
+FIN
+
+TAPA "EDTODO
+
+
+;copydef "elementomd "mditem
+
+PARA ELEMENTOMD :index :array
+SI VACIO? :index [DEV :array]
+DEV ELEMENTOMD MP :index ELEMENTO PRIMERO :index :array
+FIN
+
+TAPA "ELEMENTOMD
+
+
+;copydef "elipsa2 "ellipsa2
+
+; NOTE: ELLIPSA2 is kept for backward compatability.
+; The perferred name is ellipsearc2.
+
+PARA ELIPSA2 :ang :radius_x :radius_y :startang
+  ARCOELIPSE2 :ang :radius_x :radius_y :startang
+FIN
+
+TAPA "ELIPSA2
+
+
+;copydef "elipse "ellipse
+
+PARA ELIPSE :rad1 :rad2
+ARCOELIPSE 360 :rad1 :rad2 0
+FIN
+
+TAPA "ELIPSE
+
+;copydef "elipse2 "ellipse2
+
+PARA ELIPSE2 :radius_x :radius_y
+ELIPSA2 360 :radius_x :radius_y 0
+FIN
+
+TAPA "ELIPSE2
+
+
+;copydef "enciendesonido "soundon
+
+PARA ENCIENDESONIDO :Freq
+   HAZLOCAL "count REDONDEA 1193180 / :Freq
+
+   ESCRIBEPUERTO 67 182
+   ESCRIBEPUERTO 66 :count
+   ESCRIBEPUERTO 66 DESPLAZA :count -8
+   ESCRIBEPUERTO 97 BITOR 3 LEEPUERTO 97
+FIN
+
+TAPA "ENCIENDESONIDO
+
+
+;copydef "encola "queue
+
+PARA ENCOLA :queue :item
+HAZ :queue PONULTIMO :item VALOR :queue
+FIN
+
+TAPA "ENCOLA
+
+
+;copydef "encuentra "find
+
+PARA ENCUENTRA :find.template :template.list [:template.number 1] ~
+        [:template.lists (LISTA :template.list)]
+SI VACIO? :template.list [DEV []]
+SI APLICA :find.template (LISTA PRIMERO :template.list) [DEV PRIMERO :template.list]
+DEV (ENCUENTRA :find.template MP :template.list :template.number + 1)
+FIN
+
+PARA ?RESTANTE [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA [ENCUENTRA ?RESTANTE]
+
+
+;copydef "entrecomillas "quoted
+
+PARA ENTRECOMILLAS :stuff
+SI PALABRA? :stuff [DEV PALABRA "" :stuff]
+DEV :stuff
+FIN
+
+TAPA "ENTRECOMILLAS
+
+
+;copydef "entreteje "crossmap
+
+PARA ENTRETEJE :cm.template [:cm.lists] 2
+SI VACIO? MP :cm.lists [DEV cm1 PRIMERO :cm.lists 1 []]
+DEV cm1 :cm.lists 1 []
+FIN
+
+PARA cm1 :cm.lists :cm.level :template.vars
+SI VACIO? :cm.lists [DEV (LISTA APLICA :cm.template :template.vars)]
+DEV cm2 PRIMERO :cm.lists
+FIN
+
+PARA cm2 :cm.thislist
+SI VACIO? :cm.thislist [DEV []]
+LOCAL :cm.level
+HAZ :cm.level PRIMERO :cm.thislist
+DEV FR (cm1 MP :cm.lists :cm.level+1 PONULTIMO PRIMERO :cm.thislist :template.vars) ~
+      (cm2 MP :cm.thislist)
+FIN
+
+TAPA [ENTRETEJE cm1 cm2]
+
+
+;copydef "expandemacro "macroexpand
+
+PARA EXPANDEMACRO :expr
+LOCAL [NOMBRE inputlist macro.result]
+HAZ "name PRIMERO :expr
+HAZ "inputlist MP :expr
+SI NO MACRO? :name [(LANZA "error (FR :name [no es una macro.]))]
+DEFINE "%%%$%macro.procedure TEXTO :name
+HAZ "macro.result EJECUTA PONPRIMERO "%%%$%macro.procedure :inputlist
+BORRA "%%%$%macro.procedure
+DEV :macro.result
+FIN
+
+TAPA "EXPANDEMACRO
+
+
+;copydef "filtra "filter
+
+PARA FILTRA :filter.template :template.list [:template.number 1] ~
+          [:template.lists (LISTA :template.list)]
+SI VACIO? :template.list [DEV :template.list]
+SI APLICA :filter.template (LISTA PRIMERO :template.list) ~
+   [DEV COMBINA (PRIMERO :template.list) ~
+               (FILTRA :filter.template MP :template.list :template.number+1)]
+DEV (FILTRA :filter.template MP :template.list :template.number+1)
+FIN
+
+PARA ?RESTANTE [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA [FILTRA ?RESTANTE]
+
+
+;copydef "gensimbolo "gensym
+
+PARA GENSIMBOLO
+SI NO VAR? "gensym.number [HAZ "gensym.number 0]
+HAZ "gensym.number :gensym.number + 1
+DEVUELVE PALABRA "g :gensym.number
+FIN
+
+TAPA "GENSIMBOLO
+
+
+;copydef "guardal "savel
+
+PARA GUARDAL :cont :file [:oldwr ESCRITURA]
+ABREESCRITURA :file
+PONESCRITURA :file
+IMDEFS :cont
+PONESCRITURA :oldwr
+CIERRA :file
+FIN
+
+TAPA "GUARDAL
+
+
+;copydef "hasta "until
+
+.MACRO HASTA :until.cond :until.instr
+SI EJECUTA :until.cond [DEV []]
+DEV FR :until.instr (LISTA "HASTA :until.cond :until.instr)
+FIN
+
+TAPA "HASTA
+
+
+;copydef "haz.hasta "do.until
+
+.MACRO HAZ.HASTA :until.instr :until.cond
+DEV FR :until.instr (LISTA "HASTA :until.cond :until.instr)
+FIN
+
+TAPA "HAZ.HASTA
+
+
+;copydef "haz.mientras "do.while
+
+.MACRO HAZ.MIENTRAS :while.instr :while.cond
+DEV FR :while.instr (LISTA "MIENTRAS :while.cond :while.instr)
+FIN
+
+TAPA "HAZ.MIENTRAS
+
+
+;copydef "hazlocal "localmake
+
+.MACRO HAZLOCAL :name :value
+DEVUELVE (LISTA "LOCAL (PALABRA "" :name)
+             "APLICA ""HAZ (LISTA :name :value))
+FIN
+
+TAPA "HAZLOCAL
+
+;copydef "haztortuga "maketurtle
+
+PARA HAZTORTUGA :turtle :pen
+HAZLOCAL "saveturtle QUIEN
+ACTIVA :turtle
+SL
+PONPOS MENOSULTIMO MENOSULTIMO :pen
+BL
+PONRUMBO ULTIMO MENOSULTIMO :pen
+HAZLOCAL "maybeoutput RESULTADOEJECUTA ULTIMO :pen
+ACTIVA :saveturtle
+SI VACIO? :maybeoutput [ALTO]
+DEVUELVE PRIMERO :maybeoutput
+FIN
+TAPA "HAZTORTUGA
+
+;copydef "ignora "ignore
+
+PARA IGNORA :stuff
+FIN
+
+TAPA "IGNORA
+
+
+;copydef "imdefprocs "pops
+
+PARA IMDEFPROCS
+IMDEFS LPROCS
+FIN
+
+TAPA "IMDEFPROCS
+
+
+;copydef "imdefprop "popl
+
+PARA IMDEFPROP :names
+IGNORA ERROR
+ATRAPA "error [IMDEFS LISTAPROPIEDADES :names]
+LOCAL "err
+HAZ "err ERROR
+SI NO VACIO? :err [(LANZA "error PRIMERO MP :err)]
+FIN
+
+TAPA "IMDEFPROP
+
+
+;copydef "imdefvar "pon
+
+PARA IMDEFVAR :names
+IGNORA ERROR
+ATRAPA "error [IMDEFS LISTANOMBRES :names]
+LOCAL "err
+HAZ "err ERROR
+SI NO VACIO? :err [(LANZA "error PRIMERO MP :err)]
+FIN
+
+TAPA "IMDEFVAR
+
+
+;copydef "improps "popls
+
+PARA IMPROPS
+IMDEFS LPROPS
+FIN
+
+TAPA "IMPROPS
+
+
+;copydef "imtodo "poall
+
+PARA IMTODO
+IMDEFS CONTENIDO
+FIN
+
+TAPA "IMTODO
+
+
+;copydef "imts "pots
+
+PARA IMTS
+IMTITULOSTODO LPROCS
+FIN
+
+TAPA "IMTS
+
+
+;copydef "imvars "pons
+
+PARA IMVARS
+IMDEFS LVARS
+FIN
+
+TAPA "IMVARS
+
+
+;copydef "invierte "reverse
+
+PARA INVIERTE :in
+DEV INVIERTE.helper :in SISINO LISTA? :in [[]] ["]
+FIN
+
+PARA INVIERTE.helper :in :out
+SI VACIO? :in [DEV :out]
+DEV INVIERTE.helper MP :in COMBINA PRIMERO :in :out
+FIN
+
+TAPA [INVIERTE INVIERTE.helper]
+
+
+;copydef "invoca "invoke
+
+;;; -*- logo -*-
+
+PARA INVOCA :invoked.function [:invoke.inputs] 2
+.QUIZADEVUELVE APLICA :invoked.function :invoke.inputs
+FIN
+
+TAPA "INVOCA
+
+
+;copydef "lapiz "pen
+
+PARA LAPIZ
+DEV (LISTA (SISINO BAJALAPIZ? ["BAJALAPIZ] ["SUBELAPIZ]) ~
+         LAPIZMODO GROSOR COLORLAPIZ [1])
+FIN
+
+TAPA [LAPIZ]
+
+
+;copydef "lapizinicial "pennormal
+
+PARA LAPIZINICIAL
+PONLAPIZ [BAJALAPIZ LAPIZNORMAL [1 1] [0 0 0] [255 255 255 255 255 255 255 255]]
+FIN
+
+TAPA [LAPIZINICIAL]
+
+
+;copydef "listaavector "listtoarray
+
+PARA LISTAAVECTOR :list [:origin 1]
+LOCAL "array
+HAZ "array (VECTOR CUENTA :list :origin)
+listtoarray1 :list :origin
+DEVUELVE :array
+FIN
+
+PARA listtoarray1 :list :index
+SI VACIO? :list [ALTO]
+PONELEMENTO :index :array PRIMERO :list
+listtoarray1 MP :list :index+1
+FIN
+
+TAPA [LISTAAVECTOR listtoarray1]
+
+
+;copydef "listanombres "namelist
+
+PARA LISTANOMBRES :names
+SI VECTOR? :names [(LANZA "error (LISTA [A listanombres no le gusta] :names [como entrada]))]
+SI PALABRA? :names [DEVUELVE LISTA [] (LISTA :names)]
+DEVUELVE LISTA [] :names
+FIN
+
+TAPA "LISTANOMBRES
+
+
+;copydef "listapropiedades "pllist
+
+PARA LISTAPROPIEDADES :names
+SI VECTOR? :names [(LANZA "error (LISTA [A ListaPropiedades no le gusta] :names [como entrada]))]
+SI PALABRA? :names [DEVUELVE (LISTA [] [] (LISTA :names))]
+DEVUELVE (LISTA [] [] :names)
+FIN
+
+TAPA "LISTAPROPIEDADES
+
+
+;copydef "maximiza "maximize
+
+PARA MAXIMIZA :window
+ACTIVAVENTANA :window 9
+FIN
+
+TAPA "MAXIMIZA
+
+
+;copydef "mientras "while
+
+.MACRO MIENTRAS :while.cond :while.instr
+SI NO EJECUTA :while.cond [DEV []]
+DEV FR :while.instr (LISTA "MIENTRAS :while.cond :while.instr)
+FIN
+
+TAPA "MIENTRAS
+
+
+;copydef "minimiza "minimize
+
+PARA MINIMIZA :window
+ACTIVAVENTANA :window 6
+FIN
+
+TAPA "MINIMIZA
+
+
+copydef "mpr "butfirst
+
+copydef "mul "butlast
+
+;copydef "nombre "name
+
+PARA NOMBRE :name.value.input :name.variable.input
+HAZ :name.variable.input :name.value.input
+FIN
+
+TAPA "NOMBRE
+
+
+;copydef "norefrescar "norefresh
+
+PARA NOREFRESCAR
+FIN
+
+TAPA "NOREFRESCAR
+
+
+;copydef "numeroaureo "goldenratio
+
+PARA NUMEROAUREO
+DEVUELVE 1/2*(1 + RC 5)
+FIN
+TAPA "NUMEROAUREO
+
+;copydef "ordena "sort
+
+PARA ORDENA.listtoword :list
+  DEV APLICA "word :list
+FIN
+
+PARA ORDENA.wordtolist :word
+  LOCAL "list
+  HAZ "list []
+  REPITE CUENTA :word [
+    HAZ "list PONPRIMERO ELEMENTO (CUENTA :word) - CUENTAREPITE + 1 :word :list
+  ]
+  DEV :list
+FIN
+
+PARA ORDENA.merge :sort.list1 :sort.list2 :sort.cmp
+  SI empty? :sort.list1 [DEV :sort.list2]
+  SI empty? :sort.list2 [DEV :sort.list1]
+  SI APLICA :sort.cmp (LISTA PRIMERO :sort.list1 PRIMERO :sort.list2) [
+     DEV PONPRIMERO PRIMERO :sort.list1 ORDENA.merge MENOSPRIMERO :sort.list1 :sort.list2 :sort.cmp
+  ]
+  DEV PONPRIMERO PRIMERO :sort.list2 ORDENA.merge :sort.list1 MENOSPRIMERO :sort.list2 :sort.cmp
+FIN
+
+PARA ORDENA.mergepairwise :sort.listoflists :sort.cmp
+  SI empty? :sort.listoflists          [DEV :sort.listoflists] 
+  SI empty? MENOSPRIMERO :sort.listoflists [DEV :sort.listoflists]
+  DEV PONPRIMERO (ORDENA.merge PRIMERO :sort.listoflists PRIMERO MENOSPRIMERO :sort.listoflists :sort.cmp) (ORDENA.mergepairwise MENOSPRIMERO MENOSPRIMERO :sort.listoflists :sort.cmp)
+FIN
+
+PARA ORDENA.mergesort :sort.list :sort.cmp
+  SI empty? :sort.list [ DEV :sort.list ]
+  DEV PRIMERO CASCADA [empty? MENOSPRIMERO ?] [ORDENA.mergepairwise ? :sort.cmp] TEJE [(LISTA ?)] :sort.list
+FIN
+
+PARA ORDENA :sort.seq [:sort.cmp SISINO PALABRA? :sort.seq ["before?] ["less?]]
+  SI LISTA?  :sort.seq [DEV                  ORDENA.mergesort                 :sort.seq :sort.cmp]
+  SI VECTOR? :sort.seq [DEV LISTAAVECTOR      ORDENA.mergesort VECTORALISTA     :sort.seq :sort.cmp]
+  SI PALABRA?  :sort.seq [DEV ORDENA.listtoword  ORDENA.mergesort ORDENA.wordtolist :sort.seq :sort.cmp]
+  DEV :sort.seq
+FIN
+
+TAPA [ORDENA ORDENA.mergesort ORDENA.mergepairwise ORDENA.merge ORDENA.listtoword ORDENA.wordtolist]
+
+
+;copydef "orientacion "orientation
+
+PARA ORIENTACION
+DEVUELVE (LISTA BALANCEO CABECEO RUMBO)
+FIN
+
+TAPA "ORIENTACION
+
+;copydef "paracada "foreach
+
+.MACRO PARACADA [:foreach.inputs] 2
+ATRAPA "foreach.catchtag ~
+      [DEV PARACADA.done RESULTADOEJECUTA ~
+	    [foreach1 MENOSULTIMO :foreach.inputs ULTIMO :foreach.inputs 1]]
+DEV []
+FIN
+
+PARA foreach1 :template.lists :foreach.template :template.number
+SI VACIO? PRIMERO :template.lists [LANZA "foreach.catchtag]
+APLICA :foreach.template PRIMEROS :template.lists
+.QUIZADEVUELVE foreach1 MPS :template.lists :foreach.template :template.number+1
+FIN
+
+PARA PARACADA.done :foreach.result
+SI VACIO? :foreach.result [DEV [ALTO]]
+DEV LISTA "DEVUELVE ENTRECOMILLAS PRIMERO :foreach.result
+FIN
+
+PARA ?RESTANTE [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA [PARACADA foreach1 PARACADA.done ?RESTANTE]
+
+
+;copydef "pide "ask
+
+PARA PIDE :turtle :command
+HAZLOCAL "saveturtle QUIEN
+ACTIVA :turtle
+HAZLOCAL "maybeoutput RESULTADOEJECUTA :command
+ACTIVA :saveturtle
+SI VACIO? :maybeoutput [ALTO]
+DEVUELVE PRIMERO :maybeoutput
+FIN
+TAPA "PIDE
+
+
+;copydef "ponelementomd "mdsetitem
+
+PARA PONELEMENTOMD :index :array :val
+PONELEMENTO ULTIMO :index (ELEMENTOMD MU :index :array) :val
+FIN
+
+TAPA "PONELEMENTOMD
+
+
+;copydef "ponlapiz "setpen
+
+PARA PONLAPIZ :pen_data
+EJECUTA ELEMENTO 2 :pen_data
+EJECUTA ELEMENTO 1 :pen_data
+PONGROSOR ELEMENTO 3 :pen_data
+PONCOLORLAPIZ ELEMENTO 4 :pen_data
+PONPATRONLAPIZ ELEMENTO 5 :pen_data
+FIN
+
+TAPA [PONLAPIZ]
+
+
+;copydef "ponorientacion "setorientation
+
+PARA PONORIENTACION :rph
+SI NO LISTA? :rph          [(LANZA "error (LISTA [A ponorientacion no le gusta] :rph [como entrada]))]
+SI NO IGUALES? 3 CUENTA :rph [(LANZA "error (LISTA [A ponorientacion no le gusta] :rph [como entrada]))]
+
+GI RUMBO
+ABAJO CABECEO
+BI BALANCEO
+PONBALANCEO  ELEMENTO 1 :rph
+PONCABECEO ELEMENTO 2 :rph
+GD       ELEMENTO 3 :rph
+FIN
+
+TAPA "PONORIENTACION
+
+
+copydef "pp "fput
+
+copydef "pri "first
+
+copydef "pul "lput
+
+;copydef "quita "remove
+
+PARA QUITA :thing :list
+DEVUELVE FILTRA [NO IGUALES? ? :thing] :list
+FIN
+
+TAPA "QUITA
+
+
+;copydef "quitarepetidos "remdup
+
+PARA QUITAREPETIDOS :list
+DEVUELVE FILTRA [NO MIEMBRO? ? ?RESTANTE] :list
+FIN
+
+TAPA "QUITAREPETIDOS
+
+
+copydef "raizcuadrada "sqrt
+
+;copydef "reduce "reduce
+
+PARA REDUCE :reduce.function :reduce.list
+SI VACIO? MP :reduce.list [DEV PRIMERO :reduce.list]
+DEV APLICA :reduce.function (LISTA (PRIMERO :reduce.list) ~
+                                (REDUCE :reduce.function MP :reduce.list))
+FIN
+
+TAPA "REDUCE
+
+
+;copydef "refresca "refresh
+
+PARA REFRESCA
+FIN
+
+TAPA "REFRESCA
+
+
+;copydef "?restante "?rest
+
+PARA ?restante [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA "?restante
+
+
+;copydef "sacaalazar "pick
+
+PARA SACAALAZAR :list
+DEVUELVE ELEMENTO (1 + AZAR CUENTA :list) :list
+FIN
+
+TAPA "SACAALAZAR
+
+
+;copydef "secent "iseq
+
+PARA SECENT.integer? :a
+SI NO NUMERO? :a       [DEV 1 = 2]
+SI NO IGUALES? :a ENTERO :a [DEV 1 = 2]
+DEV 1 = 1
+FIN
+
+PARA SECENT :a :b
+SI NO SECENT.integer? :a [(LANZA "error (LISTA [A SecEnt no le gusta] :a [como entrada]))]
+SI NO SECENT.integer? :b [(LANZA "error (LISTA [A SecEnt no le gusta] :b [como entrada]))]
+SI NO (:a > :b) [DEVUELVE iseq1 :a :b]
+DEVUELVE TEJE [[x] -1 * :x] iseq1 (-1 * :a) (-1 * :b)
+FIN
+
+PARA iseq1 :a :b
+SI :a > :b [DEVUELVE []]
+DEVUELVE PONPRIMERO :a iseq1 :a + 1 :b
+FIN
+
+TAPA [SECENT iseq1 SECENT.integer?]
+
+
+;copydef "secrac "rseq
+
+PARA SECRAC :a :b :n
+DEVUELVE TEJE [[x] :a + :x * (:b - :a) / (:n - 1)] SECENT 0 :n - 1
+FIN
+
+TAPA "SECRAC
+
+
+;copydef "signo "sign
+
+PARA SIGNO :arg
+SI :arg > 0 [DEVUELVE 1]
+SI :arg < 0 [DEVUELVE -1]
+DEVUELVE 0
+FIN
+TAPA "SIGNO
+
+;copydef "tapatodo "buryall
+
+PARA TAPATODO
+TAPA CONTENIDO
+FIN
+
+TAPA "TAPATODO
+
+
+;copydef "tapavar "buryname
+
+PARA TAPAVAR :names
+TAPA LISTANOMBRES :names
+FIN
+
+TAPA "TAPAVAR
+
+
+;copydef "teje "map
+
+PARA TEJE :map.template [:template.lists] 2
+DEV map1 :template.lists 1
+FIN
+
+PARA map1 :template.lists :template.number
+SI VACIO? PRIMERO :template.lists [DEVUELVE PRIMERO :template.lists]
+DEVUELVE COMBINA (APLICA :map.template PRIMEROS :template.lists) ~
+               (map1 MPS :template.lists :template.number + 1)
+FIN
+
+PARA ?RESTANTE [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA [TEJE map1 ?RESTANTE]
+
+
+;copydef "teje.fr "map.se
+
+PARA TEJE.se :map.se.template [:template.lists] 2
+DEV TEJE.se1 :template.lists 1
+FIN
+
+PARA TEJE.se1 :template.lists :template.number
+SI VACIO? PRIMERO :template.lists [DEVUELVE []]
+DEVUELVE FRASE (APLICA :map.se.template PRIMEROS :template.lists) ~
+                (TEJE.se1 MPS :template.lists :template.number+1)
+FIN
+
+PARA ?RESTANTE [:which 1]
+DEVUELVE MP ELEMENTO :which :template.lists
+FIN
+
+TAPA [TEJE.se TEJE.se1 ?RESTANTE]
+
+
+;copydef "tipotexto "textfont
+
+PARA TIPOTEXTO
+DEV TIPO
+FIN
+
+TAPA "TIPOTEXTO
+
+
+;copydef "transfiere "transfer
+
+PARA TRANSFIERE :transfer.limit :transfer.template :transfer.init
+DEVUELVE CASCADA.2 (SISINO VACIO? :transfer.limit ~
+                         [[VACIO? ?2]] ~
+                         [FR [O VACIO? ?2] :transfer.limit]) ~
+                 :transfer.template [] [MENOSPRIMERO ?2] :transfer.init
+FIN
+
+PARA ?in
+DEVUELVE PRIMERO ?2
+FIN
+
+PARA ?out
+DEVUELVE ?1
+FIN
+
+TAPA [TRANSFIERE ?in ?out]
+
+
+;copydef "tutor "tutor
+
+PARA TUTOR
+MENSAJE [Información] [Este tutorial ha sido reemplazado por el material ubicado en\nhttp://mondragon.angeltowns.net/paradiso/MSWLogo.html]
+FIN
+
+TAPA "TUTOR
+
+copydef "ul "last
+
+;copydef "vectoralista "arraytolist
+
+PARA VECTORALISTA :array [:dim CUENTA :array] [:limit :dim + PRIMERO :array]
+DEV CASCADA :dim [PONPRIMERO ELEMENTO (:limit - #) :array ?] []
+FIN
+
+TAPA "VECTORALISTA
+
+
+;copydef "vectormd "mdarray
+
+PARA VECTORMD :sizes [:origin 1]
+LOCAL "array
+HAZ "array (VECTOR PRIMERO :sizes :origin)
+SI NO VACIO? MP :sizes ~
+   [DESDE [i :origin [:origin + (PRIMERO :sizes) - 1]] ~
+        [PONELEMENTO :i :array (VECTORMD MP :sizes :origin)]]
+DEVUELVE :array
+FIN
+
+TAPA "VECTORMD
+
+; para compatibilidad con versiones anteriores
+catch "error [ copydef "pintaColor      "colorRelleno ]
+catch "error [ copydef "colorf          "colorFondo   ]
+catch "error [ copydef "ponFormaTortuga "quitaForma   ]

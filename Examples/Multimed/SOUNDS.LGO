@@ -1,0 +1,73 @@
+to aaa
+;
+; Function:
+;
+;   The SOUNDS command plays some WAVE files.
+;
+; To run:
+;
+;   load "sounds.lgo
+;   Call SOUNDS
+;
+; Example:
+;
+sounds
+;
+; System requirements:
+;
+;   You must have a sound card.
+;
+end
+
+to sounds
+  ; Load two sample WAV files using MCI.
+  ; These wave files are in the same directory as this
+  ; sample, so they don't need a full file path.
+  ; The "alias" gives a shorthand for referring to the
+  ; files in subsequent MCI commands.
+  ignore mci [open frogs.wav type waveaudio alias frogs]
+  ignore mci [open water.wav type waveaudio alias water]
+  make "streams.opened "true
+
+  ; Play the frogs.  Because we use "wait", FMSLogo is
+  ; unresponsive until the clip finishes.
+  mci [seek frogs to start] 
+  mci [play frogs wait]
+
+  ; Play "water" twice.
+  ; This illustrates the important of seeking to the start.
+  repeat 2 [
+    mci [seek water to start]
+    mci [play water wait]
+  ]
+
+  ; Play "Water" and "frogs" at the same time.
+  ; There are a few things to note:
+  ; 1) This combines the seek and play into one command.
+  ; 2) This does not use "wait" so the clip starts
+  ;    playing and FMSLogo runs the next command.
+  ; 3) This uses "notify" and a callback instruction that
+  ;    is run when the play command finishes.
+  ; 4) Once the water.wav has finished a "close" is issued
+  ;    to unload both files from MCI.  FMSLogo only supports
+  ;    one MCI callback at a time, so the more natural idea
+  ;    of closing each stream when it finishes does not work.
+  (mci [play frogs from 0 notify] [closewave])
+  (mci [play water from 0 notify] [closewave])
+
+end
+
+to closewave
+   ; Close the streams that were created in sounds.
+   if :streams.opened [
+     make "streams.opened "false
+     mci [close frogs]
+     mci [close water]
+   ]
+end
+
+to zzz
+  ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

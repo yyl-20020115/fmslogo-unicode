@@ -1,0 +1,19 @@
+Why doesn't FMSLogo draw on my screen correctly?
+
+   It's a bug in your Video Driver. To workaround it try this:
+   On Win95 Right Click on My Computer->Choose Properties->Choose Performance->Choose Graphics
+   On Win2K Right Click on Screen->Choose Properties->Choose Adavanced->Choose Trouble Shooting
+   Now Back off acceleration one notch, reboot and test FMSLogo and repeat until it works.
+   For an actual fix locate and download the most current video drivers and cross your fingers.
+
+Why does SETPENCOLOR [100 100 200] work and SETPENCOLOR [:red :green :blue] does not?
+
+   Because creating a list using braces []'s does not resolve the variables to their
+   value. You must dynamically build the list and resolve them. try this:
+   SETPENCOLOR (list :red :green :blue)
+
+Why doesn't FMSLogo save my work?
+
+   FMSLogo does not save your "work" it saves only procedures and definitions YOU
+   define using the EDITOR or TO/END commands. For simple demonstration see the end
+   of the tutorial by going to the Help Menu->Choose Tutorial.

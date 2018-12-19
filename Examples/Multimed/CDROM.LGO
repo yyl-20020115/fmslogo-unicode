@@ -1,0 +1,35 @@
+to aaa
+;
+; Function:
+;
+; This routine will allow you to control your CD Player
+; The :arg is the desire track you wish to play
+;
+; To run:
+;
+; load "cdrom.lgo
+; Call CDROM track
+;
+; Example:
+;
+cdrom 3
+;
+; System requirements:
+;
+; You must have a CD or DVD reader.
+;
+end
+
+to cdrom :a
+print sentence [opened cd on channel] mci [open cdaudio alias cd]
+mci [set cd time format tmsf]
+mci sentence [play cd from] :a
+print sentence [playing the cd on track] :a
+mci [close cd]
+end
+
+to zzz
+ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

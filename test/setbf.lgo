@@ -1,0 +1,20 @@
+LOAD "testlib.lgo
+
+TO SETBFTEST
+   LOCAL [list]
+
+   ; smoke test
+   TRACEINSTRUCTION [ MAKE "list [A 2 3] ]
+   TRACEINSTRUCTION [ .SETBF :list [B C] ]
+   SIMPLEREPORTTEST [:list ] [A B C]
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(.SETBF [1 2 3])]
+   RUNTOOMANYINPUTSTEST   [(.SETBF [X 2 3] 1 "toomany)]
+
+   ; bad inputs
+   RUNDOESNTLIKEINPUTTEST [.SETBF []    1 ]
+   RUNDOESNTLIKEINPUTTEST [.SETBF "word 1 ]
+   RUNDOESNTLIKEINPUTTEST [.SETBF {x}   1 ]
+
+END

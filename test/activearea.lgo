@@ -1,0 +1,198 @@
+LOAD "testlib.lgo
+
+TO ACTIVEAREATEST.SMOKETEST
+
+   LOCALMAKE "oldactivearea ACTIVEAREA
+
+   SETACTIVEAREA [0 100 200 300]
+   SIMPLEREPORTTEST [ACTIVEAREA] [0 100 200 300]
+
+   ; there is special code for 0.0 instead of 0
+   SETACTIVEAREA [0.0 0.0 200 200]
+   SIMPLEREPORTTEST [ACTIVEAREA] [0.0 0.0 200 200]
+
+   SETACTIVEAREA [-100 -100 100 100]
+   SIMPLEREPORTTEST [ACTIVEAREA] [-100 -100 100 100]
+
+   ; there is special code for the "default" active area
+   SETACTIVEAREA [-500 -500 500 500]
+   SIMPLEREPORTTEST [ACTIVEAREA] [-500 -500 500 500]
+
+   ; floating point values are accepted if they can be
+   ; turned into integers without any loss
+   SETACTIVEAREA [-4e2 -300.000 3E2 4E+02]
+   SIMPLEREPORTTEST [ACTIVEAREA] [-400 -300 300 400]
+
+   ; undo side-effects
+   SETACTIVEAREA :oldactivearea
+END
+
+TO ACTIVEAREATEST.PERSISTTEST
+   ; Tests that SETACTIVEAREA saves the active area for future instances
+   ; of FMSLogo.  It spawns an instance of FMSLogo to get its ACTIVEAREA.
+   ; Since SETACTIVEAREA sets the configuration, a subsequent instance
+   ; of FMSLogo should inherit its value.
+
+   ; Save the current active area
+   LOCALMAKE "oldactivearea ACTIVEAREA
+
+   ; Set the active area to an unusual and recognizable value.
+   TRACEINSTRUCTION [ SETACTIVEAREA [-10 -9 5 6] ]
+
+   ; Spawn an instance of FMSLogo that will write its ACTIVEAREA
+   LOCALMAKE "activeareafile "activeareatest.activearea.txt
+   LOCALMAKE "program        "selectboxfromstartup.lgo
+
+   IF FILEEXISTS :activeareafile [ ERASEFILE :activeareafile ]
+
+   WRITEBINARYDATA :program (WORD
+        "|LOAD "testlib.lgo\n|
+        "|\n|
+        "|MAKE "startup [\n|
+        "|  WRITEBINARYDATA "| :activeareafile "| ACTIVEAREA\n|
+        "|  BYE\n|
+        "|]\n|
+   )
+
+   IGNORE (shell (list "fmslogo.exe :program) "true)
+
+   IFELSE FILEEXISTS :activeareafile [
+       OPENREAD :activeareafile
+       SETREAD  :activeareafile
+       SIMPLEREPORTTEST [ READLIST ] [-10 -9 5 6]
+       SIMPLEREPORTTEST [ READLIST ] "||
+       CLOSE    :activeareafile
+
+       ERASEFILE :activeareafile
+   ][
+     REPORTTESTFAILED [TEST BUG: Failed to start other instance of FMSLogo.]
+   ]
+
+   ERASEFILE :program
+
+   ; Restore the original active area.
+   SETACTIVEAREA :oldactivearea
+END
+
+TO ACTIVEAREATEST.BADINPUT
+
+   LOCALMAKE "oldactivearea ACTIVEAREA
+
+   ; Set to a very strange value to confirm that 
+   ; these tests don't modify the active area
+   SETACTIVEAREA [1 1 2 2]
+
+   ; unexpected number of inputs
+   RUNNOTENOUGHINPUTSTEST [(SETACTIVEAREA)                ]
+   RUNTOOMANYINPUTSTEST   [(SETACTIVEAREA 0 0)            ]
+   RUNTOOMANYINPUTSTEST   [(SETACTIVEAREA 0 0 50)         ]
+   RUNTOOMANYINPUTSTEST   [(SETACTIVEAREA 0 0 50 50)      ]
+
+   ; wrong number of inputs for list
+   RUNDOESNTLIKEINPUTTEST [(SETACTIVEAREA [0])            ]
+   RUNDOESNTLIKEINPUTTEST [(SETACTIVEAREA [0 0])          ]
+   RUNDOESNTLIKEINPUTTEST [(SETACTIVEAREA [0 0 50])       ]
+   RUNDOESNTLIKEINPUTTEST [(SETACTIVEAREA [0 0 50 50 50]) ]
+
+   ; bad parameters
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA 0            ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA "|0,0,50,50| ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA {0      0    50     50}     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0.5    0    50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [zero   0    50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [[0]    0    50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [{0}    0    50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [-1e20  0    50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     0.5   50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     zero  50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     [0]   50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     {0}   50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0    -1e20  50     50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50.5   50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    fifty  50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    [50]   50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    {50}   50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    1e20   50]     ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50     50.5]   ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50     fifty]  ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50     [50]]   ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50     {50}]   ]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0      0    50     1e20]   ]
+       
+   ; invalid ranges
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     0    -50     50]]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     0     50    -50]]
+   RUNDOESNTLIKEINPUTTEST [SETACTIVEAREA [0     0      0      0]]
+
+   RUNTOOMANYINPUTSTEST [(ACTIVEAREA  "toomany)]
+
+   ; check that none of the bad input tests modified 
+   ; the real active area
+   SIMPLEREPORTTEST [ACTIVEAREA] [1 1 2 2]
+
+   ; undo side-effects
+   SETACTIVEAREA :oldactivearea
+END
+
+TO ACTIVEAREATEST.BADINPUT.ERRACT
+   
+   LOCALMAKE "oldactivearea ACTIVEAREA
+
+   ; Set to a very strange value to confirm that 
+   ; these tests don't modify the active area
+   SETACTIVEAREA [1 1 2 2]
+
+   ; Confirm that the recoverable errors are recoverable.
+   ; In this case, all initial inputs are bad, as the most
+   ; of the replacement vlaues which ERRACT outputs.
+   RUNRECOVERABLEERRORTEST ~
+     [SETACTIVEAREA "bad-input] ~
+     [
+       [0]                    ; missing second number
+       [0 0]                  ; missing third number
+       [0 0 50]               ; missing fouth number
+       [0 0 50 50 100]        ; too many numbers
+       0                      ; number, not a list
+       "|0,0,50,50|           ; word, not a list
+       {0     0    50   50  } ; array, not a list
+       [0.5   0    50   50  ] ; xlow is float, not integer
+       [zero  0    50   50  ] ; xlow is word, not integer
+       [[0]   0    50   50  ] ; xlow is a list
+       [{0}   0    50   50  ] ; xlow is an array
+       [-1e20 0    50   50  ] ; xlow is a large negative integer
+       [0     0.5  50   50  ] ; ylow is float, not integer
+       [0    zero  50   50  ] ; ylow is word, not integer
+       [0     [0]  50   50  ] ; ylow is a list
+       [0     {0}  50   50  ] ; ylow is an array
+       [0    -1e20 50   50  ] ; ylow is a large negative integer
+       [0     0    50.5 50  ] ; xhigh is a float
+       [0     0   fifty 50  ] ; xhigh is a word
+       [0     0   [50]  50  ] ; xhigh is a list
+       [0     0   {50}  50  ] ; xhigh is an array
+       [0     0   1e20  50  ] ; xhigh is a large integer
+       [0     0    50  50.5 ] ; yhigh is a float
+       [0     0    50 fifty ] ; yhigh is a word
+       [0     0    50  [50] ] ; yhigh is a list
+       [0     0    50  {50} ] ; yhigh is an array
+       [0     0    50  1e20 ] ; yhigh is a large integer
+       [0     0    -1   50  ] ; xhigh < xlow (invalid range)
+       [0     0    0    50  ] ; xhigh = xlow (invalid range)
+       [0     0    50  -50  ] ; yhigh < ylow (invalid range)
+       [0     0    50   0   ] ; yhigh = ylow (invalid range)
+       [-10 -10 10 10]        ; legal
+     ] ~
+     [] ; no expected output
+
+   ; Confirm that the final good input was accepted.
+   SIMPLEREPORTTEST [ACTIVEAREA] [-10 -10 10 10]
+
+   ; undo side-effects
+   SETACTIVEAREA :oldactivearea
+END
+
+TO ACTIVEAREATEST
+   ACTIVEAREATEST.SMOKETEST
+   ACTIVEAREATEST.PERSISTTEST
+   ACTIVEAREATEST.BADINPUT
+   ACTIVEAREATEST.BADINPUT.ERRACT
+END

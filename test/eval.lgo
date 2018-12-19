@@ -1,0 +1,223 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; This file contains some regression tests for the evaluator (eval.cpp)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+LOAD "testlib.lgo
+
+TO EVALTEST.NONTAILRECURSIVECOUNT :depth
+
+   LOCAL [count something.to.break.tail.recursion]
+
+   ; base-case
+   if :depth = 0  [ output 0 ]
+
+   ; call this recursively
+   MAKE "count 1 + EVALTEST.NONTAILRECURSIVECOUNT :depth - 1 
+
+   ; put some code after the recursive call
+   MAKE "something.to.break.tail.recursion "true
+
+   OUTPUT :count
+
+END
+
+TO EVALTEST.NONTAILRECURSIVE
+
+   SIMPLEREPORTTEST [ EVALTEST.NONTAILRECURSIVECOUNT 120   ] 120
+   SIMPLEREPORTTEST [ EVALTEST.NONTAILRECURSIVECOUNT 60000 ] 60000
+
+END
+
+
+TO EVALTEST.TAILRECURSIVECOUNT :depth
+
+   ; base-case
+   if :depth = 0  [ output 0 ]
+
+   ; call this recursively
+   OUTPUT 1 + EVALTEST.TAILRECURSIVECOUNT :depth - 1 
+
+END
+
+
+TO EVALTEST.NONTAILRECURSIVE
+   SIMPLEREPORTTEST [ EVALTEST.NONTAILRECURSIVECOUNT 120    ] 120
+   SIMPLEREPORTTEST [ EVALTEST.NONTAILRECURSIVECOUNT 100000 ] 100000
+END
+
+TO EVALTEST.TAILRECURSIVE
+   SIMPLEREPORTTEST [ EVALTEST.TAILRECURSIVECOUNT 120   ]  120
+   SIMPLEREPORTTEST [ EVALTEST.TAILRECURSIVECOUNT 100000 ] 100000
+END
+
+TO EVALTEST.CATCHTOOMANYINPUTSERROR
+  CATCH "ERROR [ (FD 1 "toomany) ]
+END
+
+TO EVALTEST.CATCHERRORMANYTIMES
+  ; This crashed once and no other test case caught the same problem.
+  ; I have no idea why this crashed, but it must be taking an unconventional
+  ; code path in the evaluator.
+
+  EVALTEST.CATCHTOOMANYINPUTSERROR
+  EVALTEST.CATCHTOOMANYINPUTSERROR
+  EVALTEST.CATCHTOOMANYINPUTSERROR
+  EVALTEST.CATCHTOOMANYINPUTSERROR
+  REPORTTESTPASSED [|The "catch 'too many inputs' error many times" test did not crash.|]
+END
+
+TO EVALTEST.BUG137.OUTPUT1234
+   OUTPUT 1234
+END
+
+TO EVALTEST.BUG137.PARAMETERWITHDEFAULTVALUE [:param EVALTEST.BUG137.OUTPUT1234]
+END
+
+TO EVALTEST.BUG137
+    ; Bug 137 is a leak when calling a procedure with
+    ; a default value whose evaluation requires calling
+    ; a non-primitive.
+    EVALTEST.BUG137.PARAMETERWITHDEFAULTVALUE
+END
+
+TO EVALTEST.PARAMSDONTPOLLUTEVARIABLES.PARAM1 [:Param1Param 123]
+
+   LOCALMAKE "Param1LocalVariable 123
+   OUTPUT 1234
+END
+
+TO EVALTEST.PARAMSDONTPOLLUTEVARIABLES.PARAM2
+
+   ; Param1 should be defined when evaluating Param2
+   SIMPLEREPORTTEST [NAMEP "Param1] LOCALETRUE
+
+   ; The parameters to the procedure which defined
+   ; Param1 should not be defined.
+   SIMPLEREPORTTEST [NAMEP "Param1Param] LOCALEFALSE
+
+   ; Local variables defined in the procedure which defined
+   ; Param1 should not be defined.
+   SIMPLEREPORTTEST [NAMEP "Param1LocalVariable] LOCALEFALSE
+
+   OUTPUT 1234
+END
+
+TO EVALTEST.PARAMSDONTPOLLUTEVARIABLES.INNER [:Param1 EVALTEST.PARAMSDONTPOLLUTEVARIABLES.PARAM1] [:Param2 EVALTEST.PARAMSDONTPOLLUTEVARIABLES.PARAM2]
+
+   ; The parameters to the procedure which defined
+   ; Param1 should not be defined.
+   SIMPLEREPORTTEST [NAMEP "Param1Param] LOCALEFALSE
+
+   ; Local variables defined in the procedure which defined
+   ; Param1 should not be defined.
+   SIMPLEREPORTTEST [NAMEP "Param1LocalVariable] LOCALEFALSE
+END
+
+TO EVALTEST.PARAMSDONTPOLLUTEVARIABLES
+   LOCAL [Param1 Param1Variable Param1Param Param2]
+   EVALTEST.PARAMSDONTPOLLUTEVARIABLES.INNER
+END
+
+TO EVALTEST.CANNOTTREEIFYDEFAULTVALUE.WORKER [:a ()]
+  ; Tests when treeifying the expression for a default value
+  ; encounters an error.  During some refactoring, this caused
+  ; an access violation, so it's a good regression test to keep.
+END
+
+TO EVALTEST.CANNOTTREEIFYDEFAULTVALUE
+   ; The procedure shouldn't run if the expression for the default
+   ; value cannot be treeified.
+   RUNUNEXPECTEDCLOSEPARENTEST [ EVALTEST.CANNOTTREEIFYDEFAULTVALUE.WORKER ]
+
+   ; The procedure should run if an argument is explicitly supplied,
+   ; so that the expression for the default value does not need to be run.
+   (EVALTEST.CANNOTTREEIFYDEFAULTVALUE.WORKER 1)
+END
+
+TO EVALTEST.NOINPUTSTOOUTPUT.HELPER
+   IF LOCALETRUE [ 
+     MAKE "instructionlistran 1 ; This should be run
+     (OutPut)                   ; error: not enough inputs given
+     MAKE "instructionlistran 2 ; This should not be run
+   ]
+END
+
+TO EVALTEST.NOINPUTSTOOUTPUT
+   LOCALMAKE "instructionlistran 0
+
+   ; This is a regression test for bug #356, which is when OUTPUT
+   ; is not given enough inputs within an instruction list.
+   ; This used to crash.
+   RUNNOTENOUGHINPUTSTEST [ EVALTEST.NOINPUTSTOOUTPUT.HELPER ]
+   SIMPLEREPORTTEST [:instructionlistran] 1
+END
+
+TO EVALTEST.OUTPUTNOTHING
+END
+
+TO EVALTEST.DIDNTOUTPUTTOOUTPUT
+   OUTPUT EVALTEST.OUTPUTNOTHING
+END
+
+TO EVALTEST.NOOUTPUTTOOUTPUTTHROWSERROR
+   ; Evaluate an expression in the context of an argument to OUTPUT
+   ; such that the expression doesn't output a value.
+   ; This should throw an error. (See bug #418)
+   RUNDIDNTOUTPUTTEST [EVALTEST.DIDNTOUTPUTTOOUTPUT]
+END
+
+
+TO EVALTEST.UNKNOWNPROCINMACROLIST.HELPER
+   ; RUN is a macroized primative, so the instruction list is treeified
+   ; as part of the "macro_return" label.  This tests when the treeification
+   ; fails because the procedure is unknown.
+
+   ; This particular repro is a regression test for a crash.
+   ; The parameter to UNKNOWNPROC must be a list and there must
+   ; be a procedure call after it.
+   RUN [(UNKNOWNPROC [1 2 3])]
+   HOME
+END
+
+TO EVALTEST.UNKNOWNPROCINMACROLIST
+  ; NOTE: cannot use RUNNONRECOVERABLEIDONTKNOWHOWTOTEST because RUNRESULT makes
+  ; the error uncatchable.  This is probably bug #418.  Until this is fixed,
+  ; the logic is duplicated.
+  REPORTTESTINFO "|Running invalid instruction: EVALTEST.UNKNOWNPROCINMACROLIST.HELPER|
+
+  ; clear the value of ERROR
+  IGNORE ERROR
+
+  CATCH "ERROR [ 
+    RUN [EVALTEST.UNKNOWNPROCINMACROLIST.HELPER]
+    REPORTTESTFAILED "|Running EVALTEST.UNKNOWNPROCINMACROLIST.HELPER did not throw an error.|
+    STOP
+  ]
+
+  CHECKERROR ~
+    "EVALTEST.UNKNOWNPROCINMACROLIST.HELPER ~
+    24 ~
+    "|I don't know how to UNKNOWNPROC| ~
+    "EVALTEST.UNKNOWNPROCINMACROLIST.HELPER ~
+    [RUN [(UNKNOWNPROC [1 2 3] )]]
+
+END
+
+
+TO EVALTEST.TOOMANYINPUTSINMACROLIST
+  RUNTOOMANYINPUTSTEST [RUN [(FD 10 "toomany)] ]
+END
+
+
+TO EVALTEST
+   EVALTEST.CATCHERRORMANYTIMES
+   EVALTEST.TAILRECURSIVE
+   EVALTEST.NONTAILRECURSIVE
+   EVALTEST.BUG137
+   EVALTEST.PARAMSDONTPOLLUTEVARIABLES
+   EVALTEST.CANNOTTREEIFYDEFAULTVALUE
+   EVALTEST.NOINPUTSTOOUTPUT
+   EVALTEST.NOOUTPUTTOOUTPUTTHROWSERROR
+   EVALTEST.UNKNOWNPROCINMACROLIST
+   EVALTEST.TOOMANYINPUTSINMACROLIST
+END

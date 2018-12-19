@@ -1,0 +1,93 @@
+LOAD "testlib.lgo
+
+TO TURTLEMODETEST.SMOKETEST
+
+   CLEARSCREEN
+
+   ; TURTLEMODE does nothing when the turtle is not bitmapped
+   TRACEINSTRUCTION [ NOBITMAPTURTLE  ]
+   TRACEINSTRUCTION [ SETTURTLEMODE 3 ]
+   SIMPLEREPORTTEST [ TURTLEMODE ] 1
+
+
+   ; draw a red pattern
+   HIDETURTLE
+   PENDOWN
+   SETPENSIZE [2 2]
+   REPEAT 72 [
+     REPEAT 4 [FORWARD 100 RIGHT 90] 
+     SETPENCOLOR (LIST REPCOUNT*3 0 0)
+     RIGHT 5
+   ]
+   SETPENSIZE  [1 1]
+   SHOWTURTLE
+
+   ; cut out part of the pattern to the clipboard
+   PENUP
+   SETXY -50 -50
+   SETBITINDEX 0
+   BITCUT 50 50
+   PENDOWN
+
+   ; clear the screen to a neutral background
+   SETSCREENCOLOR [120 120 120]
+
+   ; set and get all possible turtle modes
+   LOCALMAKE "savedbitmode BITMODE
+   SETBITMODE 1
+   BITMAPTURTLE
+   REPEAT 9 [
+      TRACEINSTRUCTION (LIST "SETTURTLEMODE REPCOUNT)
+      SIMPLEREPORTTEST [TURTLEMODE] REPCOUNT
+      WAIT 30
+   ]
+
+   NOBITMAPTURTLE
+   SETBITMODE :savedbitmode
+
+   CLEARSCREEN
+END
+
+TO TURTLEMODETEST.BADINPUT
+
+   ; SETTURTLEMODE only works if the turtle is bit-mapped
+   BITMAPTURTLE
+   BITCUT 100 100
+
+   ; change the bitmode to a known setting
+   TRACEINSTRUCTION [ SETTURTLEMODE 3 ]
+
+   RUNTOOMANYINPUTSTEST   [ (TURTLEMODE "toomany) ]
+
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE [2]  ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE {2}  ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE -10  ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE 1.5  ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE 0    ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE 10   ]
+   RUNDOESNTLIKEINPUTTEST [ SETTURTLEMODE "two ]
+
+   RUNNOTENOUGHINPUTSTEST [ (SETTURTLEMODE)            ]
+   RUNTOOMANYINPUTSTEST   [ (SETTURTLEMODE 8 "toomany) ]
+
+   ; verify that none of the bad input tests changed the bitmode
+   SIMPLEREPORTTEST [TURTLEMODE] 3
+
+   ; Cannot set the mode of a rotating bitmap turtle.
+   SETBITINDEX 1
+   BITCUT 10 10
+   SETTURTLE   1
+   (BITMAPTURTLE "true)
+   (RUNEXPECTERRORTEST
+       [ SETTURTLEMODE 2 ]
+       1500
+       "|Invalid state for instruction: Cannot set the mode of a turtle with a rotating bitmap|)
+
+   ; restore the previous bitmode and unbitmap the turtle
+   CLEARSCREEN
+END
+
+TO TURTLEMODETEST
+    TURTLEMODETEST.SMOKETEST
+    TURTLEMODETEST.BADINPUT
+END

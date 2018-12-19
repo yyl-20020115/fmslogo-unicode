@@ -1,0 +1,374 @@
+LOAD "testlib.lgo
+
+TO TRACETEST.TRACEDPROCEDURE
+END
+
+TO TRACETEST.TRACEDPROCEDURE.WITHINPUTS :required [:optional] 2
+END
+
+TO TRACETEST.TRACEDFUNCTION :x
+  OUTPUT :x
+END
+
+
+TO TRACETEST.CAPTURETRACE
+    ; close the tracing file
+    OPENWRITE "tracetestfile.txt
+    SETWRITE  "tracetestfile.txt
+END
+
+TO TRACETEST.CHECKTRACE.INNER :expectedtraces
+
+    local [line expectedline i]
+
+    MAKE "i 1
+    WHILE [NOT EOFP] [
+       MAKE "line READWORD
+
+       ; check if there were more
+       IF EMPTY? :expectedtraces [
+          REPORTTESTFAILED (list "|At least| :i "|lines were traced.  We only expected | :i-1 "|lines.|)
+          REPORTTESTFAILED (list "|The final line was [| :line "|].| )
+
+          STOP
+       ]
+
+       MAKE "expectedline POP "expectedtraces
+
+       IFELSE :line = :expectedline [
+          REPORTTESTPASSED (list "|Line #| :i "|was [| :line "|], as expected.|)
+       ] [
+          REPORTTESTFAILED (list "|Line #| :i "|was [| :line "|]. We expected [| :expectedline "|].|)
+       ]
+
+       MAKE "i :i + 1
+   ]
+
+   IF NOT EMPTY? :expectedtraces [
+      REPORTTESTFAILED (list "|The trace only contains| :i "|lines.  We only expected more.|)
+   ]
+
+END
+
+TO TRACETEST.CHECKTRACE :expectedtraces
+
+    ; close the tracing file
+    SETWRITE   []
+    CLOSE      "tracetestfile.txt
+
+    ; reopen it for reading
+    OPENREAD   "tracetestfile.txt
+    SETREAD    "tracetestfile.txt
+
+    TRACETEST.CHECKTRACE.INNER :expectedtraces
+
+    ; now close the file
+    SETREAD    []
+    CLOSE      "tracetestfile.txt
+
+    ; remove the file
+    ERASEFILE  "tracetestfile.txt
+END
+
+
+TO TRACETEST.PROCEDURE
+
+   ; make sure the procedure is not already traced
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDPROCEDURE (ITEM 1 TRACED) ]
+
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; trace the procedure
+   TRACEINSTRUCTION [TRACE "TRACETEST.TRACEDPROCEDURE]
+
+   ; make sure the procedure is traced
+   FAILIFNOTTRUE [MEMBERP "TRACETEST.TRACEDPROCEDURE (ITEM 1 TRACED) ]
+
+   ; call it (it should trace the call)
+   TRACEINSTRUCTION [TRACETEST.TRACEDPROCEDURE]
+
+   ; untrace the procedure
+   TRACEINSTRUCTION [UNTRACE "TRACETEST.TRACEDPROCEDURE]
+
+   ; make sure the procedure is not traced anymore
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDPROCEDURE (ITEM 1 TRACED) ]
+
+
+   ; call it (it should no longer trace the output)
+   TRACEINSTRUCTION [TRACETEST.TRACEDPROCEDURE]
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|( TRACETEST.TRACEDPROCEDURE )|
+     "|TRACETEST.TRACEDPROCEDURE stops|
+   )
+
+
+END
+
+TO TRACETEST.PROCEDURE.DEFAULTINPUTS
+
+   ;
+   ; Test that tracing works properly when a procedure is given the default number of inputs.
+   ;
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; enabled tracing on the procedure
+   TRACEINSTRUCTION [TRACE "TRACETEST.TRACEDPROCEDURE.WITHINPUTS]
+
+   ; call it (it should trace the call)
+   TRACEINSTRUCTION [TRACETEST.TRACEDPROCEDURE.WITHINPUTS "input1 "input2 ]
+
+   ; untrace the procedure
+   TRACEINSTRUCTION [UNTRACE "TRACETEST.TRACEDPROCEDURE.WITHINPUTS]
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|( TRACETEST.TRACEDPROCEDURE.WITHINPUTS "input1 "input2 )|
+     "|TRACETEST.TRACEDPROCEDURE.WITHINPUTS stops|
+   )
+
+END
+
+TO TRACETEST.PROCEDURE.RESTINPUT
+
+   ;
+   ; Test that tracing works properly when a procedure is given
+   ; more than the default number of inputs and the excess inputs
+   ; goes into a "rest" input.
+   ;
+   ; This is a regression test for bug #293.
+   ;
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; enabled tracing on the procedure
+   TRACEINSTRUCTION [TRACE "TRACETEST.TRACEDPROCEDURE.WITHINPUTS]
+
+   ; call it (it should trace the call)
+   TRACEINSTRUCTION [(TRACETEST.TRACEDPROCEDURE.WITHINPUTS "input1 "input2 "input3)]
+
+   ; untrace the procedure
+   TRACEINSTRUCTION [UNTRACE "TRACETEST.TRACEDPROCEDURE.WITHINPUTS]
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|( TRACETEST.TRACEDPROCEDURE.WITHINPUTS "input1 "input2 "input3 )|
+     "|TRACETEST.TRACEDPROCEDURE.WITHINPUTS stops|
+   )
+
+END
+
+
+TO TRACETEST.FUNCTION
+
+   ; make sure the procedure is not already traced
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDFUNCTION (ITEM 1 TRACED) ]
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; trace the function
+   TRACEINSTRUCTION [TRACE "TRACETEST.TRACEDFUNCTION]
+
+   ; make sure the procedure is traced
+   FAILIFNOTTRUE [MEMBERP "TRACETEST.TRACEDFUNCTION (ITEM 1 TRACED) ]
+
+   ; call it on a variety of output types (they should all be traced)
+   SIMPLEREPORTTEST [TRACETEST.TRACEDFUNCTION 123]         123
+   SIMPLEREPORTTEST [TRACETEST.TRACEDFUNCTION "outputthis] "outputthis
+   SIMPLEREPORTTEST [TRACETEST.TRACEDFUNCTION [1 2 3]]     [1 2 3]
+   TRACEINSTRUCTION [TRACETEST.TRACEDFUNCTION {1 2 3}]
+
+   ; untrace the procedure
+   TRACEINSTRUCTION [UNTRACE "TRACETEST.TRACEDFUNCTION]
+
+   ; make sure the procedure is not traced anymore
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDFUNCTION (ITEM 1 TRACED) ]
+
+   ; call it (it should no longer trace the output)
+   SIMPLEREPORTTEST [TRACETEST.TRACEDFUNCTION 123] 123
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|( TRACETEST.TRACEDFUNCTION 123 )|
+     "|TRACETEST.TRACEDFUNCTION outputs 123|
+
+     "|( TRACETEST.TRACEDFUNCTION "outputthis )|
+     "|TRACETEST.TRACEDFUNCTION outputs "outputthis|
+
+     "|( TRACETEST.TRACEDFUNCTION [1 2 3] )|
+     "|TRACETEST.TRACEDFUNCTION outputs [1 2 3]|
+
+     "|( TRACETEST.TRACEDFUNCTION {1 2 3} )|
+     "|TRACETEST.TRACEDFUNCTION outputs {1 2 3}|
+   )
+
+END
+
+TO TRACETEST.VARIABLE
+
+   LOCALMAKE "TRACETEST.TRACEDVARIABLE 0
+
+   ; make sure the variable is not already traced
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDVARIABLE (ITEM 2 TRACED) ]
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; trace the variable
+   TRACEINSTRUCTION [TRACE NAMELIST "TRACETEST.TRACEDVARIABLE]
+
+   ; make sure the variable is traced
+   FAILIFNOTTRUE [MEMBERP "TRACETEST.TRACEDVARIABLE (ITEM 2 TRACED) ]
+
+   ; assign to the variable (the assignment should be traced)
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE 123     ]
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE "123    ]
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE "value  ]
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE [1 2 3] ]
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE {1 2 3} ]
+
+   ; untrace the variable
+   TRACEINSTRUCTION [UNTRACE NAMELIST "TRACETEST.TRACEDVARIABLE]
+
+   ; make sure the variable is not traced anymore
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDVARIABLE (ITEM 2 TRACED) ]
+
+   ; assign to it (it should no longer trace the assignment)
+   TRACEINSTRUCTION [MAKE "TRACETEST.TRACEDVARIABLE 321]
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|Make "TRACETEST.TRACEDVARIABLE 123 in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Make "TRACETEST.TRACEDVARIABLE 123 in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Make "TRACETEST.TRACEDVARIABLE "value in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Make "TRACETEST.TRACEDVARIABLE [1 2 3] in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Make "TRACETEST.TRACEDVARIABLE {1 2 3} in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+   )
+
+END
+
+TO TRACETEST.PROPERTYLIST
+
+   ; create the propery list
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "SOMEPROPERTY 0 ]
+
+   ; make sure the propery list is not already traced
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDPLIST (ITEM 3 TRACED) ]
+
+   ; redirect all tracing to a file to that we can verify it
+   TRACETEST.CAPTURETRACE
+
+   ; trace the propery list
+   TRACEINSTRUCTION [TRACE PLLIST "TRACETEST.TRACEDPLIST]
+
+   ; make sure the propery list is traced
+   FAILIFNOTTRUE [MEMBERP "TRACETEST.TRACEDPLIST (ITEM 3 TRACED) ]
+
+   ; put some properties in the propery list (this should be traced)
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY1 123     ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY2 "123    ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY3 "value  ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY4 [1 2 3] ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY5 {1 2 3} ]
+
+   ; untrace the propery list
+   TRACEINSTRUCTION [UNTRACE PLLIST "TRACETEST.TRACEDPLIST]
+
+   ; make sure the propery list is not traced anymore
+   FAILIFNOTFALSE [MEMBERP "TRACETEST.TRACEDPLIST (ITEM 3 TRACED) ]
+
+   ; put some more properties (it should no longer trace this)
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY6 123     ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY7 "123    ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY8 "value  ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY9 [1 2 3] ]
+   TRACEINSTRUCTION [PPROP "TRACETEST.TRACEDPLIST "PROPERTY0 {1 2 3} ]
+
+   ; verify that the trace contains exactly what we expect
+   TRACETEST.CHECKTRACE (LIST
+     "|Pprop "TRACETEST.TRACEDPLIST "PROPERTY1 123 in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Pprop "TRACETEST.TRACEDPLIST "PROPERTY2 123 in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Pprop "TRACETEST.TRACEDPLIST "PROPERTY3 "value in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Pprop "TRACETEST.TRACEDPLIST "PROPERTY4 [1 2 3] in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+
+     "|Pprop "TRACETEST.TRACEDPLIST "PROPERTY5 {1 2 3} in TRACEINSTRUCTION|
+     "|[CATCH "ERROR [IGNORE RUNRESULT :instruction]]|
+   )
+
+   ; cleanup
+   ERASE PLLIST "TRACETEST.TRACEDPLIST
+
+END
+
+TO TRACETEST.TRACEALL
+ 
+   ; trace everything
+   REPORTTESTINFO [Calling TRACE CONTENTS]
+   TRACE CONTENTS
+   SIMPLEREPORTTEST [TRACED] CONTENTS
+
+   ; trace nothing
+   TRACEINSTRUCTION [UNTRACE CONTENTS]
+   SIMPLEREPORTTEST [TRACED] [[][][]]
+END
+
+TO TRACETEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(TRACED "toomany)]
+
+   TRACEINSTRUCTION       [(TRACE [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(TRACE)]
+   RUNTOOMANYINPUTSTEST   [(TRACE "name "toomany)]
+   RUNBADINPUTTEST        [(TRACE {name})]
+   RUNBADINPUTTEST        [(TRACE [[a][b]{c}])]
+   RUNBADINPUTTEST        [(TRACE [a b {c}])]
+   RUNBADINPUTTEST        [(TRACE [[a b {c}]])]
+   RUNBADINPUTTEST        [(TRACE [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(TRACE [[[a]]])]
+
+   TRACEINSTRUCTION       [(UNTRACE [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(UNTRACE)]
+   RUNTOOMANYINPUTSTEST   [(UNTRACE "name "toomany)]
+   RUNBADINPUTTEST        [(UNTRACE {name})]
+   RUNBADINPUTTEST        [(UNTRACE [[a][b]{c}])]
+   RUNBADINPUTTEST        [(UNTRACE [a b {c}])]
+   RUNBADINPUTTEST        [(UNTRACE [[a b {c}]])]
+   RUNBADINPUTTEST        [(UNTRACE [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(UNTRACE [[[a]]])]
+END
+
+TO TRACETEST
+
+   TRACETEST.PROCEDURE
+   TRACETEST.PROCEDURE.DEFAULTINPUTS
+   TRACETEST.PROCEDURE.RESTINPUT
+   TRACETEST.FUNCTION
+   TRACETEST.VARIABLE
+   TRACETEST.PROPERTYLIST
+   TRACETEST.TRACEALL
+   TRACETEST.BADINPUT
+
+END

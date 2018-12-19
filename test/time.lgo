@@ -1,0 +1,133 @@
+LOAD "testlib.lgo
+
+TO TIMETEST.SMOKETEST
+   FAILIFNOTTRUE    [LIST? TIME]
+   SIMPLEREPORTTEST [COUNT TIME] 5 ; [Wed Jul 14 23:34:08 1993]
+   SIMPLEREPORTTEST [COUNT ITEM 1 TIME] COUNT "Wed
+   SIMPLEREPORTTEST [COUNT ITEM 2 TIME] COUNT "Jul
+   SIMPLEREPORTTEST [COUNT ITEM 3 TIME] COUNT "14
+   SIMPLEREPORTTEST [COUNT ITEM 4 TIME] COUNT "23:34:08
+   SIMPLEREPORTTEST [COUNT ITEM 5 TIME] COUNT "1993
+END
+
+TO TIMETEST.BADINPUT
+   RUNTOOMANYINPUTSTEST [(TIME "toomany)]
+END
+
+; Outputs the first :number characters in :word
+TO TIMETEST.LEFT :number :word
+   LOCALMAKE "prefix "||
+   REPEAT :number [
+      MAKE "prefix WORD :prefix ITEM REPCOUNT :word
+   ]
+   OUTPUT :prefix
+END
+
+TO TIMETEST.TZ.ENVIRONMENT
+
+   ; Tests that the TIME command works correctly, even when the
+   ; TZ environment variable is set to a corrupt value.  Because
+   ; FMSLogo doesn't have support for reading or writing environment
+   ; variables, we start a new instance and use perl to set the environment.
+   ;
+   ; This is a regression test for Bug #482.
+   ;
+   ; The setup for this is somewhat cryptic.
+   ; The current instance of FMSLogo runs another FMSLogo program to perform setup.
+   ; The setup program sets the TZ environment, then runs a test FMSLogo program.
+   ; The test FMSLogo writes the output of TIME to a file, then runs a Perl script.
+   ; The Perl script writes the TZ environment variable to a file.
+   ;
+   ; The correct behavior is for the TIME in the test FMSLogo to
+   ; print the local hour and for the Perl script to print the same
+   ; TZ environment as was set in the setup FMSLogo program.  That is, it should
+   ; appear as if TIME ignores the TZ environment variable (even though it's
+   ; really clearing and resetting it.
+
+   ; Write a Perl script which appends the TZ environment variable to a file.
+   WRITEBINARYDATA "timetest-write-tz.pl (WORD
+       "|open  FILE, ">>timetest-time.txt";\n|
+       "|print FILE "$ENV{'TZ'}\\n";\n|
+       "|close FILE;\n|
+   )
+
+   ; Write the "test" FMSLogo program which writes the output of TIME to a file,
+   ; then runs the above Perl script
+   WRITEBINARYDATA "timetest-write-time.lgo (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  ; Write the time component of TIME to a file.\n|
+       "|  WRITEBINARYDATA "timetest-time.txt (WORD ITEM 4 TIME CHAR 10)\n|
+       "|\n|
+       "|  ; Run a program that will write out the "TZ" environment variable.\n|
+       "|  ; This is done to confirm that running TIME didn't clear it.\n|
+       "|  IGNORE (SHELL [perl.exe timetest-write-tz.pl] "TRUE)\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST BYE]\n|
+   )
+
+   ; Write the "setup" FMSLogo program which sets the TZ environment variable,
+   ; then runs the above program.  This is done in a separate instance so that
+   ; we can test what happens if the environment variable exists before
+   ; FMSLogo starts (the scenario reported in the bug) and so that we don't
+   ; corrupt any state in the current instance.
+   ;
+   ; This would be simpler as a Perl script, but I couldn't find a good way to
+   ; make the Perl script the path run the same fmslogo.exe that is current
+   ; running.
+   WRITEBINARYDATA "timetest-set-tz.lgo (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO SETUPTEST\n|
+       "|  ; Corrupt the TZ environment variable by calling\n|
+       "|  ;   SetEnvironmentVariable("TZ", "corrupt-value");\n|
+       "|  DLLLOAD "kernel32.dll\n|
+       "|  IGNORE DLLCALL [L SetEnvironmentVariableA S corrupt-value S TZ]\n|
+       "|  DLLFREE\n|
+       "|\n|
+       "|  ; Run a program that will write out the value that TIME output.\n|
+       "|  IGNORE (SHELL [fmslogo.exe timetest-write-time.lgo] "TRUE)\n|
+       "|END\n|
+       "|MAKE "startup [SETUPTEST BYE]\n|
+   )
+
+   ; Run the "setup" FMSLogo program that runs "test" FMSLogo program that
+   ; runs the Perl script.
+   IGNORE (SHELL [fmslogo.exe timetest-set-tz.lgo] "TRUE)
+
+   SIMPLEREPORTTEST [ FILEEXISTS "timetest-time.txt ] LOCALETRUE
+   IF FILEEXISTS "timetest-time.txt [
+     LOCALMAKE "savedReader READER
+
+     OPENREAD  "timetest-time.txt
+     SETREAD   "timetest-time.txt
+
+     ; Confirm that the child instance of FMSLogo wrote the correct TIME
+     LOCALMAKE "thisLogoHour  ITEM 4 TIME
+     LOCALMAKE "innerLogoHour READWORD
+     SIMPLEREPORTTEST [TIMETEST.LEFT 3 :innerLogoHour] TIMETEST.LEFT 3 :thisLogoHour
+
+     ; Confirm that the child instance of FMSLogo did not modify TZ.
+     SIMPLEREPORTTEST [READWORD] "corrupt-value
+
+     ; That should be everything
+     SIMPLEREPORTTEST [READWORD] []
+
+     SETREAD   :savedReader
+     CLOSE     "timetest-time.txt
+   ]
+
+   ; cleanup
+   ERASEFILE "timetest-set-tz.lgo
+   ERASEFILE "timetest-write-time.lgo
+   ERASEFILE "timetest-write-tz.pl
+   ERASEFILE "timetest-time.txt
+
+END
+
+TO TIMETEST
+   TIMETEST.SMOKETEST
+   TIMETEST.BADINPUT
+   TIMETEST.TZ.ENVIRONMENT
+END

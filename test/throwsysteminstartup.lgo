@@ -1,0 +1,10 @@
+; this test throws "SYSTEM while processing the "startup" instructions.
+; This should immediately exit Logo with an error code of 1.
+
+TO THROWSYSTEM
+  THROW "SYSTEM
+  ; control flow should never reach here
+  TONE 1000 10000
+END
+
+MAKE "startup [THROWSYSTEM]

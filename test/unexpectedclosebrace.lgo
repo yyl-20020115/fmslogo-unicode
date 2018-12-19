@@ -1,0 +1,7 @@
+
+TO UNEXPECTED.CLOSE.BRACE
+   ; This file contains a single procedure that has a close brace (})
+   ; that doesn't match up with an open brace ({)
+   ; This is illegal and loading the file should throw an error.
+   }
+END

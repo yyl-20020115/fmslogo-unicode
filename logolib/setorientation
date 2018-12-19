@@ -1,0 +1,13 @@
+to setorientation :rph
+if not listp :rph          [(throw "error 4 :rph)]
+if not equalp 3 count :rph [(throw "error 4 :rph)]
+
+lt heading
+down pitch
+lr roll
+setroll  item 1 :rph
+setpitch item 2 :rph
+rt       item 3 :rph
+end
+
+bury "setorientation

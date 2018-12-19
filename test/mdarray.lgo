@@ -1,0 +1,212 @@
+LOAD "testlib.lgo
+
+
+TO MDARRAYTEST.SMOKETEST
+
+   LOCALMAKE "myarray MDARRAY [2 3]
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [ARRAYP :myarray ] LOCALETRUE
+   SIMPLEREPORTTEST [COUNT  :myarray ] 2
+   SIMPLEREPORTTEST [MDITEM [1 1] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [1 2] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [1 3] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [2 1] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [2 2] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [2 3] :myarray] []
+
+   ; fill in the items of different types
+   LOCALMAKE "subarray {array}
+   TRACEINSTRUCTION [ MDSETITEM [1 1] :myarray :subarray  ]
+   TRACEINSTRUCTION [ MDSETITEM [1 2] :myarray [list]     ]
+   TRACEINSTRUCTION [ MDSETITEM [1 3] :myarray "hi        ]
+   TRACEINSTRUCTION [ MDSETITEM [2 1] :myarray 42         ]
+   TRACEINSTRUCTION [ MDSETITEM [2 2] :myarray 42.5       ]
+   TRACEINSTRUCTION [ MDSETITEM [2 3] :myarray -10        ]
+
+   SIMPLEREPORTTEST [MDITEM [1 1] :myarray] :subarray
+   SIMPLEREPORTTEST [MDITEM [1 2] :myarray] [list]
+   SIMPLEREPORTTEST [MDITEM [1 3] :myarray] "hi
+   SIMPLEREPORTTEST [MDITEM [2 1] :myarray] 42
+   SIMPLEREPORTTEST [MDITEM [2 2] :myarray] 42.5
+   SIMPLEREPORTTEST [MDITEM [2 3] :myarray] -10
+
+   ; MDITEM can work on lists
+   SIMPLEREPORTTEST [MDITEM [1 2] [[a b] [c d]]] "b
+
+END
+
+TO MDARRAYTEST.ONEDIMENSIONAL
+
+   LOCALMAKE "myarray MDARRAY [4]
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [ARRAYP :myarray ] LOCALETRUE
+   SIMPLEREPORTTEST [COUNT  :myarray ] 4
+   SIMPLEREPORTTEST [MDITEM [1] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [2] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [3] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [4] :myarray] []
+
+   ; fill in the items of different types
+   LOCALMAKE "subarray {array}
+   TRACEINSTRUCTION [ MDSETITEM [1] :myarray :subarray  ]
+   TRACEINSTRUCTION [ MDSETITEM [2] :myarray [list]     ]
+   TRACEINSTRUCTION [ MDSETITEM [3] :myarray "hi        ]
+   TRACEINSTRUCTION [ MDSETITEM [4] :myarray 42         ]
+
+   SIMPLEREPORTTEST [MDITEM [1] :myarray] :subarray
+   SIMPLEREPORTTEST [MDITEM [2] :myarray] [list]
+   SIMPLEREPORTTEST [MDITEM [3] :myarray] "hi
+   SIMPLEREPORTTEST [MDITEM [4] :myarray] 42
+
+END
+
+TO MDARRAYTEST.ORIGIN
+
+   LOCALMAKE "myarray (MDARRAY [2 3] 0)
+
+   ; elements should all be the empty list
+   SIMPLEREPORTTEST [ARRAYP :myarray ] LOCALETRUE
+   SIMPLEREPORTTEST [COUNT  :myarray ] 2
+
+   SIMPLEREPORTTEST [MDITEM [0 0] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [0 1] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [0 2] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [1 0] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [1 1] :myarray] []
+   SIMPLEREPORTTEST [MDITEM [1 2] :myarray] []
+
+   ; fill in the items of different types
+   LOCALMAKE "subarray {array}
+   TRACEINSTRUCTION [ MDSETITEM [0 0] :myarray :subarray  ]
+   TRACEINSTRUCTION [ MDSETITEM [0 1] :myarray [list]     ]
+   TRACEINSTRUCTION [ MDSETITEM [0 2] :myarray "hi        ]
+   TRACEINSTRUCTION [ MDSETITEM [1 0] :myarray 42         ]
+   TRACEINSTRUCTION [ MDSETITEM [1 1] :myarray 42.5       ]
+   TRACEINSTRUCTION [ MDSETITEM [1 2] :myarray -10        ]
+
+   SIMPLEREPORTTEST [MDITEM [0 0] :myarray] :subarray
+   SIMPLEREPORTTEST [MDITEM [0 1] :myarray] [list]
+   SIMPLEREPORTTEST [MDITEM [0 2] :myarray] "hi
+   SIMPLEREPORTTEST [MDITEM [1 0] :myarray] 42
+   SIMPLEREPORTTEST [MDITEM [1 1] :myarray] 42.5
+   SIMPLEREPORTTEST [MDITEM [1 2] :myarray] -10
+
+END
+
+
+TO MDARRAYTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(MDARRAY)]
+   RUNTOOMANYINPUTSTEST   [(MDARRAY [1 2 3] 1 "toomany)]
+
+   ; bad size list input
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDARRAY {1 2} ]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDARRAY "word ]
+   RUNDOESNTLIKEINPUTTEST               [ MDARRAY []    ]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDARRAY 12    ]
+
+   ; bad origin input
+   RUNDOESNTLIKEINPUTTEST [ ( MDARRAY [2 3] "ten ) ]
+   RUNDOESNTLIKEINPUTTEST [ ( MDARRAY [2 3] [1]  ) ]
+   RUNDOESNTLIKEINPUTTEST [ ( MDARRAY [2 3] {1}  ) ]
+   RUNDOESNTLIKEINPUTTEST [ ( MDARRAY [2 3] 10.5 ) ]
+
+END
+
+
+TO MDITEMTEST.SMOKETEST
+
+   ; MDITEM works on arrays
+   SIMPLEREPORTTEST [ MDITEM [2 1] {{a b} {c d} {e f}}] "c
+
+   ; MDITEM works on lists
+   SIMPLEREPORTTEST [ MDITEM [2 1] [[a b] [c d] [e f]]] "c
+
+   ; MDITEM works on a mix of lists and arrays
+   SIMPLEREPORTTEST [ MDITEM [2 1] {[a b] [c d] [e f]}] "c
+   SIMPLEREPORTTEST [ MDITEM [2 1] [{a b} {c d} {e f}]] "c
+
+   ; MDITEM can work on words, since the ITEM of a word is a word
+   SIMPLEREPORTTEST [ MDITEM [2 1] "ten  ] "e
+   SIMPLEREPORTTEST [ MDITEM [2 1] 1234  ] 2
+   SIMPLEREPORTTEST [ MDITEM [2 1] 12.34 ] 2
+
+END
+
+TO MDITEMTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(MDITEM [1 2])]
+   RUNTOOMANYINPUTSTEST   [(MDITEM [1 2] {{1 2} {2 3}} "toomany)]
+
+   ; bad size list input
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDITEM {1 1}   {{1 2} {2 3}}]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDITEM "one    {{1 2} {2 3}}]
+   RUNDOESNTLIKEINPUTTEST               [ MDITEM [1 1.5] {{1 2} {2 3}}]
+   RUNDOESNTLIKEINPUTTEST               [ MDITEM [1 100] {{1 2} {2 3}}]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDITEM 1       {{1 2} {2 3}}]
+
+   ; out-of-range errors
+   RUNDOESNTLIKEINPUTTEST [ MDITEM [1 2] "ten            ]
+   RUNDOESNTLIKEINPUTTEST [ MDITEM [1 3] [ [1 2] [3 4] ] ]
+
+END
+
+TO MDSETITEMTEST.SMOKETEST
+
+   LOCALMAKE "myarray {{a b} {c d}}
+
+   ; fill in the items of different types
+   LOCALMAKE "subarray {array}
+   TRACEINSTRUCTION [ MDSETITEM [1 1] :myarray :subarray  ]
+   TRACEINSTRUCTION [ MDSETITEM [1 2] :myarray [list]     ]
+   TRACEINSTRUCTION [ MDSETITEM [2 1] :myarray "hi        ]
+   TRACEINSTRUCTION [ MDSETITEM [2 2] :myarray 42         ]
+
+   SIMPLEREPORTTEST [MDITEM [1 1] :myarray] :subarray
+   SIMPLEREPORTTEST [MDITEM [1 2] :myarray] [list]
+   SIMPLEREPORTTEST [MDITEM [2 1] :myarray] "hi
+   SIMPLEREPORTTEST [MDITEM [2 2] :myarray] 42
+
+END
+
+TO MDSETITEMTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(MDSETITEM [1 2] {{1 2} {3 4}})]
+   RUNTOOMANYINPUTSTEST   [(MDSETITEM [1 2] {{1 2} {3 4}} "value "toomany)]
+
+   ; bad size list input
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM {1 1}   {{1 2} {3 4}} "value]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM "one    {{1 2} {3 4}} "value]
+   RUNDOESNTLIKEINPUTTEST               [ MDSETITEM [1 1.5] {{1 2} {3 4}} "value]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM [1 100] {{1 2} {3 4}} "value]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM 1       {{1 2} {3 4}} "value]
+
+   ; bad multi-dimensional array
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM [1 1] "ten          "value ]
+   RUNDOESNTLIKEINPUTTEST               [ MDSETITEM [1 1] {[1 2] [3 4]} "value ]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM [1 1] [{1 2} {3 4}] "value ]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM [1 1] 1234          "value ]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST [ MDSETITEM [1 1] 12.34         "value ]
+
+   ; can't create circular arrays
+   LOCALMAKE "myarray {{1 2} {3 4}}
+   RUNBADINPUTTEST [MDSETITEM [1 1] :myarray :myarray]
+
+END
+
+TO MDARRAYTEST
+
+   MDARRAYTEST.SMOKETEST
+   MDARRAYTEST.ONEDIMENSIONAL
+   MDARRAYTEST.ORIGIN
+   MDARRAYTEST.BADINPUT
+
+   MDITEMTEST.SMOKETEST
+   MDITEMTEST.BADINPUT
+
+   MDSETITEMTEST.SMOKETEST
+   MDSETITEMTEST.BADINPUT
+
+END

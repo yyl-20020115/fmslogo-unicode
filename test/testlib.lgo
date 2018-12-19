@@ -1,0 +1,956 @@
+TO LOCALETRUE
+  ; A locale-independent value for truth.
+  ; This should compare equally with what we expect
+  ; when a predicate outputs "true.
+  OUTPUT EQUAL? 1 1
+END
+BURY [LOCALETRUE]
+
+TO LOCALEFALSE
+  ; A locale-independent value for falsity.
+  ; This should compare equally with what we expect
+  ; when a predicate outputs "false.
+  OUTPUT EQUAL? 1 0
+END
+BURY [LOCALEFALSE]
+
+TO ISPSEUDOLOCBUILD
+  OUTPUT (ITEM 4 LOGOVERSION) = 9999
+END
+BURY [ISPSEUDOLOCBUILD]
+
+TO STRIPNULS :message
+  ; Recursively replaces NUL characters in any words in :message with "\0".
+  ; This is used immediately before printing a result so that the NUL characters
+  ; don't enter the output stream literally.
+  IF WORD? :message [
+    OUTPUT MAP [IFELSE EQUAL? RAWASCII ? 0 ["\\0] [?] ] :message
+  ]
+  IF LIST? :message [
+    ; Use RUNRESULT to work around bugs where some tests output UNBOUND.
+    OUTPUT MAP [IFELSE EQUAL? [] RUNRESULT [?] [ "nothing ] [ STRIPNULS ? ] ] :message
+  ]
+  IF ARRAY? :message [
+    ; work around a bug in ARRAYTOLIST which doesn't handle {} correctly.
+    IF EQUAL? 0 COUNT :message [ OUTPUT :message ]
+    OUTPUT LISTTOARRAY STRIPNULS ARRAYTOLIST :message
+  ]
+END
+BURY "STRIPNULS
+
+TO UNLIMITEDPRINT :listtoprint
+  ; declare printwidthlimit and printdepthlimit local so that logging happens as expected.
+  local [printdepthlimit printwidthlimit pseudo.printdepthlimit pseudo.printwidthlimit]
+
+  PRINT :listtoprint
+END
+BURY [UNLIMITEDPRINT]
+
+TO UNLIMITEDMESSAGEBOX :caption :message
+  ; declare printwidthlimit and printdepthlimit local so that the full message is shown.
+  local [printdepthlimit printwidthlimit pseudo.printdepthlimit pseudo.printwidthlimit]
+
+  MESSAGEBOX :caption :message
+END
+BURY [UNLIMITEDMESSAGEBOX]
+
+TO UNLIMITEDYESNOBOX :caption :message
+  ; declare printwidthlimit and printdepthlimit local so that the full message is shown.
+  local [printdepthlimit printwidthlimit pseudo.printdepthlimit pseudo.printwidthlimit]
+
+  OUTPUT YESNOBOX :caption :message
+END
+BURY [UNLIMITEDYESNOBOX]
+
+TO REPORTTESTINFO :message
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  ; Remove NUL characters before we print, since they can hide results
+  ; and confuse diff programs into thinking the test log is binary.
+  UNLIMITEDPRINT (SENTENCE "INFO: STRIPNULS :message)
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+END
+BURY [REPORTTESTINFO]
+
+TO REPORTTESTPASSED :message
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  ; Remove NUL characters before we print, since they can hide results
+  ; and confuse diff programs into thinking the test log is binary.
+  UNLIMITEDPRINT (SENTENCE "PASS: STRIPNULS :message)
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+END
+BURY [REPORTTESTPASSED]
+
+
+TO REPORTTESTFAILED :message
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  ; Remove NUL characters before we print, since they can hide results
+  ; and confuse diff programs into thinking the test log is binary.
+  LOCALMAKE "result (SENTENCE "FAIL: STRIPNULS :message)
+  UNLIMITEDPRINT :result
+  UNLIMITEDMESSAGEBOX [Test Failed] :result
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+END
+BURY [REPORTTESTFAILED]
+
+TO REPORTTESTBUG :message
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  ; Remove NUL characters before we print, since they can hide results
+  ; and confuse diff programs into thinking the test log is binary.
+  LOCALMAKE "result (SENTENCE "TESTBUG: STRIPNULS :message)
+  UNLIMITEDPRINT :result
+  UNLIMITEDMESSAGEBOX [Test Bug] :result
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+END
+BURY [REPORTTESTBUG]
+
+
+TO FAILIFERROR :testdescription
+
+   LOCALMAKE "lasterror ERROR
+   IF NOT EMPTY? :lasterror [
+      REPORTTESTFAILED (LIST :testdescription "|had an error.| (WORD "code= (ITEM 1 :lasterror) ".) (ITEM 2 :lasterror)) 
+      OUTPUT LOCALETRUE
+   ]
+
+   OUTPUT LOCALEFALSE
+END
+BURY [FAILIFERROR]
+
+
+TO REPORTTEST :testpassed :result :expected
+  IFELSE :testpassed [
+    REPORTTESTPASSED (sentence :result "|, as expected.|)
+  ] [
+    REPORTTESTFAILED (sentence :result "|. We expected| :expected)
+  ]
+END
+BURY [REPORTTEST]
+
+TO TRACEINSTRUCTION :instruction
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  UNLIMITEDPRINT (SENTENCE "CALL: :instruction)
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+
+  ; clear the last error
+  IGNORE ERROR
+
+  ; run the instructions
+  CATCH "ERROR [IGNORE RUNRESULT :instruction]
+
+  ; make sure that the instruction didn't throw an error
+  IGNORE FAILIFERROR :instruction
+END
+BURY [TRACEINSTRUCTION]
+
+; Prints the instruction to the test log and runs it.
+; Does not do a CATCH ERROR, which makes it suitable for
+; recoverable-error testing (onces where ERRACT is defined to
+; be something special).
+TO TRACEINSTRUCTIONNOCATCH :instruction
+
+  ; backup the current writer
+  LOCALMAKE "previouswriter WRITER
+  SETWRITE :testlog
+
+  UNLIMITEDPRINT (SENTENCE "CALL: :instruction)
+
+  ; restore the current writer
+  SETWRITE :previouswriter
+
+  ; run the instructions
+  IGNORE RUNRESULT :instruction
+
+END
+BURY [TRACEINSTRUCTIONNOCATCH]
+
+TO SIMPLEREPORTTEST.CHECKRESULT :instruction :result :expectedresult
+  LOCAL "caseignoredp
+
+  ; require strict case correctness
+  MAKE "caseignoredp "false
+
+  IFELSE EQUAL? :result :expectedresult [
+    REPORTTESTPASSED (LIST :instruction "output STRIPNULS :result "|, as expected.|)
+  ][ 
+    REPORTTESTFAILED (LIST :instruction "output STRIPNULS :result "|. We expected | STRIPNULS :expectedresult ".)
+  ]
+END
+BURY [SIMPLEREPORTTEST.CHECKRESULT]
+
+TO SIMPLEREPORTTEST :instruction :expectedresult
+  LOCAL "result
+
+  ; clear the last error
+  IGNORE ERROR
+
+  ; run the instruction inside a CATCH so 
+  ; that throwing an error just fails 
+  ; (instead of halt the tests)
+  CATCH "ERROR [MAKE "result RUN :instruction]
+
+  IF FAILIFERROR :instruction [ STOP ]
+
+  SIMPLEREPORTTEST.CHECKRESULT :instruction :result :expectedresult
+
+END
+BURY [SIMPLEREPORTTEST]
+
+; This is just like SIMPLEREPORTTEST except that it does not
+; wrap the instruction in a CATCH "ERROR [] instruction.
+; You should use this form when you want to test that you
+; can recover from errors with ERRACT.
+TO SIMPLEREPORTTESTNOCATCH :instruction :expectedresult
+  LOCAL "result
+
+  MAKE "result RUN :instruction
+
+  SIMPLEREPORTTEST.CHECKRESULT :instruction :result :expectedresult
+END
+BURY [SIMPLEREPORTTESTNOCATCH]
+
+
+TO FAILIFNOTTRUE :instruction
+  SIMPLEREPORTTEST :instruction LOCALETRUE
+END
+BURY [FAILIFNOTTRUE]
+
+TO FAILIFNOTFALSE :instruction
+  SIMPLEREPORTTEST :instruction LOCALEFALSE
+END
+BURY [FAILIFNOTFALSE]
+
+
+
+TO REPORTTESTINITIALIZE :testlogfilename 
+
+  MAKE "testlog  :testlogfilename
+
+  ; close the test log, if it is already open
+  CATCH "ERROR [ CLOSE :testlog ]
+
+  ; clear the error, if one happened
+  IGNORE ERROR
+
+  ; open (and truncate) the test log
+  OPENWRITE :testlog
+END
+BURY [REPORTTESTINITIALIZE]
+
+
+TO REPORTTESTUNINITIALIZE
+  CLOSE :testlog
+  MAKE  "testlog []
+END
+BURY [REPORTTESTUNINITIALIZE]
+
+
+TO CHECKERRORITEM :instructions :item :lasterror :expectedvalue :description
+
+  LOCALMAKE "lastitem ITEM :item :lasterror
+
+  ; An :expectedvalue of "DONTREPORT indicates two things:
+  ; 1) The caller doesn't care what the value of the field.
+  ; 2) The caller doesn't even want the value logged.
+  IF :expectedvalue = "DONTREPORT [ 
+     STOP
+  ]
+
+  ; An :expectedvalue of "DONTCARE indicates that the caller
+  ; doesn't care what the value of the field is.
+  IF :expectedvalue = "DONTCARE [ 
+     REPORTTESTINFO (LIST "error :description "is :lastitem ".)
+     STOP
+  ]
+
+  IFELSE EQUALP :lastitem :expectedvalue [
+    REPORTTESTPASSED (LIST "error :description "is :lastitem "|, as expected.|)
+  ] [
+    REPORTTESTFAILED (LIST "|After running| :instructions "error :description "is :lastitem "|.  We expected| :expectedvalue ".)
+  ]
+
+END
+BURY [CHECKERRORITEM]
+
+TO CHECKERROR :instructions :expectederror :expectedtext :expectedprocedure :expectedline
+
+  LOCALMAKE "lasterror ERROR
+  IF EMPTYP :lasterror [
+    REPORTTESTFAILED (LIST "Running :instructions "|did not change ERROR.|)
+    STOP
+  ]
+
+  IF NOT LISTP :lasterror [
+    REPORTTESTFAILED [ERROR did not return a list.]
+    STOP
+  ]
+
+  IF NOTEQUALP (COUNT :lasterror) 4 [
+    REPORTTESTFAILED [ERROR did not return a list of four values.]
+    STOP
+  ]
+
+  CHECKERRORITEM :instructions 1 :lasterror :expectederror     "code
+  CHECKERRORITEM :instructions 2 :lasterror :expectedtext      "text
+  CHECKERRORITEM :instructions 3 :lasterror :expectedprocedure "procedure
+  CHECKERRORITEM :instructions 4 :lasterror :expectedline      "line
+
+END
+BURY [CHECKERROR]
+
+
+TO RUNEXPECTERRORTEST :instructions :expectederror [:expectedtext "DONTCARE]
+
+  REPORTTESTINFO (LIST "|Running invalid instruction:| :instructions)
+
+  ; clear the value of ERROR
+  IGNORE ERROR
+
+  CATCH "ERROR [ 
+    IGNORE RUNRESULT :instructions 
+    REPORTTESTFAILED (LIST "Running :instructions "|did not throw an error.|)
+    STOP
+  ]
+
+  CHECKERROR :instructions :expectederror :expectedtext "DONTREPORT "DONTREPORT 
+END
+BURY [RUNEXPECTERRORTEST]
+
+; generic bad instruction--should be replaced with RUNDOESNTLIKEINPUTTEST
+TO RUNBADINPUTTEST :instructions
+  RUNEXPECTERRORTEST :instructions "DONTCARE
+END
+BURY [RUNBADINPUTTEST]
+
+TO RUNOUTOFMEMORYTEST :instructions
+  RUNEXPECTERRORTEST :instructions 1
+END
+BURY [RUNOUTOFMEMORYTEST]
+
+TO RUNOUTOFBOUNDSTEST :instructions
+  RUNEXPECTERRORTEST :instructions 3
+END
+BURY [RUNOUTOFBOUNDSTEST]
+
+TO RUNNONRECOVERABLEDOESNTLIKEINPUTTEST :instructions
+  RUNEXPECTERRORTEST :instructions 4
+END
+BURY [RUNNONRECOVERABLEDOESNTLIKEINPUTTEST]
+
+TO RUNDIDNTOUTPUTTEST :instructions
+  RUNEXPECTERRORTEST :instructions 5
+END
+BURY [RUNDIDNTOUTPUTTEST]
+
+TO RUNNOTENOUGHINPUTSTEST :instructions
+  RUNEXPECTERRORTEST :instructions 6
+END
+BURY [RUNNOTENOUGHINPUTSTEST]
+
+TO RUNDOESNTLIKEINPUTTEST :instructions
+  RUNEXPECTERRORTEST :instructions 7
+END
+BURY [RUNDOESNTLIKEINPUTTEST]
+
+TO RUNTOOMANYINPUTSTEST :instructions
+  RUNEXPECTERRORTEST :instructions 8
+END
+BURY [RUNTOOMANYINPUTSTEST]
+
+TO RUNYOUDONTSAYWHATTODOWITHTEST :instructions
+  RUNEXPECTERRORTEST :instructions 9
+END
+BURY [RUNYOUDONTSAYWHATTODOWITHTEST]
+
+TO RUNHASNOVALUETEST :instructions
+  RUNEXPECTERRORTEST :instructions 11
+END
+BURY [RUNHASNOVALUETEST]
+
+TO RUNUNEXPECTEDCLOSEPARENTEST :instructions
+  RUNEXPECTERRORTEST :instructions 12
+END
+BURY [RUNUNEXPECTEDCLOSEPARENTEST]
+
+TO RUNIDONTKNOWHOWTOTEST :instructions [:expectedtext "DONTCARE]
+  (RUNEXPECTERRORTEST :instructions 13 :expectedtext)
+END
+BURY [RUNIDONTKNOWHOWTOTEST]
+
+TO RUNSTOPPINGTEST :instructions
+  RUNEXPECTERRORTEST :instructions 16
+END
+BURY [RUNSTOPPINGTEST]
+
+TO RUNFILESYSTEMERRORTEST :instructions
+  RUNEXPECTERRORTEST :instructions 18
+END
+BURY [RUNFILESYSTEMERRORTEST]
+
+TO RUNUSERTHROWTEST :instructions [:expectedtext "DONTCARE]
+  (RUNEXPECTERRORTEST :instructions 21 :expectedtext)
+END
+BURY [RUNUSERTHROWTEST]
+
+TO RUNISAPRIMITIVETEST :instructions
+  RUNEXPECTERRORTEST :instructions 22
+END
+BURY [RUNISAPRIMITIVETEST]
+
+TO RUNNONRECOVERABLEIDONTKNOWHOWTOTEST :instructions [:expectedtext "DONTCARE]
+  (RUNEXPECTERRORTEST :instructions 24 :expectedtext)
+END
+BURY [RUNNONRECOVERABLEIDONTKNOWHOWTOTEST]
+
+TO RUNWINDOWALREADYEXISTSTEST :windowname :instructions 
+  (RUNEXPECTERRORTEST :instructions 1001 WORD :windowname "| already exists|)
+END
+BURY [RUNWINDOWALREADYEXISTSTEST]
+
+TO RUNWINDOWDOESNOTEXISTTEST :windowname :instructions 
+  (RUNEXPECTERRORTEST :instructions 1002 WORD :windowname "| does not exist|)
+END
+BURY [RUNWINDOWDOESNOTEXISTTEST]
+
+TO RUNDLLLOADERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1101 "|DLL load failed|)
+END
+BURY [RUNDLLLOADERRORTEST]
+
+TO RUNDLLNOTLOADEDTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1102 "|DLL is not loaded|)
+END
+BURY [RUNDLLNOTLOADEDTEST]
+
+TO RUNDLLDATATYPENOTPAIREDTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1103 "|Not all Type/Data inputs are paired|)
+END
+BURY [RUNDLLDATATYPENOTPAIREDTEST]
+
+TO RUNDLLINVALIDDATATYPETEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1104 "|Invalid data type input|)
+END
+BURY [RUNDLLINVALIDDATATYPETEST]
+
+TO RUNDLLINVALIDOUTPUTTYPETEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1105 "|Invalid output type|)
+END
+BURY [RUNDLLINVALIDOUTPUTTYPETEST]
+
+TO RUNDLLFUNCTIONNOTFOUNDTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1106 "|Function not found|)
+END
+BURY [RUNDLLFUNCTIONNOTFOUNDTEST]
+
+TO RUNGIFREADERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1201 "|Problem Reading GIF, check memory and diskspace|)
+END
+BURY [RUNGIFREADERRORTEST]
+
+TO RUNGIFWRITEERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1202 "|Problem Generating GIF, check memory and diskspace|)
+END
+BURY [RUNGIFWRITEERRORTEST]
+
+TO RUNBITMAPOPENERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1211 "|Could not open .bmp|)
+END
+BURY [RUNBITMAPOPENERRORTEST]
+
+TO RUNBITMAPCREATEERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1212 "|Unable to create Windows 3.0 bitmap|)
+END
+BURY [RUNBITMAPCREATEERRORTEST]
+
+TO RUNBITMAPINVALIDERRORTEST :instructions
+  (RUNEXPECTERRORTEST :instructions 1214 "|Not a Windows 3.0 bitmap|)
+END
+BURY [RUNBITMAPINVALIDERRORTEST]
+
+
+
+TO TIMECOMMAND :instructions
+  ; Outputs how long it takes to execute given instructions
+
+  LOCALMAKE "beforetime TIMEMILLI
+  IGNORE RUNRESULT :instructions
+  LOCALMAKE "aftertime TIMEMILLI
+
+  LOCALMAKE "deltatime :aftertime - :beforetime
+
+  REPORTTESTINFO (list :instructions "took :deltatime "|ms to execute|)
+
+  OUTPUT :deltatime
+END
+BURY [TIMECOMMAND]
+
+
+TO CHECKEXECUTIONTIME :instructions :actualtime :minacceptabletime :maxacceptabletime
+
+    if :maxacceptabletime < :actualtime [
+       REPORTTESTFAILED (list 
+          :instructions "ran "in :actualtime "ms.
+          "|We expected no more than| :maxacceptabletime "ms.)
+    ]
+    if :actualtime < :minacceptabletime [
+       REPORTTESTFAILED (list 
+          :instructions "ran "in :actualtime "ms.
+          "|We expected at least| :minacceptabletime "ms.)
+    ]
+    if and (:minacceptabletime < :actualtime + 1) (:actualtime + 1 < :maxacceptabletime) [
+       REPORTTESTPASSED (list 
+          :instructions "ran "in :actualtime "ms.
+          "|Anywhere between| :minacceptabletime "|ms and| :maxacceptabletime "|is acceptable.|)
+    ]
+END
+BURY [CHECKEXECUTIONTIME]
+
+
+TO FILEEXISTS :filename
+
+   IGNORE ERROR
+   CATCH "ERROR [OPENREAD :filename]
+   IF EMPTY? ERROR [
+      ; no error means we opened a file
+      CLOSE :filename
+      OUTPUT "true
+   ]
+
+   OUTPUT "false
+END
+BURY [FILEEXISTS]
+
+; A utility routine for comparing files.
+; This is separated from FILESAREEQUAL so that it can use FOREVER/OUTPUT.
+; This is much faster than using WHILE, which is important for large files.
+TO FILESAREEQUAL.HELPER :filea :fileb
+   LOCAL [bytea byteb]
+
+   SETREAD :filea
+   FOREVER [
+      IF EOFP [
+         ; made it to the end of filea with no differences
+         OUTPUT "true
+      ]
+
+      SETREAD :fileb
+      MAKE "byteb READCHAR
+
+      SETREAD :filea
+      IF NOTEQUAL? READCHAR :byteb [
+         ; found a difference
+         OUTPUT "false
+      ]
+   ]
+END
+BURY [FILESAREEQUAL.HELPER]
+
+TO FILESAREEQUAL :filea :fileb
+
+   ; Do a binary byte-for-byte comparison of the files
+   ; OUTPUT "true if the files have the same content
+   ; OUTPUT "false, otherwise
+
+   LOCAL [oldreader isequal]
+
+   MAKE "oldreader READER
+
+   (OPENREAD :filea "true)
+   (OPENREAD :fileb "true)
+
+   MAKE "isequal FILESAREEQUAL.HELPER :filea :fileb
+
+   SETREAD :fileb
+   IF NOT EOFP [
+      ; We didn't compare all of fileb.
+      ; It may be shorter than filea.
+      MAKE "isequal "false
+   ]
+
+   ; cleanup
+   CLOSE :filea
+   CLOSE :fileb
+
+   SETREAD :oldreader
+
+   OUTPUT :isEqual
+END
+BURY [FILESAREEQUAL]
+
+; Compares a generated file against an expected baseline file.
+; Logs an error if the baseline exists and is not equal to the
+; generated file.  If the baseline does not exist, the user
+; is given the opportunity to create it from the generated file.
+TO CHECKFILEAGAINSTBASELINE :actualfilename :baselinefilename
+   LOCAL [isok]
+
+    IF NOT FILEEXISTS :actualfilename [
+       ; A file wasn't created when one was expected.
+       ; Report a failure.
+       REPORTTESTFAILED (sentence :actualfilename "|does not exist.|)
+       STOP
+    ]
+
+   IFELSE FILEEXISTS :baselinefilename [
+
+      ; Do a binary byte-for-byte comparison of the files.
+      MAKE "isok FILESAREEQUAL :baselinefilename :actualfilename
+
+      ; If the file is not correct, then we don't erase
+      ; it so that the difference can be investigated.
+      if :isOk [ ERASEFILE :actualfilename ]
+   ][
+       ; The baseline file does not exist.
+       ; We must ask the user if the file looks correct.
+       MAKE "isok UNLIMITEDYESNOBOX :actualfilename (
+          LIST "Does :actualfilename "look "correct?
+       )
+
+       IF :isok [
+         ; Everything is good.
+         ; Save the generated file as the baseline.
+         IGNORE (SHELL (LIST "cmd.exe "/C "move :actualfilename :baselinefilename) "true)
+       ]
+   ]
+
+   IFELSE :isok [
+      ; Everything is good.
+      REPORTTESTPASSED (sentence :actualfilename "|was created correctly.|)
+   ] [
+      ; Something is wrong.  Fail this test.
+      REPORTTESTFAILED (sentence :actualfilename "|was not created correctly.|)
+   ]
+END
+BURY [CHECKFILEAGAINSTBASELINE]
+
+TO CHECKSCREEN :screenname
+
+   LOCAL [baselinefilename newfilename isok]
+
+   ; set the active area to the entire screen
+   SETACTIVEAREA (LIST -500 -500 500 500)
+
+   MAKE "baselinefilename (WORD "testimage- :screenname ".gif)
+ 
+   IFELSE FILEEXISTS :baselinefilename [
+
+      ; The baseline file exists, so we can automate the process of 
+      ; testing the contents of the screen for correctness.
+      MAKE "newfilename (WORD "testimage- :screenname "-new.gif)
+      GIFSAVE :newfilename
+
+      ; do a binary byte-for-byte comparison of the files
+      MAKE "isok FILESAREEQUAL :baselinefilename :newfilename
+
+      ; if the image is not correct, then we shouldn't erase
+      ; the file we just wrote because this might be a bug in
+      ; GIFSAVE or the original image might be wrong.  Either
+      ; way, this needs manual investigation.
+      if :isOk [ ERASEFILE :newfilename ]
+   ][
+
+       ; The baseline file does not exist.
+       ; We must ask the user if the screen looks correct.
+
+       MAKE "isok UNLIMITEDYESNOBOX :screenname [Does the screen look correct?]
+       IF :isok [
+         ; Everything is good.  Save the screen as a baseline.
+         GIFSAVE :baselinefilename
+       ]
+   ]
+
+   IFELSE :isok [
+      ; everything is good.  save the image as a baseline
+      REPORTTESTPASSED (sentence :screenname "|was drawn correctly.|)
+   ] [
+      ; something is wrong.  Fail this test.
+      REPORTTESTFAILED (sentence :screenname "|was not drawn correctly.|)
+   ]
+END
+BURY [CHECKSCREEN]
+
+TO RUNPRINTTEST.HELPER :printinstruction :expectedword
+
+  LOCALMAKE "actualword READWORD
+  IF EQUAL? :actualword [] [
+      REPORTTESTFAILED (LIST "Running :printinstruction "|never printed| :expectedword)
+      STOP
+  ]
+
+  ; require strict case correctness
+  LOCALMAKE "caseignoredp "false
+  IF NOTEQUAL? :actualword :expectedword [
+      REPORTTESTFAILED (LIST "Running :printinstruction "printed :actualword "|.  We expected| :expectedword)
+      STOP
+  ]
+
+  REPORTTESTPASSED (LIST "Running :printinstruction "printed :actualword "|, as expected.|)
+END
+BURY [RUNPRINTTEST.HELPER]
+
+TO RUNPRINTTEST :printinstruction :expectedvalue [:outputfilename []]
+
+  if empty? :outputfilename [
+
+    ;
+    ; If no output file was specified, then create one and set it as the writer.
+    ;
+
+    LOCALMAKE "testfilename "printtest-output.txt
+
+    OPENWRITE :testfilename
+    LOCALMAKE "oldwriter WRITER
+    SETWRITE :testfilename
+  ]
+
+  ; Bury all of the parameters so that :printinstruction can be used to test SAVE
+  BURY NAMELIST [printinstruction expectedvalue outputfilename testfilename]
+
+  ; clear the last error
+  IGNORE ERROR
+
+  ; Run the test instruction list that prints something.
+  CATCH "ERROR [ RUN :printinstruction ]
+
+  if empty? :outputfilename [
+    ; Immediately restore the writer so that subsequent
+    ; test logging goes to the correct place.
+    SETWRITE :oldwriter
+    CLOSE :testfilename
+  ]
+
+  ; Make sure that the instruction didn't throw an error.
+  IF FAILIFERROR :printinstruction [ STOP ]
+
+  ;
+  ; Now read back the file and ensure that it is as expected.
+  ;
+  LOCALMAKE "newreader IFELSE empty? :outputfilename [:testfilename] [:outputfilename]
+  CATCH "ERROR [OPENREAD :newreader]
+  IF FAILIFERROR (WORD "|Attempting to read "| :newreader "") [ STOP ]
+
+
+  ; no error means we opened a file
+  LOCALMAKE "oldreader READER
+  SETREAD :newreader
+
+  IFELSE WORD? :expectedvalue [
+      ; we only expect one line to be printed
+      RUNPRINTTEST.HELPER :printinstruction :expectedvalue
+
+      IF NOTEQUAL? READWORD [] [
+          REPORTTESTFAILED (LIST "Running :printinstruction "|printed more than one line.|)
+      ]
+  ][
+      ; we expect several lines to be printed
+      REPEAT COUNT :expectedvalue [
+          RUNPRINTTEST.HELPER :printinstruction ITEM REPCOUNT :expectedvalue
+      ]
+
+      IF NOTEQUAL? READWORD [] [
+          REPORTTESTFAILED (LIST "Running :printinstruction "|printed more than| COUNT :expectedvalue "lines.)
+      ]
+  ]
+
+  SETREAD :oldreader
+  CLOSE :newreader
+
+  if empty? :outputfilename [
+    ERASEFILE :testfilename
+  ]
+END
+BURY [RUNPRINTTEST]
+
+TO RUNRECOVERABLEERRORTEST.ERRACTROUTINE
+  ; Output the next item in the list provided to RUNERRACTTEST.
+  MAKE "erractindex :erractindex + 1
+
+  ; If we've run out of items, log an error and output
+  ; the empty list.
+  IF :erractindex > COUNT :erractoutputs [
+    REPORTTESTFAILED (WORD "|ERRACT routine was called | :erractindex "| times.|)
+
+    ; Best effort to recover by outputting a value that most commands like.
+    OUTPUT 1
+  ]
+
+  ; Log the next value to output, then output it.
+  REPORTTESTINFO (LIST "|ERRACT routine outputs| ITEM :erractindex :erractoutputs)
+  OUTPUT ITEM :erractindex :erractoutputs
+END
+BURY [RUNRECOVERABLEERRORTEST.ERRACTROUTINE]
+
+TO RUNRECOVERABLEERRORTEST :instructions :erractoutputs :expectedoutput
+   ; Runs a recoverable bad-input tests for a set of instructions.
+   ; It confirms that ERRACT handler was invoked the expected number of
+   ; times and that the instruction ultimately output the correct value.
+   ; If :instructions products no ouptut, then set :expectedoutput to the
+   ; empty list.
+
+   ; Setup the erract routine.
+   LOCALMAKE "erractindex 0
+   LOCALMAKE "erract [RUNRECOVERABLEERRORTEST.ERRACTROUTINE]
+
+   ; Log what we're about to do.
+   REPORTTESTINFO (LIST "|Running instruction with recoverable error:| :instructions)
+
+   ; NOTE: ERRACT doesn't get invoked within a CATCH "ERROR block,
+   ; so we cannot use SIMPLEREPORTTEST.
+   LOCALMAKE "actualoutput RUNRESULT :instructions
+
+   ; Make sure that ERRACT was called the right number of times.
+   IF NOTEQUAL? :erractindex COUNT :erractoutputs [
+      REPORTTESTFAILED (WORD 
+          "|ERRACT routine was called | :erractindex "| times.  |
+          "|We expected it to be called | COUNT :erractoutputs "| times.|)
+   ]
+
+   ; Verify the output
+   IFELSE EMPTY? :actualoutput [
+      ; For RUNRESULT, outputting [] means that :instructions output nothing.
+      IFELSE EMPTY? :expectedoutput [
+        REPORTTESTPASSED (LIST :instructions "|stopped, as expected.|)
+      ][
+        REPORTTESTFAILED (LIST :instructions "|output nothing. We expected| :expectedoutput ".)
+      ]
+   ][
+      ; For RUNRESULT, the output of :instructions is the member of :actualoutput
+      IFELSE EQUAL? :actualoutput :expectedoutput [
+        REPORTTESTPASSED (LIST :instructions "output FIRST :actualoutput "|, as expected.|)
+      ][
+        REPORTTESTFAILED (LIST :instructions "output FIRST :actualoutput "|. We expected| FIRST :expectedoutput ".)
+      ]
+   ]
+
+
+END
+BURY [RUNRECOVERABLEERRORTEST]
+
+TO WRITEBINARYDATA :filename :data
+
+   LOCALMAKE "previouswriter WRITER
+
+   (OPENWRITE :filename LOCALETRUE)
+   SETWRITE :filename
+   TYPE :data
+   CLOSE :filename
+
+   SETWRITE :previouswriter
+END
+BURY [WRITEBINARYDATA]
+
+TO LOG2ROUNDDOWN :number
+   ; outputs LOG 2 :number, rounded down to the nearest whole number
+   REPEAT :number [
+      IF :number < POWER 2 REPCOUNT [OUTPUT REPCOUNT - 1]
+   ]
+   OUTPUT 0
+END
+BURY [LOG2ROUNDDOWN]
+
+TO REPEATWORD :word :repcount
+   IF :repcount = 0 [ OUTPUT "|| ]
+
+   ; Start by doubling the word up to FLOOR(LOG 2 :repcount).
+   ; This part runs in O(Log N)
+   LOCAL [accumulator doubler]
+   MAKE "accumulator :word
+   MAKE "doubler     LOG2ROUNDDOWN :repcount
+   REPEAT :doubler [
+      MAKE "accumulator WORD :accumulator :accumulator
+   ]
+
+   ; For the repetitions that don't fit into the largest power of two,
+   ; recursively append the part that does to the part that doesn't.
+   OUTPUT WORD :accumulator REPEATWORD :word :repcount - (POWER 2 :doubler)
+END
+BURY [REPEATWORD]
+
+TO MAKEDEEPARRAY :depth
+   ; Creates a deeply nested array while avoiding the
+   ; performance penalty of SETITEM as it checks for
+   ; circularity.
+   LOCAL [deeparray innerarray]
+
+   MAKE "deeparray  ARRAY 1
+   MAKE "innerarray :deeparray
+
+   REPEAT :depth  [
+      SETITEM 1 :innerarray ARRAY 1
+      MAKE "innerarray ITEM 1 :innerarray
+   ]
+
+   OUTPUT :deeparray
+END
+BURY [MAKEDEEPARRAY]
+
+TO RUNLOGOPROGRAM :program
+   ; Writes a Logo program to disk and runs in it a child instance
+   ; of FMSLogo, waiting for it to finish before returning.
+
+   WRITEBINARYDATA "testlib-program.lgo :program
+
+   ; Run the program in a separate FMSLogo instance.
+   IGNORE (SHELL [ fmslogo -L testlib-program.lgo ] "TRUE)
+
+   ; Cleanup
+   ERASEFILE "testlib-program.lgo
+END
+BURY [RUNLOGOPROGRAM]
+
+TO MOVETO :X :Y
+  ; Moves to an X/Y coordinate without drawing.
+  LOCALMAKE "penIsDown PENDOWN?
+  PENUP
+  SETXY :X :Y
+  IF :penIsDown [ PENDOWN ]
+END
+BURY [MOVETO]
+
+TO PTEST [:procedures PROCEDURES]
+  ; Prints out all top-level tests (ones that take no arguments).
+  ; This is an interactive helper that uses the history like a menu
+  ; so that a test runner can select which of test they want to run.
+  IF EMPTY? :procedures [ STOP ]
+
+  IF (AND SUBSTRING? "TEST FIRST :procedures                 ; contains the word "TEST" in the name
+          EQUALP 0 FIRST BUTFIRST ARITY FIRST :procedures) [ ; no inputs by default
+      PRINT WORD "| | FIRST :procedures
+  ]
+  (PTEST BUTFIRST :procedures)
+END
+BURY [PTEST]
+
+; protect against loading the file twice
+if not name? "testlog [
+  MAKE "testlog []
+]

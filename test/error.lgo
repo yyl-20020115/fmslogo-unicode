@@ -1,0 +1,182 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO PROCEDURE.WITH.TO.INSIDE.IT
+   ; Attempt to define a procedure within a procedure.
+   ; This is illegal.
+   TO X
+END
+
+TO I.DONT.KNOW.WHAT.TO.DO.WITH.VALUE
+   1
+   2
+END
+
+TO NO.INPUT.NO.OUTPUT
+END
+
+TO ONE.INPUT.NO.OUTPUT :X
+END
+
+.MACRO MACRO.RETURN.UNBOUND.INSTEAD.OF.LIST
+END
+
+TO MY.PROC.TO.STEP
+  ; indicate to the test runner that we want them to 
+  ; press the cancel button.
+  PRINT [Press Cancel]
+END
+
+TO PROCEDURE.SHADOWS.MYSHADOWEDVAR
+  LOCALMAKE "myshadowedvar 42
+END
+
+TO ERROR.30.TEST
+   OUTPUT CATCH "XXX [(THROW "XXX 1)]
+END
+
+
+TO ERRORTEST.OUTPUT.RUN.5
+   OUTPUT RUN [5]
+END
+
+TO ERRORTEST.CALL.OUTPUT.RUN.5
+  ; don't do anything with the output
+  ERRORTEST.OUTPUT.RUN.5
+END
+
+TO ERRORTEST.BUG219
+  IGNORE ERROR
+  CATCH "ERROR [ ERRORTEST.CALL.OUTPUT.RUN.5 ]
+  
+  CHECKERROR ~
+    [ERRORTEST.CALL.OUTPUT.RUN.5]      ~
+    9                                  ~
+    [You don't say what to do with 5]  ~
+    [ERRORTEST.CALL.OUTPUT.RUN.5]      ~
+    [ERRORTEST.OUTPUT.RUN.5]
+END
+
+TO ERRORTEST
+
+   ; Catch an error without explicitly calling ERROR.
+   ; This is a regression test for a memory leak.
+   CATCH "ERROR [1 / 0]
+   CATCH "ERROR [1 / 0]
+
+   ; Catch one error inside a procedure and validate the entire value of ERROR
+   CATCH "ERROR [ 1 / 0 ]
+   CHECKERROR [ 1 / 0 ] 4 "|/ doesn't like 0 as input| "ERRORTEST [CATCH "ERROR [ 1 / 0 ]]
+
+   ; error 0 is fatal and can't be caught
+   ; error 1 is a fatal out of memory error and can't be caught
+   ; error 2 is a stack overflow error that is now never thrown
+   
+   FENCE
+   (RUNEXPECTERRORTEST [FORWARD 1e10]                       3  "|turtle out of bounds|)
+   WINDOW 
+
+   (RUNEXPECTERRORTEST [1 / 0]                              4  "|/ doesn't like 0 as input|)
+   (RUNEXPECTERRORTEST [(THROW "ERROR 4   [1 2 3])]         4  "|RUNEXPECTERRORTEST doesn't like [1 2 3] as input|)
+   (RUNEXPECTERRORTEST [(THROW "ERROR 4.0 [1 2 3])]         4  "|RUNEXPECTERRORTEST doesn't like [1 2 3] as input|)
+   (RUNEXPECTERRORTEST [(THROW "ERROR "4  [1 2 3])]         4  "|RUNEXPECTERRORTEST doesn't like [1 2 3] as input|)
+
+   (RUNEXPECTERRORTEST [IGNORE NO.INPUT.NO.OUTPUT]          5  "|NO.INPUT.NO.OUTPUT didn't output to IGNORE|)
+   (RUNEXPECTERRORTEST [(ONE.INPUT.NO.OUTPUT)]              6  "|not enough inputs to ONE.INPUT.NO.OUTPUT|)
+   (RUNEXPECTERRORTEST [FORWARD "tensteps]                  7  "|FORWARD doesn't like tensteps as input|)
+   (RUNEXPECTERRORTEST [(NO.INPUT.NO.OUTPUT "toomany)]      8  "|too much inside ()'s|)
+   (RUNEXPECTERRORTEST [I.DONT.KNOW.WHAT.TO.DO.WITH.VALUE]  9  "|You don't say what to do with 1|)
+   (RUNEXPECTERRORTEST [(ONE.INPUT.NO.OUTPUT ]             10  "|too many ('s|)
+   (RUNEXPECTERRORTEST [ONE.INPUT.NO.OUTPUT :novalue]      11  "|novalue has no value|)
+   (RUNEXPECTERRORTEST [)]                                 12  "|unexpected ')'|)
+   (RUNEXPECTERRORTEST [UNKNOWN.PROC]                      13  "|I don't know how to UNKNOWN.PROC|)
+
+   ; error 14: is an uncaught exception, which can't be caught
+   ; error 15: can only be tested at the top level
+
+   ; Force a stopping error by pressing cancel on a STEP
+   UIAUTOMATION.INITIALIZE
+   CATCH "ERROR [
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Single Step] "Cancel
+     STEP "MY.PROC.TO.STEP
+     (RUNEXPECTERRORTEST [MY.PROC.TO.STEP]                 16 "|Stopping...|)
+   ]
+   UNSTEP "MY.PROC.TO.STEP
+   IGNORE FAILIFERROR "ERROTEST.STOPPING
+   UIAUTOMATION.UNINITIALIZE
+
+   DRIBBLE "DELETEME.TXT
+   (RUNEXPECTERRORTEST [DRIBBLE "DELETEME.TXT]             17 "|Already dribbling|)
+   NODRIBBLE
+   ERASEFILE "DELETEME.TXT
+
+   (RUNEXPECTERRORTEST [OPENREAD "DELETEME.TXT]            18 "|File system error: Could not open file|)
+
+   ; error #19 is just a warning
+   if "TRUE [IGNORE "TRUE] [IGNORE "FALSE]
+
+   ; error #20 is just a warning
+   LOCALMAKE "myshadowedvar 100
+   STEP NAMELIST "myshadowedvar
+   PROCEDURE.SHADOWS.MYSHADOWEDVAR
+   UNSTEP NAMELIST "myshadowedvar
+
+   ; user-defined errors
+   (RUNEXPECTERRORTEST [THROW "ERROR]                         21 "|Throw "Error|)
+   (RUNEXPECTERRORTEST [(THROW "ERROR "errormessage)]         21 "errormessage)
+   (RUNEXPECTERRORTEST [(THROW "ERROR 4)]                     21 4)
+
+   (RUNEXPECTERRORTEST [DEFINE "forward [[]]]                 22 "|forward is a primitive|)
+   (RUNEXPECTERRORTEST [PROCEDURE.WITH.TO.INSIDE.IT]          23 "|Can't use TO inside a procedure|) ; bug #128
+   (RUNEXPECTERRORTEST [TEXT "NO.SUCH.PROCEDURE.IS.DEFINED]   24 "|I don't know how to NO.SUCH.PROCEDURE.IS.DEFINED|)
+   (RUNEXPECTERRORTEST [IFTRUE "x]                            25 "|IFTRUE without TEST|)
+   (RUNEXPECTERRORTEST [LOAD "unexpectedclosebracket.lgo]     26 "|unexpected ']'|)
+   (RUNEXPECTERRORTEST [LOAD "unexpectedclosebrace.lgo]       27 "|unexpected '}'|)
+
+   ; error 28: is "can't initialize graphics", which is never thrown in FMSLogo
+
+   (RUNEXPECTERRORTEST [MACRO.RETURN.UNBOUND.INSTEAD.OF.LIST] 29 "|Macro output nothing instead of a list|)
+
+   ; error 30: can't be caught, but this exercises the code
+   IGNORE ERROR.30.TEST
+
+   ; error 31: can only be tested at the top level
+   ; (SHELL [fmslogo.exe "outputattoplevel.lgo])
+
+   (RUNEXPECTERRORTEST [APPLY "ONE.INPUT.NO.OUTPUT 1 ]        32 "|APPLY doesn't like 1 as input|)
+   (RUNEXPECTERRORTEST [LOAD "endinmultilineinstruction.lgo]  33 "|END inside multi-line instruction in END.INSIDE.MULTILINE.INSTRUCTION|)
+
+   CATCH "PAUSE [CONTINUE]
+
+   ;; tests that can't be automated within this framework because
+   ;; they halt processing.
+   ;;
+   ;; error 14: can't find catch tag for "unknowntag 
+   ; CATCH "ERROR [THROW "unknowntag]
+   ;
+   ;; error 15: TO can't redefine a procedure
+   ; DEFINE "ERRORTEST.ALREADYDEFINEDPROCEDURE [[]]
+   ; CATCH "ERROR [TO ERRORTEST.ALREADYDEFINEDPROCEDURE]
+
+   ; ERRORTEST.BUG219
+END
+
+;; error 15: Try to define a primitive with TO
+IGNORE ERROR
+CATCH "ERROR [TO FORWARD]
+CHECKERROR "|TO FORWARD at the toplevel| 15 "|FORWARD is already defined| [] []
+
+;; error 31: Can only use STOP inside a procedure
+IGNORE ERROR
+CATCH "ERROR [STOP]
+CHECKERROR "|STOP at the toplevel| 31 "|Can only use STOP inside a procedure| [] []
+
+;; error 31: Can only use OUTPUT inside a procedure
+IGNORE ERROR
+CATCH "ERROR [OUTPUT 123]
+CHECKERROR "|OUTPUT at the toplevel| 31 "|Can only use OUTPUT inside a procedure| [] []
+
+;; bug #174 -- this used to leak memory
+IGNORE ERROR
+CATCH "ERROR [ APPLY [OP ?] [3] ]
+CHECKERROR "|OUTPUT at the toplevel| 31 "|Can only use OP inside a procedure| [] []

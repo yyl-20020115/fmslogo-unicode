@@ -1,0 +1,186 @@
+LOAD "testlib.lgo
+
+TO GIFSIZE.SMOKETEST :width :height
+
+  ; draw something worth saving
+  CLEARSCREEN
+  HIDETURTLE ; to speed up drawing on slow machines
+  REPEAT 500 [ FORWARD REPCOUNT RIGHT 91 ]
+  SHOWTURTLE
+  PENUP
+  HOME
+  PENDOWN
+
+  ; save the gif
+  LOCALMAKE "oldactivearea ACTIVEAREA
+  TRACEINSTRUCTION [ SETACTIVEAREA (list 0 0 :width :height) ]
+  TRACEINSTRUCTION [ GIFSAVE "gifsizetest.gif                ]
+
+  CLEARSCREEN
+  SIMPLEREPORTTEST [ GIFSIZE "gifsizetest.gif ] (list :width :height)
+  ERASEFILE "gifsizetest.gif
+
+  ; restore the previous active area
+  SETACTIVEAREA :oldactivearea
+END
+
+TO GIFSIZE.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(GIFSIZE)]
+   RUNTOOMANYINPUTSTEST   [(GIFSIZE "file.gif "toomany)]
+
+   ; bad input
+   RUNBADINPUTTEST [ GIFSIZE "doesnotexist.gif ]
+   RUNBADINPUTTEST [ GIFSIZE {1 2 3}           ]
+   RUNBADINPUTTEST [ GIFSIZE [1 2 3]           ]
+
+   ; try to open something that isn't a GIF as a GIF
+   RUNBADINPUTTEST [ GIFSIZE "gif.lgo          ]
+
+   ; try to open a directory as a GIF
+   TRACEINSTRUCTION [ MKDIR "giftest.gif POPDIR ]
+   RUNBADINPUTTEST  [ GIFSIZE "giftest.gif      ]
+   TRACEINSTRUCTION [ RMDIR "giftest.gif        ]
+END
+
+
+TO GIFLOAD.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(GIFLOAD)]
+   RUNTOOMANYINPUTSTEST   [(GIFLOAD "file.gif "toomany)]
+
+   ; bad input
+   RUNBADINPUTTEST [ GIFLOAD "doesnotexist.gif ]
+   RUNBADINPUTTEST [ GIFLOAD {1 2 3}           ]
+   RUNBADINPUTTEST [ GIFLOAD [1 2 3]           ]
+
+   ; try to open something that isn't a GIF as a GIF
+   RUNGIFREADERRORTEST [ GIFLOAD "gif.lgo          ]
+
+   ; try to open a directory as a GIF
+   TRACEINSTRUCTION    [ MKDIR "giftest.gif POPDIR ]
+   RUNGIFREADERRORTEST [ GIFLOAD "giftest.gif      ]
+   TRACEINSTRUCTION    [ RMDIR "giftest.gif        ]
+END
+
+TO GIFSAVE.BADINPUT
+
+   ; make sure the file doesn't exist when we begin the tests
+   TRACEINSTRUCTION [ ERASEFILE "file.gif ]
+
+   RUNNOTENOUGHINPUTSTEST [(GIFSIZE)]
+   RUNTOOMANYINPUTSTEST   [(GIFSIZE "file.gif 0 "true 8 [255 0 255] "toomany)]
+
+   ; bad filename input (must be a word)
+   RUNDOESNTLIKEINPUTTEST [ GIFSAVE {1 2 3}       ]
+   RUNDOESNTLIKEINPUTTEST [ GIFSAVE [1 2 3]       ]
+   RUNGIFWRITEERRORTEST   [ GIFSAVE "||           ]
+   RUNGIFWRITEERRORTEST   [ GIFSAVE "bad>file.gif ]
+
+   ; bad delay input (must be an integer)
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 1.2      ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif "nonint  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif [1 2 3]  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif {1 2 3}  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif -1       ) ]
+
+   ; bad append input (must be "true or "false)
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 1     ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 1.2   ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 [1]   ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 {1}   ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "word ) ]
+
+   ; bad loop input (must be a positive integer or -1)
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false [1]  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false {1}  ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false "one ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false -2   ) ]
+
+   ; bad maxcolor input (must be a member of {1,4,8})
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  0   ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  "one) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  [1] ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  {1} ) ]
+
+   ; bad transcolor input (must be a color vector)
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 [1 2 3 4]     ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 [1 2]         ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 {255 255 255} ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 100           ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 1.5           ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 1e20          ) ]
+   RUNDOESNTLIKEINPUTTEST [ (GIFSAVE "file.gif 100 "false 0  8 "word         ) ]
+
+   ; make sure that none of the above created the file
+   SIMPLEREPORTTEST [FILEEXISTS "file.gif] "false
+
+   ; cleanup, just in case
+   TRACEINSTRUCTION [ ERASEFILE "file.gif    ]
+   TRACEINSTRUCTION [ ERASEFILE "\{1\ 2\ 3\} ]
+   TRACEINSTRUCTION [ ERASEFILE "1\ 2\ 3     ]
+
+   ; try to save a gif over a directory
+   TRACEINSTRUCTION     [ MKDIR   "giftest.gif POPDIR ]
+   RUNGIFWRITEERRORTEST [ GIFSAVE "giftest.gif        ]
+   TRACEINSTRUCTION     [ RMDIR   "giftest.gif        ]
+END
+
+TO GIF.SMOKETEST
+    ; This is a regression test for Bug #301.
+
+    LOCALMAKE "savedActiveArea ACTIVEAREA
+    LOCALMAKE "savedPenColor   PENCOLOR
+
+    CLEARSCREEN
+    REPEAT 500 [ FORWARD REPCOUNT RIGHT 91 SETPENCOLOR REPCOUNT ]
+    
+    SETACTIVEAREA [ 0 0 200 200 ]
+    GIFSAVE "gifsave-withactivearea.gif
+    
+    CLEARSCREEN
+    GIFLOAD "gifsave-withactivearea.gif
+
+    ; did the image get restored correctly?
+    CHECKSCREEN "gifsmoketest-200x200
+
+    ; cleanup
+    SETACTIVEAREA :savedActiveArea
+    SETPENCOLOR   :savedPenColor
+    ERASEFILE     "gifsave-withactivearea.gif
+
+END
+
+TO GIFSAVE.OVERWRITESFILE
+    LOCALMAKE "savedActiveArea ACTIVEAREA
+    LOCALMAKE "filename        "gifsave-overwritesfile.gif
+
+    ; create a file on disk
+    TRACEINSTRUCTION [ SETACTIVEAREA [ 0 0 100 100 ] ]
+    TRACEINSTRUCTION [ GIFSAVE :filename ]
+
+    ; save the file a second time
+    TRACEINSTRUCTION [ SETACTIVEAREA [ 0 0 150 150 ] ]
+    TRACEINSTRUCTION [ GIFSAVE :filename ]
+    
+    ; confirm that the file on disk is 150x150 (that it was overwritten)
+    SIMPLEREPORTTEST [ GIFSIZE :filename ] [150 150]
+
+    ; cleanup
+    SETACTIVEAREA :savedActiveArea
+    ERASEFILE     :filename
+   
+END
+
+TO GIFTEST
+
+  GIF.SMOKETEST
+
+  GIFSIZE.SMOKETEST 100 100
+  GIFSIZE.SMOKETEST 100 101
+  GIFSIZE.SMOKETEST 101 100
+  GIFSIZE.BADINPUT
+
+  GIFSAVE.OVERWRITESFILE
+
+  GIFSAVE.BADINPUT
+  GIFLOAD.BADINPUT
+END

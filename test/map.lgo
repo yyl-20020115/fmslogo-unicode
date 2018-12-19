@@ -1,0 +1,54 @@
+LOAD "testlib.lgo
+
+TO MAPTEST.SMOKETEST
+
+   ; template with ? in it
+   SIMPLEREPORTTEST [MAP [?] [a b c]]  [a b c]
+
+   ; template with # in it
+   SIMPLEREPORTTEST [MAP [#] [a b c]]  [1 2 3]
+
+   ; template with ?REST in it
+   SIMPLEREPORTTEST [MAP [?REST] [1 2 3]]  [[2 3] [3] []]
+
+   ; completely ignore the input
+   SIMPLEREPORTTEST [MAP [1] [1 2 3 4 5]]  [1 1 1 1 1]
+
+   ; single data list (example code from manual)
+   SIMPLEREPORTTEST [MAP [2 * ?] [1 2 3 4]] [2 4 6 8]
+
+   ; multiple data lists (example code from manual)
+   SIMPLEREPORTTEST [(MAP "LIST [a b c] [d e f])]  [[a d] [b e] [c f]]
+
+   ; data template is a word
+   SIMPLEREPORTTEST [MAP [ASCII ?] "abcd] "979899100
+
+   ; data template is the empty list
+   SIMPLEREPORTTEST [MAP [2 * ?] []] []
+
+   ; data template is the empty word
+   SIMPLEREPORTTEST [MAP [ASCII ?] "||] "||
+
+END
+
+TO MAPTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(MAP [LIST ?])]
+
+   ; first input is not a procedure or a template
+   RUNBADINPUTTEST                     [MAP 12.5 [1 2 3] ]
+   RUNBADINPUTTEST                     [MAP -1   [1 2 3] ]
+   RUNBADINPUTTEST                     [MAP {1}  [1 2 3] ]
+   RUNNONRECOVERABLEIDONTKNOWHOWTOTEST [MAP "ten [1 2 3] ]
+
+   ; the data input is not a list or a word
+   RUNBADINPUTTEST [MAP [1] {1 2 3} ]
+
+END
+
+TO MAPTEST
+
+   MAPTEST.SMOKETEST
+   MAPTEST.BADINPUT
+
+END

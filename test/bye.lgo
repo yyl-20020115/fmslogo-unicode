@@ -1,0 +1,40 @@
+LOAD "testlib.lgo
+
+TO BYETEST.SMOKETEST
+   ; We cannot run BYE in this instance without halting the test pass.
+   ; Instead, we start a child instance of FMSLogo and run BYE in it.
+   RUNLOGOPROGRAM (WORD
+       "|LOAD "testlib.lgo\n|
+       "|\n|
+       "|TO RUNTEST\n|
+       "|  PRINT [This instance was started by BYETEST.SMOKETEST]\n|
+       "|  PRINT [It should be closed automatically]\n|
+       "|  BYE\n|
+       "|  ; Control flow should not reach here (bug #138).\n|
+       "|  TONE 1000 10000\n|
+       "|END\n|
+       "|MAKE "startup [RUNTEST]\n|
+   )
+END
+
+TO BYETEST.ATTOPLEVEL
+   ; To run anything at the toplevel, it must be done in a
+   ; separate instance of FMSLogo.
+   RUNLOGOPROGRAM (WORD
+       "|PRINT [This instance was started by BYETEST.ATTOPLEVEL]\n|
+       "|PRINT [It should be closed automatically]\n|
+       "|BYE\n|
+       "|; Control flow should not reach here (bug #484).\n|
+       "|TONE 1000 10000\n|
+   )
+END
+
+TO BYETEST.BADINPUT
+   RUNTOOMANYINPUTSTEST [(BYE "toomany)]
+END
+
+TO BYETEST
+   BYETEST.SMOKETEST
+   BYETEST.ATTOPLEVEL
+   BYETEST.BADINPUT
+END

@@ -1,0 +1,18 @@
+; This file contains tests that are specific to the Greek version of FMSLogo.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LOAD "testlib.lgo
+
+TO ANSIGREEKTEST
+
+  IF EQUALP 1032 ITEM 4 LOGOVERSION [
+
+     ; This is the translation for "Greek Language"
+     SIMPLEREPORTTEST [COUNT "|ελληνική γλώσσα| ] 15
+
+     ; Drawing text to the screen should work
+     CLEARSCREEN
+     RIGHT 90
+     LABEL "|ελληνική γλώσσα works!|
+  ]
+
+END

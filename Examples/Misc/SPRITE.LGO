@@ -1,0 +1,131 @@
+to aaa
+
+; This example demonstrates how to use sprites in FMSLogo to do
+; simple animation.  There are two "big ideas" here, using a
+; back-buffer to create flicker free animation and using
+; bit copy modes to remove the bounding box when copying a sprite
+; onto a complex background.
+;
+; The idea behind a back-buffer is simple.  You prepare each frame
+; of animation off-screen.  When it's ready, you copy the entire 
+; frame to the screen at one time.  This is slower than drawing
+; directly to the screen, but it guarantees that the user will never
+; see your animation frame before you're done with it.
+;
+; The idea behind using SETBITMODE to remove the bounding box is
+; more complicated.  Let's start with the basics.
+; SETBITMODE allows you to AND-in or OR-in pixels.
+;
+;  BLACK ANDed with a PIXEL will be BLACK.
+;  BLACK ORed  with a PIXEL will be that same PIXEL.
+;  WHITE ANDed with a PIXEL will be that same PIXEL.
+;  WHITE ORed  with a PIXEL will be WHITE.
+;
+; Because
+;  BLACK is [  0   0   0] (or in hex [00 00 00])
+;  WHITE is [255 255 255] (or in hex [FF FF FF])
+;
+; So let's say PIXEL is [01 01 01] in hex for easy math.
+;  PIXEL ([01 01 01]) ANDed with BLACK ([00 00 00]) is [00 00 00] (because 01 AND 00 is 00)
+;  PIXEL ([01 01 01])  ORed with BLACK ([00 00 00]) is [01 01 01] (because 01 OR  00 is 01)
+;  PIXEL ([01 01 01]) ANDed with WHITE ([FF FF FF]) is [01 01 01] (because 01 AND FF is 01)
+;  PIXEL ([01 01 01])  ORed with WHITE ([FF FF FF]) is [00 00 00] (because 01 OR  FF is FF)
+;
+; So, how do we use these facts?  The trick is to create a "sprite mask" that
+; acts like a silk screen, blocking the pixels wherever it is WHITE
+; and allowing pixels through wherever it is BLACK.
+; The original sprite must be BLACK exactly where sprite mask is WHITE
+; (the reverse is not true).
+;
+; Make your sprite BLACK wherever you don't want it to be drawn. 
+; Then create a "sprite mask" for your sprite that will keep the 
+; sprite from drawing in places you don't want it to draw. 
+; The sprite mask is the same size as the sprite, except it is BLACK 
+; where you want the sprite to be drawn and WHITE everywhere else.
+; 
+; So, how do you use the sprite and sprite mask?
+; First, you start with a fresh copy of the background image. 
+; Then you AND-in the sprite mask, which is BLACK where the sprite should 
+; be drawn and WHITE everywhere else.  The result is that your have drawn
+; a BLACK pattern onto the background image exactly in the pixels where the
+; the sprite should be drawn.  Next, you OR-in your sprite image.
+; Since OR-ing with blackness has no effect, the black part of the sprite is
+; not drawn over the background image and the sprite is drawn perfectly
+; into the black hole in the background image.
+;
+; Once the sprite is drawn on the image the animation frame is complete
+; and can be copied to the screen.
+
+  sprite
+end
+
+to sprite
+  clearscreen
+  hideturtle
+
+  ; Load the sprite into Buffer 1
+  setbitindex 1
+  localmake "size bitloadsize "car.bmp
+  bitload "car.bmp
+  bitcut first :size last :size
+
+  ; Load the sprite bitmask into into Buffer 2
+  setbitindex 2
+  localmake "size bitloadsize "carmask.bmp
+  bitload "carmask.bmp
+  bitcut first :size last :size
+
+  ; Load the background image into Buffer 3
+  setbitindex 3
+  localmake "roadsize bitloadsize "road.bmp
+  bitload "road.bmp
+  bitcut first :roadsize last :roadsize
+
+  ; Create a back buffer for generating each 
+  ; frame of animation off-screen in Buffer 4.
+  ; This must be the same size as the background.
+  setbitindex 4
+  bitcut first :roadsize last :roadsize
+
+  ; Move the car across the road
+  repeat first :roadsize ~
+    [
+    ; Calculate coordinates that zip down the middle
+    localmake "newx repcount
+    localmake "newy round ((last :roadsize)/2)
+  
+    ; Make a fresh copy of the background into the back buffer
+    setbitindex 3
+    setbitmode 1
+    bitpastetoindex 4 0 0
+
+    ; Punch a hole in the back buffer where we wish to place the car.
+    ; We do this by AND-ing in the car mask.
+    setbitindex 2
+    setbitmode 3
+    bitpastetoindex 4 :newx :newy
+
+    ; Now place the car exactly in the hole without disturbing the background.
+    ; We do this by OR-ing in the car.
+    setbitindex 1
+    setbitmode 2
+    bitpastetoindex 4 :newx :newy
+
+    ; Now drop the combined image onto the screen.
+    ; This will be an instant change.  The user will not see any flicker.
+    setbitindex 4
+    setbitmode 1
+    bitpaste
+
+    ; delay 1/60th of a second to get a reasonable frame rate on fast machines.
+    wait 1 
+    ]
+
+    print [Execute SPRITE to rerun the sample]
+end
+
+to zzz
+  ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

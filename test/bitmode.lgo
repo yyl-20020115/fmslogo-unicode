@@ -1,0 +1,143 @@
+LOAD "testlib.lgo
+
+TO BITMODETEST.SMOKETEST
+
+   ; change the bitmode to a known setting
+   LOCALMAKE "savedbitmode BITMODE
+
+   ; set and get all possible bitmodes
+   REPEAT 9 [
+      TRACEINSTRUCTION (LIST "SETBITMODE REPCOUNT)
+      SIMPLEREPORTTEST [BITMODE] REPCOUNT
+   ]
+
+   ; verify that each bitmode does the right thing
+   SETSCREENCOLOR [255 255 255]
+   CLEARSCREEN
+   PENDOWN
+
+   ; draw a red pattern
+   HIDETURTLE
+   SETPENSIZE [2 2]
+   REPEAT 72 [
+     REPEAT 4 [FORWARD 100 RIGHT 90] 
+     SETPENCOLOR (LIST REPCOUNT*3 0 0)
+     RIGHT 5
+   ]
+
+   ; cut out part of the pattern to the clipboard
+   PENUP
+   SETXY -50 -50
+   SETBITINDEX 0
+   BITCUT 50 50
+
+   ; erase everything
+   CLEARSCREEN
+
+   ; paste the pattern onto a neutral background
+   ; in all of the possible modes
+
+   SETXY -250 -50
+   SETFLOODCOLOR [125 125 125]
+   BITBLOCK 550 150
+   SETXY -200 0
+   SETHEADING 90
+
+   SETPENCOLOR 0
+   REPEAT 9 [
+      SETBITMODE REPCOUNT 
+      BITPASTE 
+      PENDOWN REPEAT 4 [ FORWARD 50 LEFT 90 ] PENUP
+      FORWARD 50
+   ]
+
+   SETXY -180 0
+   SETHEADING 90
+   REPEAT 9 [LABEL REPCOUNT FORWARD 50]
+
+   CHECKSCREEN "bitmode-pattern
+
+   PENDOWN
+
+   ; restore the previous settings
+   SETBITMODE :savedbitmode
+   SETPENSIZE  [1 1]
+   PENDOWN
+   SHOWTURTLE
+END
+
+TO BITMODETEST.BADINPUT
+
+   ; change the bitmode to a known setting
+   LOCALMAKE "savedbitmode BITMODE
+   TRACEINSTRUCTION [ SETBITMODE 3 ]
+
+   RUNTOOMANYINPUTSTEST   [ (BITMODE "toomany) ]
+
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE [2]  ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE {2}  ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE -10  ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE 1.5  ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE 0    ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE 10   ]
+   RUNDOESNTLIKEINPUTTEST [ SETBITMODE "two ]
+
+   RUNNOTENOUGHINPUTSTEST [ (SETBITMODE)            ]
+   RUNTOOMANYINPUTSTEST   [ (SETBITMODE 8 "toomany) ]
+
+   ; verify that none of the bad input tests changed the bitmode
+   SIMPLEREPORTTEST [BITMODE] 3
+
+   ; restore the previous bitmode
+   SETBITMODE :savedbitmode
+END
+
+TO SETBITMODETEST.OUTPUT.2
+    OUTPUT 2
+END
+
+TO SETBITMODETEST.BADINPUTISRECOVERABLE
+   LOCALMAKE "erract [SETBITMODETEST.OUTPUT.2]
+
+   LOCALMAKE "savedbitmode BITMODE
+
+   ; change the bitmode to a known setting
+   TRACEINSTRUCTION [ SETBITMODE 3 ]
+
+   ; attempt to set the bit mode to an illegal value
+   TRACEINSTRUCTIONNOCATCH [ SETBITMODE 0 ]
+
+   ; verify that the bit mode was changed by :ERRACT
+   SIMPLEREPORTTEST [BITMODE] 2
+
+   ; restore the previous bitmode
+   SETBITMODE :savedbitmode
+
+END
+
+TO SETBITMODETEST.CONVERTTOINTEGER
+
+   LOCALMAKE "savedbitmode BITMODE
+
+   ; Change the bitmode to a floating point value,
+   ; which must converted to an integer.
+   TRACEINSTRUCTION [ SETBITMODE 3.0 ]
+   SIMPLEREPORTTEST [BITMODE] 3
+
+   ; Change the bitmode to a word,
+   ; which must converted to an integer.
+   TRACEINSTRUCTION [ SETBITMODE "4 ]
+   SIMPLEREPORTTEST [BITMODE] 4
+
+   ; restore the previous bitmode
+   SETBITMODE :savedbitmode
+
+END
+
+TO BITMODETEST
+   BITMODETEST.SMOKETEST
+   BITMODETEST.BADINPUT
+
+   SETBITMODETEST.BADINPUTISRECOVERABLE
+   SETBITMODETEST.CONVERTTOINTEGER
+END

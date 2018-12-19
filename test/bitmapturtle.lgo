@@ -1,0 +1,246 @@
+LOAD "testlib.lgo
+
+TO BITMAPTURTLETEST.NOTURTLE
+  ; This is a regression test for Bug #364, which is that setting
+  ; a bitmap turtle when there was no sprite caused an infinite loop.
+  FAILIFNOTTRUE [ (SHELL [fmslogo bitmapturtle-nosprite.lgo] LOCALETRUE) ]
+END
+
+TO BITMAPTURTLETEST.SPECIALTURTLE
+
+  ; The traditional (non-rotating) BITMAPTURTLE allowed you
+  ; to bitmap the "special" turtles that are used in PERSPECTIVE mode.
+  ; This behavior is retained for backward compatibility.
+  FOR [I -3 -1] [
+    TRACEINSTRUCTION (LIST "SETTURTLE :I)
+    TRACEINSTRUCTION [BITMAPTURTLE]
+  ]
+
+  ; The rotating bitmap turtle does not allow this, as it
+  ; has no meaning.
+  FOR [I -3 -1] [
+    TRACEINSTRUCTION (LIST "SETTURTLE :I)
+    (RUNEXPECTERRORTEST
+       [ (BITMAPTURTLE "true) ]
+       1500
+       "|Invalid state for instruction: cannot make a special turtle use a rotating bitmap|)
+  ]
+
+  ; The clipboard bitmap can not be used to make a rotating bitmap turtle
+  TRACEINSTRUCTION [SETTURTLE 0]
+  (RUNEXPECTERRORTEST
+     [ (BITMAPTURTLE "true) ]
+     1500
+     "|Invalid state for instruction: cannot use the clipboard as a rotating bitmap|)
+
+END
+
+TO BITMAPTURTLETEST.SMOKETEST
+
+   CLEARSCREEN
+   BITLOAD "uparrow.bmp
+
+   SETTURTLE 0
+   HIDETURTLE
+
+   SETTURTLE 1
+   SETBITINDEX 1
+   BITCUT 75 101
+   (BITMAPTURTLE "TRUE)  
+
+   ; Draw something on the screen so we can see sprite transparency
+   HIDETURTLE
+   HOME
+   SETSCREENCOLOR "red
+   REPEAT 250 [ FORWARD REPCOUNT*2 RIGHT 90 SETPENCOLOR REPCOUNT ]
+   SHOWTURTLE
+ 
+   LOCALMAKE "right  (ITEM 3 MACHINE)/2 - 1
+   LOCALMAKE "left   -:right
+   LOCALMAKE "bottom (ITEM 4 MACHINE)/2 - 1
+   LOCALMAKE "top    -:bottom
+
+   PENUP
+   SETHEADING 0
+   SETPOS  [25 50]
+   SCROLLX 0
+   SCROLLY 0
+   PENDOWN
+
+   ; View different angle of rotation
+   ZOOM 1
+   REPEAT 12 [ RT 360/12 WAIT 30 ]
+
+   ZOOM 2
+   REPEAT 12 [ RT 360/12 WAIT 30 ]
+
+    
+   ; When zoomed out, we can also view that the wrapping happens
+   ZOOM 0.5
+   LOCALMAKE "positions (LIST
+      (LIST :left  :top)    ; upper left
+      (LIST 0      :top)    ; center top
+      (LIST :right :top)    ; upper right
+      (LIST :right    0)    ; center right
+      (LIST :right :bottom) ; bottom right
+      (LIST 0      :bottom) ; bottom center
+      (LIST :left  :bottom) ; bottom left
+      (LIST     0     0)    ; center
+   )
+   PENUP
+   REPEAT COUNT :positions [
+       SETPOS ITEM REPCOUNT :positions
+       RIGHT 30
+       WAIT  30
+       RIGHT 30
+       WAIT  30
+   ]
+   PENDOWN
+
+   ; Restore the system state.
+   ZOOM 1
+   SETSCREENCOLOR "white
+
+END
+
+TO BITMAPTURTLETEST.TURTLEMODE
+
+   SETTURTLE 1
+   SETBITINDEX 1
+   BITCUT 5 5
+
+   SETTURTLE 1
+   BITMAPTURTLE
+   SETTURTLEMODE 2
+   SIMPLEREPORTTEST [TURTLEMODE] 2
+
+   ; Test that BITMAPTURTLE always overwrites the bitmode.
+   BITMAPTURTLE
+   SIMPLEREPORTTEST [TURTLEMODE] 1
+
+   ; Tests that BITMAPTURTLE for sprites overwrites the bitmode.
+   SETTURTLEMODE 3
+   (BITMAPTURTLE "true)
+   SIMPLEREPORTTEST [TURTLEMODE] 1
+END
+
+TO BITMAPTURTLETEST.ROTATETEST
+   ; Creates a bitmapped turtle that is a circle
+   ; with a dot in the exact center and a short black
+   ; line near the tail.
+   ; 
+   ; The dot should remain in the center at all rotations
+   ; and not move as the turtle rotates.
+   ;
+   ; The short black line should remain co-linear with
+   ; the lines that the turtle draws.
+
+   CLEARSCREEN
+   BITLOAD "circle.bmp
+
+   SETTURTLE 0
+   HIDETURTLE
+
+   SETTURTLE 1
+   SETBITINDEX 1
+   BITCUT 101 101
+   (BITMAPTURTLE "TRUE)  
+
+   ; Draw a red cross
+   SETPENCOLOR "red
+   FORWARD 200 BACK 400 FORWARD 200
+   RIGHT 90
+   FORWARD 200 BACK 400 FORWARD 200
+   LEFT 90
+
+   ; Spin around.
+   ; The dot in the center of the bitmap should remain directly
+   ; over the center of the cross.
+   REPEAT 720 [ RIGHT 1 ]
+END
+
+TO BITMAPTURTLETEST.ONEPIXEL
+   ; Creates a bitmapped turtle that is a 1x1 image.
+   ; This should look like a single dot, be
+   ; visible at all rotations, and always be at the
+   ; end of the drawing line.
+
+   CLEARSCREEN
+   SETFLOODCOLOR "red
+   SETBITINDEX 1
+   BITBLOCK 1 1 
+   BITCUT   1 1
+
+   SETTURTLE 0
+   HIDETURTLE
+
+   SETTURTLE 1
+   (BITMAPTURTLE "TRUE)  
+
+   SETPENCOLOR "blue
+   FORWARD 10
+END
+
+TO BITMAPTURTLETEST.CHANGETURTLEIMAGE
+   CLEARSCREEN
+   HIDETURTLE
+   SETTURTLE 1
+
+   ; Set bitmap #1 to a square
+   REPEAT 4 [ FORWARD 20 RT 90 ]
+   SETBITINDEX 1
+   BITCUT 21 21
+
+   ; Make a bitmapped turtle.
+   SETTURTLE 1
+   PENUP
+   SETXY 0 100
+   BITMAPTURTLE 
+   WAIT 60
+
+   ; Swap the bitmap for a different (smaller) one
+   SETTURTLE 0
+   SETFLOODCOLOR "green
+   BITBLOCK 11 11
+   REPEAT 3 [ FORWARD 10 RT 120 ]
+   BITCUT 11 11
+
+   ; As soon as we BITCUT the new image, the bitmap which
+   ; the turtle is using should change.
+
+   FAILIFNOTTRUE [YESNOBOX [ChangeTurtleImage Test] [Did the turtle image change from a square to a triangle?]]
+
+END
+
+TO BITMAPTURTLETEST.BADINPUT
+   LOCALMAKE "originalturtle TURTLE
+
+   ; BITMAPTURTLE only works if there is a bitmap
+   SETBITINDEX 1
+   BITCUT 1 1
+   SETTURTLE 1
+
+   RUNDOESNTLIKEINPUTTEST [ (BITMAPTURTLE  1)    ]
+   RUNDOESNTLIKEINPUTTEST [ (BITMAPTURTLE  1.5)  ]
+   RUNDOESNTLIKEINPUTTEST [ (BITMAPTURTLE [1])   ]
+   RUNDOESNTLIKEINPUTTEST [ (BITMAPTURTLE {1})   ]
+   RUNDOESNTLIKEINPUTTEST [ (BITMAPTURTLE "word) ]
+
+   RUNTOOMANYINPUTSTEST   [ (BITMAPTURTLE "false "toomany) ]
+
+   SETTURTLE :originalturtle 
+END
+
+TO BITMAPTURTLETEST
+
+   BITMAPTURTLETEST.SMOKETEST
+   BITMAPTURTLETEST.NOTURTLE
+   BITMAPTURTLETEST.SPECIALTURTLE
+   BITMAPTURTLETEST.CHANGETURTLEIMAGE
+   BITMAPTURTLETEST.TURTLEMODE
+   BITMAPTURTLETEST.BADINPUT
+
+   ; Manual tests
+   ; BITMAPTURTLETEST.ONEPIXEL
+   ; BITMAPTURTLETEST.ROTATETEST
+END

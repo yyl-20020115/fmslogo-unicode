@@ -1,0 +1,68 @@
+LOAD "testlib.lgo
+
+TO SENTENCETEST.SMOKETEST
+
+   SIMPLEREPORTTEST [SE       "abc "def  ] [abc def]
+
+   SIMPLEREPORTTEST [SENTENCE "abc  "def         ] [abc def]
+   SIMPLEREPORTTEST [SENTENCE "abc  [def]        ] [abc def]
+   SIMPLEREPORTTEST [SENTENCE [abc] "def         ] [abc def]
+   SIMPLEREPORTTEST [SENTENCE [abc def] "ghi     ] [abc def ghi]
+   SIMPLEREPORTTEST [SENTENCE [abc def] [ghi jlk]] [abc def ghi jlk]
+   SIMPLEREPORTTEST [SENTENCE []    [abc]        ] [abc]
+   SIMPLEREPORTTEST [SENTENCE []    []           ] []
+
+   SIMPLEREPORTTEST [SENTENCE [[abc]] "def       ] [[abc] def]
+
+
+   SIMPLEREPORTTEST [(SE       "A "sentence "is "simply "a "list "of "words)] [A sentence is simply a list of words]
+   SIMPLEREPORTTEST [(SENTENCE "A "sentence "is "simply "a "list "of "words)] [A sentence is simply a list of words]
+
+   SIMPLEREPORTTEST [(SENTENCE [] [abc] [])] [abc]
+
+   ; no inputs is valid
+   SIMPLEREPORTTEST [(SE)      ]  []
+   SIMPLEREPORTTEST [(SENTENCE)]  []
+
+   ; one input is valid
+   SIMPLEREPORTTEST [(SE "abc)      ]  [abc]
+   SIMPLEREPORTTEST [(SENTENCE "abc)]  [abc]
+
+END
+
+TO SENTENCETEST.BADINPUT
+
+   RUNBADINPUTTEST  [SENTENCE "abc  {def} ]
+   RUNBADINPUTTEST  [SENTENCE {abc} "def  ]
+
+   RUNBADINPUTTEST  [(SENTENCE "abc {def} "ghi)]
+
+END
+
+TO SENTENCETEST.NOALIAS
+
+   ; tests that SENTENCE copies the input lists.
+   LOCAL [list1 list2 sentence]
+
+   TRACEINSTRUCTION [MAKE "list1 [1 2 3] ]
+   TRACEINSTRUCTION [MAKE "list2 [4 5 6] ]
+
+   TRACEINSTRUCTION [MAKE "sentence (SENTENCE :list1 :list2)]
+
+   ; verify the output
+   SIMPLEREPORTTEST [:sentence]  [1 2 3 4 5 6]
+
+   ; verify that the input tests didn't change
+   SIMPLEREPORTTEST [:list1] [1 2 3]
+   SIMPLEREPORTTEST [:list2] [4 5 6]
+
+END
+
+TO SENTENCETEST
+
+   SENTENCETEST.SMOKETEST
+   SENTENCETEST.BADINPUT
+   SENTENCETEST.NOALIAS
+
+END
+

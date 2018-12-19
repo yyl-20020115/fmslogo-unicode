@@ -1,0 +1,7 @@
+to mditem :index :array
+if not list? :index [(throw "error 4 :index)]
+if emptyp :index [op :array]
+op mditem bf :index item first :index :array
+end
+
+bury "mditem

@@ -1,0 +1,41 @@
+to aaa
+;
+; Function:
+;
+; This routine will allow you to play a Video (.AVI) file
+; The :filename is the video file you wish to play
+;
+; To run:
+;
+; load "video.lgo
+; Call VIDEO file
+;
+; Example:
+;
+video "square.avi
+;
+end
+
+to video :filename
+  ; Load the AVI into MCI.
+  ignore mci (sentence [open] :filename [type avivideo alias video])
+
+  ; Set the window caption.
+  mci [window video text "VIDEO.LGO" wait]
+
+
+  ; Play the video and wait for it to complete.
+  ; Because "wait" is used, FMSLogo will be unresponsive
+  ; until the video finishes.
+  print sentence [playing the video] :filename
+  mci [play video wait]
+
+  ; Cleanup by unloading the AVI from MCI.
+  mci [close video]
+end
+
+to zzz
+  ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

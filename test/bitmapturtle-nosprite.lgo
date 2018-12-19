@@ -1,0 +1,36 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO RUNTEST
+  ; This is a regression test for bug #364 and #437
+  ;
+  ; The functional aspect of the bug #364 was that setting a
+  ; turtle to be a rotating bitmap without setting a bitmap caused
+  ; FMSLogo to go into an infinite loop.  Because other tests
+  ; may create a bitmap, this can only be run through a SHELL
+  ; callout to a fresh FMSLogo instance.
+
+  UIAUTOMATION.INITIALIZE
+
+  SETBITINDEX 1
+  BITCUT 20 20
+  SETTURTLE 500
+
+  CATCH "ERROR [
+    ; press OK on the error box which should appear.
+    ; TODO: once BITMAPTURTLE throws an error, instead of displaying
+    ; a message box, update this test to CHECKERROR.
+    UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "Error "OK
+    (BITMAPTURTLE "TRUE) ; as a sprite
+
+    UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "Error "OK
+    BITMAPTURTLE         ; as a normal bitmapped turtle
+  ]
+
+  IGNORE FAILIFERROR "BITMAPTURTLE.NOSPRITE
+
+  UIAUTOMATION.UNINITIALIZE
+  BYE
+END
+
+MAKE "startup [RUNTEST]

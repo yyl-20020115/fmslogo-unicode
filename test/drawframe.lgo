@@ -1,0 +1,69 @@
+; This is a helper program for testing the -F command-line
+; parameter.  It colors the screen black and draws a frame
+; around the edge.
+; If the -F -W and -H parameters are given, then the picture
+; and the frame should be completely visible and the frame
+; should be exactly within the screen window's frame.
+
+TO DRAWFRAME
+  HIDETURTLE
+
+  ; switch to fence mode, so that drawing out-of-bounds
+  ; is an error (test bug).  The correct function of this
+  ; test requires that the border be drawn exactly on the
+  ; window edge and no futher.
+  FENCE
+
+  ; Set the entire screen to black, so that
+  ; any pixel outside the drawing surface is recognizable.
+  SETSCREENCOLOR "black
+
+  ; Draw a frame around the edge of the screen window.
+  LOCAL [left right top bottom]
+  LOCALMAKE "width  ITEM 3 MACHINE
+  LOCALMAKE "height ITEM 4 MACHINE
+  IFELSE EQUAL? 0 MODULO :width 2 [
+    MAKE "right   (:width / 2) - 1
+    MAKE "left   -(:width / 2)
+  ][
+    MAKE "right   (:width - 1) / 2
+    MAKE "left   -:right
+  ]
+
+  IFELSE EQUAL? 0 MODULO :height 2 [
+    MAKE "top      :height / 2
+    MAKE "bottom  -(:height / 2) + 1
+  ][
+    MAKE "top      (:height - 1) / 2
+    MAKE "bottom  -:top
+  ]
+
+  PENUP
+  SETXY :left :top
+  PENDOWN
+
+  SETPENCOLOR "red
+  SETXY :right :top
+  SETXY :right :bottom
+  SETXY :left  :bottom
+  SETXY :left  :top
+
+  ; draw the inner frame
+  LOCALMAKE "innertop    :top    - 1
+  LOCALMAKE "innerbottom :bottom + 1
+  LOCALMAKE "innerright  :right  - 1
+  LOCALMAKE "innerleft   :left   + 1
+
+  PENUP
+  SETXY  :innerleft :innertop
+  PENDOWN
+
+  SETPENCOLOR "blue
+  SETXY :innerright :innertop
+  SETXY :innerright :innerbottom
+  SETXY :innerleft  :innerbottom
+  SETXY :innerleft  :innertop
+
+END
+
+MAKE "startup [DRAWFRAME]

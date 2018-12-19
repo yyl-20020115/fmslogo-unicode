@@ -1,0 +1,83 @@
+LOAD "testlib.lgo
+
+TO REPCOUNTTEST.TIMERCALLBACK
+  LOCAL "callbackrepcount
+
+  ; test that REPEAT repeats the expected number of times
+  MAKE "callbackrepcount 0
+  REPEAT 1000 [ MAKE "callbackrepcount SUM :callbackrepcount 1 ]
+  SIMPLEREPORTTEST [:callbackrepcount] 1000
+
+  ; test that REPCOUNT is as expected in each iteration
+  MAKE "callbackrepcount 1
+  REPEAT 1000 [
+    IF NOT EQUAL? :callbackrepcount REPCOUNT [
+      REPORTTESTFAILED (LIST "|REPEAT in main loop changed REPCOUNT in timer event: callbackrepcount=| :callbackrepcount "repcount= REPCOUNT)
+      CLEARTIMER 1
+      STOP
+    ]
+    make "callbackrepcount :callbackrepcount + 1
+  ]
+
+  ; cleanup
+  CLEARTIMER 1
+  REPORTTESTPASSED [REPEAT in main loop did not change REPCOUNT in timer event]
+END
+
+TO REPCOUNTTEST.TIMERTEST
+
+  ; start a timer event that also has a REPEAT instruction
+  SETTIMER 1 0 [REPCOUNTTEST.TIMERCALLBACK]
+
+  LOCALMAKE "mainrepcount 1
+  REPEAT 2500 [
+    IF NOT EQUAL? :mainrepcount REPCOUNT [
+      REPORTTESTFAILED (LIST "|REPEAT in timer event changed REPCOUNT in main loop: mainrepcount=| :mainrepcount "repcount= REPCOUNT)
+      STOP
+    ]
+    MAKE "mainrepcount :mainrepcount + 1
+  ]
+  REPORTTESTPASSED [REPEAT in main loop did not change REPCOUNT in timer event]
+
+END
+
+
+TO REPCOUNTTEST.SMOKETEST
+
+  ; REPCOUNT outside of a REPEAT is always -1
+  SIMPLEREPORTTEST [REPCOUNT] -1
+
+  ; make sure the value of REPCOUNT is as expected
+  LOCALMAKE "expectedrepcount 1
+  REPEAT 100 [
+    IF NOT EQUAL? :expectedrepcount REPCOUNT [
+      SIMPLEREPORTTEST [REPCOUNT] :expectedrepcount
+    ]
+    MAKE "expectedrepcount :expectedrepcount + 1
+  ]
+
+  ; REPCOUNT outside of a REPEAT is always -1
+  SIMPLEREPORTTEST [REPCOUNT] -1
+
+  ; nested REPEAT should keep REPCOUNT straight
+  LOCAL "list
+  TRACEINSTRUCTION [ MAKE "list [] ]
+  TRACEINSTRUCTION [ REPEAT 2 [ MAKE "list LPUT REPCOUNT :list REPEAT 3 [ MAKE "list LPUT REPCOUNT :list ] ] ]
+  SIMPLEREPORTTEST [ :list ] [1 1 2 3 2 1 2 3]
+
+END
+
+TO REPCOUNTTEST.BADINPUT
+
+  RUNTOOMANYINPUTSTEST [(REPCOUNT "toomany)]
+
+END
+
+
+TO REPCOUNTTEST
+
+  REPCOUNTTEST.SMOKETEST
+  REPCOUNTTEST.TIMERTEST
+  REPCOUNTTEST.BADINPUT
+
+END

@@ -1,0 +1,5 @@
+to restore :caption
+  windowset :caption 9
+end
+
+bury "restore

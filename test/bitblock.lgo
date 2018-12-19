@@ -1,0 +1,55 @@
+LOAD "testlib.lgo
+
+TO BITBLOCKTEST.SMOKETEST
+
+  LOCALMAKE "oldfloodcolor FLOODCOLOR
+
+  ; clear the screen to white
+  SETSCREENCOLOR 7
+  CLEARSCREEN
+
+  ; draw a horizontal rectangle in black
+  SETFLOODCOLOR 0
+  BITBLOCK 100 50
+
+  ; draw a vertical rectangle in blue
+  SETFLOODCOLOR 1
+  BITBLOCK 50  100
+
+  ; plot a single pixel in green
+  SETFLOODCOLOR 2
+  BITBLOCK 1 1
+
+  ; zero is legal, but nothing is drawn
+  SETFLOODCOLOR 3
+  BITBLOCK 0    200
+  BITBLOCK 200  0
+  BITBLOCK 0    0
+
+  CHECKSCREEN "bitblocktest
+
+  SETFLOODCOLOR :oldfloodcolor
+END
+
+TO BITBLOCKTEST.BADINPUT
+
+   RUNBADINPUTTEST [ BITBLOCK [10] 10 ]
+   RUNBADINPUTTEST [ BITBLOCK {10} 10 ]
+   RUNBADINPUTTEST [ BITBLOCK -10 10 ]
+   RUNBADINPUTTEST [ BITBLOCK "ten 10 ]
+
+   RUNBADINPUTTEST [ BITBLOCK 10  [10] ]
+   RUNBADINPUTTEST [ BITBLOCK 10  {10} ]
+   RUNBADINPUTTEST [ BITBLOCK 10  -10  ]
+   RUNBADINPUTTEST [ BITBLOCK 10  "ten ]
+
+   RUNNOTENOUGHINPUTSTEST [ (BITBLOCK 10)             ]
+   RUNTOOMANYINPUTSTEST   [ (BITBLOCK 10 10 "toomany) ]
+
+   ; TODO: verify that nothing was drawn
+END
+
+TO BITBLOCKTEST
+    BITBLOCKTEST.SMOKETEST
+    BITBLOCKTEST.BADINPUT
+END

@@ -1,0 +1,5 @@
+TO procedureinworkingdirectory
+   ; Define a procedure that is automatically loaded
+   ; when the programmer runs PROCEDUREINWORKINGDIRECTORY
+   OUTPUT 123
+END

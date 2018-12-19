@@ -1,0 +1,21 @@
+; This file contains tests that are specific to the Russian version of FMSLogo.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LOAD "testlib.lgo
+
+TO ANSIRUSSIANTEST
+
+  IF EQUALP 1049 ITEM 4 LOGOVERSION [
+
+     ; This is the translation for the Russia Federation
+     SIMPLEREPORTTEST [COUNT "|Российская Федерация| ] 20
+
+     ; This is the translation for Moscow
+     SIMPLEREPORTTEST [COUNT "Москва ] 6
+
+     ; Drawing text to the screen should work
+     CLEARSCREEN
+     RIGHT 90
+     LABEL "|Российская Федерация and Москва work!|
+  ]
+
+END

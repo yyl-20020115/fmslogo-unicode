@@ -1,0 +1,124 @@
+; This is the testharness for the screen saver.
+; It is not intended to be as complete as the regular test harness.
+; Instead, it functions to ensure that the major subsystems function
+; within the screensaver environment.
+; Test case variations which can be reasonably assumed to work the same
+; in the main environment and the screensaver environment are omitted.
+
+LOAD "testlib.lgo
+LOAD "dll.lgo
+LOAD "mci.lgo
+LOAD "network.lgo
+LOAD "timer.lgo
+LOAD "windows.lgo
+LOAD "selectbox.lgo
+LOAD "dialogfile.lgo
+LOAD "yesnobox.lgo
+LOAD "questionbox.lgo
+
+TO STATUSTEST.SMOKETEST
+
+   TRACEINSTRUCTION [ PERSPECTIVE ]
+   TRACEINSTRUCTION [ PENPAINT    ]
+
+   ; put some interesting values into the status window
+   TRACEINSTRUCTION [ CS BK 100 LT 90 FD 50 LR 10 UP 20 ]
+   TRACEINSTRUCTION [ SETPENSIZE [3 3] ST ]
+   TRACEINSTRUCTION [ SETPC [210 220 230] SETFC [40 50 60] SETSC [70 80 90] ]
+   TRACEINSTRUCTION [ PENREVERSE PENDOWN ]
+
+   ; open the status window
+   TRACEINSTRUCTION [ STATUS ]
+
+   ; reopening the status window should not throw an error
+   TRACEINSTRUCTION [ STATUS ]
+
+   ; Give the tester a chance to see the status
+   WAIT 300 ; five seconds
+
+   PRINT [
+|The status window should show:
+
+Pen
+Contact: Up
+Width:   6
+Style:   Erase
+
+Orientation
+Heading: 93.45
+Pitch:   350.61
+Roll:    20.28
+
+Turtle
+XYZ:        50,100,0
+Which:      1
+Visibility: Hidden
+
+Color
+Pen:    1,2,3
+Flood:  4,5,6
+Screen: 7,8,9|
+   ]
+
+   ; Give turtle 1 its own pen and move it someplace new
+   TRACEINSTRUCTION [ (SETTURTLE 1 "true) FD 100 RT 90 FD 50 LR 10 DOWN 20 ]
+   TRACEINSTRUCTION [ HT SETPENSIZE [6 6] ]
+   TRACEINSTRUCTION [ SETPC [1 2 3] SETFC [4 5 6] SETSC [7 8 9] ]
+   TRACEINSTRUCTION [ PENERASE PENUP ]
+
+   ; Give the tester a chance to read the status
+   WAIT 300 ; five seconds
+
+   ; close the status window
+   TRACEINSTRUCTION [ NOSTATUS ]
+
+   ; closing a closed status window should not throw an error
+   TRACEINSTRUCTION [ NOSTATUS ]
+
+   ; Restore the important parts of the screen state
+   PENPAINT
+   WRAP
+   SETPENCOLOR    0
+   SETSCREENCOLOR 7
+   CLEARSCREEN
+END
+
+TO WINDOWTEST
+
+   ; Add a widget of every type to the main window.
+   WINDOWSTEST.SETUP "main
+
+   ; Give the tester a chance to see the widgets
+   WAIT 180 ; 3 seconds
+
+   ; Delete the widgets
+   WINDOWDELETE "main
+END
+
+
+TO TESTALL
+
+  REPORTTESTINITIALIZE "screensaver-testlog.baseline.txt
+
+  DLLCALL.VARIATIONS
+  MCITEST.SMOKETEST
+  NETWORKTEST.SMOKETEST
+  TIMERTEST.SMOKETEST
+  STATUSTEST.SMOKETEST
+  WINDOWSTEST.WINDOW.SMOKETEST
+  WINDOWSTEST.DIALOG.SMOKETEST
+  WINDOWTEST
+  SELECTBOXTEST.SMOKETEST
+  DIALOGFILEOPEN.SMOKETEST
+  DIALOGFILESAVE.SMOKETEST
+  YESNOBOXTEST.SMOKETEST
+  QUESTIONBOXTEST.SMOKETEST
+
+  REPORTTESTUNINITIALIZE
+
+  CLEARSCREEN
+  PRINT [The tests are now complete!]
+END
+
+; execute all tests on startup
+make "startup [TESTALL]

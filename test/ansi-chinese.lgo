@@ -1,0 +1,22 @@
+; This file contains tests that are specific to the Simplified Chinese
+; version of FMSLogo.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LOAD "testlib.lgo
+
+TO ANSICHINESETEST
+
+  IF EQUALP 2052 ITEM 4 LOGOVERSION [
+
+     ; This is the translation for simplified chinese
+     SIMPLEREPORTTEST [COUNT "∫∫◊÷ ] 2
+
+     ; This is the translation for traditional chinese
+     SIMPLEREPORTTEST [COUNT "ùh◊÷ ] 2
+
+     ; Drawing text to the screen should work
+     CLEARSCREEN
+     RIGHT 90
+     LABEL "|∫∫◊÷ and ùh◊÷ work!|
+  ]
+
+END

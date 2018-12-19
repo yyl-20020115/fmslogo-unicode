@@ -72,53 +72,61 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -126,17 +134,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -144,22 +154,196 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="3dsolid.h" />
+    <ClInclude Include="aboutfmslogo.h" />
+    <ClInclude Include="aboutmultiplesclerosis.h" />
+    <ClInclude Include="activearea.h" />
+    <ClInclude Include="appendablelist.h" />
+    <ClInclude Include="argumentutils.h" />
+    <ClInclude Include="avltree.h" />
+    <ClInclude Include="commander.h" />
+    <ClInclude Include="commanderbutton.h" />
+    <ClInclude Include="commanderhistory.h" />
+    <ClInclude Include="commanderinput.h" />
+    <ClInclude Include="commandertogglebutton.h" />
+    <ClInclude Include="coms.h" />
+    <ClInclude Include="const.h" />
+    <ClInclude Include="cursor.h" />
+    <ClInclude Include="devwind.h" />
+    <ClInclude Include="dib.h" />
+    <ClInclude Include="dlgwind.h" />
+    <ClInclude Include="dllwind.h" />
+    <ClInclude Include="dynamicbuffer.h" />
+    <ClInclude Include="editproceduredialog.h" />
+    <ClInclude Include="eraseproceduredialog.h" />
+    <ClInclude Include="error.h" />
+    <ClInclude Include="eval.h" />
+    <ClInclude Include="files.h" />
+    <ClInclude Include="fileswnd.h" />
     <ClInclude Include="FMSLogo.h" />
+    <ClInclude Include="fontutils.h" />
+    <ClInclude Include="gbm.h" />
+    <ClInclude Include="gbmbmp.h" />
+    <ClInclude Include="gbmgif.h" />
+    <ClInclude Include="gbmhelp.h" />
+    <ClInclude Include="graphics.h" />
+    <ClInclude Include="graphwin.h" />
+    <ClInclude Include="guiutils.h" />
+    <ClInclude Include="helputils.h" />
+    <ClInclude Include="ibmterm.h" />
+    <ClInclude Include="init.h" />
+    <ClInclude Include="intern.h" />
+    <ClInclude Include="lists.h" />
+    <ClInclude Include="localizednode.h" />
+    <ClInclude Include="localizedstrings-de.h" />
+    <ClInclude Include="localizedstrings-en.h" />
+    <ClInclude Include="localizedstrings-es.h" />
+    <ClInclude Include="localizedstrings-fr.h" />
+    <ClInclude Include="localizedstrings-gr.h" />
+    <ClInclude Include="localizedstrings-hr.h" />
+    <ClInclude Include="localizedstrings-it.h" />
+    <ClInclude Include="localizedstrings-pl.h" />
+    <ClInclude Include="localizedstrings-ps.h" />
+    <ClInclude Include="localizedstrings-pt.h" />
+    <ClInclude Include="localizedstrings-ru.h" />
+    <ClInclude Include="localizedstrings-zh-cn.h" />
+    <ClInclude Include="localizedstrings.h" />
+    <ClInclude Include="logocodectrl.h" />
+    <ClInclude Include="logocore.h" />
+    <ClInclude Include="logodata.h" />
+    <ClInclude Include="logoeventqueue.h" />
+    <ClInclude Include="logomath.h" />
+    <ClInclude Include="logorc.h" />
+    <ClInclude Include="mainframe.h" />
+    <ClInclude Include="mainwind.h" />
+    <ClInclude Include="mem.h" />
+    <ClInclude Include="messagebox.h" />
+    <ClInclude Include="minieditor.h" />
+    <ClInclude Include="minieditortextctrl.h" />
+    <ClInclude Include="mmwind.h" />
+    <ClInclude Include="netwind.h" />
+    <ClInclude Include="paren.h" />
+    <ClInclude Include="parse.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="print.h" />
+    <ClInclude Include="questionbox.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="savebeforeexitdialog.h" />
+    <ClInclude Include="screen.h" />
+    <ClInclude Include="screenwindow.h" />
+    <ClInclude Include="selectbox.h" />
+    <ClInclude Include="selectproceduredialog.h" />
+    <ClInclude Include="selectstartupinstruction.h" />
+    <ClInclude Include="setactivearea.h" />
+    <ClInclude Include="setcolor.h" />
+    <ClInclude Include="setpensize.h" />
+    <ClInclude Include="smartnode.h" />
+    <ClInclude Include="sort.h" />
+    <ClInclude Include="startup.h" />
+    <ClInclude Include="status.h" />
+    <ClInclude Include="statusdialog.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="stringadapter.h" />
+    <ClInclude Include="stringprintednode.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="term.h" />
+    <ClInclude Include="threed.h" />
+    <ClInclude Include="unix.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="vector.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="workspaceeditor.h" />
+    <ClInclude Include="wrksp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3dsolid.cpp" />
+    <ClCompile Include="aboutfmslogo.cpp" />
+    <ClCompile Include="aboutmultiplesclerosis.cpp" />
+    <ClCompile Include="activearea.cpp" />
+    <ClCompile Include="appendablelist.cpp" />
+    <ClCompile Include="argumentutils.cpp" />
+    <ClCompile Include="avltree.cpp" />
+    <ClCompile Include="commander.cpp" />
+    <ClCompile Include="commanderbutton.cpp" />
+    <ClCompile Include="commanderhistory.cpp" />
+    <ClCompile Include="commanderinput.cpp" />
+    <ClCompile Include="commandertogglebutton.cpp" />
+    <ClCompile Include="coms.cpp" />
+    <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="devwind.cpp" />
+    <ClCompile Include="dib.cpp" />
+    <ClCompile Include="dllwind.cpp" />
+    <ClCompile Include="dynamicbuffer.cpp" />
+    <ClCompile Include="editproceduredialog.cpp" />
+    <ClCompile Include="eraseproceduredialog.cpp" />
+    <ClCompile Include="error.cpp" />
+    <ClCompile Include="eval.cpp" />
+    <ClCompile Include="files.cpp" />
+    <ClCompile Include="fileswnd.cpp" />
     <ClCompile Include="FMSLogo.cpp" />
+    <ClCompile Include="fontutils.cpp" />
+    <ClCompile Include="gbm.cpp" />
+    <ClCompile Include="gbmbmp.cpp" />
+    <ClCompile Include="gbmgif.cpp" />
+    <ClCompile Include="gbmhelp.cpp" />
+    <ClCompile Include="gbmsize.cpp" />
+    <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="graphwin.cpp" />
+    <ClCompile Include="guiutils.cpp" />
+    <ClCompile Include="helputils.cpp" />
+    <ClCompile Include="ibmterm.cpp" />
+    <ClCompile Include="init.cpp" />
+    <ClCompile Include="intern.cpp" />
+    <ClCompile Include="lists.cpp" />
+    <ClCompile Include="localizednode.cpp" />
+    <ClCompile Include="logocodectrl.cpp" />
+    <ClCompile Include="logodata.cpp" />
+    <ClCompile Include="logodialogboxes.cpp" />
+    <ClCompile Include="logoeventqueue.cpp" />
+    <ClCompile Include="logomath.cpp" />
+    <ClCompile Include="mainframe.cpp" />
+    <ClCompile Include="mainwind.cpp" />
+    <ClCompile Include="mem.cpp" />
+    <ClCompile Include="messagebox.cpp" />
+    <ClCompile Include="minieditor.cpp" />
+    <ClCompile Include="minieditortextctrl.cpp" />
+    <ClCompile Include="mmwind.cpp" />
+    <ClCompile Include="netwind.cpp" />
+    <ClCompile Include="paren.cpp" />
+    <ClCompile Include="parse.cpp" />
+    <ClCompile Include="print.cpp" />
+    <ClCompile Include="questionbox.cpp" />
+    <ClCompile Include="savebeforeexitdialog.cpp" />
+    <ClCompile Include="screen.cpp" />
+    <ClCompile Include="selectbox.cpp" />
+    <ClCompile Include="selectproceduredialog.cpp" />
+    <ClCompile Include="selectstartupinstruction.cpp" />
+    <ClCompile Include="setactivearea.cpp" />
+    <ClCompile Include="setcolor.cpp" />
+    <ClCompile Include="setpensize.cpp" />
+    <ClCompile Include="sort.cpp" />
+    <ClCompile Include="startup.cpp" />
+    <ClCompile Include="statusdialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="stringprintednode.cpp" />
+    <ClCompile Include="term.cpp" />
+    <ClCompile Include="threed.cpp" />
+    <ClCompile Include="unix.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="vector.cpp" />
+    <ClCompile Include="workspaceeditor.cpp" />
+    <ClCompile Include="wrksp.cpp" />
+    <ClCompile Include="wxpurestubs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FMSLogo.rc" />

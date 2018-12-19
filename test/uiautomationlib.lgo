@@ -1,0 +1,363 @@
+LOAD "testlib.lgo
+
+TO UIAUTOMATION.INITIALIZE
+
+  DLLLOAD "user32.dll
+
+  ; empty the event queue, if any exists
+  if namep "uiautomation.eventqueue [
+    make "uiautomation.eventqueue []
+  ]
+
+  SETTIMER 31 1000 [UIAUTOMATION.TIMEREVENT]
+END
+BURY "UIAUTOMATION.INITIALIZE
+
+
+
+TO UIAUTOMATION.UNINITIALIZE
+
+  ERASE NAMELIST [uiautomation.windowtitle uiautomation.letter]
+
+  ; Some tests run HALT, which will delete the timer.
+  ; Because of this, we ignore any errors coming from CLEARTIMER
+  CATCH "ERROR [ CLEARTIMER 31 ]
+  IGNORE ERROR
+
+  (DLLFREE "user32.dll)
+
+END
+BURY "UIAUTOMATION.UNINITIALIZE
+
+
+TO UIAUTOMATION.FINDWINDOW :windowtitle :windowclass
+  localmake "windowclasstype "S
+  localmake "windowtitletype "S
+
+  if :windowclass = 0 [ make "windowclasstype "L ]
+  if :windowtitle = 0 [ make "windowtitletype "L ]
+
+  OUTPUT ITEM 1 (DLLCALL (list "L "FindWindowA 
+    :windowtitletype :windowtitle
+    :windowclasstype :windowclass) "user32.dll)
+END
+BURY "UIAUTOMATION.FINDWINDOW
+
+
+TO UIAUTOMATION.FINDCHILDWINDOW :parenthwnd :childtitle :childclass
+
+  localmake "windowclasstype "S
+  localmake "windowtitletype "S
+
+  if :childclass = 0 [ make "windowclasstype "L ]
+  if :childtitle = 0 [ make "windowtitletype "L ]
+
+  output item 1 (DLLCALL (list "L "FindWindowExA 
+    :windowtitletype :childtitle
+    :windowclasstype :childclass
+    "L               0
+    "L               :parenthwnd) "user32.dll)
+END
+BURY "UIAUTOMATION.FINDCHILDWINDOW
+
+
+TO UIAUTOMATION.SENDMESSAGE :HWND :MESSAGEID :WPARAM :LPARAM [:UseSendApi "True]
+
+    OUTPUT (DLLCALL (LIST
+        "L IFELSE :UseSendApi ["SendMessageA] ["PostMessageA]
+        "L :LPARAM
+        "W :WPARAM
+        "L :MESSAGEID
+        "L :HWND) "user32.dll)
+END
+BURY "UIAUTOMATION.SENDMESSAGE
+
+
+TO UIAUTOMATION.SETFOCUS :HWND
+    OUTPUT (DLLCALL (LIST "L "SetFocus "L :HWND) "user32.dll)
+END
+BURY "UIAUTOMATION.SETFOCUS
+
+
+TO UIAUTOMATION.TIMEREVENT
+
+  if not namep "uiautomation.eventqueue [ STOP ]
+  if empty?    :uiautomation.eventqueue [ STOP ]
+
+  localmake "event DEQUEUE "uiautomation.eventqueue
+
+  apply (item 1 :event) (item 2 :event)
+END
+BURY "UIAUTOMATION.TIMEREVENT
+
+TO UIAUTOMATION.POSTEVENT :event
+
+  if not namep "uiautomation.eventqueue [
+    make "uiautomation.eventqueue []
+    bury namelist "uiautomation.eventqueue
+  ]
+
+  ; add this item to the end of the queue
+  QUEUE "uiautomation.eventqueue :event
+END
+BURY "UIAUTOMATION.POSTEVENT
+
+
+; Gets a child window by its class name
+TO UIAUTOMATION.GETCHILDWINDOWBYCLASS :parentwindowtitle :childwindowclass
+  LOCALMAKE "parenthwnd UIAUTOMATION.FINDWINDOW :parentwindowtitle 0
+  if :parenthwnd = 0 [
+     REPORTTESTBUG (word "|Couldn't find parent | :parentwindowtitle)
+     OUTPUT 0
+  ]
+
+  if :childwindowclass = 0 [ OUTPUT :parenthwnd ]
+
+  LOCALMAKE "hwnd UIAUTOMATION.FINDCHILDWINDOW :parenthwnd 0 :childwindowclass
+  if :hwnd = 0 [
+     REPORTTESTBUG (word "|Couldn't find child | :childwindowclass)
+     OUTPUT 0
+  ]
+
+  OUTPUT :hwnd
+END
+BURY "UIAUTOMATION.GETCHILDWINDOWBYCLASS
+
+
+
+TO UIAUTOMATION.SENDMESSAGETOWINDOW :parentwindowtitle :childwindowclass :message :wparam :lparam
+
+  localmake "hwnd UIAUTOMATION.GETCHILDWINDOWBYCLASS :parentwindowtitle :childwindowclass
+  if :hwnd = 0 [ STOP ]
+
+  IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :message :wparam :lparam
+END
+BURY "UIAUTOMATION.SENDMESSAGETOWINDOW
+
+TO UIAUTOMATION.POSTMESSAGETOWINDOW :parentwindowtitle :childwindowclass :message :wparam :lparam
+
+  localmake "uievent array 2
+
+  setitem 1 :uievent [UIAUTOMATION.SENDMESSAGETOWINDOW ?1 ?2 ?3 ?4 ?5]
+  setitem 2 :uievent (list :parentwindowtitle :childwindowclass :message :wparam :lparam)
+
+  uiautomation.postevent :uievent
+END
+BURY "UIAUTOMATION.POSTMESSAGETOWINDOW
+
+
+TO UIAUTOMATION.SENDSTRINGTOWINDOW :parentwindowtitle :childwindowclass :string
+
+  localmake "WM_KEYDOWN    256+0  ; 0x0100
+  localmake "WM_KEYUP      256+1  ; 0x0101
+  localmake "WM_CHAR       256+2  ; 0x0102
+  localmake "WM_SYSKEYDOWN 256+4  ; 0x0104
+  localmake "WM_SYSKEYUP   256+5  ; 0x0105
+
+  LOCALMAKE "hwnd UIAUTOMATION.GETCHILDWINDOWBYCLASS :parentwindowtitle :childwindowclass
+  if :hwnd = 0 [STOP ]
+
+  repeat count :string [
+
+    IFELSE "^ = ITEM REPCOUNT :string [
+      ; This is an escape sequence that means Alt
+
+      ; In LPARAM: repeat=1 scancode=0x38 extended=1 alt=1 previous_down=0 (0x213800001)
+      IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_SYSKEYDOWN 18 (SUM 1 (LSHIFT (16*3+8) 16) (LSHIFT 1 24) (LSHIFT 1 29))
+
+      ; In LPARAM: repeat=1 scancode=0x38 extended=1 alt=1 previous_down=1 (0xC13800001)
+      IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_SYSKEYUP   18 (SUM 1 (LSHIFT (16*3+8) 16) (LSHIFT 1 24) (LSHIFT 1 30) (LSHIFT 1 31))
+    ][
+      IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_CHAR ASCII ITEM REPCOUNT :string 0
+      ;IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_KEYDOWN ASCII ITEM REPCOUNT :string 1
+      ;IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_KEYUP   ASCII ITEM REPCOUNT :string (SUM 1 (LSHIFT 1 31))
+    ]
+  ]
+
+END
+BURY "UIAUTOMATION.SENDSTRINGTOWINDOW
+
+
+TO UIAUTOMATION.POSTSTRINGTOWINDOW :parentwindow :childwindowclass :string
+
+  localmake "uievent array 2
+
+  setitem 1 :uievent [UIAUTOMATION.SENDSTRINGTOWINDOW ?1 ?2 ?3]
+  setitem 2 :uievent (list :parentwindow :childwindowclass :string)
+
+  uiautomation.postevent :uievent
+END
+BURY "UIAUTOMATION.POSTSTRINGTOWINDOW
+
+
+; Simulates pushing a button on the Commander.
+; The commander must be undocked.
+TO UIAUTOMATION.PUSHCOMMANDERBUTTON :buttontext [:UseSendApi "True]
+
+  localmake "WM_LBUTTONDOWN 512+1  ; 0x0201
+  localmake "WM_LBUTTONUP   512+2  ; 0x0202
+
+  LOCALMAKE "commanderHwnd UIAUTOMATION.FINDWINDOW "Commander 0
+  if :commanderHwnd = 0 [
+     REPORTTESTBUG "|Couldn't find Commander window|
+     STOP
+  ]
+
+  ; The buttons are not direct children of the commander window, but are
+  ; instead on a child panel (called "panel")
+  MAKE "commanderHwnd UIAUTOMATION.FINDCHILDWINDOW :commanderHwnd "panel 0
+  if :commanderHwnd = 0 [
+     REPORTTESTBUG "|Couldn't find panel within Commander window|
+     STOP
+  ]
+
+  LOCALMAKE "button UIAUTOMATION.FINDCHILDWINDOW :commanderHwnd :buttontext 0
+  if :button = 0 [
+     REPORTTESTBUG (WORD "|Couldn't find button named "| :buttontext "|" on Commander window|)
+     STOP
+  ]
+
+  IGNORE (UIAUTOMATION.SENDMESSAGE :button :WM_LBUTTONDOWN 0 0 :UseSendApi)
+  IGNORE (UIAUTOMATION.SENDMESSAGE :button :WM_LBUTTONUP   0 0 :UseSendApi)
+END
+BURY "UIAUTOMATION.PUSHCOMMANDERBUTTON
+
+
+
+TO UIAUTOMATION.SENDBUTTONPUSHTOWINDOW :parentwindowtitle :buttontext [:UseSendApi "True]
+
+  localmake "WM_LBUTTONDOWN 512+1  ; 0x0201
+  localmake "WM_LBUTTONUP   512+2  ; 0x0202
+
+  LOCALMAKE "parenthwnd UIAUTOMATION.FINDWINDOW :parentwindowtitle 0
+  if :parenthwnd = 0 [
+     REPORTTESTBUG (word "|Couldn't find window named "| :parentwindowtitle "|"|)
+     STOP
+  ]
+
+  LOCALMAKE "button UIAUTOMATION.FINDCHILDWINDOW :parenthwnd :buttontext 0
+  if :button = 0 [
+     REPORTTESTBUG (word "|Couldn't find button named "| :buttontext "|" on "| :parentwindowtitle "|"|)
+     STOP
+  ]
+
+  IGNORE (UIAUTOMATION.SENDMESSAGE :button :WM_LBUTTONDOWN 0 0 :UseSendApi)
+  IGNORE (UIAUTOMATION.SENDMESSAGE :button :WM_LBUTTONUP   0 0 :UseSendApi)
+END
+BURY "UIAUTOMATION.SENDBUTTONPUSHTOWINDOW
+
+
+TO UIAUTOMATION.POSTBUTTONPUSHTOWINDOW :parentwindowtitle :buttontext
+
+  localmake "uievent array 2
+
+  setitem 1 :uievent [UIAUTOMATION.SENDBUTTONPUSHTOWINDOW ?1 ?2]
+  setitem 2 :uievent (list :parentwindowtitle :buttontext)
+
+  uiautomation.postevent :uievent
+END
+BURY "UIAUTOMATION.POSTBUTTONPUSHTOWINDOW
+
+
+
+
+TO UIAUTOMATION.SENDKEYTOWINDOW :parentwindowtitle :childwindowclass :key
+
+  localmake "WM_KEYDOWN 256    ; 0x0100
+  localmake "WM_KEYUP   256+1  ; 0x0101
+  localmake "WM_CHAR    256+2  ; 0x0102
+
+  localmake "hwnd UIAUTOMATION.GETCHILDWINDOWBYCLASS :parentwindowtitle :childwindowclass
+  if :hwnd = 0 [ STOP ]
+
+  IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_KEYDOWN :key 0
+  IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_KEYUP   :key 0
+END
+BURY "UIAUTOMATION.SENDKEYTOWINDOW
+
+TO UIAUTOMATION.POSTKEYTOWINDOW :parentwindowtitle :childwindowclass :key
+
+  localmake "uievent array 2
+
+  setitem 1 :uievent [UIAUTOMATION.SENDKEYTOWINDOW ?1 ?2 ?3]
+  setitem 2 :uievent (list :parentwindowtitle :childwindowclass :key)
+
+  uiautomation.postevent :uievent
+END
+BURY "UIAUTOMATION.POSTKEYTOWINDOW
+
+
+TO UIAUTOMATION.SENDMENUCOMMANDTOWINDOW :windowtitle :command
+
+  localmake "WM_COMMAND 273 ; 0x0111
+
+  localmake "hwnd UIAUTOMATION.FINDWINDOW :windowtitle 0
+  if :hwnd = 0 [ STOP ]
+
+  IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_COMMAND :command 0
+END
+BURY "UIAUTOMATION.SENDMENUCOMMANDTOWINDOW
+
+
+TO UIAUTOMATION.SENDFOCUSTOWINDOW :parentwindowtitle :childwindowclass
+
+  localmake "hwnd UIAUTOMATION.GETCHILDWINDOWBYCLASS :parentwindowtitle :childwindowclass
+  if :hwnd = 0 [ STOP ]
+
+  IGNORE UIAUTOMATION.SETFOCUS :hwnd
+END
+BURY "UIAUTOMATION.SENDFOCUSTOWINDOW
+
+TO UIAUTOMATION.POSTFOCUSTOWINDOW :parentwindowtitle :childwindowclass
+
+  localmake "uievent array 2
+
+  setitem 1 :uievent [UIAUTOMATION.SENDFOCUSTOWINDOW ?1 ?2]
+  setitem 2 :uievent (list :parentwindowtitle :childwindowclass)
+
+  uiautomation.postevent :uievent
+END
+BURY "UIAUTOMATION.POSTFOCUSTOWINDOW
+
+
+TO UIAUTOMATION.UNPACK.UINT32 :buffer :offset
+  ; Extract (and outputs) a 32-bit integer from :buffer, which was
+  ; created by DLLCALL.  :offset is zero-indexed.
+  LOCAL [b1 b2 b3 b4]
+  MAKE "b1 RAWASCII ITEM SUM :offset 1 :buffer 
+  MAKE "b2 RAWASCII ITEM SUM :offset 2 :buffer 
+  MAKE "b3 RAWASCII ITEM SUM :offset 3 :buffer
+  MAKE "b4 RAWASCII ITEM SUM :offset 4 :buffer
+  OUTPUT (BITOR (LSHIFT :b4 24) (LSHIFT :b3 16) (LSHIFT :b2 8) :b1)
+END
+BURY "UIAUTOMATION.UNPACK.UINT32
+
+TO UIAUTOMATION.GETWINDOWRECT :hwnd
+  ; Calls the win32 function GetWindowRect() and unmarhals the returned
+  ; RECT into a list [left top right bottom]
+  LOCAL [rval rect isOk]
+
+  MAKE "rval (DLLCALL (LIST "L "GetWindowRect "B 16 "L :hwnd) "user32.dll)
+  MAKE "isOk ITEM 1 :rval
+  IF EQUAL? 0 :isOk [
+     REPORTTESTBUG (WORD "|GetWindowRect() failed to find | :hwnd ". )
+     OUTPUT []
+  ]
+
+  ; Now unpack the RECT, which is defined as the following C struct
+  ;
+  ;  typedef struct _RECT {
+  ;    LONG left;
+  ;    LONG top;
+  ;    LONG right;
+  ;    LONG bottom;
+  ;  } RECT, *PRECT;
+  ;
+  MAKE "rect ITEM 2 :rval
+  MAKE "left   UIAUTOMATION.UNPACK.UINT32 :rect 0
+  MAKE "top    UIAUTOMATION.UNPACK.UINT32 :rect 4
+  MAKE "right  UIAUTOMATION.UNPACK.UINT32 :rect 8
+  MAKE "bottom UIAUTOMATION.UNPACK.UINT32 :rect 12
+  OUTPUT (LIST :left :top :right :bottom)
+END
+BURY "UIAUTOMATION.GETWINDOWRECT

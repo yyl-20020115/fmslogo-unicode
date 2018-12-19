@@ -1,0 +1,5 @@
+to maximize :caption
+  windowset :caption 3
+end
+
+bury "maximize

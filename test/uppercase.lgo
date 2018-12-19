@@ -1,0 +1,90 @@
+LOAD "testlib.lgo
+
+TO UPPERCASETEST.SMOKETEST
+
+  ; words are okay
+  SIMPLEREPORTTEST [UPPERCASE "hello] "HELLO
+  SIMPLEREPORTTEST [UPPERCASE "HELLO] "HELLO
+  SIMPLEREPORTTEST [UPPERCASE "HeLlo] "HELLO
+
+  ; the empty string is okay
+  SIMPLEREPORTTEST [UPPERCASE "||   ] "||
+
+  ; numbers are okay
+  SIMPLEREPORTTEST [UPPERCASE  12345] 12345
+  SIMPLEREPORTTEST [UPPERCASE  12.34] 12.34
+
+  ; all alphanumeric characters in ASCII
+  SIMPLEREPORTTEST [UPPERCASE "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_ ] ~
+                              "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_
+
+  ; non-alphanumeric characters in ASCII should remain unchanged
+  SIMPLEREPORTTEST [UPPERCASE "| `\~!@#$%^&*()_+-=\[\]\{\}\|\\;:'",<.>/?| ] ~
+                              "| `\~!@#$%^&*()_+-=\[\]\{\}\|\\;:'",<.>/?|
+
+
+END
+
+TO UPPERCASETEST.INTERNATIONAL
+
+  ; Test some characters from Latin-1 set that are not in ASCII
+
+  ; NOTE: We can't put the characters in here directly or else this
+  ;       won't look like a text file to CVS, so we use their numeric value
+  local [pairs lowercase capital]
+
+  make "pairs [
+    [253 221]
+    [241 209]
+    [225 193]
+    [226 194]
+    [227 195]
+    [228 196]
+    [231 199]
+    [232 200]
+    [233 201]
+    [234 202]
+    [235 203]
+    [236 204]
+    [237 205]
+    [238 206]
+    [239 207]
+    [240 208]
+    [241 209]
+    [243 211]
+    [244 212]
+    [245 213]
+    [246 214]
+    [248 216]
+    [249 217]
+  ]
+
+  foreach :pairs [
+     make "lowercase CHAR (ITEM 1 ?)
+     make "capital   CHAR (ITEM 2 ?)
+
+     SIMPLEREPORTTEST (LIST "UPPERCASE (WORD "" :lowercase :capital)) ~
+                      (WORD :capital :capital)
+  ]
+
+END
+
+
+TO UPPERCASETEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST   [(UPPERCASE "hello "toomany)]
+   RUNNOTENOUGHINPUTSTEST [(UPPERCASE)]
+
+   RUNBADINPUTTEST        [UPPERCASE [1 2 3]]
+   RUNBADINPUTTEST        [UPPERCASE {1 2 3}]
+
+END
+
+TO UPPERCASETEST
+
+   UPPERCASETEST.SMOKETEST
+   UPPERCASETEST.INTERNATIONAL
+   UPPERCASETEST.BADINPUT
+
+END
+

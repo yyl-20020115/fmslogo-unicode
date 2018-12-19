@@ -1,0 +1,159 @@
+catch "error [ copydef "px                "pi                 ]
+catch "error [ copydef "giù               "giu                ]
+catch "error [ copydef "pennagiù          "pennagiu           ]
+
+; copydef of library routines
+catch "error [ copydef "ass              "abs            ]
+catch "error [ copydef "vettorelista     "arraytolist    ]
+catch "error [ copydef "chiedi           "ask            ]
+catch "error [ copydef "nasconditutti    "buryall        ]
+catch "error [ copydef "nascondinome     "buryname       ]
+catch "error [ copydef "cerchio          "circle         ]
+catch "error [ copydef "cerchio2         "circle2        ]
+catch "error [ copydef "mappaincroci     "crossmap       ]
+catch "error [ copydef "fuoricoda        "dequeue        ]
+catch "error [ copydef "cat              "dir            ]
+;catch "error [ copydef "dir              "dir            ]
+catch "error [ copydef "esegui.finche'   "do.until       ]
+catch "error [ copydef "esegui.finche    "do.until       ]
+catch "error [ copydef "esegui.finché    "do.until       ]
+catch "error [ copydef "esegui.mentre    "do.while       ]
+catch "error [ copydef "editatutti       "edall          ]
+catch "error [ copydef "edtutti          "edall          ]
+;catch "error [ copydef "edn              "edn            ]
+;catch "error [ copydef "edns             "edns           ]
+;catch "error [ copydef "edlp             "edpl           ]
+;catch "error [ copydef "edlps            "edpls          ]
+;catch "error [ copydef "edps             "edps           ]
+catch "error [ copydef "can              "ern            ]
+catch "error [ copydef "cancenomi        "erns           ]
+catch "error [ copydef "calp             "erpl           ]
+catch "error [ copydef "capliste         "erpls          ]
+catch "error [ copydef "caproc           "erps           ]
+;catch "error [ copydef "filep            "filep          ]
+catch "error [ copydef "file?            "filep          ]
+catch "error [ copydef "filtro           "filter         ]
+catch "error [ copydef "trova            "find           ]
+catch "error [ copydef "cicloper         "for            ]
+catch "error [ copydef "perogni          "foreach        ]
+catch "error [ copydef "icona            "minimize       ]
+catch "error [ copydef "invoca           "invoke         ]
+catch "error [ copydef "listavettore     "listtoarray    ]
+catch "error [ copydef "aslocale         "localmake      ]
+catch "error [ copydef "espandimacro     "macroexpand    ]
+catch "error [ copydef "assegnatarta     "maketurtle     ]
+catch "error [ copydef "mappa            "map            ]
+catch "error [ copydef "mappa.fr         "map.se         ]
+catch "error [ copydef "mdvettore        "mdarray        ]
+catch "error [ copydef "mdelem           "mditem         ]
+catch "error [ copydef "mdaselem         "mdsetitem      ]
+catch "error [ copydef "copiamouse       "mousecopy      ]
+catch "error [ copydef "chiama           "name           ]
+catch "error [ copydef "listanomi        "namelist       ]
+catch "error [ copydef "norefresh        "norefresh      ]
+catch "error [ copydef "penna            "pen            ]
+catch "error [ copydef "pennanormale     "pennormal      ]
+catch "error [ copydef "cogli            "pick           ]
+catch "error [ copydef "lplista          "pllist         ]
+catch "error [ copydef "sctutto          "poall          ]
+catch "error [ copydef "scnome           "pon            ]
+catch "error [ copydef "scnomi           "pons           ]
+catch "error [ copydef "scprop           "pop            ]
+catch "error [ copydef "sclp             "popl           ]
+catch "error [ copydef "sclistep         "popls          ]
+catch "error [ copydef "scproce          "pops           ]
+catch "error [ copydef "sctitoli         "pots           ]
+catch "error [ copydef "infila           "push           ]
+catch "error [ copydef "coda             "queue          ]
+catch "error [ copydef "travirgolette    "quoted         ]
+catch "error [ copydef "riduci           "reduce         ]
+;catch "error [ copydef "refresh          "refresh        ]
+catch "error [ copydef "toglidup         "remdup         ]
+catch "error [ copydef "rimuovi          "remove         ]
+catch "error [ copydef "inverti          "reverse        ]
+catch "error [ copydef "salvalista       "savel          ]
+catch "error [ copydef "asorient         "setorientation ]
+catch "error [ copydef "aspen            "setpen         ]
+catch "error [ copydef "segno            "sign           ]
+catch "error [ copydef "ordina           "sort           ]
+catch "error [ copydef "suonono          "soundoff       ]
+catch "error [ copydef "suonosi          "soundon        ]
+catch "error [ copydef "fonttesto        "textfont       ]
+catch "error [ copydef "trasfer          "transfer       ]
+catch "error [ copydef "scopritutto      "unburyall      ]
+catch "error [ copydef "scoprinome       "unburyname     ]
+catch "error [ copydef "noicona          "restore        ]
+catch "error [ copydef "finche'          "until          ]
+catch "error [ copydef "finche           "until          ]
+catch "error [ copydef "finché           "until          ]
+catch "error [ copydef "mentre           "while          ]
+;catch "error [ copydef "xcor             "xcor           ]
+;catch "error [ copydef "ycor             "ycor           ]
+;catch "error [ copydef "zcor             "zcor           ]
+catch "error [ copydef "sealtrimenti     "ifelse         ]
+catch "error [ copydef "primo            "first          ]
+catch "error [ copydef "dalistaavettore  "listtoarray    ]
+catch "error [ copydef "davettorealista  "arraytolist    ]
+catch "error [ copydef "listaavettore    "listtoarray    ]
+catch "error [ copydef "vettorealista    "arraytolist    ]
+catch "error [ copydef "asciigrezzo      "rawascii       ]
+catch "error [ copydef "ellisse          "ellipse        ]
+catch "error [ copydef "ellisse2         "ellipse2       ]
+catch "error [ copydef "arcoellisse2     "ellipsearc2    ]
+
+to slowdraw :slowness
+    ; reimplement SLOWDRAW to operate on both the English and Italian versions
+    ; the "logolib/slowdraw" file should get ignored because of this
+
+    if not number? :slowness              [(throw "error 4 :slowness)]
+    if not equal? :slowness int :slowness [(throw "error 4 :slowness)]
+    if less? :slowness 0                  [(throw "error 4 :slowness)]
+
+    ; don't change the caller's redefp setting
+    localmake "redefp "true 
+
+    ; Restore things if already slow
+    if primitivep "origforward  [
+        copydef "forward "origforward
+        copydef "fd      "origforward
+        copydef "avanti  "origforward
+        copydef "a       "origforward
+        erase "origforward
+    ]
+    if primitivep "origback [
+        copydef "back     "origback
+        copydef "bk       "origback
+        copydef "indietro "origback
+        copydef "i        "origback
+        erase "origback
+    ]
+
+    ; if a delay was specified, define new slow draw routines
+    if :slowness <> 0 [
+        copydef "origforward "forward
+        erase "fd
+        define "fd (list [d] 
+            (list "repeat :slowness
+                (list "origforward (word ": "d) "/ :slowness "wait 1)
+            )
+        )
+        copydef "forward "fd
+        copydef "avanti  "fd
+        copydef "a       "fd
+        bury "fd
+
+        copydef "origback    "back
+        erase "bk
+        define "bk (list [d]
+            (list "repeat :slowness
+                (list "origback (word ": "d) "/ :slowness "wait 1)
+            )
+        )
+        copydef "back     "bk
+        copydef "indietro "bk
+        copydef "i        "bk
+        bury "bk
+    ]
+end
+bury "slowdraw
+catch "error [ copydef "rallenta     "slowdraw    ]

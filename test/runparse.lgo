@@ -1,0 +1,80 @@
+LOAD "testlib.lgo
+
+TO RUNPARSETEST.BADINPUT
+
+   RUNDOESNTLIKEINPUTTEST [ RUNPARSE {badinput} ]
+
+   RUNNOTENOUGHINPUTSTEST [(RUNPARSE)]
+   RUNTOOMANYINPUTSTEST   [(RUNPARSE "A<B "toomany)]
+
+END
+
+TO RUNPARSETEST.SMOKETEST
+
+   ; test infix operators are tokenized separately
+   SIMPLEREPORTTEST [ RUNPARSE "1+2*3/4 ] (list 1 "+ 2 "* 3 "/ 4)
+
+   ; test logic operators are tokenized separately
+   SIMPLEREPORTTEST [ RUNPARSE "1<2>3=4<=5>=6<>7 ] (list 1 "< 2 "> 3 "= 4 "<= 5 ">= 6 "<> 7)
+
+   ; test parens, which are tokenized separately
+   localmake "openparen  "\(
+   localmake "closeparen "\)
+   SIMPLEREPORTTEST [ RUNPARSE "1\(2\(3\)4\(5\)6\) ] (list
+       1
+       :openparen
+       2
+       :openparen
+       3
+       :closeparen
+       4
+       :openparen
+       5
+       :closeparen
+       6
+       :closeparen
+   )
+
+   ; lists are parsed as lists, instead of as individual tokens
+   SIMPLEREPORTTEST [ RUNPARSE "1\[2\[3\]4\]5 ] (list 1 (list 2 (list 3) 4) 5)
+
+   ; Arrays are also parsed as arrays, instead of instead of as individual tokens
+   ; Because arrays cannot be directly compared with equality, we must determine
+   ; if the correct array was returned with indirect checks.
+   local "runparsedvalue
+   TRACEINSTRUCTION [ make "runparsedvalue RUNPARSE "1\{2\{3\}4\}5 ]
+
+   ; confirm the type/count of the return value
+   SIMPLEREPORTTEST [ list? :runparsedvalue ] "true
+   SIMPLEREPORTTEST [ count  :runparsedvalue ] 3
+   SIMPLEREPORTTEST [ array? item 2 :runparsedvalue ] "true
+   SIMPLEREPORTTEST [ count  item 2 :runparsedvalue ] 3
+   SIMPLEREPORTTEST [ array? item 2 item 2 :runparsedvalue ] "true
+   SIMPLEREPORTTEST [ count  item 2 item 2 :runparsedvalue ] 1
+
+   ; confirm the values in the returned list
+   SIMPLEREPORTTEST [ item 1 :runparsedvalue ]               1
+   SIMPLEREPORTTEST [ item 1 item 2 :runparsedvalue ]        2
+   SIMPLEREPORTTEST [ item 1 item 2 item 2 :runparsedvalue ] 3
+   SIMPLEREPORTTEST [ item 3 item 2 :runparsedvalue ]        4
+   SIMPLEREPORTTEST [ item 3 :runparsedvalue ]               5
+
+
+   ; comments should be ignored
+   SIMPLEREPORTTEST [ runparse "1\ 2\ 3\;\ 4\ 5\ 6 ] [1 2 3]
+
+   ; line continuation
+   SIMPLEREPORTTEST [ runparse "1\~\n\2 ] [12]
+
+   ; line continuation with whitespace after it
+   SIMPLEREPORTTEST [ runparse "1\~\ \n\2 ] [1~ 2]
+
+   ; backslashed non-special characters
+   SIMPLEREPORTTEST [ runparse "\1\2\a\b ] [12ab]
+
+END
+
+TO RUNPARSETEST
+   RUNPARSETEST.SMOKETEST
+   RUNPARSETEST.BADINPUT
+END

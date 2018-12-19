@@ -1,0 +1,51 @@
+LOAD "testlib.lgo
+
+
+TO WINDOWFILEEDITTEST.BUG20
+  ; This is a manual regression test for bug #20.
+  ; The bug is that the WINDOWFILEEDIT appened NUL-NUL-CR-LF to the end of the text file.
+
+  MESSAGEBOX [Manual Step] [When the editor pops up, write a short Logo command and click "File -> Save and Exit"]
+
+  WINDOWFILEEDIT "sample.lgo [
+    MESSAGEBOX [Manual Step] [Open "sample.lgo" in a text editor and look for errors.
+When you press OK, the file will be deleted.]
+    ERASEFILE "sample.lgo
+  ]
+END
+
+TO WINDOWFILEEDITTEST.LONGFILENAME
+
+  ; This is a regression test for bug #142.
+
+  ; Create a file with a long name.
+  LOCALMAKE "longfilename REPEATWORD "A 100
+  OPENWRITE :longfilename
+  CLOSE     :longfilename
+
+  TRACEINSTRUCTION [ 
+    WINDOWFILEEDIT :longfilename (LIST
+       "REPORTTESTPASSED [WINDOWFILEEDIT did not crash on a long filename] 
+       "ERASEFILE QUOTED :longfilename
+    )
+  ]
+
+  ; Wait for the editor to be closed.
+  MESSAGEBOX "Notice [The editor should now be shown.  Save the contents of the editor, then press OK.]
+
+  ; Coax FMSLogo into checking its internal event queue.
+  SETTIMER 31 0 [CLEARTIMER 31]
+  WAIT 30
+
+  ; Make sure the callback was run.
+  FAILIFNOTFALSE [FILEEXISTS :longfilename]
+END
+
+
+TO WINDOWFILEEDITTEST
+
+  ; manual tests
+  ; WINDOWFILEEDITTEST.BUG20
+
+  WINDOWFILEEDITTEST.LONGFILENAME
+END

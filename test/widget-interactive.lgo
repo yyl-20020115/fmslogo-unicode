@@ -1,0 +1,359 @@
+; This file contains some commands that exercise the widget commands.
+; The intent is to facilitate interactive testing, particularly concerning
+; the look-and-feel of the dialog boxes that get created.
+;
+; The look-and-feel can only be verified by comparing one implementation,
+; such as MSWLogo, to another such as the wxWidgets implementation of FMSLogo.
+
+TO MisOrderedGroups
+
+  ; Create two sets of radio buttons
+  WINDOWCREATE "desktop "misorderedgroups [Misordered Groups] 120 120 230 100 []
+
+  STATICCREATE "misorderedgroups GENSYM [
+    This window has two sets of radio buttons that belong
+    to separate groups, but whose GROUPBOXCREATE calls
+    are both made before any RADIOBUTTONCREATE.
+  ] 5 5 220 300
+
+  localmake "LeftColumnX   10
+  localmake "LeftColumnY   35
+
+  localmake "RightColumnX  80
+  localmake "RightColumnY  35
+
+  make "leftgroup  GENSYM
+  make "rightgroup GENSYM
+
+  ; Create the radio buttons on the left
+  GROUPBOXCREATE "misorderedgroups :leftgroup :LeftColumnX-5   :LeftColumnY  60 50
+  make "LeftColumnY :LeftColumnY + 10
+
+  ; Create the radio buttons on the right
+  GROUPBOXCREATE "misorderedgroups :rightgroup :RightColumnX-5 :RightColumnY 60 50
+  make "RightColumnY :RightColumnY + 10
+
+  ; Add all of the radio buttons in "LeftGroup
+  RADIOBUTTONCREATE "misorderedgroups :leftgroup GENSYM [Left A] :LeftColumnX :LeftColumnY 50 14
+  make "LeftColumnY :LeftColumnY + 14
+
+  RADIOBUTTONCREATE "misorderedgroups :leftgroup GENSYM [Left B] :LeftColumnX :LeftColumnY 50 14
+  make "LeftColumnY :LeftColumnY + 14
+
+  ; Add all of the radio buttons in "RightGroup
+  RADIOBUTTONCREATE "misorderedgroups :rightgroup GENSYM [Right A] :RightColumnX :RightColumnY 50 14
+  make "RightColumnY :RightColumnY + 14
+
+  RADIOBUTTONCREATE "misorderedgroups :rightgroup GENSYM [Right B] :RightColumnX :RightColumnY 50 14
+  make "RightColumnY :RightColumnY + 14
+
+  ; Create a button to close the window
+  BUTTONCREATE "misorderedgroups GENSYM "Close 140 70 60 14 [WINDOWDELETE "misorderedgroups]
+
+END
+
+TO ListBoxes
+  WINDOWCREATE "desktop "listboxes [Various Listboxes] 140 140 400 250 []
+
+  local [listboxname]
+
+  LISTBOXCREATE "listboxes GENSYM 5 5  10 10
+
+  make "listboxname GENSYM
+  LISTBOXCREATE "listboxes :listboxname 5 20 100 100
+  LISTBOXADDSTRING :listboxname  [100x100 list box]
+  LISTBOXADDSTRING :listboxname  (word "entry (char 9) "with (char 9) "tabs)
+
+  make "listboxname GENSYM
+  LISTBOXCREATE "listboxes :listboxname 110 5 250 230
+  LISTBOXADDSTRING :listboxname  [250x230 list box]
+  REPEAT 40 [
+      LISTBOXADDSTRING :listboxname (word "Entry "# REPCOUNT+1)
+  ]
+
+  BUTTONCREATE "listboxes GENSYM "Close 5 170 80 18 [WINDOWDELETE "listboxes]
+
+END
+
+TO ModalDialogBox.AddWidgets
+
+  GROUPBOXCREATE    "ModalDialogBox "dlggroup1 150 0 100 40
+  RADIOBUTTONCREATE "ModalDialogBox "dlggroup1 GENSYM [Radio A] 155  5 80 16
+  RADIOBUTTONCREATE "ModalDialogBox "dlggroup1 GENSYM [Radio B] 155 20 80 16
+
+  GROUPBOXCREATE "ModalDialogBox "dlggroup2 150 50 100 40
+  CHECKBOXCREATE "ModalDialogBox "dlggroup2 GENSYM [Check A] 155 55 80 16
+  CHECKBOXCREATE "ModalDialogBox "dlggroup2 GENSYM [Check B] 155 70 80 16
+
+  STATICCREATE      "ModalDialogBox "dlgverticalstatic [] 0 5 50 10
+  SCROLLBARCREATE   "ModalDialogBox "dlgverticalscroll 15 20 0 100 [
+     STATICUPDATE "dlgverticalstatic (word "-30, SCROLLBARGET "dlgverticalscroll ", "50)
+  ]
+  SCROLLBARSET      "dlgverticalscroll -30 50 -20
+
+  STATICCREATE      "ModalDialogBox "dlghorizontalstatic [] 5 125 50 18
+  SCROLLBARCREATE   "ModalDialogBox "dlghorizontalscroll 55 125 120 0 [
+     STATICUPDATE "dlghorizontalstatic (word "100, SCROLLBARGET "dlghorizontalscroll ", "1000)
+  ]
+  SCROLLBARSET      "dlghorizontalscroll 100 1000 0
+
+
+  LISTBOXCREATE "ModalDialogBox "dlgscreenlistbox 50 5 90 60
+  LISTBOXADDSTRING "dlgscreenlistbox [Item #1]
+  LISTBOXADDSTRING "dlgscreenlistbox [Item #2]
+  LISTBOXADDSTRING "dlgscreenlistbox [Item #3]
+
+  COMBOBOXCREATE "ModalDialogBox "dlgscreencombobox 50 70 90 50
+  COMBOBOXADDSTRING "dlgscreencombobox [ComboBox Item #1]
+  COMBOBOXADDSTRING "dlgscreencombobox [ComboBox Item #2]
+  COMBOBOXADDSTRING "dlgscreencombobox [ComboBox Item #3]
+
+  STATICCREATE "ModalDialogBox GENSYM [This has no height and should be hidden] 0 5 200 0
+
+  BUTTONCREATE "ModalDialogBox GENSYM "OK 210 120 40 18 [DIALOGDELETE "ModalDialogBox]
+
+END
+
+TO ModalDialogBox
+
+  DIALOGCREATE "desktop "ModalDialogBox [Modal Dialog Box With All Widgets] 200 200 260 160 [ModalDialogBox.AddWidgets]
+
+END
+
+TO DeleteAndCreateDialogFromCallback.Callback
+
+  STATICCREATE "testdialog GENSYM [
+     This test deletes, then recreate a dialog box from the callback.
+     This is the dialog that is deleted.  You should not see it.
+  ] 5 5 110 110
+
+  DIALOGDELETE "testdialog
+
+  DIALOGCREATE "root "testdialog [Inner Dialog] 100 100 120 120 [
+
+     STATICCREATE "testdialog GENSYM [
+        This is the inner dialog box that gets created after another
+        one of the same name is deleted.
+        You should only see it once.
+     ] 5 5 110 70
+     buttoncreate "testdialog "button [OK] 60 80 50 16 [DIALOGDELETE "testdialog]
+  ]
+End
+
+TO DeleteAndCreateDialogFromCallback
+
+  ; create, delete, and create a dialog from the callback
+  DIALOGCREATE "root "testdialog [Outer Dialog] 0 0 120 120 [ 
+     DeleteAndCreateDialogFromCallback.Callback
+  ]
+
+END
+
+TO DeleteAndCreateWindowFromCallback.Callback
+
+  STATICCREATE "testwindow GENSYM [
+     This test deletes, then recreate a dialog box from the callback.
+     This is the dialog that is deleted.  You should not see it.
+  ] 5 5 110 110
+
+  WINDOWDELETE "testwindow
+
+  WINDOWCREATE "root "testwindow [Inner Window] 100 100 120 120 [
+
+     STATICCREATE "testwindow GENSYM [
+        This is the inner dialog box that gets created after another
+        one of the same name is deleted.
+        You should only see it once.
+     ] 5 5 110 70
+     buttoncreate "testwindow "button [OK] 60 80 50 16 [WINDOWDELETE "testwindow]
+  ]
+End
+
+TO DeleteAndCreateWindowFromCallback
+
+  ; create, delete, and create a dialog from the callback
+  WINDOWCREATE "root "testwindow [Outer Window] 0 0 120 120 [ 
+     DeleteAndCreateWindowFromCallback.Callback
+  ]
+
+END
+
+TO LongTextOnControls
+
+  ; Make a word that's a bunch of peroids followed by an exclamation point.
+  ; In a variable-width font, these are narrow characters and let's us
+  ; test the character limit before we run out of space.
+  ; The different character at the end ensures that we can see if the
+  ; entire string is shown.
+  localmake "longword "!
+  REPEAT 250 [ make "longword word ". :longword ]
+
+  WINDOWCREATE "desktop "longtextoncontrols WORD "|Long Text On Controls| :longword 0 0 632 200 []
+  STATICCREATE "longtextoncontrols GENSYM [
+     This dialog box has buttons with long text (>255 character).
+     All text ends in an exclaimation point.
+  ] 2 2 625 16
+
+  BUTTONCREATE "longtextoncontrols GENSYM (word
+    "|This was set with BUTTONCREATE.|
+    :longword
+  ) 2 18 625 18 []
+
+  BUTTONCREATE "longtextoncontrols "longtextbuttonupdate [ Initial ] 2 40 625 18 []
+  BUTTONUPDATE "longtextbuttonupdate (word
+    "|This was set with BUTTONUPDATE.|
+    :longword
+  )
+
+  LOCALMAKE "group GENSYM
+  GROUPBOXCREATE "longtextoncontrols :group 2 60 625 25
+  CHECKBOXCREATE "longtextoncontrols :group GENSYM (word
+    "|This checkbox has a long label |
+    :longword
+  ) 5 65 620 18
+
+  LOCALMAKE "group GENSYM
+  GROUPBOXCREATE "longtextoncontrols :group 2 80 625 25
+  RADIOBUTTONCREATE "longtextoncontrols :group GENSYM (word
+    "|This radio button has long text |
+    :longword
+  ) 5 85 620 18
+
+  STATICCREATE "longtextoncontrols GENSYM (word
+    "|This was set when the static control was created.|
+    :longword
+  ) 2 110 625 18 
+
+  STATICCREATE "longtextoncontrols "longtextstaticupdate [ Initial ] 2 130 625 18
+  STATICUPDATE "longtextstaticupdate (word
+    "|This was set with STATICUPDATE.|
+    :longword
+  )
+
+  BUTTONCREATE "longtextoncontrols GENSYM [Close] 590 170 35 15 [WINDOWDELETE "longtextoncontrols]
+
+END
+
+TO WIDGETTEST.INTERACTIVE
+
+  ; Create two sets of radio buttons
+  WINDOWCREATE "desktop "interactiveroot [Interactive Test] 50 50 400 200 []
+
+  localmake "LeftColumnX   10
+  localmake "LeftColumnY   5
+
+  localmake "RightColumnX  80
+  localmake "RightColumnY  5
+
+  ; Create the radio buttons on the left
+  GROUPBOXCREATE "interactiveroot "leftgroup :LeftColumnX-5   :LeftColumnY  60 80
+  make "LeftColumnY :LeftColumnY + 10
+
+  ; Add all of the radio buttons in "LeftGroup
+  RADIOBUTTONCREATE "interactiveroot "leftgroup "LeftRadioButtonA [Left A] :LeftColumnX :LeftColumnY 50 14
+  make "LeftColumnY :LeftColumnY + 14
+
+  RADIOBUTTONCREATE "interactiveroot "leftgroup "LeftRadioButtonB [Left B] :LeftColumnX :LeftColumnY 50 14
+  make "LeftColumnY :LeftColumnY + 14
+
+  RADIOBUTTONCREATE "interactiveroot "leftgroup "LeftRadioButtonC [Left C] :LeftColumnX :LeftColumnY 50 14
+  make "LeftColumnY :LeftColumnY + 14
+
+
+  ; Create the radio buttons on the right
+  GROUPBOXCREATE "interactiveroot "rightgroup :RightColumnX-5 :RightColumnY 60 80
+  make "RightColumnY :RightColumnY + 10
+
+  ; Add all of the radio buttons in "RightGroup
+  RADIOBUTTONCREATE "interactiveroot "rightgroup "RightRadioButtonA [Right A] :RightColumnX :RightColumnY 50 14
+  make "RightColumnY :RightColumnY + 14
+
+  RADIOBUTTONCREATE "interactiveroot "rightgroup "RightRadioButtonB [Right B] :RightColumnX :RightColumnY 50 14
+  make "RightColumnY :RightColumnY + 14
+
+  RADIOBUTTONCREATE "interactiveroot "rightgroup "RightRadioButtonC [Right C] :RightColumnX :RightColumnY 50 14
+  make "RightColumnY :RightColumnY + 14
+
+  ; Create a group box for the checkboxes
+  localmake "CheckboxColumnY 5
+
+  GROUPBOXCREATE "interactiveroot "checkboxgroup 200 :CheckboxColumnY 150 80
+  make "CheckboxColumnY :CheckboxColumnY + 10
+
+  CHECKBOXCREATE "interactiveroot "checkboxgroup "CheckBox1 [One]   210 :CheckboxColumnY 50 14
+  make "CheckboxColumnY :CheckboxColumnY + 14
+
+  CHECKBOXCREATE "interactiveroot "checkboxgroup "CheckBox2 [Two]   210 :CheckboxColumnY 50 14
+  make "CheckboxColumnY :CheckboxColumnY + 14
+
+  CHECKBOXCREATE "interactiveroot "checkboxgroup "CheckBox3 [Three] 210 :CheckboxColumnY 50 14
+  make "CheckboxColumnY :CheckboxColumnY + 14
+
+  ; Create a listbox to launch the other dialog boxes
+  LISTBOXCREATE "interactiveroot "listbox 5 90 130 80
+  LISTBOXADDSTRING "listbox [MisOrderedGroups]
+  LISTBOXADDSTRING "listbox [ListBoxes]
+  LISTBOXADDSTRING "listbox [ModalDialogBox]
+  LISTBOXADDSTRING "listbox [DeleteAndCreateDialogFromCallback]
+  LISTBOXADDSTRING "listbox [DeleteAndCreateWindowFromCallback]
+  LISTBOXADDSTRING "listbox [LongTextOnControls]
+
+  ; Create a button to open of the child interactive tests
+  BUTTONCREATE  "interactiveroot GENSYM [Open Window] 5 167 130 18 [ RUN LISTBOXGETSELECT "listbox ]
+
+  ; Add a long static text control
+  STATICCREATE "interactiveroot GENSYM [
+     This window contains all widget types.
+     It is intended to be used in interactive testing, particularly when
+     comparing the behavior of one version of FMSLogo to another.\n
+     \nYou can run other specialized tests by selecing the test case
+     from the list box to the right and clicking \"Open Window\".
+  ] 140 90 200 160
+
+  ; Add a third static text
+  STATICCREATE "interactiveroot GENSYM (WORD
+     "Static (char 9) "With (char 9) "Tab (char 9) "|and & ampersands.|
+  ) 140 150 200 80
+
+  ; Create a button to close the window
+  BUTTONCREATE "interactiveroot  GENSYM "Close 300 156 80 18 [WINDOWDELETE "interactiveroot]
+
+
+  ;
+  ; Now add one of each widget to the screen
+  ;
+  GROUPBOXCREATE    "main "group1 0 200 100 50
+  RADIOBUTTONCREATE "main "group1 GENSYM [Radio A] 5 190 80 16
+  RADIOBUTTONCREATE "main "group1 GENSYM [Radio B] 5 170 80 16
+
+  GROUPBOXCREATE "main "group2 0 150 100 50
+  CHECKBOXCREATE "main "group2 GENSYM [Check A] 5 140 80 16
+  CHECKBOXCREATE "main "group2 GENSYM [Check B] 5 120 80 16
+
+  STATICCREATE      "main "verticalstatic [] -200 200 100 20
+  SCROLLBARCREATE   "main "verticalscroll -175 180 0 100 [
+     STATICUPDATE "verticalstatic (word "-30, SCROLLBARGET "verticalscroll ", "50)
+  ]
+  SCROLLBARSET      "verticalscroll -30 50 -20
+
+  STATICCREATE      "main "horizontalstatic [] -200 60 180 20
+  SCROLLBARCREATE   "main "horizontalscroll -200 40 120 0[
+     STATICUPDATE "horizontalstatic (word "100, SCROLLBARGET "horizontalscroll ", "1000)
+  ]
+  SCROLLBARSET      "horizontalscroll 100 1000 0
+
+  BUTTONCREATE "main GENSYM "Flash -100 180 55 25 [SetScreenColor Random 16]
+
+  LISTBOXCREATE "main "screenlistbox 5 90 100 80
+  LISTBOXADDSTRING "screenlistbox [Item #1]
+  LISTBOXADDSTRING "screenlistbox [Item #2]
+  LISTBOXADDSTRING "screenlistbox [Item #3]
+
+  COMBOBOXCREATE "main "screencombobox -100 -10 200 100
+  COMBOBOXADDSTRING "screencombobox [ComboBox Item #1]
+  COMBOBOXADDSTRING "screencombobox [ComboBox Item #2]
+  COMBOBOXADDSTRING "screencombobox [ComboBox Item #3]
+
+END
+
+make "Startup [WIDGETTEST.INTERACTIVE]

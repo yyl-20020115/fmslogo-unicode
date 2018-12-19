@@ -1,0 +1,33 @@
+LOAD "testlib.lgo
+
+TO FIRSTSTEST.SMOKETEST
+
+   SIMPLEREPORTTEST [FIRSTS [[1 2 3]]] [1]
+
+   SIMPLEREPORTTEST [FIRSTS [[1 2 3] [a b c]    ]] [1 a]
+   SIMPLEREPORTTEST [FIRSTS [[1 2 3] hello [1] h]] [1 h 1 h]
+
+   ; empty list is valid
+   SIMPLEREPORTTEST [FIRSTS []]  []
+
+END
+
+TO FIRSTSTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(FIRSTS)]
+   RUNTOOMANYINPUTSTEST   [(FIRSTS [[1 2 3]] "toomany)]
+
+   ; bad inputs (a list containing a bad input to FIRST
+   RUNBADINPUTTEST [FIRSTS (LIST [1 2 3]  [] [1 2 3] ) ]
+   RUNBADINPUTTEST [FIRSTS (LIST [1 2 3] "|| [1 2 3] ) ]
+   RUNBADINPUTTEST [FIRSTS (LIST [1 2 3]  {} [1 2 3] ) ]
+
+END
+
+TO FIRSTSTEST
+
+   FIRSTSTEST.SMOKETEST
+   FIRSTSTEST.BADINPUT
+
+END

@@ -1,0 +1,133 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO SHELLTEST.SMOKETEST
+
+   FAILIFNOTTRUE  [SHELL [perl -v]          ]
+   FAILIFNOTFALSE [SHELL [doesnotexist.exe] ]
+
+   ; bad input tests that cause SHELL to return "false
+   FAILIFNOTFALSE [SHELL {1} ]
+   FAILIFNOTFALSE [SHELL [1] ]
+   FAILIFNOTFALSE [SHELL  1  ]
+
+   ; test the "wait" functionality
+   LOCAL [instructions executionTime rval]
+
+   ; wait for a sleep 5
+   MAKE "instructions [MAKE "rval (SHELL [perl -e "sleep 5"] "true)]
+   MAKE "executionTime TIMECOMMAND :instructions
+   REPORTTEST :rval = LOCALETRUE (LIST :instructions "output :rval) LOCALETRUE
+   CHECKEXECUTIONTIME :instructions :executionTime 4000 6000
+
+   ; don't wait for a sleep 5
+   MAKE "instructions [MAKE "rval  (SHELL [perl -e "sleep 5"] "false)]
+   MAKE "executionTime TIMECOMMAND :instructions
+   REPORTTEST :rval = LOCALETRUE (LIST :instructions "output :rval) LOCALETRUE
+   CHECKEXECUTIONTIME :instructions :executionTime 0 500
+
+   ; verify that the default behavior is to not wait
+   MAKE "instructions [MAKE "rval SHELL [perl -e "sleep 5"]]
+   MAKE "executionTime TIMECOMMAND :instructions
+   REPORTTEST :rval = LOCALETRUE (LIST :instructions "output :rval) LOCALETRUE
+   CHECKEXECUTIONTIME :instructions :executionTime 0 500
+END
+
+TO SHELLTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(SHELL)]
+   RUNTOOMANYINPUTSTEST   [(SHELL [perl -v] LOCALEFALSE "toomany)]
+
+   ; bad inputs
+   RUNBADINPUTTEST [IGNORE (SHELL [perl -v] 1)]
+   RUNBADINPUTTEST [IGNORE (SHELL [perl -v] 0)]
+   RUNBADINPUTTEST [IGNORE (SHELL [perl -v] [true])]
+   RUNBADINPUTTEST [IGNORE (SHELL [perl -v] {false})]
+END
+
+TO SHELLTEST.WAITYIELDS
+   ; Test that SHELL will block when given a true "wait" flag, but yield
+   ; to messages, including timer events and button pushes.
+
+   TEXTSCREEN
+   UIAUTOMATION.INITIALIZE
+
+   ; Schedule a timer that simulates pressing the Halt button after five seconds.
+   ; This should halt the SHELL command, but not the test pass.
+   ; The reason is subtle and worth describing.  SHELL yields to the timer
+   ; event.  The timer event calls the win32 API PostMessage() to post some
+   ; messages that simulate a button push.  Because this uses PostMessage, not
+   ; SendMessage, the messages won't be processed until the next time FMSLogo
+   ; reads from the message pump, which is after the timer event has completed.
+   ; At this point, the SHELL command again, scans for messages and dispatches
+   ; to handle them.  Pressing "Halt" button sets the IsTimeToHalt flag.
+   ; Again, this is checked by the SHELL command, at which point it will halt
+   ; *and* clear the IsTimeToHalt flag.
+   ; Then the language engine continues executing the commands *after* SHELL,
+   ; which is the IGNORE command.  Because the IsTimeToHalt flag was
+   ; cleared, there is no longer an indication to halt and test pass continues.
+   SETTIMER 1 5000 [
+     CLEARTIMER 1
+     (UIAUTOMATION.PUSHCOMMANDERBUTTON "Halt "False)
+   ]
+
+   ; Create a SHELL command that takes about 10 seconds to run.
+   ; The timer event should cancel our wait after about 5 seconds.
+   ; Then the shell command should exit on its own.
+   LOCALMAKE "instructions [IGNORE (SHELL [perl -e "sleep 10"] LOCALETRUE)]
+   LOCALMAKE "executionTime TIMECOMMAND (LIST "RUNSTOPPINGTEST :instructions)
+   CHECKEXECUTIONTIME :instructions :executionTime 0 6000
+
+   ; cleanup
+   UIAUTOMATION.UNINITIALIZE
+   SPLITSCREEN
+END
+
+TO SHELLTEST.IGNORESPRINTLIMITS
+   ; verify that SHELL ignores print limits (bug #403)
+
+   ; Set the print limits very low
+   LOCAL [printwidthlimit printdepthlimit]
+   MAKE "printwidthlimit 3
+   MAKE "printdepthlimit 1
+
+   ; Run a shell command that writes a specific file if it ignores the print limits
+   ERASEFILE "shelltest.ignoresprintlimits.txt
+   (RUNPRINTTEST
+      [IGNORE (SHELL [CMD.EXE /C "ECHO [A [B C D] E] > shelltest.ignoresprintlimits.txt"] "True)]
+      "|[A [B C D] E] |
+      "shelltest.ignoresprintlimits.txt)
+
+   ; cleanup
+   ERASEFILE "shelltest.ignoresprintlimits.txt
+   
+END
+
+TO SHELLTEST.LONGCOMMANDLINE
+   ; verify that SHELL can run long command lines
+
+   localmake "longword REPEATWORD "A 1000
+   localmake "longcommand (list "CMD.EXE "/C ""ECHO :longword "> "shelltest.longcommandline.txt" )
+
+   ; Run a shell command that create a specific file if ignores the print limits
+   ERASEFILE "shelltest.longcommandline.txt
+   (RUNPRINTTEST
+      (list "IGNORE "\( "SHELL :longcommand ""True "\) )
+      (word :longword "| |)
+      "shelltest.longcommandline.txt)
+
+   ; cleanup
+   ERASEFILE "shelltest.longcommandline.txt
+
+END
+
+TO SHELLTEST
+
+   SHELLTEST.SMOKETEST
+   SHELLTEST.BADINPUT
+   SHELLTEST.WAITYIELDS
+   SHELLTEST.IGNORESPRINTLIMITS
+   SHELLTEST.LONGCOMMANDLINE
+
+END

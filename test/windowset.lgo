@@ -1,0 +1,168 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO WINDOWSETTEST.SMOKETEST
+  LOCAL [hwnd isMinimized isMaximized]
+
+  UIAUTOMATION.INITIALIZE
+
+  MAKE "hwnd UIAUTOMATION.FINDWINDOW "Editor 0
+  IF :hwnd <> 0 [
+     ; This test assumes that there is no other window named Editor
+     ; other than the one that it opens.  Rather than run the tests and
+     ; report failures that look like bugs in WINDOWSET, we report a 
+     ; a clear message that indicates why the tests cannot be run.
+
+     ; The most likely cause of this is that a previous test opened the
+     ; editor and wxWidgets doesn't close windows until the application is
+     ; idle, which won't happen until all tests have finished running.
+     REPORTTESTFAILED "|WINDOWSETTEST.SMOKETEST cannot run because there is already a window whose name is Editor|
+     UIAUTOMATION.UNINITIALIZE
+     STOP
+  ]
+
+  ; Open an editor so that we can minimize and maximize it.
+  TRACEINSTRUCTION [ EDIT [nothing] ]
+  MAKE "hwnd UIAUTOMATION.FINDWINDOW "Editor 0
+
+  ; Confirm that the editor is neither minimized nor maximized
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 0
+  SIMPLEREPORTTEST [:isMaximized] 0
+
+  ; use ICON to iconify the editor
+  TRACEINSTRUCTION [ ICON "Editor ]
+
+  ; Confirm that the editor is iconified.
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 1
+  SIMPLEREPORTTEST [:isMaximized] 0
+
+  ; use UNICON to restore the editor
+  TRACEINSTRUCTION [ UNICON "Editor ]
+
+  ; Confirm that the editor is restored
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 0
+  SIMPLEREPORTTEST [:isMaximized] 0
+  
+  ; use MAXIMIZE to maximize the editor
+  TRACEINSTRUCTION [ MAXIMIZE "Editor ]
+
+  ; Confirm that the editor is maximized
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 0
+  SIMPLEREPORTTEST [:isMaximized] 1
+
+  ; use RESTORE to un-maximize the editor
+  TRACEINSTRUCTION [ RESTORE "Editor ]
+
+  ; Confirm that the editor is not maximized
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 0
+  SIMPLEREPORTTEST [:isMaximized] 0
+  
+  ; use MINIMZIE to minimize the editor
+  TRACEINSTRUCTION [ MINIMIZE "Editor ]
+
+  ; Confirm that the editor is not maximized
+  MAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+  MAKE "isMaximized ITEM 1 (DLLCALL (list "L "IsZoomed "L :hwnd))
+  SIMPLEREPORTTEST [:isMinimized] 1
+  SIMPLEREPORTTEST [:isMaximized] 0
+
+  ; Close the editor
+  localmake "WM_CLOSE    16  ; 0x0010
+  LOCALMAKE "hwnd UIAUTOMATION.FINDWINDOW "Editor 0
+  IGNORE UIAUTOMATION.SENDMESSAGE :hwnd :WM_CLOSE 0 0
+
+  UIAUTOMATION.UNINITIALIZE
+END
+
+TO WINDOWSETTEST.BUG96
+  ; For backward-compatibility with MSWLogo programs, ICON "Commander
+  ; should always minimize the commander, even when the commander is docked.
+
+  UIAUTOMATION.INITIALIZE
+
+  SPLITSCREEN
+  ICON "Commander
+
+  LOCALMAKE "hwnd UIAUTOMATION.FINDWINDOW "Commander "#32770
+  IFELSE EQUALP :hwnd 0 [
+    ; FINDWINDOW couldn't find the Commander.
+    ; It could be that ICON failed or that "Commander" is localized.
+    LOCALMAKE "isok YESNOBOX [Question] [Is the commander minimized?]
+  ][
+    ; FINDWINDOW found the commander
+    LOCALMAKE "isMinimized ITEM 1 (DLLCALL (list "L "IsIconic "L :hwnd))
+    LOCALMAKE "isok EQUAL? :isMinimized 1
+  ]
+
+  IFELSE :isok [
+    REPORTTESTPASSED (sentence "|ICON "Commander minimized the commander when it was docked|) 
+  ][
+    REPORTTESTFAILED (sentence "|ICON "Commander did not minimize the commander when it was docked|) 
+  ]
+
+  UNICON "Commander
+  SPLITSCREEN
+
+  UIAUTOMATION.UNINITIALIZE
+END
+
+TO WINDOWSETTEST.BADINPUT
+
+  RUNNOTENOUGHINPUTSTEST [(WINDOWSET)]
+  RUNNOTENOUGHINPUTSTEST [(WINDOWSET "FMSLogo)]
+  RUNTOOMANYINPUTSTEST   [(WINDOWSET "FMSLogo 0 "toomany)]
+
+  RUNDOESNTLIKEINPUTTEST [WINDOWSET "FMSLogo [1]  ]
+  RUNDOESNTLIKEINPUTTEST [WINDOWSET "FMSLogo {1}  ]
+  RUNDOESNTLIKEINPUTTEST [WINDOWSET "FMSLogo "one ]
+  RUNDOESNTLIKEINPUTTEST [WINDOWSET "FMSLogo -1   ]
+END
+
+TO ICONTEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(ICON)]
+  RUNTOOMANYINPUTSTEST   [(ICON "FMSLogo "toomany)]
+END
+
+TO UNICONTEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(UNICON)]
+  RUNTOOMANYINPUTSTEST   [(UNICON "FMSLogo "toomany)]
+END
+
+TO MINIMIZETEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(MINIMIZE)]
+  RUNTOOMANYINPUTSTEST   [(MINIMIZE "FMSLogo "toomany)]
+END
+
+TO MAXIMIZETEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(MAXIMIZE)]
+  RUNTOOMANYINPUTSTEST   [(MAXIMIZE "FMSLogo "toomany)]
+END
+
+TO RESTORETEST.BADINPUT
+  RUNNOTENOUGHINPUTSTEST [(RESTORE)]
+  RUNTOOMANYINPUTSTEST   [(RESTORE "FMSLogo "toomany)]
+END
+
+TO WINDOWSETTEST
+
+  WINDOWSETTEST.SMOKETEST
+  WINDOWSETTEST.BUG96
+  WINDOWSETTEST.BADINPUT
+
+  ICONTEST.BADINPUT
+  UNICONTEST.BADINPUT
+  MINIMIZETEST.BADINPUT
+  MAXIMIZETEST.BADINPUT
+  RESTORETEST.BADINPUT
+
+END

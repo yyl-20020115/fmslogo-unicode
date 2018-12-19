@@ -1,0 +1,66 @@
+LOAD "testlib.lgo
+
+TO QUEUETEST.SMOKETEST
+
+   LOCAL [testqueue]
+
+   ; start with an empty queue
+   TRACEINSTRUCTION [ MAKE "testqueue [] ]
+
+   ; push a value on the end of the list
+   TRACEINSTRUCTION [ QUEUE "testqueue 1 ]
+   SIMPLEREPORTTEST [ :testqueue ] [1]
+
+   ; push another value on the end of the list
+   TRACEINSTRUCTION [ QUEUE "testqueue 2 ]
+   SIMPLEREPORTTEST [ :testqueue ] [1 2]
+
+   ; remove a value from the head of the list
+   SIMPLEREPORTTEST [ DEQUEUE "testqueue ] 1
+   SIMPLEREPORTTEST [ :testqueue ] [2]
+
+   ; remove the last remaining value from the list
+   SIMPLEREPORTTEST [ DEQUEUE "testqueue ] 2
+   SIMPLEREPORTTEST [ :testqueue ] []
+
+END
+
+TO QUEUETEST.CIRCULARTEST
+
+   ; enqueues a queue onto itself to try to make it circular
+   LOCALMAKE "testqueue []
+   TRACEINSTRUCTION [ QUEUE "testqueue :testqueue ]
+   SIMPLEREPORTTEST [ :testqueue ] [[]]
+
+   SIMPLEREPORTTEST [ DEQUEUE "testqueue ] []
+   SIMPLEREPORTTEST [ :testqueue ] []
+
+END
+
+TO QUEUETEST.BADINPUT
+
+   LOCALMAKE "samplequeue []
+
+   RUNNOTENOUGHINPUTSTEST [(DEQUEUE)]
+   RUNTOOMANYINPUTSTEST   [(DEQUEUE "samplequeue "toomany)]
+   RUNBADINPUTTEST        [(DEQUEUE {1 2 3})]
+   RUNBADINPUTTEST        [(DEQUEUE [1 2 3])]
+   RUNHASNOVALUETEST      [(DEQUEUE "queuetest.doesnotexist)]
+   RUNBADINPUTTEST        [(DEQUEUE "samplequeue)]  ; samplequeue is empty
+
+   RUNNOTENOUGHINPUTSTEST [(QUEUE "samplequeue)]
+   RUNTOOMANYINPUTSTEST   [(QUEUE "samplequeue 1 "toomany)]
+   RUNBADINPUTTEST        [(QUEUE {1 2 3} 1)]
+   RUNBADINPUTTEST        [(QUEUE [1 2 3] 1)]
+   RUNHASNOVALUETEST      [(QUEUE "queuetest.doesnotexist 1)]
+END
+
+
+TO QUEUETEST
+
+   QUEUETEST.SMOKETEST
+   QUEUETEST.CIRCULARTEST
+   QUEUETEST.BADINPUT
+
+END
+

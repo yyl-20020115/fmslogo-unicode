@@ -1,0 +1,6 @@
+.macro until :until.cond :until.instr
+if run :until.cond [op []]
+op sentence :until.instr (list "until :until.cond :until.instr)
+end
+
+bury "until

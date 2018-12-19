@@ -1,0 +1,207 @@
+; This program is a manual regression test for keyboard and mouse
+; event handlers
+
+To VirtualKeyCodeToKey :KeyCode
+
+  If :KeyCode = 8  [ Output "Backspace   ]
+  If :KeyCode = 9  [ Output "Tab         ]
+  If :KeyCode = 12 [ Output "Clear       ]
+  If :KeyCode = 13 [ Output "Enter       ]
+  If :KeyCode = 16 [ Output "Shift       ]
+  If :KeyCode = 17 [ Output "Ctrl        ]
+  If :KeyCode = 18 [ Output "Alt         ]
+  If :KeyCode = 19 [ Output "Pause       ]
+  If :KeyCode = 20 [ Output "|Caps Lock| ]
+  If :KeyCode = 27 [ Output "Esc         ]
+
+  If :KeyCode = 33 [ Output "|Page Up|     ]
+  If :KeyCode = 34 [ Output "|Page Down|   ]
+  If :KeyCode = 35 [ Output "End           ]
+  If :KeyCode = 36 [ Output "Home          ]
+  If :KeyCode = 37 [ Output "|Left Arrow|  ]
+  If :KeyCode = 38 [ Output "|Up Arrow|    ]
+  If :KeyCode = 39 [ Output "|Right Arrow| ]
+  If :KeyCode = 40 [ Output "|Down Arrow|  ]
+
+  If :KeyCode = 44 [ Output "|Print Screen| ]
+  If :KeyCode = 45 [ Output "Insert ]
+  If :KeyCode = 46 [ Output "Delete ]
+
+  If :KeyCode = 48 [ Output 0 ]
+  If :KeyCode = 49 [ Output 1 ]
+  If :KeyCode = 50 [ Output 2 ]
+  If :KeyCode = 51 [ Output 3 ]
+  If :KeyCode = 52 [ Output 4 ]
+  If :KeyCode = 53 [ Output 5 ]
+  If :KeyCode = 54 [ Output 6 ]
+  If :KeyCode = 55 [ Output 7 ]
+  If :KeyCode = 56 [ Output 8 ]
+  If :KeyCode = 57 [ Output 9 ]
+
+  If :KeyCode = 65 [ Output "A ]
+  If :KeyCode = 66 [ Output "B ] 
+  If :KeyCode = 67 [ Output "C ] 
+  If :KeyCode = 68 [ Output "D ] 
+  If :KeyCode = 69 [ Output "E ] 
+  If :KeyCode = 70 [ Output "F ] 
+  If :KeyCode = 71 [ Output "G ] 
+  If :KeyCode = 72 [ Output "H ] 
+  If :KeyCode = 73 [ Output "I ] 
+  If :KeyCode = 74 [ Output "J ] 
+  If :KeyCode = 75 [ Output "K ] 
+  If :KeyCode = 76 [ Output "L ] 
+  If :KeyCode = 77 [ Output "M ] 
+  If :KeyCode = 78 [ Output "N ] 
+  If :KeyCode = 79 [ Output "O ] 
+  If :KeyCode = 80 [ Output "P ] 
+  If :KeyCode = 81 [ Output "Q ] 
+  If :KeyCode = 82 [ Output "R ] 
+  If :KeyCode = 83 [ Output "S ] 
+  If :KeyCode = 84 [ Output "T ] 
+  If :KeyCode = 85 [ Output "U ] 
+  If :KeyCode = 86 [ Output "V ] 
+  If :KeyCode = 87 [ Output "W ] 
+  If :KeyCode = 88 [ Output "X ] 
+  If :KeyCode = 89 [ Output "Y ] 
+  If :KeyCode = 90 [ Output "Z ] 
+
+  If :KeyCode = 96  [ Output "|Num Pad 0|   ]
+  If :KeyCode = 97  [ Output "|Num Pad 1|   ]
+  If :KeyCode = 98  [ Output "|Num Pad 2|   ]
+  If :KeyCode = 99  [ Output "|Num Pad 3|   ]
+  If :KeyCode = 100 [ Output "|Num Pad 4|   ]
+  If :KeyCode = 101 [ Output "|Num Pad 5|   ]
+  If :KeyCode = 102 [ Output "|Num Pad 6|   ]
+  If :KeyCode = 103 [ Output "|Num Pad 7|   ]
+  If :KeyCode = 104 [ Output "|Num Pad 8|   ]
+  If :KeyCode = 105 [ Output "|Num Pad 9|   ]
+
+  If :KeyCode = 192 [ Output "` ]
+  If :KeyCode = 189 [ Output "- ]
+  If :KeyCode = 187 [ Output "= ]
+
+  If :KeyCode = 112 [ Output "F1  ]
+  If :KeyCode = 113 [ Output "F2  ]
+  If :KeyCode = 114 [ Output "F3  ]
+  If :KeyCode = 115 [ Output "F4  ]
+  If :KeyCode = 116 [ Output "F5  ]
+  If :KeyCode = 117 [ Output "F6  ]
+  If :KeyCode = 118 [ Output "F7  ]
+  If :KeyCode = 119 [ Output "F8  ]
+  If :KeyCode = 120 [ Output "F9  ]
+  If :KeyCode = 121 [ Output "F10 ]
+  If :KeyCode = 122 [ Output "F11 ]
+  If :KeyCode = 123 [ Output "F12 ]
+  If :KeyCode = 91 [ Output "Windows        ]
+  If :KeyCode = 93 [ Output "|Context Menu| ]
+
+  If :KeyCode = 173 [ Output "|Mute Volume| ]
+  If :KeyCode = 174 [ Output "|Volume Down| ]
+  If :KeyCode = 175 [ Output "|Volume Up|   ]
+
+  If :KeyCode = 186 [ Output "|;| ]
+  If :KeyCode = 188 [ Output "|,| ]
+  If :KeyCode = 190 [ Output "|.| ]
+  If :KeyCode = 191 [ Output "|/| ]
+
+  If :KeyCode = 219 [ Output "|[| ]
+  If :KeyCode = 220 [ Output "\\  ]
+  If :KeyCode = 221 [ Output "|]| ]
+  If :KeyCode = 222 [ Output "|'| ]
+
+  If :KeyCode = 32  [ Output "|Spacebar|    ]
+  If :KeyCode = 145 [ Output "|Scroll Lock| ]
+
+  If :KeyCode = 144 [ Output "|Num Lock|    ]
+  If :KeyCode = 106 [ Output "|Num Pad *|   ]
+  If :KeyCode = 107 [ Output "|Num Pad +|   ]
+  If :KeyCode = 109 [ Output "|Num Pad -|   ]
+  If :KeyCode = 110 [ Output "|Num Pad .|   ]
+  If :KeyCode = 111 [ Output "|Num Pad /|   ]
+
+  Output "Unknown
+End
+
+To OnKeyDownOnly :KeyboardValue
+   StaticUpdate "KeyDownStatic (
+      Word "KeyDown= :KeyboardValue "|, Char=|  CHAR :KeyboardValue
+   )
+   SetFocus  "FMSLogo
+End
+
+To OnKeyDown :KeyboardValue
+   StaticUpdate "KeyDownStatic (
+      Word "KeyDown= :KeyboardValue "|, Key=|  VirtualKeyCodeToKey :KeyboardValue
+   )
+   SetFocus  "FMSLogo
+End
+
+To OnKeyUp :KeyboardValue
+   StaticUpdate "KeyUpStatic (
+      Word "KeyDown= :KeyboardValue "|, Key=|  VirtualKeyCodeToKey :KeyboardValue
+   )
+   SetFocus  "FMSLogo
+End
+
+To OnMouseLeftButton :ButtonPosition
+   StaticUpdate "MouseLeftButtonStatic  (Word "MouseLeftButton= :ButtonPosition)
+   SetFocus  "FMSLogo
+End
+
+To OnMouseRightButton :ButtonPosition
+   StaticUpdate "MouseRightButtonStatic (Word "MouseRightButton= :ButtonPosition)
+   SetFocus  "FMSLogo
+End
+
+To OnMouseMove :MousePosition
+   StaticUpdate "MousePositionStatic (Word "MousePosition= (FIRST :MousePosition) ", (FIRST BUTFIRST :MousePosition))
+   SetFocus  "FMSLogo
+End
+
+To StartKeyUpDownTest
+   KeyboardOff
+   OnKeyDown "||
+   OnKeyUp   "||
+
+   (KeyboardOn [OnKeyDown KeyboardValue] [OnKeyUp KeyboardValue])
+   SetFocus  "FMSLogo
+End
+
+To StartKeyDownTest
+   KeyboardOff
+   OnKeyDown "||
+   OnKeyUp   "||
+
+   KeyboardOn [OnKeyDownOnly KeyboardValue]
+   SetFocus  "FMSLogo
+End
+
+To SetupTest
+
+   ButtonCreate "Main "KeyUpDownButton [Test KeyUpDown] 200 100 150 20 [StartKeyUpDownTest]
+   ButtonCreate "Main "KeyDownButton   [Test KeyDown]   200  70 150 20 [StartKeyDownTest]
+   ButtonCreate "Main "QuitButton      [Quit]           200  40 150 20 [Bye]
+
+   StaticCreate "Main "KeyDownStatic           [] -200 100  220 18
+   StaticCreate "Main "KeyUpStatic             [] -200  80  220 18
+   StaticCreate "Main "MouseLeftButtonStatic   [] -200  60  220 18
+   StaticCreate "Main "MouseRightButtonStatic  [] -200  40  220 18
+   StaticCreate "Main "MousePositionStatic     [] -200  20  220 18
+
+   OnMouseLeftButton  "Up
+   OnMouseRightButton "Up
+   OnMouseMove        [0 0]
+
+   StartKeyUpDownTest
+
+   MouseOn ~
+     [OnMouseLeftButton  "Down] ~
+     [OnMouseLeftButton  "Up] ~
+     [OnMouseRightButton "Down] ~
+     [OnMouseRightButton "Up] ~
+     [OnMouseMove MousePos]
+
+   HideTurtle
+End
+
+Make "StartUp [SetupTest]

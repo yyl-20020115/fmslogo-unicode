@@ -1,0 +1,106 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+; helper function for reading words from READRAWLINE when the
+; word comes from the UI.
+TO READRAWLINETEST.READRAWLINEFROMUI :wordtoread
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+
+       ; enter the line and press press OK
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [Input Mode (Cancel to Halt)] "Edit :wordtoread
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Input Mode (Cancel to Halt)] "OK
+
+       make "theword READRAWLINE
+   ]
+
+   IGNORE FAILIFERROR (list "UI "Automation "to "read :wordtoread)
+
+   UIAUTOMATION.UNINITIALIZE
+
+   OUTPUT :theword
+
+END
+
+TO READRAWLINETEST.UI
+
+   ; Test that special characters are treated literally.
+   LOCALMAKE "specialchars "Special\ Characters\ \|\;\\\(
+   SIMPLEREPORTTEST [READRAWLINETEST.READRAWLINEFROMUI :specialchars] :specialchars
+
+   ; Test that there is no arbitrary limit on how much can be input.
+   LOCALMAKE "longword REPEATWORD "LONGLINE!" 100
+   SIMPLEREPORTTEST [READRAWLINETEST.READRAWLINEFROMUI :longword] :longword
+
+   ; Test that the empty string can be read.
+   SIMPLEREPORTTEST [READRAWLINETEST.READRAWLINEFROMUI "||] "||
+
+END
+
+TO READRAWLINETEST.UICANCEL
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+       ; enter the line and press press Cancel
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [Input Mode (Cancel to Halt)] "Edit   "|UI will press Cancel|
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Input Mode (Cancel to Halt)] "Cancel
+   ]
+
+   IGNORE FAILIFERROR "READRAWLINETEST.UICANCEL
+
+   RUNSTOPPINGTEST [IGNORE READRAWLINE]
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO READRAWLINETEST.SMOKETEST
+
+   LOCALMAKE "filename "readrawlinetestfile.txt
+
+   ; Write out a single file with interesting test cases
+   WRITEBINARYDATA :filename (WORD
+     "|Simple\n|
+     "|Two Words\n|
+     "|Line \| With ; Special ) ( Characters ] [ } {\n|
+     "|Line \\ With \\\\ Backslashes\n|
+     "|Line with no EOL at end|
+   )
+
+   OPENREAD :filename
+   SETREAD  :filename
+
+   SIMPLEREPORTTEST [ READRAWLINE ] "|Simple|
+   SIMPLEREPORTTEST [ READRAWLINE ] "|Two Words|
+   SIMPLEREPORTTEST [ READRAWLINE ] "|Line \| With ; Special ) ( Characters ] [ } {|
+   SIMPLEREPORTTEST [ READRAWLINE ] "|Line \\ With \\\\ Backslashes|
+   SIMPLEREPORTTEST [ READRAWLINE ] "|Line with no EOL at end|
+   SIMPLEREPORTTEST [ READRAWLINE ] [] 
+   SIMPLEREPORTTEST [ READRAWLINE ] [] 
+
+   CLOSE    :filename
+
+   ERASEFILE :filename
+END
+
+TO READRAWLINETEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(READRAWLINE "toomany)]
+
+END
+
+TO READRAWLINETEST
+
+   READRAWLINETEST.SMOKETEST
+   READRAWLINETEST.UI
+   READRAWLINETEST.UICANCEL
+   READRAWLINETEST.BADINPUT
+
+END

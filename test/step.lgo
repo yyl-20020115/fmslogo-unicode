@@ -1,0 +1,181 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO STEPTEST.STEPPEDPROCEDURE
+   SHOW [This is line one of STEPTEST.STEPPEDPROCEDURE]
+   SHOW [This is line two of STEPTEST.STEPPEDPROCEDURE]
+END
+
+; Shadow STEPTEST.STEPPEDVARIABLE with LOCAL
+TO STEPTEST.SHADOWVARIABLEWITHLOCAL
+   LOCAL [STEPTEST.STEPPEDVARIABLE]
+   MAKE "STEPTEST.STEPPEDVARIABLE 123
+END
+
+; Shadow STEPTEST.STEPPEDVARIABLE with a parameter name
+TO STEPTEST.SHADOWVARIABLE [:STEPTEST.STEPPEDVARIABLE 1]
+END
+
+
+TO STEPTEST.PROCEDURE
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+     ; make sure the procedure is not already traced
+     FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDPROCEDURE (ITEM 1 STEPPED) ]
+
+     ; step the procedure
+     TRACEINSTRUCTION [STEP "STEPTEST.STEPPEDPROCEDURE]
+
+     ; make sure the procedure is stepped
+     FAILIFNOTTRUE [MEMBERP "STEPTEST.STEPPEDPROCEDURE (ITEM 1 STEPPED) ]
+
+     ; call it (it should be single stepped step)
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Single Step| "Ok
+     UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Single Step| "Ok
+     TRACEINSTRUCTION [STEPTEST.STEPPEDPROCEDURE]
+
+     ; unstep the procedure
+     TRACEINSTRUCTION [UNSTEP "STEPTEST.STEPPEDPROCEDURE]
+
+     ; make sure the procedure is not stepped anymore
+     FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDPROCEDURE (ITEM 1 STEPPED) ]
+
+     ; call it (it should no longer trace the output)
+     TRACEINSTRUCTION [STEPTEST.STEPPEDPROCEDURE]
+   ]
+
+   IGNORE FAILIFERROR "STEPTEST.PROCEDURE
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+
+TO STEPTEST.VARIABLE
+
+   LOCALMAKE "STEPTEST.STEPPEDVARIABLE 0
+
+   ; make sure the variable is not already stepped
+   FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDVARIABLE (ITEM 2 STEPPED) ]
+
+   ; step the variable
+   TRACEINSTRUCTION [STEP NAMELIST "STEPTEST.STEPPEDVARIABLE]
+
+   ; make sure the variable is stepped
+   FAILIFNOTTRUE [MEMBERP "STEPTEST.STEPPEDVARIABLE (ITEM 2 STEPPED) ]
+
+   ; shadow the variable (this should trace to the commander box)
+   TRACEINSTRUCTION [STEPTEST.SHADOWVARIABLE]
+
+   ; shadow the variable (this should trace to the commander box)
+   TRACEINSTRUCTION [ STEPTEST.SHADOWVARIABLEWITHLOCAL ]
+
+   ; unstep the variable
+   TRACEINSTRUCTION [UNSTEP NAMELIST "STEPTEST.STEPPEDVARIABLE]
+
+   ; make sure the variable is not stepped anymore
+   FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDVARIABLE (ITEM 2 STEPPED) ]
+
+   ; shadowing the variable should have no effect now
+   TRACEINSTRUCTION [STEPTEST.SHADOWVARIABLE]
+
+END
+
+TO STEPTEST.PROPERTYLIST
+
+   ; create the propery list
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "SOMEPROPERTY 0 ]
+
+   ; make sure the propery list is not already stepped
+   FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDPLIST (ITEM 3 STEPPED) ]
+
+   ; step the propery list
+   TRACEINSTRUCTION [STEP PLLIST "STEPTEST.STEPPEDPLIST]
+
+   ; make sure the propery list is stepped
+   FAILIFNOTTRUE [MEMBERP "STEPTEST.STEPPEDPLIST (ITEM 3 STEPPED) ]
+
+   ; put some properties in the propery list
+   ; this shouldn't do anything (stepping a property list has no effect)
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "PROPERTY1 123     ]
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "PROPERTY2 "123    ]
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "PROPERTY3 "value  ]
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "PROPERTY4 [1 2 3] ]
+   TRACEINSTRUCTION [PPROP "STEPTEST.STEPPEDPLIST "PROPERTY5 {1 2 3} ]
+
+   ; unstep the propery list
+   TRACEINSTRUCTION [UNSTEP PLLIST "STEPTEST.STEPPEDPLIST]
+
+   ; make sure the propery list is not traced anymore
+   FAILIFNOTFALSE [MEMBERP "STEPTEST.STEPPEDPLIST (ITEM 3 STEPPED) ]
+
+   ; cleanup
+   ERASE PLLIST "STEPTEST.STEPPEDPLIST
+
+END
+
+TO STEPTEST.STEPALL
+ 
+   UIAUTOMATION.INITIALIZE
+
+   ; To make running this test easier, this test tries not to do too
+   ; much while every procedure is stepped.
+   UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Single Step| "Ok
+   UIAUTOMATION.POSTBUTTONPUSHTOWINDOW "|Single Step| "Ok
+
+   ; step everything
+   REPORTTESTINFO [Running STEP CONTENTS]
+   STEP CONTENTS
+
+   IF NOT EQUAL? STEPPED CONTENTS [
+      REPORTTESTFAILED [STEPPED did not output the entire contents list.]
+   ]
+
+   ; step nothing
+   UNSTEP CONTENTS
+   REPORTTESTINFO [Ran UNSTEP CONTENTS]
+
+   SIMPLEREPORTTEST [STEPPED] [[][][]]
+
+   UIAUTOMATION.UNINITIALIZE
+END
+
+TO STEPTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(STEPPED "toomany)]
+
+   TRACEINSTRUCTION       [(STEP [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(STEP)]
+   RUNTOOMANYINPUTSTEST   [(STEP "name "toomany)]
+   RUNBADINPUTTEST        [(STEP {name})]
+   RUNBADINPUTTEST        [(STEP [[a][b]{c}])]
+   RUNBADINPUTTEST        [(STEP [a b {c}])]
+   RUNBADINPUTTEST        [(STEP [[a b {c}]])]
+   RUNBADINPUTTEST        [(STEP [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(STEP [[[a]]])]
+
+   TRACEINSTRUCTION       [(UNSTEP [[nonexistent] [nonexistent] [nonexistent]])]
+   RUNNOTENOUGHINPUTSTEST [(UNSTEP)]
+   RUNTOOMANYINPUTSTEST   [(UNSTEP "name "toomany)]
+   RUNBADINPUTTEST        [(UNSTEP {name})]
+   RUNBADINPUTTEST        [(UNSTEP [[][]{}])]
+   RUNBADINPUTTEST        [(UNSTEP [word word {array}])]
+   RUNBADINPUTTEST        [(UNSTEP [[][][][]])]
+   RUNBADINPUTTEST        [(UNSTEP [[a][b]{c}])]
+   RUNBADINPUTTEST        [(UNSTEP [a b {c}])]
+   RUNBADINPUTTEST        [(UNSTEP [[a b {c}]])]
+   RUNBADINPUTTEST        [(UNSTEP [[a][b][c][d]])]
+   RUNBADINPUTTEST        [(UNSTEP [[[a]]])]
+END
+
+TO STEPTEST
+
+   STEPTEST.PROCEDURE
+   STEPTEST.VARIABLE
+   STEPTEST.PROPERTYLIST
+   STEPTEST.STEPALL
+   STEPTEST.BADINPUT
+
+END

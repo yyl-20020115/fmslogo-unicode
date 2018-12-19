@@ -1,0 +1,91 @@
+LOAD "testlib.lgo
+
+TO REPEATTEST.OUTPUTINREPEAT
+
+   LOCAL "myvalue
+
+   REPEAT 100 [ 
+      MAKE "myvalue REPCOUNT
+      IF EQUAL? :myvalue 50 [ OUTPUT REPCOUNT ]
+      MAKE "myvalue 0
+   ]
+END
+
+TO REPEATTEST.STOPINREPEAT
+
+   LOCAL "myvalue
+
+   REPEAT 100 [ 
+      MAKE "myvalue REPCOUNT
+      IF EQUAL? :myvalue 50 [ STOP ]
+      MAKE "myvalue 0
+   ]
+
+   REPORTTESTFAILED [STOP didn't exit REPEAT]
+END
+
+TO REPEATTEST.ERRORINREPEAT
+
+   LOCAL "myvalue
+
+   REPEAT 100 [ 
+      MAKE "myvalue REPCOUNT
+      IF EQUAL? :myvalue 50 [ THROW "ERROR ]
+      MAKE "myvalue 0
+   ]
+
+   REPORTTESTFAILED [THROW "ERORR didn't exit REPEAT]
+END
+
+TO REPEATTEST.SMOKETEST
+
+  LOCAL "list
+
+  ; simple REPEAT command
+  TRACEINSTRUCTION [ MAKE "list [] ]
+  TRACEINSTRUCTION [ REPEAT 5 [ MAKE "list LPUT REPCOUNT :list ] ]
+  SIMPLEREPORTTEST [ :list ] [1 2 3 4 5]
+
+  ; repeat 0 shouldn't execute the body
+  TRACEINSTRUCTION [ REPEAT 0 [ REPORTTESTFAILED [ REPEAT 0 executed the body ] ] ]
+
+  ; nested REPEAT commands
+  TRACEINSTRUCTION [ MAKE "list [] ]
+  TRACEINSTRUCTION [ REPEAT 2 [ MAKE "list LPUT "X :list REPEAT 3 [ MAKE "list LPUT "Y :list ] ] ]
+  SIMPLEREPORTTEST [ :list ] [X Y Y Y X Y Y Y]
+
+  ; stop in the middle of a REPEAT
+  TRACEINSTRUCTION [ REPEATTEST.STOPINREPEAT ] 
+
+  ; output in the middle of a REPEAT
+  SIMPLEREPORTTEST [ REPEATTEST.OUTPUTINREPEAT ] 50
+
+  ; throw a user-exception in the middle of a REPEAT
+  RUNEXPECTERRORTEST [ REPEATTEST.ERRORINREPEAT ] 21
+
+END
+
+TO REPEATTEST.BADINPUT
+
+  RUNNOTENOUGHINPUTSTEST [(REPEAT 100)]
+  RUNTOOMANYINPUTSTEST   [(REPEAT 100 [] "toomany)]
+
+  ; bad first input
+  RUNBADINPUTTEST        [REPEAT "word []]
+  RUNBADINPUTTEST        [REPEAT [1]   []]
+  RUNBADINPUTTEST        [REPEAT {1}   []]
+  RUNBADINPUTTEST        [REPEAT 12.3  []]
+  RUNBADINPUTTEST        [REPEAT -1    []]
+
+  ; bad second input
+  RUNBADINPUTTEST        [REPEAT  0    {}]
+
+END
+
+
+TO REPEATTEST
+
+  REPEATTEST.SMOKETEST
+  REPEATTEST.BADINPUT
+
+END

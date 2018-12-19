@@ -1,0 +1,23 @@
+LOAD "testlib.lgo
+
+TO FIRSTTEST
+
+   SIMPLEREPORTTEST [FIRST [1 2 3] ] 1
+   SIMPLEREPORTTEST [FIRST     [1] ] 1
+
+   SIMPLEREPORTTEST [FIRST {a b c}   ] 1
+   SIMPLEREPORTTEST [FIRST {a b c}@2 ] 2
+
+   SIMPLEREPORTTEST [FIRST "hello  ] "h
+   SIMPLEREPORTTEST [FIRST "h      ] "h
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(FIRST)]
+   RUNTOOMANYINPUTSTEST   [(FIRST "word "toomany)]
+
+   ; bad inputs
+   RUNBADINPUTTEST [FIRST []  ]
+   RUNBADINPUTTEST [FIRST "|| ]
+   RUNBADINPUTTEST [FIRST {}  ]
+
+END

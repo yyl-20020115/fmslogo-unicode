@@ -1,0 +1,14 @@
+LOAD "testlib.lgo
+
+TO RUNTEST
+
+  ; Run a very long word as a command name.
+  ; This is a regression test for bug #101 (which used to crash)
+  localmake "longword REPEATWORD "A 5000
+  RUNBADINPUTTEST (list :longword)
+
+  RUNNOTENOUGHINPUTSTEST [(RUN)]
+  RUNBADINPUTTEST        [RUN {"FD 100}]
+  RUNTOOMANYINPUTSTEST   [(RUN [FD 100] "toomany)]
+
+END

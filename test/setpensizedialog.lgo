@@ -1,0 +1,37 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+TO SETPENSIZEDIALOGTEST.BUG366
+
+   UIAUTOMATION.INITIALIZE
+
+   CATCH "ERROR [
+     LOCALMAKE "wxID_HIGHEST  5999               ; from defs.h
+     LOCALMAKE "ID_SETPENSIZE :wxID_HIGHEST + 15 ; mainframe.cpp
+
+     REPEAT 2 [
+       ; Use the "Set Pen Size" menu command to open the Pen Size dialog box
+       UIAUTOMATION.SENDMENUCOMMANDTOWINDOW "FMSLogo :ID_SETPENSIZE
+
+       localmake "WM_VSCROLL  277
+       localmake "SB_LINEDOWN 3
+       localmake "hwnd        UIAUTOMATION.FINDWINDOW [Pen Size] 0
+       localmake "sliderclass "msctls_trackbar32
+       UIAUTOMATION.SENDMESSAGETOWINDOW [Pen Size] :sliderclass :WM_VSCROLL :SB_LINEDOWN :hwnd
+
+       ; dismiss the dialog box
+       UIAUTOMATION.SENDBUTTONPUSHTOWINDOW [Pen Size] "Cancel
+     ]
+   ]
+
+   IF NOT FAILIFERROR "SETPENSIZEDIALOGTEST.BUG366 [
+     REPORTTESTPASSED "|Bug #366 is fixed; Sending a vertical scroll message to the Pen Size dialog box did not crash.|
+   ]
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+TO SETPENSIZEDIALOGTEST
+  SETPENSIZEDIALOGTEST.BUG366
+END

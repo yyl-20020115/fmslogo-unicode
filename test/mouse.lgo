@@ -1,0 +1,41 @@
+LOAD "testlib.lgo
+
+TO MOUSETEST.SIMPLETEST
+   ; a simple test for the mouse
+   ; this test does not verify anything about mouse capture,
+   ; but it at least exercises the code path
+
+   ; MOUSEOFF when the mouse is not on
+   TRACEINSTRUCTION [MOUSEOFF]
+
+   ; turn the mouse on and wait for some events
+   TRACEINSTRUCTION [MOUSEON [] [] [] [] [] ]
+   WAIT 6
+
+   ; turn the mouse on when it's already on
+   TRACEINSTRUCTION [MOUSEON "|| "|| "|| "|| "|| ]
+   WAIT 6
+
+   ; turn the mouse off
+   TRACEINSTRUCTION [MOUSEOFF]
+END
+
+TO MOUSETEST.BADINPUT
+   ; bad input for MOUSEON
+   RUNNOTENOUGHINPUTSTEST [(MOUSEON [] [] [] [])]
+   RUNTOOMANYINPUTSTEST   [(MOUSEON [] [] [] [] [] "toomany)]
+
+   ; bad input for MOUSEOFF
+   RUNTOOMANYINPUTSTEST   [(MOUSEOFF "toomany)]
+
+   ; bad input for MOUSEPOS
+   RUNTOOMANYINPUTSTEST   [(MOUSEPOS "toomany)]
+END
+
+TO MOUSETEST
+
+   MOUSETEST.SIMPLETEST
+   MOUSETEST.BADINPUT
+
+END
+

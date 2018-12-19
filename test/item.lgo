@@ -1,0 +1,101 @@
+LOAD "testlib.lgo
+
+TO ITEMTEST.OUTPUT.2
+  OUTPUT 2
+END
+
+TO ITEMTEST.SMOKETEST
+
+   ; ITEM on a list
+   SIMPLEREPORTTEST [ ITEM 1   [a b c] ] "a
+   SIMPLEREPORTTEST [ ITEM 2   [a b c] ] "b
+   SIMPLEREPORTTEST [ ITEM 3   [a b c] ] "c
+   SIMPLEREPORTTEST [ ITEM 3.0 [a b c] ] "c
+
+   ; ITEM on a word
+   SIMPLEREPORTTEST [ ITEM 1    "abc   ] "a
+   SIMPLEREPORTTEST [ ITEM 2    "abc   ] "b
+   SIMPLEREPORTTEST [ ITEM 3    "abc   ] "c
+   SIMPLEREPORTTEST [ ITEM 3.0  "abc   ] "c
+
+   ; ITEM on an array
+   SIMPLEREPORTTEST [ ITEM 1   {a b c} ] "a
+   SIMPLEREPORTTEST [ ITEM 2   {a b c} ] "b
+   SIMPLEREPORTTEST [ ITEM 3   {a b c} ] "c
+   SIMPLEREPORTTEST [ ITEM 3.0 {a b c} ] "c
+
+END
+
+TO ITEMTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(ITEM 12)]
+   RUNTOOMANYINPUTSTEST   [(ITEM 1 [1 2 3] "toomany)]
+
+   ; bad input with a list
+   RUNDOESNTLIKEINPUTTEST [ ITEM -1   [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  0   [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  4   [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM 1.5  [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  1   []      ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM []   [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM {0}  [1 2 3] ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM "ten [1 2 3] ]
+
+   ; bad input with a word
+   RUNDOESNTLIKEINPUTTEST [ ITEM -1   "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  0   "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  4   "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM 1.5  "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  1   "||     ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM []   "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM {0}  "abc    ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM "ten "abc    ]
+
+   ; bad input with an array
+   RUNDOESNTLIKEINPUTTEST [ ITEM -1   {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  0   {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  4   {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM 1.5  {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM  1   {}      ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM []   {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM {0}  {1 2 3} ]
+   RUNDOESNTLIKEINPUTTEST [ ITEM "ten {1 2 3} ]
+
+END
+
+TO ITEMTEST.BADINPUT.RECOVERABLE
+
+   ; tests that bad input errors are recoverable
+
+   ; declare as local so that the current value is restored when it goes out of scope
+   LOCAL "ERRACT
+
+   TRACEINSTRUCTION [ MAKE "ERRACT [ITEMTEST.OUTPUT.2] ]
+
+   ; not-integer index
+   SIMPLEREPORTTESTNOCATCH [ ITEM [4] [a b c] ] "b
+   SIMPLEREPORTTESTNOCATCH [ ITEM {4} [a b c] ] "b
+   SIMPLEREPORTTESTNOCATCH [ ITEM 0.5 [a b c] ] "b
+
+   ; out-of-bounds index for lists
+   SIMPLEREPORTTESTNOCATCH [ ITEM  0  [a b c] ] "b
+   SIMPLEREPORTTESTNOCATCH [ ITEM  4  [a b c] ] "b
+
+   ; out-of-bounds index for words
+   SIMPLEREPORTTESTNOCATCH [ ITEM  0  "abc    ] "b
+   SIMPLEREPORTTESTNOCATCH [ ITEM  4  "abc    ] "b
+
+   ; out-of-bounds index for arrays
+   SIMPLEREPORTTESTNOCATCH [ ITEM  -1  {a b c}@0  ] "c
+   SIMPLEREPORTTESTNOCATCH [ ITEM  3   {a b c}@0  ] "c
+
+END
+
+TO ITEMTEST
+
+   ITEMTEST.SMOKETEST
+   ITEMTEST.BADINPUT
+   ITEMTEST.BADINPUT.RECOVERABLE
+
+END
+

@@ -1,0 +1,215 @@
+LOAD "testlib.lgo
+
+TO PRINTTEST.PERFORMANCE
+
+   ; Bug #197: FMSLogo hangs when printing a long line.
+
+   ; ISEQ is not part of the repro, per-se.
+   ; If there is a faster way to generate a long list, we can use that.
+   LOCALMAKE "longlist ISEQ 1 100000
+
+   ; print to the commander's recall box
+   LOCALMAKE "previouswriter WRITER
+   SETWRITE []
+
+   TRACEINSTRUCTION [ PRINT :longlist ]
+
+   SETWRITE :previouswriter
+
+END
+
+TO PRINTTEST.SMOKETEST
+
+   RUNPRINTTEST [PRINT "ABC      ] "ABC
+   RUNPRINTTEST [PRINT "abc      ] "abc
+   RUNPRINTTEST [PRINT "|a b c|  ] "|a b c|
+
+   RUNPRINTTEST [PRINT 123       ] 123
+   RUNPRINTTEST [PRINT 12.3      ] 12.3
+   RUNPRINTTEST [PRINT 12.0      ] 12
+   RUNPRINTTEST [PRINT 1e5       ] 100000
+
+   RUNPRINTTEST [PRINT [a b c]       ] "|a b c|
+   RUNPRINTTEST [PRINT []            ] "||
+   RUNPRINTTEST [PRINT [[a] b [c]]   ] "|[a] b [c]|
+
+   RUNPRINTTEST [PRINT {1 2}@1   ] "|{1 2}|
+   RUNPRINTTEST [PRINT {1 2}@0   ] "|{1 2}|
+   RUNPRINTTEST [PRINT {1 2}@-10 ] "|{1 2}|
+   RUNPRINTTEST [PRINT {}        ] "|{}|
+
+   ; multiple inputs
+   RUNPRINTTEST [(PRINT) ]             "||
+   RUNPRINTTEST [(PRINT [a] [b] [c]) ] "|a b c|
+   RUNPRINTTEST [(PRINT [a] {b} "c)  ] "|a {b} c|
+
+END
+
+TO PRINTTEST.DEEPLYNESTEDLIST
+
+   LOCALMAKE "deeplist []
+   REPEAT 10000 [ MAKE "deeplist (LIST :deeplist) ]
+   PRINT :deeplist
+
+   REPORTTESTPASSED [|Bug #207 is fixed; printing a deeply nested list didn't crash.|]
+END
+
+TO PRINTTEST.RUNPRINTDEPTHLIMITTEST :depthlimit :printfunction :whattoprint :expectedstring
+
+   ; declare printdepthlimit local so that there are no side-effects
+   local "printdepthlimit
+
+   ; trace the value of printdepthlimit
+   TRACEINSTRUCTION (list "make QUOTED "printdepthlimit :depthlimit)
+
+   ; run the test
+   RUNPRINTTEST (list :printfunction :whattoprint) :expectedstring
+END
+
+TO PRINTTEST.PRINTDEPTHLIMIT
+
+   ; from the manual for PRINTDEPTHLIMIT 
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 6 "print [[1 [2 [3 [4 [5]]]]]] "|[1 [2 [3 [4 [5]]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 4 "print [[1 [2 [3 [4 [5]]]]]] "|[1 [2 [3 [... ...]]]]|
+
+   ; some simple tests
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 0 "print [0 [1 [2 [3 [4]]]]] "|... ...|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 3 "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [... ...]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 4 "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [3 [...]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 5 "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [3 [4]]]]|
+
+   ; multiple deeply nested lists
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 2 "print [0 [1 [2 [a b c]] abc [2 [d e f]]]] "|0 [1 [... ...] abc [... ...]]|
+
+   ; PRINTDEPTHLIMIT should also affect show
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 0 "show [1 [2 [3 [4 [5]]]]] "...
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 1 "show [1 [2 [3 [4 [5]]]]] "|[... ...]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 4 "show [1 [2 [3 [4 [5]]]]] "|[1 [2 [3 [... ...]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 5 "show [1 [2 [3 [4 [5]]]]] "|[1 [2 [3 [4 [...]]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 6 "show [1 [2 [3 [4 [5]]]]] "|[1 [2 [3 [4 [5]]]]]|
+
+   ; print depth also affects arrays
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 0 "print {1 {2 {3 {4 {5}}}}} "...
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 1 "print {1 {2 {3 {4 {5}}}}} "|{... ...}|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 4 "print {1 {2 {3 {4 {5}}}}} "|{1 {2 {3 {... ...}}}}|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 5 "print {1 {2 {3 {4 {5}}}}} "|{1 {2 {3 {4 {...}}}}}|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST 6 "print {1 {2 {3 {4 {5}}}}} "|{1 {2 {3 {4 {5}}}}}|
+
+   ; bad values are ignored
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST -1  "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [3 [4]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST [1] "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [3 [4]]]]|
+   PRINTTEST.RUNPRINTDEPTHLIMITTEST {1} "print [0 [1 [2 [3 [4]]]]] "|0 [1 [2 [3 [4]]]]|
+
+END
+
+TO PRINTTEST.RUNPRINTWIDTHLIMITTEST :widthlimit :printfunction :whattoprint :expectedstring
+
+   ; declare printwidthlimit local so that there are no side-effects
+   local "printwidthlimit
+
+   ; trace the value of printwidthlimit
+   TRACEINSTRUCTION (list "make QUOTED "printwidthlimit :widthlimit)
+
+   ; run the test
+   ifelse wordp :whattoprint [
+      RUNPRINTTEST (list :printfunction QUOTED :whattoprint) :expectedstring
+   ][
+      RUNPRINTTEST (list :printfunction :whattoprint) :expectedstring
+   ]
+END
+
+TO PRINTTEST.PRINTWIDTHLIMIT
+
+   ; from the manual for PRINTWIDTHLIMIT
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST  6 "print [1 2 3 4 5 6]      "|1 2 3 4 5 6|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST  4 "print [1 2 3 4 5 6]      "|1 2 3 4 ...|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 50 "print "1234567890abcdefg "1234567890abcdefg
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 12 "print "1234567890abcdefg "1234567890ab...
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST  2 "print "1234567890abcdefg "1234567890...
+
+   ; some simple tests
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 0 "print [1 2 3 4] "...
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 2 "print [1 2 3 4] "|1 2 ...|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 3 "print [1 2 3 4] "|1 2 3 ...|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 4 "print [1 2 3 4] "|1 2 3 4|
+
+   ; multiple deeply nested lists
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 2 "print [[a b c] [1 2 3] [x y z]] "|[a b ...] [1 2 ...] ...|
+
+   ; PRINTWIDTHLIMIT should also affect show
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 0 "show [1 2 3 4] "|[...]|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 2 "show [1 2 3 4] "|[1 2 ...]|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 3 "show [1 2 3 4] "|[1 2 3 ...]|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 4 "show [1 2 3 4] "|[1 2 3 4]|
+
+   ; PRINTWIDTHLIMIT should affect arrays
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 0 "print {1 2 3 4} "|{...}|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 2 "print {1 2 3 4} "|{1 2 ...}|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 3 "print {1 2 3 4} "|{1 2 3 ...}|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 4 "print {1 2 3 4} "|{1 2 3 4}|
+
+   ; PRINTWIDTHLIMIT should affect words
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 0  "print "12345678901234567890 "1234567890...
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 10 "print "12345678901234567890 "1234567890...
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 11 "print "12345678901234567890 "12345678901...
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST 20 "print "12345678901234567890 "12345678901234567890
+
+   ; bad values are ignored
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST -1  "print [1 2 3 4] "|1 2 3 4|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST [1] "print [1 2 3 4] "|1 2 3 4|
+   PRINTTEST.RUNPRINTWIDTHLIMITTEST {1} "print [1 2 3 4] "|1 2 3 4|
+
+END
+
+TO PRINTTEST.PRINTDEPTHANDWIDTHLIMIT
+
+   ; a test that combines width and depth limit
+   local [printwidthlimit printdepthlimit]
+
+   TRACEINSTRUCTION [make "printwidthlimit 4 make "printdepthlimit 3]
+   RUNPRINTTEST [(show [1] [[2 2]] [[[3 3 3]]] [[[[4 4 4 4]]]] [[[[[5 5 5 5 5]]]]] [[[[[[6 6 6 6 6 6]]]]]])] ~
+                     "|[1] [[2 2]] [[[... ... ...]]] [[[...]]] ...|
+
+END
+
+TO PRINTTEST.DEEPLYNESTEDARRAY
+   PRINT MAKEDEEPARRAY 100000
+   REPORTTESTPASSED [|Bug #208 is fixed; printing a deeply nested array didn't crash.|]
+END
+
+TO PRINTTEST.PSEUDOLOC
+   ; tests that :PRINTDEPTHLIMIT and :PRINTWIDTHLIMIT are internationalized properly
+   IF ISPSEUDOLOCBUILD [
+      local [printdepthlimit pseudo.printdepthlimit]
+      local [printwidthlimit pseudo.printwidthlimit]
+
+      ; test that PRINTDEPTHLIMIT was localized
+      TRACEINSTRUCTION [make "pseudo.printdepthlimit 3]
+      RUNPRINTTEST [print [0 [1 [2 [3 [4]]]]]] "|0 [1 [2 [... ...]]]|
+
+      ; test that the English version shadows the local name
+      TRACEINSTRUCTION [make "printdepthlimit 2]
+      RUNPRINTTEST [print [0 [1 [2 [3 [4]]]]]] "|0 [1 [... ...]]|
+
+      ; test that PRINTWIDTHLIMIT was localized
+      TRACEINSTRUCTION [make "pseudo.printwidthlimit 3]
+      RUNPRINTTEST [print [1 2 3 4 5]] "|1 2 3 ...|
+
+      ; test that the English version shadows the local name
+      TRACEINSTRUCTION [make "printwidthlimit 2]
+      RUNPRINTTEST [print [1 2 3 4 5]] "|1 2 ...|
+   ]
+END
+
+TO PRINTTEST
+
+   PRINTTEST.SMOKETEST
+   PRINTTEST.PERFORMANCE
+   PRINTTEST.PRINTDEPTHLIMIT
+   PRINTTEST.PRINTWIDTHLIMIT
+   PRINTTEST.PRINTDEPTHANDWIDTHLIMIT
+   PRINTTEST.PSEUDOLOC
+
+   ; PRINTTEST.DEEPLYNESTEDLIST
+   ; PRINTTEST.DEEPLYNESTEDARRAY
+END

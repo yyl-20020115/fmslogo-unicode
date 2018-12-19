@@ -1,0 +1,50 @@
+LOAD "testlib.lgo
+
+TO TYPETEST.SMOKETEST
+
+  LOCALMAKE "testfile  "typetest-output.txt
+
+  ;
+  ; use TYPE to write to a file
+  ;
+  OPENWRITE :testfile
+
+  LOCALMAKE "oldwriter WRITER
+  SETWRITE :testfile
+
+  TRACEINSTRUCTION [(TYPE)]              ; should do nothing
+
+  TRACEINSTRUCTION [(TYPE "a "b "c)]     ; should print abc with no newline
+  TRACEINSTRUCTION [(TYPE "d "e "f "\n)] ; should print def with a newline
+
+  TRACEINSTRUCTION [ TYPE [1 2 3] ]      ; should print 1 2 3 with no newline
+  TRACEINSTRUCTION [ TYPE "456\n  ]      ; should print 456 with a newline
+
+  SETWRITE :oldwriter
+  CLOSE :testfile
+
+
+  ;
+  ; now read back the file and ensure that it is as expected
+  ;
+  OPENREAD :testfile
+
+  LOCALMAKE "oldreader READER
+  SETREAD  :testfile
+
+  SIMPLEREPORTTEST [READWORD] "|abcdef|
+  SIMPLEREPORTTEST [READWORD] "|1 2 3456|
+  FAILIFNOTTRUE    [EOFP]
+
+  SETREAD  :oldreader
+  CLOSE    :testfile
+
+  ERASEFILE :testfile
+END
+
+
+TO TYPETEST
+
+  TYPETEST.SMOKETEST
+
+END

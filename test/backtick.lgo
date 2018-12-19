@@ -1,0 +1,102 @@
+LOAD "testlib.lgo
+
+TO BACKTICKTEST.SMOKETEST
+
+   ; empty list
+   SIMPLEREPORTTEST [`[]]  []
+
+   ; no substitution or splicing
+   SIMPLEREPORTTEST [`[a b c]] [a b c]
+
+   ; simple substitution
+   SIMPLEREPORTTEST [ `[,[FIRST [a b]] ,[BUTFIRST [x y z]] ]  ] [a [y z]]
+
+   ; simple splicing
+   SIMPLEREPORTTEST [ `[,@[FIRST [a b]]  ,@[BUTFIRST [x y z]]] ] [a y z]
+
+
+   ; substituted numbers are treated literally
+   SIMPLEREPORTTEST [`[1 ,[2] ,[3]]]   [1 2 3]
+
+   ; spliced numbers are treated literally
+   SIMPLEREPORTTEST [`[1 ,@[2] ,@[3]]] [1 2 3]
+
+   ; multiple splices are supported (Bug #377)
+   LOCAL [name1 name2]
+   TRACEINSTRUCTION [MAKE "name1 "x]
+   TRACEINSTRUCTION [MAKE "name2 "y]
+   SIMPLEREPORTTEST [ `[,:name1 ,:name2] ] [x y]
+
+   ; lists don't get removed unexpectedly when the FIRST member is a comma
+   SIMPLEREPORTTEST [ `[   , :name1   ] ]   [x]
+   SIMPLEREPORTTEST [ `[ [ , :name1 ] ] ]  [[x]] 
+
+END
+
+TO BACKTICKTEST.EXAMPLESFROMMANUAL
+
+   ;
+   ; examples from the manual
+   ;
+   SIMPLEREPORTTEST [`[foo baz ,[BUTFIRST [a b c]] garply ,@[BUTFIRST [a b c]]]] ~
+                      [foo baz         [b c]       garply        b c]
+
+   SIMPLEREPORTTEST [ `[a  `[b ,[1+2]  ,[foo ,[1+3] d] e] f] ] ~
+                       [a ` [b , [1+2] , [foo 4 d]     e] f]
+
+   LOCAL [name1 name2]
+   TRACEINSTRUCTION [MAKE "name1 "x]
+   TRACEINSTRUCTION [MAKE "name2 "y]
+   SIMPLEREPORTTEST [ `[a `[b ,:,:name1 ,",:name2 d] e] ] ~
+                       [a  ` [b , [:x]    , ["y]  d] e]
+
+END
+
+TO BACKTICKTEST.WORDSHORTHAND
+
+   ; substituted word
+   LOCAL "foo
+   TRACEINSTRUCTION [make "foo [a b c]]
+
+   ; ,:foo is equivalent to ,[:foo]
+   SIMPLEREPORTTEST [` [,:foo]]   [[a b c]] 
+
+   ; ,@:foo is equivalent to ,@[:foo]
+   SIMPLEREPORTTEST [` [,@:foo]]   [a b c]
+
+   ; ,1+2 is equivalent to ,[ 1 + 2 ]
+   SIMPLEREPORTTEST [` [,1+2] ]   [3]
+
+   ; define a function that simply outputs [a b c] for the next two tests
+   TRACEINSTRUCTION [ DEFINE "BACKTICKTEST.OUTPUTABC [[] [OUTPUT [a b c]] ] ]
+
+   ; ,func is equivalent to ,[func]
+   SIMPLEREPORTTEST [` [,BACKTICKTEST.OUTPUTABC ]]   [[a b c]]
+
+   ; ,@func is equivalent to ,@[func]
+   SIMPLEREPORTTEST [` [,@BACKTICKTEST.OUTPUTABC ]]   [a b c]
+
+END
+
+
+TO BACKTICKTEST.BADINPUT
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(`)]
+   RUNTOOMANYINPUTSTEST   [(` [1 2 3] "toomany)]
+
+   ; bad inputs
+   RUNBADINPUTTEST    [` 123              ]
+   RUNBADINPUTTEST    [` {1 2 3}          ]
+   RUNHASNOVALUETEST  [` [,:doesnotexist] ]
+
+END
+
+TO BACKTICKTEST
+
+   BACKTICKTEST.SMOKETEST
+   BACKTICKTEST.EXAMPLESFROMMANUAL
+   BACKTICKTEST.WORDSHORTHAND
+   BACKTICKTEST.BADINPUT
+
+END

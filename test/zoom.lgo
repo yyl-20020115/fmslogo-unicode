@@ -1,0 +1,82 @@
+LOAD "testlib.lgo
+
+TO ZOOMTEST.ZOOMSTAYSCENTERED
+
+  ;
+  ; This is a regression test for bug #236
+  ;
+
+  CLEARSCREEN
+  SCROLLX 0
+  SCROLLY 0
+
+  ; draw a pattern with an obvious center
+  SETPIXEL PENCOLOR
+  REPEAT 50 [ CIRCLE REPCOUNT * 10 ]
+
+  ; repeatedly zoom
+  REPEAT 50 [ ZOOM 1 ZOOM 16 ]
+
+  ; ask the tester to verify the fix
+  LOCALMAKE "isok YESNOBOX [Question] [Is the screen zoomed to the center of the circles?]
+  IFELSE :isok [
+    REPORTTESTPASSED [Bug #236 is fixed.  ZOOM did not change scrollbar positions.]
+  ] [
+    REPORTTESTFAILED [Bug #236 is NOT fixed.  ZOOM changed scrollbar positions.]
+  ]
+
+  ; restore the default zoom
+  ZOOM 1
+END
+
+
+TO ZOOMTEST.SMOKETEST
+
+  CLEARSCREEN
+  ZOOM 1
+  REPEAT 4 [ FD 100 RT 90 ]
+
+  TRACEINSTRUCTION [ ZOOM 1 ] ; setting to the current zoom level shouldn't affect anything
+
+  ; TODO: what is the best way to verify that ZOOM is working?
+
+  ; zoom in
+  TRACEINSTRUCTION [ ZOOM 10 ]
+
+  ; zoom out
+  TRACEINSTRUCTION [ ZOOM 0.5 ]
+
+  ; zoom very far in (This hangs.  See Bug #237)
+  ; TRACEINSTRUCTION [ ZOOM 1e20 ]
+
+  ; zoom very far out
+  TRACEINSTRUCTION [ ZOOM 1e-20 ]
+
+  ; restore the default zoom
+  ZOOM 1
+
+END
+
+
+TO ZOOMTEST.BADINPUT
+
+   RUNNOTENOUGHINPUTSTEST [(ZOOM)]
+   RUNTOOMANYINPUTSTEST   [(ZOOM 1 "toomany)]
+
+   ; bad input
+   RUNBADINPUTTEST [ ZOOM "five   ]
+   RUNBADINPUTTEST [ ZOOM -1      ]
+   RUNBADINPUTTEST [ ZOOM 0       ]
+   RUNBADINPUTTEST [ ZOOM [1]     ]
+   RUNBADINPUTTEST [ ZOOM {5}     ]
+
+END
+
+
+TO ZOOMTEST
+
+  ZOOMTEST.SMOKETEST
+  ZOOMTEST.ZOOMSTAYSCENTERED
+  ZOOMTEST.BADINPUT
+
+END

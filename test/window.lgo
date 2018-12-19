@@ -1,0 +1,52 @@
+LOAD "testlib.lgo
+
+TO WINDOWTEST.SMOKETEST
+
+   ; switch to window mode
+   WINDOW
+   CLEARSCREEN
+
+   ; draw a circle whose edges are just barely visible
+   SETPENCOLOR 0
+   CIRCLE 600
+
+   ; draw a diamond-like shape that falls mostly outside of the screen
+   ; these should be within the boundries
+   PENUP
+   SETXY  0   750
+   PENDOWN
+   SETXY 750   0
+   SETXY  0  -750
+   SETXY -750  0
+   SETXY  0   750
+
+   CHECKSCREEN "window-test
+
+   ; go back to the default mode
+   CLEARSCREEN
+   WRAP
+END
+
+TO WINDOWTEST.BADINPUT
+
+   FENCE
+
+   ; bad input tests (shouldn't change modes)
+   RUNTOOMANYINPUTSTEST [(WINDOW "toomany)]
+
+   ; The easiest way to test that we're not in window mode
+   ; is to try to force an out-of-bounds error in fence mode
+   HOME
+   RUNOUTOFBOUNDSTEST [ FD 1000 ]
+
+   WRAP
+   CLEARSCREEN
+END
+
+TO WINDOWTEST
+
+   WINDOWTEST.SMOKETEST
+   WINDOWTEST.BADINPUT
+
+END
+

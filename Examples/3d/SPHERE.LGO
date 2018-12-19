@@ -1,0 +1,103 @@
+to aaa
+   ; This example covers the surface of a sphere with each
+   ; vertex of each polygon exactly on the surface with no overlapping
+   ; polygons while letting logo do all the trig.
+   ;
+   ; Place yourself in the center of a sphere and imagine you have
+   ; a laser gun that can mark the surface. Now you basically
+   ; shoot a dot on the surface (call that point A), then move your
+   ; aim 5 degrees (:step) down (by lowering your arm), shoot another
+   ; dot (call that point B). Now aim 5 degrees to the right by rotating
+   ; your body (not your arm), shoot another dot (call that point C).
+   ; Now aim 5 degrees up (by lifting your arm), shoot another dot.
+   ; Now connect the 4 dots with a string and you have your polygon.
+   ; Get the idea?
+   ; 
+   ; This example produces triangles with 4 dots in some cases.
+   ; This is because the polygons at the top and bottom of the sphere
+   ; are triangles even though we shoot 4 dots to produce it.  This means
+   ; 2 dots hit the same target when we shoot at the poles of the sphere.
+   ; FMSLogo automatically eliminates sequential duplicate vertices.
+
+   perspective
+   cs
+   setsc [0 0 0]
+   clearpalette
+   ask -3 [setxyz 207 243 97]
+
+   ht
+   penup
+
+   ; Time drawing
+   localmake "start timemilli
+
+   repeat 6 [fd 100 Sphere 50 10 [0 0 128] bk 100 rt 360/6]
+
+   ; Display elapsed drawing
+   (print "Define (timemilli - :start) / 1000)
+
+   ; Time shading
+   make "start timemilli
+
+   polyview
+
+   ; Display elapsed shading
+   (print "Render (timemilli - :start) / 1000)
+
+   stop
+   repeat 100 [ask -3 [setxyz random 300 random 300 random 300 show posxyz]]
+   pendown
+end
+
+to Sphere.GetPoint :rad
+   fd :rad
+   localmake "pos posxyz
+   bk :rad
+   output :pos
+end
+
+to Sphere.Slice :rad :step
+   ; Draw an "orange" slice (just the outside surface)
+   local [i PointA PointB PointC PointD PointE]
+   make "i 0
+   repeat 180/:step [
+     down :i
+     make "PointA Sphere.GetPoint :rad
+     down :step
+     make "PointB Sphere.GetPoint :rad
+     up :step
+     up :i
+     rr :step
+     down :i
+     make "PointD Sphere.GetPoint :rad
+     down :step
+     make "PointC Sphere.GetPoint :rad
+     up :step
+     up :i
+     lr :step
+     make "PointE posxyz
+     setposxyz :PointA
+     pendown
+     polystart
+     setposxyz :PointB
+     setposxyz :PointC
+     setposxyz :PointD
+     setposxyz :PointA
+     polyend
+     penup
+     setposxyz :PointE
+     make "i :i + :step
+     ]
+end
+
+to Sphere :rad :step :color
+   setpc :color
+   ; Cover the surface of the sphere with polygons
+   repeat 360/:step [Sphere.Slice :rad :step rr :step]
+end
+
+to zzz
+ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

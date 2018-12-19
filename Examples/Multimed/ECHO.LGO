@@ -1,0 +1,44 @@
+to aaa
+;
+; Function:
+;
+;   This routine will record and play your voice back.
+;   The :arg is the number of seconds you want to record your voice for.
+;   Watch for messages for when to start and stop speaking.
+;   It will automatically play back what was recorded.
+;
+; To run:
+;
+;   load "echo.lgo
+;   Call ECHO secondstorecord
+;
+; Example:
+;
+echo 2
+;
+; System requirements:
+;
+;   You must have a sound card with a microphone input.
+;   You must have a microphone.
+;   "Microphone" must be selected as the recording device, must be set to
+;   record at a fairly high volume, and must not be muted.
+end
+
+to echo :arg
+print mci sentence [open new type waveaudio alias wa buffer] :arg
+mci [record wa]
+print "Recording...
+wait :arg*60
+print "Stopped...
+mci [seek wa to start]
+print "Playing...
+mci [play wa wait]
+print "Stopped...
+mci [close wa]
+end
+
+to zzz
+ifelse YesNoBox [Welcome] [Choose YES to run example now, Choose NO Study it now.] [aaa] [edall]
+end
+
+Make "startup [zzz]

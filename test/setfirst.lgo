@@ -1,0 +1,20 @@
+LOAD "testlib.lgo
+
+TO SETFIRSTTEST
+   LOCAL [list]
+
+   ; smoke test
+   TRACEINSTRUCTION [ MAKE "list [A 2 3] ]
+   TRACEINSTRUCTION [ .SETFIRST :list 1 ]
+   SIMPLEREPORTTEST [:list ] [1 2 3]
+
+   ; bad number of inputs
+   RUNNOTENOUGHINPUTSTEST [(.SETFIRST [1 2 3])]
+   RUNTOOMANYINPUTSTEST   [(.SETFIRST [X 2 3] 1 "toomany)]
+
+   ; bad inputs
+   RUNDOESNTLIKEINPUTTEST [.SETFIRST []    1 ]
+   RUNDOESNTLIKEINPUTTEST [.SETFIRST "word 1 ]
+   RUNDOESNTLIKEINPUTTEST [.SETFIRST {x}   1 ]
+
+END

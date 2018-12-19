@@ -1,0 +1,66 @@
+LOAD "testlib.lgo
+
+TO STACKTEST.SMOKETEST
+
+   LOCAL [teststack]
+
+   ; start with an empty stack
+   TRACEINSTRUCTION [ MAKE "teststack [] ]
+
+   ; push a value on the stack
+   TRACEINSTRUCTION [ PUSH "teststack 1 ]
+   SIMPLEREPORTTEST [ :teststack ] [1]
+
+   ; push another value on the top of the stack
+   TRACEINSTRUCTION [ PUSH "teststack 2 ]
+   SIMPLEREPORTTEST [ :teststack ] [2 1]
+
+   ; remove a value from the top of the stack
+   SIMPLEREPORTTEST [ POP "teststack ] 2
+   SIMPLEREPORTTEST [ :teststack ] [1]
+
+   ; remove the last remaining value from the stack
+   SIMPLEREPORTTEST [ POP "teststack ] 1
+   SIMPLEREPORTTEST [ :teststack ] []
+
+END
+
+TO STACKTEST.CIRCULARTEST
+
+   ; pushes a stack onto itself to try to make it circular
+   LOCALMAKE "teststack []
+   TRACEINSTRUCTION [ PUSH "teststack :teststack ]
+   SIMPLEREPORTTEST [ :teststack ] [[]]
+
+   SIMPLEREPORTTEST [ POP "teststack ] []
+   SIMPLEREPORTTEST [ :teststack ] []
+
+END
+
+TO STACKTEST.BADINPUT
+
+   LOCALMAKE "samplequeue []
+
+   RUNNOTENOUGHINPUTSTEST [(POP)]
+   RUNTOOMANYINPUTSTEST   [(POP "samplestack "toomany)]
+   RUNBADINPUTTEST        [(POP {1 2 3})]
+   RUNBADINPUTTEST        [(POP [1 2 3])]
+   RUNHASNOVALUETEST      [(POP "stacktest.doesnotexist)]
+   RUNBADINPUTTEST        [(POP "samplestack)]  ; samplestack is empty
+
+   RUNNOTENOUGHINPUTSTEST [(PUSH "samplestack)]
+   RUNTOOMANYINPUTSTEST   [(PUSH "samplestack 1 "toomany)]
+   RUNBADINPUTTEST        [(PUSH {1 2 3} 1)]
+   RUNBADINPUTTEST        [(PUSH [1 2 3] 1)]
+   RUNHASNOVALUETEST      [(PUSH "stacktest.doesnotexist 1)]
+END
+
+
+TO STACKTEST
+
+   STACKTEST.SMOKETEST
+   STACKTEST.CIRCULARTEST
+   STACKTEST.BADINPUT
+
+END
+

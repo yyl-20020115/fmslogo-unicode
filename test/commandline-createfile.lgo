@@ -1,0 +1,17 @@
+; This is a helper program for commandline.lgo
+; It should not be invoked directly.
+
+; Create a file and exit
+; The file is proof that this program ran.
+OPENWRITE "commandline-createfile.txt
+
+SETWRITE  "commandline-createfile.txt
+
+; print the screen width, which was set with the -W parameter
+PRINT ITEM 3 MACHINE
+
+; print the screen height, which was set with the -H parameter
+PRINT ITEM 4 MACHINE
+
+CLOSE "commandline-createfile.txt
+BYE

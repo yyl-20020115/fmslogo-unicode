@@ -1,0 +1,373 @@
+LOAD "testlib.lgo
+
+
+TO PLISTTEST.SMOKETEST
+
+   ; Fill a property list will all sorts of types
+   ; for both the name and values.
+   LOCALMAKE "myarray   {a b c}
+
+   LOCALMAKE "property6    {property [6]}
+   LOCALMAKE "mutablearray {1 2 3}
+
+   PPROP "testplist1 "property1     1
+   PPROP "testplist1 "property2     "abc
+   PPROP "testplist1 "property3     [a b c]
+   PPROP "testplist1 [4]            :myarray
+   PPROP "testplist1 [property [5]] []
+   PPROP "testplist1 :property6     "||
+   PPROP "testplist1 "||            "emptystring
+   PPROP "testplist1 []             "emptylist
+   PPROP "testplist1 [a b c]        "abclist
+   PPROP "testplist1 :mutablearray  "mutablearray
+
+   ; Get properties that don't exist.
+   SIMPLEREPORTTEST [ GPROP "nonexistent "prop1        ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  "nonexistent  ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  [no existent] ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  4             ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  {1 2 3}       ] []
+
+   ; Get properties that do exist
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property1        ] 1
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property2        ] "abc
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property3        ] [a b c]
+   SIMPLEREPORTTEST [ GPROP "testplist1  [ 4 ]             ] :myarray
+   SIMPLEREPORTTEST [ GPROP "testplist1  [property [ 5 ] ] ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  :property6        ] "||
+   SIMPLEREPORTTEST [ GPROP "testplist1  "||               ] "emptystring
+   SIMPLEREPORTTEST [ GPROP "testplist1  []                ] "emptylist
+   SIMPLEREPORTTEST [ GPROP "testplist1  [a b c]           ] "abclist
+   SIMPLEREPORTTEST [ GPROP "testplist1  :mutablearray     ] "mutablearray
+
+   ; Change something in the array that is acting as a key.
+   ; Since arrays are compared by their reference, not by their contents,
+   ; the value should still be locatable.
+   SETITEM 1 :mutablearray "newfirst
+   SIMPLEREPORTTEST [ GPROP "testplist1  :mutablearray     ] "mutablearray
+
+   ; overwrite a property
+   PPROP "testplist1 "property1  "one
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property1 ] "one
+
+   ; test PLIST
+   SIMPLEREPORTTEST [ PLIST "nonexistent ] []
+
+   LOCALMAKE "listcontents PLIST "testplist1
+   SIMPLEREPORTTEST [ COUNT :listcontents ] 20
+
+   ; verify each name-value pair in the list
+   REPEAT 7 [
+     LOCALMAKE "name  POP "listcontents
+     LOCALMAKE "value POP "listcontents
+     LOCALMAKE "found 0
+   
+     IF :name = "property1 [
+        SIMPLEREPORTTEST [ :value ] "one
+        MAKE "found 1
+     ]
+     IF :name = "property2 [
+        SIMPLEREPORTTEST [ :value ] "abc
+        MAKE "found 1
+     ]
+     IF :name = "property3 [
+        SIMPLEREPORTTEST [ :value ] [a b c]
+        MAKE "found 1
+     ]
+     IF :name = [4] [
+        SIMPLEREPORTTEST [ :value ] :myarray
+        MAKE "found 1
+     ]
+     IF :name = [property [5]] [
+        SIMPLEREPORTTEST [ :value ] []
+        MAKE "found 1
+     ]
+     IF :name = :property6 [
+        SIMPLEREPORTTEST [ :value ] "||
+        MAKE "found 1
+     ]
+     IF :name = "|| [
+        SIMPLEREPORTTEST [ :value ] "emptystring
+        MAKE "found 1
+     ]
+     IF :name = [] [
+        SIMPLEREPORTTEST [ :value ] "emptylist
+        MAKE "found 1
+     ]
+     IF :name = [a b c] [
+        SIMPLEREPORTTEST [ :value ] "abclist
+        MAKE "found 1
+     ]
+     IF :name = :mutablearray [
+        SIMPLEREPORTTEST [ :value ] "mutablearray
+        MAKE "found 1
+     ]
+
+     IF :found=0 [ 
+        REPORTTESTFAILED (list "|Unrecognized property in plist:| :name) 
+     ]
+   ]
+
+   ; PLISTS should return a list of three lists.
+   ; The third list should contain "testplist1.
+   LOCALMAKE "plistsoutput PLISTS
+   SIMPLEREPORTTEST [ COUNT  :plistsoutput ] 3
+   SIMPLEREPORTTEST [ ITEM 1 :plistsoutput ] []
+   SIMPLEREPORTTEST [ ITEM 2 :plistsoutput ] []
+   FAILIFNOTTRUE    [ MEMBERP "testplist1 ITEM 3 :plistsoutput ]
+
+   ; Remove a property from the plist and
+   ; confirm that it was removed, but that the others
+   ; were not.
+   TRACEINSTRUCTION [ REMPROP "testplist1 "property2 ]
+   SIMPLEREPORTTEST [ GPROP "testplist1 "property2 ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1 "property3 ] [a b c]
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist1 ] 18
+
+   ; Attempt to get/remove a property by its value.
+   ; This should fail, but confirms that only the name
+   ; nodes within a property list are considered.
+   SIMPLEREPORTTEST [ GPROP   "testplist1 "one ] []
+   TRACEINSTRUCTION [ REMPROP "testplist1 "one ]
+   SIMPLEREPORTTEST [ GPROP "testplist1 "property1 ] "one
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist1 ] 18
+
+   ; Remove the first element from the property list.
+   ; (There's special case for this).
+   TRACEINSTRUCTION [ REMPROP "testplist1 "property1 ]
+   SIMPLEREPORTTEST [ GPROP "testplist1 "property1 ] []
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist1 ] 16
+
+   ; Remove the remaining properties from the plist.
+   REMPROP "testplist1 "property3
+   REMPROP "testplist1 [4]
+   REMPROP "testplist1 [property [5]]
+   REMPROP "testplist1 :property6
+   REMPROP "testplist1 "||
+   REMPROP "testplist1 []
+   REMPROP "testplist1 [a b c]
+   REMPROP "testplist1 :mutablearray
+   REMPROP "nonexistent "||
+
+   ; Once the final propery is removed the PLIST should be erased.
+   MAKE "plistsoutput PLISTS
+   SIMPLEREPORTTEST [ COUNT  :plistsoutput ] 3
+   SIMPLEREPORTTEST [ ITEM 1 :plistsoutput ] []
+   SIMPLEREPORTTEST [ ITEM 2 :plistsoutput ] []
+   FAILIFNOTFALSE   [ MEMBERP "testplist1 ITEM 3 :plistsoutput ]
+
+   ; Confirm that the property list is erased.
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property1     ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property2     ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  "property3     ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  [4]            ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  [property [5]] ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  :property6     ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  "||            ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  []             ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  [a b c]        ] []
+   SIMPLEREPORTTEST [ GPROP "testplist1  :mutablearray  ] []
+   SIMPLEREPORTTEST [ PLIST "testplist1 ]                 []
+
+   ; removing the properties again should have no effect
+   REMPROP "testplist1 "property1
+   REMPROP "testplist1 "property2
+   REMPROP "testplist1 "property3
+   REMPROP "testplist1 [4]
+   REMPROP "testplist1 [property [5]]
+   REMPROP "testplist1 :property6
+   REMPROP "testplist1 "||
+   REMPROP "testplist1 []
+   REMPROP "testplist1 [a b c]
+   REMPROP "testplist1 :mutablearray
+END
+
+TO PLISTTEST.RANDOMOBJECT [:maxdepth 5]
+
+   IF :maxdepth = 0 [
+       OUTPUT []
+   ]
+
+   LOCALMAKE "choice RANDOM 100
+   IF :choice < 50 [
+       ; 50% chance of a random word
+       LOCALMAKE "randomword CHAR SUM 1 RANDOM 255
+       REPEAT RANDOM 50 [
+           MAKE "randomword WORD :randomword CHAR SUM 1 RANDOM 255
+       ]
+       OUTPUT :randomword
+   ]
+   IF :choice < 90 [
+       ; 40% chance of random list
+       LOCALMAKE "randomlist []
+       REPEAT RANDOM 5 [
+           ; Add an element at random
+           PUSH "randomlist (PLISTTEST.RANDOMOBJECT :maxdepth - 1)
+       ]
+       OUTPUT :randomlist
+   ]
+   IF :choice < 100 [
+       ; 10% chance of random array
+       LOCALMAKE "origin      DIFFERENCE RANDOM 10 RANDOM 10
+       LOCALMAKE "size        RANDOM 5
+       LOCALMAKE "randomarray (ARRAY :size :origin)
+       REPEAT :size [
+           SETITEM (SUM REPCOUNT -1 :origin) :randomarray (PLISTTEST.RANDOMOBJECT :maxdepth - 1)
+       ]
+       OUTPUT :randomarray
+   ]
+
+END
+
+TO PLISTTEST.RANDOMADDREMOVETEST
+
+   LOCALMAKE "plist "plisttest.keytest
+
+   ; Generate 1000 random propery names
+   LOCALMAKE "randomproperties (ARRAY 1000 0)
+   REPEAT 1000 [
+       SETITEM REPCOUNT-1 :randomproperties PLISTTEST.RANDOMOBJECT
+   ]
+
+   ; Add these keys at random (with random values)
+   REPEAT 500 [
+      PPROP :plist ITEM RANDOM 1000 :randomproperties PLISTTEST.RANDOMOBJECT
+   ]
+
+   ; Add a well-known values (one that isn't set at random
+   LOCALMAKE "arrayproperty {1 2 3}
+   PPROP :plist [hidden]       "listvalue
+   PPROP :plist "hidden        "wordvalue
+   PPROP :plist :arrayproperty "arrayvalue
+
+   ; Randomly add/remove the name/value pairs
+   REPEAT 5000 [
+      IFELSE EQUAL? 0 RANDOM 2 [
+        PPROP :plist ITEM RANDOM 1000 :randomproperties PLISTTEST.RANDOMOBJECT
+      ][
+        REMPROP :plist ITEM RANDOM 1000 :randomproperties
+      ]
+   ]
+
+   ; Confirm that well-known properties can still be found
+   SIMPLEREPORTTEST [ GPROP :plist [hidden]       ] "listvalue
+   SIMPLEREPORTTEST [ GPROP :plist "hidden        ] "wordvalue
+   SIMPLEREPORTTEST [ GPROP :plist :arrayproperty ] "arrayvalue
+
+   ; Remove all of the random properties
+   REPEAT COUNT :randomproperties [
+      REMPROP :plist ITEM (SUM FIRST :randomproperties REPCOUNT -1) :randomproperties
+   ]
+
+   ; Only the well-known properties should remain
+   SIMPLEREPORTTEST [ COUNT PLIST :plist ] 6
+
+   ; Cleanup
+   ERASE PLLIST :plist
+END
+
+TO PLISTTEST.CASEIGNORE
+   LOCAL "caseignoredp
+
+   ; By default, case should be ignored
+   TRACEINSTRUCTION [ PPROP "testplist "Property 1 ]
+   SIMPLEREPORTTEST [ GPROP "testplist "property ] 1
+   SIMPLEREPORTTEST [ GPROP "testplist "PROPERTY ] 1
+
+   ; Overwrite using a different case
+   TRACEINSTRUCTION [ PPROP "testplist "PROPERTY 2 ]
+   SIMPLEREPORTTEST [ GPROP "testplist "property ] 2
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist ] 2
+
+   ; Remove using a different case
+   TRACEINSTRUCTION [ REMPROP "testplist "ProPerTy ]
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist ] 0
+
+   ; Now use case-sensitive comparisons
+   TRACEINSTRUCTION [ MAKE "caseignoredp "false ]
+
+   TRACEINSTRUCTION [ PPROP "testplist "Property 1 ]
+   SIMPLEREPORTTEST [ GPROP "testplist "property ] []
+   SIMPLEREPORTTEST [ GPROP "testplist "PROPERTY ] []
+   SIMPLEREPORTTEST [ GPROP "testplist "Property ] 1
+
+   ; Overwrite using a different case
+   TRACEINSTRUCTION [ PPROP "testplist "PROPERTY 2 ]
+   SIMPLEREPORTTEST [ GPROP "testplist "property ] []
+   SIMPLEREPORTTEST [ GPROP "testplist "Property ] 1
+   SIMPLEREPORTTEST [ GPROP "testplist "PROPERTY ] 2
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist ] 4
+
+   ; Remove using a different case
+   TRACEINSTRUCTION [ REMPROP "testplist "ProPerTy ]
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist ] 4
+
+   ; Remove using the correct case
+   TRACEINSTRUCTION [ REMPROP "testplist "Property ]
+   TRACEINSTRUCTION [ REMPROP "testplist "PROPERTY ]
+   SIMPLEREPORTTEST [ COUNT PLIST "testplist ] 0
+
+END
+
+TO PLISTTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(PLIST)]
+   RUNTOOMANYINPUTSTEST   [(PLIST "too "many)]
+   RUNDOESNTLIKEINPUTTEST [PLIST [1 2 3]]
+   RUNDOESNTLIKEINPUTTEST [PLIST {1 2 3}]
+END
+
+TO REMPROPTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(REMPROP)]
+   RUNNOTENOUGHINPUTSTEST [(REMPROP "plist)]
+   RUNTOOMANYINPUTSTEST   [(REMPROP "plist "prop "toomany)]
+   RUNDOESNTLIKEINPUTTEST [REMPROP [1 2 3] "prop]
+   RUNDOESNTLIKEINPUTTEST [REMPROP {1 2 3} "prop]
+END
+
+TO GPROPTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(GPROP)]
+   RUNNOTENOUGHINPUTSTEST [(GPROP "plist)]
+   RUNTOOMANYINPUTSTEST   [(GPROP "plist "prop "toomany)]
+   RUNDOESNTLIKEINPUTTEST [GPROP [1 2 3] "prop]
+   RUNDOESNTLIKEINPUTTEST [GPROP {1 2 3} "prop]
+END
+
+TO PPROPTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST [(PPROP)]
+   RUNNOTENOUGHINPUTSTEST [(PPROP "plist)]
+   RUNNOTENOUGHINPUTSTEST [(PPROP "plist "prop)]
+   RUNTOOMANYINPUTSTEST   [(PPROP "plist "name "value "toomany)]
+   RUNDOESNTLIKEINPUTTEST [PPROP [1 2 3] "name "value]
+   RUNDOESNTLIKEINPUTTEST [PPROP {1 2 3} "name "value]
+END
+
+TO PLLISTTEST.SMOKETEST
+   SIMPLEREPORTTEST [ PLLIST "a    ] [ [] [] [a] ]
+   SIMPLEREPORTTEST [ PLLIST "||   ] (list [] [] (list "||) )
+   SIMPLEREPORTTEST [ PLLIST [a b] ] [ [] [] [a b] ]
+   SIMPLEREPORTTEST [ PLLIST []    ] [ [] [] []    ]
+   SIMPLEREPORTTEST [ PLLIST 123   ] [ [] [] [123] ]
+END
+
+TO PLLISTTEST.BADINPUT
+   RUNNOTENOUGHINPUTSTEST  [(PLLIST)]
+   RUNTOOMANYINPUTSTEST    [(PLLIST "too "many)]
+   RUNNONRECOVERABLEDOESNTLIKEINPUTTEST  [PLLIST {a b}]
+END
+
+TO PLISTTEST
+
+   PLISTTEST.SMOKETEST
+   PLISTTEST.CASEIGNORE
+   PLISTTEST.RANDOMADDREMOVETEST
+
+   PLISTTEST.BADINPUT
+   REMPROPTEST.BADINPUT
+   GPROPTEST.BADINPUT
+   PPROPTEST.BADINPUT
+
+   ; test PLLIST
+   PLLISTTEST.SMOKETEST
+   PLLISTTEST.BADINPUT
+
+END

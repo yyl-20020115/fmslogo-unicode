@@ -1,0 +1,5 @@
+to minimize :caption
+  windowset :caption 6
+end
+
+bury "minimize

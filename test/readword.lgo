@@ -1,0 +1,136 @@
+LOAD "testlib.lgo
+LOAD "uiautomationlib.lgo
+
+; helper function for reading words from READWORD when the
+; word comes from the UI.
+TO READWORDTEST.READWORDFROMUI :wordtoread
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+
+       ; enter the line and press press OK
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [Input Mode (Cancel to Halt)] "Edit :wordtoread
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Input Mode (Cancel to Halt)] "OK
+
+       make "theword READWORD
+   ]
+
+   IGNORE FAILIFERROR (list "UI "Automation "to "read :wordtoread)
+
+   UIAUTOMATION.UNINITIALIZE
+
+   OUTPUT :theword
+
+END
+
+TO READWORDTEST.UI
+
+   SIMPLEREPORTTEST [READWORDTEST.READWORDFROMUI "easytest]    "easytest
+   SIMPLEREPORTTEST [READWORDTEST.READWORDFROMUI "|Two Words|] "|Two Words|
+
+END
+
+TO READWORDTEST.UICANCEL
+
+   UIAUTOMATION.INITIALIZE
+ 
+   local "theword
+
+   CATCH "ERROR [
+       ; enter the line and press press Cancel
+       UIAUTOMATION.POSTSTRINGTOWINDOW     [Input Mode (Cancel to Halt)] "Edit   "|UI will press Cancel|
+       UIAUTOMATION.POSTBUTTONPUSHTOWINDOW [Input Mode (Cancel to Halt)] "Cancel
+   ]
+
+   IGNORE FAILIFERROR "READWORDTEST.UICANCEL
+
+   RUNSTOPPINGTEST [IGNORE READWORD]
+
+   UIAUTOMATION.UNINITIALIZE
+
+END
+
+
+
+TO READWORDTEST.SMOKETEST
+
+  ; read a single word
+  RUNPRINTTEST [SHOW "Hello]              "Hello
+
+  ; read two words
+  RUNPRINTTEST [SHOW "|Hello Hello|]      "|Hello Hello|
+
+  ; a file with a blank line
+  RUNPRINTTEST [SHOW "|| ]           "||
+
+  ; empty files reads as the empty list
+  RUNPRINTTEST [IGNORE 1]            []
+
+  ; tilde is a line concatenator, but is not removed
+  RUNPRINTTEST [SHOW "|Hello~| SHOW "Hello] "|Hello~\nHello|
+
+  ; linear whitespace after a tilde is ignored
+  RUNPRINTTEST [SHOW "|Hello~   | SHOW "Hello] "|Hello~\nHello|
+
+  ; vertical bars are kept in the input stream
+  RUNPRINTTEST [SHOW "\|ABC\| ] "\|ABC\|
+
+  ; vertical bars allow the text to span newlines
+  RUNPRINTTEST [SHOW "A\|B\nC\| ] "A\|B\nC\|
+
+  ; comments are ignored
+  RUNPRINTTEST [SHOW "AB\;CD ] "AB\;CD
+
+  ; vertical bars in comments are treated normally
+  RUNPRINTTEST [SHOW "A\;B\|C\nD\| ] "A\;B\|C\nD\|
+
+  ; an end-of-file reached within a vertical bar preserves the bar.
+  RUNPRINTTEST [SHOW "A\|B\nC ]   "A\|B\nC\n
+
+  ; backslashes are not preserved
+  RUNPRINTTEST [SHOW "A\\B\\C ]   "ABC
+
+END
+
+TO READWORDTEST.FILEWITHNOEOL.HELPER :data
+
+   LOCALMAKE "filename "readwordtest.txt
+
+   WRITEBINARYDATA :filename :data
+
+   OPENREAD :filename
+   SETREAD  :filename
+   SIMPLEREPORTTEST [ READWORD ] :data
+   SIMPLEREPORTTEST [ READWORD ] []
+   CLOSE    :filename
+
+   ERASEFILE :filename
+END
+
+TO READWORDTEST.FILEWITHNOEOL
+
+   ; Test READWORD on files that has no newline at the end.
+   ; This is a regression test for bug #439.
+   READWORDTEST.FILEWITHNOEOL.HELPER "|This file has no newline character|
+   READWORDTEST.FILEWITHNOEOL.HELPER "|This file ends in a continuation character~|
+END
+
+TO READWORDTEST.BADINPUT
+
+   RUNTOOMANYINPUTSTEST [(READWORD "toomany)]
+   RUNTOOMANYINPUTSTEST [(RW       "toomany)]
+
+END
+
+TO READWORDTEST
+
+   READWORDTEST.SMOKETEST
+   READWORDTEST.FILEWITHNOEOL
+   READWORDTEST.UI
+   READWORDTEST.UICANCEL
+   READWORDTEST.BADINPUT
+
+END
