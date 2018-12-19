@@ -279,7 +279,7 @@ wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 
 	// Convert the unicode selection back to a multibyte string
 	int selectionLength = endPos - startPos;
-	char * buffer = new char[2 * selectionLength]; // worst case: every character is double-byte
+	char * buffer = new char[sizeof(wchar_t*) * selectionLength]; // worst case: every character is double-byte
 	int bufferLength = WideCharToMultiByte(
 		CP_ACP,                 // system ANSI code page
 		0,                      // use best-fit character and don't fail on error

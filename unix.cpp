@@ -114,8 +114,7 @@ int printfx(const wchar_t *str)
 
 int printfx(const wchar_t *fmt, const wchar_t *str)
 {
-	wxString w;
-	w.Format(fmt, str);
+	wxString w = wxString::Format(fmt, str);
 
     mputcombobox(w);
 
@@ -133,10 +132,10 @@ NODE *lchdir(NODE *arg)
     else
     {
         // Get the directory that we are now in.
-		char newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
-        _getcwd(newDirectoryName, sizeof(newDirectoryName));
+		wchar_t newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
+		_wgetcwd(newDirectoryName, sizeof(newDirectoryName));
 
-        printfx(LOCALIZED_FILE_CHDIRSUCCEEDED, wxString(newDirectoryName).wc_str());
+        printfx(LOCALIZED_FILE_CHDIRSUCCEEDED, (newDirectoryName));
     }
 
     return Unbound;
@@ -146,10 +145,10 @@ NODE *lpopdir(NODE *)
 {
     _wchdir(L"..");
 
-    char fname[MAX_BUFFER_SIZE + 1] = { 0 };
-    _getcwd(fname, sizeof(fname));
+    wchar_t fname[MAX_BUFFER_SIZE + 1] = { 0 };
+	_wgetcwd(fname, sizeof(fname));
 
-    printfx(LOCALIZED_FILE_POPPEDTO, wxString(fname));
+    printfx(LOCALIZED_FILE_POPPEDTO, fname);
 
     return Unbound;
 }

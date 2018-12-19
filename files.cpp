@@ -636,7 +636,18 @@ void runstartup(NODE *oldst)
         process_special_conditions();
     }
 }
+wxString noparitylow_strnzcpy(const wchar_t *src, int len)
+{
+	wchar_t* buffer = new wchar_t[len];
 
+	noparitylow_strnzcpy(buffer, src, len);
+
+	wxString dest = buffer;
+
+	delete[] buffer;
+
+	return dest;
+}
 void silent_load(NODE *arg, const wchar_t *prefix)
 {
 
@@ -652,26 +663,12 @@ void silent_load(NODE *arg, const wchar_t *prefix)
     }
 
     // construct the filename
-#ifdef WX_PURE
-#define MAX_PATH (260)
-#endif
-    wchar_t   filename[MAX_PATH];
-	wchar_t * filenamePtr   = filename;
-	wchar_t * filenameLimit = filename + ARRAYSIZE(filename) - 1;  // leave room for NUL
 
-    *filenamePtr = L'\0';
+    wxString filename;
+
     if (prefix != NULL)
     {
-        size_t prefixLength = wcslen(prefix);
-        if (filenameLimit <= filenamePtr + prefixLength)
-        {
-            // prefix is too long
-            return;
-        }
-
-        // copy the prefix to the filename
-        wmemcpy(filenamePtr, prefix, prefixLength);
-        filenamePtr += prefixLength;
+		filename = prefix;
     }
 
     if (arg != NIL)
@@ -686,47 +683,28 @@ void silent_load(NODE *arg, const wchar_t *prefix)
         const wchar_t * argString       = getstrptr(arg);
         int          argStringLength = getstrlen(arg);
 
-        if (filenameLimit <= filenamePtr + argStringLength)
-        {
-            // prefix is too long
-            return;
-        }
-
         // Normalize the case to how we expect it to be on the file system.
         // Using lowercase was inherited from UCBLogo.
-        noparitylow_strnzcpy(filenamePtr, argString, argStringLength);
+        filename += noparitylow_strnzcpy(argString, argStringLength);
 
         // Replace characters that are legal in procedure names, but illegal
         // in file names (such as '?') with characters that are illegal in
         // procedure names, but legal in file names (such as '+').
         // This permits us to load "?REST" as a Logolib routine.
-        for (const wchar_t * limit = filenamePtr + argStringLength;
-             filenamePtr < limit;
-             filenamePtr++)
-        {
-            if (*filenamePtr == '?')
-            {
-                *filenamePtr = '+';
-            }
-        }
+
+		for (size_t i = 0; i < filename.length(); i++) {
+			if (filename[i] == L'?') {
+				filename[i] = L'+';
+			}
+		}
 
         if (prefix == NULL)
         {
-            const size_t EXTENSION_LENGTH = sizeof(".lgo") - 1;
             // this is not coming from Logolib, so append a ".lgo"
-            if (filenameLimit <= filenamePtr + EXTENSION_LENGTH)
-            {
-                // prefix is too long
-                return;
-            }
-            wmemcpy(filenamePtr, L".lgo", EXTENSION_LENGTH);
-            filenamePtr += EXTENSION_LENGTH;
+			filename += L".lgo";
         }
         gcref(arg);
     }
-
-    // NUL-terminate filename
-    *filenamePtr = L'\0';
 
     bool isOk = fileload(filename);
     if (isOk)
@@ -867,7 +845,7 @@ NODE *lreadchar(NODE *)
 
     if (g_Reader.IsBinary())
     {
-        return make_intnode(((unsigned char) c));
+        return make_intnode(/*(unsigned char) */c);
     }
     else
     {

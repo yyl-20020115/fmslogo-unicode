@@ -56,10 +56,10 @@ bool bFixed       = false;
 #ifndef WX_PURE
 static HANDLE g_SingleInstanceMutex = NULL;
 #endif
-
-#ifdef WX_PURE
-#define MAX_PATH (260)
-#endif
+//
+//#ifdef WX_PURE
+//#define MAX_PATH (260)
+//#endif
 static wxString g_FileToLoad; // routine to exec on start
 static bool g_EnterPerspectiveMode = false;
 static bool g_CustomWidth          = false;
@@ -591,31 +591,27 @@ void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
     IdleEvent.Skip();
 }
 
-BEGIN_EVENT_TABLE(CFmsLogo, wxApp)
-    EVT_IDLE(CFmsLogo::OnIdle)
-END_EVENT_TABLE()
-
 void single_step_box(NODE * the_line)
 {
-    // Print the line into a buffer, honoring the current printing limits
-    CStringPrintedNode printedLine(the_line, CStringPrintedNode::WithPrintLimits);
+	// Print the line into a buffer, honoring the current printing limits
+	CStringPrintedNode printedLine(the_line, CStringPrintedNode::WithPrintLimits);
 
-    // pop up single step box showing line of code
-    if (wxMessageBox(
+	// pop up single step box showing line of code
+	if (wxMessageBox(
 		wxString(printedLine.GetString()),
 		wxString(LOCALIZED_STEPPING),
-            wxOK | wxCANCEL) == wxCANCEL)
-    {
-        if (stepflag)
-        {
-            // Act like someone pressed the "UnStep" button
-            CFmsLogo::GetMainFrame()->GetCommander()->ToggleStep();
-        }
-        else
-        {
-            err_logo(STOP_ERROR, NIL);
-        }
-    }
+		wxOK | wxCANCEL) == wxCANCEL)
+	{
+		if (stepflag)
+		{
+			// Act like someone pressed the "UnStep" button
+			CFmsLogo::GetMainFrame()->GetCommander()->ToggleStep();
+		}
+		else
+		{
+			err_logo(STOP_ERROR, NIL);
+		}
+	}
 }
 
 wchar_t * promptuser(const wchar_t *prompt)
@@ -857,3 +853,8 @@ TraceOutput(
     }
 #endif
 }
+
+
+BEGIN_EVENT_TABLE(CFmsLogo, wxApp)
+EVT_IDLE(CFmsLogo::OnIdle)
+END_EVENT_TABLE()

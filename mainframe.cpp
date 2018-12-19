@@ -35,9 +35,9 @@
         #include <shlobj.h>
     #endif
 
-    #ifdef WX_PURE
-        #define MAX_PATH (260)
-    #endif
+    //#ifdef WX_PURE
+    //    #define MAX_PATH (260)
+    //#endif
 
     #include "logorc.h" // for WM_*
     #include "guiutils.h"
@@ -915,7 +915,7 @@ CMainFrame::PopupEditor(
 void CMainFrame::PopupEditorToError(const wchar_t *FileName)
 {
     bool fileNameIsTempPathName;
-    if (wcscmp(FileName, TempPathName) == 0)
+    if (TempPathName.IsSameAs(FileName))
     {
         fileNameIsTempPathName = true;
     }
@@ -973,7 +973,7 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
     }
 
     CreateWorkspaceEditor(
-		wxString(TempPathName), // use the temp file, in case the user saves changes
+		TempPathName, // use the temp file, in case the user saves changes
         NIL,
         true,  // check for errors
         true); // open to the error
@@ -1408,12 +1408,10 @@ static void EraseContentsOfWorkspace()
     // started, we switch to the FMSLogo directory before loading the
     // startup.logoscript file.
     const wxString savedWorkingDirectory(wxGetCwd());
-    wxSetWorkingDirectory(wxString(g_FmslogoBaseDirectory));
+    wxSetWorkingDirectory(g_FmslogoBaseDirectory);
 
     // Load the startup script.
-    wchar_t startupScript[MAX_PATH + 1];
-    MakeHelpPathName(startupScript, L"startup.logoscript");
-    fileload(startupScript);
+    fileload(g_FmslogoBaseDirectory + L"startup.logoscript");
 
     // Restore the previous working directory.
     wxSetWorkingDirectory(savedWorkingDirectory);
@@ -1698,35 +1696,14 @@ void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
 // Gets the full path to where the FMSLogo screensaver
 // should be located (if it's installed).
 static
-bool
-GetScreenSaverFilePath(
-    wchar_t * ScreenSaverPath,
-    size_t ScreenSaverPathLength
-    )
+wxString
+GetScreenSaverFilePath()
 {
     static const wchar_t screenSaverFileName[] = L"\\fmslogo.scr";
 
-    // Using GetSystemDirectory() instead of SHGetFolderPath
-    // for compatibility with Windows 95.
-    UINT totalChars = GetSystemDirectory(
-        ScreenSaverPath,
-        ScreenSaverPathLength);
-    if (totalChars == 0)
-    {
-        // an error occurred.
-        return false;
-    }
-    if (ScreenSaverPathLength <= totalChars + ARRAYSIZE(screenSaverFileName))
-    {
-        // More space is needed to hold
-        // the path to the screensaver.
-        // This should never happen.
-        return false;
-    }
-
-    // concatenate %windir%\fmslogo.scr
-    wcscpy(ScreenSaverPath + totalChars, screenSaverFileName);
-    return true;
+	wxString sysDir = GetFullTextReversed(GetSystemDirectory);
+	
+	return sysDir + screenSaverFileName;
 }
 
 #endif
@@ -1738,13 +1715,7 @@ bool ScreenSaverIsInstalled()
 #ifdef WX_PURE
     return false;
 #else
-    wchar_t screenSaverPath[MAX_PATH];
-
-    if (!GetScreenSaverFilePath(screenSaverPath, ARRAYSIZE(screenSaverPath)))
-    {
-        // an error occurred.
-        return false;
-    }
+	wxString screenSaverPath = GetScreenSaverFilePath();
 
     // check for the file's existence
     DWORD fileAttributes = GetFileAttributes(screenSaverPath);
@@ -1823,7 +1794,7 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
         &itemIdList);
     if (SUCCEEDED(hr))
     {
-        wchar_t screenSaverProgramName[MAX_PATH] = L"";
+		wchar_t screenSaverProgramName[MAX_PATH] = { 0 };
 
         // Get a handle to a folder where we can store personal documents.
         BOOL isOk = SHGetPathFromIDList(
@@ -1848,10 +1819,8 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
 
             // Best-effort to set the Logo screensaver 
             // to be the active screensaver
-            wchar_t screenSaverPath[MAX_PATH];
-            if (GetScreenSaverFilePath(
-                    screenSaverPath,
-                    ARRAYSIZE(screenSaverPath)))
+			wxString screenSaverPath = GetScreenSaverFilePath();
+            if (screenSaverPath.length()>0)
             {
                 HKEY desktopKey = NULL;
 
@@ -1868,7 +1837,7 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
                         L"SCRNSAVE.EXE",
                         0,
                         REG_SZ,
-                        reinterpret_cast<BYTE*>(screenSaverPath),
+                        (BYTE*)((const wchar_t*)screenSaverPath),
                         wcslen(screenSaverPath) + 1);
 
                     RegCloseKey(desktopKey);

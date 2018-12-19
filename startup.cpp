@@ -49,11 +49,11 @@
 Color dfld;                        // Current flood color
 Color dscn;                        // Current screen color
 
-wxString * g_LibPathName = NULL;          // path to library
-wxString * g_HelpFileName = NULL;         // path to help file
-wchar_t TempPathName[MAX_PATH + 1] = { 0 };   // path to temp edit file
-wchar_t TempBmpName[MAX_PATH + 1] = { 0 };    // path to temp bitmap file
-wchar_t TempClipName[MAX_PATH + 1] = { 0 };   // path to temp clipboard file
+wxString g_LibPathName;          // path to library
+wxString g_HelpFileName;         // path to help file
+wxString TempPathName;   // path to temp edit file
+wxString TempBmpName;    // path to temp bitmap file
+wxString TempClipName;   // path to temp clipboard file
 
 wxUint32 scolor;                   // screen color
 wxUint32 fcolor;                   // flood color
@@ -61,35 +61,67 @@ wxUint32 pcolor;                   // pen color
 
 wxString g_FmslogoBaseDirectory; // The directory that contains fmslogo.exe
 
-// Creates path relative to the directory in which FMSLogo is installed.
-void MakeHelpPathName(wchar_t *OutBuffer, const wchar_t * TheFileName)
-{
-    wcsncpy(OutBuffer, g_FmslogoBaseDirectory, MAX_PATH);
-    wcsncat(OutBuffer, TheFileName, MAX_PATH - wcslen(OutBuffer));
-}
-
 // Creates a unique filename relative to TempPath
-static
-void MakeTempFilename(wchar_t *OutBuffer, const wchar_t * TempPath, const wchar_t * FileName)
-{
-    // the first part of the temp filename is TempPath
-	wchar_t * ptr       = OutBuffer;
-    const wchar_t * src = TempPath;
-    while (*src != L'\0')
-    {
-        *ptr++ = *src++;
-    }
 
-    // make sure that the path ends in a directory delimiter
-    if (*ptr != L'\\')
-    {
-        *ptr++ = L'\\';
-    }
-   
-    // append the filename
-    wcscpy(ptr, FileName);
+wxString GetFullText(FullTextCallBack* ftcb, int maxBufferSize) 
+{
+	wxString result;
+	if (ftcb != 0) {
+		int length = MAX_PATH;
+
+		int ret = 0;
+		wchar_t* buffer = 0;
+		
+		do {
+			buffer = new wchar_t[length];
+			ret = ftcb(length, buffer);
+			if (ret < length) {
+				break;
+			}
+			else {
+				delete[] buffer;
+
+				length <<= 1;
+			}
+		} while (true);
+
+		if (ret > 0) {
+			result = buffer;
+		}
+		delete[] buffer;
+	}
+	return result;
 }
 
+wxString GetFullTextReversed(FullTextCallBackReversed* ftcb, int maxBufferSize)
+{
+	wxString result;
+	if (ftcb != 0) {
+		int length = MAX_PATH;
+
+		int ret = 0;
+		wchar_t* buffer = 0;
+
+		do {
+			buffer = new wchar_t[length];
+			ret = ftcb(buffer,length);
+			if (ret < length) {
+				break;
+			}
+			else {
+				delete[] buffer;
+
+				length <<= 1;
+			}
+		} while (true);
+
+		if (ret > 0) {
+			result = buffer;
+		}
+		delete[] buffer;
+	}
+	return result;
+}
 void init_graphics()
 {
     // set appropriate default colors
@@ -142,10 +174,10 @@ void init_graphics()
     wxString fmslogoDirectory =(g_FmslogoBaseDirectory);
 
     const wxFileName libPathName(fmslogoDirectory + wxString(L"logolib/"));
-    g_LibPathName  = new wxString(libPathName.GetPathWithSep());
+    g_LibPathName  = libPathName.GetPathWithSep();
 
     const wxFileName helpFileName(fmslogoDirectory + wxString(L"logohelp.chm"));
-    g_HelpFileName = new wxString(helpFileName.GetFullPath());
+    g_HelpFileName = helpFileName.GetFullPath();
 
 //#ifdef WX_PURE
 //    const char * tempPath = getenv("TMP");
@@ -154,17 +186,17 @@ void init_graphics()
 //        tempPath = "~";
 //    }
 //#else
-    DWORD tempPathLength;
+    
+	wxString tp = GetFullText(GetTempPath);
 
-	wchar_t  tempPath[MAX_PATH + 1] = { 0 };
     bool  tempPathIsValid = false;
 
-    tempPathLength = GetTempPath(
-        sizeof(tempPath)/sizeof(wchar_t),
-        tempPath);
-    if (tempPathLength != 0)
+    if (tp.Length()>0)
     {
-        DWORD tempPathAttributes = GetFileAttributes(tempPath);
+		if (!tp.EndsWith(L"\\")) {
+			tp += L"\\";
+		}
+        DWORD tempPathAttributes = GetFileAttributes(tp);
         if (tempPathAttributes != 0xFFFFFFFF)
         {
             // tempPath must be a directory that we can write to
@@ -184,19 +216,12 @@ void init_graphics()
             LOCALIZED_ERROR_TMPNOTDEFINED,
             LOCALIZED_WARNING,
             MB_OK);
-
-        wcscpy(tempPath, L"C:");
+		tp = L"C:\\";
     }
 //#endif
-
-    // construct the name of the temporary editor file
-    MakeTempFilename(TempPathName, tempPath, L"mswlogo.tmp");
-
-    // construct the name of the temporary bitmap file
-    MakeTempFilename(TempBmpName, tempPath, L"mswlogo.bmp");
-
-    // construct the name of the clipboard file
-    MakeTempFilename(TempClipName, tempPath, L"mswlogo.clp");
+	TempPathName = tp + L"mswlogo.tmp";
+	TempBmpName = tp + L"mswlogo.bmp";
+	TempClipName = tp + L"mswlogo.clp";
 
     g_PrinterAreaXLow   = GetConfigurationInt(L"Printer.Xlow",  -BitMapWidth  / 2);
     g_PrinterAreaXHigh  = GetConfigurationInt(L"Printer.XHigh", +BitMapWidth  / 2);
@@ -207,9 +232,5 @@ void init_graphics()
 
 void uninit_graphics()
 {
-    delete g_LibPathName;
-    g_LibPathName = NULL;
 
-    delete g_HelpFileName;
-    g_HelpFileName = NULL;
 }

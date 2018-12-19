@@ -336,7 +336,8 @@ NODE *lrawascii(NODE *args)
     if (NOT_THROWING)
     {
         // must be cast to unsigned or this can return a negative number
-        unsigned int i = *reinterpret_cast<const unsigned char*>(getstrptr(arg));
+		//NOTICE: changed here
+        unsigned int i = *reinterpret_cast<const wchar_t*>(getstrptr(arg));
         val = make_intnode(i);
     }
     return val;
@@ -347,7 +348,7 @@ NODE *lbackslashedp(NODE *args)
     NODE * arg = char_arg(args);
     if (NOT_THROWING)
     {
-        char i = *getstrptr(arg);
+        wchar_t i = *getstrptr(arg);
         return true_or_false(ecma_get(i));
     }
     return Unbound;

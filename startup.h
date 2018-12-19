@@ -27,11 +27,11 @@
 extern Color dfld;
 extern Color dscn;
 
-extern class wxString * g_LibPathName;
-extern class wxString * g_HelpFileName;
-extern wchar_t TempPathName[];
-extern wchar_t TempBmpName[];
-extern wchar_t TempClipName[];
+extern wxString g_LibPathName;
+extern wxString g_HelpFileName;
+extern wxString TempPathName;
+extern wxString TempBmpName;
+extern wxString TempClipName;
 
 extern wxUint32 scolor;  // screen color
 extern wxUint32 fcolor;  // flood color
@@ -43,9 +43,20 @@ extern wxUint32 pcolor;  // pen color
 
 extern wxString g_FmslogoBaseDirectory;
 
-extern void MakeHelpPathName(wchar_t *szFileName, const wchar_t *);
+//extern void MakeHelpPathName(wchar_t *szFileName, const wchar_t *);
 extern void init_graphics();
 extern void uninit_graphics();
 extern void init_cursors();
+#ifdef WIN32
+#define STDCALL __stdcall
+#else
+#define STDCALL 
+#endif
+
+typedef unsigned long STDCALL FullTextCallBack(unsigned long, wchar_t*);
+typedef unsigned int STDCALL FullTextCallBackReversed(wchar_t*, unsigned int);
+
+extern wxString GetFullText(FullTextCallBack* ftcb, int maxBufferSize = 4096);
+extern wxString GetFullTextReversed(FullTextCallBackReversed* ftcb, int maxBufferSize = 4096);
 
 #endif // __STARTUP_H_

@@ -160,7 +160,7 @@ static PENSTATE g_PenState;              // The state of the current pen (color,
 
 struct font_find_t
 {
-    const char *fontname;
+    const wchar_t *fontname;
     bool        found;
 };
 
@@ -3201,7 +3201,7 @@ FindFont(
     struct font_find_t * context = reinterpret_cast<struct font_find_t *>(lParam);
 
     // check for a match
-    if (_wcsicmp(wxString(context->fontname), LogFont->lfFaceName) == 0)
+    if (_wcsicmp(context->fontname, LogFont->lfFaceName) == 0)
     {
         // take a copy, flag one was found and return
         FontRec = *LogFont;
@@ -3260,7 +3260,7 @@ setfont(
     // set the font name that we're looking for (FontRec will get filled if found)
     struct font_find_t context; 
     context.found    = false;
-    context.fontname = wxString(fontname);
+    context.fontname = fontname;
     EnumFontFamilies(
         hdc,
         NULL,
@@ -3310,7 +3310,7 @@ HtmlHelpInitialize(
     // This is the only place that reads g_HelpFileName,
     // so its allocation should be part of this
     // lazy initialization.
-    if (!g_HelpController->Initialize(*g_HelpFileName))
+    if (!g_HelpController->Initialize(g_HelpFileName))
     {
         wxMessageBox(
 			wxString(LOCALIZED_ERROR_HHCTRLNOTLOADED),

@@ -194,7 +194,7 @@ SetConfigurationString(
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD valueLength    = wcslen(Value) + sizeof(char);   // include NUL
+        DWORD valueLength    = wcslen(Value) + sizeof(wchar_t);   // include NUL
         const BYTE *valuePtr = reinterpret_cast<const BYTE*>(Value);
 
         RegSetValueEx(

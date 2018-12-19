@@ -23,8 +23,8 @@
      #include <windows.h>
      #include <windowsx.h> // for combobox macros
      #include <commctrl.h> // for combobox style manifest constants
-   #else
-     #define MAX_PATH (260)
+   //#else
+   //  #define MAX_PATH (260)
    #endif // WX_PURE
 
    #include <wx/app.h>
@@ -446,7 +446,7 @@ class CLogoStaticText : public wxStaticText
 public:
     CLogoStaticText(
         wxWindow               * Parent,
-        const char             * Text, 
+        const wchar_t             * Text,
         const CClientRectangle & ClientRectangle
         )
         : wxStaticText(
@@ -2722,7 +2722,7 @@ NODE *lyesnobox(NODE *args)
 static
 NODE * dialogfile_helper(NODE * args, long fileDialogFlags)
 {
-	wchar_t filenameBuffer[MAX_PATH];
+	wchar_t filenameBuffer[MAX_PATH] = { 0 };
     PrintNodeToString(car(args), filenameBuffer, ARRAYSIZE(filenameBuffer));
 
     wxFileName filename(filenameBuffer);

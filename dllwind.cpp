@@ -58,7 +58,8 @@
 //#else
 //  #error Unsupported compiler
 //#endif
-extern "C" void __stdcall _do_push(void*);
+
+extern "C" void __stdcall _do_push(void*); //implemented in helpers32.asm or helpers64.asm
 
 class CLoadedDll
 {
@@ -75,7 +76,7 @@ public:
     void         AddReference();
 
 private:
-    wchar_t         m_DllName[MAX_PATH];
+    wxString     m_DllName;
     HMODULE      m_Dll;
     int          m_RefCount;
     CLoadedDll * m_Next;
@@ -108,14 +109,14 @@ public:
         if (m_LoadedDll.m_RefCount == 0)
         {
             // the DLL has not been loaded, yet
-            assert(m_LoadedDll.m_DllName[0] == L'\0');
+            assert(m_LoadedDll.m_DllName.length() == 0);
             assert(m_LoadedDll.m_Dll        == NULL);
         }
         else
         {
             // the DLL should have been loaded
             assert(m_LoadedDll.m_Dll != NULL);
-            assert(m_LoadedDll.m_DllName[0] != L'\0');
+            assert(m_LoadedDll.m_DllName.length() != 0);
         }
     }
 
@@ -128,9 +129,9 @@ private:
 CLoadedDll::CLoadedDll() :
     m_Dll(NULL),
     m_RefCount(0),
-    m_Next(NULL)
+    m_Next(NULL),
+	m_DllName()
 {
-    m_DllName[0] = L'\0';
 }
 
 CLoadedDll::~CLoadedDll() 
@@ -165,7 +166,7 @@ bool CLoadedDll::Load(const wchar_t * DllName)
     ASSERT_LOADEDDLL_INVARIANT;
     assert(m_RefCount   == 0);
     assert(m_Dll        == NULL);
-    assert(m_DllName[0] ==L'\0');
+    assert(m_DllName.length() == 0);
 
     m_Dll = LoadLibrary(DllName);
     if (m_Dll == NULL)
@@ -174,7 +175,7 @@ bool CLoadedDll::Load(const wchar_t * DllName)
     }
    
     // store the name of the DLL for later use
-    wcsncpy(m_DllName, DllName, ARRAYSIZE(m_DllName) - 1);
+	this->m_DllName = DllName;
 
     // the library now has a reference
     m_RefCount = 1;
@@ -256,7 +257,7 @@ CLoadedDll * CLoadedDlls::FindByName(const wchar_t * TargetDllName)
     {
         assert(dll->m_RefCount != 0);  // every DLL in the list should have a reference
 
-        if (0 == _wcsicmp(dll->m_DllName, TargetDllName))
+        if (dll->m_DllName.IsSameAs( TargetDllName,false))
         {
             // found it
             return dll;
@@ -380,12 +381,12 @@ GetFunctionFromDll(
     if (!theFunc) 
     {
         // try to get the name as an ordinal
-        wchar_t * ptr;
+        wchar_t * ptr = 0;
         unsigned long ordinal = wcstoul(FunctionName, &ptr, 0);
         if (*ptr == '\0' && ordinal <= 0xFFFF)
         {
             // FunctionName was a number, so try to treat it as an ordinal
-            theFunc = GetProcAddress(Dll, (char *) ordinal);
+            theFunc = GetProcAddress(Dll, (const char *) ordinal);
         }
     }
 
@@ -623,7 +624,7 @@ NODE *ldllcall(NODE *args)
         }
     }
 
-    wchar_t areturn[MAX_BUFFER_SIZE];
+	wxString areturn;
     if (stopping_flag != THROWING)
     {
         // Now that we have all of the parameters, it's time to copy them
@@ -645,7 +646,7 @@ NODE *ldllcall(NODE *args)
         case L'W':
             {
                 WORD w = (*(WORD(WINAPI *)()) theFunc)();
-                wprintf(areturn, L"%d", w);
+				areturn = wxString::Format(L"%d", w);
             }
             break;
 
@@ -653,15 +654,15 @@ NODE *ldllcall(NODE *args)
         case L'L':
             {
                 DWORD dw = (*(DWORD(WINAPI *)()) theFunc)();
-				wprintf(areturn, L"%ld", dw);
-            }
+				areturn = wxString::Format(L"%ld", dw);
+		}
             break;
 
         case L'f':
         case L'F':
             {
                 double dw = (*(double (WINAPI *)()) theFunc)();
-				wprintf(areturn, L"%f", dw);
+				areturn = wxString::Format(L"%f", dw);
             }
             break;
 
@@ -672,7 +673,7 @@ NODE *ldllcall(NODE *args)
 
                 // This should not be like this because lp[]
                 // can be bigger than areturn[] but for now...
-                wcsncpy(areturn, lp, ARRAYSIZE(areturn));
+				areturn = lp;
 
                 // free global string mem.
                 GlobalFreePtr(lp);
@@ -683,7 +684,7 @@ NODE *ldllcall(NODE *args)
         case L'V':
             // "void" return type
             (*(void (WINAPI *)()) theFunc)();
-            areturn[0] = L'\0';
+			//areturen = L"";
             break;
 
         default:
@@ -706,7 +707,7 @@ NODE *ldllcall(NODE *args)
     }
 
     NODE * val;
-    if (areturn[0] != L'\0')
+    if (areturn.length()>0)
     {
         // something was returned
         NODE * targ = make_strnode(areturn);

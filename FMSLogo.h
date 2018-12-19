@@ -21,7 +21,6 @@ extern int  BitMapWidth;
 extern int  BitMapHeight;
 
 extern bool bFixed;
-
 extern wchar_t edit_editexit[MAX_BUFFER_SIZE]; // editor callback instruction list
 
 ///////////////////////////////////////////////////////////////

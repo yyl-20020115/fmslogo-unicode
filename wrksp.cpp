@@ -1892,7 +1892,7 @@ NODE* get_all_proc_names()
 
     // Start by collecting the names of all procedures in LOGOLIB.
     wxArrayString libraryProcedureNames;
-    wxDir::GetAllFiles(*g_LibPathName, &libraryProcedureNames);
+    wxDir::GetAllFiles(g_LibPathName, &libraryProcedureNames);
     for (wxArrayString::const_iterator i = libraryProcedureNames.begin();
          i != libraryProcedureNames.end();
          ++i)

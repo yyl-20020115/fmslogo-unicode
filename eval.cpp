@@ -131,7 +131,7 @@ load_procedure_if_necessary(
         NOT_THROWING &&
         ProcNode != Null_Word)
     {
-        silent_load(ProcNode, /*WXSTRING_TO_STRING*/(*g_LibPathName));
+        silent_load(ProcNode, g_LibPathName);
     }
 
     return procnode__caseobj(ProcNode);

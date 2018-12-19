@@ -77,7 +77,7 @@ is_special_character(wchar_t ch)
 
 const int ecma_begin = 3; // first char used for quoteds
 
-static wchar_t ecma_array[128];
+static wchar_t ecma_array[128] = { 0 };
 
 wchar_t ecma_set(int ch)
 {
