@@ -256,11 +256,11 @@ callthing * callthing::CreateNetworkReceiveReadyEvent(
 
     // Copy OnReceiveReadyCallback now because it might be freed
     // by the time the event is processed.
-    callevent->func = wcsdup(OnReadyReceiveCallback);
+    callevent->func = _wcsdup(OnReadyReceiveCallback);
 
     // copy the network packet into the event (instead of into NetworkConnection) 
     // so that it can be processed in the order in which is was received.
-    callevent->networkpacket = strdup(Packet);
+    callevent->networkpacket = _strdup(Packet);
 
     return callevent;
 }

@@ -20,7 +20,7 @@
 #include <wx/stc/stc.h>
 #include <wx/fdrepdlg.h>
 #include <wx/print.h>
-
+#define USE_RICHTEXT_CODE_EDITOR
 #ifndef USE_RICHTEXT_CODE_EDITOR
 
 class CLogoCodeCtrl : public wxStyledTextCtrl
@@ -75,6 +75,7 @@ public:
     void OnDelete(wxCommandEvent& Event);
     void OnSelectAll(wxCommandEvent& Event);
     void OnHelpTopicSearch(wxCommandEvent& Event);
+	void AddTextRaw(const wchar_t *text, int length);
 
     // Functions to determine if menu items should be enabled.
     bool CanCut();
@@ -91,11 +92,37 @@ public:
     void OnSavePointReached(wxStyledTextEvent& event);
     void OnSavePointLeft(wxStyledTextEvent& event);
     void OnContextMenu(wxContextMenuEvent& Event);
-
-
+	wxString GetSelectedText();
+	void HideSelection(bool hide);
+	bool AutoCompActive();
+	int GetCurrentLine();
+	void SetValue(const wxString &text);
+	void SetText(const wxString &text);
+	void SetUseHorizontalScrollBar(bool visible);
+	void SetSelBackground(bool useSetting, const wxColour &back);
+	void SetSelForeground(bool useSetting, const wxColour &fore);
     // Helper functions
     void ScrollCaret();
-
+	int FormatRange(
+		bool    doDraw,
+		int     startPos,
+		int     endPos,
+		wxDC *  draw,
+		wxDC *  target,
+		wxRect  renderRect,
+		wxRect  pageRect
+	);
+	void ReplaceSelection(
+		const wxString &   ReplacementString
+	);
+	bool SearchForString(
+		wxFindReplaceFlags WxSearchFlags,
+		const wxString &   StringToFind
+	);
+	void Cancel();
+	void SetSavePoint();
+	void GotoPos(int caret);
+	void SetUndoCollection(bool collectUndo);
     void
     SetScintillaSearchFlags(
         wxFindReplaceFlags WxSearchFlags
@@ -161,12 +188,12 @@ public:
     bool AutoCompActive();
     int GetCurrentLine();
     void SetText(const wxString &text);
-    void AddTextRaw (const char *text, int length=-1);
+    void AddTextRaw (const wchar_t *text, int length=-1);
     void SetSavePoint();
     void Cancel();
     void SetUndoCollection(bool collectUndo);
     void GotoPos(int caret);
-    void Clear();
+    //void Clear();
     void ReplaceSelection(const wxString &text);
     int
     FormatRange(

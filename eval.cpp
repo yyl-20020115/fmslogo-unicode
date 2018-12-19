@@ -850,11 +850,11 @@ NODE *evaluator(NODE *list, enum labels where)
 
     // Registers that don't get reference counted.
     // These are saved/restored without changing the reference count.
-    NODE * var_stack_position;  // temp ptr into var_stack
-    NODE * formals;             // list of formal parameters
-    FIXNUM repcount;            // count for repeat
+    NODE * var_stack_position = NULL;  // temp ptr into var_stack
+    NODE * formals = NULL;             // list of formal parameters
+    FIXNUM repcount = 0;            // count for repeat
 
-    bool tracing;               // are we tracing the current procedure?
+    bool tracing = false;               // are we tracing the current procedure?
 
     Stack.PushFrame(
         all_done,

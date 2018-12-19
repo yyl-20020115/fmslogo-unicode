@@ -208,7 +208,7 @@ public:
     {
         // make sure g_MaxTurtle is within range
         assert(0 <= g_MaxTurtle);
-        assert(g_MaxTurtle < g_TurtlesLimit);
+        assert(g_MaxTurtle < (int)g_TurtlesLimit);
 
         // we can never have less than one turtle
         assert(0 < g_TurtlesLimit);
@@ -2402,7 +2402,7 @@ NODE *lsetturtle(NODE *args)
             }
         }
 
-        if (g_TurtlesLimit <= turtleId)
+        if ((int)g_TurtlesLimit <= turtleId)
         {
             // The physical array is smaller than the requested turtle
             // index, so we must grow the turtle array.
@@ -3784,7 +3784,7 @@ void init_bitmaps()
 {
     // allocate the array of bitmaps
     g_BitmapsLimit   = 1;
-    g_Bitmaps        = (CUTMAP *) calloc(sizeof(*g_Bitmaps), g_BitmapsLimit);
+    g_Bitmaps        = (CUTMAP *) calloc(g_BitmapsLimit,sizeof(*g_Bitmaps));
     g_SelectedBitmap = &g_Bitmaps[0];
 }
 
@@ -3823,7 +3823,7 @@ void init_turtles()
 {
     g_TurtlesLimit = 1;
     g_MaxTurtle    = 0;
-    g_Turtles      = (Turtle *) calloc(sizeof(*g_Turtles), g_TurtlesLimit);
+    g_Turtles      = (Turtle *) calloc(g_TurtlesLimit,sizeof(*g_Turtles));
     g_SelectedTurtle = &g_Turtles[g_MaxTurtle];
 
     InitializeTurtle(g_SelectedTurtle);

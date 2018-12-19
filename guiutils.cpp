@@ -77,7 +77,7 @@ FillMenu(
         {
             Menu->Append(
                 MenuItems[i].MenuId,
-				wxString(MenuItems[i].MenuText));
+				(MenuItems[i].MenuText));
         }
         else
         {
@@ -95,11 +95,12 @@ AppendChildMenu(
     )
 {
     // create the popup menu
-    wxMenu * childMenu = new wxMenu;
+	wxMenu * childMenu = new wxMenu();// wxMenuBase::New();
+
+    // append the child menu to the main menu
+    MainMenu->Append(childMenu, ChildMenuText);
 
     // fill the child menu with its items
     FillMenu(childMenu, ChildMenuItems, ChildMenuItemsLength);
 
-    // append the child menu to the main menu
-    MainMenu->Append(childMenu, wxString(ChildMenuText));
 }

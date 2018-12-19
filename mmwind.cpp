@@ -45,8 +45,8 @@
 #endif
 
 // global variables
-wchar_t mci_callback[MAX_BUFFER_SIZE];    // MCI callback code
-wchar_t *timer_callback[MAX_TIMERS];      // timer cb malloc'd as needed
+wchar_t mci_callback[MAX_BUFFER_SIZE] = { 0 };    // MCI callback code
+wchar_t *timer_callback[MAX_TIMERS] = { 0 };      // timer cb malloc'd as needed
 
 static HMIDIOUT hMidiOut = 0;
 

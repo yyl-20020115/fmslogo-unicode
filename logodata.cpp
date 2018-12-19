@@ -94,7 +94,7 @@ wchar_t ecma_clear(int ch)
 {
     // Return the unbackslashed form of "ch".
     ch &= 0xFF;
-    if (ch < ecma_begin || ch >= ecma_begin + sizeof(g_SpecialCharacters) - 1) 
+    if (ch < ecma_begin || ch >= ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) 
     {
         // ch is not backslashed
         return ch;
@@ -116,14 +116,14 @@ bool ecma_get(int ch)
 
     ch &= 0xFF;
     return 
-        ((ch >= ecma_begin && ch < ecma_begin + sizeof(g_SpecialCharacters) - 1) && 
+        ((ch >= ecma_begin && ch < ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) && 
          (ch < 0x7 || ch > 0xD || ch == 0xB));
 }
 
 void init_ecma_array()
 {
     // Initialize ecma_array to map all characters to themselves.
-    for (int i = 0; i < sizeof(ecma_array); i++)
+    for (int i = 0; i < sizeof(ecma_array)/sizeof(wchar_t); i++)
     {
         ecma_array[i] = i;
     }
@@ -131,7 +131,7 @@ void init_ecma_array()
     // Override the special characters to map to ecma_begin+index.
     // Characters a "backslashed" by replacing them with very small 
     // values that are usually used for control characters.
-    for (unsigned char i = 0; i < sizeof(g_SpecialCharacters) - 1; i++)
+    for (unsigned char i = 0; i < sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1; i++)
     {
         ecma_array[g_SpecialCharacters[i]] = ecma_begin+i;
     }
@@ -289,7 +289,7 @@ uncapital(
 	wchar_t Capital
     )
 {
-	wchar_t lowercase;
+	wchar_t lowercase[2] = { 0 };
 
 #ifdef WX_PURE
     lowercase = tolower(Capital);
@@ -299,11 +299,11 @@ uncapital(
         LCMAP_LOWERCASE,
         &Capital,
         sizeof(Capital),
-        &lowercase,
-        sizeof(lowercase));
+        &lowercase[0],
+        sizeof(lowercase[0]));
 #endif
 
-    return lowercase;
+    return lowercase[0];
 }
 
 static
@@ -341,7 +341,7 @@ capital(
 	wchar_t LowerCase
     )
 {
-	wchar_t capital;
+	wchar_t capital[2] = { 0 };
 
 #ifdef WX_PURE
     capital = toupper(LowerCase);
@@ -351,11 +351,11 @@ capital(
         LCMAP_UPPERCASE,
         &LowerCase,
         sizeof(LowerCase),
-        &capital,
-        sizeof(capital));
+        &capital[0],
+        sizeof(capital[0]));
 #endif
 
-    return capital;
+    return capital[0];
 }
 
 wchar_t *cap_strnzcpy(wchar_t *dst, const wchar_t * src, int len)
@@ -508,16 +508,16 @@ make_strnode(
     }
 
     // allocate enough to hold the header, the string, and NUL.
-	wchar_t * strhead = (wchar_t *) malloc(sizeof(short) + len + 1);
-    if (strhead == NULL)
+	wchar_t * strhead = (wchar_t *)malloc(sizeof(short) + (len + 1) * sizeof(wchar_t));
+	if (strhead == NULL)
     {
         err_logo(OUT_OF_MEM, NIL);
         return Unbound;
     }
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = strhead + sizeof(short);
-    copy_routine(strptr, string, len);
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
+	copy_routine(strptr, string, len);
 
     // set the reference count to 1.
     unsigned short *header = (unsigned short *) strhead;
@@ -556,7 +556,7 @@ make_strnode_from_wordlist(
     }
 
     // allocate enough to hold the header, the string, and NUL.
-	wchar_t * strhead = (wchar_t *) malloc(sizeof(short) + len + 1);
+	wchar_t * strhead = (wchar_t *)malloc(sizeof(short) + (len + 1) * sizeof(wchar_t));
     if (strhead == NULL)
     {
         err_logo(OUT_OF_MEM, NIL);
@@ -564,8 +564,8 @@ make_strnode_from_wordlist(
     }
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = strhead + sizeof(short);
-    word_strnzcpy(strptr, wordlist, len);
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
+	word_strnzcpy(strptr, wordlist, len);
 
     // set the reference count to 1.
     unsigned short *header = (unsigned short *) strhead;
@@ -719,7 +719,7 @@ NODE *cnv_node_to_intnode(NODE *ndi)
         {
             // The floating point node can be converted to an integer
             // without information loss.
-            FIXNUM i = f;
+            FIXNUM i = (FIXNUM)f;
             return make_intnode(i);
         }
     }
@@ -939,7 +939,7 @@ NODE *make_array(int len)
     {
         // calloc() handles both integer overflow and
         // initializing each of the members to NIL.
-        data = (NODE **) calloc(sizeof *data, len);
+        data = (NODE **) calloc(len,sizeof(NODE*));
         if (data == NULL)
         {
             // The array is too large to allocate.

@@ -234,19 +234,6 @@ bool CLogoCodePrintout::HasPage(int pageNum)
     return m_NextPrintStartPosition < m_EditControl.GetTextLength();
 }
 
-wxString CLogoCodeCtrl::GetText() const
-{
-	int textLength = GetTextLength();
-
-	wchar_t * buffer = new wchar_t[(textLength + 1) * 2];
-	GetWindowText(GetHandle(), buffer, textLength + 1);
-
-	wxString text(buffer, textLength);
-
-	delete[] buffer;
-
-	return text;
-}
 
 // BUG: this should return the number of characters, but it instead
 // returns the number of bytes.  However, for this is used, it does
@@ -641,7 +628,7 @@ wxString ToLower(const wxString & String)
 
 	wxString w(buffer);
 
-	delete buffer;
+	delete[] buffer;
 	return w;
 #endif
 }
@@ -666,7 +653,7 @@ wxString ToUpper(const wxString & String)
 
     wxString w(buffer);
 
-	delete buffer;
+	delete[] buffer;
 	return w;
 #endif
 }
@@ -1136,7 +1123,7 @@ int CLogoCodeCtrl::TextHeight(int line)
 {
 	int x;
 	int y;
-	GetTextExtent("Tg", &x, &y);
+	GetTextExtent(L"Tg", &x, &y);
 	return y + 5; // Chinese characters are bigger than Roman characters
 }
 
@@ -1166,7 +1153,7 @@ END_EVENT_TABLE()
 // use a multi-byte character set, such as Simplified Chinese.
 // This is stop-gap solution until FMSLogo is a pure-Unicode application.
 #include <richedit.h>
-#include <mbstring.h>
+//#include <mbstring.h>
 
 CLogoCodeCtrl::CLogoCodeCtrl(
     wxWindow *      Parent,
@@ -1202,7 +1189,8 @@ wxString CLogoCodeCtrl::GetText() const
 {
     int textLength = GetTextLength();
 
-	wchar_t * buffer = new wchar_t[(textLength + 1)*2];
+	wchar_t * buffer = new wchar_t[(textLength + 1)];
+
     GetWindowText(GetHandle(), buffer, textLength + 1);
 
     wxString text(buffer, textLength);
@@ -1212,78 +1200,14 @@ wxString CLogoCodeCtrl::GetText() const
     return text;
 }
 
-// BUG: this should return the number of characters, but it instead
-// returns the number of bytes.  However, for this is used, it does
-// not cause problems.
-int CLogoCodeCtrl::GetTextLength() const
-{
-    return GetWindowTextLength(GetHandle());
-}
-
-wxString CLogoCodeCtrl::GetTextRange(int startPos, int endPos)
-{
-    return GetRange(startPos, endPos);
-}
-
-wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
-{
-    wxString entireBuffer(GetText());
-    if (startPos == 0 && endPos == -1)
-    {
-        return entireBuffer;
-    }
-
-    // startPos and endPos assume that newlines are just LF,
-    // but GetText() returns it with CRLF.
-    entireBuffer.Replace(wxString(L"\r\n"), wxString(L"\n"));
-
-    // startPos and endPos are in characters, but wxString::Mid()
-    // treats its arguments as being in bytes.  To get the correct substring,
-    // we must also treat it as characters.
-
-    // CONSIDER: this could be rewritten using _ismbblead
-
-    // Convert the mulitbyte string into Unicode wide characters.
-    int wideBufferLength = entireBuffer.Len() + 1;
-    wchar_t * wideBuffer = new wchar_t[wideBufferLength];
-    MultiByteToWideChar(
-        CP_ACP,                 // system ANSI code page
-        0,                      // flags: don't fail on error
-		wxString(entireBuffer), // input string
-        -1,                     // its length (NUL-terminated)
-        wideBuffer,             // output string
-        wideBufferLength);      // size of output buffer (characters)
-
-    // Convert the unicode selection back to a multibyte string
-    int selectionLength = endPos - startPos;
-    char * buffer = new char[2 * selectionLength]; // worst case: every character is double-byte
-    int bufferLength = WideCharToMultiByte(
-        CP_ACP,                 // system ANSI code page
-        0,                      // use best-fit character and don't fail on error
-        wideBuffer + startPos,  // offset of first desired character
-        selectionLength,        // total desired characters
-        buffer,                 // multibyte buffer
-        2 * selectionLength,    // size of buffer in bytes
-        NULL,                   // use the system default for characters that have no coding
-        NULL);                  // we don't care what character was used.
-
-    // Wrap the multi-byte selection in a wxString
-    wxString range(buffer, bufferLength);
-
-    delete [] wideBuffer;
-    delete [] buffer;
-
-    return range;
-}
-
-void CLogoCodeCtrl::Clear()
-{
-    SendMessage(
-        GetHandle(),
-        EM_REPLACESEL,
-        TRUE, // this action is undoable
-        reinterpret_cast<LPARAM>(L""));
-}
+//void CLogoCodeCtrl::Clear()
+//{
+//    SendMessage(
+//        GetHandle(),
+//        EM_REPLACESEL,
+//        TRUE, // this action is undoable
+//        reinterpret_cast<LPARAM>(L""));
+//}
 
 void CLogoCodeCtrl::ClearAll()
 {
@@ -1380,7 +1304,7 @@ void CLogoCodeCtrl::SetText(const wxString &text)
     SetValue(text);
 }
 
-void CLogoCodeCtrl::AddTextRaw(const char *text, int length)
+void CLogoCodeCtrl::AddTextRaw(const wchar_t *text, int length)
 {
     AppendText(wxString(text, length));
 }
@@ -1459,23 +1383,10 @@ CLogoCodeCtrl::SearchForString(
     long to;
     GetSelection(&from, &to);
 
-    // For reasons I don't understand, the ANSI message for finding a
-    // string does not work.  So instead we convert the string to a
-    // wide string.
-    int wideBufferLength = StringToFind.Len() + 1;
-    wchar_t * wideBuffer = new wchar_t[wideBufferLength];
-    MultiByteToWideChar(
-        CP_ACP,                 // system ANSI code page
-        0,                      // flags: don't fail on error
-        (StringToFind), // input string
-        -1,                     // its length (NUL-terminated)
-        wideBuffer,             // output string
-        wideBufferLength);      // size of output buffer (characters)
-
-    FINDTEXTEXW findTextEx;
+	FINDTEXTEXW findTextEx;
     findTextEx.chrg.cpMin     = (WxSearchFlags & wxFR_DOWN) ? to : from;
     findTextEx.chrg.cpMax     = -1;
-    findTextEx.lpstrText      = wideBuffer;
+    findTextEx.lpstrText      = (const wchar_t*)StringToFind;
     findTextEx.chrgText.cpMin = 0;
     findTextEx.chrgText.cpMax = -1;
 
@@ -1498,8 +1409,6 @@ CLogoCodeCtrl::SearchForString(
         EM_FINDTEXTEXW,
         wParam,
         reinterpret_cast<LPARAM>(&findTextEx));
-
-    delete [] wideBuffer;
 
     if (position != -1)
     {
@@ -1617,55 +1526,17 @@ int CLogoCodeCtrl::FormatRange(
     wxRect  pageRect 
     )
 {
-    wxString entireBuffer(GetText());
-
-    // startPos and endPos are in characters, but wxString treats
-    // treats its arguments as being in bytes.
-    // To get the correct substring, we must also treat it as characters.
-
-    // CONSIDER: this could be rewritten using _ismbblead
-
-    // Convert the mulitbyte string into Unicode wide characters.
-    int wideBufferLength = entireBuffer.Len() + 1;
-    wchar_t * wideBuffer = new wchar_t[wideBufferLength];
-    MultiByteToWideChar(
-        CP_ACP,                 // system ANSI code page
-        0,                      // flags: don't fail on error
-        (entireBuffer), // input string
-        -1,                     // its length (NUL-terminated)
-        wideBuffer,             // output string
-        wideBufferLength);      // size of output buffer (characters)
-
-    // Convert the unicode selection back to a multibyte string
-    int selectionLength = endPos - startPos;
-    char * buffer = new char[2 * selectionLength]; // worst case: every character is double-byte
-    int bufferLength = WideCharToMultiByte(
-        CP_ACP,                 // system ANSI code page
-        0,                      // use best-fit character and don't fail on error
-        wideBuffer + startPos,  // offset of first desired character
-        selectionLength,        // total desired characters
-        buffer,                 // multibyte buffer
-        2 * selectionLength,    // size of buffer in bytes
-        NULL,                   // use the system default for characters that have no coding
-        NULL);                  // we don't care what character was used.
-
-    // Wrap the multi-byte selection in a wxString
-    wxString fullTextInRange(buffer, bufferLength);
-
-    delete [] wideBuffer;
-    delete [] buffer;
-
     wxCoord pageX      = renderRect.GetLeft();
     wxCoord nextY      = renderRect.GetTop();
     wxCoord pageYLimit = renderRect.GetBottom();
 
     // Draw the requested range, line by line.
-    wxString remainingText(fullTextInRange);
+    wxString remainingText(GetText());
     while (!remainingText.IsEmpty())
     {
         // Extract the next line from remainingText.
         wxString line;
-        int lineEnd = remainingText.First('\n');
+        int lineEnd = remainingText.First(L'\n');
         if (lineEnd != wxNOT_FOUND)
         {
             line          = remainingText.Left(lineEnd + 1);
@@ -1694,29 +1565,13 @@ int CLogoCodeCtrl::FormatRange(
         // Determine the number of characters in the line, since
         // some wxWidgets functions do not correctly handle multibyte
         // character sets.
-        const char * rawString = line.c_str();
-        int lineLength = _mbslen(reinterpret_cast<const unsigned char *>(rawString));
+		int lineLength = line.length();
 
         if (doDraw)
         {
-            // Neither wxDC::TextOut nor ::TextOutA handle multibyte
-            // characters correctly.
-            // If given the length in bytes, they append garbage.
-            // If given the length in characters, they cut the text short,
-            // rendering only half of each double-byte character.
-            // Instead, we convert the line to Unicode and use TextOutW.
-            wchar_t * wideStringLine = new wchar_t[lineLength + 1];
-            MultiByteToWideChar(
-                CP_ACP,                 // system ANSI code page
-                0,                      // flags: don't fail on error
-                rawString,              // input string
-                -1,                     // its length (NUL-terminated)
-                wideStringLine,         // output string
-                2 * (lineLength + 1));  // size of output buffer (characters)
 
-            TextOutW(draw->GetHDC(), pageX, nextY, wideStringLine, lineLength);
+            TextOutW(draw->GetHDC(), pageX, nextY, (const wchar_t*)line, lineLength);
 
-            delete [] wideStringLine;
         }
 
         // Advance the Y to below the line.

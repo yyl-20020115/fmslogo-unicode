@@ -903,14 +903,14 @@ NODE *lreadchars(NODE *args)
     {
         // TODO: Don't allocate more bytes than the file contains.
         // This would allow for success when given a very large input.
-        strhead = (wchar_t *) malloc((totalBytesRequested + sizeof(short) + 1)*sizeof(wchar_t));
+        strhead = (wchar_t *) malloc( sizeof(short) +(totalBytesRequested + 1)*sizeof(wchar_t));
         if (strhead == NULL)
         {
             err_logo(OUT_OF_MEM, NIL);
             return Unbound;
         }
 
-        strptr = strhead + sizeof(short);
+        strptr = (wchar_t*)((char*) strhead + sizeof(short));
         totalBytesRead = fread(strptr, 1, totalBytesRequested, g_Reader.GetStream());
         unsigned short * temp = (unsigned short *) strhead;
         setstrrefcnt(temp, 0);

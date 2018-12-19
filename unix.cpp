@@ -119,7 +119,7 @@ int printfx(const wchar_t *fmt, const wchar_t *str)
         (str ? wcslen(str) : 0) +
         1;
 
-	wchar_t * buff = new wchar_t[bufferSize];
+	wchar_t * buff = new wchar_t[bufferSize + 1];
 	//TODO: need to check override
     int cnt = _swprintf(buff, /*bufferSize, */fmt, str);
 

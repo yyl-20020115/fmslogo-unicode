@@ -679,7 +679,7 @@ void init()
     // 
 
     // intern all of the primitives by their English name
-    for (size_t i = 0; i < ARRAYSIZE(prims); i++)
+    for (size_t i = 0; i < sizeof(prims)/sizeof(PRIMTYPE); i++)
     {
         // intern the current primitive
         intern_primitive(
@@ -692,7 +692,7 @@ void init()
     }
 
     // Now intern the commands by their localized name
-    for (size_t i = 0; i < ARRAYSIZE(prims); i++)
+    for (size_t i = 0; i < sizeof(prims)/sizeof(PRIMTYPE); i++)
     {
         // If there is an alternate name for the primitive,
         // and it's different from the normal name, make a

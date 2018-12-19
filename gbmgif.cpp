@@ -594,7 +594,7 @@ GBM_ERR gif_w(const wchar_t *fn, int fd, const GBM *gbm, const GBMRGB *gbmrgb, c
                 /* Do GIF89a "Graphic Application Extension" application extension block */
                 char gae[19];
                 gae[0]  = 0x21;             /* Extension Introducer */
-                gae[1]  = 0xFF;             /* Graphic Control Label */
+				gae[1] = -1;// 0xFF;             /* Graphic Control Label */
                 gae[2]  = 0x0B;             /* Block size */
                 gae[3]  = 'N';              /* Identifier */
                 gae[4]  = 'E';

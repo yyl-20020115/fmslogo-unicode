@@ -153,7 +153,7 @@ CDynamicBuffer::GrowBy(
         // reallocate the buffer to be one byte larger.
         size_t newsize = std::max(m_BufferSize * 2, requiredLength);
 
-        m_Buffer     = (wchar_t *) realloc(m_Buffer, newsize);
+        m_Buffer     = (wchar_t *) realloc(m_Buffer, (newsize+1)*sizeof(wchar_t));
         m_BufferSize = newsize;
     }
 }

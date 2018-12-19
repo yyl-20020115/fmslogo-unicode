@@ -349,7 +349,7 @@ NODE *define_helper(NODE *args, int macro_flag)
                 }
             }
             else if (nodetype(arg) == INTEGER &&
-                     getint(arg) <= (unsigned) maximum &&
+                     getint(arg) <=/* (unsigned) */maximum &&
                      getint(arg) >= minimum)
             {
                 deflt = getint(arg);
@@ -506,7 +506,7 @@ NODE *to_helper(NODE *args, bool is_macro)
                 deflt++;
             }
             else if (nodetype(arg) == INTEGER &&
-                     getint(arg) <= (unsigned) maximum &&
+                     getint(arg) <= /*(unsigned) */maximum &&
                      getint(arg) >= minimum)
             {
                 // this is a number that specifies the number of default inputs

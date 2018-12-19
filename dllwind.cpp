@@ -398,15 +398,18 @@ make_buffer(
     int  length
     )
 {
-	wchar_t * strhead = (wchar_t *) calloc(1, sizeof(short) + length + 1);
-    if (strhead == NULL)
+	int fulllen = sizeof(short) + (length + 1) * sizeof(wchar_t);
+	wchar_t * strhead = (wchar_t *)malloc(fulllen);
+
+	if (strhead == NULL)
     {
         err_logo(OUT_OF_MEM, NIL);
         return Unbound;
     }
+	memset(strhead, 0, fulllen);
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = strhead + sizeof(short);
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
 
     // set the reference count to 1.
     unsigned short *header = (unsigned short *) strhead;

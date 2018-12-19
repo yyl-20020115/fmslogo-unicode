@@ -315,8 +315,8 @@ NODE *lportmode(NODE *args)
     {
 #ifndef WX_PURE
         // build dcb, if no error continue
-        DCB dcb;
-        memset(&dcb, 0, sizeof(DCB));
+		DCB dcb = { 0 };
+        //memset(&dcb, 0, sizeof(DCB));
         dcb.DCBlength = sizeof(DCB);
         int err = BuildCommDCB(commode, &dcb);
 

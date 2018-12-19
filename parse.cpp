@@ -47,6 +47,8 @@
     #include "screenwindow.h"
     #include "localizedstrings.h"
     #include "debugheap.h"
+	#include "MFP.h"
+
 #endif
 
 FILE *loadstream = stdin;
@@ -192,7 +194,7 @@ void CStringNodeBuffer::GrowBy(size_t ExtraLength)
         size_t usedPortion = m_StringLimit - m_Buffer;
         size_t newsize = std::max(m_BufferLength * 2, requiredLength);
 
-        m_Buffer       = (wchar_t *) realloc(m_Buffer, newsize*sizeof(wchar_t));
+        m_Buffer       = (wchar_t *) realloc(m_Buffer, (newsize+1)*sizeof(wchar_t));
         m_StringLimit  = m_Buffer + usedPortion;
         m_BufferLength = newsize;
     }
@@ -393,7 +395,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
     if (!setjmp(iblk_buf))
     {
         int c = rd_getc(FileStream);
-        while (c != EOF && (c != L'\n' || vbar || paren || bracket || brace))
+        while (c!= WCSEOF && c != EOF && (c != L'\n' || vbar || paren || bracket || brace))
         {
             if (dribbling) 
             {
@@ -404,7 +406,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
             if (!raw && c == L'\\')
             {
                 c = rd_getc(FileStream);
-                if (c == EOF)
+                if (c == EOF || c == WCSEOF)
                 {
                     break;
                 }
@@ -556,7 +558,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
                 }
             }
 
-            while (!vbar && c == L'~' && (c = rd_getc(FileStream)) != EOF)
+            while (!vbar && c == L'~' && (c = rd_getc(FileStream)) != EOF && c!=WCSEOF)
             {
                 CDynamicBuffer whitespace;
 

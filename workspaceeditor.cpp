@@ -402,16 +402,16 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 
     // TODO: use a wxWidgets class for I/O instead of the C runtime
     bool success = false;
-    FILE * file = fopen(/*WXSTRING_TO_STRING*/(fileName), "rb");
+    FILE * file = _wfopen(/*WXSTRING_TO_STRING*/(fileName), L"rb");
     if (file != NULL)
     {
         // read the entire file in 1 KB blocks
-        char data[1025];
+		wchar_t data[1025] = { 0 };
 
         int blockLength = fread(data, 1, sizeof(data) - 1, file);
         while (blockLength > 0)
         {
-            data[blockLength] = '\0';
+            data[blockLength] = L'\0';
             m_LogoCodeControl->AddTextRaw(data);
 
             blockLength = fread(data, 1, sizeof(data) - 1, file);
@@ -464,7 +464,7 @@ CWorkspaceEditor::Write(
     }
 
     // TODO: Use wxWidgets file I/O instead of the C runtime.
-    FILE* file = fopen(/*WXSTRING_TO_STRING*/(fileName), "wb");
+    FILE* file = _wfopen(/*WXSTRING_TO_STRING*/(fileName), L"wb");
     if (file == NULL) 
     {
         // Something when wrong when trying to open the file.

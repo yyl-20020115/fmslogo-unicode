@@ -315,6 +315,9 @@
     <ClInclude Include="version.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MFP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -572,5 +575,10 @@
     <MASM Include="helpers64.asm">
       <Filter>源文件</Filter>
     </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="startup.logoscript">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

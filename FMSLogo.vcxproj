@@ -73,19 +73,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\wxWidgets-3.1.2\include;C:\wxWidgets-3.1.2\include\msvc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\wxWidgets-3.1.2\include;C:\wxWidgets-3.1.2\include\msvc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\wxWidgets-3.1.2\include;C:\wxWidgets-3.1.2\include\msvc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.1.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\wxWidgets-3.1.2\include;C:\wxWidgets-3.1.2\include\msvc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,8 +93,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -109,8 +111,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,8 +131,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,8 +153,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -224,6 +232,7 @@
     <ClInclude Include="mainwind.h" />
     <ClInclude Include="mem.h" />
     <ClInclude Include="messagebox.h" />
+    <ClInclude Include="MFP.h" />
     <ClInclude Include="minieditor.h" />
     <ClInclude Include="minieditortextctrl.h" />
     <ClInclude Include="mmwind.h" />
@@ -366,6 +375,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="startup.logoscript">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #ifndef USE_PRECOMPILED_HEADER
    #include "fmslogo.h"
 
@@ -59,7 +60,7 @@ static HANDLE g_SingleInstanceMutex = NULL;
 #ifdef WX_PURE
 #define MAX_PATH (260)
 #endif
-static wchar_t g_FileToLoad[MAX_PATH] = L""; // routine to exec on start
+static wxString g_FileToLoad; // routine to exec on start
 static bool g_EnterPerspectiveMode = false;
 static bool g_CustomWidth          = false;
 static bool g_CustomHeight         = false;
@@ -149,7 +150,6 @@ ReadIntArgument(
 void CFmsLogo::ProcessCommandLine()
 {
     // parse the command-line parameters
-    g_FileToLoad[0] = L'\0';
     bExpert        = false;
     g_CustomWidth  = false;
     g_CustomHeight = false;
@@ -253,18 +253,15 @@ void CFmsLogo::ProcessCommandLine()
             // BUG: This is not backward compatible with MSWLogo.
             // This should tolerate multiple spaces, instead of assuming
             // that there's exactly one space between arguments.
-            if (fileToLoadIndex != 0 &&
-                fileToLoadIndex < ARRAYSIZE(g_FileToLoad))
+            if (fileToLoadIndex != 0)
             {
-                g_FileToLoad[fileToLoadIndex++] = L' ';
+				g_FileToLoad += L' ';
             }
+			wxString agx = wxString(argument);
 
-            wcsncpy(
-                &g_FileToLoad[fileToLoadIndex],
-                /*WXCHAR_TO_STRING*/(argument),
-                ARRAYSIZE(g_FileToLoad) - 1 - fileToLoadIndex);
+			g_FileToLoad += agx;
 
-            fileToLoadIndex += wcslen(argument);
+			fileToLoadIndex += agx.length();
         }
     }
 
@@ -279,7 +276,7 @@ void CFmsLogo::ProcessCommandLine()
 
 bool CFmsLogo::OnInit()
 {
-    bool rval = true;
+	bool rval = true;
 
 #ifdef MEM_DEBUG
 #ifdef __WXMSW__
@@ -310,13 +307,10 @@ bool CFmsLogo::OnInit()
         wxStandardPaths::Get().GetExecutablePath());
     const wxString & fmslogoPath = fmslogoExecutable.GetPath(
         wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+	
+	g_FmslogoBaseDirectory = fmslogoPath;
 
-    wcsncpy(
-        g_FmslogoBaseDirectory,
-        /*WXSTRING_TO_STRING*/(fmslogoPath),
-        ARRAYSIZE(g_FmslogoBaseDirectory));
-    g_FmslogoBaseDirectory[ARRAYSIZE(g_FmslogoBaseDirectory) - 1] = L'\0';
-
+    
     ProcessCommandLine();
 
 #ifndef WX_PURE
@@ -576,14 +570,12 @@ void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
     {
         hasRunStartup = true;
 
-        wchar_t startupScript[MAX_PATH + 1];
-        MakeHelpPathName(startupScript, L"startup.logoscript");
-        silent_load(NIL, startupScript);
+        silent_load(NIL, g_FmslogoBaseDirectory + L"startup.logoscript");
     }
 
     // If a file to load was given on the command line, then execute it.
     static bool hasLoadedFileToLoad = false;
-    if (!hasLoadedFileToLoad && g_FileToLoad[0] != L'\0')
+    if (!hasLoadedFileToLoad && g_FileToLoad.length()>0)
     {
         // Set that we have loaded the file before we actually do
         // in case loading the file causes and idle event to be sent

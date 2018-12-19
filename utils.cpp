@@ -275,7 +275,7 @@ GetConfigurationQuadruple(
     int *               Value4
     )
 {
-	wchar_t defaultString[256];
+	wchar_t defaultString[256] = { 0 };
     wprintf(
         defaultString,
         L"%d,%d,%d,%d",
@@ -284,7 +284,7 @@ GetConfigurationQuadruple(
         *Value3,
         *Value4);
 
-	wchar_t outputString[256];
+	wchar_t outputString[256] = { 0 };
 
     // Get the quadruple from the configuration settings
     GetConfigurationString(
@@ -318,7 +318,7 @@ SetConfigurationQuadruple(
     int                 Value4
     )
 {
-	wchar_t quadruple[256];
+	wchar_t quadruple[256] = { 0 };
 
     wprintf(
         quadruple,
@@ -359,7 +359,7 @@ GetConfigurationFont(
 {
     memset(&LogFont, 0, sizeof(LogFont));
 
-	wchar_t fullyQualifiedName[256];
+	wchar_t fullyQualifiedName[256] = { 0 };
 
     wcscpy(fullyQualifiedName, Name);
 

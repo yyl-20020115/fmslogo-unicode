@@ -237,7 +237,7 @@ ERR_TYPES WriteDIB(FILE* File, int MaxBitmapBitDepth)
                     // Figure out how many lines we should read, being
                     // careful to not read past the end of the bitmap.
                     int linesToGet;
-                    if (bitmapHeight < linesWritten + areaBitmapHeight)
+                    if (bitmapHeight < linesWritten + (int)areaBitmapHeight)
                     {
                         linesToGet = bitmapHeight - linesWritten;
                     }
@@ -434,7 +434,7 @@ OpenDIB(
         HBITMAP oldBitmap2 = (HBITMAP) SelectObject(DCHandle, NewBitmapHandle);
 
         /* if either dimension is more than half then put in corner */
-        if ((NewPixelWidth > (BitMapWidth / 2)) || (NewPixelHeight > (BitMapHeight / 2)))
+        if (((int)NewPixelWidth > (BitMapWidth / 2)) || ((int)NewPixelHeight > (BitMapHeight / 2)))
         {
             BitBlt(
                 memoryDC,

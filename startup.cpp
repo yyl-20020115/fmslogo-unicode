@@ -49,23 +49,23 @@
 Color dfld;                        // Current flood color
 Color dscn;                        // Current screen color
 
-wxString * g_LibPathName;          // path to library
-wxString * g_HelpFileName;         // path to help file
-wchar_t TempPathName[MAX_PATH + 1];   // path to temp edit file
-wchar_t TempBmpName[MAX_PATH + 1];    // path to temp bitmap file
-wchar_t TempClipName[MAX_PATH + 1];   // path to temp clipboard file
+wxString * g_LibPathName = NULL;          // path to library
+wxString * g_HelpFileName = NULL;         // path to help file
+wchar_t TempPathName[MAX_PATH + 1] = { 0 };   // path to temp edit file
+wchar_t TempBmpName[MAX_PATH + 1] = { 0 };    // path to temp bitmap file
+wchar_t TempClipName[MAX_PATH + 1] = { 0 };   // path to temp clipboard file
 
 wxUint32 scolor;                   // screen color
 wxUint32 fcolor;                   // flood color
 wxUint32 pcolor;                   // pen color
 
-wchar_t g_FmslogoBaseDirectory[MAX_PATH+1]; // The directory that contains fmslogo.exe
+wxString g_FmslogoBaseDirectory; // The directory that contains fmslogo.exe
 
 // Creates path relative to the directory in which FMSLogo is installed.
 void MakeHelpPathName(wchar_t *OutBuffer, const wchar_t * TheFileName)
 {
     wcsncpy(OutBuffer, g_FmslogoBaseDirectory, MAX_PATH);
-    wcsncat(OutBuffer, TheFileName,            MAX_PATH - wcslen(OutBuffer));
+    wcsncat(OutBuffer, TheFileName, MAX_PATH - wcslen(OutBuffer));
 }
 
 // Creates a unique filename relative to TempPath
@@ -139,7 +139,7 @@ void init_graphics()
     g_PrinterAreaPixels = std::max(BitMapWidth, BitMapHeight) / 8;
 
     // init paths to library and help files based on location of .EXE
-    const wxString & fmslogoDirectory = wxString(g_FmslogoBaseDirectory);
+    wxString fmslogoDirectory =(g_FmslogoBaseDirectory);
 
     const wxFileName libPathName(fmslogoDirectory + wxString(L"logolib/"));
     g_LibPathName  = new wxString(libPathName.GetPathWithSep());
@@ -147,19 +147,20 @@ void init_graphics()
     const wxFileName helpFileName(fmslogoDirectory + wxString(L"logohelp.chm"));
     g_HelpFileName = new wxString(helpFileName.GetFullPath());
 
-#ifdef WX_PURE
-    const char * tempPath = getenv("TMP");
-    if (tempPath == NULL)
-    {
-        tempPath = "~";
-    }
-#else
+//#ifdef WX_PURE
+//    const char * tempPath = getenv("TMP");
+//    if (tempPath == NULL)
+//    {
+//        tempPath = "~";
+//    }
+//#else
     DWORD tempPathLength;
-	wchar_t  tempPath[MAX_PATH];
+
+	wchar_t  tempPath[MAX_PATH + 1] = { 0 };
     bool  tempPathIsValid = false;
 
     tempPathLength = GetTempPath(
-        sizeof tempPath,
+        sizeof(tempPath)/sizeof(wchar_t),
         tempPath);
     if (tempPathLength != 0)
     {
@@ -186,7 +187,7 @@ void init_graphics()
 
         wcscpy(tempPath, L"C:");
     }
-#endif
+//#endif
 
     // construct the name of the temporary editor file
     MakeTempFilename(TempPathName, tempPath, L"mswlogo.tmp");

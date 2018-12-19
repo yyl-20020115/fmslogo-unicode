@@ -41,7 +41,7 @@ extern wxUint32 pcolor;  // pen color
   #define MAX_PATH (260)
 #endif // WX_PURE
 
-extern wchar_t g_FmslogoBaseDirectory[MAX_PATH+1];
+extern wxString g_FmslogoBaseDirectory;
 
 extern void MakeHelpPathName(wchar_t *szFileName, const wchar_t *);
 extern void init_graphics();

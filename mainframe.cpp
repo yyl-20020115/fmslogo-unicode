@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------
 
 #include "pch.h"
+
 #ifndef USE_PRECOMPILED_HEADER
     #include <wx/log.h>
 
@@ -83,7 +84,7 @@
     #include "files.h" // silent_load
     #include "stringadapter.h"
     #include "debugheap.h"
-
+	#include "MFP.h"
 #endif
 
 
@@ -481,11 +482,11 @@ CMainFrame::CMainFrame(
     // Make a menubar
     wxMenuBar * mainMenu = new wxMenuBar;
 
-    AppendChildMenu(mainMenu, LOCALIZED_FILE,   fileMenuItems,   ARRAYSIZE(fileMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_BITMAP, bitmapMenuItems, ARRAYSIZE(bitmapMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_SET,    setMenuItems,    ARRAYSIZE(setMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_ZOOM,   zoomMenuItems,   ARRAYSIZE(zoomMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_HELP,   helpMenuItems,   ARRAYSIZE(helpMenuItems));
+    AppendChildMenu(mainMenu, LOCALIZED_FILE,   fileMenuItems, sizeof(fileMenuItems)/sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, LOCALIZED_BITMAP, bitmapMenuItems, sizeof(bitmapMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, LOCALIZED_SET,    setMenuItems, sizeof(setMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, LOCALIZED_ZOOM,   zoomMenuItems, sizeof(zoomMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, LOCALIZED_HELP,   helpMenuItems, sizeof(helpMenuItems) / sizeof(MENUITEM));
 
     SetMenuBar(mainMenu);
 
@@ -933,9 +934,9 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
             if (dstfile != NULL)
             {
                 int ch;
-                while ((ch = fgetc(srcfile)) != EOF)
+                while ((ch = fgetwc(srcfile)) != EOF && ch!=WCSEOF)
                 {
-                    fputc(ch, dstfile);
+                    fputwc(ch, dstfile);
                 }
                 fclose(dstfile);
             }
@@ -1020,8 +1021,9 @@ CMainFrame::PopupEditorForFile(
     FILE * logoFile = _wfopen(/*WXSTRING_TO_STRING*/(FileName), L"r");
     if (logoFile != NULL)
     {
+		wchar_t wc = getwc(logoFile);
         // file exists.  check if it's empty.
-        bool fileIsEmpty = getc(logoFile) == EOF;
+        bool fileIsEmpty = wc == EOF || wc == WCSEOF;
         fclose(logoFile);
 
         if (fileIsEmpty)

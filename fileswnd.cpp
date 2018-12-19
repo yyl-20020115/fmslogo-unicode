@@ -87,6 +87,7 @@ bool fileload(const wchar_t *Filename)
             NODE * exec_list = parser(current_line, true);
             g_ValueStatus = VALUE_STATUS_NotOk;
             eval_driver(exec_list);
+			
         }
         fclose(loadstream);
 

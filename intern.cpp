@@ -75,7 +75,7 @@ NODE **hash_table;
 // and Ullman's book, Compilers: Principles, Techniques, and
 // Tools; figure 7.35.
 static
-FIXNUM hash(const char *s, int len)
+FIXNUM hash(const wchar_t *s, int len)
 {
     unsigned long h = 0;
 
@@ -141,9 +141,8 @@ NODE *make_instance(NODE *case_node, NODE *lowercase_node)
     // create the five-tuple that represents this object
     NODE * obj = make_object(lowercase_node, UNDEFINED, Unbound, NIL, case_node);
 
-	wxString ns = wxString(getstrptr(lowercase_node));
     // figure out the hash value for the object
-    FIXNUM hashind = hash(ns,getstrlen(lowercase_node));
+    FIXNUM hashind = hash(getstrptr(lowercase_node),getstrlen(lowercase_node));
 
     // append the object to the bucket
     push(obj, hash_table[hashind]);
@@ -160,7 +159,7 @@ static
 NODE *find_instance(NODE *lowercase_node)
 {
     // find the bucket that this node hashes to.
-    NODE * hash_entry = hash_table[hash(wxString(getstrptr(lowercase_node)), getstrlen(lowercase_node))];
+    NODE * hash_entry = hash_table[hash((getstrptr(lowercase_node)), getstrlen(lowercase_node))];
     while (hash_entry != NIL)
     {
         // search all entries in this "bucket" using a case-sensitive comparison against
@@ -285,7 +284,7 @@ NODE *intern(NODE *nd)
 void init_intern()
 {
     // alloc and init hash table
-    hash_table = (NODE **) calloc(sizeof(NODE *), HASH_LEN);
+    hash_table = (NODE **) calloc(HASH_LEN,sizeof(NODE *));
 }
 
 void release_all_objects()
