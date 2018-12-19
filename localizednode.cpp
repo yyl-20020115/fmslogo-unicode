@@ -38,6 +38,15 @@ CLocalizedNode::CLocalizedNode() :
     m_Alternate(NIL)
 {
 }
+CLocalizedNode::~CLocalizedNode()
+{
+	//if (this->m_Primary != NIL) {
+	//	gcref(this->m_Primary);
+	//}
+	//if (this->m_Alternate != NIL) {
+	//	gcref(this->m_Alternate);
+	//}
+}
 
 // Initializes this localized node.
 //

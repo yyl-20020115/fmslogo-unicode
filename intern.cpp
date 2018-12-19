@@ -289,7 +289,7 @@ void init_intern()
 
 void release_all_objects()
 {
-#ifdef MEM_DEBUG
+//#ifdef MEM_DEBUG
 
    for (int i = 0; i < HASH_LEN; i++)
    {
@@ -323,7 +323,7 @@ void release_all_objects()
        deref(hash_table[i]);
        hash_table[i] = NIL;
    }
-#endif // MEM_DEBUG
+//#endif // MEM_DEBUG
 
     free(hash_table);
 }

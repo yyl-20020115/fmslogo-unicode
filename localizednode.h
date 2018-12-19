@@ -23,6 +23,8 @@ class CLocalizedNode
 public:
     CLocalizedNode();
 
+	~CLocalizedNode();
+
     void Initialize(
         const wchar_t    * PrimaryName,
         const wchar_t    * AlternateName

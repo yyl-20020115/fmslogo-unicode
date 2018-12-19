@@ -33,13 +33,23 @@
 
 NODE *lsetcursorwait(NODE *)
 {
-    GetMainWxWindow()->SetCursor(*wxHOURGLASS_CURSOR);
+	wxWindow* mainWindow = GetMainWxWindow();
+
+	if (mainWindow != 0)
+	{
+		mainWindow->SetCursor(*wxHOURGLASS_CURSOR);
+	}
     return Unbound;
 }
 
 NODE *lsetcursorarrow(NODE *)
 {
-    GetMainWxWindow()->SetCursor(wxNullCursor);
+	wxWindow* mainWindow = GetMainWxWindow();
+
+	if (mainWindow != 0)
+	{
+		mainWindow->SetCursor(wxNullCursor);
+	}
     return Unbound;
 }
 
