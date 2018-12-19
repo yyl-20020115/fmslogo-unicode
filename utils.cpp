@@ -194,7 +194,7 @@ SetConfigurationString(
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD valueLength    = wcslen(Value) + sizeof(wchar_t);   // include NUL
+        DWORD valueLength    = (wcslen(Value) + 1) * sizeof(wchar_t);   // include NUL
         const BYTE *valuePtr = reinterpret_cast<const BYTE*>(Value);
 
         RegSetValueEx(
@@ -236,9 +236,9 @@ GetConfigurationString(
     HKEY fmslogoKey = OpenFmsLogoKeyForGettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD valueSize = ValueLength - 1;  // leave room for NUL
+        DWORD valueSize = (ValueLength - 1)*sizeof(wchar_t);  // leave room for NUL
         BYTE *valuePtr  = reinterpret_cast<BYTE*>(Value);
-        DWORD valueType;
+        DWORD valueType = 0;
 
         LONG result = RegQueryValueEx(
             fmslogoKey,
@@ -249,7 +249,7 @@ GetConfigurationString(
             &valueSize);
         if (result == ERROR_SUCCESS && 
             valueType == REG_SZ     &&
-            valueSize < ValueLength - 1)
+            valueSize < ValueLength - sizeof(wchar_t))
         {
             // we successfully read the value as a string
             Value[valueSize] = L'\0';
@@ -275,26 +275,24 @@ GetConfigurationQuadruple(
     int *               Value4
     )
 {
-	wchar_t defaultString[256] = { 0 };
-    wprintf(
-        defaultString,
+	wxString defaultString=wxString::Format(
         L"%d,%d,%d,%d",
         *Value1,
         *Value2,
         *Value3,
         *Value4);
 
-	wchar_t outputString[256] = { 0 };
+	wchar_t outputString[4096] = { 0 };
 
     // Get the quadruple from the configuration settings
     GetConfigurationString(
         Name,
         outputString,
-        sizeof(outputString),
+        sizeof(outputString)/sizeof(wchar_t),
         defaultString);
 
     // Decode the quadruple string into numbers
-	wchar_t * cp = outputString;
+    wchar_t * cp = outputString;
 
     *Value1 = (int)wcstol(cp, &cp, 10);
     cp++;
@@ -318,11 +316,7 @@ SetConfigurationQuadruple(
     int                 Value4
     )
 {
-	wchar_t quadruple[256] = { 0 };
-
-    wprintf(
-        quadruple,
-        L"%d,%d,%d,%d",
+	wxString quadruple = wxString::Format(L"%d,%d,%d,%d",
         Value1,
         Value2,
         Value3,
@@ -337,16 +331,16 @@ SetConfigurationQuadruple(
 #ifndef WX_PURE
 
 static
-wchar_t *
+wxString 
 GetRelativeFontPropertyPointer(
-	wchar_t *  FullyQualifiedName
+	const wchar_t *  FullyQualifiedName
     )
 {
     // find where the relative property name should start
-	wchar_t * relativeName = wcschr(FullyQualifiedName, L'\0');
+	wxString  relativeName = wcschr(FullyQualifiedName, L'\0');
 
     // add a '.' to distigush the relative part from the absolute part.
-    *relativeName++ = L'.';
+	relativeName.Append(L'.');
 
     return relativeName;
 }
@@ -359,43 +353,32 @@ GetConfigurationFont(
 {
     memset(&LogFont, 0, sizeof(LogFont));
 
-	wchar_t fullyQualifiedName[256] = { 0 };
-
-    wcscpy(fullyQualifiedName, Name);
+	wxString fullyQualifiedName = Name;
 
     // find the end of the fullyQualifiedName
-	wchar_t * relativeName = GetRelativeFontPropertyPointer(fullyQualifiedName);
+	wxString relativeName = GetRelativeFontPropertyPointer(fullyQualifiedName);
    
-    wcscpy(relativeName, FONTPROPERTY_FaceName);
     GetConfigurationString(
-        fullyQualifiedName, 
+        relativeName + FONTPROPERTY_FaceName,
         LogFont.lfFaceName,
         LF_FACESIZE,
         LOCALIZED_DEFAULT_FONT_FACE);
 
-	wcscpy(relativeName, FONTPROPERTY_Height);
-    LogFont.lfHeight = GetConfigurationInt(fullyQualifiedName, -13);
+    LogFont.lfHeight = GetConfigurationInt(relativeName + FONTPROPERTY_Height, -13);
 
-	wcscpy(relativeName, FONTPROPERTY_Weight);
-    LogFont.lfWeight = GetConfigurationInt(fullyQualifiedName, 400);
+    LogFont.lfWeight = GetConfigurationInt(relativeName + FONTPROPERTY_Weight, 400);
 
-	wcscpy(relativeName, FONTPROPERTY_Italic);
-    LogFont.lfItalic = GetConfigurationInt(fullyQualifiedName, 0);
+    LogFont.lfItalic = GetConfigurationInt(relativeName + FONTPROPERTY_Italic, 0);
 
-	wcscpy(relativeName, FONTPROPERTY_CharSet);
-    LogFont.lfCharSet = GetConfigurationInt(fullyQualifiedName, 0);
+    LogFont.lfCharSet = GetConfigurationInt(relativeName + FONTPROPERTY_CharSet, 0);
 
-	wcscpy(relativeName, FONTPROPERTY_OutPrecision);
-    LogFont.lfOutPrecision = GetConfigurationInt(fullyQualifiedName, 1);
+    LogFont.lfOutPrecision = GetConfigurationInt(relativeName + FONTPROPERTY_OutPrecision, 1);
 
-	wcscpy(relativeName, FONTPROPERTY_ClipPrecision);
-    LogFont.lfClipPrecision = GetConfigurationInt(fullyQualifiedName, 2);
+    LogFont.lfClipPrecision = GetConfigurationInt(relativeName + FONTPROPERTY_ClipPrecision, 2);
 
-	wcscpy(relativeName, FONTPROPERTY_Quality);
-    LogFont.lfQuality = GetConfigurationInt(fullyQualifiedName, 1);
+    LogFont.lfQuality = GetConfigurationInt(relativeName + FONTPROPERTY_Quality, 1);
 
-	wcscpy(relativeName, FONTPROPERTY_PitchAndFamily);
-    LogFont.lfPitchAndFamily = GetConfigurationInt(fullyQualifiedName, 49);
+    LogFont.lfPitchAndFamily = GetConfigurationInt(relativeName + FONTPROPERTY_PitchAndFamily, 49);
 }
 
 void
@@ -404,15 +387,11 @@ SetConfigurationFont(
     const LOGFONT  &   LogFont
     )
 {
-	wchar_t fullyQualifiedName[256];
-
-	wcscpy(fullyQualifiedName, Name);
-
+	wxString fullyQualifiedName = Name;
     // find where the relative property name should start
-	wchar_t * relativeName = GetRelativeFontPropertyPointer(fullyQualifiedName);
+	wxString relativeName= GetRelativeFontPropertyPointer(fullyQualifiedName);
 
-	wcscpy(relativeName, FONTPROPERTY_FaceName);
-    SetConfigurationString(fullyQualifiedName, LogFont.lfFaceName);
+    SetConfigurationString(relativeName + FONTPROPERTY_FaceName, LogFont.lfFaceName);
 
     const struct PROPERTY {
         const wchar_t * Name;
@@ -430,8 +409,7 @@ SetConfigurationFont(
 
     for (size_t i = 0; i < sizeof(properties) / sizeof(*properties); i++)
     {
-		wcscpy(relativeName, properties[i].Name);
-        SetConfigurationInt(fullyQualifiedName, properties[i].Value);
+        SetConfigurationInt(relativeName + properties[i].Name, properties[i].Value);
     }
 }
 
