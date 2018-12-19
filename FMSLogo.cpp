@@ -780,7 +780,7 @@ bool TranslateKeyboardShortcut(MSG & Message)
 
 int ShowEditorForFile(const wchar_t *FileName, NODE * EditArguments)
 {
-    return CMainFrame::PopupEditorForFile(wxString(FileName), EditArguments);
+    return CMainFrame::PopupEditorForFile(FileName, EditArguments);
 }
 
 void 

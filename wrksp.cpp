@@ -1519,7 +1519,7 @@ NODE *ledit(NODE *args)
         }
         else
         {
-            remove(wxString(TempPathName));
+            _wremove(TempPathName);
             IsDirty = true;
         }
     }

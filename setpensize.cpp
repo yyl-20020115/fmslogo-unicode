@@ -254,22 +254,14 @@ void CSetPenSize::SetPenSize(
 void CSetPenSize::OnApplyButton(wxCommandEvent& Event)
 {
     // Get the uppercase form of SETPENSIZE
-	wchar_t setpensize[MAX_BUFFER_SIZE];
+	wchar_t setpensize[MAX_BUFFER_SIZE] = { 0 };
     NormalizeCaseForDisplay(
         setpensize,
         LOCALIZED_ALTERNATE_SETPENSIZE,
         STRINGLENGTH(LOCALIZED_ALTERNATE_SETPENSIZE));
 
     // Run "SETPENSIZE <PENSIZE>"
-    wchar_t logoInstruction[256];
-
-    wprintf(
-        logoInstruction,
-        L"%s %d",
-        setpensize,
-        m_PenWidth);
-
-    RunLogoInstructionFromGui(logoInstruction);
+    RunLogoInstructionFromGui(wxString::Format(L"%s %d", setpensize, m_PenWidth));
 }
 
 void CSetPenSize::OnOkButton(wxCommandEvent& Event)

@@ -987,7 +987,7 @@ CreateTemplateLogoFileForEditor(
     )
 {
     // TODO: Use wxWidgets class for File I/O
-    FILE* logoFile = _wfopen(/*WXSTRING_TO_STRING*/(FileName), L"w");
+    FILE* logoFile = _wfopen(FileName, L"w");
     if (logoFile != NULL)
     {
         if (EditArguments != NIL)
@@ -1004,9 +1004,8 @@ CreateTemplateLogoFileForEditor(
             // an empty workspace.
             fwprintf(logoFile, L"\n");
         }
+		fclose(logoFile);
     }
-
-    fclose(logoFile);
 }
 
 
@@ -1018,7 +1017,7 @@ CMainFrame::PopupEditorForFile(
 {
     // If no file (or empty) create template
     // TODO: Use a wxWidgets class for the file I/O.
-    FILE * logoFile = _wfopen(/*WXSTRING_TO_STRING*/(FileName), L"r");
+    FILE * logoFile = _wfopen(FileName, L"r");
     if (logoFile != NULL)
     {
 		wchar_t wc = getwc(logoFile);
@@ -1644,7 +1643,7 @@ bool CMainFrame::SaveFileAs()
 
 bool CMainFrame::SaveFile()
 {
-    filesave(/*WXSTRING_TO_STRING*/(m_LastLoadedLogoFile.GetFullPath()));
+    filesave(m_LastLoadedLogoFile.GetFullPath());
 
     // handle any error that may have occured
     process_special_conditions();
@@ -1803,27 +1802,13 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
             return;
         }
 
-        wchar_t makeInstruction[512] = {0};
-
         // Make "Startup [<instructionlist>]
-        int formattedStringLength = _swprintf(
-            makeInstruction,
-            //ARRAYSIZE(makeInstruction),
-            L"%s \"%s [%s]",
-            LOCALIZED_ALTERNATE_MAKE,
-            LOCALIZED_ALTERNATE_STARTUP,
-			/*WXSTRING_TO_STRING*/((const wchar_t*)dialog.GetSelectedInstruction()));
-        if ((int)ARRAYSIZE(makeInstruction) <= formattedStringLength)
-        {
-            // More than the fixed buffer size was needed
-            // to hold the instruction list.
 
-            // TODO: Handle this.
-        }
-        else
-        {
-            RunLogoInstructionFromGui(wxString(makeInstruction));
-        }
+        RunLogoInstructionFromGui(wxString::Format(L"%s \"%s [%s]", 
+			LOCALIZED_ALTERNATE_MAKE, 
+			LOCALIZED_ALTERNATE_STARTUP, 
+			(const wchar_t*)dialog.GetSelectedInstruction()));
+        
     }
 
 #ifdef __WXMSW__
@@ -2301,14 +2286,8 @@ void CMainFrame::OnSetLabelFont(wxCommandEvent& WXUNUSED(Event))
                 LOCALIZED_ALTERNATE_SETLABELFONT,
                 STRINGLENGTH(LOCALIZED_ALTERNATE_SETLABELFONT));
 
-			wchar_t logoInstruction[512];
-            wprintf(
-                logoInstruction,
-//#if wxUSE_UNICODE
+			wxString logoInstruction = wxString::Format(
                 L"%s [[%s] %ld %ld %ld %ld %d %d %d %d %d %d %d %d]",
-//#else
-//                "%s [[%s] %ld %ld %ld %ld %d %d %d %d %d %d %d %d]",
-//#endif
                 setlabelfont,
                 nativeFontInfo->lf.lfFaceName,
                 nativeFontInfo->lf.lfHeight,
@@ -2401,25 +2380,20 @@ CMainFrame::OpenFileWithDefaultApplication(
         SW_SHOWNORMAL);                 // whether file is shown when opened
     if (childApplication != NULL)
     {
-        CloseHandle(childApplication);
+		//TODO: why invalid handle?
+        //CloseHandle(childApplication);
     }
 #endif
 }
 
 void CMainFrame::OnHelpExamples(wxCommandEvent& WXUNUSED(Event))
 {
-	wchar_t szFileName[MAX_PATH + 1];
-    MakeHelpPathName(szFileName, L"EXAMPLES\\INDEX.HTML");
-
-    OpenFileWithDefaultApplication(szFileName);
+    OpenFileWithDefaultApplication(g_FmslogoBaseDirectory + L"EXAMPLES\\INDEX.HTML");
 }
 
 void CMainFrame::OnHelpReleaseNotes(wxCommandEvent& WXUNUSED(Event))
 {
-	wchar_t szFileName[MAX_PATH + 1];
-    MakeHelpPathName(szFileName, L"README.TXT");
-
-    OpenFileWithDefaultApplication(szFileName);
+    OpenFileWithDefaultApplication(g_FmslogoBaseDirectory + L"README.TXT");
 }
 
 void CMainFrame::OnAboutFmsLogo(wxCommandEvent& WXUNUSED(Event))

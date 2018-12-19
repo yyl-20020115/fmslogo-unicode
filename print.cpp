@@ -65,12 +65,12 @@ void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
             putcombochar(type, ch);
             if (dribblestream != NULL)
             {
-                putwc(ch, dribblestream);
+                fputwc(ch, dribblestream);
             }
         }
         else
         {
-            putwc(ch, strm);
+            fputwc(ch, strm);
         }
     }
     else
@@ -86,7 +86,7 @@ void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
 
 void print_space(FILE *strm, MESSAGETYPE type)
 {
-    print_char(strm, type, ' ');
+    print_char(strm, type, L' ');
 }
 
 void ndprintf(FILE *strm, MESSAGETYPE type, const wchar_t *fmt, ...)

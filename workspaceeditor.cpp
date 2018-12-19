@@ -377,7 +377,7 @@ void CWorkspaceEditor::SetFileName(const wxString & NewFileName)
     }
     else
     {
-        SetName(currentTitle + wxString(" - ") + newTitle);
+        SetName(currentTitle + L" - " + newTitle);
     }
 }
 
@@ -387,7 +387,7 @@ void CWorkspaceEditor::SetFileName(const wxString & NewFileName)
 //
 bool CWorkspaceEditor::Read(const wxString & FileName)
 {
-    const wxString & fileName = SelectFile(FileName);
+    wxString fileName = SelectFile(FileName);
     if (fileName.IsEmpty())
     {
         // No file name was given.
@@ -402,19 +402,19 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 
     // TODO: use a wxWidgets class for I/O instead of the C runtime
     bool success = false;
-    FILE * file = _wfopen(/*WXSTRING_TO_STRING*/(fileName), L"rb");
+    FILE * file = _wfopen(fileName, L"r");
     if (file != NULL)
     {
         // read the entire file in 1 KB blocks
 		wchar_t data[1025] = { 0 };
 
-        int blockLength = fread(data, 1, sizeof(data) - 1, file);
+        int blockLength = fread(data, sizeof(char), (sizeof(data) - 1)*sizeof(wchar_t), file);
         while (blockLength > 0)
         {
             data[blockLength] = L'\0';
             m_LogoCodeControl->AddTextRaw(data);
 
-            blockLength = fread(data, 1, sizeof(data) - 1, file);
+            blockLength = fread(data, sizeof(char), (sizeof(data) - 1)*sizeof(wchar_t), file);
         }
 
         if (!ferror(file))
@@ -456,7 +456,7 @@ CWorkspaceEditor::Write(
     const wxString & FileName
     )
 {
-    const wxString & fileName = SelectFile(FileName);
+    wxString fileName = SelectFile(FileName);
     if (fileName.IsEmpty())
     {
         // No file name was given.
@@ -464,7 +464,7 @@ CWorkspaceEditor::Write(
     }
 
     // TODO: Use wxWidgets file I/O instead of the C runtime.
-    FILE* file = _wfopen(/*WXSTRING_TO_STRING*/(fileName), L"wb");
+    FILE* file = _wfopen(fileName, L"w");
     if (file == NULL) 
     {
         // Something when wrong when trying to open the file.
@@ -501,11 +501,11 @@ CWorkspaceEditor::Write(
             i + grabSize);
 
         size_t bytesWritten = fwrite(
-			/*WXSTRING_TO_STRING*/(textBlock),
+			(const wchar_t*)textBlock,
             sizeof(char),
-            grabSize,
+            grabSize * sizeof(wchar_t),
             file);
-        if (bytesWritten != grabSize)
+        if (bytesWritten != grabSize*sizeof(wchar_t))
         {
             // Not all of the data was written.
             success = false;
@@ -923,7 +923,7 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
     // it will still be visible to the tests.  This causes some tests to fail.
     // To work around ths problem, we change the window's title in a way that
     // the tests can see, but the users cannot.
-    SetTitle(GetTitle() + wxString(L" "));
+    SetTitle(GetTitle() + (L" "));
 
     if (m_EditArguments != NIL || m_CheckForErrors)
     {

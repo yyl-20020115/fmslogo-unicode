@@ -399,7 +399,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
         {
             if (dribbling) 
             {
-                putwc(c, dribblestream);
+                fputwc(c, dribblestream);
             }
 
             // if c is a backslash, then read the next character and escape it
@@ -413,7 +413,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
 
                 if (dribbling) 
                 {
-					putwc(c, dribblestream);
+					fputwc(c, dribblestream);
                 }
                 if (c == 'n') 
                 {
@@ -587,7 +587,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
 
                 if (dribbling)
                 {
-                    putwc(c, dribblestream);
+                    fputwc(c, dribblestream);
                 }
 
                 lineBuffer.AppendChar(c);
@@ -613,7 +613,7 @@ NODE *reader(FILE *FileStream, const wchar_t * Prompt)
 
     if (dribbling)
     {
-        putwc(L'\n', dribblestream);
+        fputwc(L'\n', dribblestream);
     }
 
     lineBuffer.TakeOwnershipOfBuffer();

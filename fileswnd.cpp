@@ -60,7 +60,7 @@ void filesave(const wchar_t *FileName)
 // Returns false if the file couldn't be opened for reading.
 bool fileload(const wchar_t *Filename)
 {
-    bool isOk;
+    bool isOk = false;
 
     FILE * filestream = _wfopen(Filename, L"r");
     if (filestream != NULL)

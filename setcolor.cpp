@@ -262,18 +262,8 @@ void CSetColor::OnApplyButton(wxCommandEvent& event)
         m_LogoCommand,
         wcslen(m_LogoCommand));
 
-	wchar_t logoInstruction[256];
-
-    wprintf(
-        logoInstruction,
-        "%s [%d %d %d]",
-        upperCaseCommand,
-        red,
-        green,
-        blue);
-
     // Run the color setting instruction
-    RunLogoInstructionFromGui(logoInstruction);
+    RunLogoInstructionFromGui(wxString::Format(L"%s [%d %d %d]",upperCaseCommand,red,green,blue));
 }
 
 void CSetColor::OnOkButton(wxCommandEvent& Event)

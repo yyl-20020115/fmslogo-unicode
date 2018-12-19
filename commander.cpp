@@ -458,7 +458,7 @@ void CCommander::Execute()
 
     // BUG: This can modify the contents of wxString's buffer
 	//RunLogoInstructionFromGui(const_cast<wchar_t*>(WXSTRING_TO_STRING(logoInstruction)));
-	RunLogoInstructionFromGui(logoInstruction.wc_str());
+	RunLogoInstructionFromGui(logoInstruction);
 }
 
 void CCommander::OnExecuteButton(wxCommandEvent& WXUNUSED(Event))
