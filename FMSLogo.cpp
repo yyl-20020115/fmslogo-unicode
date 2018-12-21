@@ -276,6 +276,9 @@ void CFmsLogo::ProcessCommandLine()
 
 bool CFmsLogo::OnInit()
 {
+	//USE SYSTEM LOCALE (for mbtowc)
+	_wsetlocale(LC_ALL, L"");
+
 	bool rval = true;
 
 #ifdef MEM_DEBUG

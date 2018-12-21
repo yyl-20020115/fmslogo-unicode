@@ -841,11 +841,11 @@ NODE *cnv_node_to_strnode(NODE *nd)
         return nd;
 
     case INTEGER:
-        wprintf(s, L"%ld", getint(nd));
+        wsprintf(s, L"%ld", getint(nd));
         return make_strnode(s);
 
     case FLOATINGPOINT:
-        wprintf(s, L"%0.15g", getfloat(nd));
+        wsprintf(s, L"%0.15g", getfloat(nd));
         return make_strnode(s);
     }
 
