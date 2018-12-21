@@ -65,12 +65,12 @@ void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
             putcombochar(type, ch);
             if (dribblestream != NULL)
             {
-                fputwc(ch, dribblestream);
+                putwc(ch, dribblestream);
             }
         }
         else
         {
-            fputwc(ch, strm);
+            putwc(ch, strm);
         }
     }
     else

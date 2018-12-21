@@ -97,8 +97,7 @@ CFileListNode::~CFileListNode()
     deref(m_FileNameNode);
 }
 
-static
-FILE *open_file(NODE *arg, const wchar_t *access)
+FILE *OpenFile(NODE *arg, const wchar_t *access)
 {
     assert(arg == NIL || getrefcnt(arg) != 0);
 
@@ -183,7 +182,7 @@ NODE *ldribble(NODE *arg)
     }
     else
     {
-        dribblestream = open_file(car(arg), L"w");
+        dribblestream = OpenFile(car(arg), L"w");
         if (dribblestream == NULL) 
         {
             err_logo(FILE_ERROR, NIL);
@@ -312,7 +311,7 @@ open_helper(
                 FILE_ERROR, 
                 make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_ALREADYOPEN));
         }
-        else if ((newFileStream = open_file(fileNameNode, mode)) != NULL)
+        else if ((newFileStream = OpenFile(fileNameNode, mode)) != NULL)
         {
             // create a new node for this file
             CFileListNode * newNode = new CFileListNode(
@@ -619,7 +618,7 @@ NODE *lsave(NODE *arg)
 
     lprint(arg);
 
-    PrintWorkspaceToFileStream(open_file(car(arg), L"w+"));
+    PrintWorkspaceToFileStream(OpenFile(car(arg), L"w+"));
 
     return Unbound;
 }
@@ -638,7 +637,7 @@ void runstartup(NODE *oldst)
 }
 wxString noparitylow_strnzcpy(const wchar_t *src, int len)
 {
-	wchar_t* buffer = new wchar_t[len];
+	wchar_t* buffer = new wchar_t[len+1];
 
 	noparitylow_strnzcpy(buffer, src, len);
 
@@ -743,7 +742,7 @@ NODE *lload(NODE *arg)
     bool isDirtySave = IsDirty;
     FILE * tmp = loadstream;
     NODE * tmp_line = vref(current_line);
-    loadstream = open_file(car(arg), L"r");
+    loadstream = OpenFile(car(arg), L"r");
     if (loadstream != NULL)
     {
         bool save_yield_flag = yield_flag;
@@ -829,7 +828,7 @@ NODE *lreadchar(NODE *)
     {
         if (g_Reader.GetStream() == stdin)
         {
-            c = (wchar_t) rd_getc(stdin);
+            c = (wchar_t) rd_fgetwc(stdin);
         }
         else
         {

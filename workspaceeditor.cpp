@@ -402,28 +402,29 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 
     // TODO: use a wxWidgets class for I/O instead of the C runtime
     bool success = false;
-    FILE * file = _wfopen(fileName, L"r");
-    if (file != NULL)
-    {
-        // read the entire file in 1 KB blocks
-		wchar_t data[1025] = { 0 };
+	FILE * file = _wfopen(fileName, L"r");
+	if (file != NULL)
+	{
+		// read the entire file in 1 KB blocks
+		char data[4097] = { 0 };
 
-        int blockLength = fread(data, sizeof(char), (sizeof(data) - 1)*sizeof(wchar_t), file);
-        while (blockLength > 0)
-        {
-            data[blockLength] = L'\0';
-            m_LogoCodeControl->AddTextRaw(data);
+		size_t blockLength = 0;
+		wxString text;
 
-            blockLength = fread(data, sizeof(char), (sizeof(data) - 1)*sizeof(wchar_t), file);
-        }
+		while ((blockLength = fread(data, sizeof(char), (sizeof(data) / sizeof(char) - 1), file)) > 0)
+		{
+			text.Append(data, blockLength);
+		}
 
-        if (!ferror(file))
-        {
-            success = true;
-        }
+		m_LogoCodeControl->AddTextRaw(text);
 
-        fclose(file);
-    }
+		if (!ferror(file))
+		{
+			success = true;
+		}
+
+		fclose(file);
+	}
 
     m_LogoCodeControl->SetUndoCollection(true);
     m_LogoCodeControl->SetFocus();
@@ -501,11 +502,11 @@ CWorkspaceEditor::Write(
             i + grabSize);
 
         size_t bytesWritten = fwrite(
-			(const wchar_t*)textBlock,
+			textBlock,
             sizeof(char),
-            grabSize * sizeof(wchar_t),
+            grabSize,
             file);
-        if (bytesWritten != grabSize*sizeof(wchar_t))
+        if (bytesWritten != grabSize)
         {
             // Not all of the data was written.
             success = false;

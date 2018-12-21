@@ -31,13 +31,16 @@ enum INPUTMODE
 };
 
 // function variables
-extern int rd_getc(FILE *strm);
+extern wchar_t rd_fgetwc(FILE *strm, bool unicode = false);
 extern void rd_clearbuffer(FILE *strm);
-extern NODE *reader(FILE *strm, const wchar_t *prompt);
-extern NODE *parser(NODE *nd, bool semi);
+extern NODE *reader(FILE *strm, const wchar_t *prompt,bool unicode = false);
+extern NODE *parser(NODE *nd, bool semi, bool unicode = false);
 extern NODE *lparse(NODE *args);
+extern NODE *lparse(NODE *args,bool unicode);
 extern NODE *runparse(NODE *ndlist);
+extern NODE *runparse(NODE *ndlist, bool unicode);
 extern NODE *lrunparse(NODE *args);
+extern NODE *lrunparse(NODE *args, bool unicode);
 extern void uninitialize_parser(void);
 
 // global variables

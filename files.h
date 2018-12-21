@@ -92,6 +92,7 @@ extern NODE *lwritepos(NODE *arg);
 extern NODE *lsetwritepos(NODE *arg);
 extern NODE *lcloseall(NODE * arg);
 extern void uninitialize_files(void);
+extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 
 // global variables
 extern CFileStream g_Reader;
