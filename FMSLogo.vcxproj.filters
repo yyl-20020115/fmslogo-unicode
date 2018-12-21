@@ -574,8 +574,8 @@
     </MASM>
   </ItemGroup>
   <ItemGroup>
-    <None Include="startup.logoscript">
+    <CopyFileToFolders Include="startup.logoscript">
       <Filter>资源文件</Filter>
-    </None>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
