@@ -70,6 +70,8 @@ NODE *current_line = NIL;       // current line to be parsed
 
 static CFileListNode * g_OpenFiles;
 
+static FILE *loadstream = stdin;
+
 CFileStream g_Reader(stdin);
 CFileStream g_Writer(stdout);
 
@@ -184,31 +186,23 @@ FILE *& GetOutputStream()
 	return g_Writer.GetStream();
 }
 
+FILE *& GetLoadStream()
+{
+	return loadstream;
+}
+
 NODE *ldribble(NODE *arg)
 {
-    if (dribblestream != NULL)
-    {
-        err_logo(ALREADY_DRIBBLING, NIL);
-    }
-    else
-    {
-        dribblestream = OpenFile(car(arg), L"w");
-        if (dribblestream == NULL) 
-        {
-            err_logo(FILE_ERROR, NIL);
-        }
-    }
+	OpenDribble(arg);
 
     return Unbound;
 }
 
 NODE *lnodribble(NODE *)
 {
-    if (dribblestream != NULL)
-    {
-        fclose(dribblestream);
-        dribblestream = NULL;
-    }
+  
+	CloseDribble();
+
     return Unbound;
 }
 
@@ -794,9 +788,9 @@ NODE *lload(NODE *arg)
 
 NODE *lreadlist(NODE *)
 {
-    input_mode = INPUTMODE_List;
+	GetInputMode() = INPUTMODE_List;
     NODE * val = parser(reader(g_Reader.GetStream(), L""), false);
-    input_mode = INPUTMODE_None;
+	GetInputMode() = INPUTMODE_None;
     if (feof(g_Reader.GetStream()) && val == NIL)
     {
         gcref(val);
@@ -830,7 +824,7 @@ NODE *lreadrawline(NODE *)
 
 NODE *lreadchar(NODE *)
 {
-    input_blocking = true;
+	GetInputBlocking() = true;
 
     wchar_t c =L'\0';
 
@@ -845,7 +839,7 @@ NODE *lreadchar(NODE *)
             c = (wchar_t) getwc(g_Reader.GetStream());
         }
     }
-    input_blocking = false;
+	GetInputBlocking() = false;
 
     if (feof(g_Reader.GetStream()))
     {
@@ -885,7 +879,7 @@ NODE *lreadchars(NODE *args)
         return NIL;
     }
 
-    input_blocking = true;
+	GetInputBlocking() = true;
 
     wchar_t *strhead = 0, *strptr = 0;
     if (!setjmp(iblk_buf))
@@ -905,7 +899,7 @@ NODE *lreadchars(NODE *args)
         setstrrefcnt(temp, 0);
     }
 
-    input_blocking = false;
+	GetInputBlocking() = false;
 
     if (stopping_flag == THROWING) 
     {

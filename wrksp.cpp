@@ -421,7 +421,7 @@ NODE *anonymous_function(NODE *text)
 static
 NODE *to_helper(NODE *args, bool is_macro)
 {
-    if (ufun != NIL && loadstream == stdin)
+    if (ufun != NIL && GetLoadStream() == stdin)
     {
         err_logo(NOT_INSIDE, NIL);
         return Unbound;
@@ -433,7 +433,7 @@ NODE *to_helper(NODE *args, bool is_macro)
         return Unbound;
     }
 
-    input_mode = INPUTMODE_To;
+	GetInputMode() = INPUTMODE_To;
 
     NODE *formals = NIL;
 
@@ -444,13 +444,13 @@ NODE *to_helper(NODE *args, bool is_macro)
 
     NODE * proc_name = car(args);
 
-    deepend_proc_name = vref(proc_name);  // for error reporting
+    SetErrorProcName(vref(proc_name));  // for error reporting
 
     if (nodetype(proc_name) != CASEOBJ)
     {
         err_logo(BAD_DATA_UNREC, proc_name);
     }
-    else if ((procnode__caseobj(proc_name) != UNDEFINED && loadstream == stdin)
+    else if ((procnode__caseobj(proc_name) != UNDEFINED && GetLoadStream() == stdin)
              || is_prim(procnode__caseobj(proc_name)))
     {
         err_logo(ALREADY_DEFINED, proc_name);
@@ -544,11 +544,11 @@ NODE *to_helper(NODE *args, bool is_macro)
         NODE * body_list          = cons_list(formals);
         NODE * body_list_lastnode = body_list;
 
-        assign(g_ToLine, body_words);
+		SetErrorToLine(body_words);
         to_pending = true;      // for int or quit signal
-        while (NOT_THROWING && to_pending && !feof(loadstream))
+        while (NOT_THROWING && to_pending && !feof(GetLoadStream()))
         {
-            NODE * ttnode = reader(loadstream, L"> ");
+            NODE * ttnode = reader(GetLoadStream(), L"> ");
 
             // append ttnode to body_words
             NODE * tnode = cons_list(ttnode);
@@ -600,7 +600,7 @@ NODE *to_helper(NODE *args, bool is_macro)
             {
                 set_new_generation();
             }
-            if (loadstream == stdin)
+            if (GetLoadStream() == stdin)
             {
                 ndprintf(
                     stdout,
@@ -620,17 +620,16 @@ NODE *to_helper(NODE *args, bool is_macro)
             gcref(body_list);
         }
 
-        rd_clearbuffer(loadstream);
-        assign(g_ToLine, NIL);
+        rd_clearbuffer(GetLoadStream());
+		SetErrorToLine(NIL);
         to_pending = false;
     }
     else
     {
         gcref(formals);
     }
-
-    assign(deepend_proc_name, NIL);
-    input_mode = INPUTMODE_None;
+	SetErrorProcName(NIL);
+	GetInputMode() = INPUTMODE_None;
     return Unbound;
 }
 
@@ -1130,10 +1129,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                                 printfx(str);
                             }
 
-                            if (dribblestream != NULL)
-                            {
-                                fwprintf(dribblestream, L"%s\n", str);
-                            }
+							DribbleWriteLine(str);
                         }
                         else
                         {
@@ -1543,7 +1539,7 @@ bool endedit(void)
 
     if (!IsTimeToExit)
     {
-        FILE * holdstrm = loadstream;
+        FILE * holdstrm = GetLoadStream();
         NODE * tmp_line = vref(current_line);
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -1551,23 +1547,23 @@ bool endedit(void)
 
         start_execution();
 
-        loadstream = _wfopen(TempPathName, L"r");
-        if (loadstream != NULL)
+		GetLoadStream() = _wfopen(TempPathName, L"r");
+        if (GetLoadStream() != NULL)
         {
             FIXNUM saved_value_status = g_ValueStatus;
 
             realsave = true;
-            while (!feof(loadstream) && NOT_THROWING)
+            while (!feof(GetLoadStream()) && NOT_THROWING)
             {
-                g_CharactersSuccessfullyParsedInEditor = ftell(loadstream);
-                assign(current_line, reader(loadstream, L""));
+                g_CharactersSuccessfullyParsedInEditor = ftell(GetLoadStream());
+                assign(current_line, reader(GetLoadStream(), L""));
 
                 NODE * exec_list = parser(current_line, true);
 
                 g_ValueStatus = VALUE_STATUS_NotOk;
                 eval_driver(exec_list);
             }
-            fclose(loadstream);
+            fclose(GetLoadStream());
             g_ValueStatus = saved_value_status;
         }
         else
@@ -1581,7 +1577,7 @@ bool endedit(void)
 
         lsetcursorarrow(NIL);
         yield_flag = save_yield_flag;
-        loadstream = holdstrm;
+		GetLoadStream() = holdstrm;
         assign(current_line, tmp_line);
     }
 

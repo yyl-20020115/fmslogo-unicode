@@ -1529,14 +1529,14 @@ NODE *evaluator(NODE *list, enum labels where)
             }
             // print_node(stdout, this_line);
             // ndprintf(stdout, " >>> ");
-            input_blocking = true;
+			GetInputBlocking() = true;
 
             if (!setjmp(iblk_buf))
             {
                 single_step_box(this_line);
             }
 
-            input_blocking = false;
+			GetInputBlocking() = false;
             // update_coords('\n');
         }
     }

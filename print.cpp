@@ -63,10 +63,8 @@ void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
             // FMSLogo isn't a command-line application, so printing
             // to "stdout" really goes to the commander history.
             putcombochar(type, ch);
-            if (dribblestream != NULL)
-            {
-                putwc(ch, dribblestream);
-            }
+
+			DribbleWriteChar(ch);
         }
         else
         {

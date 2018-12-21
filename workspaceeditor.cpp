@@ -465,7 +465,7 @@ CWorkspaceEditor::Write(
     }
 
     // TODO: Use wxWidgets file I/O instead of the C runtime.
-    FILE* file = _wfopen(fileName, L"w");
+    FILE* file = _wfopen(fileName, L"wb");
     if (file == NULL) 
     {
         // Something when wrong when trying to open the file.
@@ -484,35 +484,15 @@ CWorkspaceEditor::Write(
 
     bool success = true;
 
-    const size_t WRITE_BLOCK_SIZE = 1024;
-    int lengthDoc = m_LogoCodeControl->GetTextLength();
-    for (int i = 0;
-         i < lengthDoc;
-         i += WRITE_BLOCK_SIZE)
-    {
-        size_t grabSize = lengthDoc - i;
-        if (WRITE_BLOCK_SIZE < grabSize)
-        {
-            grabSize = WRITE_BLOCK_SIZE;
-        }
+	wxString text = m_LogoCodeControl->GetText();
 
-        // Get this block from the editor
-        const wxString & textBlock = m_LogoCodeControl->GetTextRange(
-            i,
-            i + grabSize);
+	const char* mb = text;
 
-        size_t bytesWritten = fwrite(
-			textBlock,
-            sizeof(char),
-            grabSize,
-            file);
-        if (bytesWritten != grabSize)
-        {
-            // Not all of the data was written.
-            success = false;
-            break;
-        }
-    }
+	if (mb != 0) {
+		size_t len = strlen(mb);
+		size_t ret = fwrite(mb, sizeof(char), len, file);
+		success = (ret == len);
+	}
 
     fclose(file);
 

@@ -98,6 +98,6 @@ extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 
 FILE*& GetInputStream();
 FILE*& GetOutputStream();
-
+FILE*& GetLoadStream();
 
 #endif // __FILES_H_

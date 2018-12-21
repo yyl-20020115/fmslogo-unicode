@@ -71,25 +71,25 @@ bool fileload(const wchar_t *Filename)
         FIXNUM savedValueStatus = g_ValueStatus;
         bool   savedIsDirty     = IsDirty;
         bool   savedYieldFlag   = yield_flag;
-        FILE * savedLoadStream  = loadstream;
+        FILE * savedLoadStream  = GetLoadStream();
         NODE * savedCurrentLine = vref(current_line);
 
-        loadstream = filestream;
+		GetLoadStream() = filestream;
 
         yield_flag = false;
         lsetcursorwait(NIL);
 
         start_execution();
 
-        while (!feof(loadstream) && NOT_THROWING)
+        while (!feof(GetLoadStream()) && NOT_THROWING)
         {
-            assign(current_line, reader(loadstream, L""));
+            assign(current_line, reader(GetLoadStream(), L""));
             NODE * exec_list = parser(current_line, true);
             g_ValueStatus = VALUE_STATUS_NotOk;
             eval_driver(exec_list);
 			
         }
-        fclose(loadstream);
+        fclose(GetLoadStream());
 
         // Restore some of the global state before running the startup
         // instruction list.
@@ -98,7 +98,7 @@ bool fileload(const wchar_t *Filename)
 
         // Restore loadstream so that we don't confuse to_helper
         // into reading more data from the current (closed) file stream.
-        loadstream = savedLoadStream;
+		GetLoadStream() = savedLoadStream;
 
         // Run the any startup instruction list that may have been defined
         // when the file was loaded.  (The parameter "previous_startup" is

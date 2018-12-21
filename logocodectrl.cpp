@@ -255,10 +255,17 @@ wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 	{
 		return entireBuffer;
 	}
+	else
+	{
+		wxString partialBuffer((const wchar_t*)entireBuffer + startPos, (const wchar_t*)entireBuffer + endPos);
 
+		return partialBuffer;
+	}
+#if 0
+	//BUG FIXED: NEVER DO THIS, BECAUSE THIS CHANGES THE LENGTH OF TEXT(NOT SAME AS GetTextLength())
 	// startPos and endPos assume that newlines are just LF,
 	// but GetText() returns it with CRLF.
-	entireBuffer.Replace(wxString(L"\r\n"), wxString(L"\n"));
+	//entireBuffer.Replace(wxString(L"\r\n"), wxString(L"\n"));
 
 	// startPos and endPos are in characters, but wxString::Mid()
 	// treats its arguments as being in bytes.  To get the correct substring,
@@ -297,6 +304,7 @@ wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 	delete[] buffer;
 
 	return range;
+#endif
 }
 
 // Prints the contents of the editor.

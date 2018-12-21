@@ -178,16 +178,20 @@ void init_graphics()
 
     const wxFileName helpFileName(fmslogoDirectory + wxString(L"logohelp.chm"));
     g_HelpFileName = helpFileName.GetFullPath();
+	
+	wxString tp;
 
-//#ifdef WX_PURE
-//    const char * tempPath = getenv("TMP");
-//    if (tempPath == NULL)
-//    {
-//        tempPath = "~";
-//    }
-//#else
-    
-	wxString tp = GetFullText(GetTempPath);
+#ifdef WX_PURE
+    const char * tempPath = getenv("TMP");
+    if (tempPath == NULL)
+    {
+        tempPath = "~";
+    }
+	tp = tempPath;
+#else
+	tp = GetFullText(GetTempPath);
+#endif
+
 
     bool  tempPathIsValid = false;
 
@@ -218,10 +222,9 @@ void init_graphics()
             MB_OK);
 		tp = L"C:\\";
     }
-//#endif
-	TempPathName = tp + L"mswlogo.tmp";
-	TempBmpName = tp + L"mswlogo.bmp";
-	TempClipName = tp + L"mswlogo.clp";
+	TempBmpName = tp + L"fmslogo.bmp";
+	TempPathName = tp + L"fmslogo.lgo";
+	TempClipName = tp + L"fmslogo.clp";
 
     g_PrinterAreaXLow   = GetConfigurationInt(L"Printer.Xlow",  -BitMapWidth  / 2);
     g_PrinterAreaXHigh  = GetConfigurationInt(L"Printer.XHigh", +BitMapWidth  / 2);

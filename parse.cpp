@@ -50,8 +50,6 @@
 #include "files.h"
 #include <mbstring.h>
 #endif
-FILE *loadstream = stdin;
-FILE *dribblestream = NULL;
 bool input_blocking = false;
 NODE *deepend_proc_name = NIL;
 NODE *g_ToLine = NIL;
@@ -60,6 +58,7 @@ INPUTMODE input_mode = INPUTMODE_None;
 
 static CDynamicBuffer g_ReadBuffer;
 
+FILE *dribblestream = NULL;
 
 void OpenDribble(NODE * arg)
 {
@@ -89,7 +88,7 @@ void CloseDribble()
 void DribbleWriteChar(wchar_t ch)
 {
 	if (dribblestream != NULL) {
-		fputwc(ch, dribblestream);
+		putwc(ch, dribblestream);
 	}
 }
 
@@ -107,29 +106,19 @@ void DribbleWriteLine(const wchar_t * text)
 	}
 }
 
-bool GetInputBlocking()
+bool& GetInputBlocking()
 {
 	return input_blocking;
 }
 
-void SetInputBlocking(bool _input_blocking)
+INPUTMODE& GetInputMode()
 {
-	input_blocking = _input_blocking;
-}
-
-void SetInputMode(INPUTMODE _input_mode)
-{
-	input_mode = _input_mode;
+	return input_mode;
 }
 
 void SetErrorProcName(NODE * name)
 {
-	if (name != NIL) {
-		deepend_proc_name = vref(name);
-	}
-	else {
-		assign(deepend_proc_name, NIL);
-	}
+	assign(deepend_proc_name, name);
 }
 
 void SetErrorToLine(NODE * line)
@@ -761,6 +750,8 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 		lineBuffer.GetStringLengthPtr(),
 		lineBuffer.GetStringLength(),
 		this_type);
+	//OutputDebugString(lineBuffer.GetString());
+	//OutputDebugString(L"\n");
 
 	return line;
 }

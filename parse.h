@@ -44,11 +44,14 @@ extern NODE *lrunparse(NODE *args, bool unicode);
 extern void uninitialize_parser(void);
 
 // global variables
-extern FILE *loadstream;
-extern FILE *dribblestream;
-extern bool input_blocking;
-extern enum INPUTMODE input_mode;
-extern NODE *deepend_proc_name;
-extern NODE *g_ToLine;
 
+extern bool& GetInputBlocking();
+extern INPUTMODE& GetInputMode();
+extern void SetErrorProcName(NODE * name);
+extern void SetErrorToLine(NODE * line);
+extern void OpenDribble(NODE * arg);
+extern void CloseDribble();
+extern void DribbleWriteChar(wchar_t ch);
+extern void DribbleWriteText(const wchar_t * text);
+extern void DribbleWriteLine(const wchar_t * text);
 #endif // __PARSER_H_

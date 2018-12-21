@@ -643,8 +643,8 @@ NODE *lpause(NODE*)
 
     // Loop reading commands from the user until they
     // exit Pause mode.
-    bool saved_input_blocking = input_blocking;
-    input_blocking = false;
+    bool saved_input_blocking = GetInputBlocking();
+	GetInputBlocking() = false;
     FIXNUM saved_value_status = g_ValueStatus;
     while (RUNNING)
     {
@@ -667,7 +667,7 @@ NODE *lpause(NODE*)
         new_line(stdout, MESSAGETYPE_Normal);
 
         // get the interactive input for the "pause"
-        input_mode = INPUTMODE_Pause;
+        GetInputMode() = INPUTMODE_Pause;
         NODE * elist = vref(reader(stdin, L"? "));
         if (NOT_THROWING) 
         {
@@ -677,7 +677,7 @@ NODE *lpause(NODE*)
         {
             assign(elist, NIL);
         }
-        input_mode = INPUTMODE_None;
+		GetInputMode() = INPUTMODE_None;
 
         // check if there are other things to do
         MyMessageScan();
@@ -711,7 +711,7 @@ NODE *lpause(NODE*)
                 // to turn this into a break.
                 memcpy(iblk_buf, sav_iblk, sizeof(sav_iblk));
 
-                input_blocking = saved_input_blocking;
+				GetInputBlocking() = saved_input_blocking;
                 g_ValueStatus  = saved_value_status;
                 if (uname != NIL)
                 {
@@ -739,7 +739,7 @@ NODE *lpause(NODE*)
 
     memcpy(iblk_buf, sav_iblk, sizeof(sav_iblk));
 
-    input_blocking = saved_input_blocking;
+	GetInputBlocking() = saved_input_blocking;
     unblock_input();
     g_ValueStatus = saved_value_status;
     if (uname != NIL)

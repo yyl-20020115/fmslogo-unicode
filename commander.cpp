@@ -419,11 +419,7 @@ RunLogoInstructionFromGui(
         // copy to list box for command recall
         putcombobox(LogoInstruction, MESSAGETYPE_Normal);
 
-        // if dribble then dribble 
-        if (dribblestream != NULL)
-        {
-            fwprintf(dribblestream, L"%s\n", LogoInstruction);
-        }
+        DribbleWriteLine(LogoInstruction);
 
         // reset erract loop error history
         clear_is_running_erract_flag();

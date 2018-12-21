@@ -290,9 +290,9 @@ NODE *ldirectories(NODE *)
 
 void unblock_input()
 {
-    if (input_blocking)
+    if (GetInputBlocking())
     {
-        input_blocking = false;
+		GetInputBlocking() = false;
         longjmp(iblk_buf, 1);
     }
 }
