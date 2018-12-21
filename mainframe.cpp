@@ -169,7 +169,13 @@ CMainFrame::CLogoPicturePrintout::OnPrintPage(
     size_t size;
     if (printBitCount <= 8)
     {
-        size = sizeof(BITMAPINFOHEADER) + ((1 << printBitCount) * sizeof(RGBQUAD));
+        size = sizeof(BITMAPINFOHEADER) + ((
+#ifdef _WIN64
+			1LL
+#else
+			1
+#endif
+			<< printBitCount) * sizeof(RGBQUAD));
     }
     else
     {

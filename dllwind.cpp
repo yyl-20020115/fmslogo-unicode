@@ -382,7 +382,11 @@ GetFunctionFromDll(
     {
         // try to get the name as an ordinal
         wchar_t * ptr = 0;
+#ifdef _WIN64
+		long long ordinal = wcstoll(FunctionName, &ptr, 0);
+#else
         unsigned long ordinal = wcstoul(FunctionName, &ptr, 0);
+#endif
         if (*ptr == '\0' && ordinal <= 0xFFFF)
         {
             // FunctionName was a number, so try to treat it as an ordinal
@@ -517,8 +521,12 @@ NODE *ldllcall(NODE *args)
 
     wchar_t *values[1024];   // strings we must free
     int nextValue = 0;
-
-    int parameters[1024]; // a stack of parsed parameters to pass to the function
+#ifdef _WIN64
+    long long 
+#else
+	int
+#endif
+		parameters[1024]; // a stack of parsed parameters to pass to the function
     int nextParameter = 0;
 
     // fill queue with type/data pairs
@@ -559,7 +567,13 @@ NODE *ldllcall(NODE *args)
         case L's':
         case L'S':
             values[nextValue] = _wcsdup(value);
-            parameters[nextParameter++] = (int) values[nextValue];
+            parameters[nextParameter++] = 
+#ifdef _WIN64
+			(long long)
+#else
+			(int)
+#endif
+			values[nextValue];
             nextValue++;
             break;
 
@@ -606,7 +620,13 @@ NODE *ldllcall(NODE *args)
                 }
 
                 // Use the allocated buffer for the function parameter.
-                parameters[nextParameter++] = (int) getstrptr(bufferNode);
+                parameters[nextParameter++] = 
+#ifdef _WIN64
+					(long long)
+#else
+					(int) 
+#endif
+					getstrptr(bufferNode);
 
                 // After the call is complete, we return all of the buffers.
                 outParameters.AppendElement(bufferNode);

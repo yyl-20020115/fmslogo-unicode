@@ -92,7 +92,13 @@ ERR_TYPES WriteDIB(FILE* File, int MaxBitmapBitDepth)
     if (bitmapBitDepth <= 8)
     {
         // Allocate space for a palette of 2^bitmapBitDepth colors
-        size = sizeof(BITMAPINFOHEADER) + ((1 << bitmapBitDepth) * sizeof(RGBQUAD));
+        size = sizeof(BITMAPINFOHEADER) + ((
+#ifdef _WIN64
+			1LL
+#else
+			1
+#endif
+			<< bitmapBitDepth) * sizeof(RGBQUAD));
     }
     else
     {

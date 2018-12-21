@@ -11,7 +11,7 @@ gbmhelp.h - Internal helpers for GBM file I/O stuff
 #include <sys/types.h>
 #include <sys/stat.h>
 
-extern BOOLEAN      gbm_same(const wchar_t *s1, const wchar_t *s2, int n);
+extern BOOLEAN      gbm_same(const wchar_t *s1, const wchar_t *s2, size_t n);
 extern const wchar_t *gbm_find_word(const wchar_t *str, const wchar_t *substr);
 extern const wchar_t *gbm_find_word_prefix(const wchar_t *str, const wchar_t *substr);
 

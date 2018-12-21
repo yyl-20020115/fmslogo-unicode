@@ -3396,7 +3396,7 @@ NODE *lwinhelp(NODE *arg)
             GetMainWindow(),
             textbuf,
             HELP_PARTIALKEY,
-            reinterpret_cast<DWORD>(textbuf2.GetString()));
+            (ULONG_PTR)(textbuf2.GetString()));
     }
     else
     {

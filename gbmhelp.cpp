@@ -27,7 +27,7 @@ gbmhelp.c - Helpers for GBM file I/O stuff
 #endif
 
 
-BOOLEAN gbm_same(const wchar_t *s1, const wchar_t *s2, int n)
+BOOLEAN gbm_same(const wchar_t *s1, const wchar_t *s2, size_t n)
 {
     for ( ; n--; s1++, s2++ )
         if ( tolower(*s1) != tolower(*s2) )
@@ -38,7 +38,7 @@ BOOLEAN gbm_same(const wchar_t *s1, const wchar_t *s2, int n)
 const wchar_t *gbm_find_word(const wchar_t *str, const wchar_t *substr)
 {
 	wchar_t buf[100+1], *s;
-    int  len = wcslen(substr);
+    size_t  len = wcslen(substr);
 
     for ( s  = wcstok(wcscpy(buf, str), L" \t,");
           s != NULL;
@@ -51,7 +51,7 @@ const wchar_t *gbm_find_word(const wchar_t *str, const wchar_t *substr)
 const wchar_t *gbm_find_word_prefix(const wchar_t *str, const wchar_t *substr)
 {
 	wchar_t buf[100+1], *s;
-    int  len = wcslen(substr);
+    size_t  len = wcslen(substr);
 
     for ( s  = wcstok(wcscpy(buf, str), L" \t,");
           s != NULL;

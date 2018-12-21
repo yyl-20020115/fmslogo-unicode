@@ -1,6 +1,3 @@
-.386
-.model flat,stdcall 
-.stack 4096 
 public _do_push
 .code 
 _do_push proc content:qword 

@@ -537,7 +537,7 @@ make_strnode(
     const wchar_t *string
     )
 {
-    return make_strnode(string, wcslen(string), STRING, strnzcpy);
+    return make_strnode(string,(int) wcslen(string), STRING, strnzcpy);
 }
 
 
@@ -623,8 +623,8 @@ make_lowercase_strnode_from_strnode(
     // one will do.
 
     const wchar_t * originalString       = getstrptr(OriginalNode);
-    size_t       originalStringLength = getstrlen(OriginalNode);
-    for (size_t i = 0; i < originalStringLength; i++)
+    int       originalStringLength = getstrlen(OriginalNode);
+    for (int i = 0; i < originalStringLength; i++)
     {
         if (!islowercase(originalString[i]))
         {

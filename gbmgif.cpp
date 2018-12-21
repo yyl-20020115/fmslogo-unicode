@@ -40,8 +40,11 @@ struct GIF_PRIV
     byte    pal[0x100*3];
 };
 
+#ifdef _WIN64
+typedef unsigned long long cword;
+#else
 typedef unsigned int cword;
-
+#endif
 /* Pass 0 is all lines where  y%8    == 0
    Pass 1 is all lines where (y-4)%8 == 0
    Pass 2 is all lines where (y-2)%4 == 0
@@ -380,21 +383,39 @@ GBM_ERR gif_rdata(int fd, GBM *gbm, byte *data)
 
     /* 2^min_code size accounts for all colours in file */
 
-    clear_code = (cword) ( 1 << min_code_size );
+	clear_code = (cword)(
+#ifdef _WIN64
+		1LL
+#else
+		1
+#endif
+		<< min_code_size);
     eoi_code = (cword) (clear_code + 1);
     free_code = first_free_code = (cword) (clear_code + 2);
 
     /* 2^(min_code_size+1) includes clear and eoi code and space too */
 
     init_code_size = c.code_size;
-    max_code = (cword) ( 1 << c.code_size );
+    max_code = (cword) ( 
+#ifdef _WIN64
+		1LL
+#else
+		1
+#endif		
+		<< c.code_size );
 
     while ( (code = read_code(&c)) != eoi_code && code != 0xffff && o.y < o.h )
     {
         if ( code == clear_code )
         {
             c.code_size = init_code_size;
-            max_code = (cword) ( 1 << c.code_size );
+            max_code = (cword) ( 
+#ifdef _WIN64
+				1LL
+#else
+				1
+#endif
+				<< c.code_size );
             c.read_mask = (cword) (max_code - 1);
             free_code = first_free_code;
             cur_code = old_code = code = read_code(&c);
@@ -768,10 +789,22 @@ GBM_ERR gif_w(const wchar_t *fn, int fd, const GBM *gbm, const GBMRGB *gbmrgb, c
             return GBM_ERR_WRITE;
         }
 
-        clear_code = ( 1 << min_code_size );
+        clear_code = ( 
+#ifdef _WIN64
+			1LL
+#else
+			1
+#endif
+			<< min_code_size );
         eoi_code   = clear_code + 1;
         last_code  = eoi_code;
-        max_code   = ( 1 << init_code_size );
+        max_code   = ( 
+#ifdef _WIN64
+			1LL
+#else
+			1
+#endif
+			<< init_code_size );
         lenstring  = 0;
 
         /* Setup write context */
@@ -870,7 +903,13 @@ GBM_ERR gif_w(const wchar_t *fn, int fd, const GBM *gbm, const GBMRGB *gbmrgb, c
                             lenstring   = 0;
                             last_code   = eoi_code;
                             w.code_size = init_code_size;
-                            max_code    = ( 1 << init_code_size );
+                            max_code    = ( 								
+#ifdef _WIN64
+								1LL
+#else
+								1
+#endif
+								<< init_code_size );
                             for ( j = 0; j < MAX_HASH; j++ )
                                 hashtable[j] = NULL;
                         }

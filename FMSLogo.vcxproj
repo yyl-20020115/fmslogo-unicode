@@ -120,7 +120,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -164,7 +164,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
