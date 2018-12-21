@@ -93,7 +93,7 @@ wchar_t ecma_set(int ch)
 wchar_t ecma_clear(int ch)
 {
     // Return the unbackslashed form of "ch".
-    ch &= 0xFF;
+    //ch &= 0xFF;
     if (ch < ecma_begin || ch >= ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) 
     {
         // ch is not backslashed
@@ -114,7 +114,6 @@ bool ecma_get(int ch)
     // return true if "ch" is backslashed.
     // return false, otherwise.
 
-    ch &= 0xFF;
     return 
         ((ch >= ecma_begin && ch < ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) && 
          (ch < 0x7 || ch > 0xD || ch == 0xB));

@@ -340,10 +340,8 @@ wchar_t rd_fgetwc_bufferred(FILE* stream, bool unicode = false) {
 			count = fread(rd_buffer + rd_length, sizeof(char), MB_LEN_MAX - rd_length, stream);
 			rd_length += count;
 		}
-		if (rd_length <= 0) {
-			return c;
-		}
-		else {
+		if (rd_length>0)
+		{
 			size_t n = _mbclen((unsigned char*)rd_buffer);
 			n = (n == 1 || n == 2) ? n : 1;
 			int ret = mbtowc(&c, rd_buffer, n);
@@ -384,9 +382,7 @@ wchar_t rd_fgetwc(FILE *stream, bool unicode)
 	if (stream != stdin)
 	{
 		c = rd_fgetwc_bufferred(stream, unicode);
-		if (c == WEOF) {
-			c = WEOF;
-		}
+
 	}
 	else //strm == stdin (actually it's the buffer)
 	{
