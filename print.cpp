@@ -450,8 +450,8 @@ void new_line(FILE *strm, MESSAGETYPE type)
 
 NODE *lshow(NODE *args)
 {
-    print_helper(g_Writer.GetStream(), MESSAGETYPE_Normal, args);
-    new_line(g_Writer.GetStream(), MESSAGETYPE_Normal);
+    print_helper(GetOutputStream(), MESSAGETYPE_Normal, args);
+    new_line(GetOutputStream(), MESSAGETYPE_Normal);
     return Unbound;
 }
 
@@ -462,12 +462,12 @@ void type_helper(NODE *args, bool print_space_between_arguments)
     {
         NODE * arg = car(args);
 
-        print_nobrak(g_Writer.GetStream(), MESSAGETYPE_Normal, arg);
+        print_nobrak(GetOutputStream(), MESSAGETYPE_Normal, arg);
 
         args = cdr(args);
         if (print_space_between_arguments && (args != NIL))
         {
-            print_space(g_Writer.GetStream(), MESSAGETYPE_Normal);
+            print_space(GetOutputStream(), MESSAGETYPE_Normal);
         }
     }
 }
@@ -481,7 +481,7 @@ NODE *ltype(NODE *args)
 NODE *lprint(NODE *args)
 {
     type_helper(args, true);
-    new_line(g_Writer.GetStream(), MESSAGETYPE_Normal);
+    new_line(GetOutputStream(), MESSAGETYPE_Normal);
     return Unbound;
 }
 

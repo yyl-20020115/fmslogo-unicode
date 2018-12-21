@@ -548,9 +548,6 @@
     <ClCompile Include="wrksp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="wxpurestubs.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="dllwind.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

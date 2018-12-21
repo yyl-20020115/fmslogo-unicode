@@ -174,6 +174,16 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
     return tstrm;
 }
 
+FILE *& GetInputStream()
+{
+	return g_Reader.GetStream();
+}
+
+FILE *& GetOutputStream()
+{
+	return g_Writer.GetStream();
+}
+
 NODE *ldribble(NODE *arg)
 {
     if (dribblestream != NULL)
@@ -415,7 +425,7 @@ NODE *lclose(NODE *arg)
             ::CloseClipboard();
         }
 
-        remove(wxString(TempClipName));
+        _wremove(TempClipName);
     }
 #endif // WX_PURE
 
@@ -572,7 +582,7 @@ PrintWorkspaceToFileStream(
     if (FileStream != NULL)
     {
         // HACK: change g_Writer to use the new stream
-        FILE * savedWriterStream = g_Writer.GetStream();
+        FILE * savedWriterStream = GetOutputStream();
         g_Writer.SetStream(FileStream);
 
         bool save_yield_flag = yield_flag;
@@ -583,7 +593,7 @@ PrintWorkspaceToFileStream(
         lpo(entire_workspace);
         deref(entire_workspace);
 
-        fclose(g_Writer.GetStream());
+        fclose(GetOutputStream());
         IsDirty = false;
 
         lsetcursorarrow(NIL);

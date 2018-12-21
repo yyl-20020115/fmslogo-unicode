@@ -661,7 +661,7 @@ NODE *lmake(NODE *args)
             NODE *quoted_variable_name = vref(make_quote(what));
 
             ndprintf(
-                g_Writer.GetStream(),
+                GetOutputStream(),
                 MESSAGETYPE_Normal,
                 LOCALIZED_TRACING_MAKE,
                 quoted_variable_name,
@@ -674,13 +674,13 @@ NODE *lmake(NODE *args)
             if (ufun != NIL)
             {
                 ndprintf(
-                    g_Writer.GetStream(),
+                    GetOutputStream(),
                     MESSAGETYPE_Normal,
                     LOCALIZED_TRACING_LOCATION,
                     ufun,
                     this_line);
             }
-            new_line(g_Writer.GetStream(), MESSAGETYPE_Normal);
+            new_line(GetOutputStream(), MESSAGETYPE_Normal);
         }
     }
     return Unbound;
@@ -1000,7 +1000,7 @@ po_helper_print_plist(
 
     // PPROP "list "name "value
     ndprintf(
-        g_Writer.GetStream(), 
+        GetOutputStream(), 
         MESSAGETYPE_Normal,
         L"%t %s %s %s\n",
         LOCALIZED_ALTERNATE_PPROP,
@@ -1046,7 +1046,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 //   END\n
                 //   \n
                 ndprintf(
-                    g_Writer.GetStream(), 
+                    GetOutputStream(), 
                     MESSAGETYPE_Normal,
                     L"%t %p\n%t\n\n", 
                     To.GetName(),
@@ -1074,7 +1074,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 if (is_list(titleline))
                 {
                     print_helper(
-                        g_Writer.GetStream(),
+                        GetOutputStream(),
                         MESSAGETYPE_Normal,
                         titleline);
                 }
@@ -1082,7 +1082,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 {
 					wchar_t *str = expand_slash(titleline);
                     ndprintf(
-                        g_Writer.GetStream(),
+                        GetOutputStream(),
                         MESSAGETYPE_Normal,
                         L"%t",
                         str);
@@ -1098,14 +1098,14 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                     if (is_list(currentline))
                     {
                         print_helper(
-                            g_Writer.GetStream(),
+                            GetOutputStream(),
                             MESSAGETYPE_Normal,
                             currentline);
                     }
                     else
                     {
 						wchar_t *str = expand_slash(currentline);
-                        if (g_Writer.GetStream() == stdout)
+                        if (GetOutputStream() == stdout)
                         {
                             if (str[0] == L'\0')
                             {
@@ -1137,20 +1137,20 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                         }
                         else
                         {
-                            fwprintf(g_Writer.GetStream(), L"%s", str);
+                            fwprintf(GetOutputStream(), L"%s", str);
                         }
                         free(str);
                     }
 
-                    if (g_Writer.GetStream() != stdout) 
+                    if (GetOutputStream() != stdout) 
                     {
-                        new_line(g_Writer.GetStream(), MESSAGETYPE_Normal);
+                        new_line(GetOutputStream(), MESSAGETYPE_Normal);
                     }
 
                     bodywords = cdr(bodywords);
                 }
             }
-            new_line(g_Writer.GetStream(), MESSAGETYPE_Normal);
+            new_line(GetOutputStream(), MESSAGETYPE_Normal);
         }
         proclst = cdr(proclst);
         if (check_throwing) break;
@@ -1188,7 +1188,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
 
             // MAKE "name "value
             ndprintf(
-                g_Writer.GetStream(),
+                GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s %s\n",
                 LOCALIZED_ALTERNATE_MAKE,
@@ -1219,7 +1219,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
 
             // PLIST "name = [name1 value1 name2 value2]
             ndprintf(
-                g_Writer.GetStream(),
+                GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s = %s\n",
                 LOCALIZED_ALTERNATE_PLIST,
@@ -1489,13 +1489,13 @@ NODE *ledit(NODE *args)
         if (fileStream != NULL)
         {
             // HACK: change g_Writer to use the new stream
-            FILE * savedWriterStream = g_Writer.GetStream();
-            g_Writer.SetStream(fileStream);
+            FILE * savedWriterStream = GetOutputStream();
+			GetOutputStream() = (fileStream);
 
             po_helper(args, -1);
 
             // restore g_Writer
-            g_Writer.SetStream(savedWriterStream);
+			GetOutputStream() = (savedWriterStream);
 
             fclose(fileStream);
         }

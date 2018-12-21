@@ -37,7 +37,7 @@ public:
     NODE * GetPosition() const;
     void   SetPosition(NODE * Arguments);
 
-    FILE * GetStream() const
+    FILE *& GetStream()
     {
         assert(m_Stream != NULL);
         return m_Stream;
@@ -95,7 +95,9 @@ extern void uninitialize_files(void);
 extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 
 // global variables
-extern CFileStream g_Reader;
-extern CFileStream g_Writer;
+
+FILE*& GetInputStream();
+FILE*& GetOutputStream();
+
 
 #endif // __FILES_H_

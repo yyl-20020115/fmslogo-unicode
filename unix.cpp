@@ -133,7 +133,7 @@ NODE *lchdir(NODE *arg)
     {
         // Get the directory that we are now in.
 		wchar_t newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
-		_wgetcwd(newDirectoryName, sizeof(newDirectoryName));
+		_wgetcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(wchar_t));
 
         printfx(LOCALIZED_FILE_CHDIRSUCCEEDED, (newDirectoryName));
     }
@@ -146,7 +146,7 @@ NODE *lpopdir(NODE *)
     _wchdir(L"..");
 
     wchar_t fname[MAX_BUFFER_SIZE + 1] = { 0 };
-	_wgetcwd(fname, sizeof(fname));
+	_wgetcwd(fname, sizeof(fname) / sizeof(wchar_t));
 
     printfx(LOCALIZED_FILE_POPPEDTO, fname);
 
@@ -166,8 +166,8 @@ NODE *lmkdir(NODE *arg)
     else
     {
         // mkdir returns 0 on success
-        _wchdir(directoryName);
-        printfx(LOCALIZED_FILE_MKDIRSUCCEEDED, directoryName);
+		_wchdir(directoryName);
+		printfx(LOCALIZED_FILE_MKDIRSUCCEEDED, directoryName);
     }
 #endif
 
@@ -178,7 +178,7 @@ NODE *lrmdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_rmdir(wxString(directoryName)))
+    if (_wrmdir(directoryName))
     {
         printfx(LOCALIZED_FILE_RMDIRFAILED, directoryName);
         if (errno == EEXIST)

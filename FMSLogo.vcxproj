@@ -353,7 +353,6 @@
     <ClCompile Include="vector.cpp" />
     <ClCompile Include="workspaceeditor.cpp" />
     <ClCompile Include="wrksp.cpp" />
-    <ClCompile Include="wxpurestubs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FMSLogo.rc" />

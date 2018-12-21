@@ -282,10 +282,10 @@ void trace_input(NODE * UnquotedArgument)
 {
     // trace a NODE* as if it were an input to a function
     NODE * quoted_arg = vref(maybe_quote(UnquotedArgument));
-    print_node(g_Writer.GetStream(), MESSAGETYPE_Trace, quoted_arg);
+    print_node(GetOutputStream(), MESSAGETYPE_Trace, quoted_arg);
     deref(quoted_arg);
 
-    print_space(g_Writer.GetStream(), MESSAGETYPE_Trace);
+    print_space(GetOutputStream(), MESSAGETYPE_Trace);
 }
 
 class CEvaluatorStack
@@ -1197,10 +1197,10 @@ NODE *evaluator(NODE *list, enum labels where)
     {
         for (int i = 0; i < trace_level; i++) 
         {
-            print_space(g_Writer.GetStream(), MESSAGETYPE_Trace);
+            print_space(GetOutputStream(), MESSAGETYPE_Trace);
         }
         trace_level++;
-        ndprintf(g_Writer.GetStream(), MESSAGETYPE_Trace, L"( %s ", fun);
+        ndprintf(GetOutputStream(), MESSAGETYPE_Trace, L"( %s ", fun);
     }
 
  lambda_apply:
@@ -1405,9 +1405,9 @@ NODE *evaluator(NODE *list, enum labels where)
     {
         if (NOT_THROWING) 
         {
-            print_char(g_Writer.GetStream(), MESSAGETYPE_Trace, ')');
+            print_char(GetOutputStream(), MESSAGETYPE_Trace, ')');
         }
-        new_line(g_Writer.GetStream(), MESSAGETYPE_Trace);
+        new_line(GetOutputStream(), MESSAGETYPE_Trace);
 
         Stack.PushFrame(
             compound_apply_continue,
@@ -1813,14 +1813,14 @@ NODE *evaluator(NODE *list, enum labels where)
     {
         for (int i = 0; i < trace_level; i++) 
         {
-            print_space(g_Writer.GetStream(), MESSAGETYPE_Trace);
+            print_space(GetOutputStream(), MESSAGETYPE_Trace);
         }
-        print_node(g_Writer.GetStream(), MESSAGETYPE_Trace, fun);
+        print_node(GetOutputStream(), MESSAGETYPE_Trace, fun);
         if (val == Unbound)
         {
             // trace that the procedure stopped (without outputting anything)
             ndprintf(
-                g_Writer.GetStream(),
+                GetOutputStream(),
                 MESSAGETYPE_Trace,
                 LOCALIZED_TRACING_STOPS);
         }
@@ -1829,7 +1829,7 @@ NODE *evaluator(NODE *list, enum labels where)
             // trace the output
             NODE * quoted_val = vref(maybe_quote(val));
             ndprintf(
-                g_Writer.GetStream(),
+                GetOutputStream(),
                 MESSAGETYPE_Trace,
                 LOCALIZED_TRACING_OUTPUTS,
                 quoted_val);
