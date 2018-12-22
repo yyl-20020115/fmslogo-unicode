@@ -27,73 +27,73 @@
 
 #elif LOCALE == 1031
   
-  #include "localizedstrings-de.h"  // German
+  #include "localizedstrings-de-ucs2le.h"  // German
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 0
 
 #elif LOCALE == 1032
   
-  #include "localizedstrings-gr.h"  // Greek
+  #include "localizedstrings-gr-ucs2le.h"  // Greek
   #define  CHARSETID 1253
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1033
 
-  #include "localizedstrings-en.h"  // English
+  #include "localizedstrings-en-ucs2le.h"  // English
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 0
 
 #elif LOCALE == 1034
 
-  #include "localizedstrings-es.h"  // Spanish
+  #include "localizedstrings-es-ucs2le.h"  // Spanish
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1036
 
-  #include "localizedstrings-fr.h"  // French
+  #include "localizedstrings-fr-ucs2le.h"  // French
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1040
 
-  #include "localizedstrings-it.h"  // Italian
+  #include "localizedstrings-it-ucs2le.h"  // Italian
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1045
 
-  #include "localizedstrings-pl.h"  // Polish
+  #include "localizedstrings-pl-ucs2le.h"  // Polish
   #define  CHARSETID 1250
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1049
 
-  #include "localizedstrings-ru.h"  // Russian
+  #include "localizedstrings-ru-ucs2le.h"  // Russian
   #define  CHARSETID 1251
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 1050
 
-  #include "localizedstrings-hr.h"  // Croatian
+  #include "localizedstrings-hr-ucs2le.h"  // Croatian
   #define  CHARSETID 1250
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 
 #elif LOCALE == 2052
 
-  #include "localizedstrings-zh-cn.h"  // Simplified Chinese
+  #include "localizedstrings-zh-cn-ucs2le.h"  // Simplified Chinese
   #define  CHARSETID 936
   #define  MANUAL_HAS_TRANSLATION_TABLES 0
 
 #elif LOCALE == 2070
 
-  #include "localizedstrings-pt.h"  // Portuguese
+  #include "localizedstrings-pt-ucs2le.h"  // Portuguese
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 0
 
 #elif LOCALE == 9999
 
-  #include "localizedstrings-ps.h"  // Pseudoloc
+  #include "localizedstrings-ps-ucs2le.h"  // Pseudoloc
   #define  CHARSETID 1252
   #define  MANUAL_HAS_TRANSLATION_TABLES 1
 

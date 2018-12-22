@@ -318,6 +318,42 @@
     <ClInclude Include="MFP.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="localizedstrings-zh-cn-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-ru-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-pt-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-ps-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-pl-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-it-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-hr-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-gr-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-fr-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-es-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-en-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="localizedstrings-de-ucs2le.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

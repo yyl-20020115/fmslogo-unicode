@@ -755,7 +755,12 @@ parsed__runparse(
 #define unparsed__line(l)       getobject(l)
 #define generation__line(l)     (generation__tree(unparsed__line(l)))
 
-#define cont__cont(c)           (int)car(c)
+#ifdef _WIN64
+typedef long long cast_type;
+#else
+typedef int cast_type;
+#endif
+#define cont__cont(c)           (cast_type)car(c)
 #define val__cont(c)            cdr(c)
 
 /* Object flags.  Ones settable by users via bury_helper must come in threes
