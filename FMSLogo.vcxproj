@@ -23,32 +23,31 @@
     <ProjectGuid>{7E7EC7EA-E827-444A-A911-78A299F2FD31}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>FMSLogo</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -94,7 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -113,7 +112,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -134,7 +133,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -160,7 +159,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

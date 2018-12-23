@@ -507,7 +507,7 @@ make_strnode(
     }
 
     // allocate enough to hold the header, the string, and NUL.
-	wchar_t * strhead = (wchar_t *)malloc(sizeof(short) + (len + 1) * sizeof(wchar_t));
+	wchar_t * strhead = (wchar_t *)malloc(sizeof(unsigned short) + (len + 1) * sizeof(wchar_t));
 	if (strhead == NULL)
     {
         err_logo(OUT_OF_MEM, NIL);
@@ -515,7 +515,8 @@ make_strnode(
     }
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
+	strptr[len] = L'\0';
 	copy_routine(strptr, string, len);
 
     // set the reference count to 1.
@@ -555,7 +556,7 @@ make_strnode_from_wordlist(
     }
 
     // allocate enough to hold the header, the string, and NUL.
-	wchar_t * strhead = (wchar_t *)malloc(sizeof(short) + (len + 1) * sizeof(wchar_t));
+	wchar_t * strhead = (wchar_t *)malloc(sizeof(unsigned short) + (len + 1) * sizeof(wchar_t));
     if (strhead == NULL)
     {
         err_logo(OUT_OF_MEM, NIL);
@@ -563,7 +564,8 @@ make_strnode_from_wordlist(
     }
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
+	strptr[len] = L'\0';
 	word_strnzcpy(strptr, wordlist, len);
 
     // set the reference count to 1.

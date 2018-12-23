@@ -197,6 +197,7 @@ CStringNodeBuffer::CStringNodeBuffer()
 	this->m_BufferLengthInBytes = sizeof(unsigned short) + (DEFAULT_SIZE + 1) * sizeof(wchar_t);
 	this->m_Buffer = static_cast<char *>(malloc(m_BufferLengthInBytes));
 	this->m_StringLimit = this->m_StringStart = (wchar_t*)(m_Buffer + sizeof(unsigned short));
+	*this->m_StringLimit = L'\0';
 	this->m_IsOwner = true;
 }
 

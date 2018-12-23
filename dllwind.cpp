@@ -403,7 +403,7 @@ make_buffer(
     int  length
     )
 {
-	int fulllen = sizeof(short) + (length + 1) * sizeof(wchar_t);
+	int fulllen = sizeof(unsigned short) + (length + 1) * sizeof(wchar_t);
 	wchar_t * strhead = (wchar_t *)malloc(fulllen);
 
 	if (strhead == NULL)
@@ -414,7 +414,7 @@ make_buffer(
 	memset(strhead, 0, fulllen);
 
     // set the "string pointer" to just after the header
-	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(short));
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
 
     // set the reference count to 1.
     unsigned short *header = (unsigned short *) strhead;

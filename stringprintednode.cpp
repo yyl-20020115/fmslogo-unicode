@@ -22,6 +22,7 @@
     #include "print.h"
     #include "init.h"
     #include "debugheap.h"
+#include <stdlib.h>
 #endif
 
 
@@ -47,37 +48,41 @@ CStringPrintedNode::CStringPrintedNode(
     }
 
     // First, try to print the node into the fixed-size buffer.
-    size_t totalBytesNeeded = PrintNodeToString(
+    size_t totalCharsNeeded = PrintNodeToString(
         Node,
         m_FixedBuffer,
         sizeof(m_FixedBuffer)/sizeof(wchar_t),
         printDepthLimit,
         printWidthLimit);
 
-    if (sizeof(m_FixedBuffer) / sizeof(wchar_t) < totalBytesNeeded)
+    if (sizeof(m_FixedBuffer) / sizeof(wchar_t) < totalCharsNeeded)
     {
         // More space is needed than exists in the fixed-sized buffer.
-        m_DynamicBuffer = new wchar_t[totalBytesNeeded];
+        m_DynamicBuffer = (wchar_t*)malloc((totalCharsNeeded+1)*sizeof(wchar_t));
         if (m_DynamicBuffer != NULL)
         {
+			m_DynamicBuffer[totalCharsNeeded] = L'\0';
             // Print the node into the correctly sized buffer.
             size_t newTotalBytesNeeded = PrintNodeToString(
                 Node,
                 m_DynamicBuffer,
-                totalBytesNeeded,
+                totalCharsNeeded,
                 printDepthLimit,
                 printWidthLimit);
 
             // The number of bytes needed shouldn't have changed
             // from the first attempt to the second attempt.
-            assert(totalBytesNeeded == newTotalBytesNeeded);
+            assert(totalCharsNeeded == newTotalBytesNeeded);
         }
     }
 }
 
 CStringPrintedNode::~CStringPrintedNode()
 {
-    delete [] m_DynamicBuffer;
+	if (m_DynamicBuffer != 0) {
+		free(m_DynamicBuffer);
+		m_DynamicBuffer = 0;
+	}
 }
 
 const wchar_t *

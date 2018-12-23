@@ -73,22 +73,31 @@ wxString GetFullText(FullTextCallBack* ftcb, int maxBufferSize)
 		wchar_t* buffer = 0;
 		
 		do {
-			buffer = new wchar_t[length];
-			ret = ftcb(length, buffer);
-			if (ret < length) {
-				break;
+			buffer = (wchar_t*)realloc(buffer, (length + 1)*sizeof(wchar_t));
+			if (buffer != 0) {
+				buffer[length] = L'\0';
+
+				ret = ftcb(length, buffer);
+				if (ret < length) {
+					break;
+				}
+				else {
+					free(buffer);
+
+					length <<= 1;
+				}
 			}
 			else {
-				delete[] buffer;
-
-				length <<= 1;
+				break;
 			}
 		} while (true);
 
-		if (ret > 0) {
+		if (ret > 0 &&buffer!=0) {
 			result = buffer;
 		}
-		delete[] buffer;
+		if (buffer != 0) {
+			free(buffer);
+		}
 	}
 	return result;
 }

@@ -942,7 +942,7 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
                 int ch;
                 while ((ch = fgetwc(srcfile)) != EOF && ch!=WCSEOF)
                 {
-                    fputwc(ch, dstfile);
+                    putwc(ch, dstfile); //do not use fputwc!
                 }
                 fclose(dstfile);
             }

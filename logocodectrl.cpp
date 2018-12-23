@@ -261,50 +261,7 @@ wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 
 		return partialBuffer;
 	}
-#if 0
-	//BUG FIXED: NEVER DO THIS, BECAUSE THIS CHANGES THE LENGTH OF TEXT(NOT SAME AS GetTextLength())
-	// startPos and endPos assume that newlines are just LF,
-	// but GetText() returns it with CRLF.
-	//entireBuffer.Replace(wxString(L"\r\n"), wxString(L"\n"));
 
-	// startPos and endPos are in characters, but wxString::Mid()
-	// treats its arguments as being in bytes.  To get the correct substring,
-	// we must also treat it as characters.
-
-	// CONSIDER: this could be rewritten using _ismbblead
-
-	// Convert the mulitbyte string into Unicode wide characters.
-	int wideBufferLength = entireBuffer.Len() + 1;
-	wchar_t * wideBuffer = new wchar_t[wideBufferLength];
-	MultiByteToWideChar(
-		CP_ACP,                 // system ANSI code page
-		0,                      // flags: don't fail on error
-		wxString(entireBuffer), // input string
-		-1,                     // its length (NUL-terminated)
-		wideBuffer,             // output string
-		wideBufferLength);      // size of output buffer (characters)
-
-	// Convert the unicode selection back to a multibyte string
-	int selectionLength = endPos - startPos;
-	char * buffer = new char[sizeof(wchar_t*) * selectionLength]; // worst case: every character is double-byte
-	int bufferLength = WideCharToMultiByte(
-		CP_ACP,                 // system ANSI code page
-		0,                      // use best-fit character and don't fail on error
-		wideBuffer + startPos,  // offset of first desired character
-		selectionLength,        // total desired characters
-		buffer,                 // multibyte buffer
-		2 * selectionLength,    // size of buffer in bytes
-		NULL,                   // use the system default for characters that have no coding
-		NULL);                  // we don't care what character was used.
-
-	// Wrap the multi-byte selection in a wxString
-	wxString range(buffer, bufferLength);
-
-	delete[] wideBuffer;
-	delete[] buffer;
-
-	return range;
-#endif
 }
 
 // Prints the contents of the editor.
