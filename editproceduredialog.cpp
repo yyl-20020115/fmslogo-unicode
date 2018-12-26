@@ -14,7 +14,7 @@
 CEditProcedureDialog::CEditProcedureDialog(
     wxWindow * Parent
     )
-    : CSelectProcedureDialog(Parent, LOCALIZED_EDITPROCEDURE)
+    : CSelectProcedureDialog(Parent, GetResourceString(L"LOCALIZED_EDITPROCEDURE"))
 {
 }
 

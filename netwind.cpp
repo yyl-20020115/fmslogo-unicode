@@ -17,6 +17,7 @@
 
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
+#include <wx/string.h>
     #include "netwind.h"
     #include "logoeventqueue.h"
 
@@ -56,7 +57,7 @@ static bool network_is_started = false;
 
 // converts winsock errorcode to string
 static
-LPCWSTR WSAGetLastErrorString(int error_arg)
+wxString WSAGetLastErrorString(int error_arg)
 {
     int error;
 
@@ -72,148 +73,147 @@ LPCWSTR WSAGetLastErrorString(int error_arg)
     switch (error)
     {
     case WSAENAMETOOLONG:
-        return LOCALIZED_ERROR_NETWORKNAMETOOLONG;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNAMETOOLONG");
          
     case WSANOTINITIALISED:
-        return LOCALIZED_ERROR_NETWORKNOTINITIALIZED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTINITIALIZED");
 
     case WSASYSNOTREADY:
-        return LOCALIZED_ERROR_NETWORKSYSTEMNOTREADY;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKSYSTEMNOTREADY");
 
     case WSAVERNOTSUPPORTED:
-        return LOCALIZED_ERROR_NETWORKVERSIONNOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKVERSIONNOTSUPPORTED");
 
     case WSAESHUTDOWN:
-        return LOCALIZED_ERROR_NETWORKSENDAFTERSHUTDOWN;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKSENDAFTERSHUTDOWN");
 
     case WSAEINTR:
-        return LOCALIZED_ERROR_NETWORKINTERRUPTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKINTERRUPTED");
 
     case WSAHOST_NOT_FOUND:
-        return LOCALIZED_ERROR_NETWORKHOSTNOTFOUNDAUTH;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKHOSTNOTFOUNDAUTH");
 
     case WSATRY_AGAIN:
-        return LOCALIZED_ERROR_NETWORKHOSTNOTFOUNDNONAUTH;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKHOSTNOTFOUNDNONAUTH");
 
     case WSANO_RECOVERY:
-        return LOCALIZED_ERROR_NETWORKNOTRECOVERABLE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTRECOVERABLE");
 
     case WSANO_DATA:
-        return LOCALIZED_ERROR_NETWORKNODATA;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNODATA");
 
     case WSAEBADF:
-        return LOCALIZED_ERROR_NETWORKBADFILENUMBER;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKBADFILENUMBER");
            
     case WSAEWOULDBLOCK:
-        return LOCALIZED_ERROR_NETWORKWOULDBLOCK;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKWOULDBLOCK");
 
     case WSAEINPROGRESS:
-        return LOCALIZED_ERROR_NETWORKNOWINPROGRESS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOWINPROGRESS");
 
     case WSAEALREADY:
-        return LOCALIZED_ERROR_NETWORKALREADYINPROGRESS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYINPROGRESS");
 
     case WSAEFAULT:
-        return LOCALIZED_ERROR_NETWORKBADADDRESS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKBADADDRESS");
 
     case WSAEDESTADDRREQ:
-        return LOCALIZED_ERROR_NETWORKNEEDDESTADDRESS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNEEDDESTADDRESS");
 
     case WSAEMSGSIZE:
-        return LOCALIZED_ERROR_NETWORKMESSAGETOOLONG;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKMESSAGETOOLONG");
 
     case WSAEPFNOSUPPORT:
-        return LOCALIZED_ERROR_NETWORKPFNOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKPFNOTSUPPORTED");
            
     case WSAENOTEMPTY:
-        return LOCALIZED_ERROR_NETWORKDIRNOTEMPTY;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKDIRNOTEMPTY");
 
     case WSAEPROCLIM:
-        return LOCALIZED_ERROR_NETWORKAPPLIMITREACHED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKAPPLIMITREACHED");
 
     case WSAEDQUOT:
-        return LOCALIZED_ERROR_NETWORKDISKQUOTA;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKDISKQUOTA");
 
     case WSAEINVAL:
-        return LOCALIZED_ERROR_NETWORKINVALIDARGUMENTS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKINVALIDARGUMENTS");
 
     case WSAEMFILE:
-        return LOCALIZED_ERROR_NETWORKTOOMANYFILES;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKTOOMANYFILES");
 
     case WSAEACCES:
-        return LOCALIZED_ERROR_NETWORKACCESSDENIED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKACCESSDENIED");
          
     case WSAENOTSOCK:
-        return LOCALIZED_ERROR_NETWORKNOTASOCKET;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTASOCKET");
 
     case WSAEADDRNOTAVAIL:
-        return LOCALIZED_ERROR_NETWORKADDRNOTAVAILABLE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKADDRNOTAVAILABLE");
 
     case WSAEADDRINUSE:
-        return LOCALIZED_ERROR_NETWORKADDRINUSE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKADDRINUSE");
 
     case WSAEAFNOSUPPORT:
-        return LOCALIZED_ERROR_NETWORKAFNOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKAFNOTSUPPORTED");
 
     case WSAESOCKTNOSUPPORT:
-        return LOCALIZED_ERROR_NETWORKTYPENOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKTYPENOTSUPPORTED");
          
     case WSAEPROTONOSUPPORT:
-        return LOCALIZED_ERROR_NETWORKPROTONOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKPROTONOTSUPPORTED");
 
     case WSAENOBUFS:
-        return LOCALIZED_ERROR_NETWORKNOBUFFER;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOBUFFER");
 
     case WSAETIMEDOUT:
-        return LOCALIZED_ERROR_NETWORKTIMEDOUT;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKTIMEDOUT");
 
     case WSAEISCONN:
-        return LOCALIZED_ERROR_NETWORKALREADYCONNECTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYCONNECTED");
 
     case WSAENOTCONN:
-        return LOCALIZED_ERROR_NETWORKNOTCONNECTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTCONNECTED");
 
     case WSAENOPROTOOPT:
-        return LOCALIZED_ERROR_NETWORKBADPROTOOPT;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKBADPROTOOPT");
 
     case WSAECONNRESET:
-        return LOCALIZED_ERROR_NETWORKCONNECTIONRESET;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKCONNECTIONRESET");
 
     case WSAECONNABORTED:
-        return LOCALIZED_ERROR_NETWORKCONNECTIONABORT;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKCONNECTIONABORT");
 
     case WSAENETDOWN:
-        return LOCALIZED_ERROR_NETWORKISDOWN;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKISDOWN");
 
     case WSAENETRESET:
-        return LOCALIZED_ERROR_NETWORKRESET;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKRESET");
 
     case WSAECONNREFUSED:
-        return LOCALIZED_ERROR_NETWORKCONNECTIONREFUSED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKCONNECTIONREFUSED");
 
     case WSAEHOSTDOWN:
-        return LOCALIZED_ERROR_NETWORKHOSTISDOWN;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKHOSTISDOWN");
          
     case WSAEHOSTUNREACH:
-        return LOCALIZED_ERROR_NETWORKHOSTISUNREACHABLE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKHOSTISUNREACHABLE");
           
     case WSAEPROTOTYPE:
-        return LOCALIZED_ERROR_NETWORKBADPROTOTYPE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKBADPROTOTYPE");
          
     case WSAEOPNOTSUPP:
-        return LOCALIZED_ERROR_NETWORKBADOPNOTSUPPORTED;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKBADOPNOTSUPPORTED");
 
     case WSAENETUNREACH:
-        return LOCALIZED_ERROR_NETWORKUNREACHABLE;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKUNREACHABLE");
 
     case WSAETOOMANYREFS:
-        return LOCALIZED_ERROR_NETWORKTOOMANYREFS;
+        return GetResourceString(L"LOCALIZED_ERROR_NETWORKTOOMANYREFS");
 
     default:
         {
-            static wchar_t buffer[32];
-            wprintf(buffer, LOCALIZED_UNKNOWN L" %d", error);
-            return buffer;
+			//FIXED
+			return wxString::Format(GetResourceString(L"LOCALIZED_UNKNOWN") + L" %d", error);
         }
     }
 }
@@ -300,8 +300,8 @@ CNetworkConnection::CNetworkConnection() :
     m_IsConnected(false),
     m_IsBusy(false),
     m_IsEnabled(false),
-    m_OnReceiveReady(NULL),
-    m_OnSendReady(NULL),
+    m_OnReceiveReady(),
+    m_OnSendReady(),
     m_ReceiveValue(NULL)
 {
 }
@@ -354,23 +354,12 @@ CNetworkConnection::Disable()
 
 void
 CNetworkConnection::Enable(
-    const wchar_t *    OnSendReady,
-    const wchar_t *    OnReceiveReady
+    const wxString&    OnSendReady,
+    const wxString&   OnReceiveReady
     )
 {
-    // copy the receive ready callback
-    if (m_OnReceiveReady == NULL)
-    {
-        m_OnReceiveReady = (wchar_t *) malloc(MAX_BUFFER_SIZE*sizeof(wchar_t));
-    }
-    wcscpy(m_OnReceiveReady, OnReceiveReady);
-
-    // copy the send ready callback
-    if (m_OnSendReady == NULL)
-    {
-        m_OnSendReady = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-    }
-	wcscpy(m_OnSendReady, OnSendReady);
+	this->m_OnSendReady = OnSendReady;
+	this->m_OnReceiveReady = OnReceiveReady;
 
     // get sockets
     m_Socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -496,9 +485,8 @@ void
 CNetworkConnection::Shutdown()
 {
     Disable();
-
-    safe_free(m_OnReceiveReady);
-    safe_free(m_OnSendReady);
+	this->m_OnSendReady.clear();
+	this->m_OnReceiveReady.clear();
     SetLastPacketReceived(NULL);
     m_CarryOverData.ReleaseBuffer();
 }
@@ -664,8 +652,8 @@ CClientNetworkConnection::OnConnectSendFinish(
         // This must be a delayed event coming in after shutdown.
         ::MessageBox(
             WindowHandle,
-            LOCALIZED_ERROR_NETWORKSHUTDOWN,
-            LOCALIZED_ERROR_NETWORK,
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKSHUTDOWN"),
+            GetResourceString(L"LOCALIZED_ERROR_NETWORK"),
             MB_OK);
         return 0;
     }
@@ -850,8 +838,8 @@ NODE *lnetstartup(NODE *args)
     if (network_is_started)
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORK, 
-            LOCALIZED_ERROR_NETWORKALREADYSTARTED);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORK"),
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYSTARTED"));
         return Unbound;
     }
 
@@ -861,7 +849,7 @@ NODE *lnetstartup(NODE *args)
     }
 
     // tell winsock to wakeup
-    WSADATA WSAData;
+	WSADATA WSAData = { 0 };
     if (WSAStartup(MAKEWORD(1,1), &WSAData) != 0)
     {
         ShowMessageAndStop(L"WSAStartup()", WSAGetLastErrorString(0));
@@ -908,27 +896,25 @@ NODE *lnetaccepton(NODE *args)
     if (!network_is_started)
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORK, 
-            LOCALIZED_ERROR_NETWORKNOTSTARTED);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORK"), 
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTSTARTED"));
         return Unbound;
     }
 
     if (g_ServerConnection.IsEnabled())
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORKRECEIVE, 
-            LOCALIZED_ERROR_NETWORKALREADYON);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKRECEIVE"), 
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYON"));
         return Unbound;
     }
 
     // get args (socket and callback)
     int port = getint(nonnegative_int_arg(args));
 
-	wchar_t networksend[MAX_BUFFER_SIZE];
-    cnv_strnode_string(networksend, cdr(args));
+	wxString networksend = cnv_strnode_string(cdr(args));
 
-	wchar_t networkreceive[MAX_BUFFER_SIZE];
-    cnv_strnode_string(networkreceive, cdr(cdr(args)));
+    wxString networkreceive = cnv_strnode_string(cdr(cdr(args)));
 
     if (NOT_THROWING)
     {
@@ -953,8 +939,8 @@ NODE *lnetacceptoff(NODE *)
     else
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORKRECEIVE, 
-            LOCALIZED_ERROR_NETWORKALREADYOFF);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKRECEIVE"), 
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYOFF"));
     }
 
     return Unbound;
@@ -988,16 +974,16 @@ NODE *lnetconnecton(NODE *args)
     if (!network_is_started)
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORK, 
-            LOCALIZED_ERROR_NETWORKNOTSTARTED);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORK"), 
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKNOTSTARTED"));
         return Unbound;
     }
 
     if (g_ClientConnection.IsEnabled())
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORKSEND, 
-            LOCALIZED_ERROR_NETWORKALREADYON);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKSEND"), 
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYON"));
         return Unbound;
     }
 
@@ -1006,11 +992,9 @@ NODE *lnetconnecton(NODE *args)
 
     int remote_port = getint(nonnegative_int_arg(cdr(args)));
 
-    wchar_t networksend[MAX_BUFFER_SIZE];
-    cnv_strnode_string(networksend, cdr(cdr(args)));
+	wxString networksend = cnv_strnode_string(cdr(cdr(args)));
 
-	wchar_t networkreceive[MAX_BUFFER_SIZE];
-    cnv_strnode_string(networkreceive, cdr(cdr(cdr(args))));
+	wxString networkreceive= cnv_strnode_string(cdr(cdr(cdr(args))));
 
     if (NOT_THROWING)
     {
@@ -1039,8 +1023,8 @@ NODE *lnetconnectoff(NODE *)
     else
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_NETWORKSEND, 
-            LOCALIZED_ERROR_NETWORKALREADYOFF);
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKSEND") ,
+            GetResourceString(L"LOCALIZED_ERROR_NETWORKALREADYOFF"));
     }
 
     return Unbound;

@@ -44,10 +44,11 @@
 
    #include "screen.h"
    #include "commander.h"
+#include "Resource.h"
 #endif
 
 // global variables declared in main.h
-wchar_t edit_editexit[MAX_BUFFER_SIZE];     // editor callback instruction list 
+wxString edit_editexit;     // editor callback instruction list 
 
 int  BitMapWidth  = 1000;
 int  BitMapHeight = 1000;
@@ -137,7 +138,7 @@ ReadIntArgument(
             // now warn user of their mistake.
             wxMessageBox(
                 *NextArgument,
-				wxString(LOCALIZED_ERROR_BADCOMMANDLINE),
+				GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
                 wxOK | wxICON_INFORMATION);
 
             numericValue = 0;
@@ -154,12 +155,12 @@ void CFmsLogo::ProcessCommandLine()
     g_CustomWidth  = false;
     g_CustomHeight = false;
     bFixed         = false;
-
+	
+	//TODO: FIXME
     // For processing the -L parameter
     bool   copyRemaingArgsAsFilename = false;
     size_t fileToLoadIndex           = 0;
 
-#if wxUSE_UNICODE
     // On wxWidgets 3.X, argv is no longer a wxChar**, but a wxCmdLineArgsArray.
     // This mostly emulates a real argv, but does not ensure that argv[argc]==0.
     // This breaks the code below in a way that would disruptive to rewrite.
@@ -181,7 +182,6 @@ void CFmsLogo::ProcessCommandLine()
         argv[i][realArgv[i].Len()] = L'\0';
     }
     argv[argvSize] = NULL;
-#endif
 
     for (wxChar ** nextArgument = argv + 1;
          *nextArgument != NULL; 
@@ -234,7 +234,7 @@ void CFmsLogo::ProcessCommandLine()
                     // invalid command line: unrecognized switch
                     wxMessageBox(
                         argument - 2,
-						wxString(LOCALIZED_ERROR_BADCOMMANDLINE),
+						GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
                         wxOK | wxICON_INFORMATION);
                     break;
                 }
@@ -265,19 +265,70 @@ void CFmsLogo::ProcessCommandLine()
         }
     }
 
-#if wxUSE_UNICODE
+
     for (wxChar ** nextArgument = argv; *nextArgument != NULL; nextArgument++)
     {
         delete [] *nextArgument;
     }
     delete [] argv;
-#endif
+}
+
+struct LanguagePair {
+	const wchar_t* Language;
+	const wchar_t* ShortName;
+};
+LanguagePair Pairs[] = {
+	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN},
+	{N_LC_EN,N_LOCALIZED_STRINGS_FILE_EN},
+	{N_LC_DE,N_LOCALIZED_STRINGS_FILE_DE},
+	{N_LC_ES,N_LOCALIZED_STRINGS_FILE_ES},
+	{N_LC_FR,N_LOCALIZED_STRINGS_FILE_FR},
+	{N_LC_GR,N_LOCALIZED_STRINGS_FILE_GR},
+	{N_LC_HR,N_LOCALIZED_STRINGS_FILE_HR},
+	{N_LC_IT,N_LOCALIZED_STRINGS_FILE_IT},
+	{N_LC_PL,N_LOCALIZED_STRINGS_FILE_PL},
+	{N_LC_PT,N_LOCALIZED_STRINGS_FILE_PT},
+	{N_LC_RU,N_LOCALIZED_STRINGS_FILE_RU},
+	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS}, //this is Pseudoloc (faked)
+};
+void CFmsLogo::LoadLocalizedStringFile()
+{
+	wxString name;
+	//localizedstrings-de-ucs2le
+	//USE SYSTEM LOCALE (for mbtowc)
+	wxString lc = _wsetlocale(LC_ALL, L"");
+	//MessageBox(0, lc, L"LOCALE", MB_OK);
+
+	if (lc.length()> 0) {
+		for(int i = 0;i<ARRAYSIZE(Pairs);i++)
+		{
+			if (lc.Contains(Pairs[i].Language)) {
+				name = Pairs[i].ShortName;
+				break;
+			}
+		}
+		if (name.length() == 0) {
+			//default is en
+			name = N_LOCALIZED_STRINGS_FILE_EN;
+		}
+	}
+
+	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
+	if (wxFileExists(path)) {
+		LoadLocalizedStringsFromFile(path);
+	}
+	else
+	{
+		name.Replace(L"-", "_");
+		name.MakeUpper();
+
+		LoadLocalizedStringsFromResource(N_LOCALIZED_STRINGS_FILE_TYPE L"_" + name, N_LOCALIZED_STRINGS_FILE_TYPE);
+	}
 }
 
 bool CFmsLogo::OnInit()
 {
-	//USE SYSTEM LOCALE (for mbtowc)
-	_wsetlocale(LC_ALL, L"");
+	_CrtSetBreakAlloc(66283);
 
 	bool rval = true;
 
@@ -313,7 +364,8 @@ bool CFmsLogo::OnInit()
 	
 	g_FmslogoBaseDirectory = fmslogoPath;
 
-    
+	this->LoadLocalizedStringFile();
+
     ProcessCommandLine();
 
 #ifndef WX_PURE
@@ -333,7 +385,7 @@ bool CFmsLogo::OnInit()
             // instance of logo, since this was probably just an accident.
 
             // Find that running copy of Logo and make it visible.
-            HWND runningInstance = FindWindow(NULL, LOCALIZED_GENERAL_PRODUCTNAME);
+            HWND runningInstance = FindWindow(NULL, GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"));
             if (runningInstance != NULL)
             {
                 // bring running instance to the the foreground
@@ -601,8 +653,8 @@ void single_step_box(NODE * the_line)
 
 	// pop up single step box showing line of code
 	if (wxMessageBox(
-		wxString(printedLine.GetString()),
-		wxString(LOCALIZED_STEPPING),
+		(printedLine.GetString()),
+		GetResourceString(L"LOCALIZED_STEPPING"),
 		wxOK | wxCANCEL) == wxCANCEL)
 	{
 		if (stepflag)

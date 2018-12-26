@@ -143,51 +143,51 @@ CWorkspaceEditor::CWorkspaceEditor(
     // Construct the main menu
     //
     static const MENUITEM defaultFileMenuItems[] = {
-        {LOCALIZED_EDITOR_FILE_SAVEANDEXIT,     ID_FILESAVEANDEXIT},
-        {LOCALIZED_EDITOR_FILE_PRINT,           wxID_PRINT},
-        {0},
-        {LOCALIZED_EDITOR_FILE_EXIT,            wxID_EXIT},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_SAVEANDEXIT"),     ID_FILESAVEANDEXIT},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_PRINT"),           wxID_PRINT},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_EXIT"),            wxID_EXIT},
     };
 
     static const MENUITEM expertFileMenuItems[] = {
-        {LOCALIZED_EDITOR_FILE_SAVEANDEXIT,     ID_FILESAVEANDEXIT},
-        {LOCALIZED_EDITOR_FILE_SAVETOWORKSPACE, ID_FILESAVETOWORKSPACE},
-        {LOCALIZED_EDITOR_FILE_PRINT,           wxID_PRINT},
-        {0},
-        {LOCALIZED_EDITOR_FILE_EXIT,            wxID_EXIT},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_SAVEANDEXIT"),     ID_FILESAVEANDEXIT},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_SAVETOWORKSPACE"), ID_FILESAVETOWORKSPACE},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_PRINT"),           wxID_PRINT},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_EDITOR_FILE_EXIT"),            wxID_EXIT},
     };
 
     static const MENUITEM editMenuItems[] = {
-        {LOCALIZED_EDITOR_EDIT_UNDO,      wxID_UNDO},
-        {LOCALIZED_EDITOR_EDIT_REDO,      wxID_REDO},
-        {0},
-        {LOCALIZED_EDITOR_EDIT_CUT,       wxID_CUT},
-        {LOCALIZED_EDITOR_EDIT_COPY,      wxID_COPY},
-        {LOCALIZED_EDITOR_EDIT_PASTE,     wxID_PASTE},
-        {LOCALIZED_EDITOR_EDIT_DELETE,    wxID_DELETE},
-        {0},
-        {LOCALIZED_EDITOR_EDIT_CLEARALL,  wxID_CLEAR},
-        {LOCALIZED_EDITOR_EDIT_SELECTALL, wxID_SELECTALL},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_UNDO"),      wxID_UNDO},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_REDO"),      wxID_REDO},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_CUT"),       wxID_CUT},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_COPY"),      wxID_COPY},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_PASTE"),     wxID_PASTE},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_DELETE"),    wxID_DELETE},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_CLEARALL"),  wxID_CLEAR},
+        {GetResourceString(L"LOCALIZED_EDITOR_EDIT_SELECTALL"), wxID_SELECTALL},
     };
 
     static const MENUITEM searchMenuItems[] = {
-        {LOCALIZED_EDITOR_SEARCH_FIND,    wxID_FIND},
-        {LOCALIZED_EDITOR_SEARCH_REPLACE, wxID_REPLACE},
-        {LOCALIZED_EDITOR_SEARCH_NEXT,    ID_SEARCHFINDNEXT},
+        {GetResourceString(L"LOCALIZED_EDITOR_SEARCH_FIND"),    wxID_FIND},
+        {GetResourceString(L"LOCALIZED_EDITOR_SEARCH_REPLACE"), wxID_REPLACE},
+        {GetResourceString(L"LOCALIZED_EDITOR_SEARCH_NEXT"),    ID_SEARCHFINDNEXT},
     };
 
     static const MENUITEM setMenuItems[] = {
-        {LOCALIZED_EDITOR_SET_FONT,       ID_EDITSETFONT},
+        {GetResourceString(L"LOCALIZED_EDITOR_SET_FONT"),       ID_EDITSETFONT},
     };
 
     static const MENUITEM testMenuItems[] = {
-        {LOCALIZED_EDITOR_TEST_RUN_SELECTION, ID_TESTRUNSELECTION},
+        {GetResourceString(L"LOCALIZED_EDITOR_TEST_RUN_SELECTION"), ID_TESTRUNSELECTION},
     };
  
     static const MENUITEM helpMenuItems[] = {
-        {LOCALIZED_EDITOR_HELP_INDEX,       ID_HELP},
-        {LOCALIZED_EDITOR_HELP_EDITOR,      ID_HELPEDIT},
-        {LOCALIZED_EDITOR_HELP_TOPICSEARCH, wxID_HELP_INDEX},
+        {GetResourceString(L"LOCALIZED_EDITOR_HELP_INDEX"),       ID_HELP},
+        {GetResourceString(L"LOCALIZED_EDITOR_HELP_EDITOR"),      ID_HELPEDIT},
+        {GetResourceString(L"LOCALIZED_EDITOR_HELP_TOPICSEARCH"), wxID_HELP_INDEX},
     };
 
     wxMenuBar * mainMenu = new wxMenuBar;
@@ -196,7 +196,7 @@ CWorkspaceEditor::CWorkspaceEditor(
     {
         AppendChildMenu(
             mainMenu, 
-            LOCALIZED_EDITOR_FILE,
+			GetResourceString(L"LOCALIZED_EDITOR_FILE"),
             expertFileMenuItems,
             ARRAYSIZE(expertFileMenuItems));
     }
@@ -204,15 +204,15 @@ CWorkspaceEditor::CWorkspaceEditor(
     {
         AppendChildMenu(
             mainMenu, 
-            LOCALIZED_EDITOR_FILE,
+			GetResourceString(L"LOCALIZED_EDITOR_FILE"),
             defaultFileMenuItems,
             ARRAYSIZE(defaultFileMenuItems));
     }
-    AppendChildMenu(mainMenu, LOCALIZED_EDITOR_EDIT,   editMenuItems,   ARRAYSIZE(editMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_EDITOR_SEARCH, searchMenuItems, ARRAYSIZE(searchMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_EDITOR_SET,    setMenuItems,    ARRAYSIZE(setMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_EDITOR_TEST,   testMenuItems,   ARRAYSIZE(testMenuItems));
-    AppendChildMenu(mainMenu, LOCALIZED_EDITOR_HELP,   helpMenuItems,   ARRAYSIZE(helpMenuItems));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_EDITOR_EDIT"),   editMenuItems,   ARRAYSIZE(editMenuItems));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_EDITOR_SEARCH"), searchMenuItems, ARRAYSIZE(searchMenuItems));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_EDITOR_SET"),    setMenuItems,    ARRAYSIZE(setMenuItems));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_EDITOR_TEST"),   testMenuItems,   ARRAYSIZE(testMenuItems));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_EDITOR_HELP"),   helpMenuItems,   ARRAYSIZE(helpMenuItems));
 
 
     SetMenuBar(mainMenu);
@@ -366,7 +366,7 @@ void CWorkspaceEditor::SetFileName(const wxString & NewFileName)
     m_FileName = NewFileName;
 
     const wxString newTitle = m_FileName.IsEmpty() ?
-		wxString(L"(" LOCALIZED_UNTITLED L")") :
+		wxString(L"(")+ GetResourceString(L"LOCALIZED_UNTITLED")+ L")" :
         m_FileName;
 
     const wxString & currentTitle = GetName();
@@ -437,12 +437,12 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
         // Something when wrong when trying to open the file.
         // Report the error to the user.
         const wxString & errorMessage = wxString::Format(
-			wxString(LOCALIZED_ERROR_CANTREADFILE),
+			GetResourceString(L"LOCALIZED_ERROR_CANTREADFILE"),
 			/*WXSTRING_TO_STRING*/(fileName));
 
         wxMessageBox(
             errorMessage,
-			wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+			GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
             wxICON_EXCLAMATION | wxOK);
     }
 
@@ -471,12 +471,12 @@ CWorkspaceEditor::Write(
         // Something when wrong when trying to open the file.
         // Report the error to the user.
         const wxString & errorMessage = wxString::Format(
-			wxString(LOCALIZED_ERROR_CANTWRITEFILE),
+			GetResourceString(L"LOCALIZED_ERROR_CANTWRITEFILE"),
 			/*WXSTRING_TO_STRING*/(fileName));
 
         wxMessageBox(
             errorMessage,
-			wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+			GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
             wxICON_EXCLAMATION | wxOK);
 
         return false;
@@ -512,8 +512,8 @@ bool CWorkspaceEditor::CanClose()
     {
         // if changed better ask user
         int result = wxMessageBox(
-			wxString(LOCALIZED_SAVECHANGEDCONTENTSTOWORKSPACE),
-			wxString(LOCALIZED_CONTENTSCHANGED),
+			GetResourceString(L"LOCALIZED_SAVECHANGEDCONTENTSTOWORKSPACE"),
+			GetResourceString(L"LOCALIZED_CONTENTSCHANGED"),
             wxYES_NO | wxCANCEL | wxICON_QUESTION);
         switch (result)
         {
@@ -572,8 +572,8 @@ void CWorkspaceEditor::OnSaveToWorkspace(wxCommandEvent& Event)
             // 2) The cursor is positioned just after the last
             //    successful definition
             ::wxMessageBox(
-				wxString(LOCALIZED_CURSORISATLASTGOODDEFINITION),
-				wxString(LOCALIZED_EDITFAILEDTOLOAD),
+				GetResourceString(L"LOCALIZED_CURSORISATLASTGOODDEFINITION"),
+				GetResourceString(L"LOCALIZED_EDITFAILEDTOLOAD"),
                 wxOK | wxICON_ERROR,
                 CFmsLogo::GetMainFrame()->GetCommander());
 
@@ -682,7 +682,7 @@ void CWorkspaceEditor::OnFind(wxCommandEvent& WXUNUSED(Event))
         m_FindReplaceDialog = new wxFindReplaceDialog(
             this,
             &m_FindReplaceData,
-			wxString(LOCALIZED_EDITOR_TITLE_FIND));
+			GetResourceString(L"LOCALIZED_EDITOR_TITLE_FIND"));
 
         m_FindReplaceDialog->Show();
     }
@@ -705,7 +705,7 @@ void CWorkspaceEditor::OnReplace(wxCommandEvent& WXUNUSED(Event))
         m_FindReplaceDialog = new wxFindReplaceDialog(
             this,
             &m_FindReplaceData,
-			wxString(LOCALIZED_EDITOR_TITLE_REPLACE),
+			GetResourceString(L"LOCALIZED_EDITOR_TITLE_REPLACE"),
             wxFR_REPLACEDIALOG);
 
         m_FindReplaceDialog->Show();
@@ -923,10 +923,9 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
             // Ask if they want to reedit.
             if (::wxMessageBox(
 				wxString(
-                        LOCALIZED_CURSORISATLASTGOODDEFINITION L"\n"
-                        L"\n"
-                        LOCALIZED_RETURNTOEDIT),
-				wxString(LOCALIZED_EDITFAILEDTOLOAD),
+                        GetResourceString(L"LOCALIZED_CURSORISATLASTGOODDEFINITION") +L"\n\n"
+						+ GetResourceString(L"LOCALIZED_RETURNTOEDIT")),
+				wxString(GetResourceString(L"LOCALIZED_EDITFAILEDTOLOAD")),
                     wxYES_NO | wxICON_ERROR,
                     commander) == wxYES)
             {

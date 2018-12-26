@@ -90,7 +90,7 @@ CMiniEditor::CMiniEditor(
     wxButton * endButton = new wxButton(
         this,
         wxID_OK,
-		wxString(LOCALIZED_ALTERNATE_END));
+		GetResourceString(L"LOCALIZED_ALTERNATE_END"));
     buttonRow->Add(endButton);
     endButton->SetDefault();
 
@@ -107,7 +107,7 @@ CMiniEditor::CMiniEditor(
     wxButton * cancelButton = new wxButton(
         this,
         wxID_CANCEL,
-		wxString(LOCALIZED_GENERAL_CANCELBUTTON));
+		GetResourceString(L"LOCALIZED_GENERAL_CANCELBUTTON"));
     buttonRow->Add(cancelButton);
 
     SetSizer(topLevelSizer);

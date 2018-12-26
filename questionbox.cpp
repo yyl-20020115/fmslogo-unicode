@@ -68,13 +68,13 @@ CQuestionBox::CQuestionBox(
     wxButton *okButton = new wxButton(
         this, 
         wxID_OK,
-		wxString(LOCALIZED_QUESTIONBOX_OK));
+		GetResourceString(L"LOCALIZED_QUESTIONBOX_OK"));
     buttonSizer->Add(okButton);
 
     wxButton *cancelButton = new wxButton(
         this, 
         wxID_CANCEL,
-		wxString(LOCALIZED_QUESTIONBOX_CANCEL));
+		GetResourceString(L"LOCALIZED_QUESTIONBOX_CANCEL"));
     buttonSizer->Add(cancelButton, 0, wxLEFT, 4);
 
     topLevelSizer->Add(buttonSizer, 0, wxALIGN_RIGHT | wxALL, 4);

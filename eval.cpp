@@ -1822,7 +1822,7 @@ NODE *evaluator(NODE *list, enum labels where)
             ndprintf(
                 GetOutputStream(),
                 MESSAGETYPE_Trace,
-                LOCALIZED_TRACING_STOPS);
+				GetResourceString(L"LOCALIZED_TRACING_STOPS"));
         }
         else
         {
@@ -1831,7 +1831,7 @@ NODE *evaluator(NODE *list, enum labels where)
             ndprintf(
                 GetOutputStream(),
                 MESSAGETYPE_Trace,
-                LOCALIZED_TRACING_OUTPUTS,
+				GetResourceString(L"LOCALIZED_TRACING_OUTPUTS"),
                 quoted_val);
             deref(quoted_val);
         }
@@ -2461,8 +2461,8 @@ bool process_special_conditions()
         ndprintf(
             stdout, 
             MESSAGETYPE_Normal,
-            "%t.\n"
-            LOCALIZED_ERROR_ATTOPLEVEL2);
+            wxString(L"%t.\n")
+			+ GetResourceString(L"LOCALIZED_ERROR_ATTOPLEVEL2"));
         stopping_flag = RUN;
     }
 
@@ -2519,11 +2519,15 @@ bool is_executing()
     return halt_flag != 0;
 }
 
-void do_execution(const wchar_t * logocommand)
+void do_execution(const wchar_t * cmd)
 {
     // if something there continue
-    if (logocommand[0] != L'\0')
+    if (cmd!=0 && cmd[0] != L'\0')
     {
+		size_t lc = wcslen(cmd);
+		wchar_t* logocommand = new wchar_t[lc + 1];
+		wcsncpy(logocommand, cmd, lc +1);
+
         start_execution();
 
         // this code emulates the TTY model used in UCBLOGO main loop
@@ -2534,7 +2538,11 @@ void do_execution(const wchar_t * logocommand)
         {
             if (*c == L'\\')
             {
-                wcscpy(c, c + 1);
+				//remove the \ char
+                //wcscpy(c, c + 1);
+				for (wchar_t* p = c + 1; *p != L'\0'; p++) {
+					*(p - 1) = *p;
+				}
                 if (*c)
                 {
                     if (*c == L'n') 
@@ -2564,10 +2572,10 @@ void do_execution(const wchar_t * logocommand)
         // turn text into a NODE and parse it
         current_line = vref(make_strnode(
             logocommand, 
-            (int) wcslen(logocommand), 
+			lc,
             this_type, 
             strnzcpy));
-
+		
         NODE * exec_list = vref(parser(current_line, true));
 
         // now process it
@@ -2590,6 +2598,8 @@ void do_execution(const wchar_t * logocommand)
         deref(exec_list);
 
         stop_execution();
+
+		delete logocommand;
     }
 }
 

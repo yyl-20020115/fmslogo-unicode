@@ -93,14 +93,16 @@ GBMEXPORT GBM_ERR GBMENTRY gbm_guess_filetype(const wchar_t *fn, int *ft)
     if ( fn == NULL || ft == NULL )
         return GBM_ERR_BAD_ARG;
 
-    const wchar_t *ext;
+    const wchar_t *ext = 0;
     if ( (ext = extension(fn)) == NULL )
         ext = L"";
 
     for (int i = 0; i < N_FT; i++ )
     {
-        GBMFT	gbmft;
-		wchar_t	buf[100+1], *s;
+
+		//TODO: FIXME
+		GBMFT	gbmft = { 0 };
+		wchar_t	buf[100 + 1] = { 0 }, *s = 0;
 
         fts[i].query_filetype(&gbmft);
         for ( s  = wcstok(wcscpy(buf, gbmft.extensions), L" \t,");

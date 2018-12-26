@@ -71,7 +71,7 @@ CSetActiveArea::CSetActiveArea(
     int        YLow,
     int        YHigh,
     int        PixelsPerInch
-    ) : wxDialog(Parent, wxID_ANY, wxString(LOCALIZED_SELECTACTIVEAREA)),
+    ) : wxDialog(Parent, wxID_ANY, GetResourceString(L"LOCALIZED_SELECTACTIVEAREA")),
       m_XLow(NULL),
       m_XHigh(NULL),
       m_YLow(NULL),
@@ -99,7 +99,7 @@ CSetActiveArea::CSetActiveArea(
     new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_EFFECT),
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_EFFECT"),
         effectPosition,
         wxDefaultSize,
         wxALIGN_CENTRE);
@@ -128,7 +128,7 @@ CSetActiveArea::CSetActiveArea(
     new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_YHIGH),
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_YHIGH"),
         yHighTextPosition,
         wxDefaultSize,
         wxALIGN_CENTRE);
@@ -137,7 +137,7 @@ CSetActiveArea::CSetActiveArea(
     new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_XLOW),
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_XLOW"),
         xLowTextPosition,
         wxDefaultSize,
         wxALIGN_CENTRE);
@@ -146,7 +146,7 @@ CSetActiveArea::CSetActiveArea(
     new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_XHIGH),
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_XHIGH"),
         xHighTextPosition,
         wxDefaultSize,
         wxALIGN_CENTRE);
@@ -155,7 +155,7 @@ CSetActiveArea::CSetActiveArea(
     new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_YLOW),
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_YLOW"),
         yLowTextPosition,
         wxDefaultSize,
         wxALIGN_CENTRE);
@@ -195,7 +195,7 @@ CSetActiveArea::CSetActiveArea(
     wxStaticText *pixelsPerInchLabel = new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTACTIVEAREA_STEPSPERINCH));
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_STEPSPERINCH"));
     pixelsPerInchRow->Add(
         pixelsPerInchLabel,
         0,
@@ -223,19 +223,19 @@ CSetActiveArea::CSetActiveArea(
     wxButton *reset = new wxButton(
         this, 
         ID_RESET, 
-		wxString(LOCALIZED_SELECTACTIVEAREA_RESET));
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_RESET"));
     buttonRow->Add(reset, 0, wxALIGN_CENTER | wxALL, 10);
 
     wxButton *cancel = new wxButton(
         this, 
         wxID_CANCEL, 
-		wxString(LOCALIZED_SELECTACTIVEAREA_CANCEL));
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_CANCEL"));
     buttonRow->Add(cancel, 0, wxALIGN_CENTER | wxALL, 10);
 
     wxButton *ok = new wxButton(
         this,
         wxID_OK,
-		wxString(LOCALIZED_SELECTACTIVEAREA_OK));
+		GetResourceString(L"LOCALIZED_SELECTACTIVEAREA_OK"));
     buttonRow->Add(ok, 0, wxALIGN_CENTER | wxALL, 10);
 
     topLevelSizer->Add(buttonRow, 0, wxALIGN_CENTER | wxALL);

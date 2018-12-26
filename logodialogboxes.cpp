@@ -514,9 +514,9 @@ class CLogoButton : public wxButton
 public:
     CLogoButton(
         wxWindow               * Parent,
-        const wchar_t             * Caption,
+        const wxString&          Caption,
         const CClientRectangle & ClientRectangle,
-        const wchar_t             * Callback
+        const wxString&          Callback
         )
 #ifdef WX_PURE
         : wxButton(
@@ -564,16 +564,16 @@ public:
         SubclassWin(hwnd);
         AdoptAttributesFromHWND();
 
-        wcscpy(m_Callback, Callback);
+		this->m_Callback = Callback;
     }
 #endif
 
 private:
     // Event handlers
     void OnClick(wxCommandEvent& Event);
-
+	//TODO: FIXME
     // private member variables
-	wchar_t m_Callback[MAX_BUFFER_SIZE];
+	wxString m_Callback;
 
     DECLARE_EVENT_TABLE();
     DECLARE_NO_COPY_CLASS(CLogoButton);
@@ -598,7 +598,7 @@ public:
         wxWindow               * Parent,
         const CClientRectangle & ClientRectangle,
         bool                     IsHScrollBar,
-        const wchar_t             * Callback
+        const wxString&          Callback
         ) :
         wxScrollBar(
             Parent, 
@@ -611,7 +611,7 @@ public:
         m_IsHorizontal(IsHScrollBar),
         m_RangeOffset(0)
     {
-        wcscpy(m_Callback, Callback);
+		this->m_Callback = Callback;;
         SetMswLogoCompatibleFont(this);
     }
 
@@ -636,7 +636,7 @@ private:
     // private member variables
     const int m_IsHorizontal;
     int       m_RangeOffset;
-	wchar_t      m_Callback[MAX_BUFFER_SIZE];
+	wxString  m_Callback;
 
     DECLARE_EVENT_TABLE();
     DECLARE_NO_COPY_CLASS(CLogoScrollBar);
@@ -855,8 +855,8 @@ private:
     class CLogoWidget * m_Prev;
 
 public:
-    wchar_t   m_Key[MAX_BUFFER_SIZE];
-	wchar_t * m_Parent;
+    wxString m_Key;
+	wxString m_Parent;
 
     WINDOWTYPE m_Type;
 
@@ -873,14 +873,15 @@ public:
         CLogoCheckBox    * CheckBox;
     };
 
-   CLogoWidget(WINDOWTYPE Type, const wchar_t * Name)
+   CLogoWidget(WINDOWTYPE Type, const wxString& Name)
        : m_Next(NULL),
          m_Prev(NULL),
-         m_Parent(NULL),
+         m_Parent(),
          m_Type(Type),
+	     m_Key(Name),
          Dialog(NULL)
     {
-        wcscpy(m_Key, Name);
+
     }
 
     wxWindow * GetWindow() const;
@@ -930,7 +931,7 @@ wxWindow * CLogoWidget::GetWindow() const
 
 bool CLogoWidget::IsRootWindow() const
 {
-    if (m_Parent == NULL)
+    if (m_Parent.IsEmpty())
     {
         // This is a top-level WINDOW or DIALOG or
         // a widget that was placed on the screen window.
@@ -1065,8 +1066,8 @@ const wchar_t *CLogoWidgetList::getfirstchild(const wchar_t * Key)
 
     do
     {
-        if (f->m_Parent != NULL &&
-            wcscmp(f->m_Parent, Key) == 0)
+        if (!f->m_Parent.IsEmpty() &&
+            f->m_Parent.IsSameAs(Key))
         {
             return f->m_Key;
         }
@@ -1125,19 +1126,19 @@ void CLogoWidgetList::list(const wchar_t *k, int level)
     CLogoWidget * p = get(k);
     if (p != NULL)
     {
-        static const wchar_t *WindowName[] =
+        static const wxString WindowName[] =
         {
             L"?",
-            LOCALIZED_WINDOWCLASSNAME_WINDOW,
-            LOCALIZED_WINDOWCLASSNAME_STATIC,
-            LOCALIZED_WINDOWCLASSNAME_LISTBOX,
-            LOCALIZED_WINDOWCLASSNAME_COMBOBOX,
-            LOCALIZED_WINDOWCLASSNAME_BUTTON,
-            LOCALIZED_WINDOWCLASSNAME_SCROLLBAR,
-            LOCALIZED_WINDOWCLASSNAME_GROUPBOX,
-            LOCALIZED_WINDOWCLASSNAME_RADIOBUTTON,
-            LOCALIZED_WINDOWCLASSNAME_CHECKBOX,
-            LOCALIZED_WINDOWCLASSNAME_DIALOG,
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_WINDOW"),
+            GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_STATIC"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_LISTBOX"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_COMBOBOX"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_BUTTON"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_SCROLLBAR"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_GROUPBOX"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_RADIOBUTTON"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_CHECKBOX"),
+			GetResourceString(L"LOCALIZED_WINDOWCLASSNAME_DIALOG"),
         };
 
         if (level == 0)
@@ -1146,14 +1147,14 @@ void CLogoWidgetList::list(const wchar_t *k, int level)
                 L"%s %s",
                 WindowName[(int)p->m_Type],
                 p->m_Key);
-            putcombobox(/*WXSTRING_TO_STRING*/(temp), MESSAGETYPE_Normal);
+            putcombobox((temp), MESSAGETYPE_Normal);
         }
 
         CLogoWidget *ff = last;
         do
         {
-            if (ff->m_Parent != NULL &&
-                wcscmp(ff->m_Parent, k) == 0)
+            if (!ff->m_Parent.IsEmpty() &&
+                ff->m_Parent.IsSameAs(k))
             {
                 const wxString & temp = wxString::Format(
                     L"  %*s%s %s",
@@ -1245,7 +1246,7 @@ bool CLogoWidgetList::OnScreenControlsExist()
     do
     {
         // Check if the control is on the screen window
-        if (l->m_Parent == NULL)
+        if (l->m_Parent.IsEmpty())
         {
             return true;
         }
@@ -1265,12 +1266,10 @@ NODE *lwindowcreate(NODE *args)
     NODE * nextArg = args;
 
     // get all the args
-    wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
-    wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
+    wxString childname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
@@ -1279,14 +1278,10 @@ NODE *lwindowcreate(NODE *args)
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
 
-    wchar_t callback[MAX_BUFFER_SIZE];
+	wxString callback;
     if (nextArg != NIL) 
     {
-        cnv_strnode_string(callback, nextArg);
-    }
-    else
-    {
-        callback[0] = L'\0';
+        callback = cnv_strnode_string(nextArg);
     }
 
 
@@ -1321,7 +1316,7 @@ NODE *lwindowcreate(NODE *args)
     {
         // The parent doesn't exist.  Use the top-level window as the parent.
         wxParent = GetMainWxWindow();
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
     }
 
     child->Dialog = new CLogoDialog(
@@ -1348,8 +1343,7 @@ WindowEnableHelper(
     WINDOWTYPE   WindowType
     )
 {
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, args);
+    wxString childname = cnv_strnode_string(args);
 
     bool bEnable = boolean_arg(cdr(args));
 
@@ -1378,8 +1372,7 @@ WindowDeleteHelper(
     )
 {
     // get args
-	wchar_t windowkey[MAX_BUFFER_SIZE];
-    cnv_strnode_string(windowkey, args);
+	wxString windowkey = cnv_strnode_string(args);
     if (stopping_flag == THROWING)
     {
         return Unbound;
@@ -1410,8 +1403,7 @@ NODE *lwindowenable(NODE *args)
 
 NODE *lwindowdelete(NODE *arg)
 {
-	wchar_t windowname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(windowname, arg);
+    wxString windowname = cnv_strnode_string(arg);
 
     if (NOT_THROWING)
     {
@@ -1459,12 +1451,10 @@ NODE *ldialogcreate(NODE *args)
     NODE * nextArg = args;
 
     // get args
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
+    wxString parentname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
@@ -1473,10 +1463,10 @@ NODE *ldialogcreate(NODE *args)
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
 
-	wchar_t callback[MAX_BUFFER_SIZE];
+	wxString callback;
     if (nextArg != NIL) 
     {
-        cnv_strnode_string(callback, nextArg);
+        callback = cnv_strnode_string(nextArg);
     }
     else 
     {
@@ -1551,13 +1541,11 @@ NODE *llistboxcreate(NODE *args)
     // get args
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
@@ -1592,7 +1580,7 @@ NODE *llistboxcreate(NODE *args)
         // else the parent does not exist -- put the control on the screen
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->ListBox = new CLogoListBox(
             GetScreenWxWindow(),
@@ -1622,9 +1610,9 @@ NODE *llistboxdelete(NODE *args)
 NODE *llistboxgetselect(NODE *args)
 {
     // get args
-	wchar_t listboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(listboxname, args);
-    if (stopping_flag == THROWING)
+	wxString listboxname = cnv_strnode_string(args);
+	
+	if (stopping_flag == THROWING)
     {
         return Unbound;
     }
@@ -1647,11 +1635,9 @@ NODE *llistboxgetselect(NODE *args)
 NODE *llistboxaddstring(NODE *args)
 {
     // get args
-	wchar_t listboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(listboxname, args);
+	wxString listboxname = cnv_strnode_string(args);
 
-	wchar_t stringname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(stringname, cdr(args));
+    wxString stringname = cnv_strnode_string(cdr(args));
 
     if (stopping_flag == THROWING)
     {
@@ -1675,8 +1661,7 @@ NODE *llistboxaddstring(NODE *args)
 NODE *llistboxdeletestring(NODE *args)
 {
     // get args
-	wchar_t listboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(listboxname, args);
+	wxString listboxname = cnv_strnode_string(args);
    
     int index = getint(nonnegative_int_arg(cdr(args)));
 
@@ -1719,13 +1704,11 @@ NODE *lcomboboxcreate(NODE *args)
     // get args
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
@@ -1761,7 +1744,7 @@ NODE *lcomboboxcreate(NODE *args)
         // else the parent does not exist -- put the control on the screen
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->ComboBox = new CLogoComboBox(
             GetScreenWxWindow(),
@@ -1791,9 +1774,7 @@ NODE *lcomboboxdelete(NODE *args)
 NODE *lcomboboxgettext(NODE *args)
 {
     // get args
-	wchar_t comboboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(comboboxname, args);
-
+	wxString comboboxname = cnv_strnode_string(args);
     // get the combobox
     CLogoWidget *combobox = g_LogoWidgets.get(comboboxname, WINDOWTYPE_ComboBox);
     if (combobox == NULL)
@@ -1813,12 +1794,8 @@ NODE *lcomboboxgettext(NODE *args)
 NODE *lcomboboxsettext(NODE *args)
 {
     // get args
-	wchar_t comboboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(comboboxname, args);
-
-	wchar_t stringname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(stringname, cdr(args));
-
+	wxString comboboxname = cnv_strnode_string(args);
+	wxString stringname = cnv_strnode_string(cdr(args));
     // if exists continue
     CLogoWidget *combobox = g_LogoWidgets.get(comboboxname, WINDOWTYPE_ComboBox);
     if (combobox == NULL)
@@ -1828,18 +1805,16 @@ NODE *lcomboboxsettext(NODE *args)
     }
 
     // set the editcontrol portion to the user specified text
-    combobox->ComboBox->SetValue(wxString(stringname));
+    combobox->ComboBox->SetValue(stringname);
     return Unbound;
 }
 
 NODE *lcomboboxaddstring(NODE *args)
 {
     // get args
-	wchar_t comboboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(comboboxname, args);
+	wxString comboboxname = cnv_strnode_string(args);
 
-	wchar_t stringname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(stringname, cdr(args));
+	wxString stringname = cnv_strnode_string(cdr(args));
 
     // get the combobox
     CLogoWidget *combobox = g_LogoWidgets.get(comboboxname, WINDOWTYPE_ComboBox);
@@ -1851,7 +1826,7 @@ NODE *lcomboboxaddstring(NODE *args)
     }
 
     // add string and reset selection
-    combobox->ComboBox->Append(wxString(stringname));
+    combobox->ComboBox->Append(stringname);
     combobox->ComboBox->SetSelection(0);
     return Unbound;
 }
@@ -1859,8 +1834,7 @@ NODE *lcomboboxaddstring(NODE *args)
 NODE *lcomboboxdeletestring(NODE *args)
 {
     // get args
-	wchar_t comboboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(comboboxname, args);
+	wxString comboboxname = cnv_strnode_string(args);
 
     int index = getint(nonnegative_int_arg(cdr(args)));
 
@@ -1882,19 +1856,16 @@ NODE *lscrollbarcreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
 
-	wchar_t callback[MAX_BUFFER_SIZE];
-    cnv_strnode_string(callback, nextArg);
+	wxString callback = cnv_strnode_string(nextArg);
 
     if (stopping_flag == THROWING)
     {
@@ -1929,7 +1900,7 @@ NODE *lscrollbarcreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->ScrollBar = new CLogoScrollBar(
             GetScreenWxWindow(),
@@ -1952,8 +1923,7 @@ NODE *lscrollbarset(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t scrollbarname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(scrollbarname, nextArg);
+    wxString scrollbarname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
     int lo = int_arg(nextArg);
@@ -1989,10 +1959,11 @@ NODE *lscrollbarset(NODE *args)
 
 NODE *lscrollbarget(NODE *args)
 {
-	wchar_t scrollbarname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(scrollbarname, args);
+	NODE * nextArg = args;
 
-    if (stopping_flag == THROWING)
+	wxString scrollbarname = cnv_strnode_string(nextArg);
+	
+	if (stopping_flag == THROWING)
     {
         // an error occured
         return Unbound;
@@ -2024,13 +1995,11 @@ NODE *lstaticcreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
     nextArg = cdr(nextArg);
@@ -2070,7 +2039,7 @@ NODE *lstaticcreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
             
         child->StaticText = new CLogoStaticText(
             GetScreenWxWindow(),
@@ -2090,8 +2059,7 @@ NODE *lstaticcreate(NODE *args)
 
 NODE *lstaticupdate(NODE *args)
 {
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, args);
+    wxString childname = cnv_strnode_string(args);
 
     CStringPrintedNode titlename(car(cdr(args)));
 
@@ -2116,13 +2084,11 @@ NODE *lbuttoncreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
     nextArg = cdr(nextArg);
@@ -2130,14 +2096,10 @@ NODE *lbuttoncreate(NODE *args)
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
 
-	wchar_t callback[MAX_BUFFER_SIZE];
+	wxString callback;
     if (nextArg != NIL)
     {
-        cnv_strnode_string(callback, nextArg);
-    }
-    else
-    {
-        callback[0] = '\0';
+        callback = cnv_strnode_string(nextArg);
     }
 
     if (stopping_flag == THROWING)
@@ -2167,7 +2129,7 @@ NODE *lbuttoncreate(NODE *args)
 
         child->Button = new CLogoButton(
             parent->Dialog,
-            titlename,
+            (const wchar_t*)titlename,
             clientrect,
             callback);
     }
@@ -2175,11 +2137,11 @@ NODE *lbuttoncreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->Button = new CLogoButton(
             GetScreenWxWindow(),
-            titlename,
+			(const wchar_t*)titlename,
             clientrect,
             callback);
     }
@@ -2196,8 +2158,7 @@ NODE *lbuttoncreate(NODE *args)
 
 NODE *lbuttonupdate(NODE *args)
 {
-	wchar_t buttonname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(buttonname, args);
+    wxString buttonname = cnv_strnode_string(args);
 
     CStringPrintedNode titlename(car(cdr(args)));
 
@@ -2231,13 +2192,11 @@ NODE *lgroupboxcreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CClientRectangle clientrect;
     clientrect.InitializeFromInput(nextArg);
@@ -2273,7 +2232,7 @@ NODE *lgroupboxcreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
             
         child->GroupBox = new CLogoGroupBox(
             GetScreenWxWindow(),
@@ -2299,16 +2258,13 @@ NODE *lradiobuttoncreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
+    wxString parentname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
-	wchar_t groupname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(groupname, nextArg);
+	wxString groupname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
     nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
@@ -2359,7 +2315,7 @@ NODE *lradiobuttoncreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->RadioButton = new CLogoRadioButton(
             GetScreenWxWindow(),
@@ -2390,8 +2346,7 @@ NODE *lradiobuttondelete(NODE *args)
 
 NODE *lradiobuttonget(NODE *args)
 {
-	wchar_t radiobuttonname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(radiobuttonname, args);
+    wxString radiobuttonname = cnv_strnode_string(args);
 
     if (stopping_flag == THROWING)
     {
@@ -2412,8 +2367,7 @@ NODE *lradiobuttonget(NODE *args)
 
 NODE *lradiobuttonset(NODE *args)
 {
-	wchar_t radiobuttonname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(radiobuttonname, args);
+	wxString radiobuttonname = cnv_strnode_string(args);
 
     bool isPressed = boolean_arg(cdr(args));
 
@@ -2439,17 +2393,14 @@ NODE *lcheckboxcreate(NODE *args)
 {
     NODE * nextArg = args;
 
-	wchar_t parentname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(parentname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString parentname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t groupname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(groupname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString groupname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
-	wchar_t childname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(childname, nextArg);
-    nextArg = cdr(nextArg);
+	wxString childname = cnv_strnode_string(nextArg);
+	nextArg = cdr(nextArg);
 
     CStringPrintedNode titlename(car(nextArg));
     nextArg = cdr(nextArg);
@@ -2499,7 +2450,7 @@ NODE *lcheckboxcreate(NODE *args)
     {
         clientrect.ConvertToScreenCoordinates();
 
-        child->m_Parent = NULL;
+		child->m_Parent.clear();
 
         child->CheckBox = new CLogoCheckBox(
             GetScreenWxWindow(),
@@ -2530,8 +2481,7 @@ NODE *lcheckboxdelete(NODE *args)
 
 NODE *lcheckboxget(NODE *args)
 {
-	wchar_t checkboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(checkboxname, args);
+    wxString checkboxname = cnv_strnode_string(args);
 
     if (stopping_flag == THROWING)
     {
@@ -2552,8 +2502,7 @@ NODE *lcheckboxget(NODE *args)
 
 NODE *lcheckboxset(NODE *args)
 {
-	wchar_t checkboxname[MAX_BUFFER_SIZE];
-    cnv_strnode_string(checkboxname, args);
+	wxString checkboxname = cnv_strnode_string(args);
 
     bool check = boolean_arg(cdr(args));
 
@@ -2584,8 +2533,7 @@ NODE *ldebugwindows(NODE *arg)
 {
     if (arg != NIL)
     {
-		wchar_t windowname[MAX_BUFFER_SIZE];
-        cnv_strnode_string(windowname, arg);
+        wxString windowname = cnv_strnode_string(arg);
       
         if (g_LogoWidgets.get(windowname) == NULL)
         {
@@ -2732,7 +2680,7 @@ NODE * dialogfile_helper(NODE * args, long fileDialogFlags)
         filename.GetPath(),                        // default path
         filename.GetFullName(),                    // default file name
         filename.GetExt(),                         // default file extension
-		wxString(LOCALIZED_FILEFILTER_ALLFILES),   // file filters
+		GetResourceString(L"LOCALIZED_FILEFILTER_ALLFILES"),   // file filters
         fileDialogFlags,                           // flags
         GetParentWindowForDialog());               // parent window
     if (!selectedFilename.empty())
@@ -2760,7 +2708,7 @@ NODE *lwindowfileedit(NODE *args)
 	wchar_t filename[MAX_PATH];
     PrintNodeToString(car(args), filename, ARRAYSIZE(filename));
 
-    cnv_strnode_string(edit_editexit, cdr(args));
+	edit_editexit = cnv_strnode_string(cdr(args));
 
     ShowEditorForFile(filename, NULL);
     return Unbound;

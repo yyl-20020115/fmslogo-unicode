@@ -160,7 +160,8 @@ void init_graphics()
     FontRec.lfClipPrecision  = CLIP_DEFAULT_PRECIS;
     FontRec.lfQuality        = DEFAULT_QUALITY;
     FontRec.lfPitchAndFamily = DEFAULT_PITCH;
-    wcscpy(FontRec.lfFaceName, L"Arial");
+
+	wcsncpy(FontRec.lfFaceName, L"Arial",ARRAYSIZE(FontRec.lfFaceName)-1);
 #endif
 
     // Set handy rectangle of full bitmap
@@ -226,8 +227,8 @@ void init_graphics()
         // warn the user that no TMP variable was defined.
         MessageBox(
             0,
-            LOCALIZED_ERROR_TMPNOTDEFINED,
-            LOCALIZED_WARNING,
+			GetResourceString(L"LOCALIZED_ERROR_TMPNOTDEFINED"),
+			GetResourceString(L"LOCALIZED_WARNING"),
             MB_OK);
 		tp = L"C:\\";
     }

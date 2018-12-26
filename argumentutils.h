@@ -21,6 +21,7 @@
 struct NODE;
 
 // Functions
-extern void cnv_strnode_string(wchar_t *textbuf, NODE *arg);
+//extern void cnv_strnode_string(wchar_t *textbuf, NODE *arg);
+extern class wxString cnv_strnode_string(NODE* arg);
 
 #endif // _ARGUMENT_UTILS_H_

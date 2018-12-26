@@ -605,7 +605,7 @@ NODE *to_helper(NODE *args, bool is_macro)
                 ndprintf(
                     stdout,
                     MESSAGETYPE_Normal,
-                    LOCALIZED_PROCEDUREDEFINED,
+					GetResourceString(L"LOCALIZED_PROCEDUREDEFINED"),
                     proc_name);
             }
 
@@ -662,7 +662,7 @@ NODE *lmake(NODE *args)
             ndprintf(
                 GetOutputStream(),
                 MESSAGETYPE_Normal,
-                LOCALIZED_TRACING_MAKE,
+				GetResourceString(L"LOCALIZED_TRACING_MAKE"),
                 quoted_variable_name,
                 new_value);
 
@@ -675,7 +675,7 @@ NODE *lmake(NODE *args)
                 ndprintf(
                     GetOutputStream(),
                     MESSAGETYPE_Normal,
-                    LOCALIZED_TRACING_LOCATION,
+					GetResourceString(L"LOCALIZED_TRACING_LOCATION"),
                     ufun,
                     this_line);
             }
@@ -1002,7 +1002,7 @@ po_helper_print_plist(
         GetOutputStream(), 
         MESSAGETYPE_Normal,
         L"%t %s %s %s\n",
-        LOCALIZED_ALTERNATE_PPROP,
+		GetResourceString(L"LOCALIZED_ALTERNATE_PPROP"),
         quoted_plist_name,
         quoted_property_name,
         quoted_property_value);
@@ -1187,7 +1187,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s %s\n",
-                LOCALIZED_ALTERNATE_MAKE,
+				GetResourceString(L"LOCALIZED_ALTERNATE_MAKE"),
                 quoted_variable_name,
                 quoted_value);
 
@@ -1218,7 +1218,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s = %s\n",
-                LOCALIZED_ALTERNATE_PLIST,
+				GetResourceString(L"LOCALIZED_ALTERNATE_PLIST"),
                 quoted_plist_name, 
                 flat_plist);
 
@@ -1499,7 +1499,7 @@ NODE *ledit(NODE *args)
         {
             err_logo(
                 FILE_ERROR,
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTCREATEEDITOR));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTCREATEEDITOR")));
         }
     }
 
@@ -1511,7 +1511,7 @@ NODE *ledit(NODE *args)
         {
             err_logo(
                 FILE_ERROR, 
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTSTARTEDITOR));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTSTARTEDITOR")));
         }
         else
         {
@@ -1732,17 +1732,21 @@ NODE *cpdf_newname(NODE * Name, NODE * TitleLine)
     // Set p2 to just after the procedure name.
     const wchar_t * p2 = p1 + wcsspn(p1, L" \t");
 
+	//FIXED
     // Contruct the new title line by replacing only
     // the name part of the original title line.
-	wchar_t newTitleLine[2000];
-    wprintf(
-        newTitleLine,
-        L"%.*s%.*s%s",
-        p1-titlestr, titlestr,
-        getstrlen(nname), namestr,
-        p2);
+	//wchar_t newTitleLine[2000] = { 0 };
+ //   wsprintf(
+ //       newTitleLine,
+ //       L"%.*s%.*s%s",
+ //       p1-titlestr, titlestr,
+ //       getstrlen(nname), namestr,
+ //       p2);
 
-    return make_strnode(newTitleLine);
+    return make_strnode(wxString::Format(L"%.*s%.*s%s",
+		p1 - titlestr, titlestr,
+		getstrlen(nname), namestr,
+		p2));
 }
 
 NODE *larity(NODE *args)

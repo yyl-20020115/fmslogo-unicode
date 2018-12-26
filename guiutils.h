@@ -1,5 +1,8 @@
+#ifndef __GUIUTILS_H__
+#define __GUIUTILS_H__
 // -*- c++ -*-
 #include <stddef.h>
+#include <wx/string.h>
 
 class wxMenu;
 class wxMenuBar;
@@ -7,7 +10,7 @@ class wxTopLevelWindow;
 
 struct MENUITEM 
 {
-    const wchar_t *  MenuText;
+	const wxString&  MenuText;
     int           MenuId;
 };
 
@@ -26,7 +29,8 @@ FillMenu(
 void
 AppendChildMenu(
     wxMenuBar *       MainMenu,
-    const wchar_t *      ChildMenuText,
+    const wxString&      ChildMenuText,
     const MENUITEM *  ChildMenuItems,
     size_t            ChildMenuItemsLength
     );
+#endif

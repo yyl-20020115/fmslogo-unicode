@@ -39,6 +39,7 @@ const wchar_t *gbm_find_word(const wchar_t *str, const wchar_t *substr)
 {
 	wchar_t buf[100+1], *s;
     size_t  len = wcslen(substr);
+	//TODO: FIXME
 
     for ( s  = wcstok(wcscpy(buf, str), L" \t,");
           s != NULL;

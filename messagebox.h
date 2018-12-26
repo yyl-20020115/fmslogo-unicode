@@ -21,10 +21,10 @@
 #include "logocore.h"
 
 // Functions
-extern void ShowMessage(const wchar_t * Title, const wchar_t * Message);
-extern void ShowMessageAndStop(const wchar_t * Title, const wchar_t * Message);
-extern void ShowErrorMessageAndStop(const wchar_t * Message);
-extern void ShowErrorMessage(const wchar_t * Message);
+extern void ShowMessage(const wxString& Title, const wxString& Message);
+extern void ShowMessageAndStop(const wxString& Title, const wxString& Message);
+extern void ShowErrorMessageAndStop(const wxString& Message);
+extern void ShowErrorMessage(const wxString& Message);
 extern void ShowErrorMessage(ERR_TYPES ErrorCode);
 
 #endif // _MESSAGEBOX_H_

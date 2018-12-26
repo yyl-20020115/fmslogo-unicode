@@ -59,8 +59,8 @@ CSelectBox::CSelectBox(
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxVERTICAL);
 
     static const MENUITEM buttonInfo[] = {
-        {LOCALIZED_SELECTBOX_OK,     wxID_OK},
-        {LOCALIZED_SELECTBOX_CANCEL, wxID_CANCEL},
+        {GetResourceString(L"LOCALIZED_SELECTBOX_OK"),     wxID_OK},
+        {GetResourceString(L"LOCALIZED_SELECTBOX_CANCEL"), wxID_CANCEL},
     };
     for (size_t i = 0; i < ARRAYSIZE(buttonInfo); i++)
     {

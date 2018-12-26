@@ -315,11 +315,11 @@ void CCommanderHistory::OnContextMenu(wxContextMenuEvent& Event)
 {
     // The history only supports a limited set of editing
     static const MENUITEM contextMenuItems[] = {
-        {LOCALIZED_POPUP_COPY,        wxID_COPY},
-        {LOCALIZED_POPUP_REMOVELINES, ID_REMOVELINES},
-        {LOCALIZED_POPUP_SELECTALL,   wxID_SELECTALL},
-        {0},
-        {LOCALIZED_POPUP_HELP,        wxID_HELP_INDEX},
+        {GetResourceString(L"LOCALIZED_POPUP_COPY"),        wxID_COPY},
+        {GetResourceString(L"LOCALIZED_POPUP_REMOVELINES"), ID_REMOVELINES},
+        {GetResourceString(L"LOCALIZED_POPUP_SELECTALL"),   wxID_SELECTALL},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_POPUP_HELP"),        wxID_HELP_INDEX},
     };
 
     wxMenu menu;

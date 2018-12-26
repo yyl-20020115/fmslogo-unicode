@@ -15,33 +15,38 @@
 // CAboutFmsLogo
 // ----------------------------------------------------------------------------
 
-#define LOCALIZED_ABOUTFMS_WXWIDGETS_VERSION (LOCALIZED_GENERAL_PRODUCTNAME L" " LOCALIZED_ABOUTFMS_VERSION L" " FMSLOGO_VERSION L"\n" L"http://sourceforge.net/projects/fmslogo")
+//#define LOCALIZED_ABOUTFMS_WXWIDGETS_VERSION (LOCALIZED_GENERAL_PRODUCTNAME L" " LOCALIZED_ABOUTFMS_VERSION L" " FMSLOGO_VERSION L"\n" L"http://sourceforge.net/projects/fmslogo")
+
 
 CAboutFmsLogo::CAboutFmsLogo(wxWindow * Parent)
-    : wxDialog(Parent, wxID_ANY, wxString(LOCALIZED_ABOUTFMS))
+    : wxDialog(Parent, wxID_ANY, GetResourceString(L"LOCALIZED_ABOUTFMS"))
 {
-    wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
 
-    
-    // The text in all of the static controls
-    static const wchar_t * staticText[] = {
-		LOCALIZED_ABOUTFMS_WXWIDGETS_VERSION,
-		LOCALIZED_ABOUTFMS_GUI              ,
-		LOCALIZED_ABOUTFMS_CORE             ,
-		LOCALIZED_ABOUTFMS_INSTALLER        ,
-		LOCALIZED_ABOUTFMS_ADVENTURE        ,
-		LOCALIZED_ABOUTFMS_SPECIALTHANKS    ,
-		LOCALIZED_ABOUTFMS_GPL              ,
-		LOCALIZED_ABOUTFMS_NEWSGROUP        ,
-		LOCALIZED_ABOUTFMS_MULTIMEDIALOGIC  ,
-    };
+	// The text in all of the static controls
+	static const wxString staticText[] = {
+		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME") + 
+		L" " LOCALIZED_ABOUTFMS_VERSION
+		L" " FMSLOGO_VERSION 
+	    L"\n"
+	    L"http://sourceforge.net/projects/fmslogo",
+		GetResourceString(L"LOCALIZED_ABOUTFMS_GUI")              ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_CORE")             ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_INSTALLER")        ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_ADVENTURE")        ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_SPECIALTHANKS")    ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_GPL")              ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_NEWSGROUP")        ,
+		GetResourceString(L"LOCALIZED_ABOUTFMS_MULTIMEDIALOGIC")  ,
+	};
+
+    wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
 
     for (size_t i = 0; i < ARRAYSIZE(staticText); i++)
     {
         wxStaticText *info = new wxStaticText(
             this,
             wxID_ANY,
-			wxString(L"  ") + wxString(staticText[i]) + wxString(L"  ") ,
+			wxString(L"  ") + (staticText[i]) + wxString(L"  ") ,
             wxDefaultPosition,
             wxDefaultSize, 
             wxALIGN_CENTRE | wxSUNKEN_BORDER);
@@ -52,7 +57,7 @@ CAboutFmsLogo::CAboutFmsLogo(wxWindow * Parent)
     wxButton *okButton = new wxButton(
         this,
         wxID_CANCEL,
-		wxString(LOCALIZED_ABOUTFMS_OK));
+		GetResourceString(L"LOCALIZED_ABOUTFMS_OK"));
     sizerTop->Add(okButton, 0, wxALIGN_CENTER | wxALL, 5);
 
     SetSizer(sizerTop);

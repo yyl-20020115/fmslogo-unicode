@@ -1782,7 +1782,7 @@ NODE *lsetturtlemode(NODE *arg)
             // from setting it today.
             err_logo(
                 INVALID_STATE_FOR_INSTRUCTION,
-                cons_list(make_strnode(LOCALIZED_ERROR_MODE_ON_SPRITE)));
+                cons_list(make_strnode(GetResourceString(L"LOCALIZED_ERROR_MODE_ON_SPRITE"))));
         }
 
         // convert from logo "code" to Windows constants
@@ -1997,7 +1997,7 @@ BitCopyOrCut(NODE *arg, bool IsCut)
 
             if (g_SelectedBitmap->MemoryBitMap == NULL)
             {
-                ShowErrorMessageAndStop(LOCALIZED_ERROR_BITMAPCUTFAILED);
+                ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_BITMAPCUTFAILED"));
                 return Unbound;
             }
 
@@ -2274,7 +2274,7 @@ NODE *lbitpaste(NODE *)
         else
         {
             // notify the user that the clipboard is empty
-            ShowErrorMessageAndStop(LOCALIZED_ERROR_BITMAPNOTHINGTOPASTE);
+            ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_BITMAPNOTHINGTOPASTE"));
         }
 #endif
     }
@@ -2299,14 +2299,14 @@ NODE *lbitpastetoindex(NODE *arg)
     if (g_BitmapsLimit <= i)
     {
         // notify the user that the bitmap index is out of range
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_BITMAPINDEXOUTOFRANGE);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_BITMAPINDEXOUTOFRANGE"));
         return Unbound;
     }
     
     if (!g_Bitmaps[i].IsValid)
     {
         // nofity the user that there is no bitmap at this index
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_BITMAPINDEXISNOTBITMAP);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_BITMAPINDEXISNOTBITMAP"));
         return Unbound;
     }
 
@@ -2354,7 +2354,7 @@ NODE *lbitpastetoindex(NODE *arg)
     else
     {
         // notify the user that the clipboard is empty
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_BITMAPNOTHINGTOPASTE);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_BITMAPNOTHINGTOPASTE"));
     }
 #endif
     return Unbound;
@@ -2966,9 +2966,10 @@ static void turtlepaste(HDC PaintDeviceContext, int TurtleToPaste, FLONUM zoom)
     else
     {
         // notify the user that this turtle has no picture
-		wchar_t errorMessage[255];
-        wprintf(errorMessage, LOCALIZED_ERROR_TURTLEHASNOPICTURE, TurtleToPaste);
-        ShowErrorMessage(errorMessage);
+		//FIXED
+		//wchar_t errorMessage[255] = { 0 };
+		//wsprintf(errorMessage, GetResourceString(L"LOCALIZED_ERROR_TURTLEHASNOPICTURE"), TurtleToPaste);
+        ShowErrorMessage(wxString::Format(GetResourceString(L"LOCALIZED_ERROR_TURTLEHASNOPICTURE"), TurtleToPaste));
 
         // un-bitmap this turtle to prevent future errors
         turtle->BitmapRasterMode = 0;
@@ -3111,8 +3112,7 @@ NODE *lgetfocus(NODE *)
 {
     ASSERT_TURTLE_INVARIANT;
 
-    wchar_t textbuf[MAX_BUFFER_SIZE];
-    memset(textbuf, 0, MAX_BUFFER_SIZE*sizeof(wchar_t));
+	wchar_t textbuf[MAX_BUFFER_SIZE + 1] = { 0 };
 
 #ifndef WX_PURE
     // Get handle to active window
@@ -3271,7 +3271,7 @@ setfont(
     {
         // The font wasn't found.  Print all available fonts
         printfx(
-            LOCALIZED_ERROR_FONTNOTFOUND,
+            GetResourceString(L"LOCALIZED_ERROR_FONTNOTFOUND"),
             fontname);
 
         EnumFontFamilies(hdc, NULL, PrintFont, 0L);
@@ -3313,8 +3313,8 @@ HtmlHelpInitialize(
     if (!g_HelpController->Initialize(g_HelpFileName))
     {
         wxMessageBox(
-			wxString(LOCALIZED_ERROR_HHCTRLNOTLOADED),
-			wxString(LOCALIZED_ERROR));
+			GetResourceString(L"LOCALIZED_ERROR_HHCTRLNOTLOADED"),
+				GetResourceString(L"LOCALIZED_ERROR"));
 
         HtmlHelpUninitialize();
         return false;

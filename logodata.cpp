@@ -49,6 +49,7 @@
    #include "debugheap.h"
 
    #include "localizedstrings.h"
+#include <wx/string.h>
 #endif
 
 #ifdef WX_PURE
@@ -1157,7 +1158,7 @@ NODE *lpprop(NODE *args)
             ndprintf(
                 GetOutputStream(),
                 MESSAGETYPE_Trace,
-                LOCALIZED_TRACING_PPROP, 
+                GetResourceString(L"LOCALIZED_TRACING_PPROP"), 
                 propertylist,
                 propertyname,
                 propertyvalue);
@@ -1172,7 +1173,7 @@ NODE *lpprop(NODE *args)
                 ndprintf(
                     GetOutputStream(), 
                     MESSAGETYPE_Trace,
-                    LOCALIZED_TRACING_LOCATION,
+					GetResourceString(L"LOCALIZED_TRACING_LOCATION"),
                     ufun, 
                     this_line);
             }
@@ -1219,7 +1220,7 @@ NODE *lplist(NODE *args)
 
 NODE * llogoversion(NODE * args)
 {
-    NODE * application_name    = make_static_strnode(LOCALIZED_GENERAL_PRODUCTNAME);
+    NODE * application_name    = make_static_strnode(GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"));
     NODE * application_version = make_static_strnode(FMSLOGO_VERSION);
     NODE * os_name             = make_static_strnode(L"Windows");
     NODE * locale              = make_intnode(LOCALE);

@@ -38,6 +38,7 @@
     #include "debugheap.h"
 
     #include "localizedstrings.h"
+#include <wx/string.h>
 #endif
 
 // structures
@@ -210,7 +211,7 @@ real_print_node(
     }
     else if (nd == Unbound)
     {
-        ndprintf(strm, type, LOCALIZED_UNBOUND);
+        ndprintf(strm, type, GetResourceString(L"LOCALIZED_UNBOUND"));
     }
     else if ((ndty = nodetype(nd)) & NT_PRIM)
     {
@@ -259,9 +260,8 @@ real_print_node(
         // print the origin
         if (print_backslashes && (getarrorg(nd) != 1))
         {
-            wchar_t origin[32];
-            wprintf(origin, L"@%d", getarrorg(nd));
-            ndprintf(strm, type, origin);
+			//FIXED
+            ndprintf(strm, type, wxString::Format(L"@%d", getarrorg(nd)));
         }
     }
     else if (ndty == QUOTE)
@@ -276,25 +276,25 @@ real_print_node(
     }
     else if (ndty == FLOATINGPOINT)
     {
-        wchar_t buffer[MAX_NUMBER];
-        wprintf(buffer, L"%0.15g", getfloat(nd));
-
+		//FIXED
+		//wchar_t buffer[MAX_NUMBER] = { 0 };
+  //      wsprintf(buffer, L"%0.15g", getfloat(nd));
+		wxString buffer = wxString::Format(L"%0.15g", getfloat(nd));
         // REVISIT: is it okay to ignore the width parameter?
-        for (const wchar_t *cp = buffer; *cp != L'\0'; cp++)
+        for (size_t i = 0;i<buffer.length();i++)
         {
-            print_char(strm, type, *cp);
+            print_char(strm, type, buffer[i]);
         }
     }
     else if (ndty == INTEGER)
     {
-		wchar_t buffer[MAX_NUMBER];
-        wprintf(buffer, L"%ld", getint(nd));
-
-        // REVISIT: is it okay to ignore the width parameter?
-        for (const wchar_t *cp = buffer; *cp != L'\0'; cp++)
-        {
-            print_char(strm, type, *cp);
-        }
+		//FIXED
+		wxString buffer = wxString::Format(L"%ld", getint(nd));
+		// REVISIT: is it okay to ignore the width parameter?
+		for (size_t i = 0; i < buffer.length(); i++)
+		{
+			print_char(strm, type, buffer[i]);
+		}
     }
     else if (ndty == CASEOBJ)
     {

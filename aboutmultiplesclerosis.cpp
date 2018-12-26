@@ -19,12 +19,12 @@
 // ----------------------------------------------------------------------------
 
 CAboutMultipleSclerosis::CAboutMultipleSclerosis(wxWindow * Parent)
-    : wxDialog(Parent, wxID_ANY, wxString(LOCALIZED_ABOUTMS))
+    : wxDialog(Parent, wxID_ANY,GetResourceString(L"LOCALIZED_ABOUTMS"))
 {
     wxStaticText *text1 = new wxStaticText(
         this,
         wxID_ANY,
-		wxString(L"\n  " LOCALIZED_ABOUTMS_FMS L"  \n"), // add some padding to the sunken border
+		wxString(L"\n  ")+ GetResourceString(L"LOCALIZED_ABOUTMS_FMS")+ wxString(L"  \n"), // add some padding to the sunken border
         wxDefaultPosition,
         wxDefaultSize, 
         wxALIGN_CENTRE | wxSUNKEN_BORDER);
@@ -32,7 +32,7 @@ CAboutMultipleSclerosis::CAboutMultipleSclerosis(wxWindow * Parent)
     wxStaticText *text2 = new wxStaticText(
         this,
         wxID_ANY,
-		wxString(LOCALIZED_ABOUTMS_CONSIDERDONATING),
+		GetResourceString(L"LOCALIZED_ABOUTMS_CONSIDERDONATING"),
         wxDefaultPosition,
         wxDefaultSize, 
         wxALIGN_CENTRE | wxSUNKEN_BORDER);
@@ -40,7 +40,7 @@ CAboutMultipleSclerosis::CAboutMultipleSclerosis(wxWindow * Parent)
     wxButton *okButton = new wxButton(
         this,
         wxID_CANCEL,
-		wxString(LOCALIZED_ABOUTMS_OK));
+		GetResourceString(L"LOCALIZED_ABOUTMS_OK"));
 
     wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
     sizerTop->Add(text1,    0, wxALL | wxEXPAND, 5);

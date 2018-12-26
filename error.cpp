@@ -50,7 +50,7 @@
 NODE *    throw_node = NIL;
 
 // Holds the values for ERROR
-static const wchar_t * g_ErrorFormatString = NULL;
+static wxString g_ErrorFormatString;
 static NODE *       g_ErrorArguments    = NIL;
 static NODE *       g_ErrorCode         = NIL;
 static NODE *       g_ErrorFunction     = NIL;
@@ -73,13 +73,13 @@ void clear_is_running_erract_flag()
 static
 bool last_error_exists()
 {
-    return g_ErrorFormatString != NULL;
+    return g_ErrorFormatString.length()>0;
 }
 
 static
 void clear_last_error()
 {
-    g_ErrorFormatString = NULL;
+	g_ErrorFormatString.clear();
 
     deref(g_ErrorArguments);
     g_ErrorArguments = NIL;
@@ -160,7 +160,7 @@ err_print_helper(
         ndprintf(
             fp,
             MESSAGETYPE_Error,
-            LOCALIZED_TRACING_LOCATION,
+            GetResourceString(L"LOCALIZED_TRACING_LOCATION"),
             g_ErrorFunction,
             g_ErrorLine);
     }
@@ -206,32 +206,32 @@ err_logo(
     switch (ErrorType)
     {
     case FATAL:
-        printfx(LOCALIZED_ERROR_FATALINTERNAL);
+        printfx(GetResourceString(L"LOCALIZED_ERROR_FATALINTERNAL"));
         exit(EXIT_FAILURE);
 
     case OUT_OF_MEM_UNREC:
-        printfx(LOCALIZED_ERROR_OUTOFMEMORY);
+        printfx(GetResourceString(L"LOCALIZED_ERROR_OUTOFMEMORY"));
         exit(EXIT_FAILURE);
 
     case OUT_OF_MEM:
         use_reserve_tank();
-        g_ErrorFormatString = LOCALIZED_ERROR_OUTOFMEMORY;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_OUTOFMEMORY");
         break;
 
     case STACK_OVERFLOW:
-        g_ErrorFormatString = LOCALIZED_ERROR_STACKOVERFLOW;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_STACKOVERFLOW");
         break;
 
     case TURTLE_OUT_OF_BOUNDS:
-        g_ErrorFormatString = LOCALIZED_ERROR_TURTLEOUTOFBOUNDS;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_TURTLEOUTOFBOUNDS");
         break;
 
     case BAD_GRAPH_INIT:
-        g_ErrorFormatString = LOCALIZED_ERROR_BADGRAPHINIT;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_BADGRAPHINIT");
         break;
 
     case BAD_DATA_UNREC:
-        g_ErrorFormatString = LOCALIZED_ERROR_BADDATA;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_BADDATA");
         error_message = cons_list(IsUpLevel ? ufun : fun, ErrorMessageParameters);
         break;
          
@@ -247,60 +247,60 @@ err_logo(
             assign(this_line, cadr(cdr(didnt_get_output)));
         }
 
-        g_ErrorFormatString = LOCALIZED_ERROR_DIDNTOUTPUT;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DIDNTOUTPUT");
         error_message = cons_list(last_call, ErrorMessageParameters);
         recoverable = true;
         break;
 
     case NOT_ENOUGH:
-        g_ErrorFormatString = LOCALIZED_ERROR_NOTENOUGHINPUTS;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_NOTENOUGHINPUTS");
         error_message = cons_list(ErrorMessageParameters == NIL ? fun : ErrorMessageParameters);
         break;
 
     case BAD_DATA:
-        g_ErrorFormatString = LOCALIZED_ERROR_BADDATA;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_BADDATA");
         error_message = cons_list(fun, ErrorMessageParameters);
         recoverable = true;
         break;
 
     case APPLY_BAD_DATA:
-        g_ErrorFormatString = LOCALIZED_ERROR_BADDATA;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_BADDATA");
         error_message = cons_list(make_static_strnode(L"APPLY"), ErrorMessageParameters);
         recoverable = true;
         break;
 
     case TOO_MUCH:
-        g_ErrorFormatString = LOCALIZED_ERROR_TOOMUCH;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_TOOMUCH");
         break;
 
     case DK_WHAT_UP:
         IsUpLevel = true;
         // FALLTHROUGH
     case DK_WHAT:
-        g_ErrorFormatString = LOCALIZED_ERROR_DONTSAYWHATTODOWITH;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DONTSAYWHATTODOWITH");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case PAREN_MISMATCH:
-        g_ErrorFormatString = LOCALIZED_ERROR_PARENMISMATCH;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_PARENMISMATCH");
         break;
 
     case NO_VALUE:
-        g_ErrorFormatString = LOCALIZED_ERROR_NOVALUE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_NOVALUE");
         error_message = cons_list(ErrorMessageParameters);
         recoverable = true;
         break;
 
     case UNEXPECTED_PAREN:
-        g_ErrorFormatString = LOCALIZED_ERROR_UNEXPECTEDPAREN;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_UNEXPECTEDPAREN");
         break;
 
     case UNEXPECTED_BRACKET:
-        g_ErrorFormatString = LOCALIZED_ERROR_UNEXPECTEDBRACKET;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_UNEXPECTEDBRACKET");
         break;
 
     case UNEXPECTED_BRACE:
-        g_ErrorFormatString = LOCALIZED_ERROR_UNEXPECTEDBRACE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_UNEXPECTEDBRACE");
         break;
 
     case DK_HOW:
@@ -308,41 +308,41 @@ err_logo(
         /* FALLTHROUGH */
 
     case DK_HOW_UNREC:
-        g_ErrorFormatString = LOCALIZED_ERROR_DONTKNOWHOWTO;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DONTKNOWHOWTO");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case NO_CATCH_TAG:
-        g_ErrorFormatString = LOCALIZED_ERROR_NOCATCHTAG;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_NOCATCHTAG");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case ALREADY_DEFINED:
-        g_ErrorFormatString = LOCALIZED_ERROR_ALREADYDEFINED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_ALREADYDEFINED");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case STOP_ERROR:
-        g_ErrorFormatString = LOCALIZED_ERROR_STOPPING;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_STOPPING");
         yield_flag = true;
         break;
 
     case ALREADY_DRIBBLING:
-        g_ErrorFormatString = LOCALIZED_ERROR_ALREADYDRIBBLING;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_ALREADYDRIBBLING");
         break;
 
     case FILE_ERROR:
-        g_ErrorFormatString = LOCALIZED_ERROR_FILESYSTEM;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case IF_WARNING:
-        g_ErrorFormatString = LOCALIZED_ERROR_IFWARNING;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_IFWARNING");
         warning = true;
         break;
 
     case SHADOW_WARN:
-        g_ErrorFormatString = LOCALIZED_ERROR_SHADOWWARNING;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_SHADOWWARNING");
         error_message = cons_list(ErrorMessageParameters);
         warning = true;
         break;
@@ -350,7 +350,7 @@ err_logo(
     case USER_ERR:
         if (ErrorMessageParameters == Unbound)
         {
-            g_ErrorFormatString = LOCALIZED_ERROR_USER;
+            g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_USER");
         }
         else
         {
@@ -362,137 +362,137 @@ err_logo(
         break;
          
     case IS_PRIM:
-        g_ErrorFormatString = LOCALIZED_ERROR_ISPRIMITIVE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_ISPRIMITIVE");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case NOT_INSIDE:
-        g_ErrorFormatString = LOCALIZED_ERROR_TONOTINSIDE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_TONOTINSIDE");
         break;
          
     case AT_TOPLEVEL:
-        g_ErrorFormatString = LOCALIZED_ERROR_ATTOPLEVEL;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_ATTOPLEVEL");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case NO_TEST:
-        g_ErrorFormatString = LOCALIZED_ERROR_NOTEST;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_NOTEST");
         error_message = cons_list(fun);
         break;
 
     case ERR_MACRO:
-        g_ErrorFormatString = LOCALIZED_ERROR_BADMACROOUTPUT;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_BADMACROOUTPUT");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case DEEPEND:
         if (ErrorMessageParameters == NIL)
         {
-            g_ErrorFormatString = LOCALIZED_ERROR_DEEPEND;
+            g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DEEPEND");
         }
         else
         {
-            g_ErrorFormatString = LOCALIZED_ERROR_DEEPENDIN;
+            g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DEEPENDIN");
             error_message = cons_list(ErrorMessageParameters);
         }
         break;
 
     case WINDOW_ALREADY_EXISTS:
-        g_ErrorFormatString = LOCALIZED_ERROR_WINDOWALREADYEXISTS;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_WINDOWALREADYEXISTS");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case WINDOW_DOES_NOT_EXIST:
-        g_ErrorFormatString = LOCALIZED_ERROR_WINDOWDOESNOTEXIST;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_WINDOWDOESNOTEXIST");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case DLL_LOAD_FAILED:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLLOADFAILED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLLOADFAILED");
         break;
 
     case DLL_NOT_LOADED:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLNOTLOADED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLNOTLOADED");
         break;
 
     case DLL_TYPE_DATA_NOT_PAIRED:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLTYPEDATANOTPAIRED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLTYPEDATANOTPAIRED");
         break;
 
     case DLL_FUNCTION_NOT_FOUND:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLFUNCTIONNOTFOUND;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLFUNCTIONNOTFOUND");
         break;
 
     case DLL_INVALID_DATA_TYPE:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLINVALIDDATATYPE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLINVALIDDATATYPE");
         break;
 
     case DLL_INVALID_OUTPUT_TYPE:
-        g_ErrorFormatString = LOCALIZED_ERROR_DLLINVALIDOUTPUTTYPE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_DLLINVALIDOUTPUTTYPE");
         break;
 
     case IMAGE_GENERAL:
-        g_ErrorFormatString = LOCALIZED_ERROR_UNKNOWN;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_UNKNOWN");
         break;
 
     case IMAGE_GIF_LOAD_FAILED:
-        g_ErrorFormatString = LOCALIZED_ERROR_GIFREADFAILED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_GIFREADFAILED");
         break;
 
     case IMAGE_GIF_SAVE_FAILED:
-        g_ErrorFormatString = LOCALIZED_ERROR_GIFSAVEFAILED;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_GIFSAVEFAILED");
         break;
 
     case IMAGE_BMP_OPEN_FAILED:
-        g_ErrorFormatString = LOCALIZED_COULDNOTOPENBMP;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_COULDNOTOPENBMP");
         break;
 
     case IMAGE_BMP_CREATE_FAILED:
-        g_ErrorFormatString = LOCALIZED_COULDNOTCREATEBMP;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_COULDNOTCREATEBMP");
         break;
 
     case IMAGE_BMP_WRITE_FAILED:
-        g_ErrorFormatString = LOCALIZED_COULDNOTWRITEBMP;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_COULDNOTWRITEBMP");
         break;
 
     case IMAGE_BMP_INVALID:
-        g_ErrorFormatString = LOCALIZED_NOTVALIDBMP;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_NOTVALIDBMP");
         break;
 
     case MIDI_GENERAL:
-        g_ErrorFormatString = LOCALIZED_ERROR_MIDI": %s";
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_MIDI")+L": %s";
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case MIDI_DEVICE_ALREADY_OPEN:
-        g_ErrorFormatString = LOCALIZED_ERROR_MIDI ": " LOCALIZED_ERROR_MIDIALREADYOPEN;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_MIDI") + L": " + GetResourceString(L"LOCALIZED_ERROR_MIDIALREADYOPEN");
         break;
 
     case MIDI_INVALID_DEVICE:
-        g_ErrorFormatString = LOCALIZED_ERROR_MIDI ": " LOCALIZED_ERROR_MIDIINVALIDDEVICE;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_MIDI") + L": " + GetResourceString(L"LOCALIZED_ERROR_MIDIINVALIDDEVICE");
         break;
 
     case MIDI_NOT_OPEN:
-        g_ErrorFormatString = LOCALIZED_ERROR_MIDI ": " LOCALIZED_ERROR_MIDINOTOPEN;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_MIDI") + L": " + GetResourceString(L"LOCALIZED_ERROR_MIDINOTOPEN");
         break;
 
     case TIMER_NOT_FOUND:
-        g_ErrorFormatString = LOCALIZED_ERROR_TIMERNOTFOUND;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_TIMERNOTFOUND");
         break;
 
     case INVALID_STATE_FOR_INSTRUCTION:
-        g_ErrorFormatString = LOCALIZED_ERROR_INVALIDSTATEFORINSTRUCTION;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_INVALIDSTATEFORINSTRUCTION");
         error_message = cons_list(ErrorMessageParameters);
         break;
 
     case SPECIAL_FORM_PROC_UNREC:
-        g_ErrorFormatString = LOCALIZED_ERROR_SPECIALFORM;
+        g_ErrorFormatString = GetResourceString(L"LOCALIZED_ERROR_SPECIALFORM");
         error_message = cons_list(IsUpLevel ? ufun : fun, ErrorMessageParameters);
         break;
 
     default:
         assert(!"Unexpected error code in err_logo()");
-        printfx(LOCALIZED_ERROR_UNKNOWN);
+        printfx(GetResourceString(L"LOCALIZED_ERROR_UNKNOWN"));
         exit(EXIT_FAILURE);
     }
 
@@ -561,7 +561,7 @@ err_logo(
                 ndprintf(
                     stdout,
                     MESSAGETYPE_Error,
-                    LOCALIZED_ERROR_DONTSAYWHATTODOWITH"\n",
+					GetResourceString(L"LOCALIZED_ERROR_DONTSAYWHATTODOWITH")+L"\n",
                     val);
                 deref(val);
                 new_throw_node = Toplevel.GetNode();
@@ -636,7 +636,7 @@ NODE *lpause(NODE*)
     // This does not print a newline, because the pausing
     // line may also include the name of the procedure
     // which ran PAUSE.
-    ndprintf(stdout, MESSAGETYPE_Normal, LOCALIZED_PAUSING);
+    ndprintf(stdout, MESSAGETYPE_Normal, GetResourceString(L"LOCALIZED_PAUSING"));
 
     jmp_buf sav_iblk;
     memcpy(sav_iblk, iblk_buf, sizeof(sav_iblk));

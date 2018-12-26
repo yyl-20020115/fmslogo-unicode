@@ -32,23 +32,23 @@
 
 void 
 ShowMessage(
-    const wchar_t * Title,
-    const wchar_t * Message
+    const wxString& Title,
+    const wxString& Message
     )
 {
     wxMessageBox(
-		wxString(Message),
-		wxString(Title),
+		Message,
+		Title,
         wxOK | wxCENTER,
         GetParentWindowForDialog());
 }
 
 void
 ShowErrorMessage(
-    const wchar_t * Message
+    const wxString& Message
     )
 {
-    ShowMessage(LOCALIZED_ERROR, Message);
+    ShowMessage(GetResourceString(L"LOCALIZED_ERROR"), Message);
 }
 
 // Maps ErrorCode to a string and displays it in a message box
@@ -57,7 +57,7 @@ ShowErrorMessage(
     ERR_TYPES  ErrorCode
     )
 {
-    const wchar_t * errorMessage;
+    wxString errorMessage;
 
     switch (ErrorCode)
     {
@@ -66,42 +66,42 @@ ShowErrorMessage(
         // save a bitmap.  It would be nice to show an error that
         // indicates the problem, but since I don't expect this to happen
         // showing a generic "unknown error happened" is sufficient.
-        errorMessage = LOCALIZED_ERROR_UNKNOWN;
+        errorMessage = GetResourceString(L"LOCALIZED_ERROR_UNKNOWN");
         break;
 
     case IMAGE_GIF_LOAD_FAILED:
-        errorMessage = LOCALIZED_ERROR_GIFREADFAILED;
+        errorMessage = GetResourceString(L"LOCALIZED_ERROR_GIFREADFAILED");
         break;
 
     case IMAGE_GIF_SAVE_FAILED:
-        errorMessage = LOCALIZED_ERROR_GIFSAVEFAILED;
+        errorMessage = GetResourceString(L"LOCALIZED_ERROR_GIFSAVEFAILED");
         break;
 
     case IMAGE_BMP_OPEN_FAILED:
-        errorMessage = LOCALIZED_COULDNOTOPENBMP;
+        errorMessage = GetResourceString(L"LOCALIZED_COULDNOTOPENBMP");
         break;
 
     case IMAGE_BMP_CREATE_FAILED:
-        errorMessage = LOCALIZED_COULDNOTCREATEBMP;
+        errorMessage = GetResourceString(L"LOCALIZED_COULDNOTCREATEBMP");
         break;
 
     case IMAGE_BMP_WRITE_FAILED:
-        errorMessage = LOCALIZED_COULDNOTWRITEBMP;
+        errorMessage = GetResourceString(L"LOCALIZED_COULDNOTWRITEBMP");
         break;
 
     case IMAGE_BMP_INVALID:
-        errorMessage = LOCALIZED_NOTVALIDBMP;
+        errorMessage = GetResourceString(L"LOCALIZED_NOTVALIDBMP");
         break;
 
     case OUT_OF_MEM:
-        errorMessage = LOCALIZED_ERROR_OUTOFMEMORY;
+        errorMessage = GetResourceString(L"LOCALIZED_ERROR_OUTOFMEMORY");
         break;
 
     default:
         // This should never happen, but if it does, showing a general error
         // message is better than showing no error message.
         assert(0);
-        errorMessage = LOCALIZED_ERROR_UNKNOWN;
+        errorMessage = GetResourceString(L"LOCALIZED_ERROR_UNKNOWN");
         break;
     }
 
@@ -114,8 +114,8 @@ ShowErrorMessage(
 // good design.
 void 
 ShowMessageAndStop(
-    const wchar_t * Title,
-    const wchar_t * Message
+    const wxString& Title,
+    const wxString& Message
     )
 {
     ShowMessage(Title, Message);
@@ -124,8 +124,8 @@ ShowMessageAndStop(
 
 void
 ShowErrorMessageAndStop(
-    const wchar_t * Message
+    const wxString& Message
     )
 {
-    ShowMessageAndStop(LOCALIZED_ERROR, Message);
+    ShowMessageAndStop(GetResourceString(L"LOCALIZED_ERROR"), Message);
 }

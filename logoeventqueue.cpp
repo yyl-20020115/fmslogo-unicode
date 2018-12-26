@@ -204,7 +204,7 @@ qlink * qlist::find(void * a)
     return NULL;
 }
 
-callthing * callthing::CreateKeyboardEvent(wchar_t * function, int key)
+callthing * callthing::CreateKeyboardEvent(const wxString& function, int key)
 {
     callthing * callevent = new callthing;
     callevent->kind = EVENTTYPE_Keyboard;
@@ -214,7 +214,7 @@ callthing * callthing::CreateKeyboardEvent(wchar_t * function, int key)
     return callevent;
 }
 
-callthing * callthing::CreateMouseEvent(wchar_t * function, int x, int y)
+callthing * callthing::CreateMouseEvent(const wxString& function, int x, int y)
 {
     callthing * callevent = new callthing;
     callevent->kind = EVENTTYPE_Mouse;
@@ -225,7 +225,7 @@ callthing * callthing::CreateMouseEvent(wchar_t * function, int x, int y)
     return callevent;
 }
 
-callthing * callthing::CreateFunctionEvent(wchar_t * function)
+callthing * callthing::CreateFunctionEvent(const wxString& function)
 {
     callthing * callevent = new callthing;
     callevent->kind = EVENTTYPE_YieldFunction;
@@ -234,7 +234,7 @@ callthing * callthing::CreateFunctionEvent(wchar_t * function)
     return callevent;
 }
 
-callthing * callthing::CreateNoYieldFunctionEvent(wchar_t * function)
+callthing * callthing::CreateNoYieldFunctionEvent(const wxString& function)
 {
     callthing * callevent = new callthing;
     callevent->kind = EVENTTYPE_NoYieldFunction;
@@ -270,7 +270,7 @@ callthing::~callthing()
     switch (kind)
     {
     case EVENTTYPE_NetworkReceiveReady:
-        free(func);
+        //free(func);
         free(networkpacket);
         break;
 

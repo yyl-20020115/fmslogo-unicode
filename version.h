@@ -1,8 +1,14 @@
 #ifndef __VERSION_H__
 #define __VERSION_H__
 #define LOCALE 2052
+#define CHARSETID 936
 #define FMSLOGO_MAJOR_VERSION 7
 #define FMSLOGO_MINOR_VERSION 3
 #define FMSLOGO_MICRO_VERSION 0
 #define FMSLOGO_VERSION L"7.3.0"
+
+#define LOCALIZED_FMSLOGO_FILE_DESCRIPTION L"The FMSLogo programming environment"
+#define LOCALIZED_GENERAL_PRODUCTNAME   L"FMSLogo"
+#define LOCALIZED_ABOUTFMS_VERSION L"version"
+
 #endif

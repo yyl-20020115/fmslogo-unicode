@@ -32,6 +32,7 @@
    #include "debugheap.h"
 
    #include "localizedstrings.h"
+#include <wx/string.h>
 #endif
 
 void filesave(const wchar_t *FileName)
@@ -43,8 +44,8 @@ void filesave(const wchar_t *FileName)
 #ifndef WX_PURE
         MessageBox(
             GetCommanderWindow(),
-            LOCALIZED_EDITORISOPEN,
-            LOCALIZED_INFORMATION,
+			GetResourceString(L"LOCALIZED_EDITORISOPEN"),
+			GetResourceString(L"LOCALIZED_INFORMATION"),
             MB_OK | MB_ICONQUESTION);
 #endif
     }

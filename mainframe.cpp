@@ -84,9 +84,9 @@
     #include "files.h" // silent_load
     #include "stringadapter.h"
     #include "debugheap.h"
-	#include "MFP.h"
 #endif
 
+extern wxString NormalizeCaseForDisplay(wxString text);
 
 // ----------------------------------------------------------------------------
 // CMainFrame::CLogoPicturePrintout
@@ -127,8 +127,8 @@ CMainFrame::CLogoPicturePrintout::OnPrintPage(
     {
         // notify the user that the printer does not support scaling
         wxMessageBox(
-			wxString(LOCALIZED_ERROR_PRINTERCANTSCALE),
-			wxString(LOCALIZED_ERROR),
+			GetResourceString(L"LOCALIZED_ERROR_PRINTERCANTSCALE"),
+			GetResourceString(L"LOCALIZED_ERROR"),
             wxICON_ERROR);
         return false;
     }
@@ -245,11 +245,11 @@ CMainFrame::CLogoPicturePrintout::OnPrintPage(
             DWORD lastError = GetLastError();
             const wxString & message = wxString::Format(
                 L"%s\n%s: %lu",
-                LOCALIZED_ERROR_CANTDRAWIMAGE,
-                LOCALIZED_ERROR_SUBCODE,
+                GetResourceString(L"LOCALIZED_ERROR_CANTDRAWIMAGE"),
+                GetResourceString(L"LOCALIZED_ERROR_SUBCODE"),
                 lastError);
 
-            wxMessageBox(message, wxString(LOCALIZED_ERROR), wxICON_ERROR);
+            wxMessageBox(message, GetResourceString(L"LOCALIZED_ERROR"), wxICON_ERROR);
             isOk = false;
         }
     }
@@ -257,8 +257,8 @@ CMainFrame::CLogoPicturePrintout::OnPrintPage(
     {
         // can't do it
         wxMessageBox(
-			wxString(LOCALIZED_ERROR_CANTEXTRACTIMAGE),
-			wxString(LOCALIZED_ERROR),
+			GetResourceString(L"LOCALIZED_ERROR_CANTEXTRACTIMAGE"),
+			GetResourceString(L"LOCALIZED_ERROR"),
             wxICON_ERROR);
         isOk = false;
     }
@@ -402,7 +402,7 @@ CMainFrame::CMainFrame(
     ) : wxFrame(
         NULL, 
         wxID_ANY, 
-		wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
         Position,
         Size,
         wxDEFAULT_FRAME_STYLE | wxNO_FULL_REPAINT_ON_RESIZE |
@@ -426,73 +426,73 @@ CMainFrame::CMainFrame(
     // Construct the main menu
     //
     static const MENUITEM fileMenuItems[] = {
-        {LOCALIZED_FILE_NEW,              ID_FILENEW},
-        {LOCALIZED_FILE_LOAD,             ID_FILELOAD},
-        {LOCALIZED_FILE_OPEN,             ID_FILEOPEN},
-        {LOCALIZED_FILE_SAVE,             ID_FILESAVE},
-        {LOCALIZED_FILE_SAVEAS,           ID_FILESAVEAS},
-        {LOCALIZED_FILE_SETASSCREENSAVER, ID_FILESETASSCREENSAVER},
-        {0},
-        {LOCALIZED_FILE_EDIT,             ID_FILEEDIT},
-        {LOCALIZED_FILE_ERASE,            ID_FILEERASE},
-        {0},
-        {LOCALIZED_FILE_EXIT,             wxID_EXIT},
+        {GetResourceString(L"LOCALIZED_FILE_NEW"),              ID_FILENEW},
+        {GetResourceString(L"LOCALIZED_FILE_LOAD"),             ID_FILELOAD},
+        {GetResourceString(L"LOCALIZED_FILE_OPEN"),             ID_FILEOPEN},
+        {GetResourceString(L"LOCALIZED_FILE_SAVE"),             ID_FILESAVE},
+        {GetResourceString(L"LOCALIZED_FILE_SAVEAS"),           ID_FILESAVEAS},
+        {GetResourceString(L"LOCALIZED_FILE_SETASSCREENSAVER"), ID_FILESETASSCREENSAVER},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_FILE_EDIT"),             ID_FILEEDIT},
+        {GetResourceString(L"LOCALIZED_FILE_ERASE"),            ID_FILEERASE},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_FILE_EXIT"),             wxID_EXIT},
     };
 
     static const MENUITEM bitmapMenuItems[] = {
-        {LOCALIZED_BITMAP_NEW,           ID_BITMAPNEW},
-        {LOCALIZED_BITMAP_LOAD,          ID_BITMAPOPEN},
-        {LOCALIZED_BITMAP_SAVE,          ID_BITMAPSAVE},
-        {LOCALIZED_BITMAP_SAVEAS,        ID_BITMAPSAVEAS},
-        {0},
-        {LOCALIZED_BITMAP_PRINT,         ID_BITMAPPRINT},
-        {LOCALIZED_BITMAP_PRINTERSETUP,  ID_BITMAPPRINTERSETUP},
-        {0},
-        {LOCALIZED_BITMAP_ACTIVEAREA,    ID_BITMAPPRINTERAREA},
+        {GetResourceString(L"LOCALIZED_BITMAP_NEW"),           ID_BITMAPNEW},
+        {GetResourceString(L"LOCALIZED_BITMAP_LOAD"),          ID_BITMAPOPEN},
+        {GetResourceString(L"LOCALIZED_BITMAP_SAVE"),          ID_BITMAPSAVE},
+        {GetResourceString(L"LOCALIZED_BITMAP_SAVEAS"),        ID_BITMAPSAVEAS},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_BITMAP_PRINT"),         ID_BITMAPPRINT},
+        {GetResourceString(L"LOCALIZED_BITMAP_PRINTERSETUP"),  ID_BITMAPPRINTERSETUP},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_BITMAP_ACTIVEAREA"),    ID_BITMAPPRINTERAREA},
     };
 
     static const MENUITEM setMenuItems[] = {
-        {LOCALIZED_SET_PENSIZE,       ID_SETPENSIZE},
-        {0},
-        {LOCALIZED_SET_LABELFONT,     ID_SETLABELFONT},
-        {LOCALIZED_SET_COMMANDERFONT, ID_SETCOMMANDERFONT},
-        {0},
-        {LOCALIZED_SET_PENCOLOR,      ID_SETPENCOLOR},
-        {LOCALIZED_SET_FLOODCOLOR,    ID_SETFLOODCOLOR},
-        {LOCALIZED_SET_SCREENCOLOR,   ID_SETSCREENCOLOR},
+        {GetResourceString(L"LOCALIZED_SET_PENSIZE"),       ID_SETPENSIZE},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_SET_LABELFONT"),     ID_SETLABELFONT},
+        {GetResourceString(L"LOCALIZED_SET_COMMANDERFONT"), ID_SETCOMMANDERFONT},
+        {L"",},
+        {GetResourceString(L"LOCALIZED_SET_PENCOLOR"),      ID_SETPENCOLOR},
+        {GetResourceString(L"LOCALIZED_SET_FLOODCOLOR"),    ID_SETFLOODCOLOR},
+        {GetResourceString(L"LOCALIZED_SET_SCREENCOLOR"),   ID_SETSCREENCOLOR},
     };
 
     static const MENUITEM zoomMenuItems[] = {
-        {LOCALIZED_ZOOM_IN,     wxID_ZOOM_IN},
-        {LOCALIZED_ZOOM_OUT,    wxID_ZOOM_OUT},
-        {LOCALIZED_ZOOM_NORMAL, wxID_ZOOM_100},
+        {GetResourceString(L"LOCALIZED_ZOOM_IN"),     wxID_ZOOM_IN},
+        {GetResourceString(L"LOCALIZED_ZOOM_OUT"),    wxID_ZOOM_OUT},
+        {GetResourceString(L"LOCALIZED_ZOOM_NORMAL"), wxID_ZOOM_100},
     };
  
     static const MENUITEM helpMenuItems[] = {
-        {LOCALIZED_HELP_INDEX,         wxID_HELP_INDEX},
+        {GetResourceString(L"LOCALIZED_HELP_INDEX"),         wxID_HELP_INDEX},
 #if MANUAL_HAS_TRANSLATION_TABLES
         // options for translating to/from English
-        {LOCALIZED_HELP_LANGTOENGLISH, ID_HELPLANGTOENGLISH},
-        {LOCALIZED_HELP_ENGLISHTOLANG, ID_HELPENGLISHTOLANG},
+        {GetResourceString(L"LOCALIZED_HELP_LANGTOENGLISH"), ID_HELPLANGTOENGLISH},
+        {GetResourceString(L"LOCALIZED_HELP_ENGLISHTOLANG"), ID_HELPENGLISHTOLANG},
 #endif
-        {0},
-        {LOCALIZED_HELP_TUTORIAL,      ID_HELPTUTORIAL},
-        {LOCALIZED_HELP_DEMO,          ID_HELPDEMO},
-        {LOCALIZED_HELP_EXAMPLE,       ID_HELPEXAMPLES},
-        {LOCALIZED_HELP_RELEASENOTES,  ID_HELPRELEASENOTES},
-        {0},
-        {LOCALIZED_HELP_ABOUTFMSLOGO,  wxID_ABOUT},
-        {LOCALIZED_HELP_MS,            ID_HELPABOUTMS},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_HELP_TUTORIAL"),      ID_HELPTUTORIAL},
+        {GetResourceString(L"LOCALIZED_HELP_DEMO"),          ID_HELPDEMO},
+        {GetResourceString(L"LOCALIZED_HELP_EXAMPLE"),       ID_HELPEXAMPLES},
+        {GetResourceString(L"LOCALIZED_HELP_RELEASENOTES"),  ID_HELPRELEASENOTES},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_HELP_ABOUTFMSLOGO"),  wxID_ABOUT},
+        {GetResourceString(L"LOCALIZED_HELP_MS"),            ID_HELPABOUTMS},
     };
 
     // Make a menubar
     wxMenuBar * mainMenu = new wxMenuBar;
 
-    AppendChildMenu(mainMenu, LOCALIZED_FILE,   fileMenuItems, sizeof(fileMenuItems)/sizeof(MENUITEM));
-    AppendChildMenu(mainMenu, LOCALIZED_BITMAP, bitmapMenuItems, sizeof(bitmapMenuItems) / sizeof(MENUITEM));
-    AppendChildMenu(mainMenu, LOCALIZED_SET,    setMenuItems, sizeof(setMenuItems) / sizeof(MENUITEM));
-    AppendChildMenu(mainMenu, LOCALIZED_ZOOM,   zoomMenuItems, sizeof(zoomMenuItems) / sizeof(MENUITEM));
-    AppendChildMenu(mainMenu, LOCALIZED_HELP,   helpMenuItems, sizeof(helpMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_FILE"),   fileMenuItems, sizeof(fileMenuItems)/sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_BITMAP"), bitmapMenuItems, sizeof(bitmapMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_SET"),    setMenuItems, sizeof(setMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_ZOOM"),   zoomMenuItems, sizeof(zoomMenuItems) / sizeof(MENUITEM));
+    AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_HELP"),   helpMenuItems, sizeof(helpMenuItems) / sizeof(MENUITEM));
 
     SetMenuBar(mainMenu);
 
@@ -705,7 +705,7 @@ void CMainFrame::DockCommanderWindow()
             // FindWindow().
             wxDialog * commander = static_cast<wxDialog*>(m_Commander);
             commander->Hide();
-            commander->SetTitle(LOCALIZED_COMMANDER " ");
+            commander->SetTitle(GetResourceString(L"LOCALIZED_COMMANDER")+ L" ");
             commander->Destroy();
         }
         m_Commander = m_RealCommander;
@@ -866,7 +866,7 @@ CMainFrame::CreateWorkspaceEditor(
     wxString editorWindowTitle;
     if (EditArguments != NIL || CheckForErrors)
     {
-        editorWindowTitle = wxString(LOCALIZED_EDITOR_TITLE);
+        editorWindowTitle = GetResourceString(L"LOCALIZED_EDITOR_TITLE");
     }
     else
     {
@@ -892,7 +892,7 @@ CMainFrame::CreateWorkspaceEditor(
 wchar_t * CMainFrame::PromptUserForInput(const wchar_t *Prompt)
 {
     // prompt the user for input
-    CQuestionBox questionBox(this, /*WXSTRING*/(Prompt), wxString(LOCALIZED_INPUT));
+    CQuestionBox questionBox(this, Prompt, GetResourceString(L"LOCALIZED_INPUT"));
     int exitCode = questionBox.ShowModal();
     if (exitCode != wxID_OK)
     {
@@ -939,8 +939,8 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
             FILE * dstfile = _wfopen(TempPathName, L"w");
             if (dstfile != NULL)
             {
-                int ch;
-                while ((ch = fgetwc(srcfile)) != EOF && ch!=WCSEOF)
+                int ch = 0;
+                while ((ch = fgetwc(srcfile)) != EOF && ch!=WEOF)
                 {
                     putwc(ch, dstfile); //do not use fputwc!
                 }
@@ -963,8 +963,8 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
     // Prompt the user to decide if they want to
     // open FileName in the editor.
     int rval = wxMessageBox(
-        wxString::Format(wxString(LOCALIZED_ERRORINFILEMESSAGE), FileName),
-		wxString(LOCALIZED_ERRORINFILETITLE),
+        wxString::Format(GetResourceString(L"LOCALIZED_ERRORINFILEMESSAGE"), FileName),
+		GetResourceString(L"LOCALIZED_ERRORINFILETITLE"),
         wxYES_NO | wxICON_ERROR);
     if (rval != wxYES)
     {
@@ -1026,9 +1026,8 @@ CMainFrame::PopupEditorForFile(
     FILE * logoFile = _wfopen(FileName, L"r");
     if (logoFile != NULL)
     {
-		wchar_t wc = getwc(logoFile);
         // file exists.  check if it's empty.
-        bool fileIsEmpty = wc == EOF || wc == WCSEOF;
+        bool fileIsEmpty = (getc(logoFile) == EOF);
         fclose(logoFile);
 
         if (fileIsEmpty)
@@ -1213,8 +1212,8 @@ void CMainFrame::OnClose(wxCloseEvent& Event)
             // user unless there really are changes to save, and so
             // that we prompt for all editors.
             if (wxMessageBox(
-				wxString(LOCALIZED_CHANGESINEDITORMAYBELOST),
-				wxString(LOCALIZED_EDITSESSIONISRUNNING),
+				GetResourceString(L"LOCALIZED_CHANGESINEDITORMAYBELOST"),
+					GetResourceString(L"LOCALIZED_EDITSESSIONISRUNNING"),
                     wxOK | wxCANCEL | wxICON_QUESTION) != wxOK)
             {
                 // The user doesn't want to shutdown.
@@ -1435,8 +1434,8 @@ void CMainFrame::OnFileNew(wxCommandEvent& WXUNUSED(Event))
         // of the workspace and give them a chance to cancel the
         // operation.
         if (wxMessageBox(
-			wxString(LOCALIZED_FILENEWWILLERASEWORKSPACE),
-			wxString(LOCALIZED_YOUHAVEUNSAVEDCHANGES),
+			GetResourceString(L"LOCALIZED_FILENEWWILLERASEWORKSPACE"),
+			GetResourceString(L"LOCALIZED_YOUHAVEUNSAVEDCHANGES"),
                 wxOK | wxCANCEL | wxICON_QUESTION,
                 GetTopLevelWindowForCommander()) == wxCANCEL)
         {
@@ -1457,8 +1456,8 @@ void CMainFrame::OnFileLoad(wxCommandEvent& WXUNUSED(Event))
         // of the workspace and give them a chance to cancel the
         // operation.
         if (wxMessageBox(
-			wxString(LOCALIZED_FILELOADMAYOVERWRITEWORKSPACE),
-			wxString(LOCALIZED_YOUHAVEUNSAVEDCHANGES),
+			GetResourceString(L"LOCALIZED_FILELOADMAYOVERWRITEWORKSPACE"),
+				GetResourceString(L"LOCALIZED_YOUHAVEUNSAVEDCHANGES"),
                 wxOK | wxCANCEL | wxICON_QUESTION,
                 GetTopLevelWindowForCommander()) == wxCANCEL)
         {
@@ -1468,11 +1467,11 @@ void CMainFrame::OnFileLoad(wxCommandEvent& WXUNUSED(Event))
 
     // show the user a file-picker dialog
     const wxString fileToLoad = wxFileSelector(
-		wxString(LOCALIZED_FILE_LOAD_DIALOG_TITLE), // title/message
+		GetResourceString(L"LOCALIZED_FILE_LOAD_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
         m_LastLoadedLogoFile.GetFullName(),         // default file name
-		wxString(LOCALIZED_LOGO_FILE_EXTENSION),    // default file extension
-		wxString(LOCALIZED_FILEFILTER_LOGO),        // file filters
+		GetResourceString(L"LOCALIZED_LOGO_FILE_EXTENSION"),    // default file extension
+		GetResourceString(L"LOCALIZED_FILEFILTER_LOGO"),        // file filters
         wxFD_OPEN | wxFD_FILE_MUST_EXIST,           // flags
         this);                                      // parent window
     if (!fileToLoad.empty())
@@ -1497,7 +1496,7 @@ void CMainFrame::OnFileLoad(wxCommandEvent& WXUNUSED(Event))
         {
             err_logo(
                 FILE_ERROR,
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTOPEN));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
         }
 
         // handle any error that may have occured
@@ -1515,8 +1514,8 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
         // of the workspace and give them a chance to cancel the
         // operation.
         if (wxMessageBox(
-			wxString(LOCALIZED_FILEOPENWILLERASEWORKSPACE),
-			wxString(LOCALIZED_YOUHAVEUNSAVEDCHANGES),
+			GetResourceString(L"LOCALIZED_FILEOPENWILLERASEWORKSPACE"),
+			GetResourceString(L"LOCALIZED_YOUHAVEUNSAVEDCHANGES"),
                 wxOK | wxCANCEL | wxICON_QUESTION,
                 GetTopLevelWindowForCommander()) == wxCANCEL)
         {
@@ -1526,11 +1525,11 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
 
     // show the user a file-picker dialog
     const wxString fileToLoad = wxFileSelector(
-		wxString(LOCALIZED_FILE_OPEN_DIALOG_TITLE), // title/message
+		GetResourceString(L"LOCALIZED_FILE_OPEN_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
         m_LastLoadedLogoFile.GetFullName(),         // default file name
-		wxString(LOCALIZED_LOGO_FILE_EXTENSION),    // default file extension
-		wxString(LOCALIZED_FILEFILTER_LOGO),        // file filters
+		GetResourceString(L"LOCALIZED_LOGO_FILE_EXTENSION"),    // default file extension
+		GetResourceString(L"LOCALIZED_FILEFILTER_LOGO"),        // file filters
         wxFD_OPEN | wxFD_FILE_MUST_EXIST,           // flags
         this);                                      // parent window
     if (!fileToLoad.empty())
@@ -1559,7 +1558,7 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
         {
             err_logo(
                 FILE_ERROR,
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTOPEN));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
         }
 
         // handle any error that may have occured
@@ -1585,8 +1584,8 @@ bool CMainFrame::WarnIfSavingEmptyWorkspace()
         // TODO: use wxMessageBox if it supports default buttons
         if (MessageBox(
                 static_cast<HWND>(GetHandle()),
-                LOCALIZED_EMPTYWORKSPACE_MESSAGE,
-                LOCALIZED_EMPTYWORKSPACE_TITLE,
+                GetResourceString(L"LOCALIZED_EMPTYWORKSPACE_MESSAGE"),
+                GetResourceString(L"LOCALIZED_EMPTYWORKSPACE_TITLE"),
                 MB_YESNO | MB_ICONWARNING | MB_DEFBUTTON2) == IDNO)
         {
             return false;
@@ -1614,11 +1613,11 @@ bool CMainFrame::SaveFileAs()
     // Get file name from user and then save the file
     bool isOk;
     const wxString fileToSave = wxFileSelector(
-		wxString(LOCALIZED_FILE_SAVE_DIALOG_TITLE), // title/message
+		GetResourceString(L"LOCALIZED_FILE_SAVE_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
         m_LastLoadedLogoFile.GetFullName(),         // default file name
-		wxString(LOCALIZED_LOGO_FILE_EXTENSION),    // default file extension
-		wxString(LOCALIZED_FILEFILTER_LOGO),        // file filters
+		GetResourceString(L"LOCALIZED_LOGO_FILE_EXTENSION"),    // default file extension
+		GetResourceString(L"LOCALIZED_FILEFILTER_LOGO"),        // file filters
         wxFD_SAVE | wxFD_OVERWRITE_PROMPT,          // flags
         this);                                      // parent window
     if (!fileToSave.empty())
@@ -1782,8 +1781,8 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
         // Make "Startup [<instructionlist>]
 
         RunLogoInstructionFromGui(wxString::Format(L"%s \"%s [%s]", 
-			LOCALIZED_ALTERNATE_MAKE, 
-			LOCALIZED_ALTERNATE_STARTUP, 
+			GetResourceString(L"LOCALIZED_ALTERNATE_MAKE"), 
+			GetResourceString(L"LOCALIZED_ALTERNATE_STARTUP"), 
 			(const wchar_t*)dialog.GetSelectedInstruction()));
         
     }
@@ -1811,7 +1810,8 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
             // Append "screesaver.lgo" to the path
             size_t screenSaverProgramNameLength = wcslen(screenSaverProgramName);
 
-            wcscpy(
+			//TODO: FIXME
+			wcscpy(
                 &screenSaverProgramName[screenSaverProgramNameLength],
                 L"\\screensaver.lgo");
 
@@ -1880,11 +1880,11 @@ void CMainFrame::OnBitmapNew(wxCommandEvent& WXUNUSED(Event))
 void CMainFrame::OnBitmapOpen(wxCommandEvent& WXUNUSED(Event))
 {
     const wxString fileToLoad = wxFileSelector(
-		wxString(LOCALIZED_BITMAP_OPEN_DIALOG_TITLE), // title/message
+		GetResourceString(L"LOCALIZED_BITMAP_OPEN_DIALOG_TITLE"), // title/message
         m_LastLoadedBitmapFile.GetPath(),             // default path
         m_LastLoadedBitmapFile.GetFullName(),         // default file name
 		wxString(L".bmp"),                             // default file extension
-		wxString(LOCALIZED_FILEFILTER_IMAGE),         // file filters
+		GetResourceString(L"LOCALIZED_FILEFILTER_IMAGE"),         // file filters
         wxFD_OPEN | wxFD_FILE_MUST_EXIST,             // flags
         this);                                        // parent window
     if (!fileToLoad.empty())
@@ -1957,11 +1957,11 @@ void CMainFrame::SaveBitmapAs()
 
     // Get file name from user
     const wxString fileToSave = wxFileSelector(
-		wxString(LOCALIZED_BITMAP_SAVE_DIALOG_TITLE), // title/message
+		GetResourceString(L"LOCALIZED_BITMAP_SAVE_DIALOG_TITLE"), // title/message
         m_LastLoadedBitmapFile.GetPath(),             // default path
         m_LastLoadedBitmapFile.GetFullName(),         // default file name
 		wxString(L".bmp"),                             // default file extension
-		wxString(LOCALIZED_FILEFILTER_IMAGE),         // file filters
+		GetResourceString(L"LOCALIZED_FILEFILTER_IMAGE"),         // file filters
         wxFD_SAVE | wxFD_OVERWRITE_PROMPT,            // flags
         this);                                        // parent window
     if (!fileToSave.empty())
@@ -2031,7 +2031,7 @@ void CMainFrame::OnBitmapPrint(wxCommandEvent& WXUNUSED(Event))
     printDialogData.EnablePageNumbers(false);
 
     CLogoPicturePrintout printout(
-		wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
         *m_Screen,
         m_PageSetupData);
 
@@ -2118,27 +2118,27 @@ void CMainFrame::OnSetPenColor(wxCommandEvent& WXUNUSED(Event))
 {
     SetColorHelper(
         m_SetPenColorDialog,
-        LOCALIZED_SETCOLOR_PENCOLOR,
+        GetResourceString(L"LOCALIZED_SETCOLOR_PENCOLOR"),
         pcolor,
-        LOCALIZED_ALTERNATE_SETPENCOLOR);
+        GetResourceString(L"LOCALIZED_ALTERNATE_SETPENCOLOR"));
 }
 
 void CMainFrame::OnSetFloodColor(wxCommandEvent& WXUNUSED(Event))
 {
     SetColorHelper(
         m_SetFloodColorDialog,
-        LOCALIZED_SETCOLOR_FLOODCOLOR,
+        GetResourceString(L"LOCALIZED_SETCOLOR_FLOODCOLOR"),
         fcolor,
-        LOCALIZED_ALTERNATE_SETFLOODCOLOR);
+			GetResourceString(L"LOCALIZED_ALTERNATE_SETFLOODCOLOR"));
 }
 
 void CMainFrame::OnSetScreenColor(wxCommandEvent& WXUNUSED(Event))
 {
     SetColorHelper(
         m_SetScreenColorDialog,
-        LOCALIZED_SETCOLOR_SCREENCOLOR,
+        GetResourceString(L"LOCALIZED_SETCOLOR_SCREENCOLOR"),
         scolor,
-        LOCALIZED_ALTERNATE_SETSCREENCOLOR);
+        GetResourceString(L"LOCALIZED_ALTERNATE_SETSCREENCOLOR"));
 }
 
 void CMainFrame::ShowStatus()
@@ -2196,8 +2196,8 @@ void CMainFrame::OnSetActiveArea(wxCommandEvent& WXUNUSED(Event))
             {
                 // The settings are no good.  Notify the user and try again.
                 wxMessageBox(
-					wxString(LOCALIZED_ERROR_BADINPUT),
-					wxString(LOCALIZED_ACTIVEAREA));
+					GetResourceString(L"LOCALIZED_ERROR_BADINPUT"),
+						GetResourceString(L"LOCALIZED_ACTIVEAREA"));
                 isOk = false;
             }
             else
@@ -2227,6 +2227,7 @@ void CMainFrame::OnSetActiveArea(wxCommandEvent& WXUNUSED(Event))
         }
     } while (!isOk);
 }
+extern wxString NormalizeCaseForDisplay(wxString text);
 
 void CMainFrame::OnSetLabelFont(wxCommandEvent& WXUNUSED(Event))
 {
@@ -2254,12 +2255,8 @@ void CMainFrame::OnSetLabelFont(wxCommandEvent& WXUNUSED(Event))
             const class wxNativeFontInfo * nativeFontInfo = (class wxNativeFontInfo*)fontInfo;
 
             // commit to the new font
-            wchar_t setlabelfont[MAX_BUFFER_SIZE];
-
-            NormalizeCaseForDisplay(
-                setlabelfont,
-                LOCALIZED_ALTERNATE_SETLABELFONT,
-                STRINGLENGTH(LOCALIZED_ALTERNATE_SETLABELFONT));
+			wxString slf = GetResourceString(L"LOCALIZED_ALTERNATE_SETLABELFONT");
+			wxString setlabelfont = NormalizeCaseForDisplay(slf);
 
 			wxString logoInstruction = wxString::Format(
                 L"%s [[%s] %ld %ld %ld %ld %d %d %d %d %d %d %d %d]",
@@ -2336,8 +2333,7 @@ void CMainFrame::OnHelpTutorial(wxCommandEvent& WXUNUSED(Event))
 
 void CMainFrame::OnHelpDemo(wxCommandEvent& WXUNUSED(Event))
 {
-    wchar_t command[] = L"demo";
-    do_execution(command);
+    do_execution(L"demo");
 }
 
 void

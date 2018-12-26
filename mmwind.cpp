@@ -21,6 +21,7 @@
 
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
+#include <wx/string.h>
     #include <windows.h>
 
     #include "mmwind.h"
@@ -45,8 +46,8 @@
 #endif
 
 // global variables
-wchar_t mci_callback[MAX_BUFFER_SIZE] = { 0 };    // MCI callback code
-wchar_t *timer_callback[MAX_TIMERS] = { 0 };      // timer cb malloc'd as needed
+wxString mci_callback;    // MCI callback code
+wxString timer_callback[MAX_TIMERS];      // timer cb malloc'd as needed
 
 static HMIDIOUT hMidiOut = 0;
 
@@ -86,15 +87,15 @@ NODE *lsound(NODE *arg)
         else
         {
             ShowMessageAndStop(
-                LOCALIZED_ERROR_SOUND, 
-                LOCALIZED_ERROR_BADINPUTNOTPAIRED);
+                GetResourceString(L"LOCALIZED_ERROR_SOUND"), 
+                GetResourceString(L"LOCALIZED_ERROR_BADINPUTNOTPAIRED"));
         }
     }
     else
     {
         ShowMessageAndStop(
-            LOCALIZED_ERROR_SOUND, 
-            LOCALIZED_ERROR_BADINPUT);
+            GetResourceString(L"LOCALIZED_ERROR_SOUND"),
+            GetResourceString(L"LOCALIZED_ERROR_BADINPUT"));
     }
 
     return Unbound;
@@ -106,9 +107,8 @@ ThrowGeneralMidiError(
     UINT MidiError
     )
 {
-    // convert the error into a string
-	wchar_t midiErrorBuffer[MAX_BUFFER_SIZE];
-    midiOutGetErrorText(MidiError, midiErrorBuffer, sizeof(midiErrorBuffer));
+	wchar_t midiErrorBuffer[MAX_BUFFER_SIZE + 1] = { 0 };
+    midiOutGetErrorText(MidiError, midiErrorBuffer, ARRAYSIZE(midiErrorBuffer)-1);
 
     // report the error
     err_logo(MIDI_GENERAL, make_strnode(midiErrorBuffer));
@@ -142,7 +142,7 @@ NODE *lmidiopen(NODE *args)
         }
     }
 
-    MIDIOUTCAPS moc;
+	MIDIOUTCAPS moc = { 0 };
     UINT MidiError = midiOutGetDevCaps(id, &moc, sizeof(moc));
     if (!MidiError) 
     {
@@ -286,29 +286,27 @@ NODE *lmci(NODE *args)
     CStringPrintedNode command(car(args));
 
     // check for optional callback routine 
-	wchar_t callback[MAX_BUFFER_SIZE];
+	wxString callback;
     if (cdr(args) != NIL)
     {
-        cnv_strnode_string(callback, cdr(args));
-        wcscpy(mci_callback, callback);
+        callback = cnv_strnode_string(cdr(args));
     }
 
-	wchar_t mciReturnBuffer[MAX_BUFFER_SIZE];
-    mciReturnBuffer[0] = L'\0';
+	wchar_t mciReturnBuffer[MAX_BUFFER_SIZE + 1] = { 0 };
 
     // send out command 
     DWORD mciError = mciSendString(
         command,
         mciReturnBuffer,
-        ARRAYSIZE(mciReturnBuffer),
+        ARRAYSIZE(mciReturnBuffer)-1,
         GetMainWindow());
 
     if (mciError != ERROR_SUCCESS)
     {
         // let user know about the error
-		wchar_t mciErrorBuffer[MAX_BUFFER_SIZE];
-        mciGetErrorString(mciError, mciErrorBuffer, ARRAYSIZE(mciErrorBuffer));
-        ShowMessageAndStop(LOCALIZED_ERROR_MCI, mciErrorBuffer);
+		wchar_t mciErrorBuffer[MAX_BUFFER_SIZE + 1] = { 0 };
+        mciGetErrorString(mciError, mciErrorBuffer, ARRAYSIZE(mciErrorBuffer)-1);
+        ShowMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_MCI"), mciErrorBuffer);
     }
     else
     {
@@ -333,16 +331,11 @@ NODE *lsettimer(NODE *args)
     int delay = getint(nonnegative_int_arg(args = cdr(args)));
 
     // get callback
-	wchar_t callback[MAX_BUFFER_SIZE];
-    cnv_strnode_string(callback, args = cdr(args));
+	wxString callback = cnv_strnode_string(args = cdr(args));
 
     if (NOT_THROWING)
     {
-        if (timer_callback[id] == NULL) 
-        {
-            timer_callback[id] = (wchar_t *) malloc(MAX_BUFFER_SIZE*sizeof(wchar_t));
-        }
-        wcscpy(timer_callback[id], callback);
+		timer_callback[id] = callback;
 
         // if not set sucessfully error
         if (!::SetTimer(GetMainWindow(), id, delay, NULL))
@@ -376,10 +369,10 @@ NODE *lcleartimer(NODE *args)
 
 void init_timers()
 {
-    for (size_t i = 0; i < MAX_TIMERS; i++)
-    {
-        timer_callback[i] = NULL;
-    }
+    //for (size_t i = 0; i < MAX_TIMERS; i++)
+    //{
+    //    timer_callback[i].clear();
+    //}
 }
 
 void halt_all_timers()
@@ -394,12 +387,12 @@ void uninitialize_timers()
 {
     for (int id = 0; id < MAX_TIMERS; id++)
     {
-        if (timer_callback[id] != NULL)
+        if (timer_callback[id].length()>0)
         {
             KillTimer(GetMainWindow(), id);
 
-            free(timer_callback[id]);
-            timer_callback[id] = NULL;
+            //free(timer_callback[id]);
+            //timer_callback[id] = NULL;
         }
     }
 }

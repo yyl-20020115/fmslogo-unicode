@@ -27,14 +27,14 @@ enum KEYBOARDCAPTURE
 };
 
 // global variables
-extern wchar_t *keyboard_status;
-extern wchar_t *keyboard_keydown;
-extern wchar_t *keyboard_keyup;
-extern wchar_t *mouse_lbuttondown;
-extern wchar_t *mouse_lbuttonup;
-extern wchar_t *mouse_rbuttondown;
-extern wchar_t *mouse_rbuttonup;
-extern wchar_t *mouse_mousemove;
+extern class wxString keyboard_status;
+extern class wxString keyboard_keydown;
+extern class wxString keyboard_keyup;
+extern class wxString mouse_lbuttondown;
+extern class wxString mouse_lbuttonup;
+extern class wxString mouse_rbuttondown;
+extern class wxString mouse_rbuttonup;
+extern class wxString mouse_mousemove;
 
 extern enum KEYBOARDCAPTURE KeyboardCapture;
 extern int keyboard_value;

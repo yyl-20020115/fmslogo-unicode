@@ -82,9 +82,9 @@ CSelectProcedureDialog::CSelectProcedureDialog(
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
     static const MENUITEM buttonInfo[] = {
-        {LOCALIZED_SELECTPROCEDURE_OK,     wxID_OK},
-        {LOCALIZED_SELECTPROCEDURE_ALL,    ID_ALL},
-        {LOCALIZED_SELECTPROCEDURE_CANCEL, wxID_CANCEL},
+        {GetResourceString(L"LOCALIZED_SELECTPROCEDURE_OK"),     wxID_OK},
+        {GetResourceString(L"LOCALIZED_SELECTPROCEDURE_ALL"),    ID_ALL},
+        {GetResourceString(L"LOCALIZED_SELECTPROCEDURE_CANCEL"), wxID_CANCEL},
     };
 
 

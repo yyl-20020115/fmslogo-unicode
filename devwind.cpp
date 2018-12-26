@@ -57,13 +57,13 @@ bool MouseCaptureIsEnabled = false;    // Flag to signal Mouse is enabled
 int mouse_posx = 0;                    // Value of Mouse position x
 int mouse_posy = 0;                    // Value of Mouse position y
 
-wchar_t *mouse_lbuttondown = NULL;        // Mouse Left button down cb
-wchar_t *mouse_lbuttonup = NULL;          // Mouse Right button up cb
-wchar_t *mouse_rbuttondown = NULL;        // Mouse Left button down cb
-wchar_t *mouse_rbuttonup = NULL;          // Mouse Right button up cb
-wchar_t *mouse_mousemove = NULL;          // Mouse Move cb
-wchar_t *keyboard_keydown = NULL;         // KeyBoard key down
-wchar_t *keyboard_keyup = NULL;           // KeyBoard key up
+wxString mouse_lbuttondown;        // Mouse Left button down cb
+wxString mouse_lbuttonup;          // Mouse Right button up cb
+wxString mouse_rbuttondown;        // Mouse Left button down cb
+wxString mouse_rbuttonup;          // Mouse Right button up cb
+wxString mouse_mousemove;          // Mouse Move cb
+wxString keyboard_keydown;         // KeyBoard key down
+wxString keyboard_keyup;           // KeyBoard key up
 
 #ifndef WX_PURE
 static HANDLE ComId;
@@ -74,41 +74,20 @@ static bool   ComIsOpen = false;
 
 NODE *lmouseon(NODE *args)
 {
+	//TODO: FIXME
     // get args
-    wchar_t lbuttondown[MAX_BUFFER_SIZE];
-    cnv_strnode_string(lbuttondown, args);
+	mouse_lbuttondown = cnv_strnode_string(args);
 
-	wchar_t lbuttonup[MAX_BUFFER_SIZE];
-    cnv_strnode_string(lbuttonup, args = cdr(args));
+	mouse_lbuttonup = cnv_strnode_string(args = cdr(args));
 
-	wchar_t rbuttondown[MAX_BUFFER_SIZE];
-    cnv_strnode_string(rbuttondown, args = cdr(args));
+	mouse_rbuttondown = cnv_strnode_string(args = cdr(args));
 
-	wchar_t rbuttonup[MAX_BUFFER_SIZE];
-    cnv_strnode_string(rbuttonup, args = cdr(args));
+	mouse_rbuttonup = cnv_strnode_string(args = cdr(args));
 
-	wchar_t mousemove[MAX_BUFFER_SIZE];
-    cnv_strnode_string(mousemove, args = cdr(args));
+	mouse_mousemove = cnv_strnode_string(args = cdr(args));
 
     // most of mouse code is in DEFWNDPROC when this flag is on
     MouseCaptureIsEnabled = true;
-
-    if (mouse_lbuttondown == NULL)
-    {
-        mouse_lbuttondown = (wchar_t *) malloc(MAX_BUFFER_SIZE*sizeof(wchar_t));
-        mouse_lbuttonup = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-        mouse_rbuttondown = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-        mouse_rbuttonup = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-        mouse_mousemove = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-    }
-
-    // these really should be NODEs but not yet
-
-    wcscpy(mouse_lbuttondown, lbuttondown);
-	wcscpy(mouse_lbuttonup, lbuttonup);
-	wcscpy(mouse_rbuttondown, rbuttondown);
-	wcscpy(mouse_rbuttonup, rbuttonup);
-	wcscpy(mouse_mousemove, mousemove);
 
     return Unbound;
 }
@@ -123,54 +102,28 @@ NODE *lmouseoff(NODE *)
 
 void mouse_uninit()
 {
-    free(mouse_lbuttondown);
-    mouse_lbuttondown = NULL;
-   
-    free(mouse_lbuttonup);
-    mouse_lbuttonup = NULL;
-   
-    free(mouse_rbuttondown);
-    mouse_rbuttondown = NULL;
-   
-    free(mouse_rbuttonup);
-    mouse_rbuttonup = NULL;
-   
-    free(mouse_mousemove);
-    mouse_mousemove = NULL;
+
 }
 
 NODE *lkeyboardon(NODE *args)
 {
-    if (keyboard_keyup == NULL)
-    {
-        keyboard_keyup = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-        keyboard_keydown = (wchar_t *) malloc(MAX_BUFFER_SIZE * sizeof(wchar_t));
-    }
-
     // get args
     if (cdr(args) == NIL)
     {
-		wchar_t keyboardup[MAX_BUFFER_SIZE];
-        cnv_strnode_string(keyboardup, args);
+		keyboard_keyup = cnv_strnode_string(args);
 
         // most keyboard processing is done in DEFWNDPROC
         KeyboardCapture = KEYBOARDCAPTURE_KeyDown;
-
-        wcscpy(keyboard_keyup, keyboardup);
     }
     else
     {
-		wchar_t keyboarddown[MAX_BUFFER_SIZE];
-        cnv_strnode_string(keyboarddown, args);
+		keyboard_keydown = cnv_strnode_string(args);
 
-		wchar_t keyboardup[MAX_BUFFER_SIZE];
-        cnv_strnode_string(keyboardup, cdr(args));
+		keyboard_keyup = cnv_strnode_string( cdr(args));
 
         // most keyboard processing is done in DEFWNDPROC
         KeyboardCapture = KEYBOARDCAPTURE_KeyDownKeyUp;
 
-        wcscpy(keyboard_keydown, keyboarddown);
-        wcscpy(keyboard_keyup, keyboardup);
     }
 
     return Unbound;
@@ -186,11 +139,7 @@ NODE *lkeyboardoff(NODE *)
 
 void keyboard_uninit()
 {
-    free(keyboard_keyup);
-    keyboard_keyup = NULL;
-   
-    free(keyboard_keydown);
-    keyboard_keydown = NULL;
+
 }
 
 NODE *lmousepos(NODE *)
@@ -216,7 +165,7 @@ NODE *lportclose(NODE *)
     // if port closed output error else close it
     if (!ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_CANTCLOSEPORT);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_CANTCLOSEPORT"));
     }
     else
     {
@@ -236,7 +185,7 @@ NODE *lportopen(NODE *args)
     // if port open output error else open it
     if (ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTALREADYOPEN);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTALREADYOPEN"));
     }
     else
     {
@@ -270,7 +219,7 @@ NODE *lportopen(NODE *args)
 
         if (ComId < 0)
         {
-            ShowErrorMessageAndStop(LOCALIZED_ERROR_CANTOPENPORT);
+            ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_CANTOPENPORT"));
         }
         else
         {
@@ -286,7 +235,7 @@ NODE *lportflush(NODE * /* args */)
 {
     if (!ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
     }
     else
     {
@@ -294,7 +243,7 @@ NODE *lportflush(NODE * /* args */)
         int err = FlushFileBuffers(ComId);
         if (err == 0)
         {
-            ShowErrorMessageAndStop(LOCALIZED_ERROR_CANTFLUSHPORT);
+            ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_CANTFLUSHPORT"));
         }
 #endif
     }
@@ -309,7 +258,7 @@ NODE *lportmode(NODE *args)
     // if closed output error else set mode
     if (!ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
     }
     else
     {
@@ -322,7 +271,7 @@ NODE *lportmode(NODE *args)
 
         if (err == 0)
         {
-            ShowErrorMessageAndStop(LOCALIZED_ERROR_CANTDCBONPORT);
+            ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_CANTDCBONPORT"));
         }
         else
         {
@@ -339,7 +288,7 @@ NODE *lportmode(NODE *args)
             err = SetCommState(ComId, &dcbold);
             if (err == 0)
             {
-                ShowErrorMessageAndStop(LOCALIZED_ERROR_CANTSETPORT);
+                ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_CANTSETPORT"));
             }
         }
 #endif
@@ -370,12 +319,12 @@ NODE *lportwritearray(NODE *args)
         // if closed the error, else continue
         if (!ComIsOpen)
         {
-            ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+            ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
         }
         else
         {
             // get min of max array and the array
-			wchar_t txbuffer[MAX_BUFFER_SIZE];
+			wchar_t txbuffer[MAX_BUFFER_SIZE + 1] = { 0 };
             int count = min3(getint(val), getarrdim(obj), sizeof(txbuffer)/sizeof(wchar_t));
 
             // fill buffer with elements of the array
@@ -440,12 +389,12 @@ NODE *lportreadarray(NODE *args)
             // if closed the error, else continue
             if (!ComIsOpen)
             {
-                ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+                ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
             }
             else
             {
                 // don't overflow buffer
-				wchar_t rxbuffer[MAX_BUFFER_SIZE];
+				wchar_t rxbuffer[MAX_BUFFER_SIZE + 1] = { 0 };
                 int count = min3(getarrdim(obj), getint(val), sizeof(rxbuffer)/sizeof(wchar_t));
 
 #ifndef WX_PURE
@@ -488,7 +437,7 @@ NODE *lportwritechar(NODE *args)
 
     if (!ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
     }
     else
     {
@@ -520,7 +469,7 @@ NODE *lportreadchar(NODE *)
     // if closed output error, else continue
     if (!ComIsOpen)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_PORTNOTOPEN);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_PORTNOTOPEN"));
     }
     else
     {

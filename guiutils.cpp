@@ -73,7 +73,7 @@ FillMenu(
 {
     for (size_t i = 0; i < MenuItemsLength; i++)
     {
-        if (MenuItems[i].MenuText != NULL)
+        if (MenuItems[i].MenuText.length()>0)
         {
             Menu->Append(
                 MenuItems[i].MenuId,
@@ -89,7 +89,7 @@ FillMenu(
 void
 AppendChildMenu(
     wxMenuBar *       MainMenu,
-    const wchar_t *      ChildMenuText,
+    const wxString&   ChildMenuText,
     const MENUITEM *  ChildMenuItems,
     size_t            ChildMenuItemsLength
     )

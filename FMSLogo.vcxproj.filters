@@ -150,42 +150,6 @@
     <ClInclude Include="localizedstrings.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="localizedstrings-de.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-en.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-es.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-fr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-gr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-hr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-it.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-pl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-ps.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-pt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-ru.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-zh-cn.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="logocodectrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -315,43 +279,58 @@
     <ClInclude Include="version.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MFP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="localizedstrings-zh-cn-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-ru-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-pt-ucs2le.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="localizedstrings-ps-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-pl-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-it-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-hr-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-gr-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-fr-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-es-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-en-ucs2le.h">
-      <Filter>头文件</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="localizedstrings-de-ucs2le.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CLocalizedStringProvider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextStream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CStringTextStream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CUnicodeFileTextStream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CMbcsFileTextStream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstStringTextReadonlyStream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CFileTextStream.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -587,6 +566,30 @@
     <ClCompile Include="dllwind.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="localizedstrings.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CLocalizedStringProvider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CStringTextStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CUnicodeFileTextStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CMbcsFileTextStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstStringTextReadonlyStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CFileTextStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FMSLogo.rc">
@@ -598,6 +601,39 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="FMSLogo.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\std.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\folder1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\folder2.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\file1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\computer.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\drive.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\cdrom.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\floppy.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\removble.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\csquery.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="wx\msw\colours.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
@@ -613,5 +649,40 @@
     <CopyFileToFolders Include="startup.logoscript">
       <Filter>资源文件</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wx\msw\localize.bin">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\hand.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\bullseye.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\pencil.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\magnif1.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\roller.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\pbrush.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\pntleft.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\pntright.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\blank.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="wx\msw\cross.cur">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

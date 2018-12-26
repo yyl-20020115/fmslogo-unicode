@@ -127,7 +127,7 @@ NODE *lchdir(NODE *arg)
 
     if (_wchdir(directoryName))
     {
-        printfx(LOCALIZED_FILE_CHDIRFAILED, directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), directoryName);
     }
     else
     {
@@ -135,7 +135,7 @@ NODE *lchdir(NODE *arg)
 		wchar_t newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
 		_wgetcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(wchar_t));
 
-        printfx(LOCALIZED_FILE_CHDIRSUCCEEDED, (newDirectoryName));
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), (newDirectoryName));
     }
 
     return Unbound;
@@ -148,7 +148,7 @@ NODE *lpopdir(NODE *)
     wchar_t fname[MAX_BUFFER_SIZE + 1] = { 0 };
 	_wgetcwd(fname, sizeof(fname) / sizeof(wchar_t));
 
-    printfx(LOCALIZED_FILE_POPPEDTO, fname);
+    printfx(GetResourceString(L"LOCALIZED_FILE_POPPEDTO"), fname);
 
     return Unbound;
 }
@@ -161,13 +161,13 @@ NODE *lmkdir(NODE *arg)
     if (_wmkdir(directoryName))
     {
         // mkdir returns -1 on error
-        printfx(LOCALIZED_FILE_MKDIRFAILED, directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRFAILED"), directoryName);
     }
     else
     {
         // mkdir returns 0 on success
 		_wchdir(directoryName);
-		printfx(LOCALIZED_FILE_MKDIRSUCCEEDED, directoryName);
+		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), directoryName);
     }
 #endif
 
@@ -180,14 +180,14 @@ NODE *lrmdir(NODE *arg)
 
     if (_wrmdir(directoryName))
     {
-        printfx(LOCALIZED_FILE_RMDIRFAILED, directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), directoryName);
         if (errno == EEXIST)
         {
-            printfx(LOCALIZED_FILE_RMDIRFAILEDNOEXIST);
+            printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILEDNOEXIST"));
         }
         else if (errno == EEXIST || errno == EPERM)
         {
-            printfx(LOCALIZED_FILE_RMDIRFAILEDNOTEMPTY);
+            printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILEDNOTEMPTY"));
         }
         else
         {
@@ -196,7 +196,7 @@ NODE *lrmdir(NODE *arg)
     }
     else
     {
-        printfx(LOCALIZED_FILE_RMDIRSUCCEEDED, directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRSUCCEEDED"), directoryName);
     }
 
     return Unbound;

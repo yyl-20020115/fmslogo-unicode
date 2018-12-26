@@ -261,6 +261,7 @@ GetConfigurationString(
 
     if (useDefaultValue &&Value!=0 && DefaultValue!=0)
     {
+		//TODO: FIXME
 		wcscpy(Value, DefaultValue);
 	}
 #endif // WX_PURE
@@ -336,13 +337,13 @@ GetRelativeFontPropertyPointer(
 	const wchar_t *  FullyQualifiedName
     )
 {
-    // find where the relative property name should start
-	wxString  relativeName = wcschr(FullyQualifiedName, L'\0');
+ //   // find where the relative property name should start
+	//wxString  relativeName = wcschr(FullyQualifiedName, L'\0');
 
-    // add a '.' to distigush the relative part from the absolute part.
-	relativeName.Append(L'.');
+ //   // add a '.' to distigush the relative part from the absolute part.
+	//relativeName.Append(L'.');
 
-    return relativeName;
+	return FullyQualifiedName + L'.';
 }
 
 void
@@ -360,7 +361,7 @@ GetConfigurationFont(
         relativeName + FONTPROPERTY_FaceName,
         LogFont.lfFaceName,
         LF_FACESIZE,
-        LOCALIZED_DEFAULT_FONT_FACE);
+        GetResourceString(L"LOCALIZED_DEFAULT_FONT_FACE"));
 
     LogFont.lfHeight = GetConfigurationInt(relativeName + FONTPROPERTY_Height, -13);
 

@@ -22,8 +22,8 @@
 struct NODE;
 
 // global variables
-extern wchar_t mci_callback[];
-extern wchar_t *timer_callback[];
+extern class wxString mci_callback;
+extern class wxString timer_callback[];
 
 // function declarations
 extern NODE *lmci(NODE *arg);

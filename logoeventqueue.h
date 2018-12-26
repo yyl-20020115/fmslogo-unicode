@@ -20,6 +20,7 @@
 
 #include <stddef.h>
 #include "logodata.h"
+#include <wx/string.h>
 
 class qlink
 {
@@ -92,10 +93,10 @@ private:
 
 public:
     // structured ways to create events
-    static callthing * CreateKeyboardEvent(wchar_t * function, int key);
-    static callthing * CreateMouseEvent(wchar_t * function, int x, int y);
-    static callthing * CreateFunctionEvent(wchar_t * function);
-    static callthing * CreateNoYieldFunctionEvent(wchar_t * function);
+    static callthing * CreateKeyboardEvent(const wxString& function, int key);
+    static callthing * CreateMouseEvent(const wxString& function, int x, int y);
+    static callthing * CreateFunctionEvent(const wxString& function);
+    static callthing * CreateNoYieldFunctionEvent(const wxString& function);
 
     static callthing * CreateNetworkReceiveReadyEvent(
         class CNetworkConnection * NetworkConnection,
@@ -108,7 +109,7 @@ public:
     // CONSIDER: a union would make this struct smaller
     EVENTTYPE            kind;
     CNetworkConnection * networkconnection;
-	wchar_t *               func;
+	wxString               func;
 	char *               networkpacket;
     int                  arg1;
     int                  arg2;

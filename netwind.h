@@ -48,8 +48,8 @@ protected:
 
     void
     Enable(
-        const wchar_t *    OnSendReady,
-        const wchar_t *    OnReceiveReady
+        const wxString&    OnSendReady,
+        const wxString&    OnReceiveReady
         );
 
     // private helper functions
@@ -75,8 +75,8 @@ protected:
     bool   m_IsBusy;       // socket is too busy to send
     bool   m_IsEnabled;    // if message processing is enabled for this socket
 
-	wchar_t * m_OnReceiveReady;  // Buffer for receive callback
-	wchar_t * m_OnSendReady;     // Buffer for send    callback
+	wxString m_OnReceiveReady;  // Buffer for receive callback
+	wxString m_OnSendReady;     // Buffer for send    callback
     char * m_ReceiveValue;    // pointer to the last packet received
 
 

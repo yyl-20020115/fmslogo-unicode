@@ -23,6 +23,7 @@
     <ProjectGuid>{7E7EC7EA-E827-444A-A911-78A299F2FD31}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>FMSLogo</RootNamespace>
+    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -35,7 +36,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141_xp</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -94,7 +95,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -113,7 +114,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -134,7 +135,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -160,7 +161,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <DisableSpecificWarnings>4996;4005;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -184,6 +185,10 @@
     <ClInclude Include="appendablelist.h" />
     <ClInclude Include="argumentutils.h" />
     <ClInclude Include="avltree.h" />
+    <ClInclude Include="CConstStringTextReadonlyStream.h" />
+    <ClInclude Include="CFileTextStream.h" />
+    <ClInclude Include="CLocalizedStringProvider.h" />
+    <ClInclude Include="CMbcsFileTextStream.h" />
     <ClInclude Include="commander.h" />
     <ClInclude Include="commanderbutton.h" />
     <ClInclude Include="commanderhistory.h" />
@@ -191,6 +196,9 @@
     <ClInclude Include="commandertogglebutton.h" />
     <ClInclude Include="coms.h" />
     <ClInclude Include="const.h" />
+    <ClInclude Include="CStringTextStream.h" />
+    <ClInclude Include="CTextStream.h" />
+    <ClInclude Include="CUnicodeFileTextStream.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="devwind.h" />
     <ClInclude Include="dib.h" />
@@ -219,29 +227,16 @@
     <ClInclude Include="lists.h" />
     <ClInclude Include="localizednode.h" />
     <ClInclude Include="localizedstrings-de-ucs2le.h" />
-    <ClInclude Include="localizedstrings-de.h" />
     <ClInclude Include="localizedstrings-en-ucs2le.h" />
-    <ClInclude Include="localizedstrings-en.h" />
     <ClInclude Include="localizedstrings-es-ucs2le.h" />
-    <ClInclude Include="localizedstrings-es.h" />
     <ClInclude Include="localizedstrings-fr-ucs2le.h" />
-    <ClInclude Include="localizedstrings-fr.h" />
     <ClInclude Include="localizedstrings-gr-ucs2le.h" />
-    <ClInclude Include="localizedstrings-gr.h" />
     <ClInclude Include="localizedstrings-hr-ucs2le.h" />
-    <ClInclude Include="localizedstrings-hr.h" />
     <ClInclude Include="localizedstrings-it-ucs2le.h" />
-    <ClInclude Include="localizedstrings-it.h" />
     <ClInclude Include="localizedstrings-pl-ucs2le.h" />
-    <ClInclude Include="localizedstrings-pl.h" />
-    <ClInclude Include="localizedstrings-ps-ucs2le.h" />
-    <ClInclude Include="localizedstrings-ps.h" />
     <ClInclude Include="localizedstrings-pt-ucs2le.h" />
-    <ClInclude Include="localizedstrings-pt.h" />
     <ClInclude Include="localizedstrings-ru-ucs2le.h" />
-    <ClInclude Include="localizedstrings-ru.h" />
     <ClInclude Include="localizedstrings-zh-cn-ucs2le.h" />
-    <ClInclude Include="localizedstrings-zh-cn.h" />
     <ClInclude Include="localizedstrings.h" />
     <ClInclude Include="logocodectrl.h" />
     <ClInclude Include="logocore.h" />
@@ -253,7 +248,6 @@
     <ClInclude Include="mainwind.h" />
     <ClInclude Include="mem.h" />
     <ClInclude Include="messagebox.h" />
-    <ClInclude Include="MFP.h" />
     <ClInclude Include="minieditor.h" />
     <ClInclude Include="minieditortextctrl.h" />
     <ClInclude Include="mmwind.h" />
@@ -299,12 +293,19 @@
     <ClCompile Include="appendablelist.cpp" />
     <ClCompile Include="argumentutils.cpp" />
     <ClCompile Include="avltree.cpp" />
+    <ClCompile Include="CConstStringTextReadonlyStream.cpp" />
+    <ClCompile Include="CFileTextStream.cpp" />
+    <ClCompile Include="CLocalizedStringProvider.cpp" />
+    <ClCompile Include="CMbcsFileTextStream.cpp" />
     <ClCompile Include="commander.cpp" />
     <ClCompile Include="commanderbutton.cpp" />
     <ClCompile Include="commanderhistory.cpp" />
     <ClCompile Include="commanderinput.cpp" />
     <ClCompile Include="commandertogglebutton.cpp" />
     <ClCompile Include="coms.cpp" />
+    <ClCompile Include="CStringTextStream.cpp" />
+    <ClCompile Include="CTextStream.cpp" />
+    <ClCompile Include="CUnicodeFileTextStream.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="devwind.cpp" />
     <ClCompile Include="dib.cpp" />
@@ -332,6 +333,7 @@
     <ClCompile Include="intern.cpp" />
     <ClCompile Include="lists.cpp" />
     <ClCompile Include="localizednode.cpp" />
+    <ClCompile Include="localizedstrings.cpp" />
     <ClCompile Include="logocodectrl.cpp" />
     <ClCompile Include="logodata.cpp" />
     <ClCompile Include="logodialogboxes.cpp" />
@@ -381,6 +383,17 @@
   <ItemGroup>
     <Image Include="FMSLogo.ico" />
     <Image Include="small.ico" />
+    <Image Include="wx\msw\cdrom.ico" />
+    <Image Include="wx\msw\colours.bmp" />
+    <Image Include="wx\msw\computer.ico" />
+    <Image Include="wx\msw\csquery.bmp" />
+    <Image Include="wx\msw\drive.ico" />
+    <Image Include="wx\msw\file1.ico" />
+    <Image Include="wx\msw\floppy.ico" />
+    <Image Include="wx\msw\folder1.ico" />
+    <Image Include="wx\msw\folder2.ico" />
+    <Image Include="wx\msw\removble.ico" />
+    <Image Include="wx\msw\std.ico" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="helpers32.asm">
@@ -404,6 +417,19 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
       <FileType>Document</FileType>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wx\msw\blank.cur" />
+    <None Include="wx\msw\bullseye.cur" />
+    <None Include="wx\msw\cross.cur" />
+    <None Include="wx\msw\hand.cur" />
+    <None Include="wx\msw\localize.bin" />
+    <None Include="wx\msw\magnif1.cur" />
+    <None Include="wx\msw\pbrush.cur" />
+    <None Include="wx\msw\pencil.cur" />
+    <None Include="wx\msw\pntleft.cur" />
+    <None Include="wx\msw\pntright.cur" />
+    <None Include="wx\msw\roller.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

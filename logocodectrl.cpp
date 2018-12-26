@@ -295,7 +295,7 @@ void CLogoCodeCtrl::Print()
     pageSetup.ShowModal();
 
     CLogoCodePrintout printout(
-		wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
         *this,
         pageSetupData);
 
@@ -1409,12 +1409,12 @@ CLogoCodeCtrl::Find(
     {
         // Notify the user that we were unable to find it.
         const wxString & notFoundMessage = wxString::Format(
-			wxString(LOCALIZED_STRINGTABLE_CANNOTFINDSTRING),
+			GetResourceString(L"LOCALIZED_STRINGTABLE_CANNOTFINDSTRING"),
             StringToFind.c_str());
 
         ::wxMessageBox(
             notFoundMessage,
-			wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+			GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
             wxICON_WARNING | wxOK,
             this);
     }

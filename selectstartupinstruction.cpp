@@ -47,7 +47,7 @@ CSelectStartupInstructionDialog::CSelectStartupInstructionDialog(
     : wxDialog(
         Parent,
         wxID_ANY,
-		wxString(LOCALIZED_SELECTSTARTUP_CAPTION)),
+		GetResourceString(L"LOCALIZED_SELECTSTARTUP_CAPTION")),
       m_InstructionText(NULL),
       m_ProcedureList(NULL)
 {
@@ -59,15 +59,15 @@ CSelectStartupInstructionDialog::CSelectStartupInstructionDialog(
     switch (ExplainText)
     {
     case EXPLAINTEXT_StartupNotDefined:
-        explainText = LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_UNDEFINED;
+        explainText = GetResourceString(L"LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_UNDEFINED");
         break;
 
     case EXPLAINTEXT_StartupEmpty:
-        explainText = LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_EMPTY;
+        explainText = GetResourceString(L"LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_EMPTY");
         break;
 
     case EXPLAINTEXT_StartupNotList:
-        explainText = LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_NOTLIST;
+        explainText = GetResourceString(L"LOCALIZED_SELECTSTARTUP_EXPLAINTEXT_NOTLIST");
         break;
 
     default:
@@ -118,7 +118,7 @@ CSelectStartupInstructionDialog::CSelectStartupInstructionDialog(
     else
     {
         // There are no procedures
-        m_ProcedureList->Append(wxString(LOCALIZED_SELECTSTARTUP_NOPROCEDURESDEFINED));
+        m_ProcedureList->Append(GetResourceString(L"LOCALIZED_SELECTSTARTUP_NOPROCEDURESDEFINED"));
         m_ProcedureList->Disable();
     }
 
@@ -132,8 +132,8 @@ CSelectStartupInstructionDialog::CSelectStartupInstructionDialog(
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
     static const MENUITEM buttonInfo[] = {
-        {LOCALIZED_SELECTPROCEDURE_OK,     wxID_OK},
-        {LOCALIZED_SELECTPROCEDURE_CANCEL, wxID_CANCEL},
+        {GetResourceString(L"LOCALIZED_SELECTPROCEDURE_OK"),     wxID_OK},
+        {GetResourceString(L"LOCALIZED_SELECTPROCEDURE_CANCEL"), wxID_CANCEL},
     };
 
 

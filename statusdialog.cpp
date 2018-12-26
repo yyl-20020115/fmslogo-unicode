@@ -56,7 +56,7 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
     : wxDialog(
         Parent, 
         wxID_ANY, 
-		wxString(LOCALIZED_STATUS),
+		GetResourceString(L"LOCALIZED_STATUS"),
         wxDefaultPosition, 
         wxDefaultSize, 
         wxCAPTION | wxCLOSE_BOX | wxSYSTEM_MENU)
@@ -76,16 +76,17 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
 
     struct STATICBOX
     {
-        const wchar_t *        Category;
-        const wchar_t *        FieldName[4];
+        wxString        Category;
+		wxString        FieldName[4];
         wxStaticText * *    FieldValue[4];
     } data[] = {
         {
-            LOCALIZED_STATUS_PEN,
+            GetResourceString(L"LOCALIZED_STATUS_PEN"),
             {
-                LOCALIZED_STATUS_CONTACT,
-                LOCALIZED_STATUS_WIDTH, 
-                LOCALIZED_STATUS_STYLE,
+                GetResourceString(L"LOCALIZED_STATUS_CONTACT"),
+                GetResourceString(L"LOCALIZED_STATUS_WIDTH"), 
+                GetResourceString(L"LOCALIZED_STATUS_STYLE"),
+				L"",
             },
             {
                 &m_PenContact,
@@ -94,11 +95,11 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
             },
         },
         {
-            LOCALIZED_STATUS_ORIENTATION,
+            GetResourceString(L"LOCALIZED_STATUS_ORIENTATION"),
             {
-                LOCALIZED_STATUS_HEADING,
-                LOCALIZED_STATUS_PITCH, 
-                LOCALIZED_STATUS_ROLL,
+				GetResourceString(L"LOCALIZED_STATUS_HEADING"),
+				GetResourceString(L"LOCALIZED_STATUS_PITCH"), 
+				GetResourceString(L"LOCALIZED_STATUS_ROLL"),
             },
             {
                 &m_TurtleHeading,
@@ -107,11 +108,11 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
             },
         },
         {
-            LOCALIZED_STATUS_TURTLE,
+			GetResourceString(L"LOCALIZED_STATUS_TURTLE"),
             {
-                LOCALIZED_STATUS_POSITION,
-                LOCALIZED_STATUS_WHICH, 
-                LOCALIZED_STATUS_VISIBILITY,
+				GetResourceString(L"LOCALIZED_STATUS_POSITION"),
+				GetResourceString(L"LOCALIZED_STATUS_WHICH"),
+				GetResourceString(L"LOCALIZED_STATUS_VISIBILITY"),
             },
             {
                 &m_TurtlePosition,
@@ -120,11 +121,11 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
             },
         },
         {
-            LOCALIZED_STATUS_COLOR,
+			GetResourceString(L"LOCALIZED_STATUS_COLOR"),
             {
-                LOCALIZED_STATUS_PENCOLOR,
-                LOCALIZED_STATUS_FLOODCOLOR, 
-                LOCALIZED_STATUS_SCREENCOLOR,
+				GetResourceString(L"LOCALIZED_STATUS_PENCOLOR"),
+				GetResourceString(L"LOCALIZED_STATUS_FLOODCOLOR"),
+				GetResourceString(L"LOCALIZED_STATUS_SCREENCOLOR"),
             },
             {
                 &m_PenColor,
@@ -133,12 +134,12 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
             },
         },
         {
-            LOCALIZED_STATUS_KERNEL,
+			GetResourceString(L"LOCALIZED_STATUS_KERNEL"),
             {
-                LOCALIZED_STATUS_CALLS,
-                LOCALIZED_STATUS_PEAKMEMORY, 
-                LOCALIZED_STATUS_VECTORS":",
-                LOCALIZED_STATUS_POLYGONS":",
+				GetResourceString(L"LOCALIZED_STATUS_CALLS"),
+				GetResourceString(L"LOCALIZED_STATUS_PEAKMEMORY"),
+				GetResourceString(L"LOCALIZED_STATUS_VECTORS")+L":",
+				GetResourceString(L"LOCALIZED_STATUS_POLYGONS")+L":",
             },
             {
                 &m_TotalCalls,
@@ -168,7 +169,7 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
 
         for (size_t j = 0; j < ARRAYSIZE(data[i].FieldName); j++)
         {
-            if (data[i].FieldName[j] == NULL)
+            if (data[i].FieldName[j].Length()==0)
             {
                 // we've done all the fields for this static box
                 break;
@@ -209,7 +210,7 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
     // truncation.
     SetPenContact(true);
     SetPenWidth(100);
-    SetPenStyle(LOCALIZED_STATUS_PENREVERSE);
+    SetPenStyle(GetResourceString(L"LOCALIZED_STATUS_PENREVERSE"));
     SetTurtleHeading(350.1234);
     SetTurtlePitch(350.1234);
     SetTurtleRoll(350.1234);
@@ -257,11 +258,11 @@ void CStatusDialog::SetPenContact(bool PenIsUp)
 
     if (PenIsUp)
     {
-        text = LOCALIZED_STATUS_PENUP;
+        text = GetResourceString(L"LOCALIZED_STATUS_PENUP");
     }
     else
     {
-        text = LOCALIZED_STATUS_PENDOWN;
+        text = GetResourceString(L"LOCALIZED_STATUS_PENDOWN");
     }
 
     m_PenContact->SetLabel(wxString(text));
@@ -328,11 +329,11 @@ void CStatusDialog::SetTurtleVisibility(bool IsShown)
 
     if (IsShown)
     {
-        text = LOCALIZED_STATUS_PENSHOWN;
+        text = GetResourceString(L"LOCALIZED_STATUS_PENSHOWN");
     }
     else
     {
-        text = LOCALIZED_STATUS_PENHIDDEN;
+        text = GetResourceString(L"LOCALIZED_STATUS_PENHIDDEN");
     }
 
     m_TurtleVisibility->SetLabel(wxString(text));
@@ -341,7 +342,7 @@ void CStatusDialog::SetTurtleVisibility(bool IsShown)
 void CStatusDialog::SetPenColor(int Red, int Green, int Blue)
 {
     wxString colorString;
-    colorString.Printf(wxString(L"%d,%d,%d"), Red, Green, Blue);
+    colorString.Printf(L"%d,%d,%d", Red, Green, Blue);
 
     m_PenColor->SetLabel(colorString);
 }
@@ -349,7 +350,7 @@ void CStatusDialog::SetPenColor(int Red, int Green, int Blue)
 void CStatusDialog::SetScreenColor(int Red, int Green, int Blue)
 {
     wxString colorString;
-    colorString.Printf(wxString(L"%d,%d,%d"), Red, Green, Blue);
+    colorString.Printf(L"%d,%d,%d", Red, Green, Blue);
 
     m_ScreenColor->SetLabel(colorString);
 }
@@ -377,7 +378,7 @@ void CStatusDialog::SetCalls(long long TotalCalls)
 void CStatusDialog::SetPeakMemory(int TotalNodes)
 {
     wxString peakMemoryString;
-    peakMemoryString.Printf(wxString(L"%d " LOCALIZED_STATUS_NODES), TotalNodes);
+    peakMemoryString.Printf(wxString(L"%d ")+ GetResourceString(L"LOCALIZED_STATUS_NODES"), TotalNodes);
 
     m_PeakMemory->SetLabel(peakMemoryString);
 }
@@ -387,11 +388,11 @@ void CStatusDialog::SetVectors(int TotalVectors)
     wxString totalVectorsString;
     if (TotalVectors < 0)
     {
-        totalVectorsString = wxString(LOCALIZED_STATUS_NOT_APPLICABLE);
+        totalVectorsString = GetResourceString(L"LOCALIZED_STATUS_NOT_APPLICABLE");
     }
     else
     {
-        totalVectorsString.Printf(wxString(L"%d"), TotalVectors);
+        totalVectorsString.Printf(L"%d", TotalVectors);
     }
 
     m_TotalVectors->SetLabel(totalVectorsString);
@@ -403,11 +404,11 @@ void CStatusDialog::SetPolygons(int TotalPolygons)
 
     if (TotalPolygons < 0)
     {
-        totalPolygonsString = wxString(LOCALIZED_STATUS_NOT_APPLICABLE);
+        totalPolygonsString = GetResourceString(L"LOCALIZED_STATUS_NOT_APPLICABLE");
     }
     else
     {
-        totalPolygonsString.Printf(wxString(L"%d"), TotalPolygons);
+        totalPolygonsString.Printf(L"%d", TotalPolygons);
     }
 
     m_TotalPolygons->SetLabel(totalPolygonsString);
@@ -527,16 +528,16 @@ void update_status_penstyle(void)
         const wchar_t * penStyle;
         if (GetPenStateForSelectedTurtle().Mode == XOR_PUT)
         {
-            penStyle = LOCALIZED_STATUS_PENREVERSE;
+            penStyle = GetResourceString(L"LOCALIZED_STATUS_PENREVERSE");
         }
         else
         {
-            penStyle = LOCALIZED_STATUS_PENNORMAL;
+            penStyle = GetResourceString(L"LOCALIZED_STATUS_PENNORMAL");
         }
 
         if (GetPenStateForSelectedTurtle().IsErasing)
         {
-            penStyle = LOCALIZED_STATUS_PENERASE;
+            penStyle = GetResourceString(L"LOCALIZED_STATUS_PENERASE");
         }
 
         GetStatusDialog()->SetPenStyle(penStyle);

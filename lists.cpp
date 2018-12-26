@@ -1040,21 +1040,22 @@ NODE *lform(NODE *args)
 
     if (NOT_THROWING)
     {
-        wchar_t result[100];
+		//FIXED
+		//wchar_t result[100] = { 0 };
       
         // Take care not to overflow the buffer
-        if (width >= sizeof(result))
-        {
-            width = sizeof(result) - 1;
-        }
-        if (precision > sizeof(result))
-        {
-            precision = sizeof(result) - 1;
-        }
+        //if (width >= sizeof(result))
+        //{
+        //    width = sizeof(result) - 1;
+        //}
+        //if (precision > sizeof(result))
+        //{
+        //    precision = sizeof(result) - 1;
+        //}
 
-        wprintf(result, L"%*.*f", width, precision, number);
+        //wsprintf(result, L"%*.*f", width, precision, number);
 
-        return make_strnode(result);
+        return make_strnode(wxString::Format(L"%*.*f", width, precision, number));
     }
 
     return Unbound;

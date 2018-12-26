@@ -36,6 +36,7 @@
   #include "print.h" // for MESSAGETYPE
   #include "stringadapter.h"
 #endif
+extern wxString cap_strnzcpy(wxString text);
 
 bool g_IsOkayToUseCommanderWindow = true;
 
@@ -74,45 +75,45 @@ CCommander::CCommander(wxWindow *Parent)
     m_HaltButton = new CCommanderButton(
         this,
         ID_COMMANDER_HALT,
-        LOCALIZED_COMMANDER_HALT);
+        GetResourceString(L"LOCALIZED_COMMANDER_HALT"));
 
     m_TraceButton = new CCommanderToggleButton(
         this,
         ID_COMMANDER_TRACE,
-        LOCALIZED_COMMANDER_NOTRACE,
-        LOCALIZED_COMMANDER_TRACE);
+		GetResourceString(L"LOCALIZED_COMMANDER_NOTRACE"),
+		GetResourceString(L"LOCALIZED_COMMANDER_TRACE"));
 
     m_PauseButton = new CCommanderButton(
         this,
         ID_COMMANDER_PAUSE,
-        LOCALIZED_COMMANDER_PAUSE);
+		GetResourceString(L"LOCALIZED_COMMANDER_PAUSE"));
 
     m_StatusButton = new CCommanderToggleButton(
         this,
         ID_COMMANDER_STATUS,
-        LOCALIZED_COMMANDER_NOSTATUS,
-        LOCALIZED_COMMANDER_STATUS);
+		GetResourceString(L"LOCALIZED_COMMANDER_NOSTATUS"),
+        GetResourceString(L"LOCALIZED_COMMANDER_STATUS"));
 
     m_StepButton = new CCommanderToggleButton(
         this,
         ID_COMMANDER_STEP,
-        LOCALIZED_COMMANDER_UNSTEP,
-        LOCALIZED_COMMANDER_STEP);
+        GetResourceString(L"LOCALIZED_COMMANDER_UNSTEP"),
+		GetResourceString(L"LOCALIZED_COMMANDER_STEP"));
 
     m_ResetButton = new CCommanderButton(
         this,
         ID_COMMANDER_RESET,
-        LOCALIZED_COMMANDER_RESET);
+		GetResourceString(L"LOCALIZED_COMMANDER_RESET"));
 
     m_ExecuteButton = new CCommanderButton(
         this,
         ID_COMMANDER_EXECUTE,
-        LOCALIZED_COMMANDER_EXECUTE);
+		GetResourceString(L"LOCALIZED_COMMANDER_EXECUTE"));
 
     m_EdallButton = new CCommanderButton(
         this,
         ID_COMMANDER_EDALL,
-        LOCALIZED_COMMANDER_EDALL);
+		GetResourceString(L"LOCALIZED_COMMANDER_EDALL"));
 
     // set the button font to be 10 points
     wxFont buttonFont = m_HaltButton->GetFont();
@@ -144,18 +145,18 @@ CCommander::CCommander(wxWindow *Parent)
     // calculate the desired width for the buttons
     // by iterating through all labels that we put on buttons 
     // and figuring out the length of the longest one.
-    const wchar_t * buttonLabels[] = {
-        LOCALIZED_COMMANDER_HALT,
-        LOCALIZED_COMMANDER_TRACE,
-        LOCALIZED_COMMANDER_NOTRACE,
-        LOCALIZED_COMMANDER_PAUSE,
-        LOCALIZED_COMMANDER_STATUS,
-        LOCALIZED_COMMANDER_NOSTATUS,
-        LOCALIZED_COMMANDER_STEP,
-        LOCALIZED_COMMANDER_UNSTEP,
-        LOCALIZED_COMMANDER_RESET,
-        LOCALIZED_COMMANDER_EXECUTE,
-        LOCALIZED_COMMANDER_EDALL,
+    wxString buttonLabels[] = {
+        GetResourceString(L"LOCALIZED_COMMANDER_HALT"),
+		GetResourceString(L"LOCALIZED_COMMANDER_TRACE"),
+		GetResourceString(L"LOCALIZED_COMMANDER_NOTRACE"),
+		GetResourceString(L"LOCALIZED_COMMANDER_PAUSE"),
+		GetResourceString(L"LOCALIZED_COMMANDER_STATUS"),
+		GetResourceString(L"LOCALIZED_COMMANDER_NOSTATUS"),
+		GetResourceString(L"LOCALIZED_COMMANDER_STEP"),
+		GetResourceString(L"LOCALIZED_COMMANDER_UNSTEP"),
+		GetResourceString(L"LOCALIZED_COMMANDER_RESET"),
+		GetResourceString(L"LOCALIZED_COMMANDER_EXECUTE"),
+		GetResourceString(L"LOCALIZED_COMMANDER_EDALL"),
     };
 
     int largestWidth  = 0;
@@ -347,14 +348,7 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
     // run 'CLEARSCREEN' and return focus
-    wchar_t instruction[MAX_BUFFER_SIZE];
-   
-    cap_strnzcpy(
-        instruction,
-        LOCALIZED_ALTERNATE_CLEARSCREEN, 
-        STRINGLENGTH(LOCALIZED_ALTERNATE_CLEARSCREEN));
-    
-    RunLogoInstructionFromGui(instruction);
+    RunLogoInstructionFromGui(cap_strnzcpy(GetResourceString(L"LOCALIZED_ALTERNATE_CLEARSCREEN")));
 }
 
 void clearcombobox()
@@ -464,9 +458,7 @@ void CCommander::OnExecuteButton(wxCommandEvent& WXUNUSED(Event))
 
 void CCommander::OnEdallButton(wxCommandEvent& WXUNUSED(Event))
 {
-    // use a local buffer because do_execution can modify its parameter
-    wchar_t command[] = L"EDALL";
-    do_execution(command);
+    do_execution(L"edall");
 }
 
 void CCommander::OnEnter(wxCommandEvent & Event)
@@ -744,7 +736,7 @@ CCommanderDialog::CCommanderDialog(
     wxDialog(
         Parent,
         wxID_ANY,
-        wxString(LOCALIZED_COMMANDER),
+        GetResourceString(L"LOCALIZED_COMMANDER"),
         wxDefaultPosition,
         wxDefaultSize,
         wxSYSTEM_MENU | wxCAPTION |  wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER)

@@ -166,12 +166,13 @@ CDynamicBuffer::AppendString(
 {
     ASSERT_DYNAMIC_BUFFER_INVARIANT;
 
+	//NOTICE: FIXME: add extera wchar_t as '\0'
     // resize the buffer to be large enough to hold ToAppend
-    size_t toAppendLength = wcslen(ToAppend);
+    size_t toAppendLength = wcslen(ToAppend) + 1;
     GrowBy(toAppendLength);
-
+	
     // append ToAppend
-    wcscpy(m_Buffer + m_BufferLimit, ToAppend);
+    wcsncpy(m_Buffer + m_BufferLimit, ToAppend,toAppendLength);
     m_BufferLimit += toAppendLength;
 }
 

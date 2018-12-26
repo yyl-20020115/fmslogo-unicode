@@ -789,7 +789,7 @@ void CScreen::OnChar(wxKeyEvent& Event)
     }
 }
 
-static void ProcessMouseEvent(wxMouseEvent & Event, wchar_t * Callback)
+static void ProcessMouseEvent(wxMouseEvent & Event, const wxString&  Callback)
 {
     if (MouseCaptureIsEnabled)
     {

@@ -50,7 +50,8 @@
 
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
-   #include "dib.h"
+#include <wx/string.h>
+	#include "dib.h"
    #include "messagebox.h"
    #include "screenwindow.h"
    #include "localizedstrings.h"
@@ -293,7 +294,7 @@ HBITMAP DIBToBitmap(HANDLE hDIB, HPALETTE hPal)
 
     if (!hBitmap)
     {
-        ShowErrorMessageAndStop(LOCALIZED_ERROR_OUTOFMEMORY);
+        ShowErrorMessageAndStop(GetResourceString(L"LOCALIZED_ERROR_OUTOFMEMORY"));
     }
     // DIBError (ERR_CREATEDDB);
 

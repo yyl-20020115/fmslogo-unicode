@@ -16,6 +16,7 @@
     #include "stringadapter.h"
     #include "localizedstrings.h"
 #endif
+extern wxString NormalizeCaseForDisplay(wxString text);
 
 // ----------------------------------------------------------------------------
 // CSetColor::CColorWindow
@@ -132,12 +133,12 @@ CSetColor::CSetColor(
 
     struct {
         wxSlider **  Slider;
-        const wchar_t * SliderLabel;
+        wxString SliderLabel;
         int          InitialValue;
     } sliderData[] = {
-        {&m_RedSlider,   LOCALIZED_SETCOLOR_RED,   InitialColor.Red()},
-        {&m_GreenSlider, LOCALIZED_SETCOLOR_GREEN, InitialColor.Green()},
-        {&m_BlueSlider,  LOCALIZED_SETCOLOR_BLUE,  InitialColor.Blue()},
+        {&m_RedSlider,   GetResourceString(L"LOCALIZED_SETCOLOR_RED"),   InitialColor.Red()},
+        {&m_GreenSlider, GetResourceString(L"LOCALIZED_SETCOLOR_GREEN"), InitialColor.Green()},
+        {&m_BlueSlider,  GetResourceString(L"LOCALIZED_SETCOLOR_BLUE"),  InitialColor.Blue()},
     };
 
     // This is a grid sizer to keep the labels and the sliders evenly spaced.
@@ -157,7 +158,7 @@ CSetColor::CSetColor(
         wxStaticText *colorText = new wxStaticText(
             this,
             wxID_ANY,
-			wxString(sliderData[i].SliderLabel),
+			(sliderData[i].SliderLabel),
             wxDefaultPosition,
             wxDefaultSize,
             wxALIGN_CENTRE);
@@ -198,19 +199,19 @@ CSetColor::CSetColor(
     wxButton *ok = new wxButton(
         this, 
         wxID_OK,
-		wxString(LOCALIZED_SETCOLOR_OK));
+		GetResourceString(L"LOCALIZED_SETCOLOR_OK"));
     buttonColumn->Add(ok, 0, wxALIGN_CENTER | wxALL, 5);
 
     wxButton *cancel = new wxButton(
         this, 
         wxID_CANCEL, 
-		wxString(LOCALIZED_SETCOLOR_CANCEL));
+		GetResourceString(L"LOCALIZED_SETCOLOR_CANCEL"));
     buttonColumn->Add(cancel, 0, wxALIGN_CENTER | wxALL, 5);
 
     wxButton *apply = new wxButton(
         this, 
         ID_SETCOLOR_APPLY,
-		wxString(LOCALIZED_SETCOLOR_APPLY));
+		GetResourceString(L"LOCALIZED_SETCOLOR_APPLY"));
     buttonColumn->Add(apply, 0, wxALIGN_CENTER | wxALL, 5);
 
     topLevelSizer->Add(buttonColumn, 0, wxALIGN_CENTER | wxALL, 5);
@@ -255,15 +256,8 @@ void CSetColor::OnApplyButton(wxCommandEvent& event)
     // Get the uppercase form of the logo command
     // so that it looks consistent in the commaner's
     // history.
-	wchar_t upperCaseCommand[MAX_BUFFER_SIZE];
-
-    NormalizeCaseForDisplay(
-        upperCaseCommand,
-        m_LogoCommand,
-        wcslen(m_LogoCommand));
-
     // Run the color setting instruction
-    RunLogoInstructionFromGui(wxString::Format(L"%s [%d %d %d]",upperCaseCommand,red,green,blue));
+    RunLogoInstructionFromGui(wxString::Format(L"%s [%d %d %d]", NormalizeCaseForDisplay(m_LogoCommand),red,green,blue));
 }
 
 void CSetColor::OnOkButton(wxCommandEvent& Event)

@@ -14,7 +14,7 @@
 CEraseProcedureDialog::CEraseProcedureDialog(
     wxWindow * Parent
     )
-    : CSelectProcedureDialog(Parent, LOCALIZED_ERASEPROCEDURE)
+    : CSelectProcedureDialog(Parent, GetResourceString(L"LOCALIZED_ERASEPROCEDURE"))
 {
 }
 

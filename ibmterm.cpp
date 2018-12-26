@@ -134,15 +134,15 @@ NODE *get_node_pen_mode()
 
     if (GetPenStateForSelectedTurtle().IsErasing)
     {
-        mode = LOCALIZED_PENMODE_ERASE;
+        mode = GetResourceString(L"LOCALIZED_PENMODE_ERASE");
     }
     else if (GetPenStateForSelectedTurtle().Mode == XOR_PUT)
     {
-        mode = LOCALIZED_PENMODE_REVERSE;
+        mode = GetResourceString(L"LOCALIZED_PENMODE_REVERSE");
     }
     else
     {
-        mode = LOCALIZED_PENMODE_PAINT;
+        mode = GetResourceString(L"LOCALIZED_PENMODE_PAINT");
     }
 
     return make_static_strnode(mode);

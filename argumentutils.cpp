@@ -20,13 +20,45 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
   #include "argumentutils.h"
-
+#include "logodata.h"
   #include "logocore.h"
   #include "print.h"
   #include "debugheap.h"
+#include<wx/string.h>
 #endif
 
-void cnv_strnode_string(wchar_t *textbuf, NODE *arg)
+wxString cnv_strnode_string(NODE * arg)
 {
-    PrintNodeToString(car(arg), textbuf, MAX_BUFFER_SIZE);
+	wchar_t buffer[MAX_BUFFER_SIZE + 1] = { 0 };
+
+	PrintNodeToString(car(arg), buffer, MAX_BUFFER_SIZE);
+
+	return wxString(buffer);
+}
+
+wxString NormalizeCaseForDisplay(wxString text) {
+	wxString ret;
+	if (text.length() > 0) {
+		wchar_t* buffer = new wchar_t[text.length() + 1];
+		memset(buffer, 0, sizeof(buffer));
+		NormalizeCaseForDisplay(buffer, text, text.length());
+		ret = buffer;
+		delete[] buffer;
+	}
+
+	return ret;
+}
+
+wxString cap_strnzcpy(wxString text)
+{
+	wxString ret;
+	if (text.length() > 0) {
+		wchar_t* buffer = new wchar_t[text.length() + 1];
+		memset(buffer, 0, sizeof(buffer));
+		cap_strnzcpy(buffer, text, text.length());
+		ret = buffer;
+		delete[] buffer;
+	}
+
+	return ret;
 }

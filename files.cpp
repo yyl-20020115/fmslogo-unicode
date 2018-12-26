@@ -140,7 +140,7 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
                 FILE *clipstrm = _wfopen(TempClipName, L"w");
                 if (clipstrm != NULL)
                 {
-                    fputws(LOCALIZED_ERROR_CLIPBOARDISEMPTY, clipstrm);
+                    fputws(GetResourceString(L"LOCALIZED_ERROR_CLIPBOARDISEMPTY"), clipstrm);
                     fclose(clipstrm);
                 }
             }
@@ -313,7 +313,7 @@ open_helper(
         {
             err_logo(
                 FILE_ERROR, 
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_ALREADYOPEN));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_ALREADYOPEN")));
         }
         else if ((newFileStream = OpenFile(fileNameNode, mode)) != NULL)
         {
@@ -331,7 +331,7 @@ open_helper(
         {
             err_logo(
                 FILE_ERROR, 
-                make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTOPEN));
+                make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
         }
     }
     return Unbound;
@@ -381,7 +381,7 @@ NODE *lclose(NODE *arg)
     {
         err_logo(
             FILE_ERROR, 
-            make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_NOTOPEN));
+            make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_NOTOPEN")));
 
         return Unbound;
     }
@@ -485,7 +485,7 @@ CFileStream::SetStreamToOpenFile(
     {
         err_logo(
             FILE_ERROR, 
-            make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_NOTOPEN));
+            make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_NOTOPEN")));
     }
 }
 
@@ -600,7 +600,7 @@ PrintWorkspaceToFileStream(
     {
         err_logo(
             FILE_ERROR, 
-            make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTOPEN));
+            make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
     }
 }
 
@@ -614,8 +614,8 @@ NODE *lsave(NODE *arg)
 #ifndef WX_PURE
         ::MessageBox(
             GetCommanderWindow(),
-            LOCALIZED_EDITORISOPEN,
-            LOCALIZED_INFORMATION,
+			GetResourceString(L"LOCALIZED_EDITORISOPEN"),
+			GetResourceString(L"LOCALIZED_INFORMATION"),
             MB_OK | MB_ICONQUESTION);
 #endif // WX_PURE
     }
@@ -733,7 +733,7 @@ void silent_load(NODE *arg, const wchar_t *prefix)
             ndprintf(
                 stdout,
                 MESSAGETYPE_Error,
-                LOCALIZED_ERROR_FILESYSTEM_CANTOPEN2"\n",
+				GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN2")+L"\n",
                 prefix);
         }
     }
@@ -780,7 +780,7 @@ NODE *lload(NODE *arg)
     {
         err_logo(
             FILE_ERROR, 
-            make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTOPEN));
+            make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
     }
 
     loadstream = tmp;

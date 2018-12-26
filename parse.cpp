@@ -325,6 +325,7 @@ wchar_t rd_fgetwc_bufferred(FILE* stream, bool unicode = false) {
 	}
 	else
 	{
+
 		size_t count = 0;
 		if (rd_length < MB_LEN_MAX) {
 			count = fread(rd_buffer + rd_length, sizeof(char), MB_LEN_MAX - rd_length, stream);
@@ -360,10 +361,6 @@ void rd_clearbuffer(FILE *strm)
 	{
 		g_ReadBuffer.Empty();
 	}
-	else {
-		memset(rd_buffer, 0, sizeof(rd_buffer));
-		rd_length = 0;
-	}
 }
 wchar_t rd_fgetwc(FILE *stream, bool unicode)
 {
@@ -390,7 +387,7 @@ wchar_t rd_fgetwc(FILE *stream, bool unicode)
 			}
 
 			case INPUTMODE_List:
-				userInput = promptuser(LOCALIZED_PROMPT_LIST);
+				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_LIST"));
 				if (userInput == NULL)
 				{
 					// Halt when done
@@ -404,7 +401,7 @@ wchar_t rd_fgetwc(FILE *stream, bool unicode)
 				break;
 
 			case INPUTMODE_Pause:
-				userInput = promptuser(LOCALIZED_PROMPT_PAUSE);
+				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_PAUSE"));
 				if (userInput == NULL)
 				{
 					// continue when done
@@ -418,7 +415,7 @@ wchar_t rd_fgetwc(FILE *stream, bool unicode)
 				break;
 
 			case INPUTMODE_None:
-				userInput = promptuser(LOCALIZED_PROMPT_INPUT);
+				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_INPUT"));
 				if (userInput == NULL)
 				{
 					// Halt when done
@@ -476,11 +473,12 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 	bool incomment = false;
 	bool raw = false;
 
+	static wxString lender = wxString(L"\n") + GetResourceString(L"LOCALIZED_ALTERNATE_END") + wxString(L"\n");
+
 	static const wchar_t ender[] = L"\nEND\n";
 	const wchar_t *enderProgress = ender;
 
-	static const wchar_t localizedEnder[] = L"\n" LOCALIZED_ALTERNATE_END L"\n";
-	const wchar_t *localizedEnderProgress = localizedEnder;
+	const wchar_t *localizedEnderProgress = lender;
 
 	NODETYPES this_type = STRING;
 
@@ -609,7 +607,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 				else
 				{
 					// start over on the localized ender
-					localizedEnderProgress = localizedEnder;
+					localizedEnderProgress = lender;
 				}
 			}
 

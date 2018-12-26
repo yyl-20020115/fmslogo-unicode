@@ -21,7 +21,7 @@ extern int  BitMapWidth;
 extern int  BitMapHeight;
 
 extern bool bFixed;
-extern wchar_t edit_editexit[MAX_BUFFER_SIZE]; // editor callback instruction list
+extern class wxString edit_editexit; // editor callback instruction list
 
 ///////////////////////////////////////////////////////////////
 // Functions
@@ -48,6 +48,7 @@ public:
 
 private:
     void ProcessCommandLine();
+	void LoadLocalizedStringFile();
 
     DECLARE_NO_COPY_CLASS(CFmsLogo)
     DECLARE_EVENT_TABLE();
