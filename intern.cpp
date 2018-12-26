@@ -302,15 +302,19 @@ void release_all_objects()
 		   //NOTICE: fixed memory leak,just for case object
            // set the "canonical" node to NIL to force garbage collection.
 		   if (object->type == CONS) {
-			   NODE* nc = car(cdr(cdr(cdr(cdr(cdr(object))))));
-			   if (nc->type == CASEOBJ) {
-				   NODE* dc = car(nc);
-				   if (dc->type == STRING && dc->nunion.nstring.head != 0) {
-					   *(unsigned short*)dc->nunion.nstring.head = 0;
-					   free(dc->nunion.nstring.head);
-					   dc->nunion.nstring.len = 0;
-					   dc->nunion.nstring.ptr = 0;
-					   dc->nunion.nstring.head = 0;
+			   NODE* nc = 0;
+			   
+			   if ((nc = cdr(object)) != 0 && (nc = cdr(nc)) != 0 && (nc = cdr(nc)) != 0 && (nc = cdr(nc)) != 0 && (nc = cdr(nc)) != 0 && (nc = car(nc)) != 0)
+			   {
+				   if (nc->type == CASEOBJ) {
+					   NODE* dc = car(nc);
+					   if (dc->type == STRING && dc->nunion.nstring.head != 0) {
+						   *(unsigned short*)dc->nunion.nstring.head = 0;
+						   free(dc->nunion.nstring.head);
+						   dc->nunion.nstring.len = 0;
+						   dc->nunion.nstring.ptr = 0;
+						   dc->nunion.nstring.head = 0;
+					   }
 				   }
 			   }
 		   }
