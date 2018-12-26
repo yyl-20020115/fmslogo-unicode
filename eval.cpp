@@ -1524,7 +1524,7 @@ NODE *evaluator(NODE *list, enum labels where)
                 int i = 1;
                 while (i++ < trace_level) 
                 {
-                    print_space(stdout, MESSAGETYPE_Trace);
+                    print_space(stdoutstream, MESSAGETYPE_Trace);
                 }
             }
             // print_node(stdout, this_line);
@@ -2459,7 +2459,7 @@ bool process_special_conditions()
         // an AT_TOPLEVEL error, which would result in a 
         // stopping_flag of THROWING.
         ndprintf(
-            stdout, 
+			stdoutstream,
             MESSAGETYPE_Normal,
             wxString(L"%t.\n")
 			+ GetResourceString(L"LOCALIZED_ERROR_ATTOPLEVEL2"));

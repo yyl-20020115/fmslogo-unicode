@@ -24,8 +24,8 @@
 struct NODE;
 
 // function declarations
-extern int printfx(const wchar_t *fmt);
-extern int printfx(const wchar_t *fmt, const wchar_t *str);
+extern int printfx(const wxString& fmt);
+extern int printfx(const wxString& fmt, const wxString& str);
 extern void unblock_input(void);
 extern void putcombochar(MESSAGETYPE type, wchar_t c);
 extern NODE *lchdir(NODE *arg);

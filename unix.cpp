@@ -105,14 +105,14 @@ void putcombochar(MESSAGETYPE type, wchar_t ch)
 }
 
 
-int printfx(const wchar_t *str)
+int printfx(const wxString& str)
 {
     mputcombobox(str);
 
-    return wcslen(str);
+    return str.length();
 }
 
-int printfx(const wchar_t *fmt, const wchar_t *str)
+int printfx(const wxString& fmt, const wxString& str)
 {
 	wxString w = wxString::Format(fmt, str);
 
@@ -125,9 +125,9 @@ NODE *lchdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_wchdir(directoryName))
+    if (_wchdir((const wxString&)directoryName))
     {
-        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), (const wxString&)directoryName);
     }
     else
     {
@@ -135,7 +135,7 @@ NODE *lchdir(NODE *arg)
 		wchar_t newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
 		_wgetcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(wchar_t));
 
-        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), (newDirectoryName));
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), (const wxString&)(newDirectoryName));
     }
 
     return Unbound;
@@ -148,7 +148,7 @@ NODE *lpopdir(NODE *)
     wchar_t fname[MAX_BUFFER_SIZE + 1] = { 0 };
 	_wgetcwd(fname, sizeof(fname) / sizeof(wchar_t));
 
-    printfx(GetResourceString(L"LOCALIZED_FILE_POPPEDTO"), fname);
+    printfx(GetResourceString(L"LOCALIZED_FILE_POPPEDTO"), (const wxString&)fname);
 
     return Unbound;
 }
@@ -158,16 +158,16 @@ NODE *lmkdir(NODE *arg)
     CStringPrintedNode directoryName(car(arg));
 
 #ifndef WX_PURE
-    if (_wmkdir(directoryName))
+    if (_wmkdir((const wxString&)directoryName))
     {
         // mkdir returns -1 on error
-        printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRFAILED"), directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRFAILED"), (const wxString&)directoryName);
     }
     else
     {
         // mkdir returns 0 on success
-		_wchdir(directoryName);
-		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), directoryName);
+		_wchdir((const wxString&)directoryName);
+		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), (const wxString&)directoryName);
     }
 #endif
 
@@ -178,9 +178,9 @@ NODE *lrmdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_wrmdir(directoryName))
+    if (_wrmdir((const wxString&)directoryName))
     {
-        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), (const wxString&)directoryName);
         if (errno == EEXIST)
         {
             printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILEDNOEXIST"));
@@ -196,7 +196,7 @@ NODE *lrmdir(NODE *arg)
     }
     else
     {
-        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRSUCCEEDED"), directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRSUCCEEDED"), (const wxString&)directoryName);
     }
 
     return Unbound;

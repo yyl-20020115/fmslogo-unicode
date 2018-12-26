@@ -70,9 +70,9 @@ public:
     CLoadedDll();
     ~CLoadedDll();
 
-    bool         Load(const wchar_t * DllName);
+    bool         Load(const wxString& DllName);
     HMODULE      GetHandle();
-    const wchar_t * GetFileName() const;
+    const wxString& GetFileName() const;
     void         AddReference();
 
 private:
@@ -154,13 +154,13 @@ HMODULE CLoadedDll::GetHandle()
     return m_Dll;
 }
 
-const wchar_t * CLoadedDll::GetFileName() const
+const wxString& CLoadedDll::GetFileName() const
 {
     ASSERT_LOADEDDLL_INVARIANT;
     return m_DllName;
 }
 
-bool CLoadedDll::Load(const wchar_t * DllName)
+bool CLoadedDll::Load(const wxString& DllName)
 {
     // this should not have been loaded before
     ASSERT_LOADEDDLL_INVARIANT;
@@ -191,7 +191,7 @@ public:
 
     void         Insert(CLoadedDll * NewEntry);
     void         Remove(CLoadedDll * EntryToRemove);
-    CLoadedDll * FindByName(const wchar_t * DllName);
+    CLoadedDll * FindByName(const wxString& DllName);
     CLoadedDll * GetFirst();
     CLoadedDll * GetNext(CLoadedDll * CurrentDll);
 
@@ -251,7 +251,7 @@ void CLoadedDlls::Remove(CLoadedDll * EntryToRemove)
     }
 }
 
-CLoadedDll * CLoadedDlls::FindByName(const wchar_t * TargetDllName)
+CLoadedDll * CLoadedDlls::FindByName(const wxString& TargetDllName)
 {
     for (CLoadedDll * dll = m_ListHead; dll != NULL; dll = dll->m_Next)
     {
@@ -374,10 +374,10 @@ static
 FARPROC
 GetFunctionFromDll(
     HMODULE      Dll,
-    const wchar_t * FunctionName
+    const wxString& FunctionName
     )
 {
-    FARPROC theFunc = GetProcAddress(Dll, wxString(FunctionName));
+    FARPROC theFunc = GetProcAddress(Dll, (const char*)(FunctionName));
     if (!theFunc) 
     {
         // try to get the name as an ordinal
@@ -510,7 +510,8 @@ NODE *ldllcall(NODE *args)
         return Unbound;
     }
 
-    const wchar_t returnType = fkind.GetString()[0];
+	//TODO: FIXME
+    const wchar_t returnType = ((const wxString&)fkind)[0];
 
     CAppendableList outParameters; // a list of "out" parameter lists to return
 
@@ -539,17 +540,19 @@ NODE *ldllcall(NODE *args)
         NODE * valueNode = car(functionArg);
         CStringPrintedNode value(valueNode);
         functionArg = cdr(functionArg);
-
-        switch (kind.GetString()[0])
+		const wxString k = kind;
+		wchar_t ck = k.length() > 0 ? k[0] : L'\0';
+		wchar_t dk = k.length() > 1 ? k[1] : L'\0';
+        switch (ck)
         {
         case L'w':
         case L'W':
-            parameters[nextParameter++] = (int) (_wtoi(value) & 0xFFFF);
+            parameters[nextParameter++] = (int) (_wtoi((const wxString&)value) & 0xFFFF);
             break;
 
         case L'l':
         case L'L':
-            parameters[nextParameter++] = (int) _wtol(value);
+            parameters[nextParameter++] = (int) _wtol((const wxString&)value);
             break;
 
         case L'f':
@@ -557,7 +560,7 @@ NODE *ldllcall(NODE *args)
             {
                 // A double is 8 bytes, so we must push it
                 // as two four-byte parameters.
-                double number = _wtof(value);
+                double number = _wtof((const wxString&)value);
                 parameters[nextParameter++] = ((int*)(&number))[1];
                 parameters[nextParameter++] = ((int*)(&number))[0];
                 assert(sizeof(number) == 2 * sizeof(*parameters));
@@ -566,7 +569,7 @@ NODE *ldllcall(NODE *args)
 
         case L's':
         case L'S':
-            values[nextValue] = _wcsdup(value);
+            values[nextValue] = _wcsdup((const wxString&)value);
             parameters[nextParameter++] = 
 #ifdef _WIN64
 			(long long)
@@ -584,7 +587,7 @@ NODE *ldllcall(NODE *args)
                 // Unlike the other types which predate FMSLogo and are maintained
                 // as only checking the first character for backward-compatibility,
                 // we check the "B" type specifier for strict conformance.
-                if (kind.GetString()[1] != L'\0')
+                if (dk != L'\0')
                 {
                     err_logo(BAD_DATA_UNREC, functionArgs);
                     break;
@@ -596,7 +599,7 @@ NODE *ldllcall(NODE *args)
                 // immutability of strings, since the native function
                 // would overwrite it.
                 wchar_t * endPtr;
-                long int size = wcstol(value, &endPtr, 10);
+                long int size = wcstol((const wxString&)value, &endPtr, 10);
                 if (size == LONG_MAX || size < 0 || *endPtr != L'\0')
                 {
                     // value is a bad number for an allocation size

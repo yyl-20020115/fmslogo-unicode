@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include "CFileTextStream.h"
 
 struct NODE;
 
@@ -27,7 +28,7 @@ struct NODE;
 class CFileStream
 {
 public:
-    CFileStream(FILE * DefaultStream);
+    CFileStream(CFileTextStream * DefaultStream);
 
     void   SetStreamToOpenFile(NODE * FileName);
     void   ResetToDefaultStream();
@@ -37,13 +38,13 @@ public:
     NODE * GetPosition() const;
     void   SetPosition(NODE * Arguments);
 
-    FILE *& GetStream()
+	CFileTextStream *& GetStream()
     {
         assert(m_Stream != NULL);
         return m_Stream;
     }
 
-    void SetStream(FILE * Stream)
+    void SetStream(CFileTextStream * Stream)
     {
         assert(m_Stream != NULL);
         m_Stream = Stream;
@@ -52,13 +53,15 @@ public:
 
 private:
     NODE *  m_Name;
-    FILE *  m_Stream;
-    FILE *  m_DefaultStream;
+	CFileTextStream *  m_Stream;
+	CFileTextStream *  m_DefaultStream;
     bool    m_StreamIsBinary;
 };
 
 // global variables
 extern NODE *current_line;
+extern CFileTextStream *stdinstream;
+extern CFileTextStream *stdoutstream;
 
 // function declarations
 extern void PrintWorkspaceToFileStream(FILE * FileStream);
@@ -95,9 +98,11 @@ extern void uninitialize_files(void);
 extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 
 // global variables
+FileTextStreamType& GetDefaultFileTextStreamType();
 
-FILE*& GetInputStream();
-FILE*& GetOutputStream();
-FILE*& GetLoadStream();
+CFileTextStream*& GetInputStream();
+CFileTextStream*& GetOutputStream();
+
+CFileTextStream *& GetLoadStream();
 
 #endif // __FILES_H_

@@ -44,6 +44,8 @@
    #include "logoeventqueue.h"
    #include "mmwind.h"
    #include "debugheap.h"
+#include "files.h"
+#include "CStringTextStream.h"
 #endif
 
 
@@ -96,10 +98,7 @@ void clear_last_error()
 
 static
 void 
-err_print_helper(
-    wchar_t * Buffer,
-    size_t BufferLength
-    )
+err_print_helper(CTextStream* Buffer = 0)
 {
     if (!last_error_exists())
     {
@@ -107,19 +106,19 @@ err_print_helper(
         return;
     }
 
-    FILE * fp;
+	CTextStream* fp = 0;
     if (Buffer == NULL)
     {
         // No buffer was supplied, so the printing should
         // go to "stdout" (which is the commander history).
-        fp = stdout;
+        fp = stdoutstream;
     }
     else
     {
         // A buffer was supplied, so the error message
         // should be written there.
         fp = NULL;
-        InitializeStringPrintInformation(Buffer, BufferLength);
+        InitializeStringPrintInformation(Buffer);
     }
 
     CTRLTYPE save_flag = stopping_flag;
@@ -168,7 +167,7 @@ err_print_helper(
     // flush the file stream
     if (Buffer == NULL)
     {
-        new_line(stdout, MESSAGETYPE_Error);
+        new_line(stdoutstream, MESSAGETYPE_Error);
     }
     else
     {
@@ -181,8 +180,8 @@ err_print_helper(
 
 void err_print()
 {
-    // print the error
-    err_print_helper(NULL, 0);
+    // print the error to stdout
+    err_print_helper();
 
     // clear the error now that it has been consumed
     clear_last_error();
@@ -559,7 +558,7 @@ err_logo(
                 // This error wasn't recoverable, so ERRACT shouldn't
                 // have output a new value to use.
                 ndprintf(
-                    stdout,
+					stdoutstream,
                     MESSAGETYPE_Error,
 					GetResourceString(L"LOCALIZED_ERROR_DONTSAYWHATTODOWITH")+L"\n",
                     val);
@@ -607,13 +606,14 @@ NODE *lerror(NODE *)
     }
 
     // format the error message into a buffer
-    wchar_t error_message[200];
-    err_print_helper(error_message, sizeof(error_message));
+	CStringTextStream cts;
+
+    err_print_helper(&cts);
 
     // return the ERROR 4-tuple [code message function line]
     NODE * val = cons_list(
         g_ErrorCode,
-        make_strnode(error_message),
+        make_strnode(cts.GetContent()),
         g_ErrorFunction,
         g_ErrorLine);
 
@@ -636,7 +636,7 @@ NODE *lpause(NODE*)
     // This does not print a newline, because the pausing
     // line may also include the name of the procedure
     // which ran PAUSE.
-    ndprintf(stdout, MESSAGETYPE_Normal, GetResourceString(L"LOCALIZED_PAUSING"));
+    ndprintf(stdoutstream, MESSAGETYPE_Normal, GetResourceString(L"LOCALIZED_PAUSING"));
 
     jmp_buf sav_iblk;
     memcpy(sav_iblk, iblk_buf, sizeof(sav_iblk));
@@ -654,7 +654,7 @@ NODE *lpause(NODE*)
         // If PAUSE was run at the toplevel, then uname is NIL.
         if (uname != NIL) 
         {
-            print_node(stdout, MESSAGETYPE_Normal, uname);
+            print_node(stdoutstream, MESSAGETYPE_Normal, uname);
         }
 
         // Flush the line, which might look something like
@@ -664,11 +664,11 @@ NODE *lpause(NODE*)
         // was "<procedure name>? ", but now that the input
         // is taken from separate dialog box, this just looks weird,
         // especially when uname is NIL.
-        new_line(stdout, MESSAGETYPE_Normal);
+        new_line(stdoutstream, MESSAGETYPE_Normal);
 
         // get the interactive input for the "pause"
         GetInputMode() = INPUTMODE_Pause;
-        NODE * elist = vref(reader(stdin, L"? "));
+        NODE * elist = vref(reader(stdinstream, L"? "));
         if (NOT_THROWING) 
         {
             assign(elist, parser(elist, true));

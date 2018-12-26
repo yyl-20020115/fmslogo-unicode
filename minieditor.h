@@ -10,7 +10,7 @@ class CMiniEditorTextCtrl;
 class CMiniEditor : public wxDialog
 {
 public:
-    CMiniEditor(wxWindow *Parent, const wchar_t * ToLine);
+    CMiniEditor(wxWindow *Parent, const wxString& ToLine);
     ~CMiniEditor();
 
     const wxString GetProcedureBody() const;

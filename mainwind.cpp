@@ -325,7 +325,7 @@ ERR_TYPES WriteDIB(FILE* File, int MaxBitmapBitDepth)
     return status;
 }
 
-ERR_TYPES DumpBitmapFile(const wchar_t * Filename, int MaxBitCount)
+ERR_TYPES DumpBitmapFile(const wxString& Filename, int MaxBitCount)
 {
     // open and check if ok
     FILE* file = _wfopen(Filename, L"wb");
@@ -507,7 +507,7 @@ OpenDIB(
 
 ERR_TYPES
 LoadBitmapFile(
-    const wchar_t   * Filename,
+    const wxString& Filename,
     unsigned int & dwPixelWidth,
     unsigned int & dwPixelHeight
     )

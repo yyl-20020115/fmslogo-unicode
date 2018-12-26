@@ -60,8 +60,8 @@ extern FLONUM the_zoom;
 #endif // WX_PURE
 
 // function declarations
-extern ERR_TYPES gifsave_helper(const wchar_t *GifFileName, int iDelay_, int bAppendMode_, int iLoop_, int iTrans, int iMaxColorDepth);
-extern ERR_TYPES gifload_helper(const wchar_t *GifFileName, unsigned int &dwPixelWidth, unsigned int &dwPixelHeight);
+extern ERR_TYPES gifsave_helper(const wxString& GifFileName, int iDelay_, int bAppendMode_, int iLoop_, int iTrans, int iMaxColorDepth);
+extern ERR_TYPES gifload_helper(const wxString& GifFileName, unsigned int &dwPixelWidth, unsigned int &dwPixelHeight);
 extern bool HtmlHelpInitialize();
 extern void HtmlHelpUninitialize();
 extern NODE *lstatus(NODE *arg);
@@ -79,9 +79,9 @@ extern NODE *lgetfocus(NODE *arg);
 extern NODE *lwindowset(NODE *args);
 extern void logofill(bool fillUntilPenColor);
 #ifndef WX_PURE // for SIZE
-extern SIZE labelsize(const wchar_t *s);
+extern SIZE labelsize(const wxString& s);
 #endif
-extern void label(const wchar_t *s);
+extern void label(const wxString& s);
 extern void UpdateErasePen(int Width, RGBCOLOR Color);
 extern void UpdateNormalPen(int Width, RGBCOLOR Color);
 extern void ChangeActivePenColor(int Red, int Green, int Blue);
@@ -94,7 +94,7 @@ extern void init_turtles();
 extern void uninit_turtles();
 extern void init_videomode();
 extern void ibmturt(bool hide);
-extern void do_help(const wchar_t *arg);
+extern void do_help(const wxString& arg);
 extern void ibm_clear_screen(void);
 extern int get_pen_width(void);
 extern void set_pen_width(int w);

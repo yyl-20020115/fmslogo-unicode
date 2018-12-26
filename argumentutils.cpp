@@ -25,25 +25,28 @@
   #include "print.h"
   #include "debugheap.h"
 #include<wx/string.h>
+#include "CStringTextStream.h"
 #endif
 
 wxString cnv_strnode_string(NODE * arg)
 {
-	wchar_t buffer[MAX_BUFFER_SIZE + 1] = { 0 };
+	CStringTextStream cts;
 
-	PrintNodeToString(car(arg), buffer, MAX_BUFFER_SIZE);
+	PrintNodeToString(car(arg),&cts);
 
-	return wxString(buffer);
+	return cts.GetContent();
 }
 
 wxString NormalizeCaseForDisplay(wxString text) {
 	wxString ret;
 	if (text.length() > 0) {
-		wchar_t* buffer = new wchar_t[text.length() + 1];
-		memset(buffer, 0, sizeof(buffer));
-		NormalizeCaseForDisplay(buffer, text, text.length());
-		ret = buffer;
-		delete[] buffer;
+		wchar_t* buffer = (wchar_t*)malloc(sizeof(wchar_t)*(text.length() + 1));
+		if (buffer != 0) {
+			memset(buffer, 0, sizeof(buffer));
+			NormalizeCaseForDisplay(buffer, text, text.length());
+			ret = buffer;
+			free(buffer);
+		}
 	}
 
 	return ret;
@@ -53,11 +56,13 @@ wxString cap_strnzcpy(wxString text)
 {
 	wxString ret;
 	if (text.length() > 0) {
-		wchar_t* buffer = new wchar_t[text.length() + 1];
-		memset(buffer, 0, sizeof(buffer));
-		cap_strnzcpy(buffer, text, text.length());
-		ret = buffer;
-		delete[] buffer;
+		wchar_t* buffer = (wchar_t*)malloc(sizeof(wchar_t)*(text.length() + 1));
+		if (buffer != 0) {
+			memset(buffer, 0, sizeof(buffer));
+			cap_strnzcpy(buffer, text, text.length());
+			ret = buffer;
+			free(buffer);
+		}
 	}
 
 	return ret;

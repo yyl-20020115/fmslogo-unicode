@@ -41,25 +41,26 @@
 #include <wx/string.h>
 #endif
 
-// structures
-struct STRING_PRINT_INFORMATION
-{
-    size_t  TotalBytesNeeded;
-    size_t  BufferLength;
-	wchar_t  * Buffer;
-};
-
-// global variable
-static STRING_PRINT_INFORMATION g_StringPrintInformation;
+//// structures
+//struct STRING_PRINT_INFORMATION
+//{
+//    size_t  TotalBytesNeeded;
+//    size_t  BufferLength;
+//	wchar_t  * Buffer;
+//};
+//
+//// global variable
+//static STRING_PRINT_INFORMATION g_StringPrintInformation;
 
 bool print_backslashes = false;
+CTextStream* g_Buffer = 0;
 
-void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
+void print_char(CTextStream *strm, MESSAGETYPE type, wchar_t ch)
 {
     if (strm != NULL)
     {
         // printing to a file stream
-        if (strm == stdout)
+        if (*strm == stdout)
         {
             // FMSLogo isn't a command-line application, so printing
             // to "stdout" really goes to the commander history.
@@ -69,26 +70,22 @@ void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch)
         }
         else
         {
-            putwc(ch, strm);
+			strm->WriteChar(ch);
         }
     }
     else
     {
+		g_Buffer->WriteChar(ch);
         // printing to string
-        if (g_StringPrintInformation.TotalBytesNeeded + 1 < g_StringPrintInformation.BufferLength)
-        {
-            g_StringPrintInformation.Buffer[g_StringPrintInformation.TotalBytesNeeded] = ch;
-        }
-        g_StringPrintInformation.TotalBytesNeeded++;
     }
 }
 
-void print_space(FILE *strm, MESSAGETYPE type)
+void print_space(CTextStream *strm, MESSAGETYPE type)
 {
     print_char(strm, type, L' ');
 }
 
-void ndprintf(FILE *strm, MESSAGETYPE type, const wchar_t *fmt, ...)
+void ndprintf(CTextStream *strm, MESSAGETYPE type, const wchar_t *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
@@ -142,7 +139,7 @@ void ndprintf(FILE *strm, MESSAGETYPE type, const wchar_t *fmt, ...)
 static
 void
 real_print_node(
-    FILE       * strm,
+	CTextStream  * strm,
     MESSAGETYPE  type,
     const NODE * nd,
     int          depth,
@@ -150,7 +147,7 @@ real_print_node(
     );
 
 static
-void real_print_helper(FILE *strm, MESSAGETYPE type, const NODE *ndlist, int depth, int width)
+void real_print_helper(CTextStream *strm, MESSAGETYPE type, const NODE *ndlist, int depth, int width)
 {
     int wid = width;
 
@@ -191,14 +188,14 @@ void real_print_helper(FILE *strm, MESSAGETYPE type, const NODE *ndlist, int dep
 static
 void
 real_print_node(
-    FILE       * strm,
+	CTextStream       * strm,
     MESSAGETYPE  type,
     const NODE * nd,
     int          depth,
     int          width
     )
 {
-    NODETYPES ndty;
+    NODETYPES ndty = 0;
 
     if (depth == 0)
     {
@@ -228,7 +225,7 @@ real_print_node(
         int dim = getarrdim(nd);
 
         // figure out how many items to print
-        int wid;
+        int wid = 0;
         if (width < 0) 
         {
             wid = dim;
@@ -409,7 +406,7 @@ int find_limit(const CLocalizedNode & Node)
     return val;
 }
 
-void print_helper(FILE *strm, MESSAGETYPE type, NODE *nd)
+void print_helper(CTextStream *strm, MESSAGETYPE type, NODE *nd)
 {
     real_print_helper(
         strm,
@@ -419,7 +416,7 @@ void print_helper(FILE *strm, MESSAGETYPE type, NODE *nd)
         find_limit(Printwidthlimit));
 }
 
-void print_node(FILE *strm, MESSAGETYPE type, NODE *nd)
+void print_node(CTextStream *strm, MESSAGETYPE type, NODE *nd)
 {
     real_print_node(
         strm,
@@ -429,7 +426,7 @@ void print_node(FILE *strm, MESSAGETYPE type, NODE *nd)
         find_limit(Printwidthlimit));
 }
 
-void print_nobrak(FILE *strm, MESSAGETYPE type, NODE *nd)
+void print_nobrak(CTextStream *strm, MESSAGETYPE type, NODE *nd)
 {
     if (is_list(nd))
     {
@@ -441,7 +438,7 @@ void print_nobrak(FILE *strm, MESSAGETYPE type, NODE *nd)
     }
 }
 
-void new_line(FILE *strm, MESSAGETYPE type)
+void new_line(CTextStream *strm, MESSAGETYPE type)
 {
     print_char(strm, type, L'\n');
 }
@@ -482,44 +479,23 @@ NODE *lprint(NODE *args)
     new_line(GetOutputStream(), MESSAGETYPE_Normal);
     return Unbound;
 }
-
 // Initializes the printing engine to print to Buffer.
 void
 InitializeStringPrintInformation(
-	wchar_t * Buffer,
-    size_t BufferLength
+	CTextStream* buffer
     )
 {
-    g_StringPrintInformation.TotalBytesNeeded = 0;
-    g_StringPrintInformation.Buffer           = Buffer;
-    g_StringPrintInformation.BufferLength     = BufferLength;
+	g_Buffer = buffer;
+    //g_StringPrintInformation.TotalBytesNeeded = 0;
+    //g_StringPrintInformation.Buffer           = Buffer;
+    //g_StringPrintInformation.BufferLength     = BufferLength;
 }
 
 // NUL-terminate the string and return how many bytes would be
 // required to hold the entire print job.
 size_t FinalizeStringPrintInformation()
-{
-    // NUL-terminate the string
-    if (g_StringPrintInformation.TotalBytesNeeded + 1 < g_StringPrintInformation.BufferLength)
-    {
-        // The string fit within the buffer.
-        // NUL-terminate it at the end of what we wrote.
-        g_StringPrintInformation.Buffer[g_StringPrintInformation.TotalBytesNeeded] = '\0';
-    }
-    else if (g_StringPrintInformation.BufferLength != 0)
-    {
-        // The string didn't fit within the buffer.
-        // NUL-terminate it at the end of the buffer.
-        g_StringPrintInformation.Buffer[g_StringPrintInformation.BufferLength - 1] = '\0';
-    }
-    else
-    {
-        // No buffer was given, so we can't NUL-terminate anything.
-    }
-    g_StringPrintInformation.TotalBytesNeeded++;
-
-    // Return the total bytes needed.
-    return g_StringPrintInformation.TotalBytesNeeded;
+{	
+	return g_Buffer->GetPosition() + 1;
 }
 
 
@@ -530,14 +506,13 @@ size_t FinalizeStringPrintInformation()
 size_t
 PrintNodeToString(
     const NODE * Node,
-	wchar_t *       Buffer,
-    size_t       BufferLength,
+	CTextStream* buffer,
     int          PrintDepthLimit,
     int          PrintWidthLimit
     )
 {
     // Initialize the printing engine to print to Buffer
-    InitializeStringPrintInformation(Buffer, BufferLength);
+    InitializeStringPrintInformation(buffer);
 
     // Print the node
     if (is_list(Node))
@@ -571,10 +546,9 @@ PrintNodeToString(
 size_t
 PrintNodeToString(
     const NODE * Node,
-	wchar_t *       Buffer,
-    size_t       BufferLength
+	CTextStream* buffer
     )
 {
-    return PrintNodeToString(Node, Buffer, BufferLength, -1, -1);
+    return PrintNodeToString(Node, buffer, -1, -1);
 }
 

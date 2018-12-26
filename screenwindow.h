@@ -108,7 +108,7 @@ int  ShowEditorForFile(const wchar_t *FileName, NODE *args);
 //
 void
 ShowProcedureMiniEditor(
-    const wchar_t           * ToLine,
+    const wxString&        ToLine,
     class CDynamicBuffer & ReadBuffer
     );
 

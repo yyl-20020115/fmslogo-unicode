@@ -20,17 +20,17 @@
 
 #include <stdio.h>
 #include "logocore.h"
-
+#include <wx/string.h>
 // function declarations
 ERR_TYPES
 DumpBitmapFile(
-    const wchar_t * Filename,
+    const wxString& Filename,
     int          MaxBitCount
     );
 
 ERR_TYPES
 LoadBitmapFile(
-    const wchar_t   * Filename,
+    const wxString& Filename,
     unsigned int & dwPixelWidth,
     unsigned int & dwPixelHeight
     );

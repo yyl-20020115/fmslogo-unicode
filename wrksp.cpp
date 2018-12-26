@@ -421,7 +421,7 @@ NODE *anonymous_function(NODE *text)
 static
 NODE *to_helper(NODE *args, bool is_macro)
 {
-    if (ufun != NIL && GetLoadStream() == stdin)
+    if (ufun != NIL && *GetLoadStream() == stdin)
     {
         err_logo(NOT_INSIDE, NIL);
         return Unbound;
@@ -450,7 +450,7 @@ NODE *to_helper(NODE *args, bool is_macro)
     {
         err_logo(BAD_DATA_UNREC, proc_name);
     }
-    else if ((procnode__caseobj(proc_name) != UNDEFINED && GetLoadStream() == stdin)
+    else if ((procnode__caseobj(proc_name) != UNDEFINED && *GetLoadStream() == stdin)
              || is_prim(procnode__caseobj(proc_name)))
     {
         err_logo(ALREADY_DEFINED, proc_name);
@@ -546,7 +546,7 @@ NODE *to_helper(NODE *args, bool is_macro)
 
 		SetErrorToLine(body_words);
         to_pending = true;      // for int or quit signal
-        while (NOT_THROWING && to_pending && !feof(GetLoadStream()))
+        while (NOT_THROWING && to_pending && !(GetLoadStream()->IsEOF()))
         {
             NODE * ttnode = reader(GetLoadStream(), L"> ");
 
@@ -600,10 +600,10 @@ NODE *to_helper(NODE *args, bool is_macro)
             {
                 set_new_generation();
             }
-            if (GetLoadStream() == stdin)
+            if (*GetLoadStream() == stdin)
             {
                 ndprintf(
-                    stdout,
+					stdoutstream,
                     MESSAGETYPE_Normal,
 					GetResourceString(L"LOCALIZED_PROCEDUREDEFINED"),
                     proc_name);
@@ -1104,7 +1104,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                     else
                     {
 						wchar_t *str = expand_slash(currentline);
-                        if (GetOutputStream() == stdout)
+                        if (GetOutputStream()->GetFile() == stdout)
                         {
                             if (str[0] == L'\0')
                             {
@@ -1133,12 +1133,12 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                         }
                         else
                         {
-                            fwprintf(GetOutputStream(), L"%s", str);
+							GetOutputStream()->Write(str);
                         }
                         free(str);
                     }
 
-                    if (GetOutputStream() != stdout) 
+                    if (*GetOutputStream() != stdout) 
                     {
                         new_line(GetOutputStream(), MESSAGETYPE_Normal);
                     }
@@ -1456,7 +1456,11 @@ bool something_is_unburied()
     // find one that would appear in the workspace.
     return false;
 }
-
+bool SaveAsUnicode = false;
+bool& GetSaveAsUnicode()
+{
+	return SaveAsUnicode;
+}
 NODE *ledit(NODE *args)
 {
     if (!bExpert)
@@ -1481,11 +1485,12 @@ NODE *ledit(NODE *args)
     // Write the requested contents to a file
     if (args != NIL)
     {
-        FILE * fileStream = _wfopen(TempPathName, L"w");
+		CFileTextStream * fileStream = CFileTextStream::OpenForWrite(
+			TempPathName, TEXTSTREAM_DEFUALT_NEWLINE, GetSaveAsUnicode());// _wfopen(TempPathName, L"w");
         if (fileStream != NULL)
         {
             // HACK: change g_Writer to use the new stream
-            FILE * savedWriterStream = GetOutputStream();
+			CFileTextStream * savedWriterStream = GetOutputStream();
 			GetOutputStream() = (fileStream);
 
             po_helper(args, -1);
@@ -1493,7 +1498,7 @@ NODE *ledit(NODE *args)
             // restore g_Writer
 			GetOutputStream() = (savedWriterStream);
 
-            fclose(fileStream);
+			delete fileStream;
         }
         else
         {
@@ -1539,7 +1544,7 @@ bool endedit(void)
 
     if (!IsTimeToExit)
     {
-        FILE * holdstrm = GetLoadStream();
+        CFileTextStream* holdstrm = GetLoadStream();
         NODE * tmp_line = vref(current_line);
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -1547,15 +1552,18 @@ bool endedit(void)
 
         start_execution();
 
-		GetLoadStream() = _wfopen(TempPathName, L"r");
-        if (GetLoadStream() != NULL)
+		CFileTextStream* filestream = CFileTextStream::OpenForRead(TempPathName);
+
+        if (filestream != NULL)
         {
-            FIXNUM saved_value_status = g_ValueStatus;
+			GetLoadStream() = filestream;
+			
+			FIXNUM saved_value_status = g_ValueStatus;
 
             realsave = true;
-            while (!feof(GetLoadStream()) && NOT_THROWING)
+            while (!GetLoadStream()->IsEOF() && NOT_THROWING)
             {
-                g_CharactersSuccessfullyParsedInEditor = ftell(GetLoadStream());
+                g_CharactersSuccessfullyParsedInEditor = (GetLoadStream()->GetPosition());
                 assign(current_line, reader(GetLoadStream(), L""));
 
                 NODE * exec_list = parser(current_line, true);
@@ -1563,22 +1571,25 @@ bool endedit(void)
                 g_ValueStatus = VALUE_STATUS_NotOk;
                 eval_driver(exec_list);
             }
-            fclose(GetLoadStream());
+            (GetLoadStream()->Close());
             g_ValueStatus = saved_value_status;
-        }
-        else
-        {
-            // err_logo(
-            //    FILE_ERROR,
-            //    make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTREADEDITOR));
-        }
 
-        stop_execution();
+			stop_execution();
 
-        lsetcursorarrow(NIL);
-        yield_flag = save_yield_flag;
-		GetLoadStream() = holdstrm;
-        assign(current_line, tmp_line);
+			lsetcursorarrow(NIL);
+			yield_flag = save_yield_flag;
+			GetLoadStream() = holdstrm;
+
+			delete filestream;
+
+			assign(current_line, tmp_line);
+		}
+		else
+		{
+			// err_logo(
+			//    FILE_ERROR,
+			//    make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTREADEDITOR));
+		}
     }
 
     return realsave;

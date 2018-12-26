@@ -561,7 +561,7 @@ void CScreen::OnKeyDown(wxKeyEvent& Event)
         else if (Event.GetModifiers() == wxMOD_NONE && keyCode == WXK_F1)
         {
             // F1 displays the help when keyboard capture isn't on
-            do_help(NULL);
+            do_help(wxString());
         }
     }
 

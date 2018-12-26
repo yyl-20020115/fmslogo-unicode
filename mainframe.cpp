@@ -2309,7 +2309,7 @@ void CMainFrame::OnZoomNormal(wxCommandEvent& WXUNUSED(Event))
 
 void CMainFrame::OnHelp(wxCommandEvent& WXUNUSED(Event))
 {
-    do_help(NULL);
+    do_help(wxString());
 }
 
 #if MANUAL_HAS_TRANSLATION_TABLES

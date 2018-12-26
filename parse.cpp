@@ -48,7 +48,6 @@
 #include "localizedstrings.h"
 #include "debugheap.h"
 #include "files.h"
-#include <mbstring.h>
 #endif
 bool input_blocking = false;
 NODE *deepend_proc_name = NIL;
@@ -58,7 +57,7 @@ INPUTMODE input_mode = INPUTMODE_None;
 
 static CDynamicBuffer g_ReadBuffer;
 
-FILE *dribblestream = NULL;
+CFileTextStream *dribblestream = NULL;
 
 void OpenDribble(NODE * arg)
 {
@@ -68,7 +67,7 @@ void OpenDribble(NODE * arg)
 	}
 	else
 	{
-		dribblestream = OpenFile(car(arg), L"w");
+		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"),FileTextStreamType::Unicode);
 		if (dribblestream == NULL)
 		{
 			err_logo(FILE_ERROR, NIL);
@@ -80,7 +79,7 @@ void CloseDribble()
 {
 	if (dribblestream != NULL)
 	{
-		fclose(dribblestream);
+		delete dribblestream;
 		dribblestream = NULL;
 	}
 }
@@ -88,21 +87,21 @@ void CloseDribble()
 void DribbleWriteChar(wchar_t ch)
 {
 	if (dribblestream != NULL) {
-		putwc(ch, dribblestream);
+		dribblestream->WriteChar(ch);
 	}
 }
 
 void DribbleWriteText(const wchar_t * text)
 {
 	if (dribblestream != NULL) {
-		fwprintf(dribblestream, L"%s", text != 0 ? text : L"");
+		dribblestream->Write(text != 0 ? text :L"");
 	}
 }
 
 void DribbleWriteLine(const wchar_t * text)
 {
 	if (dribblestream != NULL) {
-		fwprintf(dribblestream, L"%s\n", text != 0 ? text : L"");
+		dribblestream->WriteLine(text != 0 ? text : L"");
 	}
 }
 
@@ -308,68 +307,24 @@ void CStringNodeBuffer::AppendChar(wchar_t ToAppend)
 	m_StringLimit++;
 }
 
-
-#ifndef MB_LEN_MAX
-#define MB_LEN_MAX 5
-#endif
-
-static char rd_buffer[MB_LEN_MAX + 1] = { 0 };
-static int rd_length = 0;
-
-wchar_t rd_fgetwc_bufferred(FILE* stream, bool unicode = false) {
-
-	wchar_t c = WEOF;
-	if (unicode)
-	{
-		c = fgetwc(stream);
-	}
-	else
-	{
-
-		size_t count = 0;
-		if (rd_length < MB_LEN_MAX) {
-			count = fread(rd_buffer + rd_length, sizeof(char), MB_LEN_MAX - rd_length, stream);
-			rd_length += count;
-		}
-		if (rd_length>0)
-		{
-			size_t n = _mbclen((unsigned char*)rd_buffer);
-			n = (n == 1 || n == 2) ? n : 1;
-			int ret = mbtowc(&c, rd_buffer, n);
-			if (ret <= 0) {
-				//bad input, we treat the first char as value
-				c = rd_buffer[0];
-				n = 1;
-			}
-			for (int i = 0; i < sizeof(rd_buffer) - 1; i++) {
-				rd_buffer[i] = (i + n) < sizeof(rd_buffer) ? rd_buffer[i + n] : 0;
-			}
-			rd_length -= n;
-		}
-	}
-
-
-	return c;
-}
 // This is a hack to purge the "INPUTMODE_TO" buffer when
 // loading from the editor.  If this is not done, any unused
 // portion will hang around and be silently used the next time
 // TO is run.
-void rd_clearbuffer(FILE *strm)
+void rd_clearbuffer(CFileTextStream *strm)
 {
-	if (input_mode == INPUTMODE_To && strm == stdin)
+	if (input_mode == INPUTMODE_To && strm->GetFile() == stdin)
 	{
 		g_ReadBuffer.Empty();
 	}
 }
-wchar_t rd_fgetwc(FILE *stream, bool unicode)
+wchar_t rd_fgetwc(CFileTextStream *stream)
 {
 	wchar_t c = 0;
 
-	if (stream != stdin)
+	if (*stream != stdin)
 	{
-		c = rd_fgetwc_bufferred(stream, unicode);
-
+		c = stream->ReadChar();
 	}
 	else //strm == stdin (actually it's the buffer)
 	{
@@ -439,14 +394,14 @@ wchar_t rd_fgetwc(FILE *stream, bool unicode)
 	return c;
 }
 
-static
-inline
-void rd_print_prompt(const wchar_t * /*str*/)
-{
-	//ndprintf(stdout,"%t",str);
-}
-static bool IsDribbling(FILE* fileStream) {
-	return (dribblestream != NULL && fileStream == stdin);
+//static
+//inline
+//void rd_print_prompt(const wchar_t * /*str*/)
+//{
+//	//ndprintf(stdout,"%t",str);
+//}
+static bool IsDribbling(CFileTextStream* fileStream) {
+	return (dribblestream != NULL && *fileStream == stdin);
 
 }
 // Reads the next complete line from FileStream into a string node.
@@ -462,7 +417,7 @@ static bool IsDribbling(FILE* fileStream) {
 //              the characters "(", ")", "{", "}", "[", "]", and ';'
 //              have no special meaning.
 //
-NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
+NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
 {
 	int paren = 0;
 	int bracket = 0;
@@ -498,11 +453,11 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 
 	bool dribbling = IsDribbling(fileStream);
 
-	if (fileStream == stdin)
+	if (*fileStream == stdin)
 	{
 		if (*Prompt != L'\0')
 		{
-			rd_print_prompt(Prompt);
+			//rd_print_prompt(Prompt);
 
 			if (dribbling)
 			{
@@ -520,7 +475,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 	// is called when a PAUSE continues
 	if (!setjmp(iblk_buf))
 	{
-		wchar_t c = rd_fgetwc(fileStream, unicode);
+		wchar_t c = rd_fgetwc(fileStream);
 		while (c != WEOF && (c != L'\n' || vbar || paren || bracket || brace))
 		{
 			if (dribbling)
@@ -531,7 +486,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 			// if c is a backslash, then read the next character and escape it
 			if (!raw && c == L'\\')
 			{
-				c = rd_fgetwc(fileStream, unicode);
+				c = rd_fgetwc(fileStream);
 				if (c == WEOF)
 				{
 					break;
@@ -552,9 +507,9 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 				// the resulting string will be backslashed
 				this_type = BACKSLASH_STRING;
 
-				if (c == ecma_set(L'\n') && fileStream == stdin)
+				if (c == ecma_set(L'\n') && *fileStream == stdin)
 				{
-					rd_print_prompt(L"\\ ");
+					//rd_print_prompt(L"\\ ");
 					if (dribbling)
 					{
 						DribbleWriteText(L"\\ ");
@@ -566,7 +521,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 
 			if (raw)
 			{
-				c = rd_fgetwc(fileStream, unicode);
+				c = rd_fgetwc(fileStream);
 				continue;
 			}
 
@@ -673,9 +628,9 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 			{
 				// newlines end comment
 				incomment = false;
-				if (fileStream == stdin)
+				if (*fileStream == stdin)
 				{
-					rd_print_prompt(vbar ? L"| " : L"~ ");
+					//rd_print_prompt(vbar ? L"| " : L"~ ");
 
 					if (dribbling)
 					{
@@ -684,7 +639,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 				}
 			}
 
-			while (!vbar && c == L'~' && (c = rd_fgetwc(fileStream, unicode)) != WEOF)
+			while (!vbar && c == L'~' && (c = rd_fgetwc(fileStream)) != WEOF)
 			{
 				CDynamicBuffer whitespace;
 
@@ -694,7 +649,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 				while (c == L' ' || c == L'\t')
 				{
 					whitespace.AppendChar(c);
-					c = rd_fgetwc(fileStream, unicode);
+					c = rd_fgetwc(fileStream);
 				}
 
 				if (c != L'\n')
@@ -718,11 +673,11 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 
 				lineBuffer.AppendChar(c);
 
-				if (c == L'\n' && fileStream == stdin)
+				if (c == L'\n' && *fileStream == stdin)
 				{
 					incomment = false;
 
-					rd_print_prompt(L"~ ");
+					//rd_print_prompt(L"~ ");
 
 					if (dribbling)
 					{
@@ -731,7 +686,7 @@ NODE *reader(FILE *fileStream, const wchar_t * Prompt, bool unicode)
 				}
 			}
 
-			c = rd_fgetwc(fileStream, unicode);
+			c = rd_fgetwc(fileStream);
 		}
 	}
 
@@ -795,8 +750,7 @@ parser_iterate(
 	const wchar_t **inln,
 	const wchar_t *inlimit,
 	bool        ignore_comments,
-	int         endchar,
-	bool unicode
+	int         endchar
 )
 {
 	const wchar_t *word_start = NULL;
@@ -970,7 +924,7 @@ parser_iterate(
 		else if (ch == L'[')
 		{
 			// this is a '[', parse a new list (until we see a ])
-			tnode = cons_list(parser_iterate(inln, inlimit, ignore_comments, L']', unicode));
+			tnode = cons_list(parser_iterate(inln, inlimit, ignore_comments, L']'));
 			if (**inln == L'\0')
 			{
 				ch = L'\0';
@@ -979,7 +933,7 @@ parser_iterate(
 		else if (ch == L'{')
 		{
 			// this is a '{', parse a new array (until we see a })
-			NODE * array_as_list = parser_iterate(inln, inlimit, ignore_comments, L'}', unicode);
+			NODE * array_as_list = parser_iterate(inln, inlimit, ignore_comments, L'}');
 			NODE * array = list_to_array(array_as_list);
 			gcref(array_as_list);
 
@@ -1049,32 +1003,28 @@ parser_iterate(
 	return return_list.GetList();
 }
 
-NODE *parser(NODE *nd, bool ignore_comments, bool unicode)
+NODE *parser(NODE *nd, bool ignore_comments)
 {
 	NODE * string_node = cnv_node_to_strnode(nd);
 	ref(string_node);
 
 	int          slen = getstrlen(string_node);
 	const wchar_t * lnsav = getstrptr(string_node);
-	NODE * rtn = parser_iterate(&lnsav, lnsav + slen, ignore_comments, -1, unicode);
+	NODE * rtn = parser_iterate(&lnsav, lnsav + slen, ignore_comments, -1);
 
 	gcref(nd);
 	deref(string_node);
 	return rtn;
 }
-NODE *lparse(NODE *args)
-{
-	return lparse(args, false);
-}
 
-NODE *lparse(NODE *args, bool unicode)
+NODE *lparse(NODE *args)
 {
 	NODE *val = Unbound;
 
 	NODE * arg = string_arg(args);
 	if (NOT_THROWING)
 	{
-		val = parser(arg, false, unicode);
+		val = parser(arg, false);
 	}
 	return val;
 }
@@ -1260,10 +1210,6 @@ NODE *runparse_node(NODE *nd, NODE **ndsptr)
 }
 NODE *runparse(NODE *ndlist)
 {
-	return runparse(ndlist, false);
-}
-NODE *runparse(NODE *ndlist, bool unicode)
-{
 	if (nodetype(ndlist) == RUN_PARSE)
 	{
 		// already run-parsed
@@ -1326,11 +1272,6 @@ NODE *runparse(NODE *ndlist, bool unicode)
 }
 NODE *lrunparse(NODE *args)
 {
-	return lrunparse(args, false);
-}
-
-NODE *lrunparse(NODE *args, bool unicode)
-{
 	NODE * arg = car(args);
 	while (nodetype(arg) == ARRAY && NOT_THROWING)
 	{
@@ -1340,12 +1281,12 @@ NODE *lrunparse(NODE *args, bool unicode)
 
 	if (NOT_THROWING && !is_aggregate(arg))
 	{
-		arg = parser(arg, true, unicode);
+		arg = parser(arg, true);
 	}
 
 	if (NOT_THROWING)
 	{
-		return runparse(arg, unicode);
+		return runparse(arg);
 	}
 
 	return Unbound;

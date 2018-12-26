@@ -26,6 +26,7 @@ public:
 protected:
 	CFileTextStream(const wxString& newline);
 	CFileTextStream(FILE* file, bool close_on_exit,const wxString& newline);
+public:
 	virtual ~CFileTextStream();
 
 public:
@@ -41,6 +42,9 @@ public:
 	virtual FileTextStreamType GetStreamType();
 
 	virtual bool& CloseOnExit();
+	virtual FILE*& GetFile();
+
+	virtual operator FILE*();
 protected:
 	bool close_on_exit;
 	FILE* file;

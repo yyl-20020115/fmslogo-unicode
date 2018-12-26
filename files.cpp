@@ -67,13 +67,18 @@ private:
 };
 
 NODE *current_line = NIL;       // current line to be parsed
+CFileListNode * g_OpenFiles = 0;
 
-static CFileListNode * g_OpenFiles;
+CFileTextStream *stdinstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CFileTextStream *stdoutstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
 
-static FILE *loadstream = stdin;
+CFileTextStream *loadstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CFileTextStream *inputstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CFileTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
 
-CFileStream g_Reader(stdin);
-CFileStream g_Writer(stdout);
+
+CFileStream g_Reader(inputstream);
+CFileStream g_Writer(outputstream);
 
 CFileListNode::CFileListNode(
     NODE * FileNameNode,
@@ -176,17 +181,17 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
     return tstrm;
 }
 
-FILE *& GetInputStream()
+CFileTextStream*&GetInputStream()
 {
-	return g_Reader.GetStream();
+	return inputstream;
 }
 
-FILE *& GetOutputStream()
+CFileTextStream*& GetOutputStream()
 {
-	return g_Writer.GetStream();
+	return outputstream;
 }
 
-FILE *& GetLoadStream()
+CFileTextStream *& GetLoadStream()
 {
 	return loadstream;
 }
@@ -443,7 +448,7 @@ NODE *lclose(NODE *arg)
 }
 
 CFileStream::CFileStream(
-    FILE * DefaultFileStream
+	CFileTextStream * DefaultFileStream
     ) :
     m_Name(NIL),
     m_Stream(DefaultFileStream),
@@ -477,7 +482,7 @@ CFileStream::SetStreamToOpenFile(
     }
     else if ((filePtr = FindFile(FileName, &filePtrIsBinaryStream)) != NULL)
     {
-        m_Stream         = filePtr;
+        m_Stream->GetFile()        = filePtr;
         m_StreamIsBinary = filePtrIsBinaryStream;
         assign(m_Name, FileName);
     }
@@ -512,7 +517,7 @@ CFileStream::GetName() const
 NODE *
 CFileStream::GetPosition() const
 {
-    return make_intnode(ftell(m_Stream));
+    return make_intnode((m_Stream->GetPosition()));
 }
 
 void
@@ -524,7 +529,7 @@ CFileStream::SetPosition(
 
     if (NOT_THROWING)
     {
-        fseek(m_Stream, getint(val), SEEK_SET);
+        m_Stream->SetPosition(getint(val), SEEK_SET);
     }
 }
 
@@ -576,8 +581,9 @@ PrintWorkspaceToFileStream(
     if (FileStream != NULL)
     {
         // HACK: change g_Writer to use the new stream
-        FILE * savedWriterStream = GetOutputStream();
-        g_Writer.SetStream(FileStream);
+        FILE * savedWriterStream = GetOutputStream()->GetFile();
+        
+		GetOutputStream()->GetFile() = FileStream;
 
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -587,14 +593,14 @@ PrintWorkspaceToFileStream(
         lpo(entire_workspace);
         deref(entire_workspace);
 
-        fclose(GetOutputStream());
+        GetOutputStream()->Close();
         IsDirty = false;
 
         lsetcursorarrow(NIL);
         yield_flag = save_yield_flag;
 
         // restore g_Writer
-        g_Writer.SetStream(savedWriterStream);
+		GetOutputStream()->GetFile() = savedWriterStream;
     }
     else
     {
@@ -731,12 +737,19 @@ void silent_load(NODE *arg, const wchar_t *prefix)
             // we're loading argv (not from Logolib or current directory)
             // so we should display an error
             ndprintf(
-                stdout,
+				stdoutstream,
                 MESSAGETYPE_Error,
 				GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN2")+L"\n",
                 prefix);
         }
     }
+}
+
+FileTextStreamType DefaultFileTextStreamType = FileTextStreamType::Mbcs;
+
+FileTextStreamType& GetDefaultFileTextStreamType()
+{
+	return DefaultFileTextStreamType;
 }
 
 // CONSIDER for MAINTAINABILITY:
@@ -748,25 +761,27 @@ NODE *lload(NODE *arg)
     FIXNUM saved_value_status = g_ValueStatus;
 
     bool isDirtySave = IsDirty;
-    FILE * tmp = loadstream;
+    CFileTextStream* temporarystream = GetLoadStream();
     NODE * tmp_line = vref(current_line);
-    loadstream = OpenFile(car(arg), L"r");
-    if (loadstream != NULL)
+	CFileTextStream* filestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"r"), DefaultFileTextStreamType);
+    if (filestream != NULL)
     {
+		GetLoadStream() = filestream;
+
         bool save_yield_flag = yield_flag;
         yield_flag = false;
         lsetcursorwait(NIL);
 
         start_execution();
 
-        while (!feof(loadstream) && NOT_THROWING)
+        while (!GetLoadStream()->IsEOF() && NOT_THROWING)
         {
             assign(current_line, reader(loadstream, L""));
             NODE * exec_list = parser(current_line, true);
             g_ValueStatus = VALUE_STATUS_NotOk;
             eval_driver(exec_list);
         }
-        fclose(loadstream);
+		GetLoadStream()->Close();
 
         lsetcursorarrow(NIL);
         yield_flag = save_yield_flag;
@@ -783,7 +798,10 @@ NODE *lload(NODE *arg)
             make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
     }
 
-    loadstream = tmp;
+	GetLoadStream() = temporarystream;
+
+	delete filestream;
+
     deref(current_line);
     current_line = tmp_line;
     IsDirty = isDirtySave;
@@ -795,7 +813,7 @@ NODE *lreadlist(NODE *)
 	GetInputMode() = INPUTMODE_List;
     NODE * val = parser(reader(g_Reader.GetStream(), L""), false);
 	GetInputMode() = INPUTMODE_None;
-    if (feof(g_Reader.GetStream()) && val == NIL)
+    if (g_Reader.GetStream()->IsEOF() && val == NIL)
     {
         gcref(val);
         return Null_Word;
@@ -806,7 +824,7 @@ NODE *lreadlist(NODE *)
 NODE *lreadword(NODE *)
 {
     NODE * val = reader(g_Reader.GetStream(), L"RW");  // fake prompt flags no auto-continue
-    if (feof(g_Reader.GetStream()) && getstrlen(val) == 0)
+    if (g_Reader.GetStream()->IsEOF() && getstrlen(val) == 0)
     {
         gcref(val);
         return NIL;
@@ -817,7 +835,7 @@ NODE *lreadword(NODE *)
 NODE *lreadrawline(NODE *)
 {
     NODE *val = reader(g_Reader.GetStream(), L"RAW"); // fake prompt flags no specials
-    if (feof(g_Reader.GetStream()) && getstrlen(val) == 0)
+    if (g_Reader.GetStream()->IsEOF() && getstrlen(val) == 0)
     {
         gcref(val);
         return NIL;
@@ -834,18 +852,18 @@ NODE *lreadchar(NODE *)
 
     if (!setjmp(iblk_buf))
     {
-        if (g_Reader.GetStream() == stdin)
+        if (g_Reader.GetStream()->GetFile() == stdin)
         {
-            c = (wchar_t) rd_fgetwc(stdin);
+            c = rd_fgetwc(stdinstream);
         }
         else
         {
-            c = (wchar_t) getwc(g_Reader.GetStream());
+            c = g_Reader.GetStream()->ReadChar();
         }
     }
 	GetInputBlocking() = false;
 
-    if (feof(g_Reader.GetStream()))
+    if (GetInputStream()->IsEOF())
     {
         return NIL;
     }
@@ -868,8 +886,8 @@ NODE *lreadchars(NODE *args)
 {
     NODETYPES type = STRING;
 
-    size_t totalBytesRequested = (size_t) getint(nonnegative_int_arg(args));
-    size_t totalBytesRead      = 0;
+    size_t totalCharsRequested = (size_t) getint(nonnegative_int_arg(args));
+    size_t totalCharsRead      = 0;
 
     if (stopping_flag == THROWING) 
     {
@@ -878,7 +896,7 @@ NODE *lreadchars(NODE *args)
 
     // READCHARS is documented to always return [] when the read
     // stream is set to the commander.
-    if (g_Reader.GetStream() == stdin)
+    if (GetInputStream()->GetFile() == stdin)
     {
         return NIL;
     }
@@ -890,18 +908,26 @@ NODE *lreadchars(NODE *args)
     {
         // TODO: Don't allocate more bytes than the file contains.
         // This would allow for success when given a very large input.
+		off64_t cp = g_Reader.GetStream()->GetPosition();
+		g_Reader.GetStream()->SetPosition(0,SEEK_END);
+		off64_t dp = g_Reader.GetStream()->GetPosition();
+		g_Reader.GetStream()->SetPosition(cp, SEEK_SET);
 		
-        strhead = (wchar_t *) malloc( sizeof(unsigned short) +(totalBytesRequested + 1)*sizeof(wchar_t));
+		size_t left_size = (size_t)(dp - cp);
+		size_t full_size = sizeof(unsigned short) + (totalCharsRequested + 1) * sizeof(wchar_t);
+		size_t buff_size = min(full_size, left_size);
+
+        strhead = (wchar_t *) malloc(buff_size);
         if (strhead == NULL)
         {
             err_logo(OUT_OF_MEM, NIL);
             return Unbound;
         }
-
+		memset(strhead, 0, buff_size);
         strptr = (wchar_t*)((char*) strhead + sizeof(unsigned short));
-		strptr[totalBytesRequested] = L'\0';
-        totalBytesRead = fread(strptr, 1, totalBytesRequested, g_Reader.GetStream());
-        unsigned short * temp = (unsigned short *) strhead;
+		//totalBytesRead = fread(strptr, 1, totalBytesRequested, g_Reader.GetStream());
+		totalCharsRead = g_Reader.GetStream()->Read(strptr, totalCharsRequested);
+		unsigned short * temp = (unsigned short *) strhead;
         setstrrefcnt(temp, 0);
     }
 
@@ -913,19 +939,20 @@ NODE *lreadchars(NODE *args)
         return Unbound;
     }
 
-    if (totalBytesRead == 0)
+    if (totalCharsRead == 0)
     {
         // We read zero bytes.  This may be because we hit EOF or
         // because we requested zero bytes.  If both are true, we
         // want to return [] when we're at EOF.
-        if (totalBytesRequested == 0)
+        if (totalCharsRequested == 0)
         {
             // Probe to see if we're at the end of the file.
             // This will update feof().
-            ungetc(getc(g_Reader.GetStream()), g_Reader.GetStream());
+            //ungetc(getc(g_Reader.GetStream()), g_Reader.GetStream());
+			GetInputStream()->PeekChar();
         }
 
-        if (feof(g_Reader.GetStream()))
+        if (GetInputStream()->IsEOF())
         {
             // We reached the end of the file.
             free(strhead);
@@ -934,7 +961,7 @@ NODE *lreadchars(NODE *args)
     }
 
     // Check if this string has special characters in it
-    for (size_t i = 0; i < totalBytesRead; i++)
+    for (size_t i = 0; i < totalCharsRead; i++)
     {
         if (ecma_get(strptr[i])) 
         {
@@ -943,19 +970,20 @@ NODE *lreadchars(NODE *args)
         }
     }
 
-    return make_strnode_no_copy(strptr, strhead, (int) totalBytesRead, type);
+    return make_strnode_no_copy(strptr, strhead, (int) totalCharsRead, type);
 }
 
 NODE *leofp(NODE *)
 {
-    ungetc(getc(g_Reader.GetStream()), g_Reader.GetStream());
-    int isEof = feof(g_Reader.GetStream());
+    //ungetc(getc(g_Reader.GetStream()), g_Reader.GetStream());
+	GetInputStream()->PeekChar();
+	int isEof = GetInputStream()->IsEOF();
     return true_or_false(isEof);
 }
 
 NODE *lkeyp(NODE *)
 {
-    if (g_Reader.GetStream() == stdin)
+    if (GetInputStream()->GetFile() == stdin)
     {
         return Truex.GetNode();
     }
@@ -1005,3 +1033,5 @@ void uninitialize_files()
     g_Reader.ResetToDefaultStream();
     g_Writer.ResetToDefaultStream();
 }
+
+//TODO: needs to check

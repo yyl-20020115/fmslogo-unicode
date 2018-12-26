@@ -62,8 +62,8 @@ void filesave(const wchar_t *FileName)
 bool fileload(const wchar_t *Filename)
 {
     bool isOk = false;
-
-    FILE * filestream = _wfopen(Filename, L"r");
+	//NOTICE: we check BOM to determine whether to use unicode encoding or use mbcs encoding
+	CFileTextStream* filestream = CFileTextStream::OpenForRead(Filename);// _wfopen(Filename, L"r");
     if (filestream != NULL)
     {
         // save all global state that may be modified
@@ -72,7 +72,7 @@ bool fileload(const wchar_t *Filename)
         FIXNUM savedValueStatus = g_ValueStatus;
         bool   savedIsDirty     = IsDirty;
         bool   savedYieldFlag   = yield_flag;
-        FILE * savedLoadStream  = GetLoadStream();
+        CFileTextStream* savedLoadStream  = GetLoadStream();
         NODE * savedCurrentLine = vref(current_line);
 
 		GetLoadStream() = filestream;
@@ -82,7 +82,7 @@ bool fileload(const wchar_t *Filename)
 
         start_execution();
 
-        while (!feof(GetLoadStream()) && NOT_THROWING)
+        while (!GetLoadStream()->IsEOF() && NOT_THROWING)
         {
             assign(current_line, reader(GetLoadStream(), L""));
             NODE * exec_list = parser(current_line, true);
@@ -90,7 +90,6 @@ bool fileload(const wchar_t *Filename)
             eval_driver(exec_list);
 			
         }
-        fclose(GetLoadStream());
 
         // Restore some of the global state before running the startup
         // instruction list.
@@ -101,6 +100,7 @@ bool fileload(const wchar_t *Filename)
         // into reading more data from the current (closed) file stream.
 		GetLoadStream() = savedLoadStream;
 
+		delete filestream;
         // Run the any startup instruction list that may have been defined
         // when the file was loaded.  (The parameter "previous_startup" is
         // not what is run, but rather is used to detect if anything new

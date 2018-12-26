@@ -27,97 +27,74 @@
 
 
 CStringPrintedNode::CStringPrintedNode(
-    const NODE *        Node,
-    PRINTLIMITSPECIFIER PrintLimit
-    ) :
-    m_DynamicBuffer(NULL)
+	const NODE *        Node,
+	PRINTLIMITSPECIFIER PrintLimit
+) :
+	m_Buffer()
 {
-    int printDepthLimit;
-    int printWidthLimit;
-    if (PrintLimit == WithPrintLimits)
-    {
-        // Use the current limits for printing.
-        printDepthLimit = find_limit(Printdepthlimit);
-        printWidthLimit = find_limit(Printwidthlimit);
-    }
-    else
-    {
-        // There are no limits for printing.
-        printDepthLimit = -1;
-        printWidthLimit = -1;
-    }
+	int printDepthLimit;
+	int printWidthLimit;
+	if (PrintLimit == WithPrintLimits)
+	{
+		// Use the current limits for printing.
+		printDepthLimit = find_limit(Printdepthlimit);
+		printWidthLimit = find_limit(Printwidthlimit);
+	}
+	else
+	{
+		// There are no limits for printing.
+		printDepthLimit = -1;
+		printWidthLimit = -1;
+	}
 
-    // First, try to print the node into the fixed-size buffer.
-    size_t totalCharsNeeded = PrintNodeToString(
-        Node,
-        m_FixedBuffer,
-        sizeof(m_FixedBuffer)/sizeof(wchar_t),
-        printDepthLimit,
-        printWidthLimit);
 
-    if (sizeof(m_FixedBuffer) / sizeof(wchar_t) < totalCharsNeeded)
-    {
-        // More space is needed than exists in the fixed-sized buffer.
-        m_DynamicBuffer = (wchar_t*)malloc((totalCharsNeeded+1)*sizeof(wchar_t));
-        if (m_DynamicBuffer != NULL)
-        {
-			m_DynamicBuffer[totalCharsNeeded] = L'\0';
-            // Print the node into the correctly sized buffer.
-            size_t newTotalBytesNeeded = PrintNodeToString(
-                Node,
-                m_DynamicBuffer,
-                totalCharsNeeded,
-                printDepthLimit,
-                printWidthLimit);
+	// Print the node into the correctly sized buffer.
+	size_t newTotalBytesNeeded = PrintNodeToString(
+		Node,
+		&m_Buffer,
+		printDepthLimit,
+		printWidthLimit);
 
-            // The number of bytes needed shouldn't have changed
-            // from the first attempt to the second attempt.
-            assert(totalCharsNeeded == newTotalBytesNeeded);
-        }
-    }
+	// The number of bytes needed shouldn't have changed
+	// from the first attempt to the second attempt.
+	//assert(totalCharsNeeded == newTotalBytesNeeded);
+
 }
 
 CStringPrintedNode::~CStringPrintedNode()
 {
-	if (m_DynamicBuffer != 0) {
-		free(m_DynamicBuffer);
-		m_DynamicBuffer = 0;
-	}
+
 }
 
-const wchar_t *
-CStringPrintedNode::GetString() const
+//const wchar_t *
+//CStringPrintedNode::GetString()
+//{
+//	return m_Buffer.GetContent();
+//}
+
+//wchar_t *
+//CStringPrintedNode::GetString()
+//{
+//	return m_Buffer.GetContent();
+//}
+//
+//
+//CStringPrintedNode::operator const wchar_t *()
+//{
+//    return GetString();
+//}
+
+CStringPrintedNode::operator const wxString&()
 {
-    if (m_DynamicBuffer != NULL)
-    {
-        return m_DynamicBuffer;
-    }
-    else
-    {
-        return m_FixedBuffer;
-    }
+	return this->GetContent();
 }
 
-wchar_t *
-CStringPrintedNode::GetString()
+const wxString & CStringPrintedNode::GetContent()
 {
-    if (m_DynamicBuffer != NULL)
-    {
-        return m_DynamicBuffer;
-    }
-    else
-    {
-        return m_FixedBuffer;
-    }
+	return this->m_Buffer.GetContent();
 }
 
-
-CStringPrintedNode::operator const wchar_t *() const
-{
-    return GetString();
-}
-
-CStringPrintedNode::operator wchar_t *()
-{
-    return GetString();
-}
+//CStringPrintedNode::operator wchar_t *()
+//{
+//    return GetString();
+//}

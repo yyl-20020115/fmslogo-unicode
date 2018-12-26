@@ -18,6 +18,7 @@
 
 #ifndef _STRINGPRINTEDNODE_H_
 #define _STRINGPRINTEDNODE_H_
+#include "CStringTextStream.h"
 
 // A helper class for printing a node into a buffer, dynamically
 // allocating the buffer if necessary.
@@ -37,25 +38,23 @@ public:
         );
 
     ~CStringPrintedNode();
+public:
 
-    const wchar_t * GetString() const;
-	wchar_t * GetString();
+    //const wchar_t * GetString();
+	//wchar_t * GetString();
 
-    operator const wchar_t *() const;
-    operator wchar_t *();
+    //operator const wchar_t *();
+    operator const wxString&();
+
+public:
+	const wxString& GetContent();
 
 private:
     // block the compiler-generated constructors
     CStringPrintedNode();
     CStringPrintedNode(const CStringPrintedNode &);
 
-    // A reasonably-sized fixed buffer, to avoid the extra
-    // dynamic allocation and second pass in the common case.
-	wchar_t   m_FixedBuffer[64];
-
-    // A pointer to a dynamic buffer, used when m_FixedBuffer
-    // isn't large enough to hold the string form of the node.
-	wchar_t * m_DynamicBuffer;
+	CStringTextStream m_Buffer;
 };
 
 #endif // _STRINGPRINTEDNODE_H_

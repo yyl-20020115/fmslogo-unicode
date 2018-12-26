@@ -19,7 +19,7 @@
 #define __PRINT_H_
 
 #include <stdio.h>
-
+#include "CTextStream.h"
 struct NODE;
 
 enum MESSAGETYPE
@@ -30,14 +30,14 @@ enum MESSAGETYPE
 };
 
 // function declarations
-extern void print_char(FILE *strm, MESSAGETYPE type, wchar_t ch);
-extern void print_space(FILE *strm, MESSAGETYPE type);
-extern void ndprintf(FILE *strm, MESSAGETYPE type, const wchar_t *fmt, ...);
+extern void print_char(CTextStream *strm, MESSAGETYPE type, wchar_t ch);
+extern void print_space(CTextStream *strm, MESSAGETYPE type);
+extern void ndprintf(CTextStream *strm, MESSAGETYPE type, const wchar_t *fmt, ...);
 extern int find_limit(const class CLocalizedNode & Node);
-extern void print_helper(FILE *strm, MESSAGETYPE type, NODE *nd);
-extern void print_node(FILE *strm, MESSAGETYPE type, NODE *nd);
-extern void print_nobrak(FILE *strm, MESSAGETYPE type, NODE *nd);
-extern void new_line(FILE *strm, MESSAGETYPE type);
+extern void print_helper(CTextStream *strm, MESSAGETYPE type, NODE *nd);
+extern void print_node(CTextStream *strm, MESSAGETYPE type, NODE *nd);
+extern void print_nobrak(CTextStream *strm, MESSAGETYPE type, NODE *nd);
+extern void new_line(CTextStream *strm, MESSAGETYPE type);
 extern NODE *lshow(NODE *args);
 extern NODE *ltype(NODE *args);
 extern NODE *lprint(NODE *args);
@@ -45,8 +45,7 @@ extern NODE *lprint(NODE *args);
 extern
 void
 InitializeStringPrintInformation(
-	wchar_t * Buffer,
-    size_t BufferLength
+	CTextStream* buffer
     );
 
 extern size_t FinalizeStringPrintInformation();
@@ -55,16 +54,14 @@ extern
 size_t
 PrintNodeToString(
     const NODE * Node,
-	wchar_t *       Buffer,
-    size_t       BufferLength
+	CTextStream* buffer
     );
 
 extern
 size_t
 PrintNodeToString(
     const NODE * Node,
-	wchar_t *       Buffer,
-    size_t       BufferLength,
+	CTextStream* buffer,
     int          PrintDepthLimit,
     int          PrintWidthLimit
     );

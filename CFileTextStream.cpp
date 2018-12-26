@@ -147,6 +147,16 @@ bool& CFileTextStream::CloseOnExit() {
 	return this->close_on_exit;
 }
 
+FILE*& CFileTextStream::GetFile()
+{
+	return this->file;
+}
+
+CFileTextStream::operator FILE*()
+{
+	return this->GetFile();
+}
+
 off64_t CFileTextStream::GetPosition()
 {
 	off64_t p = 0LL;

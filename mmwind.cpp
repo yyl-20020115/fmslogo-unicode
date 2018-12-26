@@ -296,7 +296,7 @@ NODE *lmci(NODE *args)
 
     // send out command 
     DWORD mciError = mciSendString(
-        command,
+		(const wxString&)command,
         mciReturnBuffer,
         ARRAYSIZE(mciReturnBuffer)-1,
         GetMainWindow());
@@ -403,13 +403,13 @@ NODE *lplaywave(NODE *args)
 
     int flag = getint(nonnegative_int_arg(args = cdr(args)));
 
-    if (fileName.GetString()[0] == '\0')
+    if (((const wxString&)fileName).length() == 0)
     {
         sndPlaySound(NULL, flag);
     }
     else
     {
-        sndPlaySound(fileName, flag);
+        sndPlaySound((const wxString&)fileName, flag);
     }
 
     return Unbound;

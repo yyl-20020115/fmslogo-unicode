@@ -377,7 +377,7 @@ UpdateNormalPen(
 
 ERR_TYPES
 gifsave_helper(
-    const wchar_t *GifFileName,
+    const wxString& GifFileName,
     int         iDelay_,
     int         bAppendMode_,
     int         iLoop_,
@@ -541,7 +541,7 @@ NODE *lbitsave(NODE *args)
 
 ERR_TYPES
 gifload_helper(
-    const wchar_t   * GifFileName,
+    const wxString&  GifFileName,
     unsigned int & dwPixelWidth,
     unsigned int & dwPixelHeight
     )
@@ -625,7 +625,7 @@ NODE *lbitload(NODE *arg)
     unsigned int pixelWidth = 1;
     unsigned int pixelHeight = 1;
     ERR_TYPES status = LoadBitmapFile(
-        bitmapFileName,
+		(const wxString&)bitmapFileName,
         pixelWidth,
         pixelHeight);
     if (status != SUCCESS)
@@ -649,7 +649,7 @@ NODE *lbitloadsize(NODE *arg)
 
     unsigned int pixelWidth = 0;
     unsigned int pixelHeight = 0;
-    ERR_TYPES status = LoadBitmapFile(bitmapFileName, pixelWidth, pixelHeight);
+    ERR_TYPES status = LoadBitmapFile((const wxString&)bitmapFileName, pixelWidth, pixelHeight);
     if (status != SUCCESS)
     {
         err_logo(status, NIL);
@@ -3083,11 +3083,12 @@ NODE *lsetfocus(NODE *arg)
 #ifndef WX_PURE
     CStringPrintedNode windowCaption(car(arg));
 
-    HWND window;
+    HWND window = 0;
+	const wxString& wc = windowCaption;
 
-    if (0 == _wcsicmp(L"FMSLogo", windowCaption) ||
-        0 == _wcsicmp(L"MSWLogo Screen", windowCaption) ||
-        0 == _wcsicmp(L"FMSLogo Screen", windowCaption))
+    if (wc.IsSameAs(L"FMSLogo",false)||
+		wc.IsSameAs(L"MSWLogo Screen", false) ||
+		wc.IsSameAs(L"FMSLogo Screen", false))
     {
         // special-case: set the focus on the screen
         window = GetScreenWindow();
@@ -3095,7 +3096,7 @@ NODE *lsetfocus(NODE *arg)
     else
     {
         // get handle to Window with arg as Caption
-        window = FindWindow(NULL, windowCaption);
+        window = FindWindow(NULL, wc);
     }
 
     // Now set focus to it, if it exists
@@ -3145,7 +3146,7 @@ NODE *lwindowset(NODE *args)
         // For compatibility with other translations of FMSLogo (with
         // possibly alternate names for the commander), we always treat
         // the window "commander" as meaning the commander.
-        if (0 == _wcsicmp(caption, L"commander"))
+        if (((const wxString&)caption).IsSameAs(L"commander",false))
         {
             // For backward compatibility with MSWLogo, we must undock
             // the commander into its own window so that window operations
@@ -3157,7 +3158,7 @@ NODE *lwindowset(NODE *args)
         else
         {
             // get handle to Window with arg as Caption
-            window = FindWindow(NULL, caption);
+            window = FindWindow(NULL, (const wxString&)caption);
         }
 
         // if it exists set its state.
@@ -3252,7 +3253,7 @@ PrintFont(
 static
 void
 setfont(
-    const wchar_t *fontname
+    const wxString &fontname
     )
 {
     HDC hdc = GetDC(::GetFocus());
@@ -3346,21 +3347,21 @@ HtmlHelpUninitialize(
 }
 
 // if arg is NULL then we jump to index
-void do_help(const wchar_t *arg)
+void do_help(const wxString& arg)
 {
     if (!HtmlHelpInitialize())
     {
         return;
     }
 
-    if (arg != NULL)
+    if (arg.length()>0)
     {
         // A specific help topic was requested.
-        g_HelpController->KeywordSearch(wxString(arg));
+        g_HelpController->KeywordSearch((arg));
     }
     else
     {
-        g_HelpController->DisplaySection(wxString(L"index.htm"));
+        g_HelpController->DisplaySection((L"index.htm"));
     }
 }
 
@@ -3375,7 +3376,7 @@ NODE *lhelp(NODE *arg)
     else
     {
         // else just pop up help
-        do_help(NULL);
+        do_help(wxString());
     }
 
     return Unbound;
@@ -3394,14 +3395,14 @@ NODE *lwinhelp(NODE *arg)
 
         WinHelp(
             GetMainWindow(),
-            textbuf,
+            (const wxString&)textbuf,
             HELP_PARTIALKEY,
-            (ULONG_PTR)(textbuf2.GetString()));
+            (ULONG_PTR)((LPCWSTR)(const wxString&)textbuf2));
     }
     else
     {
         // else just give help on file (arg 1)
-        WinHelp(GetMainWindow(), textbuf, HELP_INDEX, 0L);
+        WinHelp(GetMainWindow(), (const wxString&)textbuf, HELP_INDEX, 0L);
     }
 #endif
     return Unbound;
@@ -3583,7 +3584,7 @@ NODE *lmachine(NODE *)
 
 #ifndef WX_PURE
 
-SIZE labelsize(const wchar_t *s)
+SIZE labelsize(const wxString& s)
 {
     ASSERT_TURTLE_INVARIANT;
 
@@ -3603,7 +3604,7 @@ SIZE labelsize(const wchar_t *s)
     {
         HFONT oldFont = (HFONT) SelectObject(screen, tempFont);
 
-        GetTextExtentPoint(screen, s, wcslen(s), &size);
+        GetTextExtentPoint(screen, s, (s.length()), &size);
 
         // restore the original font
         SelectObject(screen, oldFont);
@@ -3614,7 +3615,7 @@ SIZE labelsize(const wchar_t *s)
     return size;
 }
 
-void label(const wchar_t *s)
+void label(const wxString& s)
 {
     ASSERT_TURTLE_INVARIANT;
 
@@ -3655,7 +3656,7 @@ void label(const wchar_t *s)
         +dest.x + xoffset,
         -dest.y + yoffset,
         s,
-        wcslen(s));
+        s.length());
 
     SelectObject(MemDC, oldFont);
 

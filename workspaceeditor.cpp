@@ -874,7 +874,7 @@ void CWorkspaceEditor::OnUpdateRunSelection(wxUpdateUIEvent& Event)
 
 void CWorkspaceEditor::OnHelp(wxCommandEvent& WXUNUSED(Event))
 {
-    do_help(NULL);
+    do_help(wxString());
 }
 
 void CWorkspaceEditor::OnHelpEditor(wxCommandEvent& WXUNUSED(Event))

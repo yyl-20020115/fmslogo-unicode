@@ -473,7 +473,7 @@ class CLogoStaticText : public wxStaticTextBase
 public:
     CLogoStaticText(
         wxWindow               * Parent,
-        const wchar_t             * Text, 
+        const wxString&         Text, 
         const CClientRectangle & ClientRectangle
         )
     {
@@ -798,14 +798,14 @@ public:
 
     CLogoRadioButton(
         wxWindow               * Parent, 
-        const wchar_t             * Title, 
+        const wxString&          Title, 
         const CClientRectangle & ClientRectangle,
         CLogoGroupBox          * Group
         ) :
         wxRadioButton(
             Parent,
             wxID_ANY,
-			wxString(Title),
+			(Title),
             wxPoint(ClientRectangle.GetX(), ClientRectangle.GetY()),
             wxSize(ClientRectangle.GetWidth(), ClientRectangle.GetHeight()),
             Group->IsEmpty() ? wxRB_GROUP : 0)
@@ -1321,7 +1321,7 @@ NODE *lwindowcreate(NODE *args)
 
     child->Dialog = new CLogoDialog(
         wxParent,
-        wxString(titlename.GetString()),
+        titlename,
         clientrect);
 
     g_LogoWidgets.insert(child);
@@ -1507,7 +1507,7 @@ NODE *ldialogcreate(NODE *args)
 
     child->Dialog = new CLogoDialog(
         wxParent,
-		wxString(titlename.GetString()),
+		titlename,
         clientrect);
     child->m_Parent = (wchar_t *)wxParent;
     g_LogoWidgets.insert(child);
@@ -2070,7 +2070,7 @@ NODE *lstaticupdate(NODE *args)
         return Unbound;
     }
 
-    temp->StaticText->SetLabel(wxString(titlename.GetString()));
+    temp->StaticText->SetLabel(titlename);
     return Unbound;
 }
 
@@ -2129,7 +2129,7 @@ NODE *lbuttoncreate(NODE *args)
 
         child->Button = new CLogoButton(
             parent->Dialog,
-            (const wchar_t*)titlename,
+            titlename,
             clientrect,
             callback);
     }
@@ -2141,7 +2141,7 @@ NODE *lbuttoncreate(NODE *args)
 
         child->Button = new CLogoButton(
             GetScreenWxWindow(),
-			(const wchar_t*)titlename,
+			titlename,
             clientrect,
             callback);
     }
@@ -2174,7 +2174,7 @@ NODE *lbuttonupdate(NODE *args)
         return Unbound;
     }
 
-    button->Button->SetLabel(wxString(titlename.GetString()));
+    button->Button->SetLabel(titlename);
     return Unbound;
 }
 
@@ -2442,7 +2442,7 @@ NODE *lcheckboxcreate(NODE *args)
 
         child->CheckBox = new CLogoCheckBox(
             parent->Dialog, 
-			wxString(titlename.GetString()),
+			titlename,
             clientrect,
             group->GroupBox);
     }
@@ -2454,7 +2454,7 @@ NODE *lcheckboxcreate(NODE *args)
 
         child->CheckBox = new CLogoCheckBox(
             GetScreenWxWindow(),
-			wxString(titlename.GetString()),
+			titlename,
             clientrect,
             group->GroupBox);
     }
@@ -2585,8 +2585,8 @@ NODE *lquestionbox(NODE *args)
 
     CQuestionBox questionBox(
         GetMainWxWindow(),
-		wxString(banner.GetString()),
-		wxString(body.GetString()));
+		banner,
+		body);
 
     int exitCode = questionBox.ShowModal();
     if (exitCode == wxID_CANCEL)
@@ -2619,12 +2619,12 @@ NODE *lselectbox(NODE *args)
          currentChoice = cdr(currentChoice))
     {
         CStringPrintedNode choice(car(currentChoice));
-        choices.Add(wxString(choice.GetString()));
+        choices.Add(choice);
     }
 
     CSelectBox selectBox(
         GetMainWxWindow(),
-		wxString(banner.GetString()),
+		banner,
         choices);
 
     int status = selectBox.DoDialog();
@@ -2670,10 +2670,7 @@ NODE *lyesnobox(NODE *args)
 static
 NODE * dialogfile_helper(NODE * args, long fileDialogFlags)
 {
-	wchar_t filenameBuffer[MAX_PATH] = { 0 };
-    PrintNodeToString(car(args), filenameBuffer, ARRAYSIZE(filenameBuffer));
-
-    wxFileName filename(filenameBuffer);
+	wxFileName filename = cnv_strnode_string(args);
 
     const wxString selectedFilename = wxFileSelector(
         wxEmptyString,                             // title/message
@@ -2705,9 +2702,7 @@ NODE *ldialogfilesave(NODE *args)
 
 NODE *lwindowfileedit(NODE *args)
 {
-	wchar_t filename[MAX_PATH];
-    PrintNodeToString(car(args), filename, ARRAYSIZE(filename));
-
+	wxString filename = cnv_strnode_string(args);
 	edit_editexit = cnv_strnode_string(cdr(args));
 
     ShowEditorForFile(filename, NULL);

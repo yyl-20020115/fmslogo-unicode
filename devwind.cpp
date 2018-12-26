@@ -191,7 +191,7 @@ NODE *lportopen(NODE *args)
     {
 #ifndef WX_PURE
         ComId = CreateFile(
-            comport,
+			(const wxString&)comport,
             GENERIC_READ | GENERIC_WRITE,
             0,
             NULL,
@@ -267,7 +267,7 @@ NODE *lportmode(NODE *args)
 		DCB dcb = { 0 };
         //memset(&dcb, 0, sizeof(DCB));
         dcb.DCBlength = sizeof(DCB);
-        int err = BuildCommDCB(commode, &dcb);
+        int err = BuildCommDCB((const wxString&)commode, &dcb);
 
         if (err == 0)
         {

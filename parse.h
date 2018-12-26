@@ -19,6 +19,9 @@
 
 #include <stdio.h>
 #include "pch.h"
+
+#include "CFileTextStream.h"
+
 // types
 struct NODE;
 
@@ -31,16 +34,14 @@ enum INPUTMODE
 };
 
 // function variables
-extern wchar_t rd_fgetwc(FILE *strm, bool unicode = false);
-extern void rd_clearbuffer(FILE *strm);
-extern NODE *reader(FILE *strm, const wchar_t *prompt,bool unicode = false);
-extern NODE *parser(NODE *nd, bool semi, bool unicode = false);
+extern wchar_t rd_fgetwc(CFileTextStream *strm);
+extern void rd_clearbuffer(CFileTextStream *strm);
+extern NODE *reader(CFileTextStream *strm, const wchar_t *prompt);
+extern NODE *parser(NODE *nd, bool semi);
 extern NODE *lparse(NODE *args);
-extern NODE *lparse(NODE *args,bool unicode);
+extern NODE *lparse(NODE *args);
 extern NODE *runparse(NODE *ndlist);
-extern NODE *runparse(NODE *ndlist, bool unicode);
 extern NODE *lrunparse(NODE *args);
-extern NODE *lrunparse(NODE *args, bool unicode);
 extern void uninitialize_parser(void);
 
 // global variables

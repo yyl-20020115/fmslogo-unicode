@@ -39,6 +39,7 @@ public:
 	virtual size_t Write(wchar_t* buffer, size_t length);
 	virtual size_t Write(const wxString& text) ;
 	virtual size_t WriteLine(const wxString& text);
+	virtual size_t Write(const wchar_t * FormatString, ...);
 	virtual bool WriteChar(wchar_t ch);
 	virtual bool WriteByte(char ch);
 
@@ -51,6 +52,9 @@ public:
 	virtual void Close();
 
 	virtual wxString& NewLine();
+
+	virtual operator FILE*();
+
 protected:
 	virtual bool IsLittleEndian();
 	virtual wchar_t EnsureEndian(wchar_t ch);

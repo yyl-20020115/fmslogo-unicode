@@ -651,7 +651,7 @@ void single_step_box(NODE * the_line)
 
 	// pop up single step box showing line of code
 	if (wxMessageBox(
-		(printedLine.GetString()),
+		printedLine,
 		GetResourceString(L"LOCALIZED_STEPPING"),
 		wxOK | wxCANCEL) == wxCANCEL)
 	{
@@ -834,7 +834,7 @@ int ShowEditorForFile(const wchar_t *FileName, NODE * EditArguments)
 
 void 
 ShowProcedureMiniEditor(
-    const wchar_t     * ToLine,
+    const wxString&    ToLine,
     CDynamicBuffer & ReadBuffer
     )
 {
@@ -883,27 +883,16 @@ TraceOutput(
     ...
     )
 {
+	wxString message;
     // Format and print the message to stderr
     va_list args;
     va_start(args, FormatString);
-    vfwprintf(stderr, FormatString, args);
+	message = wxString::FormatV(FormatString, args);
+    //vfwprintf(stderr, FormatString, args);
     va_end(args);
 
 #ifdef __WXMSW__
-	wchar_t formattedString[256] = {0};
-
-    va_start(args, FormatString);
-    int bytesNeeded = _vsnwprintf(
-        formattedString,
-        ARRAYSIZE(formattedString) - 1,
-        FormatString,
-        args);
-    va_end(args);
-
-    if (0 <= bytesNeeded)
-    {
-        OutputDebugString(formattedString);
-    }
+    OutputDebugString(message);
 #endif
 }
 

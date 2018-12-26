@@ -85,5 +85,5 @@ NODE *lsetmargins(NODE *  /*args*/)
 NODE *lstandout(NODE *args)
 {
     CStringPrintedNode text(car(args));
-    return make_strnode(text);
+    return make_strnode((const wxString&)text);
 }

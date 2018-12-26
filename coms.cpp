@@ -546,38 +546,47 @@ NODE *lshell(NODE *args)
         // we were passed invalid arguments
         return Unbound;
     }
+	BOOL isOk = false;
+	STARTUPINFO         startupInfo = { 0 };
+	PROCESS_INFORMATION processInfo = { 0 };
 
-    STARTUPINFO         startupInfo = {0};
-    PROCESS_INFORMATION processInfo;
+	const wxString& content = shellCommand.GetContent();
 
-    BOOL isOk = CreateProcess(
-        NULL,
-        shellCommand,
-        NULL,  // process security attribute
-        NULL,  // thread security attributes
-        FALSE, // don't inherit handles
-        0,     // creation flags
-        NULL,  // use FMSLogo's environment
-        NULL,  // use FMSLogo's current working directory
-        &startupInfo,
-        &processInfo);
-    if (isOk)
-    {
-        if (waitForChildProcess)
-        {
-            // Wait for the child process to exit.
-            // Do a busy wait so that it can be interrupted by a HALT
-            DWORD waitStatus = WAIT_TIMEOUT;
-            while (waitStatus == WAIT_TIMEOUT && !IsTimeToHalt)
-            {
-                MyMessageScan();
-                waitStatus = ::WaitForSingleObject(processInfo.hProcess, 10);
-            }
-        }
+	wchar_t* shellBuffer = (wchar_t*)malloc(sizeof(wchar_t)*(content.length() + 1));
+	if (shellBuffer != 0) {
+		wcsncpy(shellBuffer, content, content.length() + 1);
 
-        CloseHandle(processInfo.hProcess);
-        CloseHandle(processInfo.hThread);
-    }
+
+		 isOk = CreateProcess(
+			NULL,
+			shellBuffer,
+			NULL,  // process security attribute
+			NULL,  // thread security attributes
+			FALSE, // don't inherit handles
+			0,     // creation flags
+			NULL,  // use FMSLogo's environment
+			NULL,  // use FMSLogo's current working directory
+			&startupInfo,
+			&processInfo);
+		if (isOk)
+		{
+			if (waitForChildProcess)
+			{
+				// Wait for the child process to exit.
+				// Do a busy wait so that it can be interrupted by a HALT
+				DWORD waitStatus = WAIT_TIMEOUT;
+				while (waitStatus == WAIT_TIMEOUT && !IsTimeToHalt)
+				{
+					MyMessageScan();
+					waitStatus = ::WaitForSingleObject(processInfo.hProcess, 10);
+				}
+			}
+
+			CloseHandle(processInfo.hProcess);
+			CloseHandle(processInfo.hThread);
+		}
+		free(shellBuffer);
+	}
 
 #endif
     return true_or_false(isOk);

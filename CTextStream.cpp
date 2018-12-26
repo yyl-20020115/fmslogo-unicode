@@ -70,7 +70,18 @@ size_t CTextStream::Write(wchar_t * buffer, size_t length)
 {
 	return 0;
 }
+size_t CTextStream::Write(const wchar_t * FormatString, ...)
+{
+	wxString message;
+	// Format and print the message to stderr
+	va_list args;
+	va_start(args, FormatString);
+	message = wxString::FormatV(FormatString, args);
+	//vfwprintf(stderr, FormatString, args);
+	va_end(args);
 
+	return this->Write(message);
+}
 size_t CTextStream::Write(const wxString & text)
 {
 	size_t c = 0;
@@ -133,6 +144,11 @@ void CTextStream::Close()
 wxString & CTextStream::NewLine()
 {
 	return this->newline;
+}
+
+CTextStream::operator FILE*()
+{
+	return 0;
 }
 
 bool CTextStream::IsLittleEndian()

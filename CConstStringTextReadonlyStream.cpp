@@ -41,7 +41,7 @@ size_t CConstStringTextReadonlyStream::Read(wchar_t * buffer, size_t length)
 	size_t c = 0;
 	if (buffer != 0) {
 		off64_t ep = this->pos + length;
-		for (; this->pos < ep && this->pos<this->length; this->pos++) {
+		for (; this->pos < ep && this->pos<(off64_t)this->length; this->pos++) {
 			buffer[c] = this->EnsureEndian(this->content[(size_t)this->pos]);
 			c++;
 		}
@@ -122,7 +122,7 @@ int CConstStringTextReadonlyStream::ReadByte()
 
 wchar_t CConstStringTextReadonlyStream::PeekChar()
 {
-	if (this->pos < this->length) {
+	if (this->pos < (off64_t)this->length) {
 		return this->EnsureEndian(this->content[(size_t)this->pos]);
 	}
 	return WEOF;
@@ -153,13 +153,13 @@ int CConstStringTextReadonlyStream::SetPosition(off64_t offset, int origin)
 	int ret = -1;
 	switch (origin) {
 	case SEEK_SET:
-		if (offset < this->length) {
+		if (offset < (off64_t)this->length) {
 			this->pos = offset;
 			ret = 0;
 		}
 		break;
 	case SEEK_CUR:
-		if (this->pos + offset < this->length) {
+		if (this->pos + offset < (off64_t)this->length) {
 			this->pos += offset;
 			ret = 0;
 		}

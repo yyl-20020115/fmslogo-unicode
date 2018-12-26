@@ -67,7 +67,7 @@ CSelectProcedureDialog::CSelectProcedureDialog(
         // REVISIT: the procedure name should be useable
         // as-is without further conversion.
         CStringPrintedNode procedureName(car(proclist_node));
-        m_ProcedureList->Append(wxString(procedureName.GetString()));
+        m_ProcedureList->Append(procedureName);
     }
 
     gcref(proclist);

@@ -118,10 +118,10 @@ public:
 
     void
     Enable(
-        const wchar_t *    OnSendReady,
-        const wchar_t *    OnReceiveReady,
+        const wxString&    OnSendReady,
+        const wxString&    OnReceiveReady,
         unsigned int    RemotePort,
-        const wchar_t *    RemoteHostName
+        const wxString&    RemoteHostName
         );
 
     int

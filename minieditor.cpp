@@ -29,7 +29,7 @@ enum
 
 CMiniEditor::CMiniEditor(
     wxWindow   * Parent, 
-    const wchar_t * ToLineString
+    const wxString& ToLineString
     )
     : wxDialog(
         Parent,
@@ -48,7 +48,7 @@ CMiniEditor::CMiniEditor(
     wxTextCtrl * toLine = new wxTextCtrl(
         this,
         wxID_ANY,
-		wxString(ToLineString),
+		(ToLineString),
         wxDefaultPosition,
         wxDefaultSize,
         wxTE_READONLY);

@@ -18,7 +18,7 @@ size_t CStringTextStream::Read(wchar_t * buffer, size_t length)
 	size_t c = 0;
 	if (buffer != 0) {
 		off64_t ep = this->pos + length;
-		for (; this->pos < ep && this->pos<this->content.length(); this->pos++) {
+		for (; this->pos < ep && this->pos< (off64_t)this->content.length(); this->pos++) {
 			buffer[c] = this->content[(size_t)this->pos];
 			c++;
 		}
@@ -64,7 +64,7 @@ int CStringTextStream::ReadByte()
 
 wchar_t CStringTextStream::PeekChar()
 {
-	if (this->pos < this->content.length()) {
+	if (this->pos < (off64_t)this->content.length()) {
 		return this->content[(size_t)this->pos];
 	}
 	return WEOF;
@@ -77,7 +77,7 @@ int CStringTextStream::PeekByte()
 
 bool CStringTextStream::WriteChar(wchar_t ch)
 {
-	if (this->pos < this->content.length()) {
+	if (this->pos < (off64_t)this->content.length()) {
 		this->content[(size_t)this->pos] = ch;
 		return true;
 	}
@@ -114,13 +114,13 @@ int CStringTextStream::SetPosition(off64_t offset, int origin)
 	int ret = -1;
 	switch (origin) {
 	case SEEK_SET:
-		if (offset < this->content.length()) {
+		if (offset < (off64_t)this->content.length()) {
 			this->pos = offset;
 			ret = 0;
 		}
 		break;
 	case SEEK_CUR:
-		if (this->pos + offset < this->content.length()) {
+		if (this->pos + offset < (off64_t)this->content.length()) {
 			this->pos += offset;
 			ret = 0;
 		}
