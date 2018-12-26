@@ -517,7 +517,7 @@ make_strnode(
 
     // set the "string pointer" to just after the header
 	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
-	strptr[len] = L'\0';
+	wcsnset(strptr, 0, len);
 	copy_routine(strptr, string, len);
 
     // set the reference count to 1.
@@ -814,7 +814,7 @@ NODE *cnv_node_to_strnode(NODE *nd)
         return Unbound;
     }
 
-    wchar_t s[MAX_NUMBER];
+	wchar_t s[MAX_NUMBER] = { 0 };
     switch (nodetype(nd))
     {
     case STRING:

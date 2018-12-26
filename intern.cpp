@@ -129,7 +129,7 @@ make_object(
     NODE * object = cons_list(canonical, proc, val, plist, flags);
 
     // Assign a particular case to the object.
-    make_case_object(casestrnd, object);
+	make_case_object(casestrnd, object);
 
     return object;
 }
@@ -256,8 +256,8 @@ NODE *intern(NODE *nd)
         STRING, 
         noparitylow_strnzcpy);
 
-    NODE * obj;
-    NODE * casedes;
+    NODE * obj = 0;
+    NODE * casedes = 0;
     if ((obj = find_instance(lowercase_node)) != NIL)
     {
         // This object has already been interned.
@@ -274,7 +274,7 @@ NODE *intern(NODE *nd)
         // This node was not found in the hash table.
         // Add it.
         casedes = make_instance(nd, lowercase_node);
-    }
+	}
 
     deref(nd);
     gcref(lowercase_node);
@@ -299,7 +299,21 @@ void release_all_objects()
        {
            NODE * object = car(hash_entry);
 
+		   //NOTICE: fixed memory leak,just for case object
            // set the "canonical" node to NIL to force garbage collection.
+		   if (object->type == CONS) {
+			   NODE* nc = car(cdr(cdr(cdr(cdr(cdr(object))))));
+			   if (nc->type == CASEOBJ) {
+				   NODE* dc = car(nc);
+				   if (dc->type == STRING && dc->nunion.nstring.head != 0) {
+					   *(unsigned short*)dc->nunion.nstring.head = 0;
+					   free(dc->nunion.nstring.head);
+					   dc->nunion.nstring.len = 0;
+					   dc->nunion.nstring.ptr = 0;
+					   dc->nunion.nstring.head = 0;
+				   }
+			   }
+		   }
            setcar(object, NIL);
 
            // untreeify the proc node (it holds a circular reference)

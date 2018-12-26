@@ -511,7 +511,7 @@ void gc(NODE *nd)
                 assert(*temp != 0); // the string was already freed
                 if (decstrrefcnt(temp) == 0) 
                 {
-                    free(getstrhead(nd));
+                    free(temp);
                 }
             }
 

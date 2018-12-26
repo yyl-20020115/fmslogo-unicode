@@ -328,8 +328,6 @@ void CFmsLogo::LoadLocalizedStringFile()
 
 bool CFmsLogo::OnInit()
 {
-	_CrtSetBreakAlloc(66283);
-
 	bool rval = true;
 
 #ifdef MEM_DEBUG
