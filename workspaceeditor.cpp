@@ -922,10 +922,9 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
             //
             // Ask if they want to reedit.
             if (::wxMessageBox(
-				wxString(
-                        GetResourceString(L"LOCALIZED_CURSORISATLASTGOODDEFINITION") +L"\n\n"
-						+ GetResourceString(L"LOCALIZED_RETURNTOEDIT")),
-				wxString(GetResourceString(L"LOCALIZED_EDITFAILEDTOLOAD")),
+				( GetResourceString(L"LOCALIZED_CURSORISATLASTGOODDEFINITION") +L"\n\n"
+				+ GetResourceString(L"LOCALIZED_RETURNTOEDIT")),
+				(GetResourceString(L"LOCALIZED_EDITFAILEDTOLOAD")),
                     wxYES_NO | wxICON_ERROR,
                     commander) == wxYES)
             {
@@ -933,7 +932,7 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
 
                 // Give the new editor our reference on m_EditArguments
                 CFmsLogo::GetMainFrame()->PopupEditor(
-					wxString(TempPathName),
+					(TempPathName),
                     m_EditArguments,
                     m_CheckForErrors,
                     true); // open the editor to the error

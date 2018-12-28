@@ -920,16 +920,8 @@ CMainFrame::PopupEditor(
 
 void CMainFrame::PopupEditorToError(const wchar_t *FileName)
 {
-    bool fileNameIsTempPathName;
-    if (TempPathName.IsSameAs(FileName))
-    {
-        fileNameIsTempPathName = true;
-    }
-    else
-    {
-        fileNameIsTempPathName = false;
-    }
-
+    bool fileNameIsTempPathName = TempPathName.IsSameAs(FileName);
+ 
     // Copy the input file to the editor's temporary file.
     if (!fileNameIsTempPathName)
     {
