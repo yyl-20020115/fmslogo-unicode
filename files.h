@@ -98,11 +98,17 @@ extern void uninitialize_files(void);
 extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 
 // global variables
-FileTextStreamType& GetDefaultFileTextStreamType();
+extern FileTextStreamType& GetDefaultFileTextStreamType();
 
-CFileTextStream*& GetInputStream();
-CFileTextStream*& GetOutputStream();
+extern CFileTextStream*& GetInputStream();
+extern CFileTextStream*& GetOutputStream();
 
-CFileTextStream *& GetLoadStream();
-
+extern CFileTextStream *& GetLoadStream();
+extern CFileTextStream *& GetDribbleStream();
+extern void OpenDribble(NODE * arg);
+extern void CloseDribble();
+extern void DribbleWriteChar(wchar_t ch);
+extern void DribbleWriteText(const wchar_t * text);
+extern void DribbleWriteLine(const wchar_t * text);
+extern void FreeAllPredefinedStreams();
 #endif // __FILES_H_

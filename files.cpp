@@ -75,6 +75,83 @@ CFileTextStream *stdoutstream = CFileTextStream::CreateStdInWarpper(FileTextStre
 CFileTextStream *loadstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
 CFileTextStream *inputstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
 CFileTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
+CFileTextStream *dribblestream = NULL;
+
+void OpenDribble(NODE * arg)
+{
+	if (dribblestream != NULL)
+	{
+		err_logo(ALREADY_DRIBBLING, NIL);
+	}
+	else
+	{
+		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"), FileTextStreamType::Unicode);
+		if (dribblestream == NULL)
+		{
+			err_logo(FILE_ERROR, NIL);
+		}
+	}
+}
+
+void CloseDribble()
+{
+	if (dribblestream != NULL)
+	{
+		delete dribblestream;
+		dribblestream = NULL;
+	}
+}
+
+void DribbleWriteChar(wchar_t ch)
+{
+	if (dribblestream != NULL) {
+		dribblestream->WriteChar(ch);
+	}
+}
+
+void DribbleWriteText(const wchar_t * text)
+{
+	if (dribblestream != NULL) {
+		dribblestream->Write(text != 0 ? text : L"");
+	}
+}
+
+void DribbleWriteLine(const wchar_t * text)
+{
+	if (dribblestream != NULL) {
+		dribblestream->WriteLine(text != 0 ? text : L"");
+	}
+}
+
+void FreeAllPredefinedStreams()
+{
+	CloseDribble();
+	if (stdinstream != 0)
+	{
+		delete stdinstream;
+		stdinstream = 0;
+	}	
+	if (stdoutstream != 0)
+	{
+		delete stdoutstream;
+		stdoutstream = 0;
+	}	
+	if (inputstream != 0)
+	{
+		delete inputstream;
+		inputstream = 0;
+	}	
+	if (outputstream != 0)
+	{
+		delete outputstream;
+		outputstream = 0;
+	}	
+	if (loadstream != 0)
+	{
+		delete loadstream;
+		loadstream = 0;
+	}
+}
 
 
 CFileStream g_Reader(inputstream);
@@ -194,6 +271,11 @@ CFileTextStream*& GetOutputStream()
 CFileTextStream *& GetLoadStream()
 {
 	return loadstream;
+}
+
+CFileTextStream *& GetDribbleStream()
+{
+	return dribblestream;
 }
 
 NODE *ldribble(NODE *arg)
@@ -1032,6 +1114,8 @@ void uninitialize_files()
 
     g_Reader.ResetToDefaultStream();
     g_Writer.ResetToDefaultStream();
+
+	FreeAllPredefinedStreams();
 }
 
 //TODO: needs to check

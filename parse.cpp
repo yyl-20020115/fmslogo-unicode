@@ -57,53 +57,6 @@ INPUTMODE input_mode = INPUTMODE_None;
 
 static CDynamicBuffer g_ReadBuffer;
 
-CFileTextStream *dribblestream = NULL;
-
-void OpenDribble(NODE * arg)
-{
-	if (dribblestream != NULL)
-	{
-		err_logo(ALREADY_DRIBBLING, NIL);
-	}
-	else
-	{
-		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"),FileTextStreamType::Unicode);
-		if (dribblestream == NULL)
-		{
-			err_logo(FILE_ERROR, NIL);
-		}
-	}
-}
-
-void CloseDribble()
-{
-	if (dribblestream != NULL)
-	{
-		delete dribblestream;
-		dribblestream = NULL;
-	}
-}
-
-void DribbleWriteChar(wchar_t ch)
-{
-	if (dribblestream != NULL) {
-		dribblestream->WriteChar(ch);
-	}
-}
-
-void DribbleWriteText(const wchar_t * text)
-{
-	if (dribblestream != NULL) {
-		dribblestream->Write(text != 0 ? text :L"");
-	}
-}
-
-void DribbleWriteLine(const wchar_t * text)
-{
-	if (dribblestream != NULL) {
-		dribblestream->WriteLine(text != 0 ? text : L"");
-	}
-}
 
 bool& GetInputBlocking()
 {
@@ -401,7 +354,7 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 //	//ndprintf(stdout,"%t",str);
 //}
 static bool IsDribbling(CFileTextStream* fileStream) {
-	return (dribblestream != NULL && *fileStream == stdin);
+	return (GetDribbleStream() != NULL && *fileStream == stdin);
 
 }
 // Reads the next complete line from FileStream into a string node.

@@ -35,6 +35,7 @@
   #include "mmwind.h"
   #include "print.h" // for MESSAGETYPE
   #include "stringadapter.h"
+#include "files.h"
 #endif
 extern wxString cap_strnzcpy(wxString text);
 

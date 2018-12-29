@@ -29,7 +29,7 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 		wxString m = mode.Lower();
 		size_t mp = m.find(L"ccs=");
 		if (mp != wxString::npos) {
-			m = m.substr(mp); //remove "ccs=..."
+			m = m.Truncate(mp); //remove "ccs=..."
 		}
 		if (m.Contains("w") || m.Contains("w+")) {
 

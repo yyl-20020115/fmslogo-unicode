@@ -50,9 +50,4 @@ extern bool& GetInputBlocking();
 extern INPUTMODE& GetInputMode();
 extern void SetErrorProcName(NODE * name);
 extern void SetErrorToLine(NODE * line);
-extern void OpenDribble(NODE * arg);
-extern void CloseDribble();
-extern void DribbleWriteChar(wchar_t ch);
-extern void DribbleWriteText(const wchar_t * text);
-extern void DribbleWriteLine(const wchar_t * text);
 #endif // __PARSER_H_
