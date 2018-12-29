@@ -57,6 +57,16 @@
    #include "localizedstrings.h"
    #include "debugheap.h"
 #endif
+#ifndef LPSTR
+#define LPSTR char *
+#endif
+#ifndef DWORD
+#define DWORD unsigned int
+#endif
+#ifndef WORD
+#define WORD unsigned short
+#endif
+
 
 extern LPSTR FindDIBBits(LPSTR lpbi);
 extern WORD DIBNumColors(LPSTR lpbi);

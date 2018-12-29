@@ -6,7 +6,7 @@ size_t CTextStream::Read(wchar_t * buffer, size_t length)
 	size_t c = 0;
 	if (this->IsValid() && buffer != 0) {
 		wchar_t ch = WEOF;
-		while ((ch = this->ReadChar()) != WEOF) {
+		while ((ch = this->ReadChar()) !=(signed) WEOF) {
 			buffer[c++] = ch;
 			if (c == length) {
 				break;
@@ -21,7 +21,7 @@ wxString CTextStream::ReadAll()
 	wxString all;
 	if (this->IsValid()) {
 		wchar_t ch = WEOF;
-		while ((ch = this->ReadChar()) != WEOF) {
+		while ((ch = this->ReadChar()) !=(signed) WEOF) {
 			all += ch;
 		}
 	}
@@ -33,7 +33,7 @@ wxString CTextStream::ReadLine()
 	wxString line;
 	if (this->IsValid()) {
 		wchar_t ch = WEOF;
-		while ((ch = this->ReadChar()) != WEOF) {
+		while ((ch = this->ReadChar()) !=(signed) WEOF) {
 			if (line.EndsWith(this->newline)) {
 				line.RemoveLast(this->newline.length());
 				break;

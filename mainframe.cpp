@@ -49,7 +49,7 @@
     #include "savebeforeexitdialog.h"
     #include "logocore.h"
     #include "localizedstrings.h"
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "mainframe.h"
     #include "setpensize.h"
     #include "utils.h"
@@ -889,18 +889,18 @@ CMainFrame::CreateWorkspaceEditor(
     return editor;
 }
 
-wchar_t * CMainFrame::PromptUserForInput(const wchar_t *Prompt)
+wxString CMainFrame::PromptUserForInput(const wchar_t *Prompt)
 {
     // prompt the user for input
     CQuestionBox questionBox(this, Prompt, GetResourceString(L"LOCALIZED_INPUT"));
     int exitCode = questionBox.ShowModal();
     if (exitCode != wxID_OK)
     {
-        return NULL;
+        return L"";
     }
 
     // Copy the user input to the Output string
-    return _wcsdup(/*WXSTRING_TO_STRING*/(questionBox.GetAnswer()));
+    return questionBox.GetAnswer();
 }
 
 void
@@ -925,14 +925,24 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
     // Copy the input file to the editor's temporary file.
     if (!fileNameIsTempPathName)
     {
-        FILE * srcfile = _wfopen(FileName, L"r");
+        FILE * srcfile = 0;
+#ifdef _WINDOWS
+        srcfile= _wfopen(FileName, L"r");
+#else
+        srcfile = fopen((const char*)FileName,"r");
+#endif
         if (srcfile != NULL)
         {
-            FILE * dstfile = _wfopen(TempPathName, L"w");
+            FILE * dstfile = 0;
+#ifdef _WINDOWS
+            dstfile = _wfopen(TempPathName, L"w");
+#else
+            dstfile = fopen((const char*)TempPathName,"w");
+#endif
             if (dstfile != NULL)
             {
                 int ch = 0;
-                while ((ch = fgetwc(srcfile)) != EOF && ch!=WEOF)
+                while ((ch = fgetwc(srcfile)) != EOF && ch!=(signed)WEOF)
                 {
                     putwc(ch, dstfile); //do not use fputwc!
                 }
@@ -965,7 +975,11 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
         // Cleanup the file that we created.
         if (!fileNameIsTempPathName)
         {
+#ifdef _WINDOWS
             _wunlink(TempPathName);
+#else
+            unlink((const char*)TempPathName);
+#endif
         }
         return;
     }
@@ -985,7 +999,12 @@ CreateTemplateLogoFileForEditor(
     )
 {
     // TODO: Use wxWidgets class for File I/O
-    FILE* logoFile = _wfopen(FileName, L"w");
+    FILE* logoFile = 0;
+#ifdef _WINDOWS
+    logoFile =_wfopen(FileName, L"w");
+#else
+    logoFile = fopen((const char*)FileName,"w");
+#endif
     if (logoFile != NULL)
     {
         if (EditArguments != NIL)
@@ -1015,7 +1034,12 @@ CMainFrame::PopupEditorForFile(
 {
     // If no file (or empty) create template
     // TODO: Use a wxWidgets class for the file I/O.
-    FILE * logoFile = _wfopen(FileName, L"r");
+    FILE* logoFile = 0;
+#ifdef _WINDOWS
+    logoFile =_wfopen(FileName, L"r");
+#else
+    logoFile = fopen((const char*)FileName,"r");
+#endif
     if (logoFile != NULL)
     {
         // file exists.  check if it's empty.

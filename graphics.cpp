@@ -51,7 +51,7 @@
       #endif
    #endif
 
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
    #include "wrksp.h"
    #include "graphics.h"
    #include "stringprintednode.h"
@@ -2803,7 +2803,7 @@ GetColorArgument(
 	};
     NODE * arg = car(args);
 
-    RGBCOLOR color;
+    RGBCOLOR color = 0;
 
     bool haveColor = false;
     while (stopping_flag != THROWING && !haveColor)

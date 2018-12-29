@@ -28,7 +28,9 @@ gbm.c - Generalised Bitmap Module
    #include "gbmgif.h"
    #include "debugheap.h"
 #endif
-
+#ifndef _WINDOWS
+#include <wchar.h>
+#endif
 
 struct FT
 {
@@ -97,7 +99,7 @@ GBMEXPORT GBM_ERR GBMENTRY gbm_guess_filetype(const wchar_t *fn, int *ft)
     if ( (ext = extension(fn)) == NULL )
         ext = L"";
 
-    for (int i = 0; i < N_FT; i++ )
+    for (int i = 0; i < (signed) N_FT; i++ )
     {
 
 		//TODO: FIXME
@@ -105,9 +107,18 @@ GBMEXPORT GBM_ERR GBMENTRY gbm_guess_filetype(const wchar_t *fn, int *ft)
 		wchar_t	buf[100 + 1] = { 0 }, *s = 0;
 
         fts[i].query_filetype(&gbmft);
-        for ( s  = wcstok(wcscpy(buf, gbmft.extensions), L" \t,");
+        for ( s  = wcstok(wcscpy(buf, gbmft.extensions), L" \t,"
+#ifndef _WINDOWS
+            ,0
+#endif
+            
+        );
               s != NULL;
-              s  = wcstok(NULL, L" \t,") )
+              s  = wcstok(NULL, L" \t,"
+#ifndef _WINDOWS
+            ,0
+#endif                  
+            ) )
             if ( gbm_same(s, ext, (int) wcslen(ext) + 1) )
             {
                 *ft = i;

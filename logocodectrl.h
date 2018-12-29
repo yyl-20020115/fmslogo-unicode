@@ -20,7 +20,11 @@
 #include <wx/stc/stc.h>
 #include <wx/fdrepdlg.h>
 #include <wx/print.h>
+
+#ifdef _WINDOWS
 #define USE_RICHTEXT_CODE_EDITOR
+#endif
+
 #ifndef USE_RICHTEXT_CODE_EDITOR
 
 class CLogoCodeCtrl : public wxStyledTextCtrl

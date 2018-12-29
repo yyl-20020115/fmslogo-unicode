@@ -116,7 +116,7 @@ void ndprintf(CTextStream *strm, MESSAGETYPE type, const wchar_t *fmt, ...)
             else if (ch == L't') // text
             {
 				wchar_t *cp = va_arg(ap, wchar_t *);
-                while (ch = *cp++)
+                while ((ch = *cp++)!=0)
                 {
                     print_char(strm, type, ch);
                 }

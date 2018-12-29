@@ -25,11 +25,11 @@
 #include <stddef.h>
 #include <assert.h>
 
-//#ifndef ARRAYSIZE
-//    #define ARRAYSIZE(ARRAY)        (sizeof(ARRAY) / sizeof(*(ARRAY)))
-//#endif
+#ifndef ARRAYSIZE
+    #define ARRAYSIZE(ARRAY)        (sizeof(ARRAY) / sizeof(*(ARRAY)))
+#endif
 
-#define STRINGLENGTH(STRINGLITERAL) (sizeof(STRINGLITERAL) - 1)
+//#define STRINGLENGTH(STRINGLITERAL) (sizeof(STRINGLITERAL) - 1)
 
 #ifdef DEBUG
 
@@ -755,7 +755,7 @@ parsed__runparse(
 #define unparsed__line(l)       getobject(l)
 #define generation__line(l)     (generation__tree(unparsed__line(l)))
 
-#ifdef _WIN64
+#if defined( _WIN64) || defined(UNIX)
 typedef long long cont_cast_type;
 #else
 typedef int cont_cast_type;

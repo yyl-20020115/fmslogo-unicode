@@ -62,7 +62,7 @@ public:
         int        DirectionFlags
         );
 
-    wchar_t *
+    wxString
     PromptUserForInput(
         const wchar_t * Prompt
         );

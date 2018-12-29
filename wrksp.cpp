@@ -1520,7 +1520,11 @@ NODE *ledit(NODE *args)
         }
         else
         {
-            _wremove(TempPathName);
+#ifdef _WINDOWS
+        _wremove(TempPathName);
+#else
+        remove((const char*)TempPathName);
+#endif
             IsDirty = true;
         }
     }

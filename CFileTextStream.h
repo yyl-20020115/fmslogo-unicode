@@ -46,8 +46,8 @@ public:
 
 	virtual operator FILE*();
 protected:
-	bool close_on_exit;
 	FILE* file;
+	bool close_on_exit;
 };
 
 #endif

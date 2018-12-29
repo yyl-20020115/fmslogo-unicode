@@ -43,7 +43,7 @@ gbmReadFile(
         return NULL;
     }
 
-    int flag;
+    int flag = 0;
     gbm_query_filetype(dst_filetype, &gbmft);
     switch ( gbm.bpp )
     {

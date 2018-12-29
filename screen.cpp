@@ -11,7 +11,7 @@
 
     #include "devwind.h"
     #include "logoeventqueue.h"
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "commander.h"
     #include "commanderinput.h"
     #include "mainframe.h"

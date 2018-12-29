@@ -91,15 +91,15 @@ CFileTextStream* CFileTextStream::CreateStdErrWrapper(FileTextStreamType type, c
 }
 
 CFileTextStream::CFileTextStream(const wxString& newline)
-	:file(0)
+	:CTextStream(newline)
+    ,file(0)
 	,close_on_exit(true)
-	,CTextStream(newline)
 {
 }
 CFileTextStream::CFileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
-	: file(file)
+	: CTextStream(newline)
+    , file(file)
 	, close_on_exit(close_on_exit)
-	, CTextStream(newline)
 {
 }
 

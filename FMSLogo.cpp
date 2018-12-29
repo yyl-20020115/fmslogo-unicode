@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #ifndef USE_PRECOMPILED_HEADER
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
 
    #include <algorithm>
 
@@ -296,11 +296,11 @@ void CFmsLogo::LoadLocalizedStringFile()
 	wxString name;
 	//localizedstrings-de-ucs2le
 	//USE SYSTEM LOCALE (for mbtowc)
-	wxString lc = _wsetlocale(LC_ALL, L"");
+	wxString lc = setlocale(LC_ALL, "");
 	//MessageBox(0, lc, L"LOCALE", MB_OK);
 
 	if (lc.length()> 0) {
-		for(int i = 0;i<ARRAYSIZE(Pairs);i++)
+		for(int i = 0;i<(signed)ARRAYSIZE(Pairs);i++)
 		{
 			if (lc.Contains(Pairs[i].Language)) {
 				name = Pairs[i].ShortName;

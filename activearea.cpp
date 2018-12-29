@@ -18,7 +18,7 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
    #include "activearea.h"
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
    #include "logocore.h"
    #include "graphics.h"
    #include "eval.h"

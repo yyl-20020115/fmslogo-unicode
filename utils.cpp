@@ -117,7 +117,7 @@ SetConfigurationInt(
 {
 #ifdef WX_PURE
     wxConfig config("fmslogo");
-    config.Write(WXSTRING(Name), Value);
+    config.Write((Name), Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
@@ -146,7 +146,7 @@ GetConfigurationInt(
 {
 #ifdef WX_PURE
     wxConfig config("fmslogo");
-    long longValue = config.ReadLong(WXSTRING(Name), DefaultValue);
+    long longValue = config.ReadLong((Name), DefaultValue);
     return longValue;
 #else    
     int returnValue = DefaultValue;
@@ -189,7 +189,7 @@ SetConfigurationString(
 {
 #ifdef WX_PURE
     wxConfig config("fmslogo");
-    config.Write(WXSTRING(Name), WXSTRING(Value));
+    config.Write((Name), (Value));
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
@@ -224,7 +224,7 @@ GetConfigurationString(
 
 #ifdef WX_PURE    
     wxConfig config("fmslogo");
-    wxString value = config.Read(WXSTRING(Name), WXSTRING(DefaultValue));
+    wxString value = config.Read((Name), (DefaultValue));
 
     // Copy the configuration into the Value buffer
     size_t lengthToCopy = std::min(ValueLength - 1, value.Len());

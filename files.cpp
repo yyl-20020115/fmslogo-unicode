@@ -239,7 +239,11 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
     else
 #endif // WX_PURE
     {
+#ifdef _WINDOWS
         tstrm = _wfopen(fnstr, access);
+#else
+        tstrm = fopen(wxString(fnstr),wxString(access));
+#endif
     }
 
     if (tstrm != NULL)
@@ -997,7 +1001,7 @@ NODE *lreadchars(NODE *args)
 		
 		size_t left_size = (size_t)(dp - cp);
 		size_t full_size = sizeof(unsigned short) + (totalCharsRequested + 1) * sizeof(wchar_t);
-		size_t buff_size = min(full_size, left_size);
+		size_t buff_size = (full_size> left_size ? left_size:full_size);
 
         strhead = (wchar_t *) malloc(buff_size);
         if (strhead == NULL)

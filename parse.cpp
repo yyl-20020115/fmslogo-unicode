@@ -29,7 +29,7 @@
 
 #include "parse.h"
 #include "argumentutils.h"
-#include "fmslogo.h"
+#include "FMSLogo.h"
 #include "logocore.h"
 #include "dynamicbuffer.h"
 #include "error.h"
@@ -47,6 +47,8 @@
 #include "screenwindow.h"
 #include "localizedstrings.h"
 #include "debugheap.h"
+#include "files.h"
+#include "files.h"
 #include "files.h"
 #endif
 bool input_blocking = false;
@@ -429,7 +431,7 @@ NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
 	if (!setjmp(iblk_buf))
 	{
 		wchar_t c = rd_fgetwc(fileStream);
-		while (c != WEOF && (c != L'\n' || vbar || paren || bracket || brace))
+		while (c != (signed)WEOF && (c != L'\n' || vbar || paren || bracket || brace))
 		{
 			if (dribbling)
 			{
@@ -440,7 +442,7 @@ NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
 			if (!raw && c == L'\\')
 			{
 				c = rd_fgetwc(fileStream);
-				if (c == WEOF)
+				if (c == (signed)WEOF)
 				{
 					break;
 				}
@@ -592,7 +594,7 @@ NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
 				}
 			}
 
-			while (!vbar && c == L'~' && (c = rd_fgetwc(fileStream)) != WEOF)
+			while (!vbar && c == L'~' && (c = rd_fgetwc(fileStream)) != (signed)WEOF)
 			{
 				CDynamicBuffer whitespace;
 

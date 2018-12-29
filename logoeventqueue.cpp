@@ -245,8 +245,8 @@ callthing * callthing::CreateNoYieldFunctionEvent(const wxString& function)
 
 callthing * callthing::CreateNetworkReceiveReadyEvent(
     CNetworkConnection * NetworkConnection,
-    const wchar_t         * OnReadyReceiveCallback,
-    const char         * Packet
+    const wxString& OnReadyReceiveCallback,
+    const wxString& Packet
     )
 {
     callthing * callevent = new callthing;
@@ -256,11 +256,11 @@ callthing * callthing::CreateNetworkReceiveReadyEvent(
 
     // Copy OnReceiveReadyCallback now because it might be freed
     // by the time the event is processed.
-    callevent->func = _wcsdup(OnReadyReceiveCallback);
+    callevent->func = (OnReadyReceiveCallback);
 
     // copy the network packet into the event (instead of into NetworkConnection) 
     // so that it can be processed in the order in which is was received.
-    callevent->networkpacket = _strdup(Packet);
+    callevent->networkpacket = (Packet);
 
     return callevent;
 }
@@ -271,7 +271,7 @@ callthing::~callthing()
     {
     case EVENTTYPE_NetworkReceiveReady:
         //free(func);
-        free(networkpacket);
+        //free(networkpacket);
         break;
 
     case EVENTTYPE_Unknown:
@@ -343,7 +343,7 @@ void checkqueue()
 
               // use the new value
               thing->networkconnection->SetLastPacketReceived(thing->networkpacket);
-              thing->networkpacket = NULL;
+              //thing->networkpacket = NULL;
 
               do_execution(thing->func);
 #endif

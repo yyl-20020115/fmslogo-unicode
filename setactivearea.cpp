@@ -10,7 +10,7 @@
     #include <wx/stattext.h>
     #include <wx/textctrl.h>
 
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "localizedstrings.h"
     #include "stringadapter.h"
 #endif

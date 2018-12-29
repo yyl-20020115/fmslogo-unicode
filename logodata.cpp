@@ -95,7 +95,7 @@ wchar_t ecma_clear(int ch)
 {
     // Return the unbackslashed form of "ch".
     //ch &= 0xFF;
-    if (ch < ecma_begin || ch >= ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) 
+    if (ch < ecma_begin || ch >= ecma_begin + (signed)(sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1)) 
     {
         // ch is not backslashed
         return ch;
@@ -116,14 +116,14 @@ bool ecma_get(int ch)
     // return false, otherwise.
 
     return 
-        ((ch >= ecma_begin && ch < ecma_begin + sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1) && 
+        ((ch >= ecma_begin && ch < ecma_begin + (signed)(sizeof(g_SpecialCharacters)/sizeof(wchar_t) - 1)) && 
          (ch < 0x7 || ch > 0xD || ch == 0xB));
 }
 
 void init_ecma_array()
 {
     // Initialize ecma_array to map all characters to themselves.
-    for (int i = 0; i < sizeof(ecma_array)/sizeof(wchar_t); i++)
+    for (int i = 0; i < (signed)(sizeof(ecma_array)/sizeof(wchar_t)); i++)
     {
         ecma_array[i] = i;
     }
@@ -292,7 +292,7 @@ uncapital(
 	wchar_t lowercase[2] = { 0 };
 
 #ifdef WX_PURE
-    lowercase = tolower(Capital);
+    lowercase[0] = tolower(Capital);
 #else
     LCMapString(
         MAKELCID(LANG_USER_DEFAULT, SORT_DEFAULT),
@@ -344,7 +344,7 @@ capital(
 	wchar_t capital[2] = { 0 };
 
 #ifdef WX_PURE
-    capital = toupper(LowerCase);
+    capital[0] = toupper(LowerCase);
 #else
     LCMapString(
         MAKELCID(LANG_USER_DEFAULT, SORT_DEFAULT),
@@ -361,7 +361,7 @@ capital(
 wchar_t *cap_strnzcpy(wchar_t *dst, const wchar_t * src, int len)
 {
 #ifdef WX_PURE
-    for (size_t i = 0; i < len; i++)
+    for (int i = 0; i < len; i++)
     {
         dst[i] = capital(src[i]);
     }
@@ -401,7 +401,7 @@ wchar_t *noparitylow_strnzcpy(wchar_t *dst, const wchar_t *src, int len)
 int low_strncmp(const wchar_t *string1, const wchar_t * string2, int length)
 {
 #ifdef WX_PURE
-    for (size_t i = 0; i < length; i++)
+    for (int i = 0; i < length; i++)
     {
         if (*string1 != *string2)
         {
@@ -517,7 +517,7 @@ make_strnode(
 
     // set the "string pointer" to just after the header
 	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
-	wcsnset(strptr, 0, len);
+	memset(strptr, 0, len*sizeof(wchar_t));
 	copy_routine(strptr, string, len);
 
     // set the reference count to 1.
@@ -748,7 +748,7 @@ NODE *cnv_node_to_numnode(NODE *ndi)
     int dr;
     if (((getstrlen(ndi)) < MAX_NUMBER) && (dr = numberp(ndi)))
     {
-		wchar_t buffer[MAX_NUMBER];
+		wchar_t buffer[MAX_NUMBER] = {0};
 		wchar_t *s = buffer;
 
         // Copy the contents of the string node into buffer
@@ -779,11 +779,15 @@ NODE *cnv_node_to_numnode(NODE *ndi)
         NODE *val;
         if (dr - 1 || getstrlen(ndi) > 9)
         {
-            val = make_floatnode(_wtof(s));
+            float f =0.0f;
+            swscanf(s,L"%f",&f);
+            val = make_floatnode(f);
         }
         else
         {
-            val = make_intnode(_wtol(s));
+            long l = 0;
+            swscanf(s,L"%ld",&l);
+            val = make_intnode(l);
         }
         gcref(ndi);
         return val;
@@ -843,11 +847,11 @@ NODE *cnv_node_to_strnode(NODE *nd)
         return nd;
 
     case INTEGER:
-        wsprintf(s, L"%ld", getint(nd));
+        swprintf(s,MAX_NUMBER-1, L"%ld", getint(nd));
         return make_strnode(s);
 
     case FLOATINGPOINT:
-        wsprintf(s, L"%0.15g", getfloat(nd));
+        swprintf(s,MAX_NUMBER-1, L"%0.15g", getfloat(nd));
         return make_strnode(s);
     }
 

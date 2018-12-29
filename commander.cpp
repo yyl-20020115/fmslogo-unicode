@@ -12,7 +12,7 @@
   #include <wx/fontdlg.h>
   #include <wx/richtext/richtextctrl.h>
 
-  #include "fmslogo.h"
+  #include "FMSLogo.h"
   #include "mainframe.h"
   #include "statusdialog.h"
   #include "workspaceeditor.h"

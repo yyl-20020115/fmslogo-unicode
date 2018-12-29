@@ -8,7 +8,7 @@
     #include <wx/statbox.h>
 
     #include "commander.h"
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "mainframe.h"
     #include "localizedstrings.h"
     #include "logocore.h" // for ARRAYSIZE

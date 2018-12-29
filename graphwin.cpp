@@ -46,7 +46,7 @@
       };
 
       #include <wx/gdicmn.h>
-      #include "fmslogo.h"
+      #include "FMSLogo.h"
       #include "screen.h"
       #include "mainframe.h"
 
@@ -80,7 +80,7 @@
    #include "vector.h"
    #include "parse.h"
    #include "error.h"
-   #include "fmslogo.h" // BitMapWidth, BitMapHeight
+   #include "FMSLogo.h" // BitMapWidth, BitMapHeight
    #include "messagebox.h" // ShowErrorMessage
    #include "wrksp.h"
    #include "lists.h"
@@ -298,14 +298,14 @@ GrowBitmapsArray(int NewSize)
     // assert that the array needs to grow
     assert(NewSize > g_BitmapsLimit);
 
-    if (NewSize > (size_t)-1 / sizeof(*g_Bitmaps))
+    if (NewSize > (signed)((size_t)-1 / sizeof(*g_Bitmaps)))
     {
         // this allocation would result in an integer overflow
         err_logo(OUT_OF_MEM, NIL);
         return;
     }
 
-    CUTMAP * newBitmaps = (CUTMAP*) realloc(g_Bitmaps, NewSize * sizeof(*g_Bitmaps));
+    CUTMAP * newBitmaps = (CUTMAP*) realloc(g_Bitmaps, (size_t)(NewSize * sizeof(*g_Bitmaps)));
     if (newBitmaps == NULL)
     {
         // could not grow the turtles array to hold turtleId
@@ -2407,7 +2407,7 @@ NODE *lsetturtle(NODE *args)
             // The physical array is smaller than the requested turtle
             // index, so we must grow the turtle array.
 
-            if (turtleId + 1 > (size_t)-1 / sizeof(*g_Turtles))
+            if (turtleId + 1 >(signed)( (size_t)-1 / sizeof(*g_Turtles)))
             {
                 // this allocation would result in an integer overflow
                 err_logo(OUT_OF_MEM, NIL);

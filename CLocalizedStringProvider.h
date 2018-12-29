@@ -4,8 +4,10 @@
 #include "CTextStream.h"
 #include <unordered_map>
 #include <map>
+#include <vector>
 #include <wx/string.h>
 
+using namespace std;
 class CLocalizedStringProvider
 {
 public:

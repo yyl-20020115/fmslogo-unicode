@@ -450,12 +450,13 @@ NODE *ltime(NODE *)
     // string.  ctime() formats a string contains that exactly 26
     // characters and has the form:
     //    Sat Nov 05 20:46:46 2016\n\0
-    const wchar_t * formattedTime = _wctime(&tvec);
+    //this is for compatible with linux
+    wxString formattedTime = ctime(&tvec);
 
     // Remove the trailing newline.
     NODE * arg = make_strnode(
         formattedTime,
-        wcslen(formattedTime) - 1,
+        formattedTime.length(),
         STRING,
         strnzcpy);
 

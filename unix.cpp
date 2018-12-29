@@ -125,16 +125,26 @@ NODE *lchdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_wchdir((const wxString&)directoryName))
+    if (
+#ifdef _WINDOWS
+        _wchdir((const wxString&)directoryName)
+#else
+        chdir((const char*)(const wxString&)directoryName)
+#endif
+    )
     {
         printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), (const wxString&)directoryName);
     }
     else
     {
         // Get the directory that we are now in.
+#ifdef _WINDOWS
 		wchar_t newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
 		_wgetcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(wchar_t));
-
+#else
+		char newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
+		getcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(char));
+#endif
         printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), (const wxString&)(newDirectoryName));
     }
 
@@ -143,11 +153,18 @@ NODE *lchdir(NODE *arg)
 
 NODE *lpopdir(NODE *)
 {
+#ifdef _WINDOWS
     _wchdir(L"..");
 
     wchar_t fname[MAX_BUFFER_SIZE + 1] = { 0 };
 	_wgetcwd(fname, sizeof(fname) / sizeof(wchar_t));
+#else
+    chdir("..");
 
+    char fname[MAX_BUFFER_SIZE + 1] = { 0 };
+	getcwd(fname, sizeof(fname) / sizeof(char));
+#endif
+    
     printfx(GetResourceString(L"LOCALIZED_FILE_POPPEDTO"), (const wxString&)fname);
 
     return Unbound;
@@ -178,7 +195,14 @@ NODE *lrmdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
 
-    if (_wrmdir((const wxString&)directoryName))
+    if (
+#ifdef _WINDOWS
+        _wrmdir((const wxString&)directoryName)
+#else
+        rmdir((const char*)(const wxString&)directoryName)
+#endif
+        
+    )
     {
         printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), (const wxString&)directoryName);
         if (errno == EEXIST)

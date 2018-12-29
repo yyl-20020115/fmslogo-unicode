@@ -66,7 +66,7 @@ SetConfigurationQuadruple(
     int                 Value4
     );
 
-
+#ifdef _WINDOWS
 void
 GetConfigurationFont(
     const wchar_t *            Name,
@@ -78,5 +78,5 @@ SetConfigurationFont(
     const wchar_t *                 Name,
     const LOGFONT &   LogFont
     );
-
+#endif
 #endif // __UTILS_H_

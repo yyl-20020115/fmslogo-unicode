@@ -47,7 +47,7 @@ wxString CStringTextStream::ReadLine()
 wchar_t CStringTextStream::ReadChar()
 {
 	wchar_t ch = this->PeekChar();
-	if (ch != WEOF) {
+	if (ch != (signed)WEOF) {
 		this->pos++;
 	}
 	return ch;
@@ -81,7 +81,7 @@ bool CStringTextStream::WriteChar(wchar_t ch)
 		this->content[(size_t)this->pos] = ch;
 		return true;
 	}
-	else if(this->pos == this->content.length()) {
+	else if(this->pos == (signed)this->content.length()) {
 		this->content += ch;
 		this->pos++;
 		return true;
@@ -101,7 +101,7 @@ bool CStringTextStream::IsValid()
 
 bool CStringTextStream::IsEOF()
 {
-	return this->pos == this->content.length();
+	return this->pos == (signed)this->content.length();
 }
 
 off64_t CStringTextStream::GetPosition()

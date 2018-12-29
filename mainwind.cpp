@@ -35,7 +35,7 @@
    #include "startup.h"
    #include "graphwin.h"
    #include "cursor.h"
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
    #include "debugheap.h"
 
    #ifdef max // MS compilers #define max in windows.h
@@ -328,7 +328,12 @@ ERR_TYPES WriteDIB(FILE* File, int MaxBitmapBitDepth)
 ERR_TYPES DumpBitmapFile(const wxString& Filename, int MaxBitCount)
 {
     // open and check if ok
-    FILE* file = _wfopen(Filename, L"wb");
+    FILE* file = 0;
+#ifdef _WINDOWS
+    file =_wfopen(Filename, L"wb");
+#else
+    file = fopen(Filename,"wb");
+#endif
     if (file == NULL)
     {
         return IMAGE_BMP_OPEN_FAILED;
@@ -515,7 +520,12 @@ LoadBitmapFile(
     // Test if Filename is a Windows 3.0 DIB bitmap and if so read it
 
     // open then check if open 
-    FILE* file = _wfopen(Filename, L"rb");
+    FILE* file = 0;
+#ifdef _WINDOWS
+    file =_wfopen(Filename, L"rb");
+#else
+    file = fopen(Filename,"rb");
+#endif
     if (file == NULL)
     {
         return IMAGE_BMP_OPEN_FAILED;

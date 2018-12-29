@@ -32,7 +32,9 @@
    #include "init.h"
    #include "debugheap.h"
 #endif
-
+#ifndef _WINDOWS
+#include <wchar.h>
+#endif
 CLocalizedNode::CLocalizedNode() :
     m_Primary(NIL),
     m_Alternate(NIL)

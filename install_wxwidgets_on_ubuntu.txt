@@ -1,0 +1,18 @@
+sudo apt install gtk+3.0-dev
+
+cd ~/projects
+mkdir wxwidgets
+cd wxwidgets
+
+git clone https://github.com/wxWidgets/wxWidgets.git .
+
+git submodule init
+git submodule update
+
+mkdir buildgtk
+cd buildgtk
+../configure --with-gtk=3 --enable-unicode --disable-shared
+make
+sudo make install
+sudo ldconfig
+

@@ -138,8 +138,13 @@ void CCommanderInput::SimulateKeyPress(wxKeyEvent & KeyEvent)
         // In short, it's some kind of navigation or selection
         // keystroke, such as Ctrl+Shift+Right to extend the selection.
         // Forward this to Scintilla to be handled correctly.
+//#define USE_RICHTEXT_CODE_EDITOR
+#ifndef USE_RICHTEXT_CODE_EDITOR
         wxStyledTextCtrl::OnKeyDown(KeyEvent);
-
+#else
+        //TODO:how?
+        //wxTextCtrl::OnKeyDown(KeyEvent);
+#endif
         // Ctrl+A doesn't select all, possibly because we disable all
         // built-in Scintilla acelerators.  Therefore, we must have
         // a special case for it.

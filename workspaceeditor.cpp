@@ -10,7 +10,7 @@
     #include "localizedstrings.h"
     #include "guiutils.h"
     #include "fontutils.h"
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "mainframe.h"
     #include "logoeventqueue.h"
     #include "utils.h"
@@ -402,7 +402,12 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 
     // TODO: use a wxWidgets class for I/O instead of the C runtime
     bool success = false;
-	FILE * file = _wfopen(fileName, L"r");
+	FILE * file = 0;
+#ifdef _WINDOWS
+    file =_wfopen(fileName, L"r");
+#else
+    file = fopen((const char*) fileName,"r");
+#endif
 	if (file != NULL)
 	{
 		// read the entire file in 1 KB blocks
@@ -416,8 +421,12 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 			text.Append(data, blockLength);
 		}
 
+		//TODO: fix logocodectrl first!
+#ifdef _WINDOWS
 		m_LogoCodeControl->AddTextRaw(text);
-
+#else
+        //
+#endif
 		if (!ferror(file))
 		{
 			success = true;
@@ -465,7 +474,12 @@ CWorkspaceEditor::Write(
     }
 
     // TODO: Use wxWidgets file I/O instead of the C runtime.
-    FILE* file = _wfopen(fileName, L"wb");
+    FILE* file = 0;
+#ifdef _WINDOWS
+    file = _wfopen(fileName, L"wb");
+#else
+    file = fopen((const char*)fileName,"wb");
+#endif
     if (file == NULL) 
     {
         // Something when wrong when trying to open the file.
@@ -562,9 +576,11 @@ void CWorkspaceEditor::OnSaveToWorkspace(wxCommandEvent& Event)
     if (m_EditArguments != NIL)
     {
         EndEdit();
-
+#ifdef _WINDOWS
         _wunlink(TempPathName);
-
+#else
+        unlink((const char*)TempPathName);
+#endif
         if (m_ErrorDetected)
         {
             // Notify the user that:
@@ -936,7 +952,12 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
                     m_EditArguments,
                     m_CheckForErrors,
                     true); // open the editor to the error
-				_wunlink(TempPathName);
+#ifdef _WINDOWS
+        _wunlink(TempPathName);
+#else
+        unlink((const char*)TempPathName);
+#endif            
+                
             }
             else
             {
@@ -981,7 +1002,11 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
 
             // Delete the temporary file which held the workspace
             // while we were re-reading it.
-			_wunlink(TempPathName);
+#ifdef _WINDOWS
+        _wunlink(TempPathName);
+#else
+        unlink((const char*)TempPathName);
+#endif
 
             // Give focus back to the commander so that the user
             // can give Logo more commands.

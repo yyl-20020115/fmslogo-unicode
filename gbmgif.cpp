@@ -322,7 +322,7 @@ GBM_ERR gif_rdata(int fd, GBM *gbm, byte *data)
     cword free_code;             /* Next available free code slot */
     word bit_mask;                       /* Output pixel mask */ 
     int i, out_count = 0;
-    cword code, cur_code, old_code, in_code, fin_char;
+    cword code = 0, cur_code = 0, old_code = 0, in_code = 0, fin_char = 0;
     cword *prefix, *suffix, *outcode;
     READ_CONTEXT c;
     OUTPUT_CONTEXT o;
@@ -663,7 +663,7 @@ GBM_ERR gif_w(const wchar_t *fn, int fd, const GBM *gbm, const GBMRGB *gbmrgb, c
                 gce[3] |= 0x11;    /* Set Transparent and Overwrite Bits */
                 for ( p = 0; p < (1 << gbm->bpp); p++ )
                 {
-                    if (RGB(gbmrgb[p].r, gbmrgb[p].g, gbmrgb[p].b) == iTrans)
+                    if (RGB(gbmrgb[p].r, gbmrgb[p].g, gbmrgb[p].b) == (unsigned)iTrans)
                     {
                         gce[6] = p;
                         break;
@@ -756,11 +756,11 @@ GBM_ERR gif_w(const wchar_t *fn, int fd, const GBM *gbm, const GBMRGB *gbmrgb, c
 
     {
         int stride = ((gbm->w * gbm->bpp + 31) / 32) * 4;
-        byte min_code_size;
-        int init_code_size, x, y, pass;
-        cword clear_code, eoi_code, last_code, max_code, tail;
-        unsigned int hashvalue, lenstring, j;
-        DICT *dict, **hashtable;
+        byte min_code_size = 0;
+        int init_code_size = 0, x = 0, y = 0, pass = 0;
+        cword clear_code = 0, eoi_code = 0, last_code = 0, max_code = 0, tail = 0;
+        unsigned int hashvalue = 0, lenstring = 0, j = 0;
+        DICT *dict, **hashtable = 0;
         WRITE_CONTEXT w;
    
         /* Now LZW encode data */

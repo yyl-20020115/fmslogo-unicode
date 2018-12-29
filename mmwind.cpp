@@ -22,8 +22,9 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
 #include <wx/string.h>
+#ifdef _WINDOWS
     #include <windows.h>
-
+#endif
     #include "mmwind.h"
     #include "argumentutils.h"
     #include "stringprintednode.h"

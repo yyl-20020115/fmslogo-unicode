@@ -39,7 +39,7 @@
     #include "activearea.h"
     #include "graphwin.h"
     #include "utils.h"
-    #include "fmslogo.h"
+    #include "FMSLogo.h"
     #include "stringadapter.h"
     #include "debugheap.h"
 
@@ -200,7 +200,7 @@ void init_graphics()
 	tp = tempPath;
 #else
 	tp = GetFullText(GetTempPath);
-#endif
+
 
 
     bool  tempPathIsValid = false;
@@ -232,6 +232,7 @@ void init_graphics()
             MB_OK);
 		tp = L"C:\\";
     }
+#endif
 	TempBmpName = tp + L"fmslogo.bmp";
 	TempPathName = tp + L"fmslogo.lgo";
 	TempClipName = tp + L"fmslogo.clp";

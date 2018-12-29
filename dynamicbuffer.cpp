@@ -27,6 +27,10 @@
    #include "debugheap.h"
 #endif
 
+#ifndef _WINDOWS
+#include <wchar.h>
+#endif
+
 const int DEFAULT_BUFFER_SIZE = 256;
 
 #ifdef NDEBUG

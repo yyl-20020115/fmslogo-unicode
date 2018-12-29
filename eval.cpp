@@ -30,7 +30,7 @@
    #include <wx/window.h>
 
    #include "eval.h"
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
    #include "init.h"
    #include "files.h"
    #include "graphwin.h"
@@ -1193,7 +1193,7 @@ NODE *evaluator(NODE *list, enum labels where)
     // stop execution (for example, if they want to close).
     check_stop(true);
 
-    if (tracing = flag__caseobj(fun, PROC_TRACED) || traceflag)
+    if ((tracing = ((flag__caseobj(fun, PROC_TRACED) || traceflag))))
     {
         for (int i = 0; i < trace_level; i++) 
         {
@@ -1401,7 +1401,7 @@ NODE *evaluator(NODE *list, enum labels where)
         goto fetch_cont;
     }
 
-    if (tracing = (!is_list(fun) && flag__caseobj(fun, PROC_TRACED)) || traceflag)
+    if ((tracing = ((!is_list(fun) && flag__caseobj(fun, PROC_TRACED)) || traceflag)))
     {
         if (NOT_THROWING) 
         {
@@ -1516,7 +1516,7 @@ NODE *evaluator(NODE *list, enum labels where)
 
  no_fixup_necessary:
         assign(this_line, unparsed__line(unev));
-        if (ufun != NIL && flag__caseobj(ufun, PROC_STEPPED) || stepflag)
+        if ((ufun != NIL && flag__caseobj(ufun, PROC_STEPPED)) || stepflag)
         {
             // this is not a lambda function and it is being stepped
             if (tracing || traceflag)
@@ -2077,7 +2077,7 @@ NODE *evaluator(NODE *list, enum labels where)
         // version of FMSLogo.  Therefore, we must treat them as 
         // equal if they both equal Error.
         if (compare_node(throw_node, catch_tag, true) == 0 ||
-            Error.Equals(catch_tag) && Error.Equals(throw_node))
+            (Error.Equals(catch_tag) && Error.Equals(throw_node)))
         {
             assign(throw_node, Unbound);
             stopping_flag = RUN;

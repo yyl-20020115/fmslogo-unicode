@@ -42,7 +42,7 @@
    #include <wx/filedlg.h> 
    #include <wx/msgdlg.h> 
 
-   #include "fmslogo.h"
+   #include "FMSLogo.h"
    #include "logoeventqueue.h"
    #include "screen.h"
    #include "coms.h"
@@ -446,13 +446,13 @@ class CLogoStaticText : public wxStaticText
 public:
     CLogoStaticText(
         wxWindow               * Parent,
-        const wchar_t             * Text,
+        const wxString&         Text,
         const CClientRectangle & ClientRectangle
         )
         : wxStaticText(
             Parent,
             wxID_ANY,
-            WXSTRING(Text),
+            (Text),
             wxPoint(ClientRectangle.GetX(), ClientRectangle.GetY()),
             wxSize(ClientRectangle.GetWidth(), ClientRectangle.GetHeight()),
             wxALIGN_LEFT | wxST_NO_AUTORESIZE)
@@ -522,12 +522,12 @@ public:
         : wxButton(
             Parent,
             wxID_ANY,
-            WXSTRING(Caption),
+            (Caption),
             wxPoint(ClientRectangle.GetX(), ClientRectangle.GetY()),
             wxSize(ClientRectangle.GetWidth(), ClientRectangle.GetHeight()),
             wxBU_LEFT | wxBU_TOP)
     {
-        strcpy(m_Callback, Callback);
+        m_Callback = Callback;
     }
 #else
     {
@@ -2032,7 +2032,7 @@ NODE *lstaticcreate(NODE *args)
 
         child->StaticText = new CLogoStaticText(
             parent->Dialog, 
-            titlename, 
+            (const wxString&)titlename, 
             clientrect);
     }
     else
@@ -2043,7 +2043,7 @@ NODE *lstaticcreate(NODE *args)
             
         child->StaticText = new CLogoStaticText(
             GetScreenWxWindow(),
-            titlename,
+            (const wxString&)titlename,
             clientrect);
     }
 

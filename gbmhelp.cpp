@@ -24,9 +24,12 @@ gbmhelp.c - Helpers for GBM file I/O stuff
    #include "gbm.h"
    #include "gbmhelp.h"
    #include "debugheap.h"
+#include <wx/string.h>
 #endif
 
-
+#ifndef _WINDOW
+#include <wchar.h>
+#endif
 BOOLEAN gbm_same(const wchar_t *s1, const wchar_t *s2, size_t n)
 {
     for ( ; n--; s1++, s2++ )
@@ -41,9 +44,18 @@ const wchar_t *gbm_find_word(const wchar_t *str, const wchar_t *substr)
     size_t  len = wcslen(substr);
 	//TODO: FIXME
 
-    for ( s  = wcstok(wcscpy(buf, str), L" \t,");
+    for ( s  = wcstok(wcscpy(buf, str), L" \t,"
+        
+#ifndef _WINDOWS
+        ,0
+#endif
+    );
           s != NULL;
-          s  = wcstok(NULL, L" \t,") )
+          s  = wcstok(NULL, L" \t,"
+#ifndef _WINDOWS
+               ,0
+#endif
+        ) )
         if ( gbm_same(s, substr, len) && s[len] == L'\0' )
             return str + (s - buf);
     return NULL;
@@ -54,9 +66,17 @@ const wchar_t *gbm_find_word_prefix(const wchar_t *str, const wchar_t *substr)
 	wchar_t buf[100+1], *s;
     size_t  len = wcslen(substr);
 
-    for ( s  = wcstok(wcscpy(buf, str), L" \t,");
+    for ( s  = wcstok(wcscpy(buf, str), L" \t,"
+#ifndef _WINDOWS
+        ,0
+#endif
+    );
           s != NULL;
-          s  = wcstok(NULL, L" \t,") )
+          s  = wcstok(NULL, L" \t,"
+#ifndef _WINDOWS
+          ,0
+#endif
+        ) )
         if ( gbm_same(s, substr, len) )
             return str + (s - buf);
     return NULL;
@@ -64,27 +84,35 @@ const wchar_t *gbm_find_word_prefix(const wchar_t *str, const wchar_t *substr)
 
 int gbm_file_open(const wchar_t *fn, int mode)
 { 
+#ifdef _WINDOWS
     return _wopen(fn, mode);
+#else
+    return open(wxString(fn), mode);
+#endif
 }
 int gbm_file_create(const wchar_t *fn, int mode)
 {
+#ifdef _WINDOWS
     return _wopen(fn, O_CREAT|O_TRUNC|mode, S_IREAD|S_IWRITE);
+#else
+    return open(wxString(fn), O_CREAT|O_TRUNC|mode, S_IREAD|S_IWRITE);
+#endif
 }
 void gbm_file_close(int fd)
 {
-    _close(fd);
+    close(fd);
 }
 long gbm_file_lseek(int fd, long pos, int whence)
 {
-    return _lseek(fd, pos, whence);
+    return lseek(fd, pos, whence);
 }
 int gbm_file_read(int fd, void *buf, int len)
 {
-    return _read(fd, buf, len);
+    return read(fd, buf, len);
 }
 int gbm_file_write(int fd, const void *buf, int len)
 {
-    return _write(fd, buf, len);
+    return write(fd, buf, len);
 }
 
 AHEAD *gbm_create_ahead(int fd)

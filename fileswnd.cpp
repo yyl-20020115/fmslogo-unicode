@@ -50,7 +50,13 @@ void filesave(const wchar_t *FileName)
 #endif
     }
 
-    PrintWorkspaceToFileStream(_wfopen(FileName, L"w+"));
+    FILE* fp = 0;
+#ifdef _WINDOWS
+    fp = _wfopen(FileName, L"w+");
+#else
+    fp = fopen(wxString(FileName),"w+");
+#endif
+    PrintWorkspaceToFileStream(fp);
 }
 
 

@@ -3,20 +3,19 @@
 
 
 CConstStringTextReadonlyStream::CConstStringTextReadonlyStream(const wchar_t* content, size_t length, const wxString& newline)
-	: content(content)
+	: CTextStream(newline)
+    , content(content)
 	, length(length)
-	, pos()
-	, CTextStream(newline)
 {
 	if (length > 0) {
 		wchar_t first = *content;
 		switch (first)
 		{
 		case UTF16LE_BOM:
-			this->file_bol = LITTLE_ENDIAN;
+			this->file_bol = CTS_LITTLE_ENDIAN;
 			break;
 		case UTF16BE_BOM:
-			this->file_bol = BIG_ENDIAN;
+			this->file_bol = CTS_BIG_ENDIAN;
 			break;
 		default:
 			this->file_bol = 0;
@@ -51,7 +50,8 @@ size_t CConstStringTextReadonlyStream::Read(wchar_t * buffer, size_t length)
 
 wxString CConstStringTextReadonlyStream::ReadAll()
 {
-	return this->EnsureEndian(wxString(this->content+this->pos,(this->length-this->pos)));
+    wxString text(this->content+this->pos,(this->length-this->pos));
+	return this->EnsureEndian(text);
 }
 
 const wchar_t* wcsnstr(const wchar_t* dest, const wchar_t* src, size_t dest_length, size_t src_length)
@@ -105,7 +105,7 @@ wxString CConstStringTextReadonlyStream::ReadLine()
 wchar_t CConstStringTextReadonlyStream::ReadChar()
 {
 	wchar_t ch = this->PeekChar();
-	if (ch != WEOF) {
+	if (ch != (signed)WEOF) {
 		this->pos++;
 	}
 	return ch;
@@ -140,7 +140,7 @@ bool CConstStringTextReadonlyStream::IsValid()
 
 bool CConstStringTextReadonlyStream::IsEOF()
 {
-	return this->pos == this->length;
+	return this->pos == (signed)this->length;
 }
 
 off64_t CConstStringTextReadonlyStream::GetPosition()

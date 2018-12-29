@@ -100,8 +100,8 @@ public:
 
     static callthing * CreateNetworkReceiveReadyEvent(
         class CNetworkConnection * NetworkConnection,
-        const wchar_t               * OnReadyReceiveCallback,
-        const char               * Packet
+        const wxString& OnReadyReceiveCallback,
+        const wxString& Packet
         );
 
     ~callthing();
@@ -110,7 +110,7 @@ public:
     EVENTTYPE            kind;
     CNetworkConnection * networkconnection;
 	wxString               func;
-	char *               networkpacket;
+	wxString               networkpacket;
     int                  arg1;
     int                  arg2;
 };

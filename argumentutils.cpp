@@ -42,7 +42,7 @@ wxString NormalizeCaseForDisplay(wxString text) {
 	if (text.length() > 0) {
 		wchar_t* buffer = (wchar_t*)malloc(sizeof(wchar_t)*(text.length() + 1));
 		if (buffer != 0) {
-			memset(buffer, 0, sizeof(buffer));
+			memset(buffer, 0,sizeof(wchar_t)*(text.length() + 1));
 			NormalizeCaseForDisplay(buffer, text, text.length());
 			ret = buffer;
 			free(buffer);
@@ -58,7 +58,7 @@ wxString cap_strnzcpy(wxString text)
 	if (text.length() > 0) {
 		wchar_t* buffer = (wchar_t*)malloc(sizeof(wchar_t)*(text.length() + 1));
 		if (buffer != 0) {
-			memset(buffer, 0, sizeof(buffer));
+			memset(buffer, 0, sizeof(wchar_t)*(text.length() + 1));
 			cap_strnzcpy(buffer, text, text.length());
 			ret = buffer;
 			free(buffer);

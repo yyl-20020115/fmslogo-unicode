@@ -1,5 +1,8 @@
 #include "CMbcsFileTextStream.h"
+
+#ifdef _WINDOWS
 #include <mbstring.h>
+#endif
 off64_t CMbcsFileTextStream::WriteAll(const wxString& path, CTextStream * source, bool append)
 {
 	off64_t c = 0;
@@ -9,7 +12,7 @@ off64_t CMbcsFileTextStream::WriteAll(const wxString& path, CTextStream * source
 		{
 			off64_t sp = cmfts.GetPosition();
 			wchar_t ch = WEOF;
-			while ((ch = source->ReadChar()) != WEOF) 
+			while ((ch = source->ReadChar()) !=(signed) WEOF) 
 			{
 				cmfts.WriteChar(ch);
 			}
@@ -29,7 +32,7 @@ off64_t CMbcsFileTextStream::ReadAll(const wxString & path, CTextStream * dest)
 		{
 			off64_t sp = cmfts.GetPosition();
 			wchar_t ch = WEOF;
-			while ((ch = cmfts.ReadChar()) != WEOF)
+			while ((ch = cmfts.ReadChar()) != (signed)WEOF)
 			{
 				dest->WriteChar(ch);
 			}
@@ -40,15 +43,16 @@ off64_t CMbcsFileTextStream::ReadAll(const wxString & path, CTextStream * dest)
 	return c;
 }
 CMbcsFileTextStream::CMbcsFileTextStream(const wxString& newline)
-	:cbuffer()
-	,cbufferlength()
-	,CFileTextStream(newline)
+	: CFileTextStream(newline)
+    , cbuffer()
+	, cbufferlength()
+	
 {
 }
 CMbcsFileTextStream::CMbcsFileTextStream(FILE* file, bool close_on_exit,const wxString& newline)
-	: cbuffer()
+	: CFileTextStream(file, close_on_exit,newline)
+    , cbuffer()
 	, cbufferlength()
-	, CFileTextStream(file, close_on_exit,newline)
 {
 }
 
@@ -66,7 +70,13 @@ void CMbcsFileTextStream::Close()
 bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
 {
 	return (this->IsValid()) ? false :
-		(this->file = _wfopen(path, mode)) != 0;
+		(this->file =
+#ifdef _WINDOWS
+        _wfopen(path,mode)
+#else
+		fopen((const char*)path, (const char*)mode)
+#endif
+        ) != 0;
 }
 
 wchar_t CMbcsFileTextStream::ReadChar()
@@ -129,7 +139,11 @@ int CMbcsFileTextStream::CharToBytes(wchar_t ch, char * buffer)
 	int converted = wctomb(buffer, ch);
 	if (converted > 0)
 	{
+#ifdef _WINDOWS
 		c = _mbclen((unsigned char*)buffer);
+#else
+        c = mblen(buffer,MB_CUR_MAX);
+#endif
 	}
 	else if (converted == 0) {
 		c = 0; //should not happen
@@ -155,7 +169,11 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 		}
 		if (cbufferlength > 0)
 		{
+#ifdef _WINDOWS
 			size_t n = _mbclen((unsigned char*)cbuffer);
+#else
+			size_t n = mblen(cbuffer,MB_CUR_MAX);
+#endif
 			n = (n == 1 || n == 2) ? n : 1;
 			int ret = mbtowc(&c, cbuffer, n);
 			if (ret <= 0) {
@@ -163,7 +181,7 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 				c = cbuffer[0];
 				n = 1;
 			}
-			for (int i = 0; i < sizeof(cbuffer) - 1; i++) {
+			for (int i = 0; i < (int)sizeof(cbuffer) - 1; i++) {
 				cbuffer[i] = (i + n) < sizeof(cbuffer) ? cbuffer[i + n] : 0;
 			}
 			cbufferlength -= n;

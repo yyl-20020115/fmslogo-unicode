@@ -23,7 +23,14 @@ CUnicodeFileTextStream::~CUnicodeFileTextStream()
 bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, bool check_bom)
 {
 	bool done = (this->IsValid()) ? false :
-		(this->file = _wfopen(path, mode)) != 0;
+		(this->file = 
+#ifdef _WINDOWS
+        _wfopen(path,mode)
+#else
+		fopen((const char*)path, (const char*)mode)
+#endif
+            
+        ) != 0;
 	if (done) {
 		this->file_bol = 0;
 		wxString m = mode.Lower();
@@ -42,11 +49,11 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 			wchar_t p = this->PeekChar();
 			switch (p) {
 			case UTF16BE_BOM:
-				this->file_bol = BIG_ENDIAN;
+				this->file_bol = CTS_BIG_ENDIAN;
 				this->file_bom = p;
 				break;
 			case UTF16LE_BOM:
-				this->file_bol = LITTLE_ENDIAN;
+				this->file_bol = CTS_LITTLE_ENDIAN;
 				this->file_bom = p;
 				break;
 			default:
@@ -115,7 +122,7 @@ bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
 	if (this->IsValid()) {
 		ret = putwc(this->EnsureEndian(ch), this->file);
 	}
-	return ret != WEOF;
+	return ret != (signed)WEOF;
 }
 
 bool CUnicodeFileTextStream::WriteByte(char ch)

@@ -234,10 +234,6 @@ bool CLogoCodePrintout::HasPage(int pageNum)
     return m_NextPrintStartPosition < m_EditControl.GetTextLength();
 }
 
-
-// BUG: this should return the number of characters, but it instead
-// returns the number of bytes.  However, for this is used, it does
-// not cause problems.
 int CLogoCodeCtrl::GetTextLength() const
 {
 	return GetWindowTextLength(GetHandle());
@@ -352,7 +348,8 @@ CLogoCodeCtrl::CLogoCodeCtrl(
         const int key = 'A' + i;
         if (key != 'Y')
         {
-            CmdKeyAssign(key, wxSTC_SCMOD_CTRL, 0);
+            //CmdKeyAssign(key, wxSTC_SCMOD_CTRL, 0);
+            CmdKeyAssign(key, wxSTC_KEYMOD_CTRL, 0);
         }
     }
 
@@ -891,7 +888,7 @@ CLogoCodeCtrl::DoSearchOperation(
         // Notify the user that we were unable to find it.
         const wxString & notFoundMessage = wxString::Format(
 			wxString(LOCALIZED_STRINGTABLE_CANNOTFINDSTRING),
-            StringToFind.c_str());
+            StringToFind);
 
         ::wxMessageBox(
             notFoundMessage,
@@ -1117,9 +1114,10 @@ END_EVENT_TABLE()
 // Implementation of the CLogoCodeCtrl that uses wxTextCtrl for languages which
 // use a multi-byte character set, such as Simplified Chinese.
 // This is stop-gap solution until FMSLogo is a pure-Unicode application.
+#ifdef _WINDOWS
 #include <richedit.h>
-//#include <mbstring.h>
-
+#include <mbstring.h>
+#endif
 CLogoCodeCtrl::CLogoCodeCtrl(
     wxWindow *      Parent,
     wxWindowID      Id

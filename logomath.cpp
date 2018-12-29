@@ -141,7 +141,7 @@ int numberp(NODE *snd)
     {
         p++, pcnt++;
 
-        if (pcnt < plen && *p == L'+' || *p == L'-')
+        if (pcnt < plen && (*p == L'+' || *p == L'-'))
         {
             p++, pcnt++;
         }

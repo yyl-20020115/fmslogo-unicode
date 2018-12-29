@@ -21,8 +21,8 @@ typedef long long off64_t;
 class CTextStream
 {
 public:
-	const int LITTLE_ENDIAN = -1;
-	const int BIG_ENDIAN = 1;
+    const int CTS_LITTLE_ENDIAN = -1;
+    const int CTS_BIG_ENDIAN = 1;
 
 public:
 	CTextStream(const wxString& newline= TEXTSTREAM_DEFUALT_NEWLINE);
@@ -63,8 +63,8 @@ protected:
 	virtual unsigned int SwapByteOrder(unsigned int i);
 	virtual wchar_t GetMachineBOM();
 protected:
-	int file_bol;
 	int mem_bol;
+	int file_bol;
 	wxString newline;
 
 };
