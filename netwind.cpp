@@ -302,23 +302,23 @@ CNetworkConnection::CNetworkConnection() :
     m_IsEnabled(false),
     m_OnReceiveReady(),
     m_OnSendReady(),
-    m_ReceiveValue(NULL)
+    m_ReceiveValue()
 {
 }
 
 void
 CNetworkConnection::SetLastPacketReceived(
-    char * LastPacket
+    const wxString& LastPacket
     )
 {
-    free(m_ReceiveValue);
+    //free(m_ReceiveValue);
     m_ReceiveValue = LastPacket;
 }
 
 NODE*
 CNetworkConnection::GetLastPacketReceived() const
 {
-    if (m_ReceiveValue == NULL)
+    if (m_ReceiveValue.length()==0)
     {
         return NIL;
     }
@@ -345,7 +345,7 @@ CNetworkConnection::Disable()
         m_IsConnected  = false;
         m_IsBusy       = false;
 
-		safe_free_buffer(m_ReceiveValue);
+		m_ReceiveValue.clear();
 
         closesocket(m_Socket);
         m_Socket = INVALID_SOCKET;
@@ -487,7 +487,7 @@ CNetworkConnection::Shutdown()
     Disable();
 	this->m_OnSendReady.clear();
 	this->m_OnReceiveReady.clear();
-    SetLastPacketReceived(NULL);
+    SetLastPacketReceived(wxString());
     m_CarryOverData.ReleaseBuffer();
 }
 

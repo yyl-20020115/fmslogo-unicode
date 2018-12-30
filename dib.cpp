@@ -57,6 +57,9 @@
    #include "localizedstrings.h"
    #include "debugheap.h"
 #endif
+#ifdef _WINDOWS
+#include <Windows.h>
+#else
 #ifndef LPSTR
 #define LPSTR char *
 #endif
@@ -66,7 +69,7 @@
 #ifndef WORD
 #define WORD unsigned short
 #endif
-
+#endif
 
 extern LPSTR FindDIBBits(LPSTR lpbi);
 extern WORD DIBNumColors(LPSTR lpbi);

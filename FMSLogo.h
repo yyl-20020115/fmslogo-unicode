@@ -26,7 +26,7 @@ extern class wxString edit_editexit; // editor callback instruction list
 ///////////////////////////////////////////////////////////////
 // Functions
 void single_step_box(NODE * the_line);
-wchar_t * promptuser(const wchar_t *prompt);
+wxString promptuser(const wchar_t *prompt);
 
 #ifdef FMSLOGO_WXWIDGETS
 

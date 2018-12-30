@@ -283,9 +283,9 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 	}
 	else //strm == stdin (actually it's the buffer)
 	{
+		wxString userInput;
 		if (g_ReadBuffer.IsEmpty())
 		{
-			wchar_t * userInput = 0;
 			// the buffer is empty, so we should read more
 			switch (input_mode)
 			{
@@ -298,7 +298,7 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 
 			case INPUTMODE_List:
 				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_LIST"));
-				if (userInput == NULL)
+				if (userInput.length()==0)
 				{
 					// Halt when done
 					err_logo(STOP_ERROR, NIL);
@@ -306,13 +306,13 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 				else
 				{
 					g_ReadBuffer.AppendString(userInput);
-					free(userInput);
+					userInput.clear();
 				}
 				break;
 
 			case INPUTMODE_Pause:
 				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_PAUSE"));
-				if (userInput == NULL)
+				if (userInput.length() == 0)
 				{
 					// continue when done
 					g_ReadBuffer.AppendString(L"continue");
@@ -320,13 +320,13 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 				else
 				{
 					g_ReadBuffer.AppendString(userInput);
-					free(userInput);
+					userInput.clear();
 				}
 				break;
 
 			case INPUTMODE_None:
 				userInput = promptuser(GetResourceString(L"LOCALIZED_PROMPT_INPUT"));
-				if (userInput == NULL)
+				if (userInput.length()==0)
 				{
 					// Halt when done
 					err_logo(STOP_ERROR, NIL);
@@ -334,7 +334,7 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 				else
 				{
 					g_ReadBuffer.AppendString(userInput);
-					free(userInput);
+					userInput.clear();
 				}
 				break;
 			}

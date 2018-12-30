@@ -203,7 +203,7 @@ CTextStream::CTextStream(const wxString& newline)
 	,file_bol(0)
 	,newline(newline)
 {
-	this->mem_bol = this->IsLittleEndian() ? LITTLE_ENDIAN : BIG_ENDIAN;
+	this->mem_bol = this->IsLittleEndian() ? CTS_LITTLE_ENDIAN : CTS_BIG_ENDIAN;
 }
 
 CTextStream::~CTextStream()

@@ -34,7 +34,7 @@ public:
     void Disable();
 
     NODE * GetLastPacketReceived() const;
-    void SetLastPacketReceived(char * LastPacket);
+    void SetLastPacketReceived(const wxString& LastPacket);
 
     void Shutdown();
 
@@ -77,7 +77,7 @@ protected:
 
 	wxString m_OnReceiveReady;  // Buffer for receive callback
 	wxString m_OnSendReady;     // Buffer for send    callback
-    char * m_ReceiveValue;    // pointer to the last packet received
+    wxString m_ReceiveValue;    // pointer to the last packet received
 
 
     // Private helper class for buffering (carrying over) network

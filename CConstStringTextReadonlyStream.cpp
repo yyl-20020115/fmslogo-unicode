@@ -6,6 +6,7 @@ CConstStringTextReadonlyStream::CConstStringTextReadonlyStream(const wchar_t* co
 	: CTextStream(newline)
     , content(content)
 	, length(length)
+	, pos()
 {
 	if (length > 0) {
 		wchar_t first = *content;
