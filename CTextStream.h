@@ -52,6 +52,8 @@ public:
 	virtual bool IsEOF();
 	virtual off64_t GetPosition();
 	virtual int SetPosition(off64_t offset,int origin);
+	virtual off64_t GetLength();
+
 	virtual void Flush();
 
 	virtual void Close();

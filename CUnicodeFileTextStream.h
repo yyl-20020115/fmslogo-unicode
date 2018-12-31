@@ -22,8 +22,10 @@ public:
 	virtual int ReadByte();
 	virtual int PeekByte();
 
+	virtual wchar_t WriteBOM();
 	virtual bool WriteChar(wchar_t ch);
 	virtual bool WriteByte(char ch);
+
 
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();

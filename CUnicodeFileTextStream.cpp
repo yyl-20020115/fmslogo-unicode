@@ -114,6 +114,12 @@ wchar_t CUnicodeFileTextStream::SkipBOM()
 	return ch;
 }
 
+wchar_t CUnicodeFileTextStream::WriteBOM()
+{
+	this->WriteChar(this->SwapByteOrder(this->file_bom));
+	return this->file_bom;
+}
+
 bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
 {
 	wchar_t ret = WEOF;

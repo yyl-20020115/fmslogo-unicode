@@ -133,6 +133,16 @@ int CTextStream::SetPosition(off64_t offset, int origin)
 	return 0;
 }
 
+off64_t CTextStream::GetLength()
+{
+	off64_t op = this->GetPosition();
+	this->SetPosition(0, SEEK_END);
+	off64_t ep = this->GetPosition();
+	this->SetPosition(op, SEEK_SET);
+
+	return ep + 1;
+}
+
 void CTextStream::Flush()
 {
 }

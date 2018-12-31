@@ -1456,11 +1456,7 @@ bool something_is_unburied()
     // find one that would appear in the workspace.
     return false;
 }
-bool SaveAsUnicode = false;
-bool& GetSaveAsUnicode()
-{
-	return SaveAsUnicode;
-}
+
 NODE *ledit(NODE *args)
 {
     if (!bExpert)
@@ -1485,12 +1481,12 @@ NODE *ledit(NODE *args)
     // Write the requested contents to a file
     if (args != NIL)
     {
-		CTextStream * fileStream = CFileTextStream::OpenForWrite(
-			TempPathName, GetSaveAsUnicode());// _wfopen(TempPathName, L"w");
+		CTextStream * fileStream = CFileTextStream::OpenForWrite(TempPathName, true);
         if (fileStream != NULL)
         {
             // HACK: change g_Writer to use the new stream
 			CTextStream * savedWriterStream = GetOutputStream();
+
 			SetOutputStream(fileStream);
 
             po_helper(args, -1);
@@ -1556,7 +1552,7 @@ bool endedit(void)
 
         start_execution();
 
-		CTextStream* filestream = CFileTextStream::OpenForRead(TempPathName);
+		CTextStream* filestream = CFileTextStream::OpenForRead(TempPathName,true);
 
         if (filestream != NULL)
         {
@@ -1567,7 +1563,7 @@ bool endedit(void)
             realsave = true;
             while (!GetLoadStream()->IsEOF() && NOT_THROWING)
             {
-                g_CharactersSuccessfullyParsedInEditor = (GetLoadStream()->GetPosition()) ;
+                g_CharactersSuccessfullyParsedInEditor = GetLoadStream()->GetPosition();
                 assign(current_line, reader(GetLoadStream(), L""));
 
                 NODE * exec_list = parser(current_line, true);
@@ -1575,15 +1571,11 @@ bool endedit(void)
                 g_ValueStatus = VALUE_STATUS_NotOk;
                 eval_driver(exec_list);
             }
-            (GetLoadStream()->Close());
             g_ValueStatus = saved_value_status;
-
-
 			SetLoadStream(holdstrm);
-
+			assign(current_line, tmp_line);
 			delete filestream;
 
-			assign(current_line, tmp_line);
 		}
 		else
 		{

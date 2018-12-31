@@ -24,6 +24,7 @@
     #include "helputils.h"    // for ContextHelp
     #include "stringadapter.h"
 #endif
+#include "CUnicodeFileTextStream.h"
 
 enum
 {
@@ -400,39 +401,20 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
     m_LogoCodeControl->Cancel();
     m_LogoCodeControl->SetUndoCollection(0);
 
-    // TODO: use a wxWidgets class for I/O instead of the C runtime
     bool success = false;
-	FILE * file = 0;
-#ifdef _WINDOWS
-    file =_wfopen(fileName, L"r");
-#else
-    file = fopen((const char*) fileName,"r");
-#endif
-	if (file != NULL)
+	CFileTextStream* cfts = CFileTextStream::OpenForRead(fileName, true);
+	if (cfts != 0) 
 	{
-		// read the entire file in 1 KB blocks
-		char data[4097] = { 0 };
+		success = true;
+		
+		wxString text = cfts->ReadAll();
 
-		size_t blockLength = 0;
-		wxString text;
-
-		while ((blockLength = fread(data, sizeof(char), (sizeof(data) / sizeof(char) - 1), file)) > 0)
-		{
-			text.Append(data, blockLength);
-		}
-
-		//TODO: fix logocodectrl first!
 #ifdef _WINDOWS
 		m_LogoCodeControl->AddTextRaw(text);
 #else
-        //
+		//
 #endif
-		if (!ferror(file))
-		{
-			success = true;
-		}
-
-		fclose(file);
+		delete cfts;
 	}
 
     m_LogoCodeControl->SetUndoCollection(true);
@@ -472,44 +454,34 @@ CWorkspaceEditor::Write(
         // No file name was given.
         return false;
     }
+	bool success = true;
 
-    // TODO: Use wxWidgets file I/O instead of the C runtime.
-    FILE* file = 0;
-#ifdef _WINDOWS
-    file = _wfopen(fileName, L"wb");
-#else
-    file = fopen((const char*)fileName,"wb");
-#endif
-    if (file == NULL) 
-    {
-        // Something when wrong when trying to open the file.
-        // Report the error to the user.
-        const wxString & errorMessage = wxString::Format(
+	CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, true, true);
+	if (cfts != 0)
+	{
+		wxString text = m_LogoCodeControl->GetText();
+		if (text.length() > 0 && cfts->GetStreamType()== FileTextStreamType::Unicode && cfts->GetPosition() == 0) {
+		//NOTICE: don' know when we have to write bom on our own:
+			((CUnicodeFileTextStream*)cfts)->WriteBOM();
+		}
+		success = (cfts->Write(text)) == text.length();
+		delete cfts;
+	}
+	else
+	{
+		success = false;
+		// Something when wrong when trying to open the file.
+		// Report the error to the user.
+		const wxString & errorMessage = wxString::Format(
 			GetResourceString(L"LOCALIZED_ERROR_CANTWRITEFILE"),
 			/*WXSTRING_TO_STRING*/(fileName));
 
-        wxMessageBox(
-            errorMessage,
+		wxMessageBox(
+			errorMessage,
 			GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
-            wxICON_EXCLAMATION | wxOK);
+			wxICON_EXCLAMATION | wxOK);
 
-        return false;
-    }
-
-    bool success = true;
-
-	wxString text = m_LogoCodeControl->GetText();
-
-	const char* mb = text;
-
-	if (mb != 0) {
-		size_t len = strlen(mb);
-		size_t ret = fwrite(mb, sizeof(char), len, file);
-		success = (ret == len);
 	}
-
-    fclose(file);
-
     if (success)
     {
         m_LogoCodeControl->SetSavePoint();

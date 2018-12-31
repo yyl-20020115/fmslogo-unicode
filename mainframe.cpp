@@ -981,25 +981,17 @@ CMainFrame::PopupEditorForFile(
     )
 {
     // If no file (or empty) create template
-    // TODO: Use a wxWidgets class for the file I/O.
-    FILE* logoFile = 0;
-#ifdef _WINDOWS
-    logoFile =_wfopen(FileName, L"r");
-#else
-    logoFile = fopen((const char*)FileName,"r");
-#endif
-    if (logoFile != NULL)
-    {
-        // file exists.  check if it's empty.
-        bool fileIsEmpty = (getc(logoFile) == EOF);
-        fclose(logoFile);
+	bool NeedToCreate = !wxFileExists(FileName);
 
-        if (fileIsEmpty)
-        {
-            CreateTemplateLogoFileForEditor(FileName, EditArguments);
-        }
-    }
-    else
+	if (!NeedToCreate) {
+		CFileTextStream* cfts = CFileTextStream::OpenForRead(FileName, false, true);
+		if (cfts != 0) {
+			NeedToCreate = cfts->GetLength() == 0;
+			delete cfts;
+		}
+	}
+
+    if(NeedToCreate)
     {
         // file doesn't exist.  Create it.
         CreateTemplateLogoFileForEditor(FileName, EditArguments);
