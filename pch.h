@@ -6,7 +6,7 @@
 #include<stdlib.h>
 #include<crtdbg.h>
 #endif
-#endif
-
+#else
 #include <wx/setup.h>
+#endif
 #endif
