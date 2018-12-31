@@ -1,0 +1,229 @@
+<preface id="preface">
+   <title>Introducción</title>
+   <indexterm><primary>Introducción</primary></indexterm>
+
+   <section id="tutorial">
+      <title>¿Por qué &GENERICNAME;?</title>
+      <indexterm><primary>¿Por qué &GENERICNAME;?</primary></indexterm>
+
+<para>
+Cuando hay tantos lenguajes de programación de que uno se puede eligir, ¿por qué elegiría alguien &GENERICNAME;?
+Cuando &GENERICNAME; fue creado en 1967, era al menos tan poderoso como cualquier de sus contemporáneos.
+El mundo de los computadoras ha cambiado mucho hasta hoy y las exigencias de la industria han engendrado muchas nuevos lenguajes que ofrecen nuevas funcionalidades poderosas.
+Durante ese tiempo, &GENERICNAME; no cambiaba mucho.
+Hoy por hoy, &GENERICNAME; carece de muchas funcionalidades que son necesarias en la industria y, por lo tanto, no es utilizado por los programadores profesionales salvo para proyectos pequeños.
+</para>
+
+<para>
+Entonces, si &GENERICNAME; no es utilizado por programadores profesionales, ¿por qué usarlo en absoluto?
+</para>
+
+<para>
+Primero, &GENERICNAME; no fue diseñado para crear software de grado industrial, sino fue diseñado como herramienta para ayudar a los niños aprender una habilidad importante, una que es tan importante hoy como la era en 1967: la habilidad de aprender como aprender.
+Las nuevas funciones de lenguaje que se exige la industria son irrelevantes para ayudar a la gente aprender como aprender.
+Mientras que las otras lenguajes son diseñadas sobre conceptos abstractos de la ciencia de la computación, &GENERICNAME; es diseñado alrededor de la manera en que la gente aprende.
+La filosofía básica de &GENERICNAME; es que la educación debe enfocar en aprendizaje, no enseñanza, y que aprendizaje ocurre mejor cuando el aprendedor es comprometido mentalmente en un proyecto constructivo.
+El programador desempeña el papel de "profesor" y aprende por "enseñar" a una computadora a hacer cosas.
+&GENERICNAME; no es, por sí mismo, la materia por aprender, sino es una herramienta para explorar ideas tal como el arte, la música, las matemáticas, la inteligencia, y el lenguaje.
+</para>
+
+<para>
+En un sentido, la carencia de funcionalidades en &GENERICNAME; es uno de sus mejores funcionalidades.
+Muchos lenguajes de programación que tienen las últimas funcionalidades requiere una configuración complejo.
+Antes de que uno se puede comenzar a programar, uno debe primero aprender sobre cosas como compiladores, sintaxis, máquinas virtuales, clases, y puntos de entrada.
+Cosas así son importantes para profesionales, pero son obstáculos innecesarios para los principiantes.
+Con &GENERICNAME;, estás listo a empezar a programar en cuanto el entorno de &GENERICNAME; aparece en la pantalla.
+Cada instrucción que tecleas es ejecutada de inmediato.
+Esto te da resultados instantáneos de tus instrucciones, sea que funcionen como esperabas o no.
+</para>
+
+<para>
+Otra ventaja de &GENERICNAME; es su apoyo de «Gráficas tortuga».
+Gráficas tortuga son un simple y poderoso conjunto de comandos usados para manipular un elemento de pantalla que se lama «la tortuga».
+La idea detrás de gráficas tortuga es que programas por dar instrucciones a una «tortuga» (representado en &PRODUCTNAME; por un triángulo) y esas instrucciones hacen que la tortuga camina en la pantalla, dibujando una línea por donde va.
+Con solo unos pocos tecleos, puedes programar la computadora a dibujar una línea en la pantalla.
+Por ejemplo <userinput>AV 100</userinput> quiere decir «tortuga, camina 100 pasos adelante».
+Añadiendo más instrucciones, puedes programar la computadora a dibujar imágenes completas.
+</para>
+
+<para>
+Gráficas tortuga aportan la programación‎ informática dentro del mundo familiar a los niños, uno de colores, formas, y arte.
+Habilitan a un niño a empezar a programar en una etapa de su desarrollo cognitivo antes de que pueda entender razonamiento simbólico.
+</para>
+
+<para>
+&GENERICNAME; tiene un sintaxis sencillo que requiere menos tecleando que otras lenguajes, algo que es especialmente importante para los niños quienes aun no pueden teclear fácilmente.
+Como has visto, puedes dibujar una línea en la pantalla por escribir <userinput>AV 100</userinput>.
+En otras lenguajes, una instrucción equivalente tal vez sería <userinput>Tortuga.Avanzar(100);</userinput> y si olvides uno del los elementos de sintaxis, como el punto y coma al fin, conseguirás un mensaje de error críptico (y probablemente en inglés), como «syntax error: unterminated statement».
+Tales mensajes no tienen sentido para los principiantes.
+</para>
+
+<para>
+Aunque &GENERICNAME; no es para la programación profesional, esto no significa que es solamente para niños.
+Muchos adultos se equivocan pensando que la programación es como la aritmética y que programar debe de ser tan aburrido como haciendo impuestos o balanceando un talonario de cheques.
+En verdad, la programación es más como carpintería y arte.
+Mezcla la emoción y satisfacción de crear algo con un sentido artístico de hacerlo bella en su expresión.
+Esto puede sonar descabellado, pero más que programas, más que acabarás de entenderlo como verdad.
+Además, programar es un pasatiempo intelectualmente gratificante que vale la pena para un adulto, sea un programador profesional o no.
+En la misma manera de que intentando demostrar el último teorema de Fermat vale la pena por alguien quien no es matemático profesional, o pintando vale la pena por alguien quien nunca va a ser artista profesional, o aprendiendo tocar el piano vale la pena por alguien quien nunca va a interpretar para una audiencia más allá de sus amigos y familia, la programación aficionada puede enriquecer tu vida.
+Si no vas a crear software para la industria, entonces no necesitas usar ninguna de los lenguajes que son utilizado por la industria.
+&GENERICNAME; es un buen lugar por donde empezar.
+</para>
+
+    </section>
+
+    <section id="where-to-start">
+      <title>¿Cómo empezar?</title>
+      <indexterm><primary>¿Cómo empezar?</primary></indexterm>
+
+<para>
+Los que nunca han programado podrán comenzar a dar órdenes &GENERICNAME; a la tortuga.
+Las Gráficas tortuga descubrirán al usuario aspectos de geometría que no conocían.
+Asombra cómo pronto se puede introducir en el concepto de programación una vez que se aprende a manejar la tortuga.
+Algunos ejemplos:
+</para>
+
+<para>
+Dibujar un cuadrado usando la tortuga
+</para>
+
+<programlisting>AVANZA 100
+GIRADERECHA  90
+AVANZA 100
+GIRADERECHA  90
+AVANZA 100
+GIRADERECHA  90
+AVANZA 100
+GIRADERECHA  90</programlisting>
+
+<para>
+Eso fue fácil, pero tiene demasiado texto, probemos de nuevo.
+</para>
+
+<programlisting>REPITE 4 [ AV 100 GD 90 ]</programlisting>
+
+<para>
+¿Es todo?
+Sí, es el mismo cuadrado.
+Hicimos dos cosas.
+Nos dimos cuenta de que en nuestro primer ejemplo hay demasiado código redundante, ¿para qué repetir la misma sucesión 4 veces?
+También usamos abreviaturas de las mismas órdenes.
+Pero podemos mejorarlo todavía.
+¿No sería más útil dar sólo la orden «CUADRADO» cuando queremos un cuadrado?
+</para>
+
+<programlisting>EDITA "CUADRADO
+
+<replaceable>Se entra en el Editor</replaceable>
+
+PARA CUADRADO
+  REPITE 4 [ AV 100 GD 90 ]
+FIN
+
+<replaceable>Guardar y salir del Editor</replaceable>
+
+CUADRADO</programlisting>
+
+<para>
+¿Para qué sirve «PARA» y «FIN»?
+Sirven para definir un procedimiento (un programa pequeño) para el cuadrado.
+PARA es como "hacer algo".
+FIN termina PARA.
+Una vez que CUADRADO está «definido» entonces lo llamamos dos veces.
+Eso es todo lo que se necesita para hacer un cuadrado…pero sólo un cuadrado del mismo tipo.
+Sólo dibuja cuadrados de 100 por 100.
+¿No sería mejor dibujar un cuadrado de cualquier tamaño?
+Pues es fácil.
+</para>
+
+<programlisting>EDITA "cuadrado
+
+PARA CUADRADO :longitud
+  REPITE 4 [ AV :longitud GD 90 ]
+FIN
+
+<replaceable>Guardar y salir del Editor</replaceable>
+
+CUADRADO 100
+CUADRADO 200</programlisting>
+
+<para>
+Lo que hicimos es reemplazar 100 por una variable llamada :longitud.
+Ahora cuando llamemos cuadrado, debemos especificar su longitud, 100 o 200.
+Nota «:» delante de la palabra <emphasis>longitud</emphasis> indica a &GENERICNAME; que es una variable.
+De cualquier modo, podemos conseguir otras mejoras; pues, ¿no sería mejor si pudiéramos dibujar además de un cuadrado otras figuras como, triángulo, pentágono, etc.?
+</para>
+
+<programlisting>PARA TRIÁNGULO :longitud
+  REPITE 3 [ AV :longitud GD 120 ]
+FIN
+
+PARA CUADRADO :longitud
+  REPITE 4 [ AV :longitud GD 90 ]
+FIN
+
+PARA PENTÁGONO :longitud
+  REPITE 5 [ AV :longitud GD 72 ]
+FIN
+
+TRIÁNGULO 100
+CUADRADO  100
+PENTÁGONO 100</programlisting>
+
+<para>
+Funciona, pero ¿Demasiada texto?
+(Los programadores odian teclear).
+¿Por qué?
+Porque cuando hay errores que rectificar y cuando se necesita hacer un cambio habría que hacerlo en muchos lugares.
+No siempre lo más corto es lo mejor, pero generalmente, facilita los cambios.
+Probemos de nuevo.
+</para>
+
+<programlisting>PARA POLÍGONO :longitud :lados
+  REPITE :lados [ AV :longitud GD 360/:lados ]
+FIN
+ 
+POLÍGONO 100 3
+POLÍGONO 100 4
+POLÍGONO 100 5</programlisting>
+
+<para>
+¿Qué pasó con TRIÁNGULO, CUADRADO y PENTÁGONO?
+POLÍGONO ahora sirve para dibujar cualquier polígono y con una sola línea de codificación!
+Ahora repetimos la secuencia basado en cuantos :lados el llamador ha pedido y giramos (GD) la cantidad de grados que conviene a aquella forma.
+Se puede pasar por alto, pero esto es <emphasis>programación</emphasis>.
+</para>
+
+<para>
+Ahora que tenemos un programa, es una buena idea guardarlo en el disco.
+El Editor ha hecho hasta ahora el trabajo dentro de la memoria de &GENERICNAME; y no en el disco.
+Guardar el trabajo es fácil.
+</para>
+
+<programlisting>GUARDA "FIGURAS.LGO
+ADIOS</programlisting>
+
+<para>
+Si alguna vez quieres usar de nuevo estas definiciones, tendrás que cargarlas.
+¿Cómo cargar el trabajo del disco?
+</para>
+
+<programlisting>CARGA "SHAPES.LGO</programlisting>
+
+<para>
+Eso fue una muy breve introducción.
+¿Dónde puede aprender más?
+Generalmente, hay un ejemplo para cada procedimiento en este archivo de ayuda.
+Comprobar los ejemplos (veas el Menú de la Ayuda).
+Estos ejemplos demuestran como combinar unos procedimiento para hacer un tarea.
+Puedes buscar cursillos en la Web, como <ulink url="http://fmslogo.sourceforge.net/workshop/">The Logo Workshop</ulink>.
+El libro de Jim Muller llamado «The Great Logo Adventure», principalmente basado en MSWLogo, aplica a &PRODUCTNAME; también.
+Veas los libros de Brian Harvey <ulink url="https://people.eecs.berkeley.edu/~bh/v1-toc2.html">Computer Science Logo Style</ulink> del MIT Press Books, para programación más avanzada.
+</para>
+
+<para>
+Cualquier manera que aprenda más, asegúrate que <emphasis>te diviertas</emphasis>.
+</para>
+
+    </section>
+</preface>

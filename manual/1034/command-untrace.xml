@@ -1,0 +1,58 @@
+<section id="command-untrace">
+<title>NOTRAZA</title>
+<indexterm><primary>NOTRAZA</primary></indexterm>
+<indexterm><primary>UNTRACE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOTRAZA</command> <parameter>lista_de_contenidos</parameter>
+<command>UNTRACE</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Desactiva el modo traza para los elementos nombrados.
+</para>
+
+<para>
+NOTRAZA no lanza un error si le pidas que desactive el modo traza para un procedimiento, una variable o una lista de propiedades que no esté en modo traza, pero esto no tiene ningún efecto.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIESCRIBE :a
+  ESCRIBE :a
+FIN
+
+MIESCRIBE "Hola</userinput>
+Hola
+
+<userinput>TRAZA "MIESCRIBE
+MIESCRIBE "Hola</userinput>
+( MIESCRIBE "Hola )
+Hola
+MIESCRIBE se detuvo
+<userinput>NOTRAZA "MIESCRIBE
+MIESCRIBE "Hola</userinput>
+Hola</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-trace">TRAZA</link></member>
+<member><link linkend="commander-trace">El Botón Trazar</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,45 @@
+<section id="command-procedurep">
+    <title>PROCEDUREP</title>
+<indexterm><primary>PROCEDUREP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PROCEDUREP</command> <parameter>name</parameter>
+<command>PROCEDURE?</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the input is the name of a procedure, outputs FALSE otherwise.
+</para>
+
+<para>
+<parameter>name</parameter> must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo 1
+TO BAR
+END
+
+SHOW PROCEDUREP "foo</userinput>
+false
+
+<userinput>SHOW PROCEDUREP "bar</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

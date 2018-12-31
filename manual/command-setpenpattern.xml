@@ -1,0 +1,26 @@
+<section id="command-setpenpattern">
+    <title>SETPENPATTERN</title>
+<indexterm><primary>SETPENPATTERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPENPATTERN</command> <parameter>pattern</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>SETPENPATTERN is not supported in &PRODUCTNAME;.</para></note>
+
+<para>
+Set hardware-dependent pen characteristics.
+SETPENPATTERN is not guaranteed to be compatible between implementations on different machines.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

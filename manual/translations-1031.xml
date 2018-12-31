@@ -1,0 +1,4568 @@
+<appendix id='from-english-procedure-names'>
+<title>English to German: Procedure Names</title>
+<indexterm><primary>From English (procedure names)</primary></indexterm>
+<para>See Also: English to German (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and German to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>English Procedure</entry>
+        <entry>German Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><link linkend='command-.defmacro'>.defmacro</link></entry>
+        <entry><literallayout>.defMakro</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-.macro'>.macro</link></entry>
+        <entry><literallayout>.Makro</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-activearea'>activearea</link></entry>
+        <entry><literallayout>aktiverBereich</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-allopen'>allopen</link></entry>
+        <entry><literallayout>offenZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-and'>and</link></entry>
+        <entry><literallayout>alle?
+und</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-apply'>apply</link></entry>
+        <entry><literallayout>benutze</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-arraytolist'>arraytolist</link></entry>
+        <entry><literallayout>arrayzurliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ascii'>ascii</link></entry>
+        <entry><literallayout>asc
+ascii?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ask'>ask</link></entry>
+        <entry><literallayout>bestellen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-back'>back</link></entry>
+        <entry><literallayout>rückwärts</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-beforep'>before?</link></entry>
+        <entry><literallayout>vorher?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butfirst'>bf</link></entry>
+        <entry><literallayout>oe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butfirsts'>bfs</link></entry>
+        <entry><literallayout>oea</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitand'>bitand</link></entry>
+        <entry><literallayout>bitund</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitblock'>bitblock</link></entry>
+        <entry><literallayout>bb</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitcopy'>bitcopy</link></entry>
+        <entry><literallayout>Bitkopieren</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitcut'>bitcut</link></entry>
+        <entry><literallayout>Bitausschneiden</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitload'>bitload</link></entry>
+        <entry><literallayout>Bitladen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitmode'>bitmode</link></entry>
+        <entry><literallayout>bitmodus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitnot'>bitnot</link></entry>
+        <entry><literallayout>bitnicht</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitor'>bitor</link></entry>
+        <entry><literallayout>bitoder</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitpaste'>bitpaste</link></entry>
+        <entry><literallayout>Biteinfügen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitpastetoindex'>bitpastetoindex</link></entry>
+        <entry><literallayout>Biteinfügeninindex</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitsave'>bitsave</link></entry>
+        <entry><literallayout>Bitbewahren</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitsize'>bitsize</link></entry>
+        <entry><literallayout>Bitgröße</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitxor'>bitxor</link></entry>
+        <entry><literallayout>bitxoder</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-back'>bk</link></entry>
+        <entry><literallayout>rw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butlast'>bl</link></entry>
+        <entry><literallayout>ol</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buried'>buried</link></entry>
+        <entry><literallayout>versteckt
+vergraben</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bury'>bury</link></entry>
+        <entry><literallayout>verstecke
+vergrabe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buryall'>buryall</link></entry>
+        <entry><literallayout>vergrabealles</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buryname'>buryname</link></entry>
+        <entry><literallayout>vergrabename</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butfirst'>butfirst</link></entry>
+        <entry><literallayout>ohneerstes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butlast'>butlast</link></entry>
+        <entry><literallayout>ohneletztes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttoncreate'>buttoncreate</link></entry>
+        <entry><literallayout>Knopfschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttondelete'>buttondelete</link></entry>
+        <entry><literallayout>Knopflöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttonenable'>buttonenable</link></entry>
+        <entry><literallayout>Knopfstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttonupdate'>buttonupdate</link></entry>
+        <entry><literallayout>Knopfneu</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bye'>bye</link></entry>
+        <entry><literallayout>ade</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-catch'>catch</link></entry>
+        <entry><literallayout>fange</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-char'>char</link></entry>
+        <entry><literallayout>Zeichen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxcreate'>checkboxcreate</link></entry>
+        <entry><literallayout>Kontrollboxschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxdelete'>checkboxdelete</link></entry>
+        <entry><literallayout>Kontrollboxlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxenable'>checkboxenable</link></entry>
+        <entry><literallayout>Kontrollboxstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxget'>checkboxget</link></entry>
+        <entry><literallayout>Kontrollboxstatus?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxset'>checkboxset</link></entry>
+        <entry><literallayout>Kontrollboxset</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-circle'>circle</link></entry>
+        <entry><literallayout>kreis</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-circle2'>circle2</link></entry>
+        <entry><literallayout>kreis2</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clean'>clean</link></entry>
+        <entry><literallayout>lb
+löschebild
+nb
+neubild</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clearpalette'>clearpalette</link></entry>
+        <entry><literallayout>LöschePalette</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+        <entry><literallayout>bild</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cleartext'>cleartext</link></entry>
+        <entry><literallayout>LöscheText</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cleartimer'>cleartimer</link></entry>
+        <entry><literallayout>LöscheZeitnehmer</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-close'>close</link></entry>
+        <entry><literallayout>schließe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-closeall'>closeall</link></entry>
+        <entry><literallayout>schließealles</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-continue'>co</link></entry>
+        <entry><literallayout>wt</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-combine'>combine</link></entry>
+        <entry><literallayout>kombiniere
+verbinde</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxaddstring'>comboboxaddstring</link></entry>
+        <entry><literallayout>Komtaboxtext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxcreate'>comboboxcreate</link></entry>
+        <entry><literallayout>Komtaboxschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxdelete'>comboboxdelete</link></entry>
+        <entry><literallayout>Komtaboxlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxdeletestring'>comboboxdeletestring</link></entry>
+        <entry><literallayout>Komtaboxtextlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxenable'>comboboxenable</link></entry>
+        <entry><literallayout>Komtaboxstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxgettext'>comboboxgettext</link></entry>
+        <entry><literallayout>Komtaboxtextliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxsettext'>comboboxsettext</link></entry>
+        <entry><literallayout>Komtaboxsetzetext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-contents'>contents</link></entry>
+        <entry><literallayout>Titelliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-continue'>continue</link></entry>
+        <entry><literallayout>weiter</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-count'>count</link></entry>
+        <entry><literallayout>Länge</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-crossmap'>crossmap</link></entry>
+        <entry><literallayout>erfassealles</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cleartext'>ct</link></entry>
+        <entry><literallayout>ls</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cursor'>cursor</link></entry>
+        <entry><literallayout>BO</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-debugwindows'>debugwindows</link></entry>
+        <entry><literallayout>Fensterbaum</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-define'>define</link></entry>
+        <entry><literallayout>def</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-definedp'>defined?</link></entry>
+        <entry><literallayout>definiert?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-definedp'>definedp</link></entry>
+        <entry><literallayout>def?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogcreate'>dialogcreate</link></entry>
+        <entry><literallayout>Dialogschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogdelete'>dialogdelete</link></entry>
+        <entry><literallayout>Dialoglöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogenable'>dialogenable</link></entry>
+        <entry><literallayout>Dialogstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-difference'>difference</link></entry>
+        <entry><literallayout>Differenz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dir'>dir</link></entry>
+        <entry><literallayout>inhalt
+ih</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-distance'>distance</link></entry>
+        <entry><literallayout>distanz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-distancexyz'>distancexyz</link></entry>
+        <entry><literallayout>distanzxyz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllcall'>dllcall</link></entry>
+        <entry><literallayout>dllrufen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllfree'>dllfree</link></entry>
+        <entry><literallayout>dllfrei</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllload'>dllload</link></entry>
+        <entry><literallayout>dllladen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-do.until'>do.until</link></entry>
+        <entry><literallayout>führeaus.bis</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-do.while'>do.while</link></entry>
+        <entry><literallayout>führeaus.solange</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edall'>edall</link></entry>
+        <entry><literallayout>eda
+edalles</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edn'>edn</link></entry>
+        <entry><literallayout>edname</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edns'>edns</link></entry>
+        <entry><literallayout>ednamen
+edn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edpl'>edpl</link></entry>
+        <entry><literallayout>edegliste
+edegli</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edpls'>edpls</link></entry>
+        <entry><literallayout>edeglisten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-edps'>edps</link></entry>
+        <entry><literallayout>edprn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-emptyp'>empty?</link></entry>
+        <entry><literallayout>leer?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-end'>end</link></entry>
+        <entry><literallayout>ende</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-eofp'>eof?</link></entry>
+        <entry><literallayout>Dateiende?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-equalp'>equal?</link></entry>
+        <entry><literallayout>gleich?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erase'>er</link></entry>
+        <entry><literallayout>erstes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erall'>erall</link></entry>
+        <entry><literallayout>vga</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erase'>erase</link></entry>
+        <entry><literallayout>vg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erasefile'>erasefile</link></entry>
+        <entry><literallayout>vergissDatei</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erasefile'>erf</link></entry>
+        <entry><literallayout>vd</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ern'>ern</link></entry>
+        <entry><literallayout>vgname</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erns'>erns</link></entry>
+        <entry><literallayout>vgnamen
+vgn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erpl'>erpl</link></entry>
+        <entry><literallayout>vgpl</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erpls'>erpls</link></entry>
+        <entry><literallayout>vgpls</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erps'>erps</link></entry>
+        <entry><literallayout>vgps</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-error'>error</link></entry>
+        <entry><literallayout>Fehler</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-eventcheck'>eventcheck</link></entry>
+        <entry><literallayout>EreignisProtokoll</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-false'>false</link></entry>
+        <entry><literallayout>falsch</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forward'>fd</link></entry>
+        <entry><literallayout>vw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fence'>fence</link></entry>
+        <entry><literallayout>Rand</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fill'>fill</link></entry>
+        <entry><literallayout>fülle</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-find'>find</link></entry>
+        <entry><literallayout>finde</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-first'>first</link></entry>
+        <entry><literallayout>er</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-firsts'>firsts</link></entry>
+        <entry><literallayout>aer
+alleerstes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+        <entry><literallayout>Füllfarbez</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-for'>for</link></entry>
+        <entry><literallayout>whfür
+wiederholefür</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-foreach'>foreach</link></entry>
+        <entry><literallayout>fürjedes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forever'>forever</link></entry>
+        <entry><literallayout>andauernd</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-form'>form</link></entry>
+        <entry><literallayout>Zahlformat</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forward'>forward</link></entry>
+        <entry><literallayout>vorwärts</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fput'>fput</link></entry>
+        <entry><literallayout>me
+miterstem</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fullscreen'>fs</link></entry>
+        <entry><literallayout>vb</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fullscreen'>fullscreen</link></entry>
+        <entry><literallayout>Vollbild</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fulltext'>fulltext</link></entry>
+        <entry><literallayout>Prtext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-goldenratio'>goldenratio</link></entry>
+        <entry><literallayout>goldenerschnitt</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-gprop'>gprop</link></entry>
+        <entry><literallayout>gibEg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-greaterp'>greater?</link></entry>
+        <entry><literallayout>größer?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-greaterequalp'>greaterequal?</link></entry>
+        <entry><literallayout>größergleich?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-groupboxcreate'>groupboxcreate</link></entry>
+        <entry><literallayout>Gruppenboxschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-groupboxdelete'>groupboxdelete</link></entry>
+        <entry><literallayout>Gruppenboxlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-heading'>heading</link></entry>
+        <entry><literallayout>Kurs</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-hideturtle'>hideturtle</link></entry>
+        <entry><literallayout>vergissIgel</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-home'>home</link></entry>
+        <entry><literallayout>Mitte</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-hideturtle'>ht</link></entry>
+        <entry><literallayout>vi</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-if'>if</link></entry>
+        <entry><literallayout>wenn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ifelse'>ifelse</link></entry>
+        <entry><literallayout>wennsonst</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iffalse'>iff</link></entry>
+        <entry><literallayout>wf</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+        <entry><literallayout>wennfalsch</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iftrue'>ift</link></entry>
+        <entry><literallayout>ww</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+        <entry><literallayout>wennwahr</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ignore'>ignore</link></entry>
+        <entry><literallayout>ignoriere</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-int'>int</link></entry>
+        <entry><literallayout>ganzzahl</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-invoke'>invoke</link></entry>
+        <entry><literallayout>anrufen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-item'>item</link></entry>
+        <entry><literallayout>Element</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyp'>key?</link></entry>
+        <entry><literallayout>Taste?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardoff'>keyboardoff</link></entry>
+        <entry><literallayout>keyboardaus
+tastaturaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardon'>keyboardon</link></entry>
+        <entry><literallayout>keyboardein
+tastaturein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardvalue'>keyboardvalue</link></entry>
+        <entry><literallayout>TastEG</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-label'>label</link></entry>
+        <entry><literallayout>Igeltext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-labelsize'>labelsize</link></entry>
+        <entry><literallayout>längeigeltext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-last'>last</link></entry>
+        <entry><literallayout>lz
+letztes</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-left'>left</link></entry>
+        <entry><literallayout>links</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lessp'>less?</link></entry>
+        <entry><literallayout>kleiner?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lessequalp'>lessequal?</link></entry>
+        <entry><literallayout>kleinergleich?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-list'>list</link></entry>
+        <entry><literallayout>Liste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listp'>list?</link></entry>
+        <entry><literallayout>Liste?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxaddstring'>listboxaddstring</link></entry>
+        <entry><literallayout>Listeboxtext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxcreate'>listboxcreate</link></entry>
+        <entry><literallayout>Listeboxschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxdelete'>listboxdelete</link></entry>
+        <entry><literallayout>Listeboxlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxdeletestring'>listboxdeletestring</link></entry>
+        <entry><literallayout>Listeboxlöschetext</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxenable'>listboxenable</link></entry>
+        <entry><literallayout>Listeboxstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxgetselect'>listboxgetselect</link></entry>
+        <entry><literallayout>Listeboxwahl</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listtoarray'>listtoarray</link></entry>
+        <entry><literallayout>listezumarray</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-load'>load</link></entry>
+        <entry><literallayout>lade</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-local'>local</link></entry>
+        <entry><literallayout>lokal</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-localmake'>localmake</link></entry>
+        <entry><literallayout>setzelokal</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lowercase'>lowercase</link></entry>
+        <entry><literallayout>klein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lput'>lput</link></entry>
+        <entry><literallayout>ml
+mitletztem</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-left'>lt</link></entry>
+        <entry><literallayout>li</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-macrop'>macro?</link></entry>
+        <entry><literallayout>Makro?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-macroexpand'>macroexpand</link></entry>
+        <entry><literallayout>entfaltemakro</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-make'>Make</link></entry>
+        <entry><literallayout>setze</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-map'>map</link></entry>
+        <entry><literallayout>erfasse</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-map.se'>map.se</link></entry>
+        <entry><literallayout>erfasse.satz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mdsetitem'>mdsetitem</link></entry>
+        <entry><literallayout>mdfixiereitem</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-member'>member</link></entry>
+        <entry><literallayout>Elementab</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-memberp'>member?</link></entry>
+        <entry><literallayout>El?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-memberp'>memberp</link></entry>
+        <entry><literallayout>Element?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-messagebox'>messagebox</link></entry>
+        <entry><literallayout>Meldungsbox</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midiclose'>midiclose</link></entry>
+        <entry><literallayout>Midischließen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midimessage'>midimessage</link></entry>
+        <entry><literallayout>Midimeldung</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midiopen'>midiopen</link></entry>
+        <entry><literallayout>Midiöffnen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-minimize'>minimize</link></entry>
+        <entry><literallayout>minimieren</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mouseoff'>mouseoff</link></entry>
+        <entry><literallayout>Mausaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mouseon'>mouseon</link></entry>
+        <entry><literallayout>Mausan</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mousepos'>mousepos</link></entry>
+        <entry><literallayout>MausOrt</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-namelist'>namelist</link></entry>
+        <entry><literallayout>namenliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-names'>names</link></entry>
+        <entry><literallayout>Namen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptoff'>netacceptoff</link></entry>
+        <entry><literallayout>netzannahmeaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netaccepton'>netaccepton</link></entry>
+        <entry><literallayout>netzannahmeein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptreceivevalue'>netacceptreceivevalue</link></entry>
+        <entry><literallayout>netzannahmewertempfangen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptsendvalue'>netacceptsendvalue</link></entry>
+        <entry><literallayout>netzannahmewertsenden</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectoff'>netconnectoff</link></entry>
+        <entry><literallayout>netzunterbrechen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnecton'>netconnecton</link></entry>
+        <entry><literallayout>netzverbinden</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectreceivevalue'>netconnectreceivevalue</link></entry>
+        <entry><literallayout>netzverbundwertempfangen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectsendvalue'>netconnectsendvalue</link></entry>
+        <entry><literallayout>netzverbundwertsenden</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netshutdown'>netshutdown</link></entry>
+        <entry><literallayout>netzbeenden</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netstartup'>netstartup</link></entry>
+        <entry><literallayout>netstarten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-nodes'>nodes</link></entry>
+        <entry><literallayout>Knoten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-norefresh'>norefresh</link></entry>
+        <entry><literallayout>auffrischenaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-nostatus'>nostatus</link></entry>
+        <entry><literallayout>K.Status</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-not'>not</link></entry>
+        <entry><literallayout>nicht?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-notequalp'>notequal?</link></entry>
+        <entry><literallayout>nichtgleich?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-numberp'>number?</link></entry>
+        <entry><literallayout>Zahl?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-output'>op</link></entry>
+        <entry><literallayout>rg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-or'>or</link></entry>
+        <entry><literallayout>eines?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-orientation'>orientation</link></entry>
+        <entry><literallayout>orientierung</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-output'>output</link></entry>
+        <entry><literallayout>Rückgabe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendown'>pd</link></entry>
+        <entry><literallayout>sa</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penerase'>pe</link></entry>
+        <entry><literallayout>rd</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pen'>pen</link></entry>
+        <entry><literallayout>stift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+        <entry><literallayout>FarbeZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+        <entry><literallayout>Stiftab</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendownp'>pendown?</link></entry>
+        <entry><literallayout>Stiftab?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penerase'>penerase</link></entry>
+        <entry><literallayout>radiere</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penmode'>penmode</link></entry>
+        <entry><literallayout>Stiftmodus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pennormal'>pennormal</link></entry>
+        <entry><literallayout>normalstift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penpaint'>penpaint</link></entry>
+        <entry><literallayout>Normalstift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penpattern'>penpattern</link></entry>
+        <entry><literallayout>Stiftform</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penreverse'>penreverse</link></entry>
+        <entry><literallayout>Umkehrstift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pensize'>pensize</link></entry>
+        <entry><literallayout>StiftZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penup'>penup</link></entry>
+        <entry><literallayout>Stifthoch</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-perspective'>perspective</link></entry>
+        <entry><literallayout>Perspektive</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pick'>pick</link></entry>
+        <entry><literallayout>zufallswahl</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-playwave'>playwave</link></entry>
+        <entry><literallayout>spielewave</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-plist'>Plist</link></entry>
+        <entry><literallayout>Egliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-plists'>plists</link></entry>
+        <entry><literallayout>Eglisten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pllist'>pllist</link></entry>
+        <entry><literallayout>zglliste
+zglli</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-po'>po</link></entry>
+        <entry><literallayout>zg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-poall'>poall</link></entry>
+        <entry><literallayout>zga</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-polyend'>polyend</link></entry>
+        <entry><literallayout>polyende</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-polyview'>polyview</link></entry>
+        <entry><literallayout>Polysehen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pon'>pon</link></entry>
+        <entry><literallayout>zgname</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pons'>pons</link></entry>
+        <entry><literallayout>zgn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pop'>pop</link></entry>
+        <entry><literallayout>stapelwert</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-popl'>popl</link></entry>
+        <entry><literallayout>zgegliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-popls'>popls</link></entry>
+        <entry><literallayout>zgeglisten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pops'>pops</link></entry>
+        <entry><literallayout>zgprn</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portclose'>portclose</link></entry>
+        <entry><literallayout>portschließen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portflush'>portflush</link></entry>
+        <entry><literallayout>portfluten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portmode'>portmode</link></entry>
+        <entry><literallayout>portmodus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portopen'>portopen</link></entry>
+        <entry><literallayout>portöffnen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portreadarray'>portreadarray</link></entry>
+        <entry><literallayout>portliesarray</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portreadchar'>portreadchar</link></entry>
+        <entry><literallayout>portlieszeichen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portwritearray'>portwritearray</link></entry>
+        <entry><literallayout>portschreibearray</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portwritechar'>portwritechar</link></entry>
+        <entry><literallayout>portschreibezeichen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pos'>pos</link></entry>
+        <entry><literallayout>Ort</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-posxyz'>posxyz</link></entry>
+        <entry><literallayout>Ortxyz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pot'>pot</link></entry>
+        <entry><literallayout>zt</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pots'>pots</link></entry>
+        <entry><literallayout>zgprtitel</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-power'>power</link></entry>
+        <entry><literallayout>Potenz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pprop'>Pprop</link></entry>
+        <entry><literallayout>MitEg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penpaint'>ppt</link></entry>
+        <entry><literallayout>SMale</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-print'>pr</link></entry>
+        <entry><literallayout>dz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-primitivep'>primitive?</link></entry>
+        <entry><literallayout>Grundwort?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-print'>print</link></entry>
+        <entry><literallayout>druckezeile</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-procedurep'>procedure?</link></entry>
+        <entry><literallayout>Prozedur?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-procedures'>procedures</link></entry>
+        <entry><literallayout>Prozedurliste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-product'>product</link></entry>
+        <entry><literallayout>Produkt</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penup'>pu</link></entry>
+        <entry><literallayout>sh</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-push'>push</link></entry>
+        <entry><literallayout>stapeln</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penreverse'>px</link></entry>
+        <entry><literallayout>sr</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-questionbox'>questionbox</link></entry>
+        <entry><literallayout>Fragebox</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-quoted'>quoted</link></entry>
+        <entry><literallayout>zitiert</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttoncreate'>radiobuttoncreate</link></entry>
+        <entry><literallayout>Radioknopfschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttondelete'>radiobuttondelete</link></entry>
+        <entry><literallayout>Radioknopflöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonenable'>radiobuttonenable</link></entry>
+        <entry><literallayout>Radioknopfstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonget'>radiobuttonget</link></entry>
+        <entry><literallayout>Radioknopfstatus?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonset'>radiobuttonset</link></entry>
+        <entry><literallayout>Radioknopfaktiv</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-random'>random</link></entry>
+        <entry><literallayout>zz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readchar'>rc</link></entry>
+        <entry><literallayout>Liestaste</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readchars'>rcs</link></entry>
+        <entry><literallayout>Liestasten</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readchars'>readchars</link></entry>
+        <entry><literallayout>liesZeichen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readlist'>readlist</link></entry>
+        <entry><literallayout>liesListe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readpos'>readpos</link></entry>
+        <entry><literallayout>Liespos</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readword'>readword</link></entry>
+        <entry><literallayout>liesWort</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-reduce'>reduce</link></entry>
+        <entry><literallayout>vermindere</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-refresh'>refresh</link></entry>
+        <entry><literallayout>auffrischenein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remainder'>remainder</link></entry>
+        <entry><literallayout>Rest</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remdup'>remdup</link></entry>
+        <entry><literallayout>rückgängig</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remove'>remove</link></entry>
+        <entry><literallayout>entferne
+lösche</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remprop'>remprop</link></entry>
+        <entry><literallayout>vgEg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-repcount'>repcount</link></entry>
+        <entry><literallayout>whZahl</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+        <entry><literallayout>wh
+wiederhole</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-rerandom'>rerandom</link></entry>
+        <entry><literallayout>sZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-restore'>restore</link></entry>
+        <entry><literallayout>restauriere</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-reverse'>reverse</link></entry>
+        <entry><literallayout>invers</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-right'>right</link></entry>
+        <entry><literallayout>rechts</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readlist'>rl</link></entry>
+        <entry><literallayout>ll</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-round'>round</link></entry>
+        <entry><literallayout>runde</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-right'>rt</link></entry>
+        <entry><literallayout>re</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-run'>run</link></entry>
+        <entry><literallayout>tue</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-runresult'>runresult</link></entry>
+        <entry><literallayout>tueWert</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-save'>save</link></entry>
+        <entry><literallayout>bw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-savel'>savel</link></entry>
+        <entry><literallayout>bewahreli</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-screencolor'>screencolor</link></entry>
+        <entry><literallayout>hgz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrollbarcreate'>scrollbarcreate</link></entry>
+        <entry><literallayout>Rollbalkenschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrollbardelete'>scrollbardelete</link></entry>
+        <entry><literallayout>Rollbalkenlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrollbarenable'>scrollbarenable</link></entry>
+        <entry><literallayout>Rollbalkenstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrollbarget'>scrollbarget</link></entry>
+        <entry><literallayout>Rollbalkenwert</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrollbarset'>scrollbarset</link></entry>
+        <entry><literallayout>Rollbalkendef</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-scrunch'>scrunch</link></entry>
+        <entry><literallayout>Skalaz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-selectbox'>selectbox</link></entry>
+        <entry><literallayout>auswahlbox</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sentence'>sentence</link></entry>
+        <entry><literallayout>satz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+        <entry><literallayout>Füllfarbe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setheading'>seth</link></entry>
+        <entry><literallayout>ak</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setheading'>setheading</link></entry>
+        <entry><literallayout>aufkurs</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setlabelfont'>setlabelfont</link></entry>
+        <entry><literallayout>setKennungSchrift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setorientation'>setorientation</link></entry>
+        <entry><literallayout>fixiereorientierung</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpencolor'>setpc</link></entry>
+        <entry><literallayout>Farbe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpen'>setpen</link></entry>
+        <entry><literallayout>fixierestift</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+        <entry><literallayout>Stiftfarbe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpenpattern'>setpenpattern</link></entry>
+        <entry><literallayout>StiftFarbMuster</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpensize'>setpensize</link></entry>
+        <entry><literallayout>Stiftdicke</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpos'>setpos</link></entry>
+        <entry><literallayout>auf</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setread'>setread</link></entry>
+        <entry><literallayout>LiesDatei</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setscreencolor'>setsc</link></entry>
+        <entry><literallayout>hg</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+        <entry><literallayout>Hintergrundfarbe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setscrunch'>setscrunch</link></entry>
+        <entry><literallayout>Skala</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-settimer'>settimer</link></entry>
+        <entry><literallayout>setzeZeitnehmer</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setturtle'>setturtle</link></entry>
+        <entry><literallayout>setzeigel</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setturtlemode'>setturtlemode</link></entry>
+        <entry><literallayout>setzeigelmodus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setwrite'>setwrite</link></entry>
+        <entry><literallayout>Kopieein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setx'>setx</link></entry>
+        <entry><literallayout>aufx</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setxy'>setxy</link></entry>
+        <entry><literallayout>aufxy</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setxyz'>setxyz</link></entry>
+        <entry><literallayout>aufxyz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sety'>sety</link></entry>
+        <entry><literallayout>aufy</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setz'>setz</link></entry>
+        <entry><literallayout>aufz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-show'>show</link></entry>
+        <entry><literallayout>dzl
+gib</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-shownp'>shown?</link></entry>
+        <entry><literallayout>sichtbar?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-showturtle'>showturtle</link></entry>
+        <entry><literallayout>zeigIgel</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sign'>sign</link></entry>
+        <entry><literallayout>vorzeichen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-slowdraw'>slowdraw</link></entry>
+        <entry><literallayout>langsammalen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sort'>sort</link></entry>
+        <entry><literallayout>sortieren</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-soundoff'>soundoff</link></entry>
+        <entry><literallayout>soundaus
+tonaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-soundon'>soundon</link></entry>
+        <entry><literallayout>soundan
+tonan</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-splitscreen'>splitscreen</link></entry>
+        <entry><literallayout>Teilbild</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+        <entry><literallayout>qw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-showturtle'>st</link></entry>
+        <entry><literallayout>zi</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-standout'>standout</link></entry>
+        <entry><literallayout>hervorheben</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-staticcreate'>staticcreate</link></entry>
+        <entry><literallayout>Statuszeileschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-staticdelete'>staticdelete</link></entry>
+        <entry><literallayout>Statuszeilelöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-staticupdate'>staticupdate</link></entry>
+        <entry><literallayout>Statuszeileneu</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-step'>step</link></entry>
+        <entry><literallayout>PSe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-stop'>stop</link></entry>
+        <entry><literallayout>rk</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sum'>sum</link></entry>
+        <entry><literallayout>Summe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-test'>test</link></entry>
+        <entry><literallayout>prüfe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-text'>text</link></entry>
+        <entry><literallayout>PrListe</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-textscreen'>textscreen</link></entry>
+        <entry><literallayout>TextSchirm</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-thing'>thing</link></entry>
+        <entry><literallayout>Wert</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-throw'>throw</link></entry>
+        <entry><literallayout>wirf</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-time'>time</link></entry>
+        <entry><literallayout>Zeit</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-timemilli'>timemilli</link></entry>
+        <entry><literallayout>ZeitMilli</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-to'>to</link></entry>
+        <entry><literallayout>pr
+lerne</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-tone'>tone</link></entry>
+        <entry><literallayout>Ton
+ton</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-towards'>towards</link></entry>
+        <entry><literallayout>ri</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-towardsxyz'>towardsxyz</link></entry>
+        <entry><literallayout>Richtungxyz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-trace'>trace</link></entry>
+        <entry><literallayout>Pein</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-true'>true</link></entry>
+        <entry><literallayout>wahr</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-turtle'>turtle</link></entry>
+        <entry><literallayout>Igel</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-turtles'>turtles</link></entry>
+        <entry><literallayout>Igelschar</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-type'>type</link></entry>
+        <entry><literallayout>drucke</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-unbury'>unbury</link></entry>
+        <entry><literallayout>grabeaus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-unburyall'>unburyall</link></entry>
+        <entry><literallayout>allesausgraben</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-unburyname'>unburyname</link></entry>
+        <entry><literallayout>nameausgraben</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-unstep'>unstep</link></entry>
+        <entry><literallayout>PSa</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-until'>until</link></entry>
+        <entry><literallayout>bis</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-untrace'>untrace</link></entry>
+        <entry><literallayout>Pa</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-uppercase'>uppercase</link></entry>
+        <entry><literallayout>groß</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wait'>wait</link></entry>
+        <entry><literallayout>warte</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-while'>while</link></entry>
+        <entry><literallayout>solange</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-window'>window</link></entry>
+        <entry><literallayout>fenster</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowcreate'>windowcreate</link></entry>
+        <entry><literallayout>Fensterschaffen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowdelete'>windowdelete</link></entry>
+        <entry><literallayout>Fensterlöschen</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowenable'>windowenable</link></entry>
+        <entry><literallayout>Fensterstatus</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-word'>word</link></entry>
+        <entry><literallayout>Wort</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wordp'>word?</link></entry>
+        <entry><literallayout>Wort?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wordp'>wordp</link></entry>
+        <entry><literallayout>wordp?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wrap'>wrap</link></entry>
+        <entry><literallayout>Randsprung</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-xcor'>xcor</link></entry>
+        <entry><literallayout>xko</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ycor'>ycor</link></entry>
+        <entry><literallayout>yko</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-yesnobox'>yesnobox</link></entry>
+        <entry><literallayout>JaNeinBox</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-zcor'>zcor</link></entry>
+        <entry><literallayout>zko</literallayout></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+<appendix id='from-english-color-names'>
+<title>English to German: Color Names</title>
+<indexterm><primary>From English (color names)</primary></indexterm>
+<para>See Also: English to German (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and German to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>English Color</entry>
+        <entry>German Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>AliceBlue</entry>
+        <entry>AliceBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0F8FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>AntiqueWhite</entry>
+        <entry>AntikWeiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAEBD7.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Aqua</entry>
+        <entry>WasserBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Aquamarine</entry>
+        <entry>Aquamarin</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7FFFD4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Azure</entry>
+        <entry>Azur</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Bisque</entry>
+        <entry>Krebs</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFE4C4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Black</entry>
+        <entry>Schwarz</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlanchedAlmond</entry>
+        <entry>gebleichteMandel</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFEBCD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Blue</entry>
+        <entry>Blau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlueViolet</entry>
+        <entry>BlauViolett</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8A2BE2.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Brown</entry>
+        <entry>Braun</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA52A2A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BurlyWood</entry>
+        <entry>StammHolz</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDEB887.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>CadetBlue</entry>
+        <entry>KadettBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb5F9EA0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Chocolate</entry>
+        <entry>Schokolade</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD2691E.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Coral</entry>
+        <entry>Korallen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF7F50.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>CornflowerBlue</entry>
+        <entry>KornblumenBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6495ED.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Cornsilk</entry>
+        <entry>KornBraun</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF8DC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Crimson</entry>
+        <entry>Karmesin</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDC143C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Cyan</entry>
+        <entry>Zyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkBlue</entry>
+        <entry>DunkelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00008B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkCyan</entry>
+        <entry>DunkelZyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008B8B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGray</entry>
+        <entry>DunkelGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA9A9A9.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGreen</entry>
+        <entry>DunkelGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb006400.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGrey</entry>
+        <entry>DunkelGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA9A9A9.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkKhaki</entry>
+        <entry>Khakirot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBDB76B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkMagenta</entry>
+        <entry>DunkelMagenta</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B008B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOliveGreen</entry>
+        <entry>DunkelOlivGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb556B2F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOrange</entry>
+        <entry>DunkelOrange</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF8C00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOrchid</entry>
+        <entry>DunkelOrchidee</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9932CC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkRed</entry>
+        <entry>DunkelRot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B0000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSalmon</entry>
+        <entry>DunkelLachs</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE9967A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSeaGreen</entry>
+        <entry>DunkelSeeGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8FBC8F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateBlue</entry>
+        <entry>DunkelSchieferBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb483D8B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateGray</entry>
+        <entry>DunkelSchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb2F4F4F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateGrey</entry>
+        <entry>DunkelSchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb2F4F4F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkTurquoise</entry>
+        <entry>DunkelTürkis</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00CED1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkViolet</entry>
+        <entry>DunkelViolett</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9400D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DeepPink</entry>
+        <entry>TiefPink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF1493.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DeepSkyBlue</entry>
+        <entry>TiefHimmelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00BFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DimGray</entry>
+        <entry>MattGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb696969.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DimGrey</entry>
+        <entry>MattGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb696969.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DodgerBlue</entry>
+        <entry>DodgerBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb1E90FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FireBrick</entry>
+        <entry>FeuerZiegel</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB22222.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FloralWhite</entry>
+        <entry>BlütenWeiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFAF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>ForestGreen</entry>
+        <entry>WaldGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb228B22.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Fuchsia</entry>
+        <entry>Helllila</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF00FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GhostWhite</entry>
+        <entry>GeistWeiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF8F8FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GoldenRod</entry>
+        <entry>Goldrute</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDAA520.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Gray</entry>
+        <entry>Grau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Green</entry>
+        <entry>Grün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GreenYellow</entry>
+        <entry>Grüngelb</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbADFF2F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grey</entry>
+        <entry>Grau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HoneyDew</entry>
+        <entry>Tau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0FFF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HotPink</entry>
+        <entry>Knallpink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF69B4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>IndianRed</entry>
+        <entry>Indischrot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbCD5C5C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Ivory</entry>
+        <entry>Elfenbein</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lavender</entry>
+        <entry>Lavendel</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE6E6FA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LavenderBlush</entry>
+        <entry>LavendelRöte</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF0F5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LawnGreen</entry>
+        <entry>RasenGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7CFC00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LemonChiffon</entry>
+        <entry>Zitronengelb</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFACD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightBlue</entry>
+        <entry>HellBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbADD8E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightCoral</entry>
+        <entry>HellKorallen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF08080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightCyan</entry>
+        <entry>HellZyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE0FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGoldenRodYellow</entry>
+        <entry>SchwimmbadBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAFAD2.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGray</entry>
+        <entry>HellGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD3D3D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGreen</entry>
+        <entry>HellGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb90EE90.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGrey</entry>
+        <entry>HellGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD3D3D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightPink</entry>
+        <entry>HellPink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFB6C1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSalmon</entry>
+        <entry>HellLachs</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFA07A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSeaGreen</entry>
+        <entry>HellSeeGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb20B2AA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSkyBlue</entry>
+        <entry>HellHimmelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb87CEFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSlateGray</entry>
+        <entry>HellSchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb778899.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSlateGrey</entry>
+        <entry>HellSchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb778899.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSteelBlue</entry>
+        <entry>HellStahlBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB0C4DE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightYellow</entry>
+        <entry>HellGelb</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFE0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lime</entry>
+        <entry>HellGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FF00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LimeGreen</entry>
+        <entry>KalkGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb32CD32.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Linen</entry>
+        <entry>Leinen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAF0E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Maroon</entry>
+        <entry>Dunkelrot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb800000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumAquaMarine</entry>
+        <entry>MittelAquaMarin</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb66CDAA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumBlue</entry>
+        <entry>MittelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000CD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumOrchid</entry>
+        <entry>MittelOrchidee</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBA55D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumPurple</entry>
+        <entry>MittelPurpurn</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9370D8.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSeaGreen</entry>
+        <entry>MittelSeeGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb3CB371.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSlateBlue</entry>
+        <entry>MittelSchieferBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7B68EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSpringGreen</entry>
+        <entry>MittelFrühlingGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FA9A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumTurquoise</entry>
+        <entry>MittelTürkis</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb48D1CC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumVioletRed</entry>
+        <entry>MittelViolettRot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbC71585.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MidnightBlue</entry>
+        <entry>MitternachtsBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb191970.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MintCream</entry>
+        <entry>MintCreme</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5FFFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Moccasin</entry>
+        <entry>Mokassin</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFE4B5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>NavajoWhite</entry>
+        <entry>Navajoweiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFDEAD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Navy</entry>
+        <entry>DunkelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OldLace</entry>
+        <entry>Altespitze</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFDF5E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Olive</entry>
+        <entry>Oliv</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OliveDrab</entry>
+        <entry>OlivDRAB</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6B8E23.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OrangeRed</entry>
+        <entry>OrangeRot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF4500.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Orchid</entry>
+        <entry>Orchidee</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDA70D6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleGreen</entry>
+        <entry>BlassGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb98FB98.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleTurquoise</entry>
+        <entry>BlassTürkis</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbAFEEEE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleVioletRed</entry>
+        <entry>BlassViolettRot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD87093.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PeachPuff</entry>
+        <entry>ApfelGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFDAB9.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Plum</entry>
+        <entry>Pflaume</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDDA0DD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PowderBlue</entry>
+        <entry>PuderBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB0E0E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Purple</entry>
+        <entry>Purpurn</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb800080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Red</entry>
+        <entry>Rot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF0000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RosyBrown</entry>
+        <entry>PastellBraun</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBC8F8F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RoyalBlue</entry>
+        <entry>KönigsBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb4169E1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SaddleBrown</entry>
+        <entry>SattelBraun</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B4513.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Salmon</entry>
+        <entry>Lachs</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFA8072.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SandyBrown</entry>
+        <entry>SandBraun</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF4A460.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SeaGreen</entry>
+        <entry>SeeGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb2E8B57.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SeaShell</entry>
+        <entry>MeerMuschel</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF5EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Sienna</entry>
+        <entry>Siena</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA0522D.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Silver</entry>
+        <entry>Silber</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbC0C0C0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SkyBlue</entry>
+        <entry>HimmelBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb87CEEB.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateBlue</entry>
+        <entry>SchieferBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6A5ACD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateGray</entry>
+        <entry>SchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb708090.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateGrey</entry>
+        <entry>SchieferGrau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb708090.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Snow</entry>
+        <entry>Schnee</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFAFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SpringGreen</entry>
+        <entry>FrühlingsGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FF7F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SteelBlue</entry>
+        <entry>StahlBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb4682B4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Tan</entry>
+        <entry>Lohe</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD2B48C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Teal</entry>
+        <entry>GrünBlau</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Thistle</entry>
+        <entry>Distel</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD8BFD8.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Tomato</entry>
+        <entry>TomatenRot</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF6347.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Turquoise</entry>
+        <entry>Türkis</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb40E0D0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Violet</entry>
+        <entry>Violett</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbEE82EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Wheat</entry>
+        <entry>Weizen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5DEB3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>White</entry>
+        <entry>Weiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>WhiteSmoke</entry>
+        <entry>RauchWeiß</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5F5F5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Yellow</entry>
+        <entry>Gelb</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFF00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>YellowGreen</entry>
+        <entry>GelbGrün</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9ACD32.png'/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+
+<appendix id='to-english-procedure-names'>
+<title>German to English: Procedure Names</title>
+<indexterm><primary>To English (procedure names)</primary></indexterm>
+<para>See Also: English to German (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and German to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>German Procedure</entry>
+        <entry>English Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>.defMakro</entry>
+        <entry><link linkend='command-.defmacro'>.defmacro</link></entry>
+      </row>
+      <row>
+        <entry>.Makro</entry>
+        <entry><link linkend='command-.macro'>.macro</link></entry>
+      </row>
+      <row>
+        <entry>ade</entry>
+        <entry><link linkend='command-bye'>bye</link></entry>
+      </row>
+      <row>
+        <entry>aer</entry>
+        <entry><link linkend='command-firsts'>firsts</link></entry>
+      </row>
+      <row>
+        <entry>ak</entry>
+        <entry><link linkend='command-setheading'>seth</link></entry>
+      </row>
+      <row>
+        <entry>aktiverBereich</entry>
+        <entry><link linkend='command-activearea'>activearea</link></entry>
+      </row>
+      <row>
+        <entry>alle?</entry>
+        <entry><link linkend='command-and'>and</link></entry>
+      </row>
+      <row>
+        <entry>alleerstes</entry>
+        <entry><link linkend='command-firsts'>firsts</link></entry>
+      </row>
+      <row>
+        <entry>allesausgraben</entry>
+        <entry><link linkend='command-unburyall'>unburyall</link></entry>
+      </row>
+      <row>
+        <entry>andauernd</entry>
+        <entry><link linkend='command-forever'>forever</link></entry>
+      </row>
+      <row>
+        <entry>anrufen</entry>
+        <entry><link linkend='command-invoke'>invoke</link></entry>
+      </row>
+      <row>
+        <entry>arrayzurliste</entry>
+        <entry><link linkend='command-arraytolist'>arraytolist</link></entry>
+      </row>
+      <row>
+        <entry>asc</entry>
+        <entry><link linkend='command-ascii'>ascii</link></entry>
+      </row>
+      <row>
+        <entry>ascii?</entry>
+        <entry><link linkend='command-ascii'>ascii</link></entry>
+      </row>
+      <row>
+        <entry>auf</entry>
+        <entry><link linkend='command-setpos'>setpos</link></entry>
+      </row>
+      <row>
+        <entry>auffrischenaus</entry>
+        <entry><link linkend='command-norefresh'>norefresh</link></entry>
+      </row>
+      <row>
+        <entry>auffrischenein</entry>
+        <entry><link linkend='command-refresh'>refresh</link></entry>
+      </row>
+      <row>
+        <entry>aufkurs</entry>
+        <entry><link linkend='command-setheading'>setheading</link></entry>
+      </row>
+      <row>
+        <entry>aufx</entry>
+        <entry><link linkend='command-setx'>setx</link></entry>
+      </row>
+      <row>
+        <entry>aufxy</entry>
+        <entry><link linkend='command-setxy'>setxy</link></entry>
+      </row>
+      <row>
+        <entry>aufxyz</entry>
+        <entry><link linkend='command-setxyz'>setxyz</link></entry>
+      </row>
+      <row>
+        <entry>aufy</entry>
+        <entry><link linkend='command-sety'>sety</link></entry>
+      </row>
+      <row>
+        <entry>aufz</entry>
+        <entry><link linkend='command-setz'>setz</link></entry>
+      </row>
+      <row>
+        <entry>auswahlbox</entry>
+        <entry><link linkend='command-selectbox'>selectbox</link></entry>
+      </row>
+      <row>
+        <entry>bb</entry>
+        <entry><link linkend='command-bitblock'>bitblock</link></entry>
+      </row>
+      <row>
+        <entry>benutze</entry>
+        <entry><link linkend='command-apply'>apply</link></entry>
+      </row>
+      <row>
+        <entry>bestellen</entry>
+        <entry><link linkend='command-ask'>ask</link></entry>
+      </row>
+      <row>
+        <entry>bewahreli</entry>
+        <entry><link linkend='command-savel'>savel</link></entry>
+      </row>
+      <row>
+        <entry>bild</entry>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+      </row>
+      <row>
+        <entry>bis</entry>
+        <entry><link linkend='command-until'>until</link></entry>
+      </row>
+      <row>
+        <entry>Bitausschneiden</entry>
+        <entry><link linkend='command-bitcut'>bitcut</link></entry>
+      </row>
+      <row>
+        <entry>Bitbewahren</entry>
+        <entry><link linkend='command-bitsave'>bitsave</link></entry>
+      </row>
+      <row>
+        <entry>Biteinfügen</entry>
+        <entry><link linkend='command-bitpaste'>bitpaste</link></entry>
+      </row>
+      <row>
+        <entry>Biteinfügeninindex</entry>
+        <entry><link linkend='command-bitpastetoindex'>bitpastetoindex</link></entry>
+      </row>
+      <row>
+        <entry>Bitgröße</entry>
+        <entry><link linkend='command-bitsize'>bitsize</link></entry>
+      </row>
+      <row>
+        <entry>Bitkopieren</entry>
+        <entry><link linkend='command-bitcopy'>bitcopy</link></entry>
+      </row>
+      <row>
+        <entry>Bitladen</entry>
+        <entry><link linkend='command-bitload'>bitload</link></entry>
+      </row>
+      <row>
+        <entry>bitmodus</entry>
+        <entry><link linkend='command-bitmode'>bitmode</link></entry>
+      </row>
+      <row>
+        <entry>bitnicht</entry>
+        <entry><link linkend='command-bitnot'>bitnot</link></entry>
+      </row>
+      <row>
+        <entry>bitoder</entry>
+        <entry><link linkend='command-bitor'>bitor</link></entry>
+      </row>
+      <row>
+        <entry>bitund</entry>
+        <entry><link linkend='command-bitand'>bitand</link></entry>
+      </row>
+      <row>
+        <entry>bitxoder</entry>
+        <entry><link linkend='command-bitxor'>bitxor</link></entry>
+      </row>
+      <row>
+        <entry>BO</entry>
+        <entry><link linkend='command-cursor'>cursor</link></entry>
+      </row>
+      <row>
+        <entry>bw</entry>
+        <entry><link linkend='command-save'>save</link></entry>
+      </row>
+      <row>
+        <entry>Dateiende?</entry>
+        <entry><link linkend='command-eofp'>eof?</link></entry>
+      </row>
+      <row>
+        <entry>def</entry>
+        <entry><link linkend='command-define'>define</link></entry>
+      </row>
+      <row>
+        <entry>def?</entry>
+        <entry><link linkend='command-definedp'>definedp</link></entry>
+      </row>
+      <row>
+        <entry>definiert?</entry>
+        <entry><link linkend='command-definedp'>defined?</link></entry>
+      </row>
+      <row>
+        <entry>Dialoglöschen</entry>
+        <entry><link linkend='command-dialogdelete'>dialogdelete</link></entry>
+      </row>
+      <row>
+        <entry>Dialogschaffen</entry>
+        <entry><link linkend='command-dialogcreate'>dialogcreate</link></entry>
+      </row>
+      <row>
+        <entry>Dialogstatus</entry>
+        <entry><link linkend='command-dialogenable'>dialogenable</link></entry>
+      </row>
+      <row>
+        <entry>Differenz</entry>
+        <entry><link linkend='command-difference'>difference</link></entry>
+      </row>
+      <row>
+        <entry>distanz</entry>
+        <entry><link linkend='command-distance'>distance</link></entry>
+      </row>
+      <row>
+        <entry>distanzxyz</entry>
+        <entry><link linkend='command-distancexyz'>distancexyz</link></entry>
+      </row>
+      <row>
+        <entry>dllfrei</entry>
+        <entry><link linkend='command-dllfree'>dllfree</link></entry>
+      </row>
+      <row>
+        <entry>dllladen</entry>
+        <entry><link linkend='command-dllload'>dllload</link></entry>
+      </row>
+      <row>
+        <entry>dllrufen</entry>
+        <entry><link linkend='command-dllcall'>dllcall</link></entry>
+      </row>
+      <row>
+        <entry>drucke</entry>
+        <entry><link linkend='command-type'>type</link></entry>
+      </row>
+      <row>
+        <entry>druckezeile</entry>
+        <entry><link linkend='command-print'>print</link></entry>
+      </row>
+      <row>
+        <entry>dz</entry>
+        <entry><link linkend='command-print'>pr</link></entry>
+      </row>
+      <row>
+        <entry>dzl</entry>
+        <entry><link linkend='command-show'>show</link></entry>
+      </row>
+      <row>
+        <entry>eda</entry>
+        <entry><link linkend='command-edall'>edall</link></entry>
+      </row>
+      <row>
+        <entry>edalles</entry>
+        <entry><link linkend='command-edall'>edall</link></entry>
+      </row>
+      <row>
+        <entry>edegli</entry>
+        <entry><link linkend='command-edpl'>edpl</link></entry>
+      </row>
+      <row>
+        <entry>edegliste</entry>
+        <entry><link linkend='command-edpl'>edpl</link></entry>
+      </row>
+      <row>
+        <entry>edeglisten</entry>
+        <entry><link linkend='command-edpls'>edpls</link></entry>
+      </row>
+      <row>
+        <entry>edn</entry>
+        <entry><link linkend='command-edns'>edns</link></entry>
+      </row>
+      <row>
+        <entry>edname</entry>
+        <entry><link linkend='command-edn'>edn</link></entry>
+      </row>
+      <row>
+        <entry>ednamen</entry>
+        <entry><link linkend='command-edns'>edns</link></entry>
+      </row>
+      <row>
+        <entry>edprn</entry>
+        <entry><link linkend='command-edps'>edps</link></entry>
+      </row>
+      <row>
+        <entry>Egliste</entry>
+        <entry><link linkend='command-plist'>Plist</link></entry>
+      </row>
+      <row>
+        <entry>Eglisten</entry>
+        <entry><link linkend='command-plists'>plists</link></entry>
+      </row>
+      <row>
+        <entry>eines?</entry>
+        <entry><link linkend='command-or'>or</link></entry>
+      </row>
+      <row>
+        <entry>El?</entry>
+        <entry><link linkend='command-memberp'>member?</link></entry>
+      </row>
+      <row>
+        <entry>Element</entry>
+        <entry><link linkend='command-item'>item</link></entry>
+      </row>
+      <row>
+        <entry>Element?</entry>
+        <entry><link linkend='command-memberp'>memberp</link></entry>
+      </row>
+      <row>
+        <entry>Elementab</entry>
+        <entry><link linkend='command-member'>member</link></entry>
+      </row>
+      <row>
+        <entry>ende</entry>
+        <entry><link linkend='command-end'>end</link></entry>
+      </row>
+      <row>
+        <entry>entfaltemakro</entry>
+        <entry><link linkend='command-macroexpand'>macroexpand</link></entry>
+      </row>
+      <row>
+        <entry>entferne</entry>
+        <entry><link linkend='command-remove'>remove</link></entry>
+      </row>
+      <row>
+        <entry>er</entry>
+        <entry><link linkend='command-first'>first</link></entry>
+      </row>
+      <row>
+        <entry>EreignisProtokoll</entry>
+        <entry><link linkend='command-eventcheck'>eventcheck</link></entry>
+      </row>
+      <row>
+        <entry>erfasse</entry>
+        <entry><link linkend='command-map'>map</link></entry>
+      </row>
+      <row>
+        <entry>erfasse.satz</entry>
+        <entry><link linkend='command-map.se'>map.se</link></entry>
+      </row>
+      <row>
+        <entry>erfassealles</entry>
+        <entry><link linkend='command-crossmap'>crossmap</link></entry>
+      </row>
+      <row>
+        <entry>erstes</entry>
+        <entry><link linkend='command-erase'>er</link></entry>
+      </row>
+      <row>
+        <entry>falsch</entry>
+        <entry><link linkend='command-false'>false</link></entry>
+      </row>
+      <row>
+        <entry>fange</entry>
+        <entry><link linkend='command-catch'>catch</link></entry>
+      </row>
+      <row>
+        <entry>Farbe</entry>
+        <entry><link linkend='command-setpencolor'>setpc</link></entry>
+      </row>
+      <row>
+        <entry>FarbeZ</entry>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+      </row>
+      <row>
+        <entry>Fehler</entry>
+        <entry><link linkend='command-error'>error</link></entry>
+      </row>
+      <row>
+        <entry>fenster</entry>
+        <entry><link linkend='command-window'>window</link></entry>
+      </row>
+      <row>
+        <entry>Fensterbaum</entry>
+        <entry><link linkend='command-debugwindows'>debugwindows</link></entry>
+      </row>
+      <row>
+        <entry>Fensterlöschen</entry>
+        <entry><link linkend='command-windowdelete'>windowdelete</link></entry>
+      </row>
+      <row>
+        <entry>Fensterschaffen</entry>
+        <entry><link linkend='command-windowcreate'>windowcreate</link></entry>
+      </row>
+      <row>
+        <entry>Fensterstatus</entry>
+        <entry><link linkend='command-windowenable'>windowenable</link></entry>
+      </row>
+      <row>
+        <entry>finde</entry>
+        <entry><link linkend='command-find'>find</link></entry>
+      </row>
+      <row>
+        <entry>fixiereorientierung</entry>
+        <entry><link linkend='command-setorientation'>setorientation</link></entry>
+      </row>
+      <row>
+        <entry>fixierestift</entry>
+        <entry><link linkend='command-setpen'>setpen</link></entry>
+      </row>
+      <row>
+        <entry>Fragebox</entry>
+        <entry><link linkend='command-questionbox'>questionbox</link></entry>
+      </row>
+      <row>
+        <entry>führeaus.bis</entry>
+        <entry><link linkend='command-do.until'>do.until</link></entry>
+      </row>
+      <row>
+        <entry>führeaus.solange</entry>
+        <entry><link linkend='command-do.while'>do.while</link></entry>
+      </row>
+      <row>
+        <entry>fülle</entry>
+        <entry><link linkend='command-fill'>fill</link></entry>
+      </row>
+      <row>
+        <entry>Füllfarbe</entry>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+      </row>
+      <row>
+        <entry>Füllfarbez</entry>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+      </row>
+      <row>
+        <entry>fürjedes</entry>
+        <entry><link linkend='command-foreach'>foreach</link></entry>
+      </row>
+      <row>
+        <entry>ganzzahl</entry>
+        <entry><link linkend='command-int'>int</link></entry>
+      </row>
+      <row>
+        <entry>gib</entry>
+        <entry><link linkend='command-show'>show</link></entry>
+      </row>
+      <row>
+        <entry>gibEg</entry>
+        <entry><link linkend='command-gprop'>gprop</link></entry>
+      </row>
+      <row>
+        <entry>gleich?</entry>
+        <entry><link linkend='command-equalp'>equal?</link></entry>
+      </row>
+      <row>
+        <entry>goldenerschnitt</entry>
+        <entry><link linkend='command-goldenratio'>goldenratio</link></entry>
+      </row>
+      <row>
+        <entry>grabeaus</entry>
+        <entry><link linkend='command-unbury'>unbury</link></entry>
+      </row>
+      <row>
+        <entry>groß</entry>
+        <entry><link linkend='command-uppercase'>uppercase</link></entry>
+      </row>
+      <row>
+        <entry>größer?</entry>
+        <entry><link linkend='command-greaterp'>greater?</link></entry>
+      </row>
+      <row>
+        <entry>größergleich?</entry>
+        <entry><link linkend='command-greaterequalp'>greaterequal?</link></entry>
+      </row>
+      <row>
+        <entry>Grundwort?</entry>
+        <entry><link linkend='command-primitivep'>primitive?</link></entry>
+      </row>
+      <row>
+        <entry>Gruppenboxlöschen</entry>
+        <entry><link linkend='command-groupboxdelete'>groupboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>Gruppenboxschaffen</entry>
+        <entry><link linkend='command-groupboxcreate'>groupboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>hervorheben</entry>
+        <entry><link linkend='command-standout'>standout</link></entry>
+      </row>
+      <row>
+        <entry>hg</entry>
+        <entry><link linkend='command-setscreencolor'>setsc</link></entry>
+      </row>
+      <row>
+        <entry>hgz</entry>
+        <entry><link linkend='command-screencolor'>screencolor</link></entry>
+      </row>
+      <row>
+        <entry>Hintergrundfarbe</entry>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+      </row>
+      <row>
+        <entry>Igel</entry>
+        <entry><link linkend='command-turtle'>turtle</link></entry>
+      </row>
+      <row>
+        <entry>Igelschar</entry>
+        <entry><link linkend='command-turtles'>turtles</link></entry>
+      </row>
+      <row>
+        <entry>Igeltext</entry>
+        <entry><link linkend='command-label'>label</link></entry>
+      </row>
+      <row>
+        <entry>ignoriere</entry>
+        <entry><link linkend='command-ignore'>ignore</link></entry>
+      </row>
+      <row>
+        <entry>ih</entry>
+        <entry><link linkend='command-dir'>dir</link></entry>
+      </row>
+      <row>
+        <entry>inhalt</entry>
+        <entry><link linkend='command-dir'>dir</link></entry>
+      </row>
+      <row>
+        <entry>invers</entry>
+        <entry><link linkend='command-reverse'>reverse</link></entry>
+      </row>
+      <row>
+        <entry>JaNeinBox</entry>
+        <entry><link linkend='command-yesnobox'>yesnobox</link></entry>
+      </row>
+      <row>
+        <entry>K.Status</entry>
+        <entry><link linkend='command-nostatus'>nostatus</link></entry>
+      </row>
+      <row>
+        <entry>keyboardaus</entry>
+        <entry><link linkend='command-keyboardoff'>keyboardoff</link></entry>
+      </row>
+      <row>
+        <entry>keyboardein</entry>
+        <entry><link linkend='command-keyboardon'>keyboardon</link></entry>
+      </row>
+      <row>
+        <entry>klein</entry>
+        <entry><link linkend='command-lowercase'>lowercase</link></entry>
+      </row>
+      <row>
+        <entry>kleiner?</entry>
+        <entry><link linkend='command-lessp'>less?</link></entry>
+      </row>
+      <row>
+        <entry>kleinergleich?</entry>
+        <entry><link linkend='command-lessequalp'>lessequal?</link></entry>
+      </row>
+      <row>
+        <entry>Knopflöschen</entry>
+        <entry><link linkend='command-buttondelete'>buttondelete</link></entry>
+      </row>
+      <row>
+        <entry>Knopfneu</entry>
+        <entry><link linkend='command-buttonupdate'>buttonupdate</link></entry>
+      </row>
+      <row>
+        <entry>Knopfschaffen</entry>
+        <entry><link linkend='command-buttoncreate'>buttoncreate</link></entry>
+      </row>
+      <row>
+        <entry>Knopfstatus</entry>
+        <entry><link linkend='command-buttonenable'>buttonenable</link></entry>
+      </row>
+      <row>
+        <entry>Knoten</entry>
+        <entry><link linkend='command-nodes'>nodes</link></entry>
+      </row>
+      <row>
+        <entry>kombiniere</entry>
+        <entry><link linkend='command-combine'>combine</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxlöschen</entry>
+        <entry><link linkend='command-comboboxdelete'>comboboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxschaffen</entry>
+        <entry><link linkend='command-comboboxcreate'>comboboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxsetzetext</entry>
+        <entry><link linkend='command-comboboxsettext'>comboboxsettext</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxstatus</entry>
+        <entry><link linkend='command-comboboxenable'>comboboxenable</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxtext</entry>
+        <entry><link linkend='command-comboboxaddstring'>comboboxaddstring</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxtextliste</entry>
+        <entry><link linkend='command-comboboxgettext'>comboboxgettext</link></entry>
+      </row>
+      <row>
+        <entry>Komtaboxtextlöschen</entry>
+        <entry><link linkend='command-comboboxdeletestring'>comboboxdeletestring</link></entry>
+      </row>
+      <row>
+        <entry>Kontrollboxlöschen</entry>
+        <entry><link linkend='command-checkboxdelete'>checkboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>Kontrollboxschaffen</entry>
+        <entry><link linkend='command-checkboxcreate'>checkboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>Kontrollboxset</entry>
+        <entry><link linkend='command-checkboxset'>checkboxset</link></entry>
+      </row>
+      <row>
+        <entry>Kontrollboxstatus</entry>
+        <entry><link linkend='command-checkboxenable'>checkboxenable</link></entry>
+      </row>
+      <row>
+        <entry>Kontrollboxstatus?</entry>
+        <entry><link linkend='command-checkboxget'>checkboxget</link></entry>
+      </row>
+      <row>
+        <entry>Kopieein</entry>
+        <entry><link linkend='command-setwrite'>setwrite</link></entry>
+      </row>
+      <row>
+        <entry>kreis</entry>
+        <entry><link linkend='command-circle'>circle</link></entry>
+      </row>
+      <row>
+        <entry>kreis2</entry>
+        <entry><link linkend='command-circle2'>circle2</link></entry>
+      </row>
+      <row>
+        <entry>Kurs</entry>
+        <entry><link linkend='command-heading'>heading</link></entry>
+      </row>
+      <row>
+        <entry>lade</entry>
+        <entry><link linkend='command-load'>load</link></entry>
+      </row>
+      <row>
+        <entry>Länge</entry>
+        <entry><link linkend='command-count'>count</link></entry>
+      </row>
+      <row>
+        <entry>längeigeltext</entry>
+        <entry><link linkend='command-labelsize'>labelsize</link></entry>
+      </row>
+      <row>
+        <entry>langsammalen</entry>
+        <entry><link linkend='command-slowdraw'>slowdraw</link></entry>
+      </row>
+      <row>
+        <entry>lb</entry>
+        <entry><link linkend='command-clean'>clean</link></entry>
+      </row>
+      <row>
+        <entry>leer?</entry>
+        <entry><link linkend='command-emptyp'>empty?</link></entry>
+      </row>
+      <row>
+        <entry>lerne</entry>
+        <entry><link linkend='command-to'>to</link></entry>
+      </row>
+      <row>
+        <entry>letztes</entry>
+        <entry><link linkend='command-last'>last</link></entry>
+      </row>
+      <row>
+        <entry>li</entry>
+        <entry><link linkend='command-left'>lt</link></entry>
+      </row>
+      <row>
+        <entry>LiesDatei</entry>
+        <entry><link linkend='command-setread'>setread</link></entry>
+      </row>
+      <row>
+        <entry>liesListe</entry>
+        <entry><link linkend='command-readlist'>readlist</link></entry>
+      </row>
+      <row>
+        <entry>Liespos</entry>
+        <entry><link linkend='command-readpos'>readpos</link></entry>
+      </row>
+      <row>
+        <entry>Liestaste</entry>
+        <entry><link linkend='command-readchar'>rc</link></entry>
+      </row>
+      <row>
+        <entry>Liestasten</entry>
+        <entry><link linkend='command-readchars'>rcs</link></entry>
+      </row>
+      <row>
+        <entry>liesWort</entry>
+        <entry><link linkend='command-readword'>readword</link></entry>
+      </row>
+      <row>
+        <entry>liesZeichen</entry>
+        <entry><link linkend='command-readchars'>readchars</link></entry>
+      </row>
+      <row>
+        <entry>links</entry>
+        <entry><link linkend='command-left'>left</link></entry>
+      </row>
+      <row>
+        <entry>Liste</entry>
+        <entry><link linkend='command-list'>list</link></entry>
+      </row>
+      <row>
+        <entry>Liste?</entry>
+        <entry><link linkend='command-listp'>list?</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxlöschen</entry>
+        <entry><link linkend='command-listboxdelete'>listboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxlöschetext</entry>
+        <entry><link linkend='command-listboxdeletestring'>listboxdeletestring</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxschaffen</entry>
+        <entry><link linkend='command-listboxcreate'>listboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxstatus</entry>
+        <entry><link linkend='command-listboxenable'>listboxenable</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxtext</entry>
+        <entry><link linkend='command-listboxaddstring'>listboxaddstring</link></entry>
+      </row>
+      <row>
+        <entry>Listeboxwahl</entry>
+        <entry><link linkend='command-listboxgetselect'>listboxgetselect</link></entry>
+      </row>
+      <row>
+        <entry>listezumarray</entry>
+        <entry><link linkend='command-listtoarray'>listtoarray</link></entry>
+      </row>
+      <row>
+        <entry>ll</entry>
+        <entry><link linkend='command-readlist'>rl</link></entry>
+      </row>
+      <row>
+        <entry>lokal</entry>
+        <entry><link linkend='command-local'>local</link></entry>
+      </row>
+      <row>
+        <entry>lösche</entry>
+        <entry><link linkend='command-remove'>remove</link></entry>
+      </row>
+      <row>
+        <entry>löschebild</entry>
+        <entry><link linkend='command-clean'>clean</link></entry>
+      </row>
+      <row>
+        <entry>LöschePalette</entry>
+        <entry><link linkend='command-clearpalette'>clearpalette</link></entry>
+      </row>
+      <row>
+        <entry>LöscheText</entry>
+        <entry><link linkend='command-cleartext'>cleartext</link></entry>
+      </row>
+      <row>
+        <entry>LöscheZeitnehmer</entry>
+        <entry><link linkend='command-cleartimer'>cleartimer</link></entry>
+      </row>
+      <row>
+        <entry>ls</entry>
+        <entry><link linkend='command-cleartext'>ct</link></entry>
+      </row>
+      <row>
+        <entry>lz</entry>
+        <entry><link linkend='command-last'>last</link></entry>
+      </row>
+      <row>
+        <entry>Makro?</entry>
+        <entry><link linkend='command-macrop'>macro?</link></entry>
+      </row>
+      <row>
+        <entry>Mausan</entry>
+        <entry><link linkend='command-mouseon'>mouseon</link></entry>
+      </row>
+      <row>
+        <entry>Mausaus</entry>
+        <entry><link linkend='command-mouseoff'>mouseoff</link></entry>
+      </row>
+      <row>
+        <entry>MausOrt</entry>
+        <entry><link linkend='command-mousepos'>mousepos</link></entry>
+      </row>
+      <row>
+        <entry>mdfixiereitem</entry>
+        <entry><link linkend='command-mdsetitem'>mdsetitem</link></entry>
+      </row>
+      <row>
+        <entry>me</entry>
+        <entry><link linkend='command-fput'>fput</link></entry>
+      </row>
+      <row>
+        <entry>Meldungsbox</entry>
+        <entry><link linkend='command-messagebox'>messagebox</link></entry>
+      </row>
+      <row>
+        <entry>Midimeldung</entry>
+        <entry><link linkend='command-midimessage'>midimessage</link></entry>
+      </row>
+      <row>
+        <entry>Midiöffnen</entry>
+        <entry><link linkend='command-midiopen'>midiopen</link></entry>
+      </row>
+      <row>
+        <entry>Midischließen</entry>
+        <entry><link linkend='command-midiclose'>midiclose</link></entry>
+      </row>
+      <row>
+        <entry>minimieren</entry>
+        <entry><link linkend='command-minimize'>minimize</link></entry>
+      </row>
+      <row>
+        <entry>MitEg</entry>
+        <entry><link linkend='command-pprop'>Pprop</link></entry>
+      </row>
+      <row>
+        <entry>miterstem</entry>
+        <entry><link linkend='command-fput'>fput</link></entry>
+      </row>
+      <row>
+        <entry>mitletztem</entry>
+        <entry><link linkend='command-lput'>lput</link></entry>
+      </row>
+      <row>
+        <entry>Mitte</entry>
+        <entry><link linkend='command-home'>home</link></entry>
+      </row>
+      <row>
+        <entry>ml</entry>
+        <entry><link linkend='command-lput'>lput</link></entry>
+      </row>
+      <row>
+        <entry>nameausgraben</entry>
+        <entry><link linkend='command-unburyname'>unburyname</link></entry>
+      </row>
+      <row>
+        <entry>Namen</entry>
+        <entry><link linkend='command-names'>names</link></entry>
+      </row>
+      <row>
+        <entry>namenliste</entry>
+        <entry><link linkend='command-namelist'>namelist</link></entry>
+      </row>
+      <row>
+        <entry>nb</entry>
+        <entry><link linkend='command-clean'>clean</link></entry>
+      </row>
+      <row>
+        <entry>netstarten</entry>
+        <entry><link linkend='command-netstartup'>netstartup</link></entry>
+      </row>
+      <row>
+        <entry>netzannahmeaus</entry>
+        <entry><link linkend='command-netacceptoff'>netacceptoff</link></entry>
+      </row>
+      <row>
+        <entry>netzannahmeein</entry>
+        <entry><link linkend='command-netaccepton'>netaccepton</link></entry>
+      </row>
+      <row>
+        <entry>netzannahmewertempfangen</entry>
+        <entry><link linkend='command-netacceptreceivevalue'>netacceptreceivevalue</link></entry>
+      </row>
+      <row>
+        <entry>netzannahmewertsenden</entry>
+        <entry><link linkend='command-netacceptsendvalue'>netacceptsendvalue</link></entry>
+      </row>
+      <row>
+        <entry>netzbeenden</entry>
+        <entry><link linkend='command-netshutdown'>netshutdown</link></entry>
+      </row>
+      <row>
+        <entry>netzunterbrechen</entry>
+        <entry><link linkend='command-netconnectoff'>netconnectoff</link></entry>
+      </row>
+      <row>
+        <entry>netzverbinden</entry>
+        <entry><link linkend='command-netconnecton'>netconnecton</link></entry>
+      </row>
+      <row>
+        <entry>netzverbundwertempfangen</entry>
+        <entry><link linkend='command-netconnectreceivevalue'>netconnectreceivevalue</link></entry>
+      </row>
+      <row>
+        <entry>netzverbundwertsenden</entry>
+        <entry><link linkend='command-netconnectsendvalue'>netconnectsendvalue</link></entry>
+      </row>
+      <row>
+        <entry>neubild</entry>
+        <entry><link linkend='command-clean'>clean</link></entry>
+      </row>
+      <row>
+        <entry>nicht?</entry>
+        <entry><link linkend='command-not'>not</link></entry>
+      </row>
+      <row>
+        <entry>nichtgleich?</entry>
+        <entry><link linkend='command-notequalp'>notequal?</link></entry>
+      </row>
+      <row>
+        <entry>normalstift</entry>
+        <entry><link linkend='command-pennormal'>pennormal</link></entry>
+      </row>
+      <row>
+        <entry>Normalstift</entry>
+        <entry><link linkend='command-penpaint'>penpaint</link></entry>
+      </row>
+      <row>
+        <entry>oe</entry>
+        <entry><link linkend='command-butfirst'>bf</link></entry>
+      </row>
+      <row>
+        <entry>oea</entry>
+        <entry><link linkend='command-butfirsts'>bfs</link></entry>
+      </row>
+      <row>
+        <entry>offenZ</entry>
+        <entry><link linkend='command-allopen'>allopen</link></entry>
+      </row>
+      <row>
+        <entry>ohneerstes</entry>
+        <entry><link linkend='command-butfirst'>butfirst</link></entry>
+      </row>
+      <row>
+        <entry>ohneletztes</entry>
+        <entry><link linkend='command-butlast'>butlast</link></entry>
+      </row>
+      <row>
+        <entry>ol</entry>
+        <entry><link linkend='command-butlast'>bl</link></entry>
+      </row>
+      <row>
+        <entry>orientierung</entry>
+        <entry><link linkend='command-orientation'>orientation</link></entry>
+      </row>
+      <row>
+        <entry>Ort</entry>
+        <entry><link linkend='command-pos'>pos</link></entry>
+      </row>
+      <row>
+        <entry>Ortxyz</entry>
+        <entry><link linkend='command-posxyz'>posxyz</link></entry>
+      </row>
+      <row>
+        <entry>Pa</entry>
+        <entry><link linkend='command-untrace'>untrace</link></entry>
+      </row>
+      <row>
+        <entry>Pein</entry>
+        <entry><link linkend='command-trace'>trace</link></entry>
+      </row>
+      <row>
+        <entry>Perspektive</entry>
+        <entry><link linkend='command-perspective'>perspective</link></entry>
+      </row>
+      <row>
+        <entry>polyende</entry>
+        <entry><link linkend='command-polyend'>polyend</link></entry>
+      </row>
+      <row>
+        <entry>Polysehen</entry>
+        <entry><link linkend='command-polyview'>polyview</link></entry>
+      </row>
+      <row>
+        <entry>portfluten</entry>
+        <entry><link linkend='command-portflush'>portflush</link></entry>
+      </row>
+      <row>
+        <entry>portliesarray</entry>
+        <entry><link linkend='command-portreadarray'>portreadarray</link></entry>
+      </row>
+      <row>
+        <entry>portlieszeichen</entry>
+        <entry><link linkend='command-portreadchar'>portreadchar</link></entry>
+      </row>
+      <row>
+        <entry>portmodus</entry>
+        <entry><link linkend='command-portmode'>portmode</link></entry>
+      </row>
+      <row>
+        <entry>portöffnen</entry>
+        <entry><link linkend='command-portopen'>portopen</link></entry>
+      </row>
+      <row>
+        <entry>portschließen</entry>
+        <entry><link linkend='command-portclose'>portclose</link></entry>
+      </row>
+      <row>
+        <entry>portschreibearray</entry>
+        <entry><link linkend='command-portwritearray'>portwritearray</link></entry>
+      </row>
+      <row>
+        <entry>portschreibezeichen</entry>
+        <entry><link linkend='command-portwritechar'>portwritechar</link></entry>
+      </row>
+      <row>
+        <entry>Potenz</entry>
+        <entry><link linkend='command-power'>power</link></entry>
+      </row>
+      <row>
+        <entry>pr</entry>
+        <entry><link linkend='command-to'>to</link></entry>
+      </row>
+      <row>
+        <entry>PrListe</entry>
+        <entry><link linkend='command-text'>text</link></entry>
+      </row>
+      <row>
+        <entry>Produkt</entry>
+        <entry><link linkend='command-product'>product</link></entry>
+      </row>
+      <row>
+        <entry>Prozedur?</entry>
+        <entry><link linkend='command-procedurep'>procedure?</link></entry>
+      </row>
+      <row>
+        <entry>Prozedurliste</entry>
+        <entry><link linkend='command-procedures'>procedures</link></entry>
+      </row>
+      <row>
+        <entry>Prtext</entry>
+        <entry><link linkend='command-fulltext'>fulltext</link></entry>
+      </row>
+      <row>
+        <entry>prüfe</entry>
+        <entry><link linkend='command-test'>test</link></entry>
+      </row>
+      <row>
+        <entry>PSa</entry>
+        <entry><link linkend='command-unstep'>unstep</link></entry>
+      </row>
+      <row>
+        <entry>PSe</entry>
+        <entry><link linkend='command-step'>step</link></entry>
+      </row>
+      <row>
+        <entry>qw</entry>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+      </row>
+      <row>
+        <entry>radiere</entry>
+        <entry><link linkend='command-penerase'>penerase</link></entry>
+      </row>
+      <row>
+        <entry>Radioknopfaktiv</entry>
+        <entry><link linkend='command-radiobuttonset'>radiobuttonset</link></entry>
+      </row>
+      <row>
+        <entry>Radioknopflöschen</entry>
+        <entry><link linkend='command-radiobuttondelete'>radiobuttondelete</link></entry>
+      </row>
+      <row>
+        <entry>Radioknopfschaffen</entry>
+        <entry><link linkend='command-radiobuttoncreate'>radiobuttoncreate</link></entry>
+      </row>
+      <row>
+        <entry>Radioknopfstatus</entry>
+        <entry><link linkend='command-radiobuttonenable'>radiobuttonenable</link></entry>
+      </row>
+      <row>
+        <entry>Radioknopfstatus?</entry>
+        <entry><link linkend='command-radiobuttonget'>radiobuttonget</link></entry>
+      </row>
+      <row>
+        <entry>Rand</entry>
+        <entry><link linkend='command-fence'>fence</link></entry>
+      </row>
+      <row>
+        <entry>Randsprung</entry>
+        <entry><link linkend='command-wrap'>wrap</link></entry>
+      </row>
+      <row>
+        <entry>rd</entry>
+        <entry><link linkend='command-penerase'>pe</link></entry>
+      </row>
+      <row>
+        <entry>re</entry>
+        <entry><link linkend='command-right'>rt</link></entry>
+      </row>
+      <row>
+        <entry>rechts</entry>
+        <entry><link linkend='command-right'>right</link></entry>
+      </row>
+      <row>
+        <entry>Rest</entry>
+        <entry><link linkend='command-remainder'>remainder</link></entry>
+      </row>
+      <row>
+        <entry>restauriere</entry>
+        <entry><link linkend='command-restore'>restore</link></entry>
+      </row>
+      <row>
+        <entry>rg</entry>
+        <entry><link linkend='command-output'>op</link></entry>
+      </row>
+      <row>
+        <entry>ri</entry>
+        <entry><link linkend='command-towards'>towards</link></entry>
+      </row>
+      <row>
+        <entry>Richtungxyz</entry>
+        <entry><link linkend='command-towardsxyz'>towardsxyz</link></entry>
+      </row>
+      <row>
+        <entry>rk</entry>
+        <entry><link linkend='command-stop'>stop</link></entry>
+      </row>
+      <row>
+        <entry>Rollbalkendef</entry>
+        <entry><link linkend='command-scrollbarset'>scrollbarset</link></entry>
+      </row>
+      <row>
+        <entry>Rollbalkenlöschen</entry>
+        <entry><link linkend='command-scrollbardelete'>scrollbardelete</link></entry>
+      </row>
+      <row>
+        <entry>Rollbalkenschaffen</entry>
+        <entry><link linkend='command-scrollbarcreate'>scrollbarcreate</link></entry>
+      </row>
+      <row>
+        <entry>Rollbalkenstatus</entry>
+        <entry><link linkend='command-scrollbarenable'>scrollbarenable</link></entry>
+      </row>
+      <row>
+        <entry>Rollbalkenwert</entry>
+        <entry><link linkend='command-scrollbarget'>scrollbarget</link></entry>
+      </row>
+      <row>
+        <entry>Rückgabe</entry>
+        <entry><link linkend='command-output'>output</link></entry>
+      </row>
+      <row>
+        <entry>rückgängig</entry>
+        <entry><link linkend='command-remdup'>remdup</link></entry>
+      </row>
+      <row>
+        <entry>rückwärts</entry>
+        <entry><link linkend='command-back'>back</link></entry>
+      </row>
+      <row>
+        <entry>runde</entry>
+        <entry><link linkend='command-round'>round</link></entry>
+      </row>
+      <row>
+        <entry>rw</entry>
+        <entry><link linkend='command-back'>bk</link></entry>
+      </row>
+      <row>
+        <entry>sa</entry>
+        <entry><link linkend='command-pendown'>pd</link></entry>
+      </row>
+      <row>
+        <entry>satz</entry>
+        <entry><link linkend='command-sentence'>sentence</link></entry>
+      </row>
+      <row>
+        <entry>schließe</entry>
+        <entry><link linkend='command-close'>close</link></entry>
+      </row>
+      <row>
+        <entry>schließealles</entry>
+        <entry><link linkend='command-closeall'>closeall</link></entry>
+      </row>
+      <row>
+        <entry>setKennungSchrift</entry>
+        <entry><link linkend='command-setlabelfont'>setlabelfont</link></entry>
+      </row>
+      <row>
+        <entry>setze</entry>
+        <entry><link linkend='command-make'>Make</link></entry>
+      </row>
+      <row>
+        <entry>setzeigel</entry>
+        <entry><link linkend='command-setturtle'>setturtle</link></entry>
+      </row>
+      <row>
+        <entry>setzeigelmodus</entry>
+        <entry><link linkend='command-setturtlemode'>setturtlemode</link></entry>
+      </row>
+      <row>
+        <entry>setzelokal</entry>
+        <entry><link linkend='command-localmake'>localmake</link></entry>
+      </row>
+      <row>
+        <entry>setzeZeitnehmer</entry>
+        <entry><link linkend='command-settimer'>settimer</link></entry>
+      </row>
+      <row>
+        <entry>sh</entry>
+        <entry><link linkend='command-penup'>pu</link></entry>
+      </row>
+      <row>
+        <entry>sichtbar?</entry>
+        <entry><link linkend='command-shownp'>shown?</link></entry>
+      </row>
+      <row>
+        <entry>Skala</entry>
+        <entry><link linkend='command-setscrunch'>setscrunch</link></entry>
+      </row>
+      <row>
+        <entry>Skalaz</entry>
+        <entry><link linkend='command-scrunch'>scrunch</link></entry>
+      </row>
+      <row>
+        <entry>SMale</entry>
+        <entry><link linkend='command-penpaint'>ppt</link></entry>
+      </row>
+      <row>
+        <entry>solange</entry>
+        <entry><link linkend='command-while'>while</link></entry>
+      </row>
+      <row>
+        <entry>sortieren</entry>
+        <entry><link linkend='command-sort'>sort</link></entry>
+      </row>
+      <row>
+        <entry>soundan</entry>
+        <entry><link linkend='command-soundon'>soundon</link></entry>
+      </row>
+      <row>
+        <entry>soundaus</entry>
+        <entry><link linkend='command-soundoff'>soundoff</link></entry>
+      </row>
+      <row>
+        <entry>spielewave</entry>
+        <entry><link linkend='command-playwave'>playwave</link></entry>
+      </row>
+      <row>
+        <entry>sr</entry>
+        <entry><link linkend='command-penreverse'>px</link></entry>
+      </row>
+      <row>
+        <entry>stapeln</entry>
+        <entry><link linkend='command-push'>push</link></entry>
+      </row>
+      <row>
+        <entry>stapelwert</entry>
+        <entry><link linkend='command-pop'>pop</link></entry>
+      </row>
+      <row>
+        <entry>Statuszeilelöschen</entry>
+        <entry><link linkend='command-staticdelete'>staticdelete</link></entry>
+      </row>
+      <row>
+        <entry>Statuszeileneu</entry>
+        <entry><link linkend='command-staticupdate'>staticupdate</link></entry>
+      </row>
+      <row>
+        <entry>Statuszeileschaffen</entry>
+        <entry><link linkend='command-staticcreate'>staticcreate</link></entry>
+      </row>
+      <row>
+        <entry>stift</entry>
+        <entry><link linkend='command-pen'>pen</link></entry>
+      </row>
+      <row>
+        <entry>Stiftab</entry>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+      </row>
+      <row>
+        <entry>Stiftab?</entry>
+        <entry><link linkend='command-pendownp'>pendown?</link></entry>
+      </row>
+      <row>
+        <entry>Stiftdicke</entry>
+        <entry><link linkend='command-setpensize'>setpensize</link></entry>
+      </row>
+      <row>
+        <entry>Stiftfarbe</entry>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+      </row>
+      <row>
+        <entry>StiftFarbMuster</entry>
+        <entry><link linkend='command-setpenpattern'>setpenpattern</link></entry>
+      </row>
+      <row>
+        <entry>Stiftform</entry>
+        <entry><link linkend='command-penpattern'>penpattern</link></entry>
+      </row>
+      <row>
+        <entry>Stifthoch</entry>
+        <entry><link linkend='command-penup'>penup</link></entry>
+      </row>
+      <row>
+        <entry>Stiftmodus</entry>
+        <entry><link linkend='command-penmode'>penmode</link></entry>
+      </row>
+      <row>
+        <entry>StiftZ</entry>
+        <entry><link linkend='command-pensize'>pensize</link></entry>
+      </row>
+      <row>
+        <entry>Summe</entry>
+        <entry><link linkend='command-sum'>sum</link></entry>
+      </row>
+      <row>
+        <entry>sZ</entry>
+        <entry><link linkend='command-rerandom'>rerandom</link></entry>
+      </row>
+      <row>
+        <entry>tastaturaus</entry>
+        <entry><link linkend='command-keyboardoff'>keyboardoff</link></entry>
+      </row>
+      <row>
+        <entry>tastaturein</entry>
+        <entry><link linkend='command-keyboardon'>keyboardon</link></entry>
+      </row>
+      <row>
+        <entry>Taste?</entry>
+        <entry><link linkend='command-keyp'>key?</link></entry>
+      </row>
+      <row>
+        <entry>TastEG</entry>
+        <entry><link linkend='command-keyboardvalue'>keyboardvalue</link></entry>
+      </row>
+      <row>
+        <entry>Teilbild</entry>
+        <entry><link linkend='command-splitscreen'>splitscreen</link></entry>
+      </row>
+      <row>
+        <entry>TextSchirm</entry>
+        <entry><link linkend='command-textscreen'>textscreen</link></entry>
+      </row>
+      <row>
+        <entry>Titelliste</entry>
+        <entry><link linkend='command-contents'>contents</link></entry>
+      </row>
+      <row>
+        <entry>ton</entry>
+        <entry><link linkend='command-tone'>tone</link></entry>
+      </row>
+      <row>
+        <entry>Ton</entry>
+        <entry><link linkend='command-tone'>tone</link></entry>
+      </row>
+      <row>
+        <entry>tonan</entry>
+        <entry><link linkend='command-soundon'>soundon</link></entry>
+      </row>
+      <row>
+        <entry>tonaus</entry>
+        <entry><link linkend='command-soundoff'>soundoff</link></entry>
+      </row>
+      <row>
+        <entry>tue</entry>
+        <entry><link linkend='command-run'>run</link></entry>
+      </row>
+      <row>
+        <entry>tueWert</entry>
+        <entry><link linkend='command-runresult'>runresult</link></entry>
+      </row>
+      <row>
+        <entry>Umkehrstift</entry>
+        <entry><link linkend='command-penreverse'>penreverse</link></entry>
+      </row>
+      <row>
+        <entry>und</entry>
+        <entry><link linkend='command-and'>and</link></entry>
+      </row>
+      <row>
+        <entry>vb</entry>
+        <entry><link linkend='command-fullscreen'>fs</link></entry>
+      </row>
+      <row>
+        <entry>vd</entry>
+        <entry><link linkend='command-erasefile'>erf</link></entry>
+      </row>
+      <row>
+        <entry>verbinde</entry>
+        <entry><link linkend='command-combine'>combine</link></entry>
+      </row>
+      <row>
+        <entry>vergissDatei</entry>
+        <entry><link linkend='command-erasefile'>erasefile</link></entry>
+      </row>
+      <row>
+        <entry>vergissIgel</entry>
+        <entry><link linkend='command-hideturtle'>hideturtle</link></entry>
+      </row>
+      <row>
+        <entry>vergrabe</entry>
+        <entry><link linkend='command-bury'>bury</link></entry>
+      </row>
+      <row>
+        <entry>vergrabealles</entry>
+        <entry><link linkend='command-buryall'>buryall</link></entry>
+      </row>
+      <row>
+        <entry>vergraben</entry>
+        <entry><link linkend='command-buried'>buried</link></entry>
+      </row>
+      <row>
+        <entry>vergrabename</entry>
+        <entry><link linkend='command-buryname'>buryname</link></entry>
+      </row>
+      <row>
+        <entry>vermindere</entry>
+        <entry><link linkend='command-reduce'>reduce</link></entry>
+      </row>
+      <row>
+        <entry>verstecke</entry>
+        <entry><link linkend='command-bury'>bury</link></entry>
+      </row>
+      <row>
+        <entry>versteckt</entry>
+        <entry><link linkend='command-buried'>buried</link></entry>
+      </row>
+      <row>
+        <entry>vg</entry>
+        <entry><link linkend='command-erase'>erase</link></entry>
+      </row>
+      <row>
+        <entry>vga</entry>
+        <entry><link linkend='command-erall'>erall</link></entry>
+      </row>
+      <row>
+        <entry>vgEg</entry>
+        <entry><link linkend='command-remprop'>remprop</link></entry>
+      </row>
+      <row>
+        <entry>vgn</entry>
+        <entry><link linkend='command-erns'>erns</link></entry>
+      </row>
+      <row>
+        <entry>vgname</entry>
+        <entry><link linkend='command-ern'>ern</link></entry>
+      </row>
+      <row>
+        <entry>vgnamen</entry>
+        <entry><link linkend='command-erns'>erns</link></entry>
+      </row>
+      <row>
+        <entry>vgpl</entry>
+        <entry><link linkend='command-erpl'>erpl</link></entry>
+      </row>
+      <row>
+        <entry>vgpls</entry>
+        <entry><link linkend='command-erpls'>erpls</link></entry>
+      </row>
+      <row>
+        <entry>vgps</entry>
+        <entry><link linkend='command-erps'>erps</link></entry>
+      </row>
+      <row>
+        <entry>vi</entry>
+        <entry><link linkend='command-hideturtle'>ht</link></entry>
+      </row>
+      <row>
+        <entry>Vollbild</entry>
+        <entry><link linkend='command-fullscreen'>fullscreen</link></entry>
+      </row>
+      <row>
+        <entry>vorher?</entry>
+        <entry><link linkend='command-beforep'>before?</link></entry>
+      </row>
+      <row>
+        <entry>vorwärts</entry>
+        <entry><link linkend='command-forward'>forward</link></entry>
+      </row>
+      <row>
+        <entry>vorzeichen</entry>
+        <entry><link linkend='command-sign'>sign</link></entry>
+      </row>
+      <row>
+        <entry>vw</entry>
+        <entry><link linkend='command-forward'>fd</link></entry>
+      </row>
+      <row>
+        <entry>wahr</entry>
+        <entry><link linkend='command-true'>true</link></entry>
+      </row>
+      <row>
+        <entry>warte</entry>
+        <entry><link linkend='command-wait'>wait</link></entry>
+      </row>
+      <row>
+        <entry>weiter</entry>
+        <entry><link linkend='command-continue'>continue</link></entry>
+      </row>
+      <row>
+        <entry>wenn</entry>
+        <entry><link linkend='command-if'>if</link></entry>
+      </row>
+      <row>
+        <entry>wennfalsch</entry>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+      </row>
+      <row>
+        <entry>wennsonst</entry>
+        <entry><link linkend='command-ifelse'>ifelse</link></entry>
+      </row>
+      <row>
+        <entry>wennwahr</entry>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+      </row>
+      <row>
+        <entry>Wert</entry>
+        <entry><link linkend='command-thing'>thing</link></entry>
+      </row>
+      <row>
+        <entry>wf</entry>
+        <entry><link linkend='command-iffalse'>iff</link></entry>
+      </row>
+      <row>
+        <entry>wh</entry>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+      </row>
+      <row>
+        <entry>whfür</entry>
+        <entry><link linkend='command-for'>for</link></entry>
+      </row>
+      <row>
+        <entry>whZahl</entry>
+        <entry><link linkend='command-repcount'>repcount</link></entry>
+      </row>
+      <row>
+        <entry>wiederhole</entry>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+      </row>
+      <row>
+        <entry>wiederholefür</entry>
+        <entry><link linkend='command-for'>for</link></entry>
+      </row>
+      <row>
+        <entry>wirf</entry>
+        <entry><link linkend='command-throw'>throw</link></entry>
+      </row>
+      <row>
+        <entry>wordp?</entry>
+        <entry><link linkend='command-wordp'>wordp</link></entry>
+      </row>
+      <row>
+        <entry>Wort</entry>
+        <entry><link linkend='command-word'>word</link></entry>
+      </row>
+      <row>
+        <entry>Wort?</entry>
+        <entry><link linkend='command-wordp'>word?</link></entry>
+      </row>
+      <row>
+        <entry>wt</entry>
+        <entry><link linkend='command-continue'>co</link></entry>
+      </row>
+      <row>
+        <entry>ww</entry>
+        <entry><link linkend='command-iftrue'>ift</link></entry>
+      </row>
+      <row>
+        <entry>xko</entry>
+        <entry><link linkend='command-xcor'>xcor</link></entry>
+      </row>
+      <row>
+        <entry>yko</entry>
+        <entry><link linkend='command-ycor'>ycor</link></entry>
+      </row>
+      <row>
+        <entry>Zahl?</entry>
+        <entry><link linkend='command-numberp'>number?</link></entry>
+      </row>
+      <row>
+        <entry>Zahlformat</entry>
+        <entry><link linkend='command-form'>form</link></entry>
+      </row>
+      <row>
+        <entry>Zeichen</entry>
+        <entry><link linkend='command-char'>char</link></entry>
+      </row>
+      <row>
+        <entry>zeigIgel</entry>
+        <entry><link linkend='command-showturtle'>showturtle</link></entry>
+      </row>
+      <row>
+        <entry>Zeit</entry>
+        <entry><link linkend='command-time'>time</link></entry>
+      </row>
+      <row>
+        <entry>ZeitMilli</entry>
+        <entry><link linkend='command-timemilli'>timemilli</link></entry>
+      </row>
+      <row>
+        <entry>zg</entry>
+        <entry><link linkend='command-po'>po</link></entry>
+      </row>
+      <row>
+        <entry>zga</entry>
+        <entry><link linkend='command-poall'>poall</link></entry>
+      </row>
+      <row>
+        <entry>zgegliste</entry>
+        <entry><link linkend='command-popl'>popl</link></entry>
+      </row>
+      <row>
+        <entry>zgeglisten</entry>
+        <entry><link linkend='command-popls'>popls</link></entry>
+      </row>
+      <row>
+        <entry>zglli</entry>
+        <entry><link linkend='command-pllist'>pllist</link></entry>
+      </row>
+      <row>
+        <entry>zglliste</entry>
+        <entry><link linkend='command-pllist'>pllist</link></entry>
+      </row>
+      <row>
+        <entry>zgn</entry>
+        <entry><link linkend='command-pons'>pons</link></entry>
+      </row>
+      <row>
+        <entry>zgname</entry>
+        <entry><link linkend='command-pon'>pon</link></entry>
+      </row>
+      <row>
+        <entry>zgprn</entry>
+        <entry><link linkend='command-pops'>pops</link></entry>
+      </row>
+      <row>
+        <entry>zgprtitel</entry>
+        <entry><link linkend='command-pots'>pots</link></entry>
+      </row>
+      <row>
+        <entry>zi</entry>
+        <entry><link linkend='command-showturtle'>st</link></entry>
+      </row>
+      <row>
+        <entry>zitiert</entry>
+        <entry><link linkend='command-quoted'>quoted</link></entry>
+      </row>
+      <row>
+        <entry>zko</entry>
+        <entry><link linkend='command-zcor'>zcor</link></entry>
+      </row>
+      <row>
+        <entry>zt</entry>
+        <entry><link linkend='command-pot'>pot</link></entry>
+      </row>
+      <row>
+        <entry>zufallswahl</entry>
+        <entry><link linkend='command-pick'>pick</link></entry>
+      </row>
+      <row>
+        <entry>zz</entry>
+        <entry><link linkend='command-random'>random</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+<appendix id='to-english-color-names'>
+<title>German to English: Color Names</title>
+<indexterm><primary>To English (color names)</primary></indexterm>
+<para>See Also: English to German (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and German to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>German Color</entry>
+        <entry>English Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>AliceBlau</entry>
+        <entry>AliceBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0F8FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Altespitze</entry>
+        <entry>OldLace</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFDF5E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>AntikWeiß</entry>
+        <entry>AntiqueWhite</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAEBD7.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>ApfelGrün</entry>
+        <entry>PeachPuff</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFDAB9.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Aquamarin</entry>
+        <entry>Aquamarine</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7FFFD4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Azur</entry>
+        <entry>Azure</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlassGrün</entry>
+        <entry>PaleGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb98FB98.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlassTürkis</entry>
+        <entry>PaleTurquoise</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbAFEEEE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlassViolettRot</entry>
+        <entry>PaleVioletRed</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD87093.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Blau</entry>
+        <entry>Blue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlauViolett</entry>
+        <entry>BlueViolet</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8A2BE2.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlütenWeiß</entry>
+        <entry>FloralWhite</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFAF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Braun</entry>
+        <entry>Brown</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA52A2A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Distel</entry>
+        <entry>Thistle</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD8BFD8.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DodgerBlau</entry>
+        <entry>DodgerBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb1E90FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelBlau</entry>
+        <entry>Navy</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelGrau</entry>
+        <entry>DarkGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA9A9A9.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelGrün</entry>
+        <entry>DarkGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb006400.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelLachs</entry>
+        <entry>DarkSalmon</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE9967A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelMagenta</entry>
+        <entry>DarkMagenta</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B008B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelOlivGrün</entry>
+        <entry>DarkOliveGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb556B2F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelOrange</entry>
+        <entry>DarkOrange</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF8C00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelOrchidee</entry>
+        <entry>DarkOrchid</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9932CC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Dunkelrot</entry>
+        <entry>Maroon</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb800000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelRot</entry>
+        <entry>DarkRed</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B0000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelSchieferBlau</entry>
+        <entry>DarkSlateBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb483D8B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelSchieferGrau</entry>
+        <entry>DarkSlateGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb2F4F4F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelSeeGrün</entry>
+        <entry>DarkSeaGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8FBC8F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelTürkis</entry>
+        <entry>DarkTurquoise</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00CED1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelViolett</entry>
+        <entry>DarkViolet</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9400D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DunkelZyan</entry>
+        <entry>DarkCyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008B8B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Elfenbein</entry>
+        <entry>Ivory</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FeuerZiegel</entry>
+        <entry>FireBrick</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB22222.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FrühlingsGrün</entry>
+        <entry>SpringGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FF7F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>gebleichteMandel</entry>
+        <entry>BlanchedAlmond</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFEBCD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GeistWeiß</entry>
+        <entry>GhostWhite</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF8F8FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Gelb</entry>
+        <entry>Yellow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFF00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GelbGrün</entry>
+        <entry>YellowGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9ACD32.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Goldrute</entry>
+        <entry>GoldenRod</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDAA520.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grau</entry>
+        <entry>Grey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grün</entry>
+        <entry>Green</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GrünBlau</entry>
+        <entry>Teal</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grüngelb</entry>
+        <entry>GreenYellow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbADFF2F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellBlau</entry>
+        <entry>LightBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbADD8E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellGelb</entry>
+        <entry>LightYellow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFE0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellGrau</entry>
+        <entry>LightGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD3D3D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellGrün</entry>
+        <entry>Lime</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FF00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellHimmelBlau</entry>
+        <entry>LightSkyBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb87CEFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellKorallen</entry>
+        <entry>LightCoral</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF08080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellLachs</entry>
+        <entry>LightSalmon</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFA07A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Helllila</entry>
+        <entry>Fuchsia</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF00FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellPink</entry>
+        <entry>LightPink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFB6C1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellSchieferGrau</entry>
+        <entry>LightSlateGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb778899.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellSeeGrün</entry>
+        <entry>LightSeaGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb20B2AA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellStahlBlau</entry>
+        <entry>LightSteelBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB0C4DE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HellZyan</entry>
+        <entry>LightCyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE0FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HimmelBlau</entry>
+        <entry>SkyBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb87CEEB.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Indischrot</entry>
+        <entry>IndianRed</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbCD5C5C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>KadettBlau</entry>
+        <entry>CadetBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb5F9EA0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>KalkGrün</entry>
+        <entry>LimeGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb32CD32.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Karmesin</entry>
+        <entry>Crimson</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDC143C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Khakirot</entry>
+        <entry>DarkKhaki</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBDB76B.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Knallpink</entry>
+        <entry>HotPink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF69B4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>KönigsBlau</entry>
+        <entry>RoyalBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb4169E1.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Korallen</entry>
+        <entry>Coral</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF7F50.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>KornblumenBlau</entry>
+        <entry>CornflowerBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6495ED.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>KornBraun</entry>
+        <entry>Cornsilk</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF8DC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Krebs</entry>
+        <entry>Bisque</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFE4C4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lachs</entry>
+        <entry>Salmon</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFA8072.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lavendel</entry>
+        <entry>Lavender</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbE6E6FA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LavendelRöte</entry>
+        <entry>LavenderBlush</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF0F5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Leinen</entry>
+        <entry>Linen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAF0E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lohe</entry>
+        <entry>Tan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD2B48C.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MattGrau</entry>
+        <entry>DimGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb696969.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MeerMuschel</entry>
+        <entry>SeaShell</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFF5EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MintCreme</entry>
+        <entry>MintCream</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5FFFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelAquaMarin</entry>
+        <entry>MediumAquaMarine</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb66CDAA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelBlau</entry>
+        <entry>MediumBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000CD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelFrühlingGrün</entry>
+        <entry>MediumSpringGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FA9A.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelOrchidee</entry>
+        <entry>MediumOrchid</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBA55D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelPurpurn</entry>
+        <entry>MediumPurple</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb9370D8.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelSchieferBlau</entry>
+        <entry>MediumSlateBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7B68EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelSeeGrün</entry>
+        <entry>MediumSeaGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb3CB371.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelTürkis</entry>
+        <entry>MediumTurquoise</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb48D1CC.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MittelViolettRot</entry>
+        <entry>MediumVioletRed</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbC71585.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MitternachtsBlau</entry>
+        <entry>MidnightBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb191970.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Mokassin</entry>
+        <entry>Moccasin</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFE4B5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Navajoweiß</entry>
+        <entry>NavajoWhite</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFDEAD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Oliv</entry>
+        <entry>Olive</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OlivDRAB</entry>
+        <entry>OliveDrab</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6B8E23.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OrangeRot</entry>
+        <entry>OrangeRed</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF4500.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Orchidee</entry>
+        <entry>Orchid</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDA70D6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PastellBraun</entry>
+        <entry>RosyBrown</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbBC8F8F.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Pflaume</entry>
+        <entry>Plum</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDDA0DD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PuderBlau</entry>
+        <entry>PowderBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbB0E0E6.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Purpurn</entry>
+        <entry>Purple</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb800080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RasenGrün</entry>
+        <entry>LawnGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb7CFC00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RauchWeiß</entry>
+        <entry>WhiteSmoke</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5F5F5.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Rot</entry>
+        <entry>Red</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF0000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SandBraun</entry>
+        <entry>SandyBrown</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF4A460.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SattelBraun</entry>
+        <entry>SaddleBrown</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb8B4513.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SchieferBlau</entry>
+        <entry>SlateBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb6A5ACD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SchieferGrau</entry>
+        <entry>SlateGrey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb708090.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Schnee</entry>
+        <entry>Snow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFAFA.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Schokolade</entry>
+        <entry>Chocolate</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD2691E.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Schwarz</entry>
+        <entry>Black</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SchwimmbadBlau</entry>
+        <entry>LightGoldenRodYellow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFAFAD2.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SeeGrün</entry>
+        <entry>SeaGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb2E8B57.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Siena</entry>
+        <entry>Sienna</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbA0522D.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Silber</entry>
+        <entry>Silver</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbC0C0C0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>StahlBlau</entry>
+        <entry>SteelBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb4682B4.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>StammHolz</entry>
+        <entry>BurlyWood</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbDEB887.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Tau</entry>
+        <entry>HoneyDew</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF0FFF0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>TiefHimmelBlau</entry>
+        <entry>DeepSkyBlue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00BFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>TiefPink</entry>
+        <entry>DeepPink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF1493.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>TomatenRot</entry>
+        <entry>Tomato</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFF6347.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Türkis</entry>
+        <entry>Turquoise</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb40E0D0.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Violett</entry>
+        <entry>Violet</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbEE82EE.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>WaldGrün</entry>
+        <entry>ForestGreen</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb228B22.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>WasserBlau</entry>
+        <entry>Aqua</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Weiß</entry>
+        <entry>White</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Weizen</entry>
+        <entry>Wheat</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbF5DEB3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Zitronengelb</entry>
+        <entry>LemonChiffon</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFACD.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Zyan</entry>
+        <entry>Cyan</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb00FFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>

@@ -1,0 +1,93 @@
+<section id="command-bitmapturtle">
+<title>PONFORMA</title>
+<indexterm><primary>PONFORMA</primary></indexterm>
+<indexterm><primary>BITMAPTURTLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONFORMA</command>
+(<command>PONFORMA</command> <parameter>forma_gira?</parameter>)
+<command>BITMAPTURTLE</command>
+(<command>BITMAPTURTLE</command> <parameter>forma_gira?</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Hace que la tortuga actual (ves <link linkend="command-setturtle">ACTIVA</link>) adquiere la forma del Bitmap que se encuentra en el búfer correspondiente (ves <link linkend="command-bitcut">CORTAAREA</link>).
+PONFORMA mapea tortuga 0 a bitmap 0, tortuga 1 a bitmap 1, tortuga 2 a bitmap 2, etcétera, cada tortuga independientemente.
+Nota que no hay manera de mapear una tortuga a un bitmap que no tiene el mismo índice que la tortuga.
+Por ejemplo, solo se puede mapear tortuga 2 a bitmap 2, no a bitmap 1 o bitmap 3.
+</para>
+
+<para>
+Porque &PRODUCTNAME; siempre mapea bitmap 0 al Portapapeles, PONFORMA solo puede mapea tortuga 0 a la imagen en el Portapapeles.
+Esto es, si seleccionas la tortuga 0 y ejecutas PONFORMA la forma de la tortuga se vuelve a lo que está en el Portapapeles y se lo actualiza la forma cuando lo que está en el Portapapeles cambia.
+&PRODUCTNAME; queja si el Portapapeles no contiene un imagen mientras tortuga 0 adquiere su forma del Portapapeles.
+</para>
+
+<para>
+Ambos <link linkend="command-nobitmapturtle">QUITAFORMA</link> y <link linkend="command-clearscreen">BORRAPANTALLA</link> restauran la forma normal de la tortuga, pero no borran el bitmap correspondiente.
+</para>
+
+<para>
+Si el argumento opcional <parameter>forma_gira?</parameter> es CIERTO, entonces el bitmap gira con el rumbo de la tortuga.
+Si no se da el argumento <parameter>forma_gira?</parameter>, es FALSO por omisión.
+Debe ser o CIERTO o FALSO.
+</para>
+
+<para>
+Una tortuga con un bitmap giratorio trata a todos los píxeles blancos en el bitmap como transparente.
+No hay manera de mostrar píxeles blancos en un bitmap giratorio, pero en su lugar, puedes usar píxeles casi-blancos que parecen blancos, tal como un gris muy claro.
+Ni tortuga 0 (el bitmap de Portapapeles) ni cada una de las tortugas especiales, puede tener un bitmap giratorio.
+</para>
+
+<para>
+Una tortuga con forma de un bitmap giratorio dibuja el centro del bitmap a la posición de la tortuga.
+Una tortuga con forma de un bitmap no giratorio mantiene la esquina de abajo a la derecha del bitmap a la posición de la tortuga.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+El ejemplo siguiente demuestra una tortuga con forma regular que dibuja un circulo.
+<programlisting><userinput>BORRAPANTALLA
+ROTULO "+
+PONINDICEBIT 1
+CORTAAREA 20 20
+OCULTATORTUGA
+ACTIVA 1
+PONFORMA
+REPITE 360 [ AVANZA 1 GIRADERECHA 1 ESPERA 1 ]</userinput>
+</programlisting>
+</para>
+
+<para>
+El ejemplo siguiente demuestra una tortuga con forma giratoria que dibuja un circulo sobre un fondo azul.
+<programlisting><userinput>PONCOLORFONDO "blanco
+BORRAPANTALLA
+ROTULO "+
+PONINDICEBIT 1
+CORTAAREA 20 20
+OCULTATORTUGA
+ACTIVA 1
+PONCOLORFONDO "azul
+(PONFORMA "CIERTO)
+REPITE 360 [ AVANZA 1 GIRADERECHA 1 ESPERA 1 ]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

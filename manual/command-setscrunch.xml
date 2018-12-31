@@ -1,0 +1,44 @@
+<section id="command-setscrunch">
+    <title>SETSCRUNCH</title>
+<indexterm><primary>SETSCRUNCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETSCRUNCH</command> <parameter>xscale</parameter> <parameter>yscale</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>SETSCRUNCH is not needed to correct display problems, but is available for folks who like to deliberately misadjust the aspect ratio.</para></note>
+
+<para>
+Adjusts the aspect ratio and scaling of the graphics display.
+After SETSCRUNCH is used, all further turtle motion is adjusted by multiplying the horizontal and vertical extent of the motion by the two numbers given as inputs.
+For example, after the instruction "<userinput>SETSCRUNCH 2 1</userinput>" motion at a heading of 45 degrees moves twice as far horizontally as vertically.
+If your squares don't come out square, try using this command.
+</para>
+
+<para>
+Alternatively, you can use SETSCRUNCH to deliberately misadjust the aspect ratio to draw an ellipse.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETSCRUNCH 2.0 1.0
+REPEAT 4 [FORWARD 100 RIGHT 90]
+SHOW SCRUNCH</userinput>
+[2 1]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

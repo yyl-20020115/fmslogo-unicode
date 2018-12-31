@@ -1,0 +1,49 @@
+<section id="command-printwidthlimit">
+<title>PRINTWIDTHLIMIT</title>
+<indexterm><primary>PRINTWIDTHLIMIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PRINTWIDTHLIMIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+PRINTWIDTHLIMIT is a special variable.
+If its value is a nonnegative integer, then &PRODUCTNAME; treats its value as the maximum number of items in any one list (or array) that is printed by <link linkend="command-print">PRINT</link>, etc.
+&PRODUCTNAME; also treats its value as the limit of how many characters in a word are printed, although at least 10 characters of every word is printed, regardless of PRINTWIDTHLIMIT's value.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>PRINT [1 2 3 4 5 6]</userinput>
+1 2 3 4 5 6
+
+<userinput>MAKE "PRINTWIDTHLIMIT 4
+PRINT [1 2 3 4 5 6]</userinput>
+1 2 3 4 ...
+</programlisting>
+
+<programlisting><userinput>PRINT "1234567890abcdefg</userinput>
+1234567890abcdefg
+
+<userinput>MAKE "PRINTWIDTHLIMIT 12
+PRINT "1234567890abcdefg</userinput>
+1234567890ab...
+
+<userinput>MAKE "PRINTWIDTHLIMIT 2
+PRINT "1234567890abcdefg</userinput>
+1234567890...
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

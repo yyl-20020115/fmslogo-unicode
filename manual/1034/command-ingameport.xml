@@ -1,0 +1,46 @@
+<section id="command-ingameport">
+<title>LEEPUERTOJUEGO</title>
+<indexterm><primary>LEEPUERTOJUEGO</primary></indexterm>
+<indexterm><primary>INGAMEPORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEEPUERTOJUEGO</command> <parameter>máscara</parameter>
+<command>INGAMEPORT</command> <parameter>máscara</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee el valor (o resistencia eléctrica a través) el canal del puerto de juego especificado con <parameter>máscara</parameter>.
+El argumento <parameter>máscara</parameter> debe ser 1, 2, 4, o 8.
+Si <parameter>máscara</parameter> es 1, entonces LEEPUERTOJUEGO lee el valor del eje x.
+Si <parameter>máscara</parameter> es 2, entonces LEEPUERTOJUEGO lee el valor del eje y.
+Si <parameter>máscara</parameter> es 4, entonces LEEPUERTOJUEGO lee el valor del timón.
+Si <parameter>máscara</parameter> es 8, entonces LEEPUERTOJUEGO lee el valor del eje z.
+Puedes leer el estado de los botones con <userinput>LEEPUERTO 513</userinput>.
+</para>
+
+<para>
+LEEPUERTOJUEGO devuelve -1 si nada esta connectada al puerto de juego o si el argumento <parameter>máscara</parameter> no es un valor soportado.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+<programlisting><userinput>REPITE 10000 [MUESTRA LEEPUERTOJUEGO 1 ESPERA 10]</userinput>
+</programlisting>
+Ahora, mueve la palanca de mando.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

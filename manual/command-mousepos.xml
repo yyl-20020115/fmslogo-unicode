@@ -1,0 +1,41 @@
+<section id="command-mousepos">
+    <title>MOUSEPOS</title>
+<indexterm><primary>MOUSEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MOUSEPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Output the position of the mouse at the time the last mouse event was generated.
+The position is given as a list with two items: [X, Y].
+The mouse must first be turned on by calling <link linkend="command-mouseon">MOUSEON</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+<programlisting><userinput>PENUP
+MOUSEON [SETPOS MOUSEPOS PENDOWN] [PENUP] [] [] [SETPOS MOUSEPOS]</userinput>
+</programlisting>
+Move the mouse around.  Hold down the left button to draw.
+<programlisting><userinput>MOUSEOFF</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

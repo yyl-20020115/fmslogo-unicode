@@ -1,0 +1,78 @@
+<section id="command-setturtle">
+<title>ACTIVA</title>
+<indexterm><primary>ACTIVA</primary></indexterm>
+<indexterm><primary>SETTURTLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ACTIVA</command> <parameter>índice_de_tortuga</parameter>
+(<command>ACTIVA</command> <parameter>índice_de_tortuga</parameter> <parameter>tiene_propio_lápiz</parameter>)
+<command>SETTURTLE</command> <parameter>índice_de_tortuga</parameter>
+(<command>SETTURTLE</command> <parameter>índice_de_tortuga</parameter> <parameter>tiene_propio_lápiz</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Activa por control a la tortuga que corresponde al <parameter>índice_de_tortuga</parameter>.
+Si la tortuga especificada no estaba previamente activada, entonces ACTIVA activa a todas las tortugas del índice 0 a índice <parameter>índice_de_tortuga</parameter>.
+Después, todos los comandos de tortuga estará dirigidos a la tortuga nuevamente activada hasta que activas a otra tortuga.
+</para>
+
+<para>
+Cada tortuga mantiene su rumbo propio (orientación en 3D), posición, y lápiz, pero normalmente todas comparten el mismo <link linkend="command-penmode">LAPIZMODO</link>, <link linkend="command-pensize">GROSOR</link> y <link linkend="command-pencolor">COLORLAPIZ</link>.
+Sin embargo, si proporcionas el argumento opcional <parameter>tiene_propio_lápiz</parameter> como <userinput>"CIERTO</userinput>, entonces tanta la tortuga seleccionada como todas las otras que estén activadas nuevamente tendrán su propio LAPIZMODO, GROSOR, y COLORLAPIZ.
+También puedes cambiar que una tortuga previamente activada usa (o no usa) su propio lápiz especificando <parameter>tiene_propio_lápiz</parameter>.
+</para>
+
+<para>
+Si no das el argumento <parameter>tiene_propio_lápiz</parameter> y ACTIVA no activa a una nueva tortuga, entonces el lápiz de la tortuga especificada no cambia.
+Si no das el argumento <parameter>tiene_propio_lápiz</parameter> y ACTIVA sí activa a una nueva tortuga, entonces el lápiz de esta tortuga estará el lápiz compartido (él que &PRODUCTNAME; dio inicialmente a la tortuga 0 cuando se inició).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+Un ejemplo en 2D:
+<programlisting><userinput>REPITE 8 [ACTIVA CUENTAREPITE GIRADERECHA 30*CUENTAREPITE AVANZA 20*CUENTAREPITE]</userinput></programlisting>
+</para>
+
+<para>
+Un ejemplo en 3D que dibuja un cubo del punto de vista normal:
+<programlisting><userinput>PERSPECTIVA
+BORRAPANTALLA
+REPITE 4 [REPITE 4 [AVANZA 100 GIRADERECHA 90] AVANZA 100 BAJANARIZ 90]</userinput></programlisting>
+</para>
+
+<para>
+Un ejemplo en 3D que usa ACTIVA para dibujar el mismo cubo de un punto de vista diferente:
+<programlisting><userinput>PERSPECTIVA
+BORRAPANTALLA
+ACTIVA -1 ; activa a la tortuga que es el «punto de vista»
+PONXYZ 500 500 500 ; mueve el «punto de vista»
+
+; Dibuja un cubo del punto de vista nuevo.
+ACTIVA 0
+REPITE 4 [REPITE 4 [AVANZA 100 GIRADERECHA 90] AVANZA 100 BAJANARIZ 90]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-turtle">QUIEN</link></member>
+<member><link linkend="command-turtles">TORTUGAS</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,40 @@
+<section id="command-penmode">
+    <title>LAPIZMODO</title>
+<indexterm><primary>LAPIZMODO</primary></indexterm>
+<indexterm><primary>PENMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LAPIZMODO</command>
+<command>PENMODE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una de las palabras «LapizNormal», «Goma» o «LapizInvierte», según el modo actual del lápiz.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>LAPIZNORMAL
+MUESTRA LAPIZMODO</userinput>
+LapizNormal
+<userinput>GOMA
+MUESTRA LAPIZMODO</userinput>
+Goma
+<userinput>LAPIZINVIERTE
+MUESTRA LAPIZMODO</userinput>
+LapizInvierte</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,31 @@
+<section id="command-pos">
+    <title>POS</title>
+<indexterm><primary>POS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la posición actual de la tortuga, como una lista de dos números, las coordenadas X e Y.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONPOS [100 100]
+MUESTRA POS</userinput>
+[100 100]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

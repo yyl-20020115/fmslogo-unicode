@@ -1,0 +1,35 @@
+<section id="command-comboboxdelete">
+    <title>COMBOBOXDELETE</title>
+<indexterm><primary>COMBOBOXDELETE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBOBOXDELETE</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes (closes) the combobox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+COMBOBOXCREATE "mywindow "mycombo 25 25 50 50
+COMBOBOXDELETE "mycombo
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

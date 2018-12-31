@@ -1,0 +1,41 @@
+<section id="command-ashift">
+    <title>DESPLAZA</title>
+<indexterm><primary>DESPLAZA</primary></indexterm>
+<indexterm><primary>ASHIFT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESPLAZA</command> <parameter>entero</parameter> <parameter>cantidad</parameter>
+<command>ASHIFT</command> <parameter>entero</parameter> <parameter>cantidad</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve <parameter>entero</parameter> con un desplazamiento aritmético a la izquierda <parameter>cantidad</parameter> bits en total.
+Si <parameter>cantidad</parameter> es negativa, el desplazamiento es a la derecha con los nuevos bits más significativos siendo apagados o encendidos según el signo de <parameter>entero</parameter> en representación complemento a dos (encendidos si <parameter>entero</parameter> es negativo, apagados sino).
+Los argumentos deben ser números enteros.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA DESPLAZA 5 2</userinput>
+20
+<userinput>MUESTRA DESPLAZA 20 -1</userinput>
+10
+<userinput>MUESTRA DESPLAZA -20 -1</userinput>
+-10
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,49 @@
+<section id="command-reverse">
+    <title>INVIERTE</title>
+<indexterm><primary>INVIERTE</primary></indexterm>
+<indexterm><primary>REVERSE</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+  <synopsis><command>INVIERTE</command> <parameter>cosa</parameter>
+<command>REVERSE</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el argumento con los mismos miembros, pero en orden inverso.
+</para>
+
+<para>
+Si <parameter>cosa</parameter> es una lista, INVIERTE devuelve una lista con los mismos miembros, pero en orden inverso.
+</para>
+
+<para>
+Si <parameter>cosa</parameter> es una palabra, INVIERTE devuelve una palabra con los mismos caracteres en orden inverso.
+</para>
+
+<para>
+INVIERTE lanza un error si <parameter>cosa</parameter> es un vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA INVIERTE [1 2 3]</userinput>
+[3 2 1]</programlisting>
+
+<programlisting><userinput>MUESTRA INVIERTE "abc</userinput>
+cba</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

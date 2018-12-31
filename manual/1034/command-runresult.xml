@@ -1,0 +1,47 @@
+<section id="command-runresult">
+<title>RESULTADOEJECUTA</title>
+<indexterm><primary>RESULTADOEJECUTA</primary></indexterm>
+<indexterm><primary>RUNRESULT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RESULTADOEJECUTA</command> <parameter>lista_de_instrucciones</parameter>
+<command>RUNRESULT</command> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta las instrucciones del argumento <parameter>lista_de_instrucciones</parameter>.
+Devuelve la lista vacía si las instrucciones no devuelven nada.
+Si las instrucciones devuelven algo, RESULTADOEJECUTA duevelve una lista con un solo miembro que es lo que las instrucciones devuelven.
+</para>
+
+<para>
+RESULTADOEJECUTA es útil para crear estructuras de control que son comandos-u-operaciones:
+
+<programlisting><userinput>LOCAL "resultado
+HAZ "resultado RESULTADOEJECUTA [algo]
+SI VACIO? :resultado [ALTO]
+DEVUELVE PRIMERO :resultado</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "cosas_que_hacer [PRIMERO [1 2 3]]
+HAZ "respuesta RESULTADOEJECUTA :cosas_que_hacer
+MUESTRA :respuesta</userinput>
+[1]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

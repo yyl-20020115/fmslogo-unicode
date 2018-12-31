@@ -1,0 +1,37 @@
+<section id="command-nostatus">
+<title>NOSTATUS</title>
+<indexterm><primary>NOSTATUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NOSTATUS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Closes the popup status window, if it is open.
+This command has the same effect as pressing the <link linkend="commander-status">Status Button</link> when it is depressed.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>STATUS
+NOSTATUS</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="commander-status">The Status Button</link></member>
+<member><link linkend="command-status">STATUS</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

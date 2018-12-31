@@ -1,0 +1,39 @@
+<section id="command-product">
+<title>PRODUCTO</title>
+<indexterm><primary>PRODUCT</primary></indexterm>
+<indexterm><primary>PRODUCTO</primary></indexterm>
+<indexterm><primary>*</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PRODUCTO</command> <parameter>factor1</parameter> <parameter>factor2</parameter>
+(<command>PRODUCTO</command> <parameter>factor1</parameter> <parameter>factor2</parameter> <parameter>...</parameter>)
+<command>PRODUCT</command> <parameter>factor1</parameter> <parameter>factor2</parameter>
+(<command>PRODUCT</command> <parameter>factor1</parameter> <parameter>factor2</parameter> <parameter>...</parameter>)
+<parameter>factor1</parameter> <command>*</command> <parameter>factor2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el producto de los valores numéricos de los argumentos.
+Si no hay argumentos, entonces PRODUCTO devuelve 1.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 2 * 3</userinput>
+6
+</programlisting>
+<programlisting><userinput>MUESTRA (PRODUCTO 2 3 4)</userinput>
+24</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

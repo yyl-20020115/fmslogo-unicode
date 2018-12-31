@@ -1,0 +1,182 @@
+<section id="command-dllcall">
+<title>DLLCALL</title>
+<indexterm><primary>DLLCALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DLLCALL</command> <parameter>function_parameter_list</parameter>
+(<command>DLLCALL</command> <parameter>function_parameter_list</parameter> <parameter>dllname</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Calls a native Windows function with the given arguments and outputs the function's return value.
+The function must be exported by a DLL which was loaded with <link linkend="command-dllload">DLLLOAD</link>.
+</para>
+
+<para>
+The <parameter>function_parameter_list</parameter> is of the form <userinput>[typef function type1 arg1 type2 arg2 type3 arg3 ...]</userinput>.
+</para>
+
+<para>
+DLLCALL interprets <parameter>typef</parameter> as describing the function's return value.
+The return value is parsed into a list, as with <link linkend="command-parse">PARSE</link>.
+Any buffers that were created for "out" parameters are appened to the list and it is the output of DLLCALL.
+The meaning of each supported <parameter>typef</parameter> is given in the table below:
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>typef</entry>
+        <entry>Native Type</entry>
+        <entry>DLLCALL Output</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><userinput>V</userinput></entry>
+        <entry>void</entry>
+        <entry>Nothing</entry>
+      </row>
+      <row>
+        <entry><userinput>W</userinput></entry>
+        <entry>WORD, SHORT, or USHORT</entry>
+        <entry>Outputs the lower 16 bits of the function's return value as a one member list.</entry>
+      </row>
+      <row>
+        <entry><userinput>L</userinput></entry>
+        <entry>DWORD, LONG, or ULONG</entry>
+        <entry>Outputs the function's return value, interpreted as a 32-bit integer, as a one member list.</entry>
+      </row>
+      <row>
+        <entry><userinput>F</userinput></entry>
+        <entry>DOUBLE</entry>
+        <entry>Outputs the function's return value as a one member list.</entry>
+      </row>
+      <row>
+        <entry><userinput>S</userinput></entry>
+        <entry>LPSTR</entry>
+        <entry>Copies the returned pointer as a NUL-terminated string of characters and calls GlobalFreePtr() on the returned pointer.
+               The string is then parsed as with PARSE and the resulting list is output.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+<parameter>function</parameter> must be a word that exactly matches a symbol which is exported from the DLL.
+For Win32 functions that take a parameter of type TCHAR, the exported symbol probably ends in either W or A, even if you wouldn't call it like that from C.
+</para>
+
+<para>
+DLLCALL passes <parameter>arg1</parameter> as a <parameter>type1</parameter>, <parameter>arg2</parameter> as a <parameter>type2</parameter>, and so on.
+Keep in mind that the win32 "stdcall" convention pass arguments from right to left, so arg1 is really the last parameter.
+The actions taken for each argument are given in the following table:
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>type#</entry>
+        <entry>Native Type</entry>
+        <entry>DLLCALL action</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><userinput>V</userinput></entry>
+        <entry>void</entry>
+        <entry>Ignores the argument</entry>
+      </row>
+      <row>
+        <entry><userinput>W</userinput></entry>
+        <entry>WORD, SHORT, or USHORT</entry>
+        <entry>Pushes the lowest 16 bits of the argument onto the stack as a 32-bit value.</entry>
+      </row>
+      <row>
+        <entry><userinput>L</userinput></entry>
+        <entry>DWORD, LONG, or ULONG</entry>
+        <entry>Pushes the integral value of the argument onto the stack as a 32-bit value.</entry>
+      </row>
+      <row>
+        <entry><userinput>F</userinput></entry>
+        <entry>DOUBLE</entry>
+        <entry>Intereprets the argument as a <code>double</code> and pushes the value as a 64-bit floating point onto the stack.</entry>
+      </row>
+      <row>
+        <entry><userinput>S</userinput></entry>
+        <entry>LPCSTR</entry>
+        <entry>Copies the argument into a buffer, adds a NUL terminator, and pushes its pointer onto the stack.</entry>
+      </row>
+      <row>
+        <entry><userinput>B</userinput></entry>
+        <entry>PBYTE, PULONG, or LPSTR</entry>
+        <entry>Allocates a buffer that has as many bytes as the given argument, when interpreted as an integer.
+               Fills the buffer with zero bytes.
+               Marks it as a "vertical barred" word so that it can hold non-printable bytes.
+               Pushes a pointer to this buffer onto the stack.
+               After the function returns, appends the buffer to the output list.
+               If the function returns void, then a list is created so that the buffer can be output to the caller.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+
+<para>
+If the optional <parameter>dllname</parameter> input is given, then DLLCALL only looks for the function within that DLL.
+</para>
+
+<para>
+The "B" argument types are returned as buffers of the exact length they were given.
+Any byte that is not overwritten by the function call remains NUL (zero byte).
+So if the function fills in a string of characters and only uses part of the buffer, the buffer will have a lot of zero bytes at the end.
+Such a word does not behave like a regular word.
+However, you can convert it to a regular word by removing the zero bytes with something like:
+<programlisting><userinput>MAKE "buffer FILTER [NOTEQUALP CHAR 0 ? ] :buffer</userinput>
+</programlisting>
+</para>
+
+<para>
+DLLCALL is meant for experienced programmers who are familiar with the native Windows calling conventions.
+If you do not properly match the argument list the results will be unpredictable and likely crash &PRODUCTNAME;.
+DLLCALL can handle a wide variety of function calls but certainly not all.
+</para>
+
+<para>
+DLLCALL allows to extend the reach of &PRODUCTNAME; when its existing commands are insufficient.
+You can write your own DLL with a compatible call interface to call more complex interfaces.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>The following example is equivalent to the C call:
+  <programlisting>MessageBox(NULL, "Do you like &PRODUCTNAME;?", "Question", MB_YESNO);</programlisting>
+
+Note how an "A" is added to the end of the name "MessageBox" and how the arguments are passed in reverse order to conform to the stdcall calling convention.
+
+<programlisting><userinput>DLLLOAD "user32.dll
+IGNORE DLLCALL [L MessageBoxA L 4 S [Question] S [Do you like &PRODUCTNAME;?] L 0]</userinput>
+
+<replaceable>See a message box pop up.</replaceable>
+
+<userinput>DLLFREE</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,41 @@
+<section id="command-getfocus">
+<title>LEEFOCO</title>
+<indexterm><primary>LEEFOCO</primary></indexterm>
+<indexterm><primary>GETFOCUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEEFOCO</command>
+<command>GETFOCUS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el título de la ventana que tiene el foco de teclado (la ventana activa).
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONFOCO [&PRODUCTNAME;]
+MUESTRA LEEFOCO</userinput>
+&PRODUCTNAME;
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setfocus">PONFOCO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

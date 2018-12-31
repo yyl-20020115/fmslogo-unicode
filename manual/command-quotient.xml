@@ -1,0 +1,49 @@
+<section id="command-quotient">
+<title>QUOTIENT</title>
+<indexterm><primary>QUOTIENT</primary></indexterm>
+<indexterm><primary>/</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>QUOTIENT</command> <parameter>dividend</parameter> <parameter>divisor</parameter>
+(<command>QUOTIENT</command> <parameter>divisor</parameter>)
+<parameter>dividend</parameter> <command>/</command> <parameter>divisor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the quotient of its inputs.
+That is, it outputs <parameter>dividend</parameter> divided by <parameter>divisor</parameter>.
+QUOTIENT outputs an integer if and only if <parameter>dividend</parameter> is a multiple of <parameter>divisor</parameter>.
+For example, <userinput>QUOTIENT 5 2</userinput> is <userinput>2.5</userinput>, not <userinput>2</userinput>, but <userinput>QUOTIENT 4 2</userinput> is <userinput>2</userinput>, not <userinput>2.0</userinput>.
+</para>
+
+<para>
+When the single input form is called, QUOTIENT outputs the reciprocal of the input.
+</para>
+
+<para>
+It is an error to call QUOTIENT with a <parameter>divisor</parameter> of 0.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW 5 / 2</userinput>
+2.5</programlisting>
+<programlisting><userinput>SHOW (QUOTIENT 5 2)</userinput>
+2.5</programlisting>
+<programlisting><userinput>SHOW (QUOTIENT 2)</userinput>
+0.5</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

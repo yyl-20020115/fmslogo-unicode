@@ -1,0 +1,39 @@
+<section id="command-contents">
+    <title>CONTENIDO</title>
+<indexterm><primary>CONTENIDO</primary></indexterm>
+<indexterm><primary>CONTENTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CONTENIDO</command>
+<command>CONTENTS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista, formada por tres listas que contiene los nombres de los procedimientos definidos, las variables y las listas de propiedades.
+Esta lista incluye todos los elementos no tapados del área de trabajo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+FIN
+HAZ "nombre 1
+PONPROP "lprop "propiedad 1
+MUESTRA CONTENIDO</userinput>
+[[miprograma] [nombre] [lprop]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

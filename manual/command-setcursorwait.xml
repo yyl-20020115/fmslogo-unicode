@@ -1,0 +1,47 @@
+<section id="command-setcursorwait">
+    <title>SETCURSORWAIT</title>
+<indexterm><primary>SETCURSORWAIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETCURSORWAIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+SETCURSORWAIT sets the cursor to the familiar hourglass shape.
+Its purpose is to indicate two things.
+First, it indicates that the current operation may take some time.
+Second, it indicates the user does not have control until the operation completes.
+This command only works when not yielding.
+Once &PRODUCTNAME; is set to yield, the appropriate (non-hourglass) cursor is used on the next event involving the cursor (like moving the mouse).
+This means that you must run <link linkend="command-noyield">NOYIELD</link> before each SETCURSORWAIT.
+If you decide to <link linkend="command-yield">YIELD</link> momentarily during a computation you must run SETCURSORWAIT again.
+In other words, if you wish to use SETCURSORWAIT it should always be paired up with a NOYIELD (just before it).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 100 [
+  NOYIELD
+  SETCURSORWAIT
+  REPEAT 100 [
+    <replaceable>; (work to be done)</replaceable>
+  ]
+  SETCURSORNOWAIT
+  YIELD
+]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

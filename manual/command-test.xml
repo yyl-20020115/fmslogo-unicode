@@ -1,0 +1,42 @@
+<section id="command-test">
+    <title>TEST</title>
+<indexterm><primary>TEST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TEST</command> <parameter>condition</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+TEST remembers its input <parameter>condition</parameter>, which must be TRUE or FALSE, so that it be used later by <link linkend="command-iftrue">IFTRUE</link> or <link linkend="command-iffalse">IFFALSE</link> instructions.
+The effect of TEST is local to the procedure in which it is used; any corresponding IFTRUE or IFFALSE must be in the same procedure or a subprocedure.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYTEST :arg
+  TEST 1 = :arg
+  PRINT [Do this]
+  PRINT [Do that]
+  IFTRUE [PRINT [arg was the number one]]
+  IFFALSE [PRINT [arg was NOT the number one]]
+END
+
+MYTEST 1</userinput>
+Do this
+Do that
+arg was the number one
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

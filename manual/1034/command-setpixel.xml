@@ -1,0 +1,55 @@
+<section id="command-setpixel">
+<title>PONPIXEL</title>
+<indexterm><primary>PONPIXEL</primary></indexterm>
+<indexterm><primary>SETPIXEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPIXEL</command> <parameter>color</parameter>
+<command>SETPIXEL</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el píxel que está debajo de la tortuga con <parameter>color</parameter>.
+El argumento <parameter>color</parameter> debe ser una lista con las intensidades de los colores [rojo verde azul], cada elemento un entero de 0 a 255.
+Para una explicación del formato de <parameter>color</parameter> veas <link linkend="using-color">Usando Color</link>.
+PONPIXEL funciona como <userinput>PONGROSOR 1 PONCOLORLAPIZ color LAPIZNORMAL AVANZA 0</userinput>, pero es más rápido y no afecta el estado del lápiz.
+</para>
+
+<para>
+Usando <link linkend="command-pixel">PIXEL</link> y PONPIXEL, puedes «escanear» y redibujar una imagen con una nueva orientación (por ejemplo, la rotación de un bitmap).
+</para>
+
+<para>
+Puedes usar PONPIXEL en modo <link linkend="command-perspective">PERSPECTIVA</link>, pero sólo se verá el «más cercano» píxel.
+Ve <filename>Examples\3D\3DBITMAP.LGO</filename> por un ejemplo que usa PONPIXEL en modo perspectiva.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SUBELAPIZ
+PONXY -128 -128
+DESDE [rojo 0 255] [
+  DESDE [verde 0 255] [
+    PONPIXEL (LISTA :rojo :verde 0)
+    AVANZA 1
+  ]
+  RETROCEDE     256
+  GIRADERECHA   90
+  AVANZA        1
+  GIRAIZQUIERDA 90
+]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

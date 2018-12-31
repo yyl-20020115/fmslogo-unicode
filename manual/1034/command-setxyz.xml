@@ -1,0 +1,57 @@
+<section id="command-setxyz">
+<title>PONXYZ</title>
+<indexterm><primary>PONXYZ</primary></indexterm>
+<indexterm><primary>SETXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONXYZ</command> <parameter>xcor</parameter> <parameter>ycor</parameter> <parameter>zcor</parameter>
+<command>SETXYZ</command> <parameter>xcor</parameter> <parameter>ycor</parameter> <parameter>zcor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a las coordenadas absolutas X, Y, Z.
+Los argumentos debe ser tres números, las coordenadas X, Y y Z.
+</para>
+
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Cuando se lo ejecuta en un modo 2D, PONXYZ ignora la coordenada Z y mueve la tortuga a las coordenadas X e Y.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Dibuja algunas sinusoides en 3D:
+<programlisting><userinput>PERSPECTIVA
+DESDE [i 0 360 10] [
+   DESDE [j 0 360] [PONXYZ :j :i*SEN :j -:i]
+   SUBELAPIZ
+   PONXYZ 0 0 -:i
+   BAJALAPIZ
+]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setposxyz">PONPOSXYZ</link></member>
+<member><link linkend="command-setx">PONX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+<member><link linkend="command-setz">PONZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

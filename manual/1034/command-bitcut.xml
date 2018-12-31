@@ -1,0 +1,63 @@
+<section id="command-bitcut">
+<title>BITCUT</title>
+<indexterm><primary>BITCUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITCUT</command> <parameter>width</parameter> <parameter>height</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Cuts out part of the image and stores it in memory (or the clipboard, if <link linkend="command-bitindex">BITINDEX</link> is 0).
+Anytime later, you can use <link linkend="command-bitpaste">BITPASTE</link> to "paste" it back into the image.
+&PRODUCTNAME; cuts a rectangle starting at the turtle's position with a width of <parameter>width</parameter> pixels and a height of <parameter>height</parameter> pixels.
+</para>
+
+<para>
+The rectangle that is cut is always taken horizontally and vertically, regardless of the turtle's heading.
+</para>
+
+<para>
+BITCUT may appear to be off by 1 pixel in width and height when you use it, but it is not.
+This can be explained with an example.
+If you draw a square with <userinput>REPEAT 4 [FORWARD 2 RIGHT 90]</userinput>, then the square is 3 pixels high, not 2.
+This is because of how &PRODUCTNAME; draws images.
+In short, &PRODUCTNAME; draws an imaginary line going down the center of each pixel.
+If a pixel is intersected (hit), then it is lit up.
+The distance from the center of the pixels representing the top of the square to the center of the pixels on the bottom of the square is 2 pixels.
+However, because &PRODUCTNAME; can't turn on half a pixel, it turns on the entire pixel, which adds a half pixel to each side of the square, making the square 3x3 pixels in size.
+Bitmaps sizes are not taken from "center pixel to center pixel" like lines, they are whole pixel to whole pixel (inclusive).
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETPENSIZE [2 2]
+REPEAT 72 [CIRCLE2 100 SETPENCOLOR (LIST REPCOUNT*3 0 0) RIGHT 5]
+PENUP
+SETXY -50 -50
+BITCUT 100 100
+CLEARSCREEN
+PENUP
+REPEAT 36 [FORWARD 150 BITPASTE BACK 150 RIGHT 10]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setbitindex">SETBITINDEX</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

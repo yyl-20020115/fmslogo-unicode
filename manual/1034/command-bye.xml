@@ -1,0 +1,32 @@
+<section id="command-bye">
+    <title>ADIOS</title>
+<indexterm><primary>ADIOS</primary></indexterm>
+<indexterm><primary>BYE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ADIOS</command>
+<command>BYE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Sale de &PRODUCTNAME;.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ADIOS</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

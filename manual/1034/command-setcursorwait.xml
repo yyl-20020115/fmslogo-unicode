@@ -1,0 +1,48 @@
+<section id="command-setcursorwait">
+    <title>PONCURSORESPERA</title>
+<indexterm><primary>PONCURSORESPERA</primary></indexterm>
+<indexterm><primary>SETCURSORWAIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCURSORESPERA</command>
+<command>SETCURSORWAIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el cursor en la forma de reloj de arena para indicar dos cosas.
+Una es que la operación tardará algún tiempo; la otra es que, durante ese tiempo, el usuario debe esperar antes de que tendrá control de &PRODUCTNAME; de nuevo.
+Este comando sólo funciona en modo <link linkend="command-noyield">EXCLUSIVO</link>.
+Una vez que se vuelva al modo NOEXCLUSIVO se usará el cursor apropiado al siguiente evento.
+Esto significa que debes usar EXCLUSIVO antes de cada PONCURSORESPERA.
+Si decides utilizar momentáneamente NOEXCLUSIVO debes utilizar PONCURSORESPERA de nuevo.
+En otras palabras si quieres usar PONCURSORESPERA, debes usarlo justo después de EXCLUSIVO.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 100 [
+  EXCLUSIVO
+  PONCURSORESPERA
+  REPITE 100 [
+    <replaceable>; (trabajo que hacer)</replaceable>
+  ]
+  SETCURSORNOESPERA
+  NOEXCLUSIVO
+]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,46 @@
+<section id="command-winhelp">
+    <title>WINHELP</title>
+<indexterm><primary>WINHELP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WINHELP</command> <parameter>filename</parameter>
+(<command>WINHELP</command> <parameter>filename</parameter> <parameter>keyword</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+WINHELP has two forms: with and without a <parameter>keyword</parameter> input.
+When no <parameter>keyword</parameter> is given, &PRODUCTNAME; opens the Windows help on <parameter>filename</parameter> to the table of contents.
+When a <parameter>keyword</parameter> is given, &PRODUCTNAME; searches the Windows help for the section on <parameter>keyword</parameter> within the given help file.
+You must enter the full keyword.
+</para>
+
+<para>
+The WinHelp file format has been deprecated by Microsoft.
+Therefore, this command is deprecated in &PRODUCTNAME;.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; Open winhelp file for notepad.exe
+WINHELP "c:\\windows\\help\\notepad.hlp</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-help">HELP</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,71 @@
+<section id="command-reduce">
+<title>REDUCE</title>
+<indexterm><primary>REDUCE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>REDUCE</command> <parameter>plantilla</parameter> <parameter>datos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de aplicar la plantilla para acumular los elementos del argumento <parameter>datos</parameter>, dos a la vez.
+</para>
+
+<para>
+El argumento <parameter>plantilla</parameter> debe tener dos ranuras.
+Típicamente, <parameter>plantilla</parameter> es el nombre de una operación asociativa, como "<link linkend="command-sum">ADICION</link>.
+</para>
+
+<para>
+Si el argumento <parameter>datos</parameter> contiene un solo elemento (un miembro de una lista o un carácter de una palabra), REDUCE devuelve ese elemento.
+Si no, se aplica <parameter>plantilla</parameter> primeramente con <userinput>?1</userinput> llenado con el segundo a último elemento y <userinput>?2</userinput> con el último elemento.
+Entonces, si hay más elementos, se aplica la plantilla con <userinput>?1</userinput> llenado con el próximo elemento a la izquierda y <userinput>?2</userinput> con el resultado de la evaluación previa.
+Este proceso continúa hasta que se ha usado todos los elementos en <parameter>datos</parameter>.
+</para>
+
+<para>
+El argumento <parameter>datos</parameter> no debe ser vació.
+Debe ser una lista o una palabra (no un vector).
+</para>
+
+<para>
+Si <parameter>plantilla</parameter> es el nombre de un procedimiento que acepta un número arbitrario de argumentos, es más eficiente de usar <link linkend="command-apply">APLICA</link> en vez de REDUCE.
+REDUCE es bueno para los procedimientos que aceptan exactamente dos argumentos.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MAX :a :b
+  DEVUELVE SISINO :a > :b [:a] [:b]
+FIN
+
+ESCRIBE REDUCE "MAX [2 3 8 7 9 0]</userinput>
+9
+</programlisting>
+
+<para>
+Alternativamente, puedes usar REDUCE para escribir MAX como un procedimiento que acepta cualquier número de argumentos, tal como ADICION:
+</para>
+
+<programlisting><userinput>PARA MAX [:argumentos] 2
+  SI VACIO? :argumentos [(LANZA "error [MAX necesita recibir más cosas])]
+  DEVUELVE REDUCE [SISINO ?1 > ?2 [?1] [?2]] :argumentos
+FIN
+
+ESCRIBE (MAX 2 3 8 7 9 0)</userinput>
+9
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

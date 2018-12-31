@@ -1,0 +1,44 @@
+<section id="command-test">
+    <title>PRUEBA</title>
+<indexterm><primary>PRUEBA</primary></indexterm>
+<indexterm><primary>TEST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PRUEBA</command> <parameter>condición</parameter>
+<command>TEST</command> <parameter>condición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+PRUEBA recuerda el valor del argumento <parameter>condición</parameter>, que debe ser CIERTO o FALSO, para que puedas usarlo más tarde por <link linkend="command-iftrue">SICIERTO</link> o <link linkend="command-iffalse">SIFALSO</link>.
+El efecto de PRUEBA es local dentro del procedimiento en que se usa; se debe ejecutar cualquier instrucción de SICIERTO o SIFALSO que corresponde al valor de <parameter>condición</parameter> antes de que el procedimiento termina.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPRUEBA :arg
+  PRUEBA 1 = :arg
+  ESCRIBE [Haga esto]
+  ESCRIBE [Haga eso]
+  SICIERTO [ESCRIBE [arg es el número uno]]
+  SIFALSO  [ESCRIBE [arg no es el número uno]]
+FIN
+
+MIPRUEBA 1</userinput>
+Haga esto
+Haga eso
+arg es el número uno
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

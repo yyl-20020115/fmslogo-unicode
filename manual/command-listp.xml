@@ -1,0 +1,40 @@
+<section id="command-listp">
+<title>LISTP</title>
+<indexterm><primary>LISTP</primary></indexterm>
+<indexterm><primary>LIST?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LISTP</command> <parameter>thing</parameter>
+<command>LIST?</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the input is a list, FALSE otherwise.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW LISTP "Hello</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW LISTP [Hello]</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW LISTP {Hello}</userinput>
+false</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

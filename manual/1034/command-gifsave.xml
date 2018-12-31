@@ -1,0 +1,97 @@
+<section id="command-gifsave">
+<title>GIFSAVE</title>
+<indexterm><primary>GIFSAVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GIFSAVE</command> <parameter>filename</parameter>
+(<command>GIFSAVE</command> <parameter>filename</parameter> <parameter>delay</parameter> <parameter>append</parameter> <parameter>loop</parameter>)
+(<command>GIFSAVE</command> <parameter>filename</parameter> <parameter>delay</parameter> <parameter>append</parameter> <parameter>loop</parameter> <parameter>maxcolor</parameter>)
+(<command>GIFSAVE</command> <parameter>filename</parameter> <parameter>delay</parameter> <parameter>append</parameter> <parameter>loop</parameter> <parameter>maxcolor</parameter> <parameter>transcolorvector</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Save a picture of your work as a GIF (pronounced "jif") image so that it can be used on Web pages or Email.
+The dimensions of the picture are determined by <link linkend="command-activearea">ACTIVEAREA</link>.
+</para>
+
+<para>
+GIFSAVE saves the picture in a format called GIF (Graphics Interchange Format) that was created by CompuServe.
+The format is popular on the Web for several reasons.
+First, it is a compressed format and takes less time to transmit than uncompressed formats.
+Second, it supports "interlacing", which makes the image partially viewable as it's being transmitted (it starts off blurry and comes into focus).
+Third, it supports animation.
+Animated GIFs allow multiple images in one file with specified delays between the images.
+</para>
+
+<para>
+The <parameter>filename</parameter> input must be a word that is the name of the file to which the GIF is written.
+If a file by this name already exists, it is ovewritten.
+</para>
+
+<para>
+When four or more inputs are given, you can save a GIF animation frame (series of compressed bitmap images).
+The <parameter>delay</parameter> input specifies how many hundredths of a second to display the frame.
+The <parameter>append</parameter> input specifies whether to start a new animation or append a new frame to an existing animation.
+This should be either "TRUE or "FALSE.
+The <parameter>loop</parameter> input specifies how many times the animation should loop (the default of -1 = no loop, 0 = loop forever, n = loop n times).
+</para>
+
+<para>
+You can specify the maximum color depth with the optional <parameter>maxcolor</parameter> input.
+The choices are 1 (2 colors), 4 (16 colors), or 8 (256 colors) bits per pixel (8 being the default).
+If your image does not use many colors you can reduce the size of the GIF file produced significantly by using this option.
+</para>
+
+<para>
+The optional <parameter>transcolorvector</parameter> input takes the form [red green blue] and specifies which colors in the image are transparent.
+If this input is not specified then no color is transparent.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; single image
+REPEAT 72 [REPEAT 4 [FORWARD 100 RIGHT 90] RIGHT 5]
+GIFSAVE "myfile.gif
+CLEARSCREEN
+GIFLOAD "myfile.gif</userinput>
+</programlisting>
+
+<programlisting><userinput>; GIF animation
+CLEARSCREEN
+SETACTIVEAREA [-150 -150 150 150]
+
+; Flag to indicate we do not append the first frame
+MAKE "append "FALSE
+REPEAT 36 [
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+  RIGHT 10
+  ; Save a frame (no delay and loop forever)
+  (GIFSAVE "myfile.gif 0 :append 0)
+  MAKE "append "TRUE
+]</userinput>
+
+<replaceable>Open the file myfile.gif with your Web browser (for example, Firefox or Internet Explorer).</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-gifload">GIFLOAD</link></member>
+<member><link linkend="command-activearea">ACTIVEAREA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

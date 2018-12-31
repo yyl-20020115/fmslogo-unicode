@@ -1,0 +1,42 @@
+<section id="command-char">
+<title>CAR</title>
+<indexterm><primary>CAR</primary></indexterm>
+<indexterm><primary>CHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CAR</command> <parameter>número</parameter>
+<command>CHAR</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el carácter en la página de códigos actual que corresponde al código que representa el argumento <parameter>número</parameter> (un entero entre 0 y 255).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA CAR 97</userinput>
+a</programlisting>
+
+<programlisting><userinput>MUESTRA CAR 65</userinput>
+A</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-ascii">ASCII</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

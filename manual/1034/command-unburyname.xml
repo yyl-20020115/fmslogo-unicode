@@ -1,0 +1,48 @@
+<section id="command-unburyname">
+    <title>DESTAPANOMBRE</title>
+<indexterm><primary>DESTAPANOMBRE</primary></indexterm>
+<indexterm><primary>UNBURYNAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESTAPANOMBRE</command> <parameter>nombre_de_variable</parameter>
+<command>DESTAPANOMBRE</command> <parameter>lista_de_nombres</parameter>
+<command>UNBURYNAME</command> <parameter>nombre_de_variable</parameter>
+<command>UNBURYNAME</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Destapa las variables nombradas por el argumento.
+DESTAPANOMBRE es la abreviatura de <userinput><link linkend="command-unbury">DESTAPA</link> <link linkend="command-namelist">LISTANOMBRES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo [Yo soy Foo]
+HAZ "bar [Yo soy Bar]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+<userinput>TAPAVAR [foo]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+<userinput>DESTAPANOMBRE [foo]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

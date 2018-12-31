@@ -1,0 +1,53 @@
+<section id="command-erase">
+<title>ERASE</title>
+<indexterm><primary>ERASE</primary></indexterm>
+<indexterm><primary>ER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERASE</command> <parameter>contentslist</parameter>
+<command>ER</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases the procedures, variables, and property lists named in <parameter>contentslist</parameter>.
+Once erased, the named things cannot be called or referenced.
+Primitive procedures are not erased unless the variable <link linkend="command-redefp">REDEFP</link> has the value TRUE.
+</para>
+
+<para>
+ERASE does not throw an error if it is asked to erase a procedure, variable, or property list that is not in the workspace.
+However, ERASE does throw an error when it is asked to erase a primitive when <link linkend="command-redefp">REDEFP</link>
+either has not been set, or is FALSE.
+</para>
+
+<para>
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explanation of the formats of <parameter>contentslist</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FOO
+  PRINT "hello
+END
+
+FOO</userinput>
+hello
+<userinput>ERASE "FOO
+FOO</userinput>
+I don't know how to FOO
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

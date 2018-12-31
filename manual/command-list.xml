@@ -1,0 +1,42 @@
+<section id="command-list">
+<title>LIST</title>
+<indexterm><primary>LIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LIST</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+(<command>LIST</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>thing3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list whose members are its inputs, which can be any &GENERICNAME; thing (word, list, or array).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW (LIST "This "is "a "List)</userinput>
+[This is a List]
+</programlisting>
+
+    <programlisting><userinput>SHOW LIST [1 2 3] [a b c]</userinput>
+[[1 2 3] [a b c]]</programlisting>
+
+    <programlisting><userinput>MAKE "red 100
+MAKE "green 100
+MAKE "blue 100
+SHOW (LIST :red :green :blue)</userinput>
+[100 100 100]</programlisting>
+</listitem>
+
+</varlistentry>
+
+</variablelist>
+
+</section>

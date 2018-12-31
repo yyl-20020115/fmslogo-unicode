@@ -1,0 +1,47 @@
+<section id="command-edns">
+    <title>EDNOMBRES</title>
+<indexterm><primary>EDNOMBRES</primary></indexterm>
+<indexterm><primary>EDNS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDNOMBRES</command>
+<command>EDNS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de todas las variables no tapadas en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDNOMBRES es la abreviatura de <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-names">LVARS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  ESCRIBE :mivariable
+FIN
+
+HAZ "mivariable "Hrla
+MIPROGRAMA</userinput>
+Hrla
+<userinput>EDNOMBRES</userinput>
+<replaceable>Cambia «Hrla» por «Hola» y sal del Editor</replaceable>
+<userinput>MIPROGRAMA</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

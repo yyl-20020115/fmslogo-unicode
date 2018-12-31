@@ -1,0 +1,69 @@
+<section id="command-readword">
+<title>READWORD</title>
+<indexterm><primary>READWORD</primary></indexterm>
+<indexterm><primary>RW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READWORD</command>
+<command>RW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads a line from the read stream and outputs that line as a word (without the end-of-line sequence).
+The output is a single word even if the line contains spaces, brackets, etc.
+A blank line is output as the empty word.
+If the read stream is a file and the last character in the file is not an end-of-line sequence, then READWORD treats the end-of-file as an end-of-line.
+After the file as been completely read, READWORD outputs the empty list (not the empty word).
+</para>
+
+<para>
+READWORD processes backslash, vertical bar, and tilde characters in the read stream.
+In the case of a tilde used for line continuation, the output word <emphasis>does</emphasis> include the tilde and the newline characters.
+Vertical bars in the line are also preserved in the output.
+Backslash characters are not preserved in the output, except for the ones that follow a backslash.
+This strange behavior enables the resulting word to be parsed into a list with PARSE in a way that preserves the normal sematics.
+</para>
+
+<para>
+The notion that vertical bars are both processed <emphasis>and</emphasis> preserved in the output warrants a fuller explanation.
+In processing, vertical bars retain their ability to allow a single line of text to include newline characters.
+So if a newline follows a vertical bar, READWORD continues reading more text until it finds a vertical bar that closes the vertical bar grouping, then it reads until it finds another newline, which terminates the line.
+None of the newlines between the vertical bars are considered line breaks and READWORD outputs all of the text as a single word.
+The output also includes the vertical bars.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <para>A simple example:
+<programlisting><userinput>SHOW READWORD
+Hello how are you?</userinput>
+Hello how are you?</programlisting>
+    </para>
+
+    <para>The following example shows how vertical bars are processed <emphasis>and</emphasis> preserved.
+Notice that READWORD outputs all of the text as a single word.
+<programlisting><userinput>SHOW READWORD
+This is a line | WITH ONE VERTICAL BAR
+THIS IS NOW WITHIN A VERTICAL BAR
+THE END | some more text | BACK IN VERTICAL BAR
+THIS | ends it.</userinput>
+This is a line | WITH ONE VERTICAL BAR
+THIS IS NOW WITHIN A VERTICAL BAR
+THE END | some more text | BACK IN VERTICAL BAR
+THIS | ends it.</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

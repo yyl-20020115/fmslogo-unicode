@@ -1,0 +1,40 @@
+<section id="command-cleartext">
+<title>BORRATEXTO</title>
+<indexterm><primary>BORRATEXTO</primary></indexterm>
+<indexterm><primary>BT</primary></indexterm>
+<indexterm><primary>CLEARTEXT</primary></indexterm>
+<indexterm><primary>CT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BORRATEXTO</command>
+<command>BT</command>
+<command>CLEARTEXT</command>
+<command>CT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Borra todo el texto en la La Caja de Historia de instrucciones en el Centro de Comandos.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ESCRIBE "Hola</userinput>
+Hola
+<userinput>BORRATEXTO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

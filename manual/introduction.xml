@@ -1,0 +1,230 @@
+
+<preface id="preface">
+   <title>Introduction</title>
+   <indexterm><primary>Introduction</primary></indexterm>
+
+   <section id="tutorial">
+      <title>Why &GENERICNAME;?</title>
+      <indexterm><primary>Why &GENERICNAME;?</primary></indexterm>
+
+<para>
+With so many programming languages to choose from, why would someone choose &GENERICNAME;?
+When &GENERICNAME; was created in 1967, it was at least as powerful as any of its contemporaries.
+The world of computing has changed a lot since then and the demands of the industry have given rise to many new languages that offer new powerful features.
+During that time, &GENERICNAME; did not change much.
+Today, &GENERICNAME; lacks many features that are necessary in industry and so it is not used by professional programmers for anything but small projects.
+</para>
+
+<para>
+So if &GENERICNAME; is not used by professional programmers, why use it at all?
+</para>
+
+<para>
+For one, &GENERICNAME; was not designed to create industry-grade software, it was designed as a tool to help children learn an important skill, one that is as important today as it was in 1967: the skill of learning how to learn.
+The new language features that industry has demanded are irrelevant for helping people learn to learn.
+While other languages are designed around abstract concepts in computer science, &GENERICNAME; is designed around how people learn.
+The basic philosophy of &GENERICNAME; is that education should focus on learning, not teaching, and that learning happens best when the learner is mentally engaged in a constructive project.
+The programmer assumes the role of "teacher" and learns by "teaching" a computer to do things.
+The &GENERICNAME; language is not, itself, the subject to learn, rather it is a tool to explore ideas in areas such as art, music, mathematics, intelligence, and language.
+</para>
+
+<para>
+In a sense, &GENERICNAME;'s lack of features is one of its best features.
+Many full-featured programming languages require complex setup.
+Before you can start to program in them, you must learn about things like compilers, syntax, virtual machines, classes, and entry points.
+Such things are important for a professional, but they are unnecessary obstacles for a beginner.
+With &GENERICNAME;, you are ready to start programming as soon as the &GENERICNAME; environment starts.
+Every instruction that you type is run immediately.
+This gives you instant feedback on your instructions, whether they do what you expect or not.
+</para>
+
+<para>
+Another advantage of &GENERICNAME; is its support for "Turtle Graphics".
+Turtle graphics is a simple and powerful set of commands used to manipulate a screen object called a turtle.
+The idea behind turtle graphics is that you program by giving instructions to a "turtle" (represented in &PRODUCTNAME; as a triangle) and these instructions make the turtle walk around on the screen, drawing a line wherever it goes.
+With just a few keystrokes, you can program the computer to draw a line on the screen.
+For example <userinput>FD 100</userinput> means "turtle, walk 100 steps forward".
+By adding more instructions, you can program the computer to draw complete pictures.
+</para>
+
+<para>
+Turtle graphics brings computer programming into a world that is familiar to children, one of colors, shapes, and art.
+It enables a child to start programming at a stage in their cognitive development before they understand symbolic reasoning.
+</para>
+
+<para>
+&GENERICNAME; has a simple syntax that requires less typing than other languages, which is especially important for children who are not yet confident typists.
+As you've seen, you can draw a line on the screen by writing <userinput>FD 100</userinput>.
+In other languages, an equivalent instruction might be <userinput>Turtle.Forward(100);</userinput> and if you forget one of the syntactic elements, like the semi-colon at the end, you'll get a difficult-to-understand error message, like "syntax error: unterminated statement", which is meaningless to a beginner.
+</para>
+
+<para>
+Even though &GENERICNAME; is not for professional programming, this doesn't mean that it's only for children.
+Many adults mistakenly think that programming is like arithmetic and that programming must be as boring as doing taxes or balancing a checkbook.
+In truth, programming is closer to carpentry and art.
+It couples the excitement and satisfaction of constructing something with an artistic sense of refinement in making that thing beautiful in its expression.
+This may sound far-fetched, but the more you program, the more you'll come to understand it as true.
+Moreover, programming is a rewarding and worthwhile intellectual pastime for an adult, whether or not they are a professional programmmer.
+In the same way that trying to prove Fermat's Last Theorem is worthwhile for someone who isn't a professional mathematician, or painting is worthwhile for someone who is never going to be a professional artist, or learning to play the piano is worthwhile for someone who is never going to perform for anyone beyond their friends and family, amateur programming can enrich your life.
+If you're not trying to create software for the industry, then you don't need to use any of the languages that are used by the industry.
+&GENERICNAME; is a good place to start.
+</para>
+
+    </section>
+
+    <section id="where-to-start">
+      <title>Where to Start</title>
+      <indexterm><primary>Where to Start</primary></indexterm>
+
+<para>
+Novices can start in &GENERICNAME; without having to program at all by just learning how to command the turtle.
+Learning turtle graphics teaches the user about geometry.
+It's amazing how soon you can introduce the concept of programming once they grasp the turtle concept.
+Let's look at some simple examples:
+</para>
+
+
+<para>
+Draw a square using the turtle.
+</para>
+
+<programlisting>FORWARD 100
+RIGHT 90
+FORWARD 100
+RIGHT 90
+FORWARD 100
+RIGHT 90
+FORWARD 100
+RIGHT 90</programlisting>
+
+<para>
+That was easy but too much typing, let's try again.
+</para>
+
+<programlisting>REPEAT 4 [FD 100 RT 90]</programlisting>
+
+<para>
+That's it?
+Yes, that's the same square.
+We did two things.
+We noticed a lot of repeated instructions in our first example, so we asked &GENERICNAME; to repeat the same sequence 4 times.
+We also used abbreviated forms of the same commands.
+But we can still do better.
+Wouldn't it be more useful just to say "square" when you wanted a square?
+</para>
+
+<programlisting>EDIT "SQUARE
+&lt;Editor pops up>
+TO SQUARE
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+END
+&lt;Exit Editor and save>
+
+SQUARE</programlisting>
+
+<para>
+What are the TO and END for?
+They define a procedure (a small program) for the square.
+The TO can be thought of as "to do something", the END terminates the TO.
+Once SQUARE was "defined" we then called it.
+That's all you need to get a square now, just type SQUARE.
+There is a problem, however.
+SQUARE only draws squares of 100 by 100.
+What about square of other sizes?
+</para>
+
+<programlisting>EDIT "SQUARE
+
+TO SQUARE :length
+  REPEAT 4 [FORWARD :length RIGHT 90]
+END
+
+SQUARE 100
+SQUARE 200</programlisting>
+
+<para>
+Note all we did is replace 100 with a variable name called :length.
+Now when we call square we must specify how big we want it.
+Above we asked &GENERICNAME; to draw one square at 100x100 and another at 200x200.
+Note the ":" in front of the word length tells &GENERICNAME; that length is a variable.
+However, we can still do better.
+Wouldn't it be nice if we could draw something other than a square, like a triangle?
+</para>
+
+<programlisting>TO TRIANGLE :length
+  REPEAT 3 [FORWARD :length RIGHT 120]
+END
+
+TO SQUARE :length
+  REPEAT 4 [FORWARD :length RIGHT 90]
+END
+
+TO PENTAGON :length
+  REPEAT 5 [FORWARD :length RIGHT 72]
+END
+
+TRIANGLE 100
+SQUARE 100
+PENTAGON 100</programlisting>
+
+<para>
+That works, but it's more typing than we need to do.
+Worse, the different procedures are mostly the same and we need to define a different procedure for every shape.
+Let's try again.
+</para>
+
+<programlisting>TO POLYGON :length :sides
+  REPEAT :sides [FORWARD :length RIGHT 360/:sides]
+END
+
+POLYGON 100 3
+POLYGON 100 4
+POLYGON 100 5
+</programlisting>
+
+<para>
+What happened to TRIANGLE, SQUARE and PENTAGON?
+We don't need them because POLYGON can draw every equal-sided polygon possible and with only one line of code.
+We now repeat the sequence based on how many :sides the caller asked for and we turn (RIGHT) the amount of degrees appropriate for that shape.
+You may not realize it but this is <emphasis>programming</emphasis>.
+</para>
+
+<para>
+Now that we have a program, it's a good idea to save it to a file.
+The edits you've made so far are all in &GENERICNAME;'s memory and not on the disk.
+How do you save your work?
+It's easy.
+</para>
+
+<programlisting>SAVE "SHAPES.LGO
+BYE
+</programlisting>
+
+<para>
+If you ever want to use these definitions again you'll have to load them.
+How do you load you work from disk?
+</para>
+
+<programlisting>LOAD "SHAPES.LGO</programlisting>
+
+<para>
+I could go on forever, yes forever, even to the point of writing &GENERICNAME; within &GENERICNAME;.
+</para>
+
+<para>
+That's a quick introduction.
+Do you want to learn more?
+Almost every command in this help file has a simple example that shows how to use it.
+Also check out the examples that come with &PRODUCTNAME; (see the Help Menu).  These examples show how to combine several procedures to perform a simple task.
+You can search for some tutorials on the Web, like <ulink url="http://fmslogo.sourceforge.net/workshop/">The Logo Workshop</ulink>.
+Jim Muller's book "The Great Logo Adventure" is based on MSWLogo, but should be applicable to &PRODUCTNAME;.
+For more advanced topics, see Brian Harvey's three volume <ulink url="https://people.eecs.berkeley.edu/~bh/v1-toc2.html">Computer Science Logo Style</ulink> from the MIT Press.
+</para>
+
+<para>
+However you choose to learn more, make sure that you have <emphasis>fun</emphasis> learning it.
+</para>
+
+    </section>
+</preface>
+

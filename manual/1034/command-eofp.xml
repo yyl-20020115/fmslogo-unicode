@@ -1,0 +1,51 @@
+<section id="command-eofp">
+<title>FINLEC?</title>
+<indexterm><primary>FINLEC?</primary></indexterm>
+<indexterm><primary>EOFP</primary></indexterm>
+<indexterm><primary>EOF?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>FINLEC?</command>
+<command>EOFP</command>
+<command>EOF?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si no hay más caracteres a leer en el flujo de lectura, FALSO si lo hay.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+REPITE 2 [MUESTRA LEELISTA MUESTRA FINLEC?]</userinput>
+[Hola]
+falso
+[Adiós, Amigo]
+cierto
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

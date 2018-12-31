@@ -1,0 +1,43 @@
+<section id="command-rightroll">
+<title>BALANCEADERECHA</title>
+<indexterm><primary>BALANCEADERECHA</primary></indexterm>
+<indexterm><primary>BD</primary></indexterm>
+<indexterm><primary>RIGHTROLL</primary></indexterm>
+<indexterm><primary>RR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BALANCEADERECHA</command> <parameter>ángulo</parameter>
+<command>BD</command> <parameter>ángulo</parameter>
+<command>RIGHTROLL</command> <parameter>ángulo</parameter>
+<command>RR</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Gira la tortuga hacia su lado derecho en el <parameter>ángulo</parameter> especificado, medido en grados (1/360 de la circunferencia).
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+BALANCEADERECHA 45
+REPITE 3 [AVANZA 100 GIRAIZQUIERDA 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

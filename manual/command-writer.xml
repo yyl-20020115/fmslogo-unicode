@@ -1,0 +1,35 @@
+<section id="command-writer">
+<title>WRITER</title>
+<indexterm><primary>WRITER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WRITER</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the name of the current write stream file, or the empty list if the write stream is the Commander.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+
+; Can't use "SHOW WRITER", because the output
+; would go to dummy.fil, not the commander.
+; Use "MESSAGEBOX" instead.
+MESSAGEBOX "writer WRITER</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

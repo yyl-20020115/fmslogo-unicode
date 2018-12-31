@@ -1,0 +1,33 @@
+<section id="command-abs">
+    <title>ABS</title>
+<indexterm><primary>ABS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ABS</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el valor absoluto del argumento.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA ABS 5</userinput>
+5</programlisting>
+<programlisting><userinput>MUESTRA ABS -5</userinput>
+5</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,33 @@
+<section id="command-power">
+    <title>POTENCIA</title>
+<indexterm><primary>POTENCIA</primary></indexterm>
+<indexterm><primary>POWER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POTENCIA</command> <parameter>base</parameter> <parameter>exponente</parameter>
+<command>POWER</command> <parameter>base</parameter> <parameter>exponente</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve <parameter>base</parameter> elevado a la potencia <parameter>exponente</parameter>.
+Si <parameter>base</parameter> es negativo, entonces <parameter>exponente</parameter> debe ser un entero.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA POTENCIA 2 3</userinput>
+8</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

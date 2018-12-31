@@ -1,0 +1,40 @@
+<section id="command-fontfacenames">
+    <title>TIPOSDELETRA</title>
+<indexterm><primary>TIPOSDELETRA</primary></indexterm>
+<indexterm><primary>FONTFACENAMES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TIPOSDELETRA</command>
+<command>FONTFACENAMES</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de los nombres de cada familia de tipo de letras que soporta el sistema operativo.
+El orden de esta lista no es definido.
+</para>
+
+<para>
+El nombre de cada familia se devuelve como una lista y se puede usarlo como argumento a <link linkend="command-setlabelfont">PONTIPO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA TIPOSDELETRA</userinput>
+[[System] [Courier New] [Times New Roman] [Arial] [Verdana] [Webdings] [Microsoft Sans Serif]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

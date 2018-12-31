@@ -1,0 +1,12 @@
+<chapter id="directory-commands">
+   <title>Directory Commands</title>
+
+    &command-dir;
+    &command-files;
+    &command-directories;
+    &command-chdir;
+    &command-popdir;
+    &command-mkdir;
+    &command-rmdir;
+
+</chapter>

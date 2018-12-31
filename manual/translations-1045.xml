@@ -1,0 +1,433 @@
+<appendix id='from-english-procedure-names'>
+<title>English to Polish: Procedure Names</title>
+<indexterm><primary>From English (procedure names)</primary></indexterm>
+<para>See Also: English to Polish (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and Polish to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>English Procedure</entry>
+        <entry>Polish Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><link linkend='command-back'>back</link></entry>
+        <entry><literallayout>wstecz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-back'>bk</link></entry>
+        <entry><literallayout>ws</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+        <entry><literallayout>czyæ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-end'>end</link></entry>
+        <entry><literallayout>ju¿</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-false'>false</link></entry>
+        <entry><literallayout>fa³sz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forward'>fd</link></entry>
+        <entry><literallayout>np</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fill'>fill</link></entry>
+        <entry><literallayout>zamaluj
+zam</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forward'>forward</link></entry>
+        <entry><literallayout>naprzód</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-hideturtle'>hideturtle</link></entry>
+        <entry><literallayout>schowajmnie</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-hideturtle'>ht</link></entry>
+        <entry><literallayout>s¿</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-if'>if</link></entry>
+        <entry><literallayout>jeli</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+        <entry><literallayout>jesliNie</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+        <entry><literallayout>jeliTak</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-label'>label</link></entry>
+        <entry><literallayout>wpisztekst</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-left'>left</link></entry>
+        <entry><literallayout>lewo</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-left'>lt</link></entry>
+        <entry><literallayout>lw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendown'>pd</link></entry>
+        <entry><literallayout>opu</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+        <entry><literallayout>opuæ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penup'>penup</link></entry>
+        <entry><literallayout>podnie</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penup'>pu</link></entry>
+        <entry><literallayout>pod</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+        <entry><literallayout>powtórz</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-right'>right</link></entry>
+        <entry><literallayout>prawo</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-right'>rt</link></entry>
+        <entry><literallayout>pw</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setfloodcolor'>setfc</link></entry>
+        <entry><literallayout>ukm</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+        <entry><literallayout>ustalKolMal
+ustalkolzam</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpencolor'>setpc</link></entry>
+        <entry><literallayout>ukp</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+        <entry><literallayout>ustalKolPis</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpensize'>setpensize</link></entry>
+        <entry><literallayout>ustalGruboæ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+        <entry><literallayout>ustalKolorT³a</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-showturtle'>showturtle</link></entry>
+        <entry><literallayout>poka¿mnie</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+        <entry><literallayout>pwk</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-showturtle'>st</link></entry>
+        <entry><literallayout>p¿</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-to'>to</link></entry>
+        <entry><literallayout>oto</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-true'>true</link></entry>
+        <entry><literallayout>prawda</literallayout></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+<appendix id='from-english-color-names'>
+<title>English to Polish: Color Names</title>
+<indexterm><primary>From English (color names)</primary></indexterm>
+<para>See Also: English to Polish (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and Polish to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>English Color</entry>
+        <entry>Polish Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>Black</entry>
+        <entry>czarny</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Blue</entry>
+        <entry>niebieski</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Green</entry>
+        <entry>zielony</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grey</entry>
+        <entry>szary</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGray</entry>
+        <entry>jasnoszary</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD3D3D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Pink</entry>
+        <entry>ró¿owy</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFC0CB.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>White</entry>
+        <entry>bia³y</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Yellow</entry>
+        <entry>¿ó³ty</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFF00.png'/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+
+<appendix id='to-english-procedure-names'>
+<title>Polish to English: Procedure Names</title>
+<indexterm><primary>To English (procedure names)</primary></indexterm>
+<para>See Also: English to Polish (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and Polish to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Polish Procedure</entry>
+        <entry>English Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>czyæ</entry>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+      </row>
+      <row>
+        <entry>fa³sz</entry>
+        <entry><link linkend='command-false'>false</link></entry>
+      </row>
+      <row>
+        <entry>jeli</entry>
+        <entry><link linkend='command-if'>if</link></entry>
+      </row>
+      <row>
+        <entry>jeliTak</entry>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+      </row>
+      <row>
+        <entry>jesliNie</entry>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+      </row>
+      <row>
+        <entry>ju¿</entry>
+        <entry><link linkend='command-end'>end</link></entry>
+      </row>
+      <row>
+        <entry>lewo</entry>
+        <entry><link linkend='command-left'>left</link></entry>
+      </row>
+      <row>
+        <entry>lw</entry>
+        <entry><link linkend='command-left'>lt</link></entry>
+      </row>
+      <row>
+        <entry>naprzód</entry>
+        <entry><link linkend='command-forward'>forward</link></entry>
+      </row>
+      <row>
+        <entry>np</entry>
+        <entry><link linkend='command-forward'>fd</link></entry>
+      </row>
+      <row>
+        <entry>opu</entry>
+        <entry><link linkend='command-pendown'>pd</link></entry>
+      </row>
+      <row>
+        <entry>opuæ</entry>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+      </row>
+      <row>
+        <entry>oto</entry>
+        <entry><link linkend='command-to'>to</link></entry>
+      </row>
+      <row>
+        <entry>p¿</entry>
+        <entry><link linkend='command-showturtle'>st</link></entry>
+      </row>
+      <row>
+        <entry>pod</entry>
+        <entry><link linkend='command-penup'>pu</link></entry>
+      </row>
+      <row>
+        <entry>podnie</entry>
+        <entry><link linkend='command-penup'>penup</link></entry>
+      </row>
+      <row>
+        <entry>poka¿mnie</entry>
+        <entry><link linkend='command-showturtle'>showturtle</link></entry>
+      </row>
+      <row>
+        <entry>powtórz</entry>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+      </row>
+      <row>
+        <entry>prawda</entry>
+        <entry><link linkend='command-true'>true</link></entry>
+      </row>
+      <row>
+        <entry>prawo</entry>
+        <entry><link linkend='command-right'>right</link></entry>
+      </row>
+      <row>
+        <entry>pw</entry>
+        <entry><link linkend='command-right'>rt</link></entry>
+      </row>
+      <row>
+        <entry>pwk</entry>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+      </row>
+      <row>
+        <entry>s¿</entry>
+        <entry><link linkend='command-hideturtle'>ht</link></entry>
+      </row>
+      <row>
+        <entry>schowajmnie</entry>
+        <entry><link linkend='command-hideturtle'>hideturtle</link></entry>
+      </row>
+      <row>
+        <entry>ukm</entry>
+        <entry><link linkend='command-setfloodcolor'>setfc</link></entry>
+      </row>
+      <row>
+        <entry>ukp</entry>
+        <entry><link linkend='command-setpencolor'>setpc</link></entry>
+      </row>
+      <row>
+        <entry>ustalGruboæ</entry>
+        <entry><link linkend='command-setpensize'>setpensize</link></entry>
+      </row>
+      <row>
+        <entry>ustalKolMal</entry>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+      </row>
+      <row>
+        <entry>ustalKolorT³a</entry>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+      </row>
+      <row>
+        <entry>ustalKolPis</entry>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+      </row>
+      <row>
+        <entry>ustalkolzam</entry>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+      </row>
+      <row>
+        <entry>wpisztekst</entry>
+        <entry><link linkend='command-label'>label</link></entry>
+      </row>
+      <row>
+        <entry>ws</entry>
+        <entry><link linkend='command-back'>bk</link></entry>
+      </row>
+      <row>
+        <entry>wstecz</entry>
+        <entry><link linkend='command-back'>back</link></entry>
+      </row>
+      <row>
+        <entry>zam</entry>
+        <entry><link linkend='command-fill'>fill</link></entry>
+      </row>
+      <row>
+        <entry>zamaluj</entry>
+        <entry><link linkend='command-fill'>fill</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+<appendix id='to-english-color-names'>
+<title>Polish to English: Color Names</title>
+<indexterm><primary>To English (color names)</primary></indexterm>
+<para>See Also: English to Polish (<link linkend='from-english-procedure-names'>procedures</link> | <link linkend='from-english-color-names'>colors</link>) and Polish to English (<link linkend='to-english-procedure-names'>procedures</link> | <link linkend='to-english-color-names'>colors</link>)</para>
+<informaltable>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>Polish Color</entry>
+        <entry>English Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>¿ó³ty</entry>
+        <entry>Yellow</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFF00.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>bia³y</entry>
+        <entry>White</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFFFFF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>czarny</entry>
+        <entry>Black</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb000000.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>jasnoszary</entry>
+        <entry>LightGray</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbD3D3D3.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>niebieski</entry>
+        <entry>Blue</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb0000FF.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>ró¿owy</entry>
+        <entry>Pink</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgbFFC0CB.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>szary</entry>
+        <entry>Grey</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb808080.png'/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>zielony</entry>
+        <entry>Green</entry>
+        <entry><mediaobject><imageobject><imagedata align='center' fileref='media/rgb008000.png'/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>

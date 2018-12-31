@@ -1,0 +1,36 @@
+<section id="command-sign">
+    <title>SIGN</title>
+<indexterm><primary>SIGN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SIGN</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the sign (-1 if negative, 0 if zero, 1 is positive) of its input.
+This is handy for when you want to apply the sign of one number to another.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW SIGN 5</userinput>
+1</programlisting>
+    <programlisting><userinput>SHOW SIGN 0</userinput>
+0</programlisting>
+<programlisting><userinput>SHOW SIGN -98.6</userinput>
+-1</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

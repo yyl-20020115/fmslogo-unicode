@@ -1,0 +1,62 @@
+<section id="command-readchar">
+<title>LEECAR</title>
+<indexterm><primary>LEECAR</primary></indexterm>
+<indexterm><primary>LC</primary></indexterm>
+<indexterm><primary>READCHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEECAR</command>
+<command>LC</command>
+<command>READCHAR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee un sólo carácter desde el flujo de lectura actual y lo devuelve.
+Si el flujo de lectura es un archivo que fue abierto en modo texto, entonces el carácter lo devuelve como palabra.
+Si el flujo de lectura es un archivo que fue abierto en modo binario, entonces el carácter lo devuelve como número.
+</para>
+
+<para>
+Si el flujo de lectura es un archivo y se lee el final del archivo, LEECAR devuelve la lista vacía (no la palabra vacía).
+</para>
+
+
+<para>
+Si el flujo de lectura es el Centro de Comandos, entonces un cuadro de diálogo «Modo de Entrada» pide al usuario una línea completa y LEECAR devuelve el primer carácter de esta línea.
+Ejecuciones sucesivas de LEECAR devuelve los próximos caracteres de la línea, uno por uno, hasta que no hay más caracteres en la línea, en cuyo caso el cuadro de diálogo «Modo de Entrada» se muestra de nuevo.
+</para>
+
+<para>
+Las barras inversas, barras verticales, y tildes de la eñe no tienen un tratamiento especial.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA LEECAR
+Hola</userinput>
+H
+<userinput>MUESTRA LEECAR</userinput>
+o
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-readchars">LEECARS</link></member>
+<member><link linkend="command-readword">LEEPALABRA</link></member>
+<member><link linkend="command-readlist">LEELISTA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,78 @@
+<section id="command-openupdate">
+<title>ABREACTUALIZAR</title>
+<indexterm><primary>ABREACTUALIZAR</primary></indexterm>
+<indexterm><primary>OPENUPDATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ABREACTUALIZAR</command> <parameter>nombre_de_archivo</parameter>
+(<command>ABREACTUALIZAR</command> <parameter>nombre_de_archivo</parameter> <parameter>modo_binario</parameter>)
+<command>OPENUPDATE</command> <parameter>nombre_de_archivo</parameter>
+(<command>OPENUPDATE</command> <parameter>nombre_de_archivo</parameter> <parameter>modo_binario</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre el archivo nombrado <parameter>nombre_de_archivo</parameter> para lectura y escritura.
+Se pone inicialmente la posición de lectura y la de escritura al fin del archivo, si existe.
+Cada archivo abierto tiene una sola posición que se usa para lectura y escritura.
+Si un archivo abierto para actualización es <link linkend="command-reader">LECTURA</link> y <link linkend="command-writer">ESCRITURA</link> a la vez, entonces <link linkend="command-setreadpos">PONPOSLECTURA</link> también afecta <link linkend="command-writepos">WRITEPOS</link> y viceversa.
+Además, si oscilas entre leyendo y escribiendo el mismo archivo, debes PONPOSLECTURA entre escribir y leer, y debes PONPOSESCRITURA entre leer y escribir.
+</para>
+
+<para>
+El <parameter>nombre_de_archivo</parameter> también puede ser la palabra reservada <userinput>"clipboard</userinput> para leer datos del portapapeles como si fuera un archivo (la palabra «clipboard» quiere decir «portapapeles» en inglés).
+</para>
+
+
+<para>
+El <parameter>modo_binario</parameter> debe ser un valor booleano (CIERTO o FALSO).
+Si <parameter>modo_binario</parameter> es FALSO o no es dado, entonces el archivo es leído y escrito como texto.
+Es decir, la secuencia del fin de línea es convertida de CRLF a LF cuando lo lees y de LF a CRLF cuando lo escribes.
+Si <parameter>modo_binario</parameter> es CIERTO, entonces el archivo es leído y escrito como un archivo binario.
+Es decir, no se hace ninguna conversión por el fin de línea.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABREACTUALIZAR "ejemplo.txt
+PONLECTURA "ejemplo.txt
+PONPOSLECTURA 0
+MUESTRA LEELISTA</userinput>
+[Hola]
+<userinput>PONESCRITURA "ejemplo.txt
+PONPOSESCITURA 7
+ESCRIBE [¿Cómo estás hoy?]
+PONESCRITURA []
+PONLECTURA "ejemplo.txt
+PONPOSLECTURA 0
+REPITE 3 [MUESTRA LEELISTA]</userinput>
+[Hola]
+[¿Cómo estás hoy?]
+<userinput>CIERRA "ejemplo.txt</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-close">CIERRA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

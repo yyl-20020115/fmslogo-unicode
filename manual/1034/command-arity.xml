@@ -1,0 +1,86 @@
+<section id="command-arity">
+    <title>ARITY</title>
+<indexterm><primary>ARITY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ARITY</command> <parameter>nombre_de_procedimiento</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de tres enteros: el número mínimo, número por defecto y número máximo de argumentos del procedimiento cuyo nombre es <parameter>nombre_de_procedimiento</parameter>.
+Es un error si no hay un tal procedimiento.
+Un máximo de -1 quiere decir que el número de argumentos es ilimitado.
+</para>
+
+<para>
+El argumento <parameter>nombre_de_procedimiento</parameter> debe ser una palabra.
+</para>
+
+<para>
+Se proporciona ARITY para habilitar introspección de tipos.
+Por ejemplo, si quieres escribir un programa en &PRODUCTNAME; que revisa el sintaxis de otro programa de &PRODUCTNAME;, necesitarías saber cuantos argumentos toma cada procedimiento.
+</para>
+
+<para>
+En algunos casos, ARITY puede devolver resultados aparentemente incorrectos.
+Por ejemplo, la documentación para <link linkend="command-for">DESDE</link> dice que acepta exactamente dos argumentos, pero ARITY devuelve que puede aceptar siete.
+La razón es que DESDE es un procedimiento del directorio de biblioteca que, por razones de conveniencia de implementación, acepta argumentos adicionales y no documentados que tienen valores por defecto y que DESDE se ejecuta a sí mismo recursivamente.
+Esto no quiere decir que debes proporcionar más que dos argumentos, solo que &PRODUCTNAME; no queje si lo hagas.
+Dondequiera que ARITY contradice a la documentación, confía en la documentación.
+</para>
+
+<para>
+Es un error si el argumento <parameter>nombre_de_procedimiento</parameter> es el nombre de un procedimiento con una forma especial, como <link linkend="command-to">PARA</link>.
+No se puede ejecutar estos procedimientos de una manera normal y sus argumentos son procesados de una manera especial.
+Entonces, la noción de un mínimo, por defecto o máximo número de argumentos no es relevante.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+El ejemplo siguiente demuestra ARITY usado con unas primitivas bien conocidas.
+<programlisting><userinput>MUESTRA ARITY "AVANZA</userinput>
+[1 1 1]
+
+<userinput>MUESTRA ARITY "PALABRA</userinput>
+[0 2 -1]
+</programlisting>
+</para>
+
+<para>
+El ejemplo siguiente demuestra ARITY usado con un procedimiento que tiene un parámetro requerido, pero que acepta un infinito número de argumentos.
+<programlisting><userinput>PARA PROCEDIMIENTO.CON.RESTANTE :requerido [:restante]
+FIN
+
+MUESTRA ARITY "PROCEDIMIENTO.CON.RESTANTE</userinput>
+[1 1 -1]
+</programlisting>
+</para>
+
+<para>
+El ejemplo siguiente demuestra ARITY usado con un procedimiento que tiene un parámetro optativo que toma por defecto el valor "foo.
+<programlisting><userinput>PARA PROCEDIMIENTO.CON.OPTATIVO :requerido [:optativo "foo] 1
+FIN
+
+MUESTRA ARITY "PROCEDIMIENTO.CON.OPTATIVO</userinput>
+[1 1 2]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

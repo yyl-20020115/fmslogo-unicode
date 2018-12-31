@@ -1,0 +1,43 @@
+<section id="command-pick">
+<title>SACAALAZAR</title>
+<indexterm><primary>SACAALAZAR</primary></indexterm>
+<indexterm><primary>PICK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SACAALAZAR</command> <parameter>cosa</parameter>
+<command>PICK</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un elemento escogido al azar del argumento.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA SACAALAZAR [1 2 3]</userinput>
+2</programlisting>
+
+<programlisting><userinput>MUESTRA SACAALAZAR [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>MUESTRA SACAALAZAR [1 2 3]</userinput>
+2</programlisting>
+
+<programlisting><userinput>MUESTRA SACAALAZAR "Hola</userinput>
+l</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

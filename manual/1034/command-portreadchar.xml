@@ -1,0 +1,50 @@
+<section id="command-portreadchar">
+    <title>LEECARACTERPUERTO</title>
+<indexterm><primary>LEECARACTERPUERTO</primary></indexterm>
+<indexterm><primary>PORTREADCHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEECARACTERPUERTO</command>
+<command>PORTREADCHAR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee un byte del puerto abierto y lo devuelve como un entero entre -128 y 127.
+También devuelve -1 cuando no hay un byte disponible.
+Entonces, si LEECARACTERPUERTO devuelve -1, puede ser que o no haya un byte disponible o el byte leído es -1.
+Por esa razón, si -1 es posible como dato, es mejor usar <link linkend="command-portreadarray">LEECADENAPUERTO</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>ABREPUERTO "com1
+MUESTRA ESCRIBECARACTERPUERTO ASCII "a</userinput>
+1
+<userinput>MUESTRA ESCRIBECARACTERPUERTO ASCII "t</userinput>
+1
+<userinput>MUESTRA ESCRIBECARACTERPUERTO 13</userinput>
+1
+<userinput>ESPERA 60
+ESCRIBE "Leyendo...</userinput>
+Leyendo...
+<userinput>REPITE 10 [HAZ "x LEECARACTERPUERTO SI NO :x = -1 [MUESTRAT CAR :x]]
+ESCRIBE ".</userinput>
+at||
+OK|
+.
+<userinput>CIERRAPUERTO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

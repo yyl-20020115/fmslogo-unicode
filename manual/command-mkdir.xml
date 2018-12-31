@@ -1,0 +1,37 @@
+<section id="command-mkdir">
+    <title>MKDIR</title>
+<indexterm><primary>MKDIR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MKDIR</command> <parameter>directoryname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Makes (creates) a directory and then changes (<link linkend="command-chdir">CHDIR</link>) into it.
+The <parameter>directoryname</parameter> input must be a word (the name of the directory you want to make).
+You can use the <link linkend="command-dir">DIR</link> command to list the files and directories in the current directory.
+You can go back into the parent directory with <link linkend="command-popdir">POPDIR</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MKDIR "junk</userinput>
+Now in newly created directory "junk"
+
+<userinput>POPDIR</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;"
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>
+

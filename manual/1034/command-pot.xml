@@ -1,0 +1,45 @@
+<section id="command-pot">
+    <title>IMTITULOSTODO</title>
+<indexterm><primary>IMTITULOSTODO</primary></indexterm>
+<indexterm><primary>POT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMTITULOSTODO</command> <parameter>lista_de_contenidos</parameter>
+<command>POT</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las líneas de título de los procedimientos, las definiciones de las variables y el contenido de las listas de propiedades nombradas en el argumento <parameter>lista_de_contenidos</parameter> al flujo de escritura actual.
+Para las listas de propiedades, se la escribe la lista entera en una sola línea, no como una serie de instrucciones de <link linkend="command-pprop">PONPROP</link> como la escribe <link linkend="command-po">IMDEFS</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1 1
+PONPROP "lprop1 "p2 2
+DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+HAZ "var 32
+
+IMTITULOSTODO [[ABC] [var] [lprop1]]</userinput>
+para ABC :a :b
+haz "var 32
+lProp "lprop1 = [p1 1 p2 2]
+
+<userinput>IMTITULOSTODO LPROCS</userinput>
+para ABC :a :b
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

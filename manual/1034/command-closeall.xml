@@ -1,0 +1,42 @@
+<section id="command-closeall">
+<title>CIERRATODO</title>
+<indexterm><primary>CIERRATODO</primary></indexterm>
+<indexterm><primary>CLOSEALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CIERRATODO</command>
+<command>CLOSEALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cierra todos los archivos abiertos.
+</para>
+
+<para>
+Este comando equivale a <programlisting><link linkend="command-foreach">PARACADA</link> <link linkend="command-allopen">ABIEROS</link> [<link linkend="command-close">CIERRA</link> ?]</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ABREESCRITURA "ejemplo1.txt
+ABREESCRITURA "ejemplo2.txt
+MUESTRA ABIERTOS</userinput>
+[ejemplo1.txt ejemplo2.txt]
+<userinput>CIERRATODO
+MUESTRA ABIERTOS</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

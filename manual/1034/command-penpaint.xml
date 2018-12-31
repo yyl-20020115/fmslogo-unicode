@@ -1,0 +1,51 @@
+<section id="command-penpaint">
+<title>LAPIZNORMAL</title>
+<indexterm><primary>LAPIZNORMAL</primary></indexterm>
+<indexterm><primary>LNORMAL</primary></indexterm>
+<indexterm><primary>PENPAINT</primary></indexterm>
+<indexterm><primary>PPT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LAPIZNORMAL</command>
+<command>LNORMAL</command>
+<command>PENPAINT</command>
+<command>PPT</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición de lápiz hacia abajo y el modo a «LápizNormal».
+En modo «LápizNormal», el lápiz dibuja en el color descrito por <link linkend="command-pencolor">COLORLAPIZ</link>.
+Este es el modo por defecto.
+</para>
+
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>LAPIZINVIERTE
+AVANZA 100
+RETROCEDE 100
+LAPIZNORMAL
+AVANZA 100
+RETROCEDE 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-penerase">GOMA</link></member>
+<member><link linkend="command-penreverse">LAPIZINVIERTE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

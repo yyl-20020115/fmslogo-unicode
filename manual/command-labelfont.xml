@@ -1,0 +1,38 @@
+<section id="command-labelfont">
+<title>LABELFONT</title>
+<indexterm><primary>LABELFONT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LABELFONT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list describing the current font that is used by the <link linkend="command-label">LABEL</link> command.
+</para>
+
+<para>
+This output is a list of the form [[FaceName] Height Width Orientation Weight Italic Underline StrikeOut CharSet OutPrecision ClipPrecision Quality PitchAndFamily].
+See <link linkend="command-setlabelfont">SETLABELFONT</link> for a description of each member of this list.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETLABELFONT [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+SHOW LABELFONT</userinput>
+[[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

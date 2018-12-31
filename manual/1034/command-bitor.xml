@@ -1,0 +1,39 @@
+<section id="command-bitor">
+    <title>BITOR</title>
+<indexterm><primary>BITOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BITOR</command> <parameter>entero1</parameter> <parameter>entero2</parameter>
+(<command>BITOR</command> <parameter>entero1</parameter> <parameter>entero2</parameter> <parameter>entero3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de la operación OR bit a bit de los argumentos, que deben ser enteros.
+Si no hay argumentos, entonces BITOR devuelve un valor con todos los bits apagados.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA BITOR 5 2</userinput>
+7
+<userinput>MUESTRA BITOR 5 1</userinput>
+5
+<userinput>MUESTRA (BITOR 6 2 10)</userinput>
+14
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,47 @@
+<section id="command-distancexyz">
+    <title>DISTANCIAXYZ</title>
+<indexterm><primary>DISTANCIAXYZ</primary></indexterm>
+<indexterm><primary>DISTANCEXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DISTANCIAXYZ</command> <parameter>posición</parameter>
+<command>DISTANCEXYZ</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un número que indica la distancia que la tortuga tiene que recorrer en línea recta hasta llegar a la posición que se indica en el argumento <parameter>posición</parameter>, con las coordenadas X, Y y Z.
+El argumento <parameter>posición</parameter> debe ser una lista de tres números, las coordenadas X, Y y Z.
+</para>
+<para>
+Se diseñaba DISTANCIAXYZ para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+En modos 2D, DISTANCIAXYZ ignora el eje Z y devuelve la distancia entre la tortuga y las coordenadas X e Y de <parameter>posición</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PERSPECTIVA
+POSICIONATE [0 0 0]
+MUESTRA DISTANCIAXYZ [0 100 0]</userinput>
+100
+<userinput>MUESTRA DISTANCIAXYZ [100 100 100]</userinput>
+173.205080756888</programlisting>
+
+<programlisting><userinput>PERSPECTIVA
+PONORIENTACION HACIAXYZ [300 400 500]
+AVANZA DISTANCIAXYZ [300 400 500]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

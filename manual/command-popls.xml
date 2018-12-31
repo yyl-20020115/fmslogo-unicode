@@ -1,0 +1,35 @@
+<section id="command-popls">
+    <title>POPLS</title>
+<indexterm><primary>POPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the contents of all unburied property lists in the workspace to the current write stream.
+POPLS abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-plists">PLISTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+POPLS</userinput>
+Pprop "plist1 "p1 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

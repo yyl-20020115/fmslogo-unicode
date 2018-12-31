@@ -1,0 +1,46 @@
+<section id="command-substringp">
+<title>CONTIENE?</title>
+<indexterm><primary>CONTIENE?</primary></indexterm>
+<indexterm><primary>SUBSTRINGP</primary></indexterm>
+<indexterm><primary>SUBSTRING?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CONTIENE?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>SUBSTRINGP</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>SUBSTRING?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa2</parameter> es una palabra, devuelve CIERTO si <parameter>cosa1</parameter> y una parte de <parameter>cosa2</parameter> son <link linkend="command-equalp">IGUALES?</link>, FALSO si no lo son.
+</para>
+
+<para>
+Si <parameter>cosa1</parameter> o <parameter>cosa2</parameter> es una lista o un vector, devuelve FALSO.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA CONTIENE? "bc "abc</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA CONTIENE? "bd "abc</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA CONTIENE? "a [a b c]</userinput>
+falso</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

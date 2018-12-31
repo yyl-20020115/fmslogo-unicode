@@ -1,0 +1,31 @@
+<section id="command-listtoarray">
+<title>LISTTOARRAY</title>
+<indexterm><primary>LISTTOARRAY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LISTTOARRAY</command> <parameter>list</parameter>
+(<command>LISTTOARRAY</command> <parameter>list</parameter> <parameter>origin</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+  <para>Outputs an array with the same elements as the input <parameter>list</parameter>.</para>
+
+  <para>If an <parameter>origin</parameter> input is given, then the first element of the new array is at index <parameter>origin</parameter>.
+  Otherwise, the default of 1 is used.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW LISTTOARRAY [1 2 3]</userinput>
+{1 2 3}</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

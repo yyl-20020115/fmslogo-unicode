@@ -1,0 +1,76 @@
+<section id="command-setpos">
+<title>PONPOS</title>
+<indexterm><primary>PONPOS</primary></indexterm>
+<indexterm><primary>SETPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPOS</command> <parameter>posición</parameter>
+<command>SETPOS</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a las coordenadas absolutas X, Y.
+El argumento <parameter>posición</parameter> debe ser una lista de dos números, las coordenadas X e Y.
+Ve también <link linkend="command-pos">POS</link>.
+</para>
+
+<para>
+No es obvio como ejecutar PONPOS con variables.
+Veremos algo de código:
+
+<programlisting><userinput>HAZ "x 0
+HAZ "y 100
+PONPOS [:x :y]       ; no funciona
+PONPOS (LISTA :x :y) ; funciona</userinput>
+</programlisting>
+
+El primer caso (el que no funciona) es una lista de dos palabras <userinput>":x</userinput> e <userinput>":y</userinput>.
+En cambio, <userinput>(LISTA :x :y)</userinput> construye una lista de los dos valores contenidos en <userinput>:x</userinput> e <userinput>:y</userinput>.
+</para>
+
+<para>
+Puedes ver con más claridad usando <link linkend="command-show">MUESTRA</link>:
+
+<programlisting><userinput>MUESTRA [:x :y]</userinput>
+[:x :y]
+<userinput>MUESTRA (LISTA :x :y)</userinput>
+[0 100]
+</programlisting>
+
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Dibuja un cuadrado usando PONPOS:
+<programlisting><userinput>BORRAPANTALLA
+PONPOS [0 100]
+PONPOS [100 100]
+PONPOS [100 0]
+PONPOS [0 0]</userinput></programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-pos">POS</link></member>
+<member><link linkend="command-setx">PONX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

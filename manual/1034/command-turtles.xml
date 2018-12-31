@@ -1,0 +1,52 @@
+<section id="command-turtles">
+<title>TORTUGAS</title>
+<indexterm><primary>TORTUGAS</primary></indexterm>
+<indexterm><primary>TURTLES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TORTUGAS</command>
+<command>TURTLES</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el índice de tortuga máximo ha sido activado hasta que la última vez que has ejecutado <link linkend="command-clearscreen">BORRAPANTALLA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>BORRAPANTALLA
+(MUESTRA QUIEN TORTUGAS)</userinput>
+0 0
+<userinput>ACTIVA 8
+(MUESTRA QUIEN TORTUGAS)</userinput>
+8 8
+<userinput>ACTIVA 4
+(MUESTRA QUIEN TORTUGAS)</userinput>
+4 8
+<userinput>BORRAPANTALLA
+(MUESTRA QUIEN TORTUGAS)</userinput>
+0 0
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-turtle">QUIEN</link></member>
+<member><link linkend="command-setturtle">ACTIVA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

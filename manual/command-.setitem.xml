@@ -1,0 +1,45 @@
+<section id="command-.setitem">
+<title>.SETITEM</title>
+<indexterm><primary>.SETITEM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>.SETITEM</command> <parameter>index</parameter> <parameter>array</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Change the <parameter>index</parameter>th item of array to be <parameter>value</parameter>.
+This similar to <link linkend="command-setitem">SETITEM</link>, except that it does not check for circularity.
+</para>
+
+<para>
+WARNING: Primitives whose names start with a period are <emphasis>dangerous</emphasis>.
+Their use by non-experts is not recommended.
+The use of .SETITEM can lead to circular array structures, which can lead to very unintuitive behavior.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>MAKE "myarray (ARRAY 3 0)
+.SETITEM 2 :myarray 1
+.SETITEM 1 :myarray 2
+.SETITEM 0 :myarray 3
+SHOW :myarray</userinput>
+{3 2 1}</programlisting>
+
+</listitem>
+
+</varlistentry>
+</variablelist>
+
+</section>

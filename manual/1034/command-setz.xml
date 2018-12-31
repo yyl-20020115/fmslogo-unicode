@@ -1,0 +1,55 @@
+<section id="command-setz">
+<title>PONZ</title>
+<indexterm><primary>PONZ</primary></indexterm>
+<indexterm><primary>SETZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONZ</command> <parameter>zcor</parameter>
+<command>SETZ</command> <parameter>zcor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a lo largo del eje Z desde la posición actual a una nueva coordenada absoluta Z.
+El argumento <parameter>zcor</parameter> es la nueva coordenada Z.
+</para>
+
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+SUBELAPIZ
+PONX 100
+BAJALAPIZ
+PONZ 100
+PONY 100
+PONZ 0
+PONY 0</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setx">PONX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+<member><link linkend="command-zcor">COORZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

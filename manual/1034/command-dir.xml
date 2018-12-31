@@ -1,0 +1,41 @@
+<section id="command-dir">
+    <title>DIR</title>
+<indexterm><primary>DIR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints out files and directories in the current directory.
+It prints out the <link linkend="command-files">FILES</link> list and <link linkend="command-directories">DIRECTORIES</link> list.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DIR</userinput>
+File fmslogo.exe
+File LICENSE.TXT
+File logohelp.chm
+File README.TXT
+File startup.logoscript
+File turtle.bmp
+File uninstall.exe
+Directory .
+Directory ..
+Directory Examples
+Directory logolib</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>
+

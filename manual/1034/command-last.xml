@@ -1,0 +1,44 @@
+<section id="command-last">
+<title>ULTIMO</title>
+<indexterm><primary>ULTIMO</primary></indexterm>
+<indexterm><primary>UL</primary></indexterm>
+<indexterm><primary>LAST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ULTIMO</command> <parameter>cosa</parameter>
+<command>UL</command> <parameter>cosa</parameter>
+<command>LAST</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa</parameter> es una palabra, devuelve el último carácter de la palabra.
+Si <parameter>cosa</parameter> es una lista, devuelve el último miembro de la lista.
+</para>
+
+<para>
+ULTIMO lanza un error de mala entrada si <parameter>cosa</parameter> es la lista vacía, la palabra vacía, o un vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA ULTIMO [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>MUESTRA ULTIMO "Hola</userinput>
+a</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

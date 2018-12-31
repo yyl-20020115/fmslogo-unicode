@@ -1,0 +1,50 @@
+<section id="command-sound">
+<title>SOUND</title>
+<indexterm><primary>SOUND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SOUND</command> <parameter>soundlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Plays a sequence of tones on the PC speaker.
+</para>
+
+<para>
+The <parameter>soundlist</parameter> input must be a list of pairs.
+Each pair specifies a frequency (in hertz) and duration (clock ticks).
+The larger the frequency the higher the pitch.
+The larger the duration the longer the sound plays for.
+</para>
+
+<para>
+&PRODUCTNAME; is unresponsive to user control while it plays a sound vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SOUND [1000 200]</userinput>
+</programlisting>
+
+<programlisting><userinput>MAKE "zing []
+REPEAT 50 [MAKE "zing LPUT REPCOUNT*10 :zing MAKE "zing LPUT 100 :zing]
+SOUND :zing</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,40 @@
+<section id="command-help">
+<title>HELP</title>
+<indexterm><primary>HELP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>HELP</command>
+<command>HELP</command> <parameter>keyword</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+HELP has two forms: with and without a <parameter>keyword</parameter> input.
+When no <parameter>keyword</parameter> is given, &PRODUCTNAME; opens the &PRODUCTNAME; manual to the table of contents.
+When a <parameter>keyword</parameter> is given, &PRODUCTNAME; searches the &PRODUCTNAME; manual for the section on <parameter>keyword</parameter>.
+You may enter the full keyword or a partial keyword.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>; open to the "introduction" section
+HELP "introduction</userinput>
+</programlisting>
+
+<programlisting><userinput>; open the description of the ERASE command
+HELP "erase</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

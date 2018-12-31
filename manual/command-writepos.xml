@@ -1,0 +1,44 @@
+<section id="command-writepos">
+<title>WRITEPOS</title>
+<indexterm><primary>WRITEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WRITEPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the file position of the current write stream file as a number.
+An output value of 0 means that the write position is at the beginning of the stream.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>Note that, in the following example, the output from WRITEPOS is stored in a list and shown after the writer is set back to the Commander ([]).</para>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+MAKE "history []
+MAKE "history LPUT WRITEPOS :history
+PRINT "Hello
+MAKE "history LPUT WRITEPOS :history
+PRINT [Good Bye]
+MAKE "history LPUT WRITEPOS :history
+SETWRITE []
+CLOSE "dummy.fil
+SHOW :history</userinput>
+[0 7 17]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

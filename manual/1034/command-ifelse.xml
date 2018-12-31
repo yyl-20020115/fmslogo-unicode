@@ -1,0 +1,77 @@
+<section id="command-ifelse">
+    <title>SISINO</title>
+<indexterm><primary>SISINO</primary></indexterm>
+<indexterm><primary>IFELSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SISINO</command> <parameter>condición</parameter> <parameter>cierta_lista_de_instrucciones</parameter> <parameter>falsa_lista_de_instrucciones</parameter>
+<command>IFELSE</command> <parameter>condición</parameter> <parameter>cierta_lista_de_instrucciones</parameter> <parameter>falsa_lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Es un comando u operación donde:
+
+<itemizedlist>
+<listitem>
+<para>
+Si <parameter>condición</parameter> es CIERTO, entonces SISINO ejecuta <parameter>cierta_lista_de_instrucciones</parameter>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Si <parameter>condición</parameter> es FALSO, entonces SISINO ejecuta <parameter>falsa_lista_de_instrucciones</parameter>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Es un error si <parameter>condición</parameter> no es ni CIERTO ni FALSO.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Ejemplos donde SISINO no devuelve nada:
+<programlisting><userinput>
+SISINO 1=1 [ESCRIBE [Si, es cierto]] [ESCRIBE [No, es falso]]</userinput>
+Si, es cierto
+
+<userinput>SISINO 1=0 [ESCRIBE [Si, es cierto]] [ESCRIBE [No, es falso]]</userinput>
+No, es falso
+</programlisting>
+</para>
+
+
+<para>
+Ejemplo donde SISINO devuelve un valor:
+<programlisting><userinput>
+PARA MAX :a :b
+  DEVUELVE SISINO :a > :b [:a] [:b]
+FIN
+
+MUESTRA MAX 1 2</userinput>
+2
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

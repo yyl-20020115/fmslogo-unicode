@@ -1,0 +1,49 @@
+<section id="command-greaterp">
+<title>MAYOR?</title>
+<indexterm><primary>MAYOR?</primary></indexterm>
+<indexterm><primary>GREATERP</primary></indexterm>
+<indexterm><primary>></primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MAYOR?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>GREATERP</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>GREATER?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<parameter>número1</parameter> <command>&gt;</command> <parameter>número2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>número1</parameter> es estrictamente mayor que <parameter>número2</parameter>.
+Devuelve FALSO, sino.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 1 &gt; 2</userinput>
+false
+</programlisting>
+<programlisting><userinput>MUESTRA 2 &gt; 1</userinput>
+true
+</programlisting>
+<programlisting><userinput>MUESTRA 2 &gt; 2</userinput>
+false
+</programlisting>
+<programlisting><userinput>MUESTRA MAYOR? 2 1</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

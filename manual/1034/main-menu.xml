@@ -1,0 +1,257 @@
+<chapter id="main-menu">
+  <title>Menú Principal</title>
+  <para>El Menú Principal gestiona diferentes tareas en &PRODUCTNAME; como, cargar un programa &GENERICNAME;, cargar una imagen, configurar una impresora o quizás leer este archivo de ayuda.</para>
+
+  <section id="menu-file">
+    <title>Menú Archivo</title>
+    <para>El Menú Archivo incluye órdenes para trabajar con archivos con procedimientos &GENERICNAME;.
+    Hay que tener en cuenta que cualquier selección en este menú que lleve un directorio en su ventana de diálogo hará que ese directorio sea el directorio de trabajo.</para>
+
+    <section id="menu-file-new">
+      <title>Archivo - Nuevo</title>
+      <para>Borra todos los procedimientos, nombres, y listas de propriedades en el área de trabajo, tal como el comando <link linkend="command-erase">BORRA</link>.
+      Es como comenzar con una «Nueva» sesión.</para>
+    </section>
+
+    <section id="menu-file-load">
+      <title>Archivo - Cargar...</title>
+      <para>Carga del disco un archivo con procedimientos para que se pueda ejecutar o modificar un programa.
+      Veas también la primitiva <link linkend="command-load">CARGA</link>.</para>
+    </section>
+
+    <section id="menu-file-open">
+      <title>Archivo - Abrir...</title>
+      <para>Borra todos los procedimientos, variables, y listas de propriedades del área de trabajo, entonces carga los que se encuentran en un archivo dado.
+      Esta opción es equivalente a <link linkend="menu-file-new">Archivo - Nuevo</link> seguido por <link linkend="menu-file-load">Archivo - Cargar</link>.
+      Existe para subrayar la diferencia entre Archivo - Cargar (que funcione como el comando <link linkend="command-load">CARGA</link>) y la manera de que Archivo - Abrir actúa en la mayoría de las aplicaciones Windows.</para>
+    </section>
+
+    <section id="menu-file-save">
+      <title>Archivo - Guardar</title>
+      <para>Guarda en el disco todos los procedimientos, variables, y listas de propriedades que no son tapados.
+      Veas también la primitiva <link linkend="command-save">GUARDA</link>.</para>
+    </section>
+
+    <section id="menu-file-saveas">
+      <title>Archivo - Guardar como...</title>
+      <para>Es lo mismo que <link linkend="menu-file-save">Archivo - Guardar</link>, pero se utiliza para dar un nuevo nombre al archivo, de forma que no se borre el anterior.</para>
+    </section>
+
+    <section id="menu-file-setasscreensaver">
+      <title>Archivo - Establecer como Protector de Pantalla</title>
+      <para>Guarda el contenido del área de trabajo a un archivo, configura el protector de pantalla de &PRODUCTNAME; a cargarlo, y pone el protector de pantalla de &PRODUCTNAME; como el protector de pantalla activo.
+      Si el protector de pantalla de &PRODUCTNAME; no está instalado, entonces esta opción estaría deshabilitado.</para>
+    </section>
+
+    <section id="menu-file-edit">
+      <title>Archivo - Editar...</title>
+      <para>Esta opción te muestra un cuadro de diálogo para preguntarte que procedimientos quieres editar.
+      Puedes editar todos los procedimientos cargados en memoria y también uno nuevo.
+      Veas también la primitiva <link linkend="command-edit">EDITA</link>.</para>
+    </section>
+
+    <section id="menu-file-erase">
+      <title>Archivo - Borrar...</title>
+      <para>Esta opción te muestra un cuadro de diálogo para preguntarte que procedimientos quieres borrar del área de trabajo.
+      Veas también la primitiva <link linkend="command-erase">BORRA</link>.</para>
+    </section>
+
+    <section id="menu-file-exit">
+      <title>Archivo - Salir</title>
+      <para>Termina la sesión de &PRODUCTNAME;.
+      Veas también la primitiva <link linkend="command-bye">ADIOS</link>.</para>
+    </section>
+
+  </section>
+
+
+  <section id="menu-bitmap">
+    <title>Menú Bitmap</title>
+    <para>El Menú Bitmap incluye órdenes para trabajar con imágenes (principalmente archivos bitmap).</para>
+
+    <section id="menu-bitmap-new">
+      <title>Bitmap - Nuevo</title>
+      <para>Borra el trabajo hecho en pantalla y crea un nuevo ambiente.</para>
+    </section>
+
+    <section id="menu-bitmap-load">
+      <title>Bitmap - Cargar...</title>
+      <para>Carga una imagen guardada en el disco.
+      Carga imágenes en formato BMP (Windows Bitmap) o en formato GIF (Formato de Intercambio de Gráficos).
+      Puedes intercambiar estos archivos con otras aplicaciones, como Paint.
+      Estos archivos pueden ser de gran tamaño, de lectura o escritura.
+      Veas también la primitiva <link linkend="command-bitload">CARGADIB</link>.
+      Veas también el tema <link linkend="using-color">usando color</link>.</para>
+    </section>
+
+    <section id="menu-bitmap-save">
+      <title>Bitmap - Guardar...</title>
+      <para>Guarda la imagen en el área de dibujo en el disco del ordenador que más tarde se podrá recuperar.
+      Recuerdas que si tienes un programa de &GENERICNAME; que genera tu imagen, no necesitas guardarlo como imagen a menos que quieras usarla en otra aplicación, como Paint.
+      Veas también la primitiva <link linkend="command-bitsave">GUARDADIB</link>.</para>
+
+      <para>Veas también la primitiva <link linkend="command-setactivearea">PONAREAACTIVA</link>.</para>
+    </section>
+
+
+    <section id="menu-bitmap-saveas">
+      <title>Bitmap - Guardar como...</title>
+      <para>Esta opción es semejante a la opción Bitmap - Guardar, pero con la posibilidad de dar un nombre nuevo al archivo.</para>
+    </section>
+
+
+    <section id="menu-bitmap-print">
+      <title>Bitmap - Imprimir...</title>
+      <para>Imprime la área activa de del área de dibujo en la impresora.</para>
+    </section>
+
+
+    <section id="menu-bitmap-printersetup">
+      <title>Bitmap - Configurar impresora...</title>
+      <para>Muestra un cuadro de diálogo para configurar tu impresora antes de imprimir.</para>
+    </section>
+
+    <section id="menu-bitmap-activearea">
+      <title>Bitmap - Area Activa...</title>
+      <para>La área activa es un rectángulo del área del dibujo que esta seleccionado por impresión y grabación de bitmap.
+      Esta opción permite que te define este rectángulo, de forma que comprenda la imagen completa o una parte de la misma.
+      Si seleccionas una parte de la imagen, ahorrarás memoria, tiempo, y papel.
+      Puedes pulsar el botón Restaurar para volver a las magnitudes de la imagen completa.
+      &PRODUCTNAME; recordará la configuración.</para>
+ 
+      <para>Puede establecer también cuantos «pasos de tortuga» por pulgada cuando imprimes un dibujo.
+      Por defecto, hay 125 pasos de tortuga por pulgada.
+      La área de dibujo es por defecto 1000 x 1000 «pasos de tortuga», equivalente aproximadamente a 8 x 8 pulgadas (1000/125 x 1000/125).
+      Puedes aumentar este número para aprovecharte de impresoras de alta resolución, pero tu imagen sería más pequeña.
+      Puedes compensarlo aumentando tu área de dibujo (y el tamaño de tu dibujo).</para>
+
+      <para>Puede también fijar el área activa con la primitiva <link linkend="command-setactivearea">PONAREAACTIVA</link> y obtenerla con <link linkend="command-activearea">ACTIVEAREA</link>.</para>
+
+    </section>
+  </section>
+
+  <section id="menu-set">
+    <title>Menú Configurar</title>
+    <para>Establece algunas características del dibujo en &PRODUCTNAME;.</para>
+
+    <section id="menu-set-pensize">
+      <title>Configurar - Tamaño del lápiz...</title>
+      <para>Esta opción selecciona el grosor del lápiz con que dibujará la tortuga.
+      El mismo resultado se obtiene con la primitiva <link linkend="command-setpensize">PONGROSOR</link>.
+      Para saber que grosor está en uso se utilizará la primitiva <link linkend="command-pensize">GROSOR</link>.</para>
+    </section>
+
+    <section id="menu-set-labelfont">
+      <title>Configurar - Tipo de letra de rotulador...</title>
+      <para>Con esta opción seleccionas el tipo de letra que se utilizará con la primitiva <link linkend="command-label">ROTULO</link>.</para>
+      <para>Puedes seleccionar también el tipo de letra con la primitiva <link linkend="command-setlabelfont">PONTIPO</link> y obtener el tipo actual con <link linkend="command-labelfont">TIPO</link>.</para>
+    </section>
+
+    <section id="menu-set-commanderfont">
+      <title>Configurar - Tipo de letra del centro de comandos...</title>
+      <para>Esta opción selecciona el tipo que usa el <link linkend="commander">Centro de Commandos</link>.</para>
+      <para>El tipo de letra permanecerá fijo tras reiniciar &PRODUCTNAME;.</para>
+    </section>
+
+    <section id="menu-set-pencolor">
+      <title>Configurar - Color de lápiz...</title>
+      <para>Con esta opción seleccionas el color del lápiz.</para>
+
+      <para>Puedes seleccionar el color del lápiz también con la primitiva <link linkend="command-setpencolor">PONCOLORLAPIZ</link> y obtener el color actual con <link linkend="command-pencolor">COLORLAPIZ</link>.</para>
+    </section>
+
+
+    <section id="menu-set-floodcolor">
+      <title>Configurar - Color de relleno...</title>
+      <para>Con esta opción selecciona el color con que la tortuga rellenará un área cerrada mediante la primitiva <link linkend="command-fill">RELLENA</link>.</para>
+
+      <para>Puede seleccionar también el color de relleno con la primitiva <link linkend="command-setfloodcolor">PONCOLORRELLENO</link> y obtenerlo con <link linkend="command-floodcolor">COLORRELLENO</link>.</para>
+    </section>
+
+    <section id="menu-set-screencolor">
+      <title>Configurar - Color de fondo...</title>
+      <para>Con esta opción seleccionas el color de fondo de la pantalla.</para>
+
+      <para>También puedes seleccionar el color de fondo con la primitiva <link linkend="command-setscreencolor">PONCOLORFONDO</link> y obtenerlo con <link linkend="command-screencolor">COLORFONDO</link>.</para>
+    </section>
+
+  </section>
+
+
+  <section id="menu-zoom">
+    <title>Menú Zoom</title>
+    <para>Permite cambiar la escala de la pantalla de dibujo (conocido en inglés como «zoom»).</para>
+
+    <para>También puedes cambiar la escala con la primitiva <link linkend="command-zoom">PONLUPA</link>.</para>
+
+    <section id="menu-zoom-in">
+      <title>Zoom - Acercar</title>
+      <para>Aumenta la escala de la pantalla a doble tamaño.</para>
+    </section>
+
+    <section id="menu-zoom-out">
+      <title>Zoom - Alejar</title>
+      <para>Reduce la escala de la pantalla a mitad tamaño.</para>
+    </section>
+
+    <section id="menu-zoom-normal">
+      <title>Zoom - Normal</title>
+      <para>Restablece la escala de la pantalla al tamaño 1.0 (tamaño normal).</para>
+    </section>
+
+  </section>
+
+  <section id="menu-help">
+    <title>Menú Ayuda</title>
+    <para>Ayuda para aprender más sobre &PRODUCTNAME;.
+    Para más información, selecciona la opción deseada.
+    Veas también la primitiva <link linkend="command-help">AYUDA</link>.</para>
+
+    <section id="menu-help-index">
+      <title>Ayuda - Indice</title>
+      <para>Muestra el índice de esta manual.</para>
+    </section>
+    
+    <section id="menu-help-languge-to-english">
+      <title>Ayuda - Español a Inglés</title>
+      <para>Te lleva al tema <link linkend="to-english-procedure-names">Spanish to English: Procedure Names</link> en este manual.</para>
+    </section>
+    
+    <section id="menu-help-english-to-language">
+      <title>Ayuda - Inglés a Español</title>
+      <para>Te lleva al tema <link linkend="from-english-procedure-names">English to Spanish: Procedure Names</link> en este manual.</para>
+    </section>
+
+    <section id="menu-help-tutorial">
+      <title>Ayuda - Tutorial</title>
+      <para>Te lleva al tema <link linkend="where-to-start">Cómo empezar</link> en este manual.</para>
+    </section>
+
+    <section id="menu-help-demo">
+      <title>Ayuda - Demostración</title>
+      <para>Ejecuta el programa DEMO contenido en la biblioteca.</para>
+    </section>
+
+    <section id="menu-help-example">
+      <title>Ayuda - Ejemplos</title>
+      <para>Presenta los ejemplos en una página Web que describe cada ejemplo que viene con &PRODUCTNAME;.</para>
+    </section>
+
+    <section id="menu-help-releasenotes">
+      <title>Ayuda - Notas de la versión</title>
+      <para>Muestra un archivo que contiene notas sobre esta versión de &PRODUCTNAME;.</para>
+    </section>
+
+    <section id="menu-help-aboutfmslogo">
+      <title>Ayuda - Acerca de &PRODUCTNAME;...</title>
+      <para>Muestra información básica sobre la versión de &PRODUCTNAME;.</para>
+    </section>
+
+    <section id="menu-help-aboutms">
+      <title>Ayuda - Acerca de FMS...</title>
+      <para>Muestra información sobre la conexión entre &PRODUCTNAME; y esclerosis múltiple.</para>
+    </section>
+
+  </section>
+
+</chapter>

@@ -1,0 +1,56 @@
+<section id="command-map.se">
+    <title>TEJE.FR</title>
+<indexterm><primary>TEJE.FR</primary></indexterm>
+<indexterm><primary>MAP.SE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TEJE.FR</command> <parameter>lista_de_plantilla</parameter> <parameter>dato</parameter>
+(<command>TEJE.FR</command> <parameter>lista_de_plantilla</parameter> <parameter>dato1</parameter> <parameter>dato2</parameter> <parameter>...</parameter>)
+<command>MAP.SE</command> <parameter>lista_de_plantilla</parameter> <parameter>dato</parameter>
+(<command>MAP.SE</command> <parameter>lista_de_plantilla</parameter> <parameter>dato1</parameter> <parameter>dato2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista formada por la concatenación con <link linkend="command-sentence">FRASE</link> de los resultados de la ejecución repetida de <parameter>lista_de_plantilla</parameter> con todos los datos dados.
+Esto es, los elementos de la lista devuelta son los resultados de las evaluaciones.
+La lista devuelta puede tener, por lo tanto, un tamaño distinto de él de los argumento(s).
+(Si el resultado de una evaluación es la lista vacía, no contribuye nada a la lista devuelta.)
+Los argumentos de datos pueden ser palabras o listas. 
+</para>
+
+<para>
+En una plantilla, los símbolos <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> representan el porción de los datos a la derecha del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> por <userinput>[C D E]</userinput>.
+Si usas múltiples ranuras paralelas, entonces <userinput>(?RESTANTE 1)</userinput> va a la ranura <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+Se usa el símbolo <userinput>?RESTANTE</userinput> sólo en la versión de &PRODUCTNAME; española.
+Se usa <userinput>?REST</userinput> en todas las versiones de &PRODUCTNAME;.
+</para>
+
+<para>
+En una plantilla, el símbolo <userinput>#</userinput> representa la posición en <parameter>lista_de_datos</parameter> del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>#</userinput> por <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA (TEJE.FR "LISTA [a b c] [d e f])</userinput>
+[a d b e c f]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

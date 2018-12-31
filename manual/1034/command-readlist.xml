@@ -1,0 +1,53 @@
+<section id="command-readlist">
+<title>LEELISTA</title>
+<indexterm><primary>LEELISTA</primary></indexterm>
+<indexterm><primary>LL</primary></indexterm>
+<indexterm><primary>READLIST</primary></indexterm>
+<indexterm><primary>RL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEELISTA</command>
+<command>LL</command>
+<command>READLIST</command>
+<command>RL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee una línea desde el flujo de lectura actual (inicialmente un cuadro de diálogo) y la devuelve como una lista.
+La línea se compone de sus elementos como si se hubiera tecleado entre corchetes.
+Si el flujo de lectura es un archivo que no se termina en un carácter de nueva línea, entonces trata el fin del archivo como carácter de nueva línea.
+Cuando se había leído por completo el archivo, LEELISTA devuelve la palabra vacía (no la lista vacía).
+</para>
+
+<para>
+LEELISTA procesa las barras inversas, barras verticales, y tildes de la eñe del flujo de lectura; la lista devuelta no contiene esos caracteres pero realizan su efecto usual.
+Del mismo modo, los corchetes realizan su efecto de agrupar múltiples líneas y cada corchete que abre debe ser emparejado con un corchete que cierre.
+Contenido encerrado con corchetes aparece en la lista devuelta como una lista inferior.
+</para>
+
+<para>
+LEELISTA trata los llaves en un modo analógico que los corchetes, excepto que el contenido encerrado con llaves aparece en la lista devuelta como un vector inferior.
+</para>
+
+<para>
+LEELISTA no trata el punto y coma como un carácter de comentario, así que el punto y coma y lo que sigue aparecen en la lista devuelta.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA LEELISTA
+Hola, ¿cómo estás?</userinput>
+[Hola, ¿cómo estás?]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

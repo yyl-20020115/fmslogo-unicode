@@ -1,0 +1,42 @@
+<section id="command-edpls">
+    <title>EDPLS</title>
+<indexterm><primary>EDPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EDPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens all unburied property lists in the <link linkend="editor">Editor</link>.
+</para>
+
+<para>
+EDPLS abbreviates <userinput><link linkend="command-edit">EDIT</link> <link linkend="command-plists">PLISTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist 1 "one
+PPROP "plist 2 "one
+SHOW GPROP "plist 2</userinput>
+one
+<userinput>EDPLS</userinput>
+<replaceable>change "one" to "two" and exit editor</replaceable>
+<userinput>SHOW GPROP "plist 2</userinput>
+two
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

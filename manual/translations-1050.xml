@@ -1,0 +1,81 @@
+<appendix id='from-english-procedure-names'>
+<title>English to Croatian: Procedure Names</title>
+<indexterm><primary>From English (procedure names)</primary></indexterm>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>English Procedure</entry>
+        <entry>Croatian Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+        <entry><literallayout>floodcolour</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+        <entry><literallayout>pencolour</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-screencolor'>screencolor</link></entry>
+        <entry><literallayout>screencolour</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+        <entry><literallayout>setfloodcolour</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+        <entry><literallayout>setpencolour</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+        <entry><literallayout>setscreencolour</literallayout></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+
+<appendix id='to-english-procedure-names'>
+<title>Croatian to English: Procedure Names</title>
+<indexterm><primary>To English (procedure names)</primary></indexterm>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Croatian Procedure</entry>
+        <entry>English Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>floodcolour</entry>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+      </row>
+      <row>
+        <entry>pencolour</entry>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+      </row>
+      <row>
+        <entry>screencolour</entry>
+        <entry><link linkend='command-screencolor'>screencolor</link></entry>
+      </row>
+      <row>
+        <entry>setfloodcolour</entry>
+        <entry><link linkend='command-setfloodcolor'>setfloodcolor</link></entry>
+      </row>
+      <row>
+        <entry>setpencolour</entry>
+        <entry><link linkend='command-setpencolor'>setpencolor</link></entry>
+      </row>
+      <row>
+        <entry>setscreencolour</entry>
+        <entry><link linkend='command-setscreencolor'>setscreencolor</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>

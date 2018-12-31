@@ -1,0 +1,62 @@
+<section id="command-setpencolor">
+<title>PONCOLORLAPIZ</title>
+<indexterm><primary>PONCOLORLAPIZ</primary></indexterm>
+<indexterm><primary>PONCL</primary></indexterm>
+<indexterm><primary>SETPENCOLOR</primary></indexterm>
+<indexterm><primary>SETPC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCOLORLAPIZ</command> <parameter>color</parameter>
+<command>PONCL</command> <parameter>color</parameter>
+<command>SETPENCOLOR</command> <parameter>color</parameter>
+<command>SETPC</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el color del lápiz <parameter>color</parameter>, que puede ser un color indexado, un vector de color, o un nombre de color.
+Un color indexado es un entero en un rango de 0 - 15.
+Un vector de color es una lista con las intensidades de [rojo verde azul], en un rango 0-255.
+Para una explicación del argumento <parameter>color</parameter>, ve <link linkend="using-color">Usando Color</link>.
+</para>
+
+<para>
+El color del lápiz afecta cada línea dibujada por la tortuga (por ejemplo, con <link linkend="command-forward">AVANZA</link>).
+También afecta el color del texto que se escribe con <link linkend="command-label">ROTULO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>REPITE 255 [
+  PONCOLORLAPIZ (LISTA CUENTAREPITE 0 0)
+  AVANZA      100
+  RETROCEDE   100
+  GIRADERECHA 1
+]</userinput>
+</programlisting>
+
+<para>Usando variables en un vector de color:
+<programlisting><userinput>HAZ "rojo  100
+HAZ "verde 100
+HAZ "azul  100
+PONCOLORLAPIZ [:rojo :verde :azul]       ; da un error
+PONCOLORLAPIZ (LISTA :rojo :verde :azul) ; funciona</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

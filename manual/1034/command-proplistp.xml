@@ -1,0 +1,44 @@
+<section id="command-proplistp">
+<title>LPROP?</title>
+<indexterm><primary>LPROP?</primary></indexterm>
+<indexterm><primary>PROPLISTP</primary></indexterm>
+<indexterm><primary>PROPLIST?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LPROP?</command> <parameter>nombre</parameter>
+<command>PROPLISTP</command> <parameter>nombre</parameter>
+<command>PROPLIST?</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de una lista de propiedades, devuelve FALSO si no.
+</para>
+
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA LPROP? "Helio</userinput>
+falso
+
+<userinput>PONPROP "Helio "Símbolo       "He</userinput>
+<userinput>PONPROP "Helio "NúmeroAtómico 2</userinput>
+<userinput>MUESTRA LPROP? "Helio</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

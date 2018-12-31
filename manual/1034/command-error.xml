@@ -1,0 +1,45 @@
+<section id="command-error">
+    <title>ERROR</title>
+<indexterm><primary>ERROR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ERROR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que describe el error que ATRAPA acaba de atrapar, si lo hay.
+Si no hay error después del último uso de ERROR, devuelve la lista vacía.
+La lista con el error contiene cuatro miembros: un entero que indica el código del tipo de error, el texto del mensaje de error, el nombre del procedimiento en donde se produce el error y la línea de instrucciones en que ocurrió el error.
+</para>
+
+<para>
+Se explica el significado del primer elemento de la lista en la sección sobre <link linkend="error-codes">Códigos de error</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  AVANZA 1000
+FIN
+
+MODOJAULA
+ATRAPA "ERROR [MIPROGRAMA]
+MUESTRA ERROR</userinput>
+[3 tortuga fuera de los límites MIPROGRAMA [AVANZA 1000]]
+<userinput>MUESTRA ERROR</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

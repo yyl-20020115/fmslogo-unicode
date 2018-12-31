@@ -1,0 +1,49 @@
+<section id="command-listboxgetselect">
+<title>LISTBOXGETSELECT</title>
+<indexterm><primary>LISTBOXGETSELECT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LISTBOXGETSELECT</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the selected item within the listbox that is identified by <parameter>name</parameter>.
+The output takes the form of a list that encloses the text of the currently selected row.
+If nothing is selected, then LISTBOXGETSELECT outputs the empty list.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>TO DODRAW
+  CLEARSCREEN
+  IF EQUALP [Triangle] LISTBOXGETSELECT "mylist [REPEAT 3 [FORWARD 100 RIGHT 120]]
+  IF EQUALP [Square]   LISTBOXGETSELECT "mylist [REPEAT 4 [FORWARD 100 RIGHT 90]]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+LISTBOXCREATE "mywindow "mylist 25 0 50 50
+LISTBOXADDSTRING "mylist [Triangle]
+LISTBOXADDSTRING "mylist [Square]
+BUTTONCREATE "mywindow "mydraw "Draw 25 50 50 25 [DODRAW]</userinput>
+
+<replaceable>Select an item from the listbox and then click the Draw button.</replaceable>
+
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

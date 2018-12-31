@@ -1,0 +1,61 @@
+<section id="command-continue">
+<title>SIGUE</title>
+<indexterm><primary>SIGUE</primary></indexterm>
+<indexterm><primary>CONTINUE</primary></indexterm>
+<indexterm><primary>CO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SIGUE</command> <parameter>valor</parameter>
+(<command>SIGUE</command>)
+<command>CONTINUE</command> <parameter>valor</parameter>
+<command>CO</command> <parameter>valor</parameter>
+(<command>CONTINUE</command>)
+(<command>CO</command>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Termina la pausa interactiva actual, volviendo al contexto desde el que se llamó a <link linkend="command-pause">PAUSA</link>.
+Si le das a SIGUE un argumento, PAUSA devuelve ese valor.
+Si no, PAUSA no devuelve nada.
+</para>
+
+<para>
+Como excepción a la regla general, puedes usar el comando SIGUE sin su argumento y sin paréntesis siempre y cuando nada sigue el comando en la línea de instrucción.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+<programlisting><userinput>PARA MIPROGRAMA
+  REPITE 180 [GIRADERECHA 2 SI 90=CUENTAREPITE [PAUSA]]
+  ESCRIBE "Hecho
+FIN
+
+MIPROGRAMA</userinput>
+Pausando...MIPROGRAMA
+</programlisting>
+
+Entra <userinput>MUESTRA RUMBO</userinput> en el cuadro de diálogo titulado «Modo de Pausa» y presiona OK.
+
+<programlisting>180</programlisting>
+
+Entra <userinput>SIGUE</userinput> en el cuadro de diálogo titulado «Modo de Pausa» y presiona OK.
+
+<programlisting>Hecho</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

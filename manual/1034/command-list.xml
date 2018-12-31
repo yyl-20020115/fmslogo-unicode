@@ -1,0 +1,45 @@
+<section id="command-list">
+<title>LISTA</title>
+<indexterm><primary>LISTA</primary></indexterm>
+<indexterm><primary>LIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTA</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+(<command>LISTA</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)
+<command>LIST</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+(<command>LIST</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista cuyos elementos son los argumentos, que pueden ser cualquier cosa de &GENERICNAME; (palabra, lista, o vector).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA (LISTA "Esto "es "una "Lista)</userinput>
+[Esto es una Lista]
+</programlisting>
+
+    <programlisting><userinput>MUESTRA LISTA [1 2 3] [a b c]</userinput>
+[[1 2 3] [a b c]]</programlisting>
+
+    <programlisting><userinput>HAZ "rojo 100
+HAZ "verde 100
+HAZ "azul 100
+MUESTRA (LISTA :rojo :verde :azul)</userinput>
+[100 100 100]</programlisting>
+</listitem>
+
+</varlistentry>
+
+</variablelist>
+
+</section>

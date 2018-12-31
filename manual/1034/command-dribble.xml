@@ -1,0 +1,62 @@
+<section id="command-dribble">
+<title>ECO</title>
+<indexterm><primary>ECO</primary></indexterm>
+<indexterm><primary>DRIBBLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ECO</command> <parameter>nombre_de_archivo</parameter>
+<command>DRIBBLE</command> <parameter>nombre_de_archivo</parameter></synopsis>  
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Crea un nuevo archivo cuyo nombre es <parameter>nombre_de_archivo</parameter>, como <link linkend="command-openwrite">ABREESCRITURA</link>, y empieza recordar en este archivo todo lo leído del teclado.
+Esta escritura es además de lo que se escribe a la <link linkend="command-writer">ESCRITURA</link>.
+El propósito es crear una transcripción de una sesión de &GENERICNAME;, incluido cosas como los caracteres de los prompts y las interacciones.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+En el ejemplo siguiente, debes ejecutar todas las instrucciones una por una.
+</para>  
+
+<programlisting><userinput>; Eco unas pocas instrucciones, entonces para.
+ECO "eco.txt
+AVANZA 100
+GIRADERECHA 90
+NOECO
+
+; Abre el archivo eco y ve lo que fue escrito.
+ABRELECTURA "eco.txt
+PONLECTURA "eco.txt
+REPITE 3 [MUESTRA LEELISTA]</userinput>
+[AVANZA 100]
+[GIRADERECHA 90]
+[NOECO]
+<userinput>PONLECTURA []
+CIERRA "eco.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-nodribble">NOECO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

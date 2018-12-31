@@ -1,0 +1,43 @@
+<section id="command-define">
+<title>DEFINE</title>
+<indexterm><primary>DEFINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DEFINE</command> <parameter>nombre_de_procedimiento</parameter> <parameter>texto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Define un procedimiento cuyo nombre es <parameter>nombre_de_procedimiento</parameter> y cuya definición es <parameter>texto</parameter>.
+Si existe un procedimiento con el mismo nombre, la nueva definición reemplaza a la antigua.
+El argumento <parameter>texto</parameter> debe ser una lista de sublistas.
+La primera sublista contiene los parámetros y se parece a la línea <link linkend="command-to">PARA</link>, pero sin la palabra PARA, sin el nombre del procedimiento y sin los dos puntos delante de los nombres de los parámetros.
+En otras palabras, los elementos de la primera sublista son palabras que indican los nombres de los parámetros requeridos, seguidos por listas con los nombres de los parámetros opcionales, seguidos por una lista con el nombre del parámetro restante.
+Las demás sublistas del argumento <parameter>texto</parameter> forman el cuerpo del procedimiento, con una sublista por cada línea de instrucción.
+(No hay una línea <link linkend="command-end">FIN</link> en el argumento <parameter>texto</parameter>.)
+</para>
+
+<para>
+No se puede redefinir un procedimiento, a no ser que la variable <link linkend="command-redefp">REDEFP</link> tenga el valor CIERTO.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+ABC "Hola "Adiós</userinput>
+Hola
+Adiós</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

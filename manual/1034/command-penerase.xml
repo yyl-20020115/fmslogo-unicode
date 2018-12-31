@@ -1,0 +1,44 @@
+<section id="command-penerase">
+<title>GOMA</title>
+<indexterm><primary>GOMA</primary></indexterm>
+<indexterm><primary>PENERASE</primary></indexterm>
+<indexterm><primary>PE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GOMA</command>
+<command>PENERASE</command>
+<command>PE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición de lápiz hacia abajo en el modo «Goma».
+En modo «Goma», el lápiz dibuja en el color descrito por <link linkend="command-screencolor">COLORFONDO</link>.
+Usa <link linkend="command-penpaint">LAPIZNORMAL</link> para volver al modo normal.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>AVANZA 100
+GOMA
+RETROCEDE 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-penpaint">LAPIZNORMAL</link></member>
+<member><link linkend="command-penreverse">LAPIZINVIERTE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

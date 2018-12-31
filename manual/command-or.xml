@@ -1,0 +1,47 @@
+<section id="command-or">
+    <title>OR</title>
+<indexterm><primary>OR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OR</command> <parameter>boolean1</parameter> <parameter>boolean2</parameter>
+(<command>OR</command> <parameter>boolean1</parameter> <parameter>boolean2</parameter> <parameter>boolean3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if at least one input is TRUE.  Outputs FALSE, otherwise.
+All inputs must be TRUE or FALSE.
+</para>
+
+<para>
+The comparison is always case-insensitive, regardless of the value of <link linkend="command-caseignoredp">CASEIGNOREDP</link>.
+That is, "true", "True", and "TRUE" are all the same.
+</para>
+
+<para>
+If given no inputs, OR outputs FALSE.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW OR "true "true</userinput>
+true
+<userinput>SHOW OR "true "false</userinput>
+true
+<userinput>SHOW OR "false "false</userinput>
+false
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

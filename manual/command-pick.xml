@@ -1,0 +1,41 @@
+<section id="command-pick">
+<title>PICK</title>
+<indexterm><primary>PICK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PICK</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a randomly chosen item from <parameter>thing</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW PICK [1 2 3]</userinput>
+2</programlisting>
+
+<programlisting><userinput>SHOW PICK [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>SHOW PICK [1 2 3]</userinput>
+2</programlisting>
+
+<programlisting><userinput>SHOW PICK "Hello</userinput>
+e</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

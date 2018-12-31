@@ -1,0 +1,106 @@
+<section id="command-ellipsearc2">
+<title>ARCOELIPSE2</title>
+<indexterm><primary>ARCOELIPSE2</primary></indexterm>
+<indexterm><primary>ELLIPSEARC2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ARCOELIPSE2</command> <parameter>ángulo.del.arco</parameter> <parameter>medioeje.y</parameter> <parameter>medioeje.x</parameter> <parameter>principio.ángulo</parameter>
+<command>ELLIPSEARC2</command> <parameter>ángulo.del.arco</parameter> <parameter>medioeje.y</parameter> <parameter>medioeje.x</parameter> <parameter>principio.ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueva la tortuga en sentido horario sobre un arco elíptico.
+El arco traza <parameter>ángulo.del.arco</parameter> grados de la elipse, comenzando al punto descrito por <parameter>principio.ángulo</parameter> grados y terminando al punto descrito por (<parameter>principio.ángulo</parameter> + <parameter>ángulo.del.arco</parameter>).
+</para>
+
+<para>
+Puedes visualizar el tamaño y forma del arco elíptico en la manera siguiente.
+Primero, imaginate una elipse dibujado al centro de la pantalla tal que el <parameter>medioeje.x</parameter> es la distancia del centro a través del eje X y que <parameter>medioeje.y</parameter> es la distancia del centro a través del eje Y.
+ARCOELIPSE2 dibuja parte de esta elipse, un arco entre dos puntos sobre la elipse.
+El punto de partida por este arco te puedes visualizar imaginando una tortuga al centro de la elipse con un <link linkend="command-heading">RUMBO</link> de <parameter>principio.ángulo</parameter>.
+El punto donde esta tortuga cruza a la elipse cuando AVANZA es el punto de partida del arco.
+El punto final te puedes imaginar de una manera similar.
+Si, antes de avanzar, la tortuga hubiese ejecutado <userinput>GIRADERECHA <parameter>ángulo.del.arco</parameter></userinput>, entonces donde cruzara la elipse fuera el punto final.
+</para>
+
+<para>
+La posición y orientación del arco elíptico son más difíciles de entender, especialmente porque el arco elíptico no siempre está dibujado ni donde la tortuga empieza ni donde la tortuga termina.
+Sin embargo, hay dos casos simples.
+Primero, si <parameter>principio.ángulo</parameter> es un múltiplo de 90 grados, entonces se dibuja el arco tangente al rumbo de la tortuga.
+Segundo, si <parameter>principio.ángulo</parameter> y <parameter>ángulo.del.arco</parameter> suman a un múltiplo de 90 grados, entonces la tortuga termina tangente al arco dibujado.
+</para>
+
+<para>
+A pesar de este comportamiento confuso, es fácil usar ARCOELIPSE2 para dibujar iterativamente segmentos contiguos de una elipse.
+Si tu ejecución primero tiene un <parameter>principio.ángulo</parameter> de 0 y, en cada ejecución siguiente, el <parameter>principio.ángulo</parameter> es la suma de todos los valores de <parameter>principio.ángulo</parameter> previamente dadas, dibujaras segmentos contiguos de una elipse, aunque las posiciones de la tortuga tal vez no quedare sobre la elipse.
+</para>
+
+<para>
+Normalmente, se dibuja el arco elíptico en sentido horario, pero si <parameter>ángulo.del.arco</parameter> es negativo, entonces la tortuga se mueve hacia atrás en sentido <emphasis>antihorario</emphasis>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+Un ejemplo 2D sencillo:
+<programlisting><userinput>ARCOELIPSE2 90 100 200 0
+ARCOELIPSE2 90  50 100 0</userinput>
+</programlisting>
+</para>
+
+<para>
+Una elipse 2D construida de múltiples aros consecutivos:
+<programlisting><userinput>PONGROSOR 10
+PONCOLORLAPIZ "ROJO
+ARCOELIPSE2 90 150 100 0
+PONCOLORLAPIZ "LIMA
+ARCOELIPSE2 90 150 100 90
+PONCOLORLAPIZ "AZUL
+ARCOELIPSE2 90 150 100 180
+PONCOLORLAPIZ "AMARILLO
+ARCOELIPSE2 90 150 100 270</userinput>
+</programlisting>
+</para>
+
+<para>
+Una elipse dibujada con línea discontinua usando múltiples arcos consecutivos:
+<programlisting><userinput>REPITE 36 [
+   BAJALAPIZ
+   ARCOELIPSE2 10 50 200 CUENTAREPITE*20-20
+   SUBELAPIZ
+   ARCOELIPSE2 10 50 200 CUENTAREPITE*20-10
+]</userinput>
+</programlisting>
+</para>
+
+<para>
+Un ejemplo 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 72 [ARCOELIPSE2 90 50 100 0 BALANCEADERECHA 5]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipsearc">ARCOELIPSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

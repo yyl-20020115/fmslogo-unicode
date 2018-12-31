@@ -1,0 +1,43 @@
+<section id="command-penreverse">
+<title>PENREVERSE</title>
+<indexterm><primary>PENREVERSE</primary></indexterm>
+<indexterm><primary>PX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENREVERSE</command>
+<command>PX</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pen's position to "down" and the pen's mode to "reverse".
+In reverse mode, the pen draws in a color that is the bitwise negation of whatever pixel is under the pen.
+Use <link linkend="command-penpaint">PENPAINT</link> to restore the pen to normal use.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETPENCOLOR [255 0 0]
+PENPAINT
+FORWARD 100
+PENREVERSE
+BACK 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-penerase">PENERASE</link></member>
+<member><link linkend="command-penpaint">PENPAINT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-leftroll">
+<title>LEFTROLL</title>
+<indexterm><primary>LEFTROLL</primary></indexterm>
+<indexterm><primary>LR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LEFTROLL</command> <parameter>angle</parameter>
+<command>LR</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Rolls the turtle toward his left side by the specified angle, measured in degrees (1/360 of a circle).
+</para>
+<para>
+This command is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+LEFTROLL 45
+REPEAT 3 [FORWARD 100 LEFT 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

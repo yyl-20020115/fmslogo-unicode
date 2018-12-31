@@ -1,0 +1,34 @@
+<section id="command-run">
+    <title>EJECUTA</title>
+<indexterm><primary>EJECUTA</primary></indexterm>
+<indexterm><primary>RUN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EJECUTA</command> <parameter>lista_de_instrucciones</parameter>
+<command>RUN</command> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta las instrucciones que contiene el argumento <parameter>lista_de_instrucciones</parameter>; devuelve si la lista contiene una expresión que devuelve.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "cosas_que_hacer [ESCRIBE "Hola]
+EJECUTA :cosas_que_hacer</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

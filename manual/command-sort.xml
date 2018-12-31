@@ -1,0 +1,105 @@
+<section id="command-sort">
+    <title>SORT</title>
+<indexterm><primary>SORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SORT</command> <parameter>sequence</parameter>
+(<command>SORT</command> <parameter>sequence</parameter> <parameter>predicate</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Sorts a sequence (list, array, or word) in ascending order, or according to a given predicate.
+The output is a new sequence of the same type as <parameter>sequence</parameter> that contains the same items ordered such that there are no two successive items, a and b, where <userinput>(<parameter>predicate</parameter> a b)</userinput> is FALSE and <userinput>(<parameter>predicate</parameter> b a)</userinput> is TRUE.
+</para>
+
+<para>
+The <parameter>predicate</parameter> input must be either an <link linkend="explict-slot-templates">explicit-slot template</link> or the name of a procedure that acts as the predicate.
+The predicate must input two values and output either TRUE or FALSE.
+</para>
+
+<para>
+If no <parameter>predicate</parameter> input is given, then the predicate used depends on the <parameter>sequence</parameter> input, as defined by the following table.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry><parameter>sequence</parameter> type</entry> <entry>output</entry></row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>A list of numbers</entry>
+        <entry>A list sorted by <link linkend="command-lessp">LESSP</link></entry>
+      </row>
+      <row>
+         <entry>A list of non-numbers</entry>
+         <entry>A list sorted by <link linkend="command-beforep">BEFOREP</link></entry>
+      </row>
+      <row>
+         <entry>An array of numbers</entry>
+         <entry>An array sorted by <link linkend="command-lessp">LESSP</link></entry>
+      </row>
+      <row>
+         <entry>An array of non-numbers</entry>
+         <entry>An array sorted by <link linkend="command-beforep">BEFOREP</link></entry>
+      </row>
+      <row>
+         <entry>A word</entry>
+         <entry>A word whose characters are sorted by <link linkend="command-beforep">BEFOREP</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+Sorting in ascending order:
+<programlisting><userinput>SHOW SORT [3 1 2]</userinput>
+[1 2 3]
+</programlisting>
+</para>
+
+<para>
+Sorting in descending order:
+<programlisting><userinput>SHOW (SORT [3 1 2] "GREATERP)</userinput>
+[3 2 1]
+</programlisting>
+</para>
+
+<para>
+Sorting complex records:
+<programlisting><userinput>;       [name age height]
+MAKE "a [Ana  12  52]
+MAKE "b [Bob  11  54]
+MAKE "c [Cole 12  57]
+MAKE "d [Dan  12  52]
+MAKE "e [Erin 11  54]
+MAKE "data (LIST :e :d :c :b :a)
+
+; Sort by height.
+SHOW (SORT :data [LESSP LAST ?1 LAST ?2])</userinput>
+[[Dan 12 52] [Ana 12 52] [Erin 11 54] [Bob 11 54] [Cole 12 57]]
+
+<userinput>; Sort by height with ties sorted by name.
+SHOW (SORT (SORT :data [BEFOREP FIRST ?1 FIRST ?2]) [LESSP LAST ?1 LAST ?2])</userinput>
+[[Ana 12 52] [Dan 12 52] [Bob 11 54] [Erin 11 54] [Cole 12 57]]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

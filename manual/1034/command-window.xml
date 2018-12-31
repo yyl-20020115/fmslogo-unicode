@@ -1,0 +1,44 @@
+<section id="command-window">
+    <title>MODOVENTANA</title>
+<indexterm><primary>MODOVENTANA</primary></indexterm>
+<indexterm><primary>WINDOW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MODOVENTANA</command>
+<command>WINDOW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace que la tortuga entra en el modo «ventana».
+De ahora en adelante, cuando la tortuga se mueve fuera de los límites de la pantalla, se alejará de ella y quedará fuera de vista.
+En modo «ventana», se considera la pantalla de gráficos como solo una parte de un plano gráfico infinito; la tortuga puede estar en cualquier parte del plano.
+Si pierdes la tortuga, <link linkend="command-home">CENTRO</link> la devolverá al centro de la pantalla.
+</para>
+
+<para>
+Compara este comando con <link linkend="command-wrap">MODOVUELTA</link>, <link linkend="command-fence">MODOJAULA</link> y <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MODOVUELTA
+AVANZA 950
+GIRADERECHA 90
+MODOVENTANA
+AVANZA 950
+AVANZA 100</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,41 @@
+<section id="command-namelist">
+    <title>LISTANOMBRES</title>
+<indexterm><primary>LISTANOMBRES</primary></indexterm>
+<indexterm><primary>NAMELIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTANOMBRES</command> <parameter>nombre_de_variable</parameter>
+<command>LISTANOMBRES</command> <parameter>lista_de_nombres</parameter>
+<command>NAMELIST</command> <parameter>nombre_de_variable</parameter>
+<command>NAMELIST</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos formada por una lista vacía seguida de otra lista con el nombre o nombres de los argumentos.
+Esto es útil en conjunto con los procedimientos de <link linkend="workspace-control">control del área de trabajo</link> que requieren una lista de contenidos como argumento.
+Las variables nombradas no tienen que existir.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA LISTANOMBRES [foo bar]</userinput>
+[[] [foo bar]]</programlisting>
+
+<programlisting><userinput>MUESTRA LISTANOMBRES "abc</userinput>
+[[] [abc]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

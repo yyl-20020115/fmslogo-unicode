@@ -1,0 +1,49 @@
+<section id="command-procedurep">
+    <title>PROCEDIMIENTO?</title>
+<indexterm><primary>PROCEDIMIENTO?</primary></indexterm>
+<indexterm><primary>PROCEDUREP</primary></indexterm>
+<indexterm><primary>PROCEDURE?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PROCEDIMIENTO?</command> <parameter>nombre</parameter>
+<command>PROCEDUREP</command> <parameter>nombre</parameter>
+<command>PROCEDURE?</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de un procedimiento, si no devuelve FALSO.
+</para>
+
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo 1
+PARA BAR
+FIN
+
+MUESTRA PROCEDIMIENTO? "foo</userinput>
+falso
+
+<userinput>MUESTRA PROCEDIMIENTO? "BAR</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

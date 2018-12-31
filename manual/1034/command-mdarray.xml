@@ -1,0 +1,56 @@
+<section id="command-mdarray">
+<title>VECTORMD</title>
+<indexterm><primary>VECTORMD</primary></indexterm>
+<indexterm><primary>MDARRAY</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VECTORMD</command> <parameter>tamañolista</parameter>
+(<command>VECTORMD</command> <parameter>tamañolista</parameter> <parameter>origen</parameter>)
+<command>MDARRAY</command> <parameter>tamañolista</parameter>
+(<command>MDARRAY</command> <parameter>tamañolista</parameter> <parameter>origen</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+  <para>Devuelve un vector multi-dimensional, comúnmente conocido como una matriz.</para>
+
+  <para>El argumento <parameter>tamañolista</parameter> es una lista de enteros que describen el tamaño de cada dimensión del vector.
+  Debe ser una lista con uno o más enteros.</para>
+
+  <para>El argumento opcional <parameter>origen</parameter> es el primer elemento de cada dimensión en el vector multi-dimensional.
+  Debe ser un único entero.
+  Por omisión, el origen de cada dimensión es 1.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "mi_vector (VECTORMD [2 3] 0)
+PONELEMENTOMD [0 0] :mi_vector 1
+PONELEMENTOMD [0 1] :mi_vector 2
+PONELEMENTOMD [0 2] :mi_vector 3
+PONELEMENTOMD [1 0] :mi_vector 4
+PONELEMENTOMD [1 1] :mi_vector 5
+PONELEMENTOMD [1 2] :mi_vector 6
+MUESTRA :mi_vector</userinput>
+{{1 2 3} {4 5 6}}</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-mditem">ELEMENTOMD</link></member>
+<member><link linkend="command-mdsetitem">PONELEMENTOMD</link></member>
+<member><link linkend="command-array">VECTOR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

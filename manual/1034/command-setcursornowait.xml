@@ -1,0 +1,48 @@
+<section id="command-setcursornowait">
+    <title>PONCURSORNOESPERA</title>
+<indexterm><primary>PONCURSORNOESPERA</primary></indexterm>
+<indexterm><primary>SETCURSORNOWAIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCURSORNOESPERA</command>
+<command>SETCURSORNOWAIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el cursor en la forma familiar de flecha.
+Debes usar este comando justo antes de una llamada a <link linkend="command-yield">NOEXCLUSIVO</link>.
+</para>
+
+<para>
+Una vez que &PRODUCTNAME; se vuelva al modo NOEXCLUSIVO se usará el cursor apropiado (no el reloj de arena) al siguiente evento que involucra el cursor (tal como moviendo el ratón), independientemente de si ejecutaras PONCURSORNOESPERA.
+Sin embargo, ejecutando PONCURSORNOESPERA muestra el cursor de flecha sin esperar el evento siguiente.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 100 [
+  EXCLUSIVO
+  PONCURSORESPERA
+  REPITE 100 [
+    <replaceable>; (trabajo que hacer)</replaceable>
+  ]
+  SETCURSORNOESPERA
+  NOEXCLUSIVO
+]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

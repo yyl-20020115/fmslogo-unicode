@@ -1,0 +1,37 @@
+<section id="command-macroexpand">
+    <title>EXPANDEMACRO</title>
+<indexterm><primary>EXPANDEMACRO</primary></indexterm>
+<indexterm><primary>MACROEXPAND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EXPANDEMACRO</command> <parameter>instrucción_de_macro</parameter>
+<command>MACROEXPAND</command> <parameter>instrucción_de_macro</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la lista de instrucciones que su argumento, que debe ser una instrucción de macro, devolvería antes de ser ejecutado por &GENERICNAME;.
+</para>
+
+<para>
+El argumento <parameter>instrucción_de_macro</parameter> debe ser una lista que empieza con el nombre de una macro.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA EXPANDEMACRO [HAZLOCAL "pi 3.14159]</userinput>
+[LOCAL "pi APLICA "HAZ [pi 3.14159]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

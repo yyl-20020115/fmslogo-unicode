@@ -1,0 +1,55 @@
+<section id="command-readchars">
+<title>READCHARS</title>
+<indexterm><primary>READCHARS</primary></indexterm>
+<indexterm><primary>RCS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READCHARS</command> <parameter>number</parameter>
+<command>RCS</command> <parameter>number</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Reads <parameter>number</parameter> characters from the read stream and outputs those characters as a word.
+If <parameter>number</parameter> is larger than the number of characters remaining in the read stream, then READCHARS outputs the rest of the read stream.
+If the read stream is a file and there are no unread characters in the file, then READCHARS outputs the empty list (not the empty word).
+</para>
+
+<para>
+If the read stream is the Commander, then READCHARS always outputs the empty list.
+</para>
+
+<para>
+Backslash, vertical bar, and tilde characters have no special meaning in this context.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+SHOW READCHARS 5</userinput>
+Hello
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,47 @@
+<section id="command-cos">
+<title>COS</title>
+<indexterm><primary>COS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COS</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el coseno de <parameter>ángulo</parameter>, en grados.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA COS 0</userinput>
+1</programlisting>
+
+<programlisting><userinput>MUESTRA COS 90</userinput>
+0</programlisting>
+
+<programlisting><userinput>MUESTRA COS 180</userinput>
+-1</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-radcos">RADCOS</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

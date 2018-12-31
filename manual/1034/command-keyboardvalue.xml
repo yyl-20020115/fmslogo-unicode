@@ -1,0 +1,208 @@
+<section id="command-keyboardvalue">
+    <title>LEETECLA</title>
+<indexterm><primary>LEETECLA</primary></indexterm>
+<indexterm><primary>KEYBOARDVALUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEETECLA</command>
+<command>KEYBOARDVALUE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Devuelve el valor de la tecla más recientemente presionada o liberada.
+El numero devuelto depende de ambos la tecla presionada o liberada y si <link linkend="command-keyboardon">HABILITATECLADO</link> fue dado uno o dos argumentos.
+</para>
+
+<para>
+Si HABILITATECLADO fue dado un argumento, entonces el evento del teclado está capturado como el carácter presionado.
+Es decir, LEETECLA devuelve el valor ASCII del carácter más recientemente presionado.
+Por ejemplo, sobre un teclado QWERTY para España, se pinta «5» y «%» sobre la misma tecla.
+Si el usuario presiona la tecla «5» sin presionar la tecla Mayús, entonces LEETECLA devuelve <userinput>53</userinput>, que es <userinput>ASCII 5</userinput>.
+Por otro lado, si el usuario presiona la tecla «5» mientras se presiona la tecla Mayús, entonces LEETECLA devuelve <userinput>37</userinput>, que es <userinput>ASCII "%</userinput>.
+</para>
+
+<para>
+Además, si HABILITATECLADO fue solo dado un argumento, entonces se ignora pulsaciones de tecla que no se relacionan directamente a caracteres de texto.
+Por ejemplo, se ignora las teclas de Mayús, Control, Inicio, y Fin (entre otras).
+</para>
+
+<para>
+Si HABILITATECLADO fue dado dos argumentos, entonces LEETECLA devuelve las pulsaciones como distintas presiones de tecla, pero no necesariamente el carácter deseado.
+In este caso, cuando se presiona la tecla «5», LEETECLA devuelve el mismo numero independientemente de si se mantiene presionada Mayús al mismo tiempo.
+Sin embargo, HABILITATECLADO genera distintos eventos cuando se presiona la tecla Mayús y cuando se libera la tecla Mayús, así que aún puedes identificar la diferencia entre <userinput>5</userinput> y <userinput>%</userinput>.
+</para>
+
+<para>
+En general, si HABILITATECLADO fue dado dos argumentos, entonces LEETECLA devuelve un numero distinto por cada tecla física, pero hay excepciones.
+El numero asignado a una tecla puede variar entre teclados y distribuciones del teclado (por ejemplo, de Estado Unidos o de España).
+Del mismo modo, algunos teclados (tal como los que son fabricados por Microsoft para Windows) tienen más teclas que un teclado normal y puede generar eventos de teclado que no se puede sobre otros teclados (tal como un «Mayús Izquierdo» como distinto de «Mayús Derecho», o una tecla «Subir Volumen»).
+Finalmente, algunos teclados, tal como los de una computadora portátil, tienen modos especiales en lo cual la misma tecla física puede comportarse como dos teclas distintas dependiendo del modo.
+Por ejemplo, la tecla <userinput>J</userinput> puede comportarse como <userinput>1 numérico</userinput> cuando se mantiene presionada una tecla especial de «modo alternativo».
+</para>
+
+<para>
+Las asignaciones de LEETECLA mostradas en la tabla siguiente deberían aplicarse a todos los teclados.
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+     <row> <entry>Tecla</entry>             <entry>LEETECLA</entry>  </row>
+    </thead>
+    <tbody>
+     <row> <entry>Retroceso</entry>         <entry>8</entry>   </row>
+     <row> <entry>Tab</entry>               <entry>9</entry>   </row>
+     <row> <entry>Despejar</entry>          <entry>12</entry>  </row>
+     <row> <entry>Entrar</entry>            <entry>13</entry>  </row>
+     <row> <entry>Mayúsculas</entry>        <entry>16</entry>  </row>
+     <row> <entry>Control</entry>           <entry>17</entry>  </row>
+     <row> <entry>Alt</entry>               <entry>18</entry>  </row>
+     <row> <entry>Pausa</entry>             <entry>19</entry>  </row>
+     <row> <entry>Bloq Mayús</entry>        <entry>20</entry>  </row>
+     <row> <entry>Esc</entry>               <entry>27</entry>  </row>
+     <row> <entry>Barra espaciadora</entry> <entry>32</entry>  </row>
+     <row> <entry>Av Pág</entry>            <entry>33</entry>  </row>
+     <row> <entry>Re Pág</entry>            <entry>34</entry>  </row>
+     <row> <entry>Fin</entry>               <entry>35</entry>  </row>
+     <row> <entry>Inicio</entry>            <entry>36</entry>  </row>
+     <row> <entry>Flecha izquierda</entry>  <entry>37</entry>  </row>
+     <row> <entry>Flecha arriba</entry>     <entry>38</entry>  </row>
+     <row> <entry>Flecha derecha</entry>    <entry>39</entry>  </row>
+     <row> <entry>Flecha abajo</entry>      <entry>40</entry>  </row>
+     <row> <entry>Imprimir pantalla</entry> <entry>44</entry>  </row>
+     <row> <entry>Insertar</entry>          <entry>45</entry>  </row>
+     <row> <entry>Suprimir</entry>          <entry>46</entry>  </row>
+
+     <row> <entry>Tecla 0</entry>       <entry>48</entry>  </row>
+     <row> <entry>Tecla 1</entry>       <entry>49</entry>  </row>
+     <row> <entry>Tecla 2</entry>       <entry>50</entry>  </row>
+     <row> <entry>Tecla 3</entry>       <entry>51</entry>  </row>
+     <row> <entry>Tecla 4</entry>       <entry>52</entry>  </row>
+     <row> <entry>Tecla 5</entry>       <entry>53</entry>  </row>
+     <row> <entry>Tecla 6</entry>       <entry>54</entry>  </row>
+     <row> <entry>Tecla 7</entry>       <entry>55</entry>  </row>
+     <row> <entry>Tecla 8</entry>       <entry>56</entry>  </row>
+     <row> <entry>Tecla 9</entry>       <entry>57</entry>  </row>
+     <row> <entry>Tecla A</entry>       <entry>65</entry>  </row>
+     <row> <entry>Tecla B</entry>       <entry>66</entry>  </row>
+     <row> <entry>Tecla C</entry>       <entry>67</entry>  </row>
+     <row> <entry>Tecla D</entry>       <entry>68</entry>  </row>
+     <row> <entry>Tecla E</entry>       <entry>69</entry>  </row>
+     <row> <entry>Tecla F</entry>       <entry>70</entry>  </row>
+     <row> <entry>Tecla G</entry>       <entry>71</entry>  </row>
+     <row> <entry>Tecla H</entry>       <entry>72</entry>  </row>
+     <row> <entry>Tecla I</entry>       <entry>73</entry>  </row>
+     <row> <entry>Tecla J</entry>       <entry>74</entry>  </row>
+     <row> <entry>Tecla K</entry>       <entry>75</entry>  </row>
+     <row> <entry>Tecla L</entry>       <entry>76</entry>  </row>
+     <row> <entry>Tecla M</entry>       <entry>77</entry>  </row>
+     <row> <entry>Tecla N</entry>       <entry>78</entry>  </row>
+     <row> <entry>Tecla O</entry>       <entry>79</entry>  </row>
+     <row> <entry>Tecla P</entry>       <entry>80</entry>  </row>
+     <row> <entry>Tecla Q</entry>       <entry>81</entry>  </row>
+     <row> <entry>Tecla R</entry>       <entry>82</entry>  </row>
+     <row> <entry>Tecla S</entry>       <entry>83</entry>  </row>
+     <row> <entry>Tecla T</entry>       <entry>84</entry>  </row>
+     <row> <entry>Tecla U</entry>       <entry>85</entry>  </row>
+     <row> <entry>Tecla V</entry>       <entry>86</entry>  </row>
+     <row> <entry>Tecla W</entry>       <entry>87</entry>  </row>
+     <row> <entry>Tecla X</entry>       <entry>88</entry>  </row>
+     <row> <entry>Tecla Y</entry>       <entry>89</entry>  </row>
+     <row> <entry>Tecla Z</entry>       <entry>90</entry>  </row>
+
+     <row> <entry>Tecla Windows Izquierda</entry> <entry>91</entry>  </row>
+     <row> <entry>Tecla Windows Derecho</entry>   <entry>92</entry>  </row>
+     <row> <entry>Tecla de aplicación</entry>     <entry>93</entry>  </row>
+
+     <row> <entry>Tecla 0 del bloque numérico</entry><entry>96</entry>  </row>
+     <row> <entry>Tecla 1 del bloque numérico</entry><entry>97</entry>  </row>
+     <row> <entry>Tecla 2 del bloque numérico</entry><entry>98</entry>  </row>
+     <row> <entry>Tecla 3 del bloque numérico</entry><entry>99</entry>  </row>
+     <row> <entry>Tecla 4 del bloque numérico</entry><entry>100</entry> </row>
+     <row> <entry>Tecla 5 del bloque numérico</entry><entry>101</entry> </row>
+     <row> <entry>Tecla 6 del bloque numérico</entry><entry>102</entry> </row>
+     <row> <entry>Tecla 7 del bloque numérico</entry><entry>103</entry> </row>
+     <row> <entry>Tecla 8 del bloque numérico</entry><entry>104</entry> </row>
+     <row> <entry>Tecla 9 del bloque numérico</entry><entry>105</entry> </row>
+     <row> <entry>Tecla * del bloque numérico</entry><entry>106</entry> </row>
+     <row> <entry>Tecla + del bloque numérico</entry><entry>107</entry> </row>
+     <row> <entry>Tecla - del bloque numérico</entry><entry>109</entry> </row>
+     <row> <entry>Tecla . del bloque numérico</entry><entry>110</entry> </row>
+     <row> <entry>Tecla / del bloque numérico</entry><entry>111</entry> </row>
+
+     <row> <entry>F1</entry>          <entry>112</entry> </row>
+     <row> <entry>F2</entry>          <entry>113</entry> </row>
+     <row> <entry>F3</entry>          <entry>114</entry> </row>
+     <row> <entry>F4</entry>          <entry>115</entry> </row>
+     <row> <entry>F5</entry>          <entry>116</entry> </row>
+     <row> <entry>F6</entry>          <entry>117</entry> </row>
+     <row> <entry>F7</entry>          <entry>118</entry> </row>
+     <row> <entry>F8</entry>          <entry>119</entry> </row>
+     <row> <entry>F9</entry>          <entry>120</entry> </row>
+     <row> <entry>F10</entry>         <entry>121</entry> </row>
+     <row> <entry>F11</entry>         <entry>122</entry> </row>
+     <row> <entry>F12</entry>         <entry>123</entry> </row>
+
+     <row> <entry>Bloqueo numérico</entry>       <entry>144</entry> </row>
+     <row> <entry>Bloqueo desplazamiento</entry> <entry>145</entry> </row>
+
+     <row> <entry>Silencio de Volumen</entry> <entry>173</entry> </row>
+     <row> <entry>Bajar Volumen</entry>      <entry>174</entry> </row>
+     <row> <entry>Subir Volumen</entry>       <entry>175</entry> </row>
+
+     <row> <entry>Tecla +</entry>       <entry>187</entry> </row>
+     <row> <entry>Tecla ,</entry>       <entry>188</entry> </row>
+     <row> <entry>Tecla -</entry>       <entry>189</entry> </row>
+     <row> <entry>Tecla .</entry>       <entry>190</entry> </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+Las asignaciones de LEETECLA mostradas en la tabla siguiente deberían aplicarse a todos los teclados de distribución estándar de Estados Unidos.
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+     <row> <entry>Tecla</entry>      <entry>LEETECLA</entry>  </row>
+    </thead>
+    <tbody>
+     <row> <entry>; o :</entry>      <entry>186</entry>  </row>
+     <row> <entry>/ o ?</entry>      <entry>191</entry>  </row>
+     <row> <entry>` o ~</entry>      <entry>192</entry>  </row>
+     <row> <entry>[ o {</entry>      <entry>219</entry>  </row>
+     <row> <entry>\ o |</entry>      <entry>220</entry>  </row>
+     <row> <entry>} o ]</entry>      <entry>221</entry>  </row>
+     <row> <entry>' o "</entry>      <entry>222</entry>  </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HABILITATECLADO [ESCRIBE CAR LEETECLA]
+PANTALLAGRAFICA
+PONFOCO [&PRODUCTNAME;]</userinput>
+
+<replaceable>Presiona la tecla «A» del teclado</replaceable>
+a
+<replaceable>Presiona la tecla «B» del teclado</replaceable>
+b
+
+<userinput>PANTALLAPARTIDA
+INHABILITATECLADO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

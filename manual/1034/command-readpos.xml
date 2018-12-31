@@ -1,0 +1,50 @@
+<section id="command-readpos">
+<title>POSLECTURA</title>
+<indexterm><primary>POSLECTURA</primary></indexterm>
+<indexterm><primary>READPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POSLECTURA</command>
+<command>READPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la posición del archivo del flujo de lectura como número de caracteres ya leído.
+Un valor de 0 indica que la posición está al principio del flujo.
+Un valor de 1 indica que la posición está al segundo carácter del flujo (que un carácter ya ha sido leído).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+REPITE 2 [MUESTRA POSLECTURA MUESTRA LEELISTA]</userinput>
+0
+[Hola]
+6
+[Adiós, Amigo]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

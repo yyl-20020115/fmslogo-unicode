@@ -1,0 +1,40 @@
+<section id="command-directories">
+    <title>DIRECTORIES</title>
+<indexterm><primary>DIRECTORIES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIRECTORIES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list of the names of each directory in the current working directory.
+</para>
+<para>
+The directory names are sorted alphabetically, except that the special entries "." and ".." always appear first, if present.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW DIRECTORIES</userinput>
+[. .. Examples logolib]
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-files">FILES</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>
+

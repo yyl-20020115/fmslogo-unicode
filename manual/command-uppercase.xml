@@ -1,0 +1,32 @@
+<section id="command-uppercase">
+<title>UPPERCASE</title>
+<indexterm><primary>UPPERCASE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>UPPERCASE</command> <parameter>word</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a word which is a copy of <parameter>word</parameter>, but with all lowercase letters changed to the corresponding uppercase letter.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW UPPERCASE "HeLlo</userinput>
+HELLO</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

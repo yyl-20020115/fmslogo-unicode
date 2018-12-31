@@ -1,0 +1,45 @@
+<section id="command-wrap">
+    <title>MODOVUELTA</title>
+<indexterm><primary>MODOVUELTA</primary></indexterm>
+<indexterm><primary>WRAP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MODOVUELTA</command>
+<command>WRAP</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace que la tortuga entra en modo «vuelta».
+De ahora en adelante, cuando la tortuga sobrepasa los límites de la pantalla por uno de sus bordes, aparece por el borde opuesto.
+El borde de arriba vuelva al borde de abajo, mientras que el borde de izquierda vuelva al borde de derecho.
+(Así que, en modo «vuelta» la pantalla tiene forma tópologica de un toro.)
+Es el modo inicial de la tortuga.
+</para>
+
+<para>
+Compara este comando con <link linkend="command-window">MODOVENTANA</link>, <link linkend="command-fence">MODOJAULA</link> y <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MODOVUELTA
+AVANZA 950
+GIRADERECHA 90
+MODOVENTANA
+AVANZA 950
+AVANZA 100</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

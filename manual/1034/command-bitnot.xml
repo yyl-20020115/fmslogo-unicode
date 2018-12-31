@@ -1,0 +1,35 @@
+<section id="command-bitnot">
+    <title>BITNOT</title>
+<indexterm><primary>BITNOT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BITNOT</command> <parameter>entero</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de la operación NOT bit a bit del argumento, que debe ser un entero.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA BITNOT 1</userinput>
+-2
+<userinput>MUESTRA BITNOT 5</userinput>
+-6
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

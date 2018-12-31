@@ -1,0 +1,48 @@
+<section id="command-edit">
+<title>EDITA</title>
+<indexterm><primary>EDITA</primary></indexterm>
+<indexterm><primary>EDIT</primary></indexterm>
+<indexterm><primary>ED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDITA</command> <parameter>lista_de_contenidos</parameter>
+<command>EDIT</command> <parameter>lista_de_contenidos</parameter>
+<command>ED</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de los elementos nombrados en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  ESCRIBE "Hrla
+FIN
+
+MIPROGRAMA</userinput>
+Hrla
+<userinput>EDITA "MIPROGRAMA</userinput>
+<replaceable>Cambia «Hrla» por «Hola» y sal del Editor</replaceable>
+<userinput>MIPROGRAMA</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,48 @@
+<section id="command-bitfit">
+<title>BITFIT</title>
+<indexterm><primary>BITFIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITFIT</command> <parameter>width</parameter> <parameter>height</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Resizes (or "fits") the currently "cut" (<link linkend="command-bitcut">BITCUT</link> or <link linkend="command-bitcopy">BITCOPY</link>) image into the specified dimensions.
+Anytime later, you can "paste" (<link linkend="command-bitpaste">BITPASTE</link>) it back into the image.
+&PRODUCTNAME; fits the "cut" image to a width of the <parameter>width</parameter> pixels and a height of the <parameter>height</parameter> pixels.
+The original "cut" image is replaced by this newly "fit" image.
+</para>
+
+<para>
+BITFIT can permanently "scale" your image, whereas <link linkend="command-zoom">ZOOM</link> only temporarily views it at a different scale.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETPENSIZE [2 2]
+REPEAT 72 [CIRCLE2 100 SETPENCOLOR (LIST REPCOUNT*3 0 0) RIGHT 5]
+PENUP
+SETXY -50 -50
+BITCUT 100 100
+CLEARSCREEN
+BITPASTE
+CLEARSCREEN
+BITFIT 200 100
+BITPASTE</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

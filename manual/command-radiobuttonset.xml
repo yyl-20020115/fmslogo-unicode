@@ -1,0 +1,48 @@
+<section id="command-radiobuttonset">
+    <title>RADIOBUTTONSET</title>
+<indexterm><primary>RADIOBUTTONSET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RADIOBUTTONSET</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the state of the radio button that is identified by <parameter>name</parameter> to <parameter>state</parameter>.
+<parameter>state</parameter> must be either TRUE (pressed) or FALSE (unpressed).
+</para>
+
+<para>
+Even though the user can only set one radio button in a group to TRUE at any given time, RADIOBUTTONSET can violate this constraint.
+If you use this command to set a radio button to TRUE, you should also set all the other radio buttons within the group box to FALSE.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO CHECKONTHINGS
+  IFELSE RADIOBUTTONGET "myhideturtle [HIDETURTLE] [SHOWTURTLE]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 60
+RADIOBUTTONCREATE "mywindow "mygroupbox "myhideturtle [Hide Turtle] 20 20 60 20
+RADIOBUTTONCREATE "mywindow "mygroupbox "myshowturtle [Show Turtle] 20 40 60 20
+RADIOBUTTONSET "myhideturtle "true
+RADIOBUTTONSET "myshowturtle "false
+BUTTONCREATE "mywindow "mybutton "Go 40 70 25 20 [CHECKONTHINGS]
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,58 @@
+<section id="command-bury">
+    <title>TAPA</title>
+<indexterm><primary>TAPA</primary></indexterm>
+<indexterm><primary>BURY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TAPA</command> <parameter>lista_de_contenidos</parameter>
+<command>BURY</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Tapa los procedimientos, variables y listas de propiedades nombrados en el argumento <parameter>lista_de_contenidos</parameter>.
+Una cosa que está tapada no se incluye en las listas devueltas por <link linkend="command-contents">CONTENIDO</link>, <link linkend="command-procedures">LPROCS</link>, <link linkend="command-names">LVARS</link> o <link linkend="command-plists">LPROPS</link>, pero sí se la incluye en la lista devuelta por <link linkend="command-buried">TAPADO</link>.
+Por implicación, <link linkend="command-poall">IMTODO</link> no escribe las cosas tapadas, ni las guarda <link linkend="command-save">GUARDA</link>.
+</para>
+
+<para>
+TAPA no lanza un error si le pidas que tape un procedimiento, una variable o una lista de propiedades que no está en el área de trabajo, pero esto no tiene ningún efecto.
+TAPA tampoco lanza un error si le pidas que tape una primitiva, pero esto tampoco tiene efecto.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+  ESCRIBE [Yo soy Foo]
+FIN
+
+PARA BAR
+  ESCRIBE [Yo soy Bar]
+FIN
+
+IMTS</userinput>
+PARA BAR
+PARA FOO
+<userinput>TAPA [[FOO] [] []]
+IMTS</userinput>
+PARA BAR
+<userinput>FOO</userinput>
+Yo soy Foo
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

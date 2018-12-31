@@ -1,0 +1,44 @@
+<section id="command-penpaint">
+<title>PENPAINT</title>
+<indexterm><primary>PENPAINT</primary></indexterm>
+<indexterm><primary>PPT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENPAINT</command>
+<command>PPT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pen's position to "down" and the pen's mode to "paint".
+In paint mode, the pen draws in the color described by <link linkend="command-pencolor">PENCOLOR</link>.
+This is the default mode.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PENREVERSE
+FORWARD 100
+BACK 100
+PENPAINT
+FORWARD 100
+BACK 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-penerase">PENERASE</link></member>
+<member><link linkend="command-penreverse">PENREVERSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

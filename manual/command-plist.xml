@@ -1,0 +1,41 @@
+<section id="command-plist">
+    <title>PLIST</title>
+<indexterm><primary>PLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PLIST</command> <parameter>plistname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list of the properties in the property list named <parameter>plistname</parameter>.
+The odd-numbered items in the list are the property names and the even-numbered items are the property values.
+The output is a copy of the actual property list; changing properties later does not change the list that was output by PLIST and vice-versa.
+</para>
+
+<para>
+<parameter>plistname</parameter> must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+PPROP "plist1 "p2 2
+SHOW PLIST "plist1</userinput>
+[p2 2 p1 1]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

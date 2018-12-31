@@ -1,0 +1,49 @@
+<section id="command-portwritechar">
+    <title>ESCRIBECARACTERPUERTO</title>
+<indexterm><primary>ESCRIBECARACTERPUERTO</primary></indexterm>
+<indexterm><primary>PORTWRITECHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ESCRIBECARACTERPUERTO</command> <parameter>byte</parameter>
+<command>PORTWRITECHAR</command> <parameter>byte</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe un byte al puerto abierto.
+Devuelve 1 si se lo escribe con éxito, -1 sino.
+El argumento <parameter>byte</parameter> debe ser un entero entre 0 y 255.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>ABREPUERTO "com1
+MUESTRA ESCRIBECARACTERPUERTO ASCII "a</userinput>
+1
+<userinput>MUESTRA ESCRIBECARACTERPUERTO ASCII "t</userinput>
+1
+<userinput>MUESTRA ESCRIBECARACTERPUERTO 13</userinput>
+1
+<userinput>ESPERA 60
+ESCRIBE "Leyendo...</userinput>
+Leyendo...
+<userinput>REPITE 10 [HAZ "x LEECARACTERPUERTO SI NO :x = -1 [MUESTRAT CAR :x]]
+ESCRIBE ".</userinput>
+at||
+OK|
+.
+<userinput>CIERRAPUERTO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

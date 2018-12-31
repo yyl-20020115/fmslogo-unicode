@@ -1,0 +1,180 @@
+<chapter id="control-structures">
+   <title>Estructuras de control</title>
+
+<para>
+&GENERICNAME; tiene muchas facilidades para controlar cuales instrucciones se van a ejecutar próximamente.
+En conjunto, estas facilidades son llamadas comúnmente «estructuras de control» porque controla el flujo de ejecución de una manera estructurada.
+</para>
+
+<para>
+En las descripciones siguientes, un argumento que es una «lista de instrucción» puede ser una lista o una palabra.
+Si es una palabra, se la analiza para convertirla en forma de lista antes de ejecutarla.
+Por consiguiente, los dos <userinput><link linkend="command-run">EJECUTA</link> <link linkend="command-readword">LEEPALABRA</link></userinput> y <userinput><link linkend="command-run">EJECUTA</link> <link linkend="command-readlist">LEELISTA</link></userinput> funcionan.
+Se prefiere ligeramente una lista porque permite continuaciones de la línea (con <userinput>~</userinput>) que incluye un comentario (con <userinput>;</userinput>) en la primera línea.
+</para>
+
+<para>
+Fijate a la diferencia entre una «operación» y un «comando».
+Una operación es un procedimiento que devuelve un valor.
+Un comando es un procedimiento que no devuelve nada.
+La mayoría de los procedimientos son o uno o otro, pero algunos son los dos.
+</para>
+
+   <section id="control-commands">
+       <title>Comandos de control</title>
+
+       &command-run;
+       &command-runresult;
+       &command-repeat;
+       &command-repcount;
+       &command-if;
+       &command-ifelse;
+       &command-test;
+       &command-iftrue;
+       &command-iffalse;
+       &command-true;
+       &command-false;
+       &command-stop;
+       &command-output;
+       &command-catch;
+       &command-throw;
+       &command-error;
+       &command-pause;
+       &command-continue;
+       &command-yield;
+       &command-noyield;
+       &command-eventcheck;
+       &command-setcursorwait;
+       &command-setcursornowait;
+       &command-halt;
+       &command-wait;
+       &command-settimer;
+       &command-cleartimer;
+       &command-bye;
+       &command-.maybeoutput;
+       &command-ignore;
+       &command-backtick;
+       &command-for;
+       &command-forever;
+       &command-do.while;
+       &command-while;
+       &command-do.until;
+       &command-until;
+<!-- commented out of the manual until they are implemented in FMSLogo
+       &command-goto;
+       &command-tag;
+-->
+    </section>
+
+
+   <section id="template-based-iteration">
+       <title>Iteración de plantilla</title>
+
+<para>
+Esta sección describe las herramientas de iteración que son basadas en el concepto de una «plantilla».
+Es una generalización de una lista de instrucción o una lista de expresión en que hay «ranuras» en la que la herramienta pueda insertar varios datos.
+Hay tres formas distintas de plantillas que puedes usar: plantillas de ranuras numeradas, plantillas de procedimiento nombrado y plantillas de ranuras nombradas.
+</para>
+
+     <section id="explict-slot-templates">
+         <title>Plantillas de ranuras numeradas</title>
+
+<para>
+La forma más usada de plantilla es la forma de «ranuras numeradas», llamada también la forma de «signo de interrogación».
+</para>
+
+<para>
+Ejemplo:
+<programlisting><userinput>MUESTRA TEJE [? * ?] [2 3 4 5]</userinput>
+[4 9 16 25]</programlisting>
+</para>
+
+<para>
+En este ejemplo, <link linkend="command-map">TEJE</link> evalúa la plantilla <userinput>[? * ?]</userinput> repetidamente, con cada elemento de la lista de datos <userinput>[2 3 4 5]</userinput> reemplazando los signos de interrogación en su turno.
+Se usa el mismo valor por cada signo de interrogación en la expresión.
+Algunas herramientas permitan que sustituyes más que un dato en paralelo.
+En estos casos, se indican las ranuras como <userinput>?1</userinput> por el primer dato, <userinput>?2</userinput> por el segundo, y así sucesivamente.
+</para>
+
+
+<para>
+Ejemplo:
+<programlisting><userinput>MUESTRA (TEJE [(PALABRA ?1 ?2 ?1)] [a b c] [d e f])</userinput>
+[ada beb cfc]</programlisting>
+</para>
+
+<para>
+Es por eso que la llaman a esta forma «plantilla de ranuras numeradas».
+</para>
+
+<para>
+Si la plantilla quiere computar de qué ranura debe sacar el valor, la forma <userinput>(? 1)</userinput> equivale a <userinput>?1</userinput>.
+Así que <userinput>(? ?1)</userinput> quiere decir el valor del dato cuyo número se da en el dato número 1.
+Algunas herramientas permitan designaciones de ranuras adicionales, como se muestra en sus descripciones respectivas.
+</para>
+
+     </section>
+
+
+     <section id="named-procedure-templates">
+         <title>Plantillas de procedimiento nombrado</title>
+
+<para>
+La segunda forma de plantilla es la plantilla de «procedimiento nombrado».
+Si una plantilla es una palabra en lugar de una lista, se toma como el nombre de un procedimiento.
+Este procedimiento debe aceptar un número de argumentos igual que el número de datos que la herramienta le ofrece en paralelo; se aplica el procedimiento a todos los datos disponibles en orden.
+Eso es, si el dato <userinput>?1</userinput> hasta el dato <userinput>?3</userinput> están disponibles, la plantilla <userinput>"PROCEDIMIENTO</userinput> equivale a <userinput>[PROCEDIMIENTO ?1 ?2 ?3]</userinput>.
+</para>
+
+<para>
+Ejemplo:
+<programlisting><userinput>MUESTRA (TEJE "PALABRA [a b c] [d e f])</userinput>
+[ad be cf]</programlisting>
+
+<programlisting><userinput>PARA PRODUCTO.ESCALAR :a :b ; producto escalar de vectores
+  DEVUELVE APLICA "ADICION (TEJE "PRODUCTO :a :b)
+FIN</userinput></programlisting>
+</para>
+
+       </section>
+
+
+     <section id="named-slot-templates">
+         <title>Plantillas de ranuras nombradas</title>
+
+<para>
+A la tercer forma de plantilla se llama «ranuras nombradas» o «expresión lambda».
+Se indica esta forma cuando la plantilla es una lista que contiene más que un elemento y el primero es, a si mismo, una lista.
+El primer elemento se toma como una lista de nombres.
+Se crea variables locales con estes nombres y les dan valores de los datos disponibles en el mismo orden.
+El número de nombres debe ser igual a la cantidad de los datos disponibles.
+Se necesita esta forma cuando se usa una herramienta de iteración dentro de una lista de plantilla de otra herramienta de iteración y la notación con ? sería ambiguo dentro de la plantilla inferior.
+</para>
+
+<para>
+Ejemplo:
+<programlisting><userinput>PARA MATRIZ.PRODUCTO :m1 :m2 [:tm2 TRASPON :m2]
+  DEVULEVE TEJE [[fila] TEJE [[columna] PRODUCTO.ESCALAR :fila :columna] :tm2] :m1
+FIN</userinput></programlisting>
+</para>
+
+       </section>
+
+       &command-apply;
+       &command-invoke;
+       &command-foreach;
+       &command-map;
+       &command-map.se;
+       &command-filter;
+       &command-find;
+       &command-reduce;
+       &command-crossmap;
+       &command-cascade;
+       &command-cascade.2;
+       &command-transfer;
+       &command-iseq;
+       &command-rseq;
+
+   </section>
+
+</chapter>

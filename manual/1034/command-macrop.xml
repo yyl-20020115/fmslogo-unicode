@@ -1,0 +1,43 @@
+<section id="command-macrop">
+    <title>MACRO?</title>
+<indexterm><primary>MACRO?</primary></indexterm>
+<indexterm><primary>MACROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MACRO?</command> <parameter>nombre</parameter>
+<command>MACROP</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de una macro definida por el usuario o proviene de la biblioteca de &GENERICNAME;.
+Devuelve FALSO, si no.
+</para>
+
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA MACRO? "ABC</userinput>
+falso
+
+<userinput>.DEFMACRO "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+MUESTRA MACRO? "ABC</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,49 @@
+<section id="command-erasefile">
+<title>BORRAARCHIVO</title>
+<indexterm><primary>BORRAARCHIVO</primary></indexterm>
+<indexterm><primary>BOARCHIVO</primary></indexterm>
+<indexterm><primary>ERASEFILE</primary></indexterm>
+<indexterm><primary>ERF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BORRAARCHIVO</command> <parameter>nombre_de_archivo</parameter>
+<command>BOARCHIVO</command> <parameter>nombre_de_archivo</parameter>
+<command>ERASEFILE</command> <parameter>nombre_de_archivo</parameter>
+<command>ERF</command> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra (elimina) el archivo llamado <parameter>nombre_de_archivo</parameter>.
+El archivo no debe ser abierto.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+CIERRA "ejemplo.txt
+
+BORRAARCHIVO "ejemplo.txt
+ABRELECTURA "ejemplo.txt</userinput>
+Error del sistema de archivos: Archivo no está abierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

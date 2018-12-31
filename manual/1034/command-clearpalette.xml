@@ -1,0 +1,44 @@
+<section id="command-clearpalette">
+    <title>BORRAPALETA</title>
+<indexterm><primary>BORRAPALETA</primary></indexterm>
+<indexterm><primary>CLEARPALETTE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BORRAPALETA</command>
+<command>CLEARPALETTE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+BORRAPALETA no hace nada.
+Queda como procedimiento por compatibilidad con programas viejos, pero ya no se necesita su función anterior.
+</para>
+
+<para>
+Históricamente, las primeras versiones de Microsoft Windows soportaban las tarjetas gráficas que fueron limitadas a mostrar no más que 256 colores a la vez, aunque cada de estos colores pudieron usar 18 bits de rojo, verde y azul.
+A este conjunto de 256 colores se lo llamaron la «paleta» y se pudieron cambiarla dependiendo de que colores querían usar.
+Cuando han llenado la «paleta» con 256 colores, un programa no pudo dibujar en un nuevo color, ni siquiera si algunos de los colores en la paleta no fueron en uso activo.
+En este caso, se pudieron usar BORRAPALETA para borrar todos los colores de la paleta para que la paleta pudiese estar rellanada con nuevos colores.
+</para>
+
+<para>
+Hoy por hoy, las tarjetas gráficas, incluso las viejas, no tienen una paleta limitada de colores, así que no se necesitan BORRAPALETA.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>BORRAPALETA</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,37 @@
+<section id="command-setpensize">
+<title>PONGROSOR</title>
+<indexterm><primary>PONGROSOR</primary></indexterm>
+<indexterm><primary>SETPENSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONGROSOR</command> <parameter>tamaño</parameter>
+<command>SETPENSIZE</command> <parameter>tamaño</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el grosor del lápiz.
+El argumento <parameter>tamaño</parameter> debe ser un entero positivo que significa el grosor del lápiz o una lista de la forma [anchura altura].
+Cuando el argumento <parameter>tamaño</parameter> es una lista, PONGROSOR ignora la altura, pero esto puede cambiar en una versión futura.
+Para asegurarte de que tus programas son compatibles con versiones futuras de &PRODUCTNAME;, deberías usar una altura que es lo mismo que la anchura o no usar una lista en absoluto.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONGROSOR 5
+REPITE 4 [AVANZA 100 GIRADERECHA 90]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

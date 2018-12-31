@@ -1,0 +1,40 @@
+<section id="command-startup">
+    <title>STARTUP</title>
+<indexterm><primary>STARTUP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>STARTUP</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If assigned a list value in a file that is loaded by <link linkend="command-load">LOAD</link>, that value is run as an instruction list after the loading.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>TO MYPROGRAM
+  PRINT "Hello
+END
+
+MAKE "STARTUP [MYPROGRAM]
+SAVE "myprogram.lgo</userinput>
+myprog.lgo
+
+<userinput>ERALL
+LOAD "myprogram.lgo</userinput>
+Hello
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,33 @@
+<section id="command-sqrt">
+    <title>SQRT</title>
+<indexterm><primary>SQRT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SQRT</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the square root of the input, which must be nonnegative.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW SQRT 4</userinput>
+2</programlisting>
+    <programlisting><userinput>SHOW SQRT 2</userinput>
+1.4142135623731</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

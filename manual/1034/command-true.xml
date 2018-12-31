@@ -1,0 +1,37 @@
+<section id="command-true">
+    <title>CIERTO</title>
+<indexterm><primary>CIERTO</primary></indexterm>
+<indexterm><primary>TRUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem><para>(forma especial)</para>
+<synopsis><command>CIERTO</command>
+<command>TRUE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Es una palabra especial que indica el resultado positivo de una condición.
+CIERTO es una palabra reservada, no un procedimiento ni una variable.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 1=1</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>SI "CIERTO [ESCRIBE [CIERTO siempre es cierto]]</userinput>
+CIERTO siempre es cierto</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

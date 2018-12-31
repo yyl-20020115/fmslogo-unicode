@@ -1,0 +1,36 @@
+<section id="command-word">
+<title>PALABRA</title>
+<indexterm><primary>PALABRA</primary></indexterm>
+<indexterm><primary>WORD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PALABRA</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter>
+(<command>PALABRA</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter> <parameter>palabra3</parameter> <parameter>...</parameter>)
+<command>WORD</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter>
+(<command>WORD</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter> <parameter>palabra3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Devuelve una palabra formada por la unión de los argumentos.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA PALABRA "O "K</userinput>
+OK
+</programlisting>
+
+    <programlisting><userinput>MUESTRA (PALABRA "Sí "Estoy "O "K)</userinput>
+SíEstoyOK</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,53 @@
+<section id="command-iseq">
+<title>SECENT</title>
+<indexterm><primary>SECENT</primary></indexterm>
+<indexterm><primary>ISEQ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SECENT</command> <parameter>de</parameter> <parameter>a</parameter>
+<command>ISEQ</command> <parameter>de</parameter> <parameter>a</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de enteros consecutivos en orden, comenzando con <parameter>de</parameter> y terminando con <parameter>a</parameter>.
+Si <parameter>de</parameter> es mayor que <parameter>a</parameter>, entonces SECENT devuelve una secuencia que cuenta hacia atrás.
+</para>
+
+<para>
+En nombre SECENT es la abreviatura de «SECunecia de ENTeros».
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA SECENT 3 7</userinput>
+[3 4 5 6 7]
+</programlisting>
+
+<programlisting><userinput>MUESTRA SECENT 7 3</userinput>
+[7 6 5 4 3]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-rseq">SECRAC</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

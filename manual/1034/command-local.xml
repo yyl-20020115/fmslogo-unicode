@@ -1,0 +1,57 @@
+<section id="command-local">
+    <title>LOCAL</title>
+<indexterm><primary>LOCAL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LOCAL</command> <parameter>nombre_de_variable</parameter>
+<command>LOCAL</command> <parameter>lista_de_nombres</parameter>
+(<command>LOCAL</command> <parameter>nombre_de_variable1</parameter> <parameter>nombre_de_variable2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Crea variables que son locales al procedimiento en que se encuentran.
+LOCAL acepta como argumentos una o más palabras, o una lista de palabras.
+Se crea una variable por cada una de los argumentos, con el nombre de esa palabra.
+Las variables en &GENERICNAME; tienen un ámbito dinámico; una variable local en un procedimiento sólo está disponible en los subprocedimientos ejecutados por ese procedimiento.
+Las variables creadas con LOCAL no tienen valor inicial; les debes asignar un valor (por ejemplo, con <link linkend="command-make">HAZ</link>) antes de que tu programa intente leer su valor.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA SIN.LOCAL
+  HAZ "bar 1
+  ESCRIBE :bar
+FIN
+
+SIN.LOCAL</userinput>
+1
+
+<userinput>MUESTRA :bar</userinput>
+1
+
+<userinput>PARA CON.LOCAL
+  LOCAL "xyz
+  HAZ "xyz 1
+  ESCRIBE :xyz
+FIN
+
+CON.LOCAL</userinput>
+1
+
+<userinput>MUESTRA :xyz</userinput>
+xyz no tiene un valor todavía
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

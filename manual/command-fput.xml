@@ -1,0 +1,28 @@
+<section id="command-fput">
+<title>FPUT</title>
+<indexterm><primary>FPUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FPUT</command> <parameter>thing</parameter> <parameter>list</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs a list equal to <parameter>list</parameter> with <parameter>thing</parameter> put on the front.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW FPUT 1 [2 3 4]</userinput>
+[1 2 3 4]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

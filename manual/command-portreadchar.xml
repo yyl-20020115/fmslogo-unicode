@@ -1,0 +1,48 @@
+<section id="command-portreadchar">
+    <title>PORTREADCHAR</title>
+<indexterm><primary>PORTREADCHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PORTREADCHAR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads one byte from the currently open port and outputs it as an integer from -128 to 127.
+It also outputs "-1" if no character is available.
+Therefore, if PORTREADCHAR outputs -1, it could be there was no character available or that it successfuly read the -1 byte.
+For this reason, if -1 is a possible byte in the data your program expects, then it's better to use <link linkend="command-portreadarray">PORTREADARRAY</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>PORTOPEN "com1
+SHOW PORTWRITECHAR ASCII "a</userinput>
+1
+<userinput>SHOW PORTWRITECHAR ASCII "t</userinput>
+1
+<userinput>SHOW PORTWRITECHAR 13</userinput>
+1
+<userinput>WAIT 60
+PRINT "Reading...</userinput>
+Reading...
+<userinput>REPEAT 10 [MAKE "x PORTREADCHAR IF NOT :x = -1 [TYPE CHAR :x]]
+PRINT ".</userinput>
+at||
+OK|
+.
+<userinput>PORTCLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

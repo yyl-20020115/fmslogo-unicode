@@ -1,0 +1,33 @@
+<section id="command-turtlemode">
+<title>TURTLEMODE</title>
+<indexterm><primary>TURTLEMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TURTLEMODE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the selected turtle's mode.
+See <link linkend="command-setturtlemode">SETTURTLEMODE</link> for an explaination of turtle modes.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 4 [ FORWARD 30 RIGHT 90 ]
+BITCOPY 50 50
+BITMAPTURTLE
+SETTURTLEMODE 3</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

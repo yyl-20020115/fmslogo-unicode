@@ -1,0 +1,38 @@
+<section id="command-text">
+    <title>TEXTO</title>
+<indexterm><primary>TEXT</primary></indexterm>
+<indexterm><primary>TEXTO</primary></indexterm>
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TEXTO</command> <parameter>nombre_de_procedimiento</parameter>
+<command>TEXT</command> <parameter>nombre_de_procedimiento</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el texto del procedimiento llamado <parameter>nombre_de_procedimiento</parameter> en la forma que se requiere <link linkend="command-define">DEFINE</link>: una lista con sublistas, la primera describe los parámetros del procedimiento y las demás las líneas el cuerpo.
+El texto no refleja el formato en que se editó el procedimiento.
+Por ejemplo, no tiene ni espacios extras ni las tildes de la eñe que representan continuaciones de la línea.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+ABC "Hola "Adiós</userinput>
+Hola
+Adiós
+<userinput>MUESTRA TEXTO "ABC</userinput>
+[[a b] [ESCRIBE :a] [ESCRIBE :b]]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

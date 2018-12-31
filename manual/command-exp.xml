@@ -1,0 +1,31 @@
+<section id="command-exp">
+    <title>EXP</title>
+<indexterm><primary>EXP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EXP</command> <parameter>exponent</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs e (2.718281828...) to the power of <parameter>exponent</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW EXP 2</userinput>
+7.38905609893065</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

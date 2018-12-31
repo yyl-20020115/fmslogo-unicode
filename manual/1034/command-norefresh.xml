@@ -1,0 +1,30 @@
+<section id="command-norefresh">
+    <title>NOREFRESCAR</title>
+<indexterm><primary>NOREFRESCAR</primary></indexterm>
+<indexterm><primary>NOREFRESH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOREFRESCAR</command>
+<command>NOREFRESH</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Le dice a &GENERICNAME; a no recordar los movimientos de la tortuga.
+Esto hace más rápido el dibujar, pero también impide que &GENERICNAME; pueda reconstruir tu dibujo en caso de que la pantalla se estuviera ocultado por una otra ventana.
+</para>
+
+<para>
+NOREFRESCAR existe por compatibilidad con otros entornos de &GENERICNAME;.
+No se lo necesitan en &PRODUCTNAME;.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

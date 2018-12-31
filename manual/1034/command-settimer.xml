@@ -1,0 +1,58 @@
+<section id="command-settimer">
+    <title>PONTEMPORIZADOR</title>
+<indexterm><primary>PONTEMPORIZADOR</primary></indexterm>
+<indexterm><primary>SETTIMER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONTEMPORIZADOR</command> <parameter>id</parameter> <parameter>retraso</parameter> <parameter>retrollamada</parameter>
+<command>SETTIMER</command> <parameter>id</parameter> <parameter>retraso</parameter> <parameter>retrollamada</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone un temporizador que se identifica por <parameter>id</parameter> (un entero del rango 1-31) para ejecutar las instrucciones en <parameter>retrollamada</parameter> después de <parameter>retraso</parameter> milisegundos.
+El temporizador continua a ejecutar las instrucciones cada <parameter>retraso</parameter> milisegundos hasta que ejecutas <link linkend="command-cleartimer">TEMPORIZADORACERO</link> con el mismo <parameter>id</parameter>.
+</para>
+
+<para>
+En cualquier momento, puedes detener el temporizador con TEMPORIZADORACERO.
+En particular, puedes detenerlo desde las instrucciones en <parameter>retrollamada</parameter> para crear un evento del temporizador de un solo tiro.
+También puedes crear un temporizador en cualquier momento, incluido en las instrucciones de <parameter>retrollamada</parameter>.
+</para>
+
+<para>
+Deteniendo a &PRODUCTNAME;, por ejemplo con <link linkend="command-halt">HALT</link> o el <link linkend="commander-halt">Botón Alto</link>, también detiene todos los temporizadores.
+</para>
+
+<para>
+Los temporizadores con valores de <parameter>id</parameter> en el rango 1-16 ejecutan sus retrollamadas en modo <link linkend="command-noyield">EXCLUSIVO</link>.
+Esto quiere decir que no se las interrumpen por acciones del usuario y no se repinta la pantalla si se vuelve ocultada mientras que se ejecutan las instrucciones de <parameter>retrollamada</parameter>.
+Los temporizadores con valores de <parameter>id</parameter> en el rango 17-31 ejecutan sus retrollamadas en el modo normal (interrumpible).
+</para>
+
+<para>
+Cada <parameter>id</parameter> del temporizador puede tener valores diferentes de <parameter>retrollamada</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONTEMPORIZADOR 17 200 [PONCOLORLAPIZ (LISTA AZAR 256 AZAR 256 AZAR 256)]</userinput>
+<replaceable>&PRODUCTNAME; está disponible a ejecutar más instrucciones y el temporizador cambia el color de lápiz al azar cada 200 milisegundos.</replaceable>
+<userinput>REPITE 72 [REPITE 4 [AVANZA 100 GIRADERECHA 90] GIRADERECHA 5]
+TEMPORIZADORACERO 17</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

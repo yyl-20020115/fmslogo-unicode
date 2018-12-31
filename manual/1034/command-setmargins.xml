@@ -1,0 +1,41 @@
+<section id="command-setmargins">
+    <title>PONMARGENES</title>
+<indexterm><primary>PONMARGENES</primary></indexterm>
+<indexterm><primary>SETMARGINS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONMARGENES</command> <parameter>margenes</parameter>
+<command>SETMARGINS</command> <parameter>margenes</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>No se soporta PONMARGENES en &PRODUCTNAME;.</para></note>
+
+<para>
+En otros entornos de &GENERICNAME;, PONMARGENES borra todo lo escrito en la pantalla de texto.
+Después, lo arregla para que todo lo que se escribe fuera desplazado al abajo y a la derecha según el argumento <parameter>margenes</parameter>, efectivamente agregando margenes a la pantalla de texto.
+Específicamente, cada vez que se escribe una nueva línea (explícitamente o implícitamente) &GENERICNAME; escribe margen_x caracteres de espacio.
+También, en cada ejecución de PONCURSOR, se agrega las coordenadas a los margenes.
+(<link linkend="command-cursor">CURSOR</link> devuelve la posición del cursor relativo a los margenes, para que este desplazamiento fuera invisible a los programas de &GENERICNAME;.)
+</para>
+
+<para>
+El argumento es una lista de dos números, lo mismo que para <link linkend="command-setcursor">PONCURSOR</link>.
+</para>
+
+<para>
+El propósito de este comando es para acomodar las pantallas inadecuadas en las sallas de lectura que truncan los bordes de abajo y izquierda.
+No es necesario en &PRODUCTNAME;, porque se puede mover la ventana hasta la porción visible de la pantalla.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

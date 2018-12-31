@@ -1,0 +1,32 @@
+<section id="command-runparse">
+<title>RUNPARSE</title>
+<indexterm><primary>RUNPARSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RUNPARSE</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the list that would result if <parameter>thing</parameter> (word or list) were entered as an instruction line; characters such as infix operators and parentheses are separate members of the output.
+Note that sublists of a runparsed list are not themselves runparsed.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW RUNPARSE "a&lt;b</userinput>
+[a &lt; b]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,52 @@
+<section id="command-mouseon">
+    <title>HABILITARATON</title>
+<indexterm><primary>MOUSEON</primary></indexterm>
+<indexterm><primary>HABILITARATON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HABILITARATON</command> <parameter>boton_izquierdo_abajo</parameter> <parameter>boton_izquierdo_arriba</parameter> <parameter>boton_derecho_abajo</parameter> <parameter>boton_derecho_arriba</parameter> <parameter>mover</parameter>
+<command>MOUSEON</command> <parameter>boton_izquierdo_abajo</parameter> <parameter>boton_izquierdo_arriba</parameter> <parameter>boton_derecho_abajo</parameter> <parameter>boton_derecho_arriba</parameter> <parameter>mover</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Captura los eventos del ratón que son enviados a la ventana «&PRODUCTNAME;» y ejecuta <parameter>boton_izquierdo_abajo</parameter>, <parameter>boton_izquierdo_arriba</parameter>, <parameter>boton_derecho_abajo</parameter>, <parameter>boton_derecho_arriba</parameter> o <parameter>mover</parameter>, dependiendo del tipo de evento.
+Los parámetros pueden ser o una palabra que es el nombre de un procedimiento a ejecutar o una lista de instrucciones a ejecutar.
+HABILITARATON ejecuta todos aquellos parámetros en modo <link linkend="command-noyield">EXCLUSIVO</link>.
+</para>
+
+<para>
+Para obtener la posición del ratón donde el botón fue presionado o liberado o a donde se mueve el ratón, puedes ejecutar <link linkend="command-mousepos">POSRATON</link> desde tu procedimiento de botón o procedimiento de movimiento.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SUBELAPIZ
+HABILITARATON [PONPOS POSRATON BAJALAPIZ] [SUBELAPIZ] [] [] [PONPOS POSRATON]</userinput>
+
+<replaceable>Mueve el ratón.
+Mantiene presionado el botón izquierdo para dibujar.</replaceable>
+
+<userinput>INHABILITARATON</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-mouseoff">INHABILITARATON</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

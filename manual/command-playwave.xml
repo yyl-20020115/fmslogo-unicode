@@ -1,0 +1,91 @@
+<section id="command-playwave">
+<title>PLAYWAVE</title>
+<indexterm><primary>PLAYWAVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PLAYWAVE</command> <parameter>wavefile</parameter> <parameter>flags</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Plays a wave file.
+</para>
+
+<para>
+The <parameter>wavefile</parameter> input is a filename of a WAVE file.
+It may either be a word or a list of words.
+If <parameter>wavefile</parameter> is the empty word or the empty list, then &PRODUCTNAME; stops any wave files that it is currently playing.
+If the file named by <parameter>wavefile</parameter> does not exist or is an invalid wave file, then the instruction does nothing.
+</para>
+
+<para>
+The <parameter>flags</parameter> input is an integer that describes how the sound should be played.
+The meaning is given by the following table:
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Flag</entry>
+        <entry>Behavior</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+         <entry><userinput>0</userinput></entry>
+         <entry>Synchronous does not stop until completed.</entry>
+      </row>
+      <row>
+         <entry><userinput>1</userinput></entry>
+         <entry>Asynchronous returns immediately while sound is still playing.</entry>
+      </row>
+      <row>
+         <entry><userinput>2</userinput></entry>
+         <entry>Don't use the default sound if the specified one cannot be found.</entry>
+      </row>
+      <row>
+         <entry><userinput>4</userinput></entry>
+         <entry>In memory sound (not supported).</entry>
+      </row>
+      <row>
+         <entry><userinput>8</userinput></entry>
+         <entry>Continue to loop the sound until another PLAYWAVE instruction is run.</entry>
+      </row>
+      <row>
+         <entry><userinput>16</userinput></entry>
+         <entry>Don't stop an already playing sound.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+
+These flags can be combined by adding them together.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; loop the tada sound.
+PLAYWAVE "c:\\windows\\tada.wav 1+8
+
+; wait two seconds
+WAIT 120
+
+; stop the sound
+PLAYWAVE [] 0</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

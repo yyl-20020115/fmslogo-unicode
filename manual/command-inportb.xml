@@ -1,0 +1,46 @@
+<section id="command-inportb">
+<title>INPORTB</title>
+<indexterm><primary>INPORTB</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>INPORTB</command> <parameter>portid</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Reads one byte from the port specified by <parameter>portid</parameter> and output the data as an integer.
+The <parameter>portid</parameter> input specifies a "Hardware" port.
+</para>
+
+<para>
+Do not confuse INPORTB with <link linkend="command-portopen">PORTOPEN</link> and <link linkend="command-portreadchar">PORTREADCHAR</link> which are for communications through the serial and parallel ports.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW INPORTB 198</userinput>
+130
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-inport">INPORT</link></member>
+<member><link linkend="command-outportb">OUTPORTB</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

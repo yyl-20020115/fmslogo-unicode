@@ -1,0 +1,52 @@
+<section id="command-transfer">
+    <title>TRANSFER</title>
+<indexterm><primary>TRANSFER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TRANSFER</command> <parameter>endtest</parameter> <parameter>template</parameter> <parameter>inbasket</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the result of repeated evaluation of the <parameter>template</parameter> input.
+The template is evaluated once for each member of the list <parameter>inbasket</parameter>.
+TRANSFER maintains an "out basket" that is initially the empty list.
+After each evaluation of the template, the resulting value becomes the new "out basket".
+When all input has been processed, TRANSFER outputs the "out basket".
+</para>
+
+<para>
+In the template, the symbol <userinput>?IN</userinput> represents the current item from <parameter>inbasket</parameter>; the symbol <userinput>?OUT</userinput> represents the entire current "out basket".
+Other slot symbols should not be used.
+</para>
+
+<para>
+If the <parameter>endtest</parameter> input is an empty list, evaluation continues until all <parameter>inbasket</parameter> members have been used.
+Otherwise, the <parameter>endtest</parameter> input must be a predicate expression template, and evaluation continues until either that template's value is TRUE or <parameter>inbasket</parameter> is used up.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+For each word in the last input, if that word is already part of the result, forget it; if not, append that word to the result so far.
+The result is initially empty.
+</para>
+
+<programlisting><userinput>SHOW TRANSFER [] [IFELSE MEMBERP ?IN ?OUT [?OUT] [LPUT ?IN ?OUT]] [A B C B D E F B C G]</userinput>
+[A B C D E F G]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

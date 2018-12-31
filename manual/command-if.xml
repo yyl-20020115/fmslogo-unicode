@@ -1,0 +1,73 @@
+<section id="command-if">
+<title>IF</title>
+<indexterm><primary>IF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>IF</command> <parameter>condition</parameter> <parameter>true.instructionlist</parameter>
+(<command>IF</command> <parameter>condition</parameter> <parameter>true.instructionlist</parameter> <parameter>false.instructionlist</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command or operation where:
+
+<itemizedlist>
+<listitem>
+<para>
+If <parameter>condition</parameter> evaluates to TRUE, then IF runs <parameter>true.instructionlist</parameter>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+If <parameter>condition</parameter> evalutes to FALSE, then IF does nothing.
+</para>
+</listitem>
+
+<listitem>
+<para>
+If given a <parameter>false.instructionlist</parameter> input, IF acts like <link linkend="command-ifelse">IFELSE</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+It is an error if <parameter>condition</parameter> does not evaluate to either TRUE or FALSE.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+
+<para>
+For compatibility with earlier versions of &GENERICNAME;, if an IF instruction is not enclosed in parentheses, but the first thing on the instruction line after the second input expression is a literal list (i.e., a list in square brackets), the IF is treated as if it were <link linkend="command-ifelse">IFELSE</link>, but a warning message is given.
+If this aberrant IF appears in a procedure body, the warning is given only the first time the procedure is invoked in each &GENERICNAME; session.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; single instruction list
+IF 1=1 [PRINT [Yes it is true]]</userinput>
+Yes it is true</programlisting>
+
+<programlisting><userinput>; two instruction lists
+TO MAX :a :b
+  OUTPUT (IF :a > :b [:a] [:b])
+END
+
+SHOW MAX 1 2</userinput>
+2
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

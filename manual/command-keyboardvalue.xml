@@ -1,0 +1,204 @@
+<section id="command-keyboardvalue">
+    <title>KEYBOARDVALUE</title>
+<indexterm><primary>KEYBOARDVALUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>KEYBOARDVALUE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Outputs a number that corresponds to last key that was either pushed or released.
+The number which it outputs depends on both the key that was pressed and whether <link linkend="command-keyboardon">KEYBOARDON</link> was given one or two inputs.
+</para>
+
+<para>
+If KEYBOARDON was given one input, then the keyboard input is captured as the character that was typed.
+That is, KEYBOARDVALUE outputs the ASCII value of last character that was typed.
+For example, on a US keyboard, "5" and "%" are both painted on the same key.
+If user hits the '5' key without a Shift, then KEYBOARDVALUE outputs <userinput>53</userinput>, which is <userinput>ASCII 5</userinput>.
+On the other hand, if the user hits the '5' key while holding the Shift key down, then KEYBOARDVALUE outputs <userinput>37</userinput>, which is <userinput>ASCII "%</userinput>.
+</para>
+
+<para>
+Furthermore, if KEYBOARDON was only given one input, then keystrokes that are not directly related to textual characters are ignored.
+For example, the Shift, Ctrl, Home, and End keys are ignored.
+</para>
+
+<para>
+If KEYBOARDON was given two inputs, then KEYBOARDVALUE outputs the keystrokes as distinct physcial keys on the keyboard, but not necessarily the intended character.
+In this case, when the 5 key is pressed, KEYBOARDVALUE outputs the same number regardless of whether Shift was being held at the time.
+However, there are distinct events when the Shift key is pressed and when it is released, so you can still identify the difference between a <userinput>5</userinput> and a <userinput>%</userinput>.
+</para>
+
+<para>
+In general, if KEYBOARDON was given two inputs, then each physical key generates a unique number, but there are exceptions.
+The number that is assigned to some keys may vary across keyboards and keyboard layouts (for example, US or French).
+Similarly, some keyboards (such as the Microsoft Natural Keyboard or the Microsoft Comfort Keyboard) have more keys than a normal keyboard and can generate keyboard events that cannot be generated on other keyboards (such as a "Left Shift" as distict from a "Right Shift", or a "Volume Up" key).
+Finally, some small keyboards, such as those on a laptop, have special modes where the same physical key might act as two distinct keys depending on the keyboard's mode.
+For example, the <userinput>J</userinput> key might act as a <userinput>Num Pad 1</userinput> when a special "alternate mode" key is held down.
+The KEYBOARDVALUE assignments shown in the table below should be portable across all keyboards.
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+     <row> <entry>Key</entry>         <entry>KEYBOARDVALUE</entry>  </row>
+    </thead>
+    <tbody>
+     <row> <entry>Backspace</entry>   <entry>8</entry>   </row>
+     <row> <entry>Tab</entry>         <entry>9</entry>   </row>
+     <row> <entry>Clear</entry>       <entry>12</entry>  </row>
+     <row> <entry>Enter</entry>       <entry>13</entry>  </row>
+     <row> <entry>Shift</entry>       <entry>16</entry>  </row>
+     <row> <entry>Ctrl</entry>        <entry>17</entry>  </row>
+     <row> <entry>Alt</entry>         <entry>18</entry>  </row>
+     <row> <entry>Pause</entry>       <entry>19</entry>  </row>
+     <row> <entry>Caps Lock</entry>   <entry>20</entry>  </row>
+     <row> <entry>Esc</entry>         <entry>27</entry>  </row>
+     <row> <entry>Spacebar</entry>    <entry>32</entry>  </row>
+     <row> <entry>Page Up</entry>     <entry>33</entry>  </row>
+     <row> <entry>Page Down</entry>   <entry>34</entry>  </row>
+     <row> <entry>End</entry>         <entry>35</entry>  </row>
+     <row> <entry>Home</entry>        <entry>36</entry>  </row>
+     <row> <entry>Left Arrow</entry>  <entry>37</entry>  </row>
+     <row> <entry>Up Arrow</entry>    <entry>38</entry>  </row>
+     <row> <entry>Right Arrow</entry> <entry>39</entry>  </row>
+     <row> <entry>Down Arrow</entry>  <entry>40</entry>  </row>
+     <row> <entry>Print Screen</entry><entry>44</entry>  </row>
+     <row> <entry>Insert</entry>      <entry>45</entry>  </row>
+     <row> <entry>Delete</entry>      <entry>46</entry>  </row>
+
+     <row> <entry>0 Key</entry>       <entry>48</entry>  </row>
+     <row> <entry>1 Key</entry>       <entry>49</entry>  </row>
+     <row> <entry>2 Key</entry>       <entry>50</entry>  </row>
+     <row> <entry>3 Key</entry>       <entry>51</entry>  </row>
+     <row> <entry>4 Key</entry>       <entry>52</entry>  </row>
+     <row> <entry>5 Key</entry>       <entry>53</entry>  </row>
+     <row> <entry>6 Key</entry>       <entry>54</entry>  </row>
+     <row> <entry>7 Key</entry>       <entry>55</entry>  </row>
+     <row> <entry>8 Key</entry>       <entry>56</entry>  </row>
+     <row> <entry>9 Key</entry>       <entry>57</entry>  </row>
+     <row> <entry>A Key</entry>       <entry>65</entry>  </row>
+     <row> <entry>B Key</entry>       <entry>66</entry>  </row>
+     <row> <entry>C Key</entry>       <entry>67</entry>  </row>
+     <row> <entry>D Key</entry>       <entry>68</entry>  </row>
+     <row> <entry>E Key</entry>       <entry>69</entry>  </row>
+     <row> <entry>F Key</entry>       <entry>70</entry>  </row>
+     <row> <entry>G Key</entry>       <entry>71</entry>  </row>
+     <row> <entry>H Key</entry>       <entry>72</entry>  </row>
+     <row> <entry>I Key</entry>       <entry>73</entry>  </row>
+     <row> <entry>J Key</entry>       <entry>74</entry>  </row>
+     <row> <entry>K Key</entry>       <entry>75</entry>  </row>
+     <row> <entry>L Key</entry>       <entry>76</entry>  </row>
+     <row> <entry>M Key</entry>       <entry>77</entry>  </row>
+     <row> <entry>N Key</entry>       <entry>78</entry>  </row>
+     <row> <entry>O Key</entry>       <entry>79</entry>  </row>
+     <row> <entry>P Key</entry>       <entry>80</entry>  </row>
+     <row> <entry>Q Key</entry>       <entry>81</entry>  </row>
+     <row> <entry>R Key</entry>       <entry>82</entry>  </row>
+     <row> <entry>S Key</entry>       <entry>83</entry>  </row>
+     <row> <entry>T Key</entry>       <entry>84</entry>  </row>
+     <row> <entry>U Key</entry>       <entry>85</entry>  </row>
+     <row> <entry>V Key</entry>       <entry>86</entry>  </row>
+     <row> <entry>W Key</entry>       <entry>87</entry>  </row>
+     <row> <entry>X Key</entry>       <entry>88</entry>  </row>
+     <row> <entry>Y Key</entry>       <entry>89</entry>  </row>
+     <row> <entry>Z Key</entry>       <entry>90</entry>  </row>
+
+     <row> <entry>Left Windows Key</entry><entry>91</entry>  </row>
+     <row> <entry>Right Windows Key</entry><entry>92</entry>  </row>
+     <row> <entry>Applications Key</entry><entry>93</entry>  </row>
+
+     <row> <entry>0 Key on Num Pad</entry><entry>96</entry>  </row>
+     <row> <entry>1 Key on Num Pad</entry><entry>97</entry>  </row>
+     <row> <entry>2 Key on Num Pad</entry><entry>98</entry>  </row>
+     <row> <entry>3 Key on Num Pad</entry><entry>99</entry>  </row>
+     <row> <entry>4 Key on Num Pad</entry><entry>100</entry> </row>
+     <row> <entry>5 Key on Num Pad</entry><entry>101</entry> </row>
+     <row> <entry>6 Key on Num Pad</entry><entry>102</entry> </row>
+     <row> <entry>7 Key on Num Pad</entry><entry>103</entry> </row>
+     <row> <entry>8 Key on Num Pad</entry><entry>104</entry> </row>
+     <row> <entry>9 Key on Num Pad</entry><entry>105</entry> </row>
+     <row> <entry>* Key on Num Pad</entry><entry>106</entry> </row>
+     <row> <entry>+ Key on Num Pad</entry><entry>107</entry> </row>
+     <row> <entry>- Key on Num Pad</entry><entry>109</entry> </row>
+     <row> <entry>. Key on Num Pad (decimal separator)</entry><entry>110</entry> </row>
+     <row> <entry>/ Key on Num Pad</entry><entry>111</entry> </row>
+
+     <row> <entry>F1</entry>          <entry>112</entry> </row>
+     <row> <entry>F2</entry>          <entry>113</entry> </row>
+     <row> <entry>F3</entry>          <entry>114</entry> </row>
+     <row> <entry>F4</entry>          <entry>115</entry> </row>
+     <row> <entry>F5</entry>          <entry>116</entry> </row>
+     <row> <entry>F6</entry>          <entry>117</entry> </row>
+     <row> <entry>F7</entry>          <entry>118</entry> </row>
+     <row> <entry>F8</entry>          <entry>119</entry> </row>
+     <row> <entry>F9</entry>          <entry>120</entry> </row>
+     <row> <entry>F10</entry>         <entry>121</entry> </row>
+     <row> <entry>F11</entry>         <entry>122</entry> </row>
+     <row> <entry>F12</entry>         <entry>123</entry> </row>
+
+     <row> <entry>Num Lock</entry>    <entry>144</entry> </row>
+     <row> <entry>Scroll Lock</entry> <entry>145</entry> </row>
+
+     <row> <entry>Volume Mute</entry> <entry>173</entry> </row>
+     <row> <entry>Volume Down</entry> <entry>174</entry> </row>
+     <row> <entry>Volume Up</entry>   <entry>175</entry> </row>
+
+     <row> <entry>+ Key</entry>       <entry>187</entry> </row>
+     <row> <entry>, Key</entry>       <entry>188</entry> </row>
+     <row> <entry>- Key</entry>       <entry>189</entry> </row>
+     <row> <entry>. Key</entry>       <entry>190</entry> </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+The following KEYBOARDVALUE assignments should be portable across all keyboards with a standard US layout.
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+     <row> <entry>Key</entry>         <entry>KEYBOARDVALUE</entry>  </row>
+    </thead>
+    <tbody>
+     <row> <entry>; or :</entry>      <entry>186</entry>  </row>
+     <row> <entry>/ or ?</entry>      <entry>191</entry>  </row>
+     <row> <entry>` or ~</entry>      <entry>192</entry>  </row>
+     <row> <entry>[ or {</entry>      <entry>219</entry>  </row>
+     <row> <entry>\ or |</entry>      <entry>220</entry>  </row>
+     <row> <entry>} or ]</entry>      <entry>221</entry>  </row>
+     <row> <entry>' or "</entry>      <entry>222</entry>  </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>KEYBOARDON [PRINT CHAR KEYBOARDVALUE]
+FULLSCREEN
+SETFOCUS [&PRODUCTNAME;]</userinput>
+
+<replaceable>Press the 'A' key on the keyboard</replaceable>
+a
+<replaceable>Press the 'B' key on the keyboard</replaceable>
+b
+
+<userinput>KEYBOARDOFF
+SPLITSCREEN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

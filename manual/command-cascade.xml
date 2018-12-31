@@ -1,0 +1,81 @@
+<section id="command-cascade">
+    <title>CASCADE</title>
+<indexterm><primary>CASCADE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CASCADE</command> <parameter>endtest</parameter> <parameter>template</parameter> <parameter>startvalue</parameter>
+(<command>CASCADE</command> <parameter>endtest</parameter> <parameter>template1</parameter> <parameter>startvalue1</parameter> <parameter>template2</parameter> <parameter>startvalue2</parameter> <parameter>...</parameter>)
+(<command>CASCADE</command> <parameter>endtest</parameter> <parameter>template1</parameter> <parameter>startvalue1</parameter> <parameter>template2</parameter> <parameter>startvalue2</parameter> <parameter>...</parameter> <parameter>finaltemplate</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the result of applying a template (or several templates, see the section entitled <link linkend="template-based-iteration">Template-Based Iteration</link>) repeatedly, with a given value filling the slot the first time, and the result of each application filling the slot for the following application.
+</para>
+
+<para>
+In the simplest case, CASCADE has three inputs.
+The <parameter>template</parameter> is a one-slot expression template.
+That template is evaluated some number of times (perhaps zero).
+On the first evaluation, the slot is filled with the <parameter>startvalue</parameter> input; on subsequent evaluations, the slot is filled with the result of the previous evaluation.
+The number of evaluations is determined by the <parameter>endtest</parameter> input.
+This can be either a nonnegative integer, in which case the template is evaluated that many times, or a predicate expression template, in which case it is evaluated (with the same slot filler that is used for the evaluation of the second input) repeatedly, and the CASCADE evaluation continues as long as the predicate value is FALSE.
+(In other words, the predicate template indicates the condition for stopping.)
+</para>
+
+<para>
+If the template is evaluated zero times, CASCADE outputs <parameter>startvalue</parameter>.
+Otherwise, CASCADE outputs the value produced by the last template evaluation.
+</para>
+
+<para>
+CASCADE templates may include the symbol <userinput>#</userinput> to represent the number of times the template has been evaluated.
+This slot is filled with 1 for the first evaluation, 2 for the second, and so on.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW CASCADE 5 [LPUT # ?] []</userinput>
+[1 2 3 4 5]
+
+<userinput>SHOW CASCADE [VOWELP FIRST ?] [BUTFIRST ?] "spring</userinput>
+ing
+
+<userinput>SHOW CASCADE 5 [# * ?] 1</userinput>
+120
+</programlisting>
+
+<para>
+Several cascaded results can be computed in parallel by providing additional <parameter>template</parameter>-<parameter>startvalue</parameter> pairs as inputs to CASCADE.
+In this case, all templates (including the <parameter>endtest</parameter> template, if used) are multi-slot, with the number of slots equal to the number of pairs of inputs.
+In each round of evaluations, <userinput>?2</userinput> represents the result of evaluating the second template in the previous round.
+If the total number of inputs (including the first <parameter>endtest</parameter> input) is odd, then the output from CASCADE is the final value of the first template.
+If the total number of inputs is even, then the last input is a template that is evaluated once, after the end test is satisfied, to determine the output from CASCADE.
+</para>
+
+
+<programlisting><userinput>TO FIBONACCI :n
+  OUTPUT (CASCADE :n [?1 + ?2] 1 [?1] 0)
+END
+
+TO PIGLATIN :word
+  OUTPUT (CASCADE [VOWELP FIRST ?]
+                  [WORD BUTFIRST ? FIRST ?]
+                  :word
+                  [WORD ? "ay])
+END</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,26 @@
+<section id="command-penpattern">
+    <title>PENPATTERN</title>
+<indexterm><primary>PENPATTERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENPATTERN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>PENPATTERN is not supported in &PRODUCTNAME;.</para></note>
+
+<para>
+Outputs hardware-specific pen information.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

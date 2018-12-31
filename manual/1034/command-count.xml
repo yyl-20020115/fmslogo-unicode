@@ -1,0 +1,40 @@
+<section id="command-count">
+<title>CUENTA</title>
+<indexterm><primary>CUENTA</primary></indexterm>
+<indexterm><primary>COUNT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CUENTA</command> <parameter>cosa</parameter>
+<command>COUNT</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si el argumento <parameter>cosa</parameter> es una palabra, CUENTA devuelve el número de caracteres.
+</para>
+
+<para>
+Si el argumento <parameter>cosa</parameter> es una lista o un vector, CUENTA devuelve el número de miembros.
+Para un vector esto es el índice del último elemento solo si el origen del vector es 1.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA CUENTA [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>MUESTRA CUENTA "ab</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

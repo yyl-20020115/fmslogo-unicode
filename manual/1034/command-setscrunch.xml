@@ -1,0 +1,46 @@
+<section id="command-setscrunch">
+    <title>PONRONZAL</title>
+<indexterm><primary>PONRONZAL</primary></indexterm>
+<indexterm><primary>SETSCRUNCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONRONZAL</command> <parameter>escala_x</parameter> <parameter>escala_y</parameter>
+<command>SETSCRUNCH</command> <parameter>escala_x</parameter> <parameter>escala_y</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>(No se necesita PONRONZAL para corregir problemas de pantalla, pero está disponible para quienes prefieren deliberadamente ajustar la relación de aspecto.</para></note>
+
+<para>
+Ajusta la relación de aspecto y la escala de las imágenes gráficas.
+Después de usar PONRONZAL, todos los movimientos de la tortuga se ajustarán multiplicando la extensión horizontal y vertical del movimiento por los valores de los dos argumentos.
+Por ejemplo, después de ejecutar la instrucción «<userinput>PONRONZAL 2 1</userinput>», con un rumbo de 45 grados cualquier movimiento será el doble en sentido horizontal y el vertical a la medida indicada.
+Si sus cuadrados no parecen cuadrados, pruebes este comando.
+</para>
+
+<para>
+Alternativamente, puedes usar PONRONZAL para que tus círculos parecen unas elipses.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONRONZAL 2.0 1.0
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+MUESTRA RONZAL</userinput>
+[2 1]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

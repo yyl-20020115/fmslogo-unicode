@@ -1,0 +1,26 @@
+<section id="command-cursor">
+<title>CURSOR</title>
+<indexterm><primary>CURSOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CURSOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>No se soporta CURSOR en &PRODUCTNAME;.</para></note>
+
+<para>
+En otros entornos de &GENERICNAME;, CURSOR devuelve una lista que contiene las coordenadas x,y del cursor de pantalla.
+En &PRODUCTNAME;, siempre devuelve [0 0].
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

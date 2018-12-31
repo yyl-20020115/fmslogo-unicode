@@ -1,0 +1,110 @@
+<chapter id="communication">
+   <title>Comunicaciones</title>
+
+   <section id="transmitters">
+      <title>Transmisores</title>
+
+<para>
+Si hay una variable llamada <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link> con un valor entero no negativo, entonces estructuras complejas de listas y vectores se escribe sólo hasta esta profundidad.
+Es decir, elementos de elementos de ... de elementos se los escribe hasta cierto límite.
+Los punto suspensivos indican cuando los elementos se los omite porque exceden el límite de profundidad.
+Por ejemplo, una lista con dos elementos que es justo antes el límite de profundidad se la escribe como <userinput>[...  ...]</userinput>.
+</para>
+
+<para>
+Si hay una variable llamada <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> con un valor entero no negativo, entonces sólo se escribe esta cantidad de los primeros elementos de una lista o un vector.
+Todos los elementos omitidos son remplazados con los punto suspensivos, no importa la cantidad.
+El límite de anchura también afecta el número de caracteres de una palabra que se escribe, excepto que si el límite es menos que 10, se lo trata como 10 cuando se lo aplica a las palabras.
+Este límite aplica no sólo a las cosas al nivel lo mas superior, pero también a las cosas inferior que contienen.
+</para>
+
+      &command-print;
+      &command-type;
+      &command-show;
+   </section>
+
+
+
+   <section id="receivers">
+      <title>Receptores</title>
+
+      &command-readlist;
+      &command-readword;
+      &command-readchar;
+      &command-readchars;
+      &command-readrawline;
+   </section>
+
+   <section id="file-access">
+      <title>Acceso a los archivos</title>
+
+      &command-openread;
+      &command-openwrite;
+      &command-openappend;
+      &command-openupdate;
+      &command-close;
+      &command-allopen;
+      &command-closeall;
+      &command-erasefile;
+      &command-dribble;
+      &command-nodribble;
+      &command-setread;
+      &command-setwrite;
+      &command-reader;
+      &command-writer;
+      &command-setreadpos;
+      &command-setwritepos;
+      &command-readpos;
+      &command-writepos;
+      &command-eofp;
+   </section>
+
+   <section id="hardware-communications">
+      <title>Comunicación con hardware</title>
+
+<para>
+Hay dos clases de procedimientos para comunicar con hardware.
+Una clase es para comunicar a través del puerto serie (RS-232) y el puerto paralelo.
+La otra se usa para leer de y escribir a direcciones de puerto de E/S.
+</para>
+
+      &command-portopen;
+      &command-portclose;
+      &command-portflush;
+      &command-portmode;
+      &command-portreadarray;
+      &command-portreadchar;
+      &command-portwritearray;
+      &command-portwritechar;
+      &command-inport;
+      &command-outport;
+      &command-inportb;
+      &command-outportb;
+      &command-ingameport;
+   </section>
+
+   <section id="dll-communications">
+      <title>Comunicación con bibliotecas de enlace dinámico</title>
+
+      &command-dllload;
+      &command-dllcall;
+      &command-dllfree;
+   </section>
+
+   <section id="keyboard-and-mouse-access">
+      <title>Acceso al teclado y al ratón</title>
+
+      &command-keyp;
+      &command-keyboardon;
+      &command-keyboardoff;
+      &command-keyboardvalue;
+      &command-mouseon;
+      &command-mouseoff;
+      &command-mousepos;
+      &command-cleartext;
+      &command-setcursor;
+      &command-cursor;
+      &command-setmargins;
+   </section>
+
+</chapter>

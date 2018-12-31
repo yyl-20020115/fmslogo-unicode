@@ -1,0 +1,40 @@
+<section id="command-name">
+    <title>NAME</title>
+<indexterm><primary>NAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NAME</command> <parameter>value</parameter> <parameter>varname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command that assigns the value <parameter>value</parameter> to the variable named <parameter>varname</parameter>, which must be a word.
+Variable names are case-insensitive.
+If a variable with the same name already exists, the value of that variable is changed.
+If not, a new global variable is created.
+</para>
+
+<para>
+This is the same as <link linkend="command-make">MAKE</link> but with the inputs in reverse order.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>NAME [Hello how are you] "foo
+SHOW :foo</userinput>
+[Hello how are you]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,40 @@
+<section id="command-member">
+<title>MEMBER</title>
+<indexterm><primary>MEMBER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MEMBER</command> <parameter>thing1</parameter> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If <parameter>thing2</parameter> is a word or list and if <link linkend="command-memberp">MEMBERP</link> with these inputs would output TRUE, then MEMBER outputs the portion of <parameter>thing2</parameter> from the first instance of <parameter>thing1</parameter> to the end.
+If <link linkend="command-memberp">MEMBERP</link> would output FALSE, then MEMBER outputs the empty word or list according to the type of <parameter>thing2</parameter>.
+It is an error for <parameter>thing2</parameter> to be an array.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW MEMBER "b [a b c d]</userinput>
+[b c d]</programlisting>
+
+<programlisting><userinput>SHOW MEMBER "c [a b c d]</userinput>
+[c d]</programlisting>
+
+<programlisting><userinput>SHOW MEMBER "b "abba"</userinput>
+bba</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

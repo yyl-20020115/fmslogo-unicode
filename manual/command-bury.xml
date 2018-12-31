@@ -1,0 +1,57 @@
+<section id="command-bury">
+    <title>BURY</title>
+<indexterm><primary>BURY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BURY</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Buries the procedures, variables, and property lists named in the <parameter>contentslist</parameter> input.
+A "thing" that is buried is not included in the lists output by <link linkend="command-contents">CONTENTS</link>, <link linkend="command-procedures">PROCEDURES</link>, <link linkend="command-names">NAMES</link>, or <link linkend="command-plists">PLISTS</link>, but is included in the list output by <link linkend="command-buried">BURIED</link>.
+By implication, buried things are not printed by <link linkend="command-poall">POALL</link> or saved by <link linkend="command-save">SAVE</link>.
+</para>
+
+<para>
+BURY does not throw an error if it is asked to bury a procedure, variable, or property list that is not in the workspace, but doing so has no effect.
+BURY also does not throw an error if asked to bury a primitive, but this also has no effect.
+</para>
+
+<para>
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explanation of the <parameter>contentslist</parameter> input.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FOO
+  PRINT [I am Foo]
+END
+
+TO BAR
+  PRINT [I am Bar]
+END
+
+POTS</userinput>
+TO BAR
+TO FOO
+<userinput>BURY [[FOO] [] []]
+POTS</userinput>
+TO BAR
+<userinput>FOO</userinput>
+I am Foo
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,42 @@
+<section id="command-output">
+<title>OUTPUT</title>
+<indexterm><primary>OUTPUT</primary></indexterm>
+<indexterm><primary>OP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OUTPUT</command> <parameter>value</parameter>
+<command>OP</command> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Ends the running of the procedure in which it appears.
+That procedure outputs <parameter>value</parameter> to the context in which it was invoked.
+Don't be confused: OUTPUT itself is a command, but the procedure that invokes OUTPUT is an operation.
+</para>
+
+<para>
+The <parameter>value</parameter> input may be any &GENERICNAME; thing (word, list, array, etc.).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM
+  OUTPUT [This is the output]
+END
+
+SHOW MYPROGRAM</userinput>
+[This is the output]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

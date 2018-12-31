@@ -1,0 +1,36 @@
+<section id="command-apply">
+    <title>APLICA</title>
+<indexterm><primary>APLICA</primary></indexterm>
+<indexterm><primary>APPLY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>APLICA</command> <parameter>plantilla</parameter> <parameter>lista_de_argumentos</parameter>
+<command>APPLY</command> <parameter>plantilla</parameter> <parameter>lista_de_argumentos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta el argumento <parameter>plantilla</parameter>, llenando sus ranuras con los elementos de <parameter>lista_de_argumentos</parameter>, y devuelve el resultado, si lo hay.
+El número de elementos en <parameter>lista_de_argumentos</parameter> debe ser aceptable para la plantilla.
+Es ilegal aplicar la primitiva <link linkend="command-to">PARA</link> como plantilla, pero cualquier otro procedimiento es legal.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA APLICA "ADICION [1 2 3]</userinput>
+6
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

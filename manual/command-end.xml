@@ -1,0 +1,47 @@
+<section id="command-end">
+    <title>END</title>
+<indexterm><primary>END</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem><para>(special form)</para>
+<synopsis><command>END</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+END delimits the end of a procedure that is defined with <link linkend="command-to">TO</link>.
+</para>
+
+<para>
+END is not really a command.
+As a result, procedures that manipulate other procedures don't work on END.
+For example, <userinput><link linkend="command-procedurep">PROCEDUREP</link> "END</userinput> outputs FALSE.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO ECHO :times :thing
+  REPEAT :times [PRINT :thing]
+END
+
+ECHO 2 "Hello</userinput>
+Hello
+Hello
+<userinput>ECHO 3 "Bye</userinput>
+Bye
+Bye
+Bye</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

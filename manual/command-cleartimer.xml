@@ -1,0 +1,32 @@
+<section id="command-cleartimer">
+    <title>CLEARTIMER</title>
+<indexterm><primary>CLEARTIMER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLEARTIMER</command> <parameter>id</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Clears a timer that was scheduled by <link linkend="command-settimer">SETTIMER</link> and identified by <parameter>id</parameter> (1-31).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETTIMER 1 200 [SETPENCOLOR (LIST RANDOM 256 RANDOM 256 RANDOM 256)]</userinput>
+<replaceable>&PRODUCTNAME; is ready to run new instructions and the timer changes the pen color randomly every 200 milliseconds.</replaceable>
+<userinput>REPEAT 72 [REPEAT 4 [FORWARD 100 RIGHT 90] RIGHT 5]
+CLEARTIMER 1</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

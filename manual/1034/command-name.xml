@@ -1,0 +1,42 @@
+<section id="command-name">
+    <title>NOMBRE</title>
+<indexterm><primary>NOMBRE</primary></indexterm>
+<indexterm><primary>NAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOMBRE</command> <parameter>valor</parameter> <parameter>nombre_de_variable</parameter>
+<command>NAME</command> <parameter>valor</parameter> <parameter>nombre_de_variable</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Asigna el valor indicado en <parameter>valor</parameter> a la variable <parameter>nombre_de_variable</parameter>, que debe ser una palabra.
+Los nombres de variables son insensible a las mayúsculas y minúsculas.
+Si la variable ya existe, cambia su valor.
+Si no, se crea una nueva variable global.
+</para>
+
+<para>
+NOMBRE funciona lo mismo que <link linkend="command-make">HAZ</link>, pero con sus argumentos en orden inverso.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>NOMBRE [Hola, cómo estás] "foo
+MUESTRA :foo</userinput>
+[Hola, cómo estás]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

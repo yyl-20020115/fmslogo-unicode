@@ -1,0 +1,42 @@
+<section id="command-crossmap">
+    <title>CROSSMAP</title>
+<indexterm><primary>CROSSMAP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CROSSMAP</command> <parameter>template</parameter> <parameter>data</parameter>
+(<command>CROSSMAP</command> <parameter>template</parameter> <parameter>data1</parameter> <parameter>data2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list containing the results of <parameter>template</parameter> evaluations.
+Each data list contributes to a slot in the <parameter>template</parameter>; the number of slots is equal to the number of data list inputs.
+As a special case, if only one data list input is given, that list is taken as a list of data lists, and each of its members contributes values to a slot.
+</para>
+
+<para>
+CROSSMAP differs from <link linkend="command-map">MAP</link> in that, instead of taking members from the <parameter>data</parameter> inputs in parallel, CROSSMAP takes all possible combinations of members of data inputs, which need not be the same length.
+</para>
+
+<para>
+For compatibility with program listings in Brian Harvey's textbook series "Computer Science Logo Style", &PRODUCTNAME;'s CROSSMAP templates may use the notation :1 instead of ?1 to indicate slots.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW (CROSSMAP [WORD ?1 ?2] [a b c] [1 2 3 4])</userinput>
+[a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

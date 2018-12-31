@@ -1,0 +1,42 @@
+<section id="command-do.while">
+    <title>DO.WHILE</title>
+<indexterm><primary>DO.WHILE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DO.WHILE</command> <parameter>instructionlist</parameter> <parameter>conditionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Repeatedly evaluates the <parameter>instructionlist</parameter> as long as the evaluated <parameter>conditionlist</parameter> remains TRUE.
+DO.WHILE evaluates <parameter>instructionlist</parameter> before evaluating <parameter>conditionlist</parameter>, so <parameter>instructionlist</parameter> is always run at least once.
+The <parameter>conditionlist</parameter> input must contain an expression that evalautes to either TRUE or FALSE.
+</para>
+
+<para>
+The fact that the <parameter>conditionlist</parameter> input is a list may be misleading, because it should contain exactly one expression.
+It is only a list because the contents of a list are not evaluated by default.
+Instead, they must be explicitly evaluated with <link linkend="command-run">RUN</link>.
+This allows &GENERICNAME; to reevaluate <parameter>conditionlist</parameter> after each iteration, rather than only evaluating it once.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "i 0
+DO.WHILE [MAKE "I :i+1 PRINT :i] [:i&lt;3]</userinput>
+1
+2
+3
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

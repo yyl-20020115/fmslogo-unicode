@@ -1,0 +1,362 @@
+<section id="mci">
+<title>The Media Control Interface</title>
+<indexterm><primary>Media Control Interface</primary></indexterm>
+
+<para>
+The Media Control Interface (MCI) is a facility provided by the operating system that provides programs with device-independent capabilities for controlling audio and visual peripherials.
+&PRODUCTNAME; gives your &GENERICNAME; programs full access to this powerful facility through the <link linkend="command-mci">MCI</link> command.
+</para>
+
+<para>
+MCI is too rich and too complex to fully document here.
+Instead, we give a brief overview of the core MCI concepts and examine some sample procedures for performing common tasks.
+For a complete reference on MCI, search for "Media Control Interface" on http://msdn.microsoft.com/.
+As you read through the official reference manual, keep in mind that &PRODUCTNAME; programs access MCI through its "command string" interface, not its "command message" interface.
+</para>
+
+<section id="mci-overview">
+<title>MCI Overview</title>
+
+<para>
+All uses of the MCI follow the same pattern: you open a device, you run some commands, then you close the device when you're done.
+Each of these command must be followed by a device name.
+Many commands take additional parameters that can follow the device name, which further qualify what the command should do.
+These parameters may be given in any order.
+For example, the <userinput>play</userinput> commands starts playing a device at its current position.
+It takes optional <userinput>from</userinput> and <userinput>to</userinput> parameters, which specify where it should start and stop playing, as in:
+</para>
+
+<programlisting><userinput>MCI [play cdaudio from 2 to 3]</userinput></programlisting>
+
+<para>
+which tells the Media Control Interface to play track 2 of an audio CD and to stop when it gets to track 3.
+</para>
+
+<para>
+Commands may accept different parameters based on the device type.
+For example, <userinput>play</userinput> on a cdaudio device only accepts <userinput>to</userinput> and <userinput>from</userinput> parameters.
+In contrast, <userinput>play</userinput> on an animation device (a movie) additionally accepts <userinput>fast</userinput>, <userinput>slow</userinput>, <userinput>reverse</userinput>, <userinput>scan</userinput>, and <userinput>speed</userinput> parameters.
+</para>
+
+<para>
+Some parameters only need to be present to have an effect.
+These parameters are more commonly called "flags".
+Other parameters require one or more values, which must directly follow the parameter name.
+For example, in the play command below, the <userinput>slow</userinput> flag just needs to be present, but the <userinput>from</userinput> parameter must be followed by a position value.
+</para>
+
+<programlisting><userinput>MCI [play animation slow from 5]</userinput></programlisting>
+
+<para>
+All commands are asynchronous, unless otherwise specified.
+This means that &PRODUCTNAME; runs the command immediately, but doesn't wait for the command to finish before running the next &GENERICNAME; instruction.
+In general, this is what you want.
+However, all commands optionally accept a <userinput>wait</userinput> flag, which instructs &PRODUCTNAME; to wait until the command has finished before running the next instruction.
+During this time, &PRODUCTNAME; will be unresponsive, so use this flag with caution.
+If you specify <userinput>wait</userinput> and then realize that you don't want to wait anymore, you can press <keycombo><keycap>Ctrl</keycap><keycap>Break</keycap></keycombo> to stop waiting.
+</para>
+
+<para>
+If you don't want to wait for a command to finish, but would like to be notified when it does, you can specify the <userinput>notify</userinput> flag.
+In this case, you must also specify an instruction list as the second input to MCI.
+The following code uses the <userinput>notify</userinput> flag to print out a message when a CD audio track has stopped playing.
+</para>
+
+<programlisting><userinput>(MCI [play cdaudio from 2 to 3 notify] [print [Track 2 has finished playing]])</userinput></programlisting>
+
+</section>
+
+<section id="mci-example-cd">
+<title>Example: Playing a Track from a CD</title>
+
+<para>
+The following procedure uses the Media Control Interface to play the first track on an audio CD.
+</para>
+
+<programlisting><userinput>TO PLAY.TRACK.1
+  IGNORE MCI [open cdaudio]
+  MCI [set cdaudio time format tmsf]
+  MCI [play cdaudio from 1 to 2]
+  WAIT 3600
+  MCI [stop cdaudio]
+  MCI [close cdaudio]
+END</userinput></programlisting>
+
+<para>
+Let's take a closer look at each instruction in the example above.
+</para>
+
+<para>
+The procedure first opens the "cdaudio" device by issuing an <userinput>open</userinput> command.
+This "open" has nothing to do with physically opening the CD tray, it is required before the cdaudio device will accept any other commands.
+Unlike most other commands, the <userinput>open</userinput> command outputs a value on success.
+Since &GENERICNAME; programs must do something with every value that is output, we simply <link linkend="command-ignore">IGNORE</link> it.
+</para>
+
+<para>
+The <userinput>set</userinput> command is used to specify the time format as "tmsf", which stands for "track:minute:second:frame".
+</para>
+
+<para>
+The <userinput>play</userinput> command is used to start playing from one time to another.
+The track plays asynchornously, which means that &PRODUCTNAME; doesn't wait for the track to finish playing before running the next instruction.
+If you wanted to wait until the track was done before moving on to the next instruction, you could add the <userinput>wait</userinput> flag to the end of the MCI instruction, as in:
+</para>
+
+<programlisting><userinput>MCI [play cdaudio from 1 to 2 wait]</userinput></programlisting>
+
+<para>
+Since we're using TMFS format, the <userinput>to</userinput> and <userinput>from</userinput> numbers are taken to be in tracks.
+TMFS values are given in tt:mm:ss:ff format, so if we wanted to play the first fifteen seconds of track 1, we could do that with the following instruction.
+</para>
+
+<programlisting><userinput>MCI [play cdaudio from 1 to 1:00:15]</userinput></programlisting>
+
+<para>
+Also note that it is not necessary to specify an end time for the <userinput>play</userinput> command.
+If you wanted to play the entire CD, you could do so with:
+</para>
+
+<programlisting><userinput>MCI [play cdaudio from 1]</userinput></programlisting>
+
+<para>
+The <link linkend="command-wait">WAIT</link> instruction just waits for 60 seconds.
+This has nothing to do with MCI, it just gives you some time to listen to the CD.
+</para>
+
+<para>
+The <userinput>stop</userinput> command is used to stop the CD from playing.
+</para>
+
+<para>
+The <userinput>close</userinput> command is used to tell the Media Control Interface that you are done with the cdaudio device.
+</para>
+
+</section>
+
+<section id="mci-example-play-waveform">
+<title>Example: Playing a Waveform File</title>
+
+<para>
+The following procedure uses the Media Control Interface to play part of a waveform file.
+</para>
+
+<programlisting><userinput>TO PLAY.WAVEFORM
+  IGNORE MCI [open c:\\windows\\media\\ding.wav type waveaudio alias ding]
+  MCI [set ding time format samples]
+  MCI [play ding from 0 to 5000]
+  WAIT 120
+  MCI [close ding]
+END</userinput>
+</programlisting>
+
+<para>
+Let's take a closer look at each instruction in the example above.
+</para>
+
+<para>
+The procedure first opens "c:\windows\media\ding.wav" by issuing an <userinput>open</userinput> command.
+We use the <userinput>alias</userinput> parameter so that we can refer to this media entity as <userinput>ding</userinput> instead of always using the full path to ding.wav.
+Unlike most other commands, the <userinput>open</userinput> command outputs a value on success.
+Since &GENERICNAME; programs must do something with every value that is output, we simply <link linkend="command-ignore">IGNORE</link> it.
+</para>
+
+<para>
+The <userinput>set</userinput> command is used to specify the time format as "samples".
+A sample is the smallest unit of sound within a given waveform file.
+</para>
+
+<para>
+The <userinput>play</userinput> command is used to start playing from one time to another.
+The waveform plays asynchornously, which means that &PRODUCTNAME; doesn't wait for the audio clip to finish playing before running the next instruction.
+If you wanted to wait until the track was done before moving on to the next instruction, you could add <userinput>wait</userinput> to the end of the MCI instruction, as in
+</para>
+
+<programlisting><userinput>MCI [play ding from 0 to 5000 wait]</userinput></programlisting>
+
+<para>
+It is not necessary to specify an end time for the <userinput>play</userinput> command.
+If you wanted to play the entire waveform, you could do so with:
+</para>
+
+<programlisting><userinput>MCI [play ding from 0]</userinput></programlisting>
+
+<para>
+The <link linkend="command-wait">WAIT</link> instruction just waits for two seconds.
+This has nothing to do with MCI, it just gives you some time to listen to your waveform.
+</para>
+
+<para>
+The <userinput>close</userinput> command is used to tell the Media Control Interface that you are done with the waveform file.
+</para>
+
+</section>
+
+
+<section id="mci-example-record-waveform">
+<title>Example: Record a Waveform File</title>
+
+<para>
+The following procedure uses the Media Control Interface to record an audio file.
+</para>
+
+<programlisting><userinput>TO RECORD.WAVEFORM
+  IGNORE MCI [open new type waveaudio alias mysong]
+  MCI [record mysong]
+  WAIT 300
+  MCI [stop mysong]
+  MCI [save mysong mysong.wav]
+  MCI [close mysong]
+END</userinput>
+</programlisting>
+
+<para>
+Let's take a closer look at each instruction in the example above.
+</para>
+
+<para>
+The procedure first opens the waveaudio device by issuing an <userinput>open</userinput> command.
+The <userinput>new</userinput> flag tells MCI that the waveaudio device should be opened for recording, not playback.
+The <userinput>alias</userinput> parameter is required when using the <userinput>new</userinput> flag.
+In this case, it gives the recording session the name "mysong" so that future instructions can refer to it.
+Unlike most other commands, the <userinput>open</userinput> command outputs a value on success.
+Since &GENERICNAME; programs must do something with every value that is output, we simply <link linkend="command-ignore">IGNORE</link> it.
+</para>
+
+<para>
+The <userinput>record</userinput> command is used to start recording on the microphone.
+</para>
+
+<para>
+The <link linkend="command-wait">WAIT</link> instruction just waits for five seconds.
+This has nothing to do with MCI, it just gives you some time to record your audio clip.
+</para>
+
+<para>
+The <userinput>stop</userinput> command turns the microphone off and stops recording from it.
+</para>
+
+<para>
+The <userinput>save</userinput> command copies all of the recorded audio data to a file named <userinput>mysong.wav</userinput>.
+Keep in mind that all MCI commands are run asynchronously, which means that &PRODUCTNAME; may start running other &GENERICNAME; instructions before the file has been fully written.
+To make sure that &PRODUCTNAME; waits until the file is 100% written, you can add the <userinput>wait</userinput> flag, like this:
+</para>
+
+<programlisting><userinput>MCI [save mysong mysong.wav wait]</userinput></programlisting>
+
+<para>
+Once the mysong.wav has been saved, it can be played with most other audio programs.
+It can also be played with &PRODUCTNAME; by using the <link linkend="command-playwave">PLAYWAVE</link> command or <link linkend="mci-example-play-waveform">other MCI instructions</link>.
+</para>
+
+<para>
+The <userinput>close</userinput> command is used to tell the Media Control Interface that you are done with the microphone.
+</para>
+
+</section>
+
+<section id="mci-example-play-avi">
+<title>Example: Playing a Video File</title>
+
+<para>
+The following procedure uses the Media Control Interface to play a video file.
+</para>
+
+<programlisting><userinput>TO PLAY.AVI
+  IGNORE MCI [open c:\\windows\\clock.avi alias clock]
+  MCI [play clock]
+  WAIT 120
+  MCI [pause clock]
+  WAIT 120
+  MCI [resume clock]
+  WAIT 720
+  MCI [close clock]
+END</userinput>
+</programlisting>
+
+<para>
+Let's take a closer look at each instruction in the example above.
+</para>
+
+<para>
+The procedure first opens "c:\windows\clock.avi" by issuing an <userinput>open</userinput> command.
+We use the <userinput>alias</userinput> parameter so that we can refer to this media entity as <userinput>clock</userinput> instead of always using the full path to clock.avi.
+Unlike most other commands, the <userinput>open</userinput> command outputs a value on success.
+Since &GENERICNAME; programs must do something with every value that is output, we simply <link linkend="command-ignore">IGNORE</link> it.
+</para>
+
+<para>
+The <userinput>play</userinput> command is used to start playing from one time to another.
+The video plays asynchornously, which means that &PRODUCTNAME; doesn't wait for the video to finish playing before running the next instruction.
+If you wanted to wait until the track was done before moving on to the next instruction, you could add <userinput>wait</userinput> to the end of the MCI instruction, as in:
+</para>
+
+<programlisting><userinput>MCI [play clock wait]</userinput></programlisting>
+
+<para>
+The <link linkend="command-wait">WAIT</link> instructions just waits for some amount of time.
+They have nothing to do with MCI, they just gives you some time to see the result of the previous MCI command.
+</para>
+
+<para>
+The <userinput>pause</userinput> and <userinput>resume</userinput> commands are used to pause and unpause the video.
+</para>
+
+<para>
+The <userinput>close</userinput> command is used to tell the Media Control Interface that you are done with the video file.
+This closes the window in which the video was playing.
+</para>
+
+</section>
+
+
+<section id="mci-example-play-midi">
+<title>Example: Playing a MIDI File</title>
+
+<para>
+The following procedure uses the Media Control Interface to play a MIDI file.
+</para>
+
+<programlisting><userinput>TO PLAY.MIDI
+  IGNORE MCI [open c:\\windows\\media\\flourish.mid type sequencer alias flourish]
+  MCI [play flourish]
+  WAIT 600
+  MCI [stop flourish]
+  MCI [close flourish]
+END</userinput>
+</programlisting>
+
+<para>
+Let's take a closer look at each instruction in the example above.
+</para>
+
+<para>
+The procedure first opens the MIDI file "c:\windows\media\flourish.mid" by issuing an <userinput>open</userinput> command.
+The <userinput>type</userinput> parameter is set to <userinput>sequencer</userinput>, which is the device name for the MIDI sequencer.
+We use the <userinput>alias</userinput> parameter so that we can refer to this media entity as <userinput>flourish</userinput> instead of always using the full path to flourish.mid.
+Unlike most other commands, the <userinput>open</userinput> command outputs a value on success.
+Since &GENERICNAME; programs must do something with every value that is output, we simply <link linkend="command-ignore">IGNORE</link> it.
+</para>
+
+<para>
+The <userinput>play</userinput> command is used to start playing the MIDI file.
+The video plays asynchornously, which means that &PRODUCTNAME; doesn't wait for the music to finish playing before running the next instruction.
+</para>
+
+<para>
+The <link linkend="command-wait">WAIT</link> instructions just waits for ten seconds.
+This has nothing to do with MCI, it just gives you some time to listen to the music before it is stopped.
+</para>
+
+<para>
+The <userinput>stop</userinput> command stops the song from playing.
+</para>
+
+<para>
+The <userinput>close</userinput> command is used to tell the Media Control Interface that you are done with the MIDI file.
+</para>
+
+</section>
+
+</section>
+

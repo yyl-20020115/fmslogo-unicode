@@ -1,0 +1,60 @@
+<section id="command-item">
+<title>ELEMENTO</title>
+<indexterm><primary>ELEMENTO</primary></indexterm>
+<indexterm><primary>ITEM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ELEMENTO</command> <parameter>índice</parameter> <parameter>cosa</parameter>
+<command>ITEM</command> <parameter>índice</parameter> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa</parameter> es una palabra, ELEMENTO devuelve el carácter número <parameter>índice</parameter> de la palabra.
+</para>
+
+<para>
+Si <parameter>cosa</parameter> es una lista, ELEMENTO devuelve el miembro número <parameter>índice</parameter> de la lista.
+</para>
+
+<para>
+Si <parameter>cosa</parameter> es un vector con origen 1 (la mayoría de los vectores), ELEMENTO devuelve el elemento número <parameter>índice</parameter> del vector.
+Si <parameter>cosa</parameter> es un vector con origen que no es 1, entonces ELEMENTO devuelve el elemento número <parameter>índice</parameter> - origen + 1.
+</para>
+
+<para>
+Los índices siempre empiezan a 1 para palabras y listas; el primer índice de un vector es especificado cuando el vector sea creado.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA ELEMENTO 2 [a b c]</userinput>
+b</programlisting>
+
+<programlisting><userinput>MUESTRA ELEMENTO 3 "abc</userinput>
+c</programlisting>
+
+<programlisting><userinput>MUESTRA ELEMENTO 1 {a b c}</userinput>
+a</programlisting>
+
+<programlisting><userinput>MUESTRA ELEMENTO 1 {a b c}@0</userinput>
+b</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,43 @@
+<section id="command-remdup">
+<title>QUITAREPETIDOS</title>
+<indexterm><primary>QUITAREPETIDOS</primary></indexterm>
+<indexterm><primary>REMDUP</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>QUITAREPETIDOS</command> <parameter>cosas</parameter>
+<command>REMDUP</command> <parameter>cosas</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una copia de <parameter>cosas</parameter>, pero sin los miembros repetidos.
+Si dos o más miembros del argumento son iguales, sólo permanece uno en lo devuelto, el que es más a la derecha.
+</para>
+
+<para>
+QUITAREPETIDOS lanza un error de mala entrada si <parameter>cosas</parameter> es un vector.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA QUITAREPETIDOS [a b c c b]</userinput>
+[a c b]</programlisting>
+
+<programlisting><userinput>MUESTRA QUITAREPETIDOS "Saludos</userinput>
+aludos</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

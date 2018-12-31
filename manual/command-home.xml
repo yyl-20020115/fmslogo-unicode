@@ -1,0 +1,49 @@
+<section id="command-home">
+<title>HOME</title>
+<indexterm><primary>HOME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>HOME</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle to the center of the screen and sets the turtle's heading, pitch, and roll to 0.
+</para>
+
+<para>
+In 2D modes, HOME is equivalent to
+<programlisting><userinput>SETPOS [0 0] SETHEADING 0</userinput>
+</programlisting>
+
+In PERSPECTIVE mode, HOME is equivalent to
+<programlisting><userinput>SETPOSXYZ [0 0 0] SETORIENTATION [0 0 0]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FORWARD 100
+RIGHT 90
+FORWARD 100
+HOME</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-clearscreen">CLEARSCREEN</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

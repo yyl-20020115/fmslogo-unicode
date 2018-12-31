@@ -1,0 +1,53 @@
+<section id="command-zoom">
+    <title>ZOOM</title>
+<indexterm><primary>ZOOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ZOOM</command> <parameter>scale</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the scale of the "Screen" window.
+The <parameter>scale</parameter> input is the amount to zoom (scale) by.
+A number greater than 1.0 makes things bigger (for example, 2.0 makes it twice as big), a number smaller than 1.0 makes things smaller (0.5 makes it half as big).
+If an existing image is on the screen when you zoom, then it is stretched or squeezed according to the zoom.
+The resulting image may look a little jagged, but if you "draw" while zoomed, the new lines are not as jagged.
+</para>
+
+<para>
+Even though things may appear jagged &PRODUCTNAME; remembers everything as if zoom was normal (1.0) and only prints at the normal scale.
+Once you zoom back to a scale of 1.0, your image will not be stretched or squeezed to fit again.
+In other words, in a zoom of 1.0 lines are never jagged even if you drew them at zoom 0.5 or 2.0.
+</para>
+
+<para>
+ZOOM works best when <parameter>scale</parameter> is a power of two, such as 2, 4, 8, 1/2 (0.5), 1/4 (0.25), 1/8 (0.125), etc.
+</para>
+
+<para>
+You can also control the zoom factor by using the <link linkend="menu-zoom">Zoom Menu</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>REPEAT 4 [FORWARD 100 RIGHT 90]
+ZOOM 0.5
+ZOOM 2.0</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

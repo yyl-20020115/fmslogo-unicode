@@ -1,0 +1,49 @@
+<section id="command-iftrue">
+<title>SICIERTO</title>
+<indexterm><primary>SICIERTO</primary></indexterm>
+<indexterm><primary>IFTRUE</primary></indexterm>
+<indexterm><primary>IFT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SICIERTO</command> <parameter>lista_de_instrucciones</parameter>
+<command>IFTRUE</command> <parameter>lista_de_instrucciones</parameter>
+<command>IFT</command> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta <parameter>lista_de_instrucciones</parameter> si el argumento a la última instrucción <link linkend="command-test">PRUEBA</link> tuvo el valor CIERTO.
+De otra manera, no hace nada.
+PRUEBA debe usarse en el mismo procedimiento o superprocedimiento.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPRUEBA :arg
+  PRUEBA 1 = :arg
+  ESCRIBE [Haga esto]
+  ESCRIBE [Haga eso]
+  SICIERTO [ESCRIBE [arg es el número uno]]
+  SIFALSO  [ESCRIBE [arg NO es el número uno]]
+FIN
+
+MIPRUEBA 1</userinput>
+Haga esto
+Haga eso
+arg es el número uno
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,63 @@
+<section id="command-save">
+<title>SAVE</title>
+<indexterm><primary>SAVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SAVE</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Saves the definitions of all unburied procedures, variables, and property lists in a file named <parameter>filename</parameter>.
+</para>
+
+<para>
+SAVE is equivalent to:
+
+<programlisting>TO SAVE :filename
+  LOCAL "oldwriter
+  MAKE "oldwriter WRITER
+  OPENWRITE :filename
+  SETWRITE :filename
+  POALL
+  SETWRITE :oldwriter
+  CLOSE :filename
+END
+</programlisting>
+
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM1
+  PRINT "Hello1
+END
+
+TO MYPROGRAM2
+  PRINT "Hello2
+END
+
+POTS</userinput>
+TO MYPROGRAM1
+TO MYPROGRAM2
+
+<userinput>SAVE "myprograms.lgo
+ERALL
+POTS
+LOAD "myprograms.lgo
+POTS</userinput>
+TO MYPROGRAM1
+TO MYPROGRAM2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

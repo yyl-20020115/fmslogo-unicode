@@ -1,0 +1,72 @@
+<section id="command-openappend">
+<title>ABREAÑADIR</title>
+<indexterm><primary>ABREAÑADIR</primary></indexterm>
+<indexterm><primary>OPENAPPEND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ABREAÑADIR</command> <parameter>nombre_de_archivo</parameter>
+(<command>ABREAÑADIR</command> <parameter>nombre_de_archivo</parameter> <parameter>modo_binario</parameter>)
+<command>OPENAPPEND</command> <parameter>nombre_de_archivo</parameter>
+(<command>OPENAPPEND</command> <parameter>nombre_de_archivo</parameter> <parameter>modo_binario</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre el archivo nombrado <parameter>nombre_de_archivo</parameter> para escritura.
+Si un archivo con el nombre dado ya existe, entonces se pone la posición de escritura al fin de este archivo para que los datos nuevos son añadidos después del contenido que ya existe.
+</para>
+
+<para>
+El <parameter>nombre_de_archivo</parameter> también puede ser la palabra reservada <userinput>"clipboard</userinput> para escribir datos al portapapeles como si fuera un archivo (la palabra «clipboard» quiere decir «portapapeles» en inglés).
+</para>
+
+<para>
+El <parameter>modo_binario</parameter> debe ser un valor booleano (CIERTO o FALSO).
+Si <parameter>modo_binario</parameter> es FALSO o no es dado, entonces el archivo es escrito como texto.
+Es decir, la secuencia del fin de línea es convertida de LF a CRLF.
+Si <parameter>modo_binario</parameter> es CIERTO, entonces el archivo es escrito como un archivo binario.
+Es decir, no se hace ninguna conversión por el fin de línea.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABREAÑADIR "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+REPITE 2 [MUESTRA LEELISTA]</userinput>
+[Hola]
+[Adiós, Amigo]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-close">CIERRA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

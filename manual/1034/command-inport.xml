@@ -1,0 +1,48 @@
+<section id="command-inport">
+<title>LEEPUERTO2</title>
+<indexterm><primary>LEEPUERTO2</primary></indexterm>
+<indexterm><primary>INPORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEEPUERTO2</command> <parameter>dirección_de_puerto</parameter>
+<command>INPORT</command> <parameter>dirección_de_puerto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Lee 2 bytes (16 bits) de la especificada <parameter>dirección_de_puerto</parameter> y devuelve los datos como un entero.
+El argumento <parameter>dirección_de_puerto</parameter> especifica una dirección de un puerto de E/S.
+</para>
+
+<para>
+No debes confundir este procedimiento con <link linkend="command-portopen">ABREPUERTO</link> y <link linkend="command-portreadchar">LEECARACTERPUERTO</link> que sirven para las comunicaciones a través de los puertos Serie y Paralelo.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA LEEPUERTO2 198</userinput>
+25730
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-inportb">LEEPUERTO</link></member>
+<member><link linkend="command-outport">ESCRIBEPUERTO2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

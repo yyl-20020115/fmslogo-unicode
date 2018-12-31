@@ -1,0 +1,59 @@
+<section id="command-readchars">
+<title>LEECARS</title>
+<indexterm><primary>LEECARS</primary></indexterm>
+<indexterm><primary>LCS</primary></indexterm>
+<indexterm><primary>READCHARS</primary></indexterm>
+<indexterm><primary>RCS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEECARS</command> <parameter>número</parameter>
+<command>LCS</command> <parameter>número</parameter>
+<command>READCHARS</command> <parameter>número</parameter>
+<command>RCS</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Lee <parameter>número</parameter> de caracteres desde el flujo de lectura actual y devuelve esos caracteres como una palabra.
+Si <parameter>número</parameter> es mayor que el número de caracteres que queda en el flujo de lectura, entonces LEECARS devuelve el resto del flujo.
+Si se lee de un archivo y se llega al final, LEECARS devuelve la lista vacía (no la palabra vacía).
+</para>
+
+<para>
+Si el flujo de lectura es el Centro de Comandos, entonces LEECAR siempre devuelve la lista vacía.
+</para>
+
+<para>
+Las barras inversas, barras verticales, y tildes de la eñe no tienen un tratamiento especial.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+PONLECTURA "ejemplo.txt
+MUESTRA LEECARS 4</userinput>
+Hola
+
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

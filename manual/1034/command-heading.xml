@@ -1,0 +1,42 @@
+<section id="command-heading">
+<title>RUMBO</title>
+<indexterm><primary>RUMBO</primary></indexterm>
+<indexterm><primary>HEADING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RUMBO</command>
+<command>HEADING</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un ángulo que indica el rumbo de la tortuga que se mide en grados desde el eje Y positivo en sentido horario.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONRUMBO 90
+MUESTRA RUMBO</userinput>
+90</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setheading">PONRUMBO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

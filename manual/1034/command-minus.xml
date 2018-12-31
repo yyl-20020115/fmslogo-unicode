@@ -1,0 +1,47 @@
+<section id="command-minus">
+    <title>CAMBIASIGNO</title>
+<indexterm><primary>CAMBIASIGNO</primary></indexterm>
+<indexterm><primary>MINUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CAMBIASIGNO</command> <parameter>número</parameter>
+<command>MINUS</command> <parameter>número</parameter>
+<command>-</command><parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el opuesto (inverso aditivo) del valor numérico del argumento.
+</para>
+<para>
+El signo menos (-) quiere decir opuesto cuando se lo precede de una expresión que requiere un argumento o cuando está precedido por un espacio y inmediatamente seguido por su argumento.
+Hay una diferencia en el nivel de precedencia entre la forma nombrada y la forma simbólica:
+</para>
+
+<para>
+<userinput>CAMBIASIGNO 3 + 4</userinput> quiere decir <userinput>-(3+4)</userinput>
+</para>
+<para>
+<userinput>- 3 + 4</userinput> quiere decir <userinput>(-3)+4</userinput>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 2 - -3</userinput>
+5
+</programlisting>
+<programlisting><userinput>MUESTRA 2 - CAMBIASIGNO 3</userinput>
+5
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

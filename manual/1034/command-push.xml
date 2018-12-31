@@ -1,0 +1,48 @@
+<section id="command-push">
+<title>APILA</title>
+<indexterm><primary>APILA</primary></indexterm>
+<indexterm><primary>PUSH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>APILA</command> <parameter>nombre_de_pila</parameter> <parameter>valor</parameter>
+<command>PUSH</command> <parameter>nombre_de_pila</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Añade un <parameter>valor</parameter> al frente de la pila nombrada <parameter>nombre_de_pila</parameter>.
+</para>
+
+<para>
+La variable cuyo nombre es <parameter>nombre_de_pila</parameter> debe tener una lista como su valor; el valor inicial debería ser la lista vaciá.
+Los nuevos miembros se añaden al principio de la lista.
+Después, con <link linkend="command-pop">DESAPILA</link>, puedes sacar los valores de la pila.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>HAZ "mi_pila []
+APILA "mi_pila 1
+APILA "mi_pila 2
+APILA "mi_pila 3
+MUESTRA :mi_pila</userinput>
+[3 2 1]
+
+<userinput>MUESTRA DESAPILA "mi_pila</userinput>
+3
+
+<userinput>MUESTRA :mi_pila</userinput>
+[2 1]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

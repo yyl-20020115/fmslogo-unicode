@@ -1,0 +1,33 @@
+<section id="command-abs">
+    <title>ABS</title>
+<indexterm><primary>ABS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ABS</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the absolute value (magnitude) of its input.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW ABS 5</userinput>
+5</programlisting>
+<programlisting><userinput>SHOW ABS -5</userinput>
+5</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

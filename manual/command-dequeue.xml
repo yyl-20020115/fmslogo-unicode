@@ -1,0 +1,46 @@
+<section id="command-dequeue">
+    <title>DEQUEUE</title>
+<indexterm><primary>DEQUEUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DEQUEUE</command> <parameter>queuename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+    <para>Outputs the least recent (oldest) thing that was enqueued onto a queue with <link linkend="command-queue">QUEUE</link>.
+This value is removed from the queue.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>MAKE "myqueue []
+QUEUE "myqueue 1
+QUEUE "myqueue 2
+QUEUE "myqueue 3
+SHOW :myqueue</userinput>
+[1 2 3]
+
+<userinput>SHOW DEQUEUE "myqueue</userinput>
+1
+
+<userinput>SHOW :myqueue</userinput>
+[2 3]
+
+<userinput>SHOW DEQUEUE "myqueue</userinput>
+2
+
+<userinput>SHOW :myqueue</userinput>
+[3]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

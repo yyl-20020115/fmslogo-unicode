@@ -1,0 +1,31 @@
+<section id="command-firsts">
+<title>FIRSTS</title>
+<indexterm><primary>FIRSTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FIRSTS</command> <parameter>list</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs a list containing the <link linkend="command-first">FIRST</link> of each member of the input list.
+It is an error if any member of the input list is empty.
+The input itself may be empty, in which case the output is also empty.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW FIRSTS [[1 2 3] [a b c]]</userinput>
+[1 a]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,60 @@
+<section id="command-setorientation">
+    <title>PONORIENTACION</title>
+<indexterm><primary>PONORIENTACION</primary></indexterm>
+<indexterm><primary>SETORIENTATION</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONORIENTACION</command> <parameter>orientación</parameter>
+<command>SETORIENTATION</command> <parameter>orientación</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cambia la orientación de la tortuga por una nueva orientación absoluta.
+El argumento <parameter>orientación</parameter> debe ser una lista, [balanceo cabeceo rumbo] en grados.
+</para>
+
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Para usarlo, es importante entender tu <link linkend="understand-your-orientation-in-3D">orientación en 3D</link>.
+</para>
+
+<para>
+Puedes obtener tu orientación usando <link linkend="command-orientation">ORIENTACION</link>.
+Tengas en cuenta que ORIENTACION pueda no devolver los valores exactos que pusiste, pero sí devuelve una orientación <emphasis>equivalente</emphasis>.
+Por ejemplo, si ejecutas <userinput>PONORIENTACION [0 105 0]</userinput>, entonces ORIENTACION pueda devolver <userinput>[180 75 180]</userinput>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PERSPECTIVA
+PONORIENTACION [180 45 90]
+MUESTRA ORIENTACION</userinput>
+[180 45 90]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-orientation">ORIENTACION</link></member>
+<member><link linkend="command-setroll">PONBALANCEO</link></member>
+<member><link linkend="command-setpitch">PONCABECEO</link></member>
+<member><link linkend="command-setheading">PONRUMBO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

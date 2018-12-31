@@ -1,0 +1,36 @@
+<section id="command-bitmode">
+<title>BITMODE</title>
+<indexterm><primary>BITMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITMODE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the current bitmap mode set by <link linkend="command-setbitmode">SETBITMODE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; save and restore the bitmode
+MAKE "savemode BITMODE
+SETBITMODE 8
+SHOW BITMODE</userinput>
+8
+<userinput>SETBITMODE :savemode
+SHOW BITMODE</userinput>
+1
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

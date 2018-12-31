@@ -1,0 +1,45 @@
+<section id="command-.maybeoutput">
+    <title>.MAYBEOUTPUT</title>
+<indexterm><primary>.MAYBEOUTPUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem><para>(special form)</para>
+<synopsis><command>.MAYBEOUTPUT</command> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Works like <link linkend="command-output">OUTPUT</link> except that the expression that provides the input value might not output a value, in which case the effect is like <link linkend="command-stop">STOP</link>.
+This is intended for use in control structure definitions, for cases in which you don't know whether some expression produces a value.
+</para>
+
+<para>
+.MAYBEOUTPUT is an alternative to <link linkend="command-runresult">RUNRESULT</link>.
+It's fast and easy to use, at the cost of being an exception to &PRODUCTNAME;'s evaluation rules.
+(Ordinarily, it should be an error if the expression that's supposed to provide an input to something doesn't have a value.)
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO INVOKE :procedure [:inputs] 2
+  .MAYBEOUTPUT APPLY :procedure :inputs
+END
+
+(INVOKE "PRINT "a "b "c)</userinput>
+a b c
+
+<userinput>PRINT (INVOKE "WORD "a "b "c)</userinput>
+abc
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,50 @@
+<section id="command-map">
+    <title>MAP</title>
+<indexterm><primary>MAP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MAP</command> <parameter>templatelist</parameter> <parameter>data</parameter>
+(<command>MAP</command> <parameter>templatelist</parameter> <parameter>data1</parameter> <parameter>data2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a word or list, depending on the type of the <parameter>data</parameter> input, of the same length as that <parameter>data</parameter> input.
+(If more than one data input are given, the output is of the same type as <parameter>data1</parameter>.)
+Each item of the output is the result of evaluating the <parameter>templatelist</parameter>, filling the slots with the corresponding item(s) of the <parameter>data</parameter> input(s).
+(All data inputs must be the same length.)
+In the case of a word output, the results of the template evaluation must be words, and they are concatenated with <link linkend="command-word">WORD</link>.
+</para>
+
+<para>
+In a template, the symbol <userinput>?REST</userinput> represents the portion of the data input to the right of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>?REST</userinput> would be replaced by <userinput>[C D E]</userinput>.
+If multiple parallel slots are used, then <userinput>(?REST 1)</userinput> goes with <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+In a template, the symbol <userinput>#</userinput> represents the position in the data input of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>#</userinput> would be replaced by <userinput>2</userinput>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW MAP [2 * ?] [1 2 3 4 5 6]</userinput>
+[2 4 6 8 10 12]
+</programlisting>
+<programlisting><userinput>SHOW (MAP "LIST [a b c] [d e f])</userinput>
+[[a d] [b e] [c f]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

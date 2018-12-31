@@ -1,0 +1,332 @@
+<chapter id="windows-commands">
+   <title>Windows Commands</title>
+
+<para>
+This chapter describes how to create Graphical User Interfaces (GUIs) in &PRODUCTNAME;.
+</para>
+
+<para>
+The term "window" is very broad and includes simple windows, push buttons, dialog boxes, list boxes, combo boxes, scroll bars, buttons, static text, group boxes, checkboxes, and radio buttons.
+Using these elementary units, you can build up complex GUIs.
+Each window maintains a parent-child relationship with the windows that are placed on it.
+The way you program GUIs is modeled after how they are displayed, you create each individual sub-window and set up the parent-child relationships.
+</para>
+
+<para>
+Each time a window is created, you must specify the parent that "owns" the window.
+You must also specify a "name" so that the new window may be referenced by other instructions.
+Most other commands use this name to identify the Window or control you wish to communicate with.
+When a parent window is deleted, its "child" Windows and controls are also deleted.
+</para>
+
+<para>
+When controls are in windows, the coordinates used by all the Windows procedures are in Windows coordinate system (<emphasis>not</emphasis> the turtle coordinate system).
+That is the Y axis is upside down (positive numbers are down).
+Likewise, the origin is <emphasis>not</emphasis> the middle of the screen, it is the upper left hand corner of the window.
+Furthermore, the position and size are given in "dialog units", which are proportional to the size of the font that is being used.
+This ensures that the dialog boxes have a consistent layout, regardless of the font size.
+</para>
+
+<para>
+When controls are on the &PRODUCTNAME; screen window the coordinates are in the turtle coordinate system.
+</para>
+
+   <section id="window-commands">
+      <title>Window Commands</title>
+
+<para>
+Windows are one of two types of basic "canvas" types.
+A window has a title bar, a frame, and a grey client area upon which other window controls can be placed.
+Unlike dialogs, windows are modeless, which means that &PRODUCTNAME; continues to run instructions while the window is displayed.
+</para>
+
+      &command-windowcreate;
+      &command-windowdelete;
+      &command-windowenable;
+   </section>
+
+   <section id="dialog-commands">
+      <title>Dialog Commands</title>
+
+<para>
+Dialogs are one of two types of basic "canvas" types.
+A dialog has a title bar, a frame, and a grey client area upon which other window controls can be placed.
+Unlike windows, dialogs are modal, which means that &PRODUCTNAME; does not run any instructions until the dialog is closed.
+Because of this, dialogs are used to present the user with a question that must be answered before the program can continue.
+</para>
+
+      &command-dialogcreate;
+      &command-dialogdelete;
+      &command-dialogenable;
+   </section>
+
+   <section id="listbox-commands">
+      <title>Listbox Commands</title>
+
+<para>
+Listboxes are a type of control that presents the user with a predetermined choice of items.
+The items are represented as text and displayed vertically, one per line.
+</para>
+
+      &command-listboxcreate;
+      &command-listboxdelete;
+      &command-listboxenable;
+      &command-listboxgetselect;
+      &command-listboxaddstring;
+      &command-listboxdeletestring;
+   </section>
+
+
+   <section id="combobox-commands">
+      <title>Combobox Commands</title>
+
+<para>
+Comboboxes are a type of control that presents the user with a predetermined choice of items
+as well as a free-form text input.
+The items are represented as text and displayed vertically, one per line.
+</para>
+
+<para>
+Comboboxes get their name by being a combination of a listbox control and an edit control.
+</para>
+
+<para>
+Comboboxes can also be used to create a pure edit control by setting the height such that the listbox is hidden.
+</para>
+
+      &command-comboboxcreate;
+      &command-comboboxdelete;
+      &command-comboboxenable;
+      &command-comboboxgettext;
+      &command-comboboxsettext;
+      &command-comboboxaddstring;
+      &command-comboboxdeletestring;
+   </section>
+
+
+   <section id="scrollbar-commands">
+      <title>Scrollbar Commands</title>
+
+<para>
+Scrollbars let the user select a value by sliding a "scoller" along a bar that represents a range of possible values.
+For example, if you wanted the user to enter a number from 1 to 100, you could use a scrollbar.
+</para>
+
+<para>
+In many GUI frameworks, scrollbars are used to fit a large window into a small space by displaying only a small portion of the window and allowing the user to scroll which portion is visible.
+However, that is NOT the kind of scrollbar that &PRODUCTNAME; lets you create; the scrollbars that you create with &PRODUCTNAME; are often associated with a "slider" control.
+</para>
+
+      &command-scrollbarcreate;
+      &command-scrollbardelete;
+      &command-scrollbarenable;
+      &command-scrollbarset;
+      &command-scrollbarget;
+   </section>
+
+
+   <section id="button-commands">
+      <title>Button Commands</title>
+
+<para>
+Buttons let the user choose when an event happens.
+The only function of a button is to run an instruction list when it is pressed.
+</para>
+
+      &command-buttoncreate;
+      &command-buttondelete;
+      &command-buttonenable;
+      &command-buttonupdate;
+   </section>
+
+
+   <section id="static-commands">
+      <title>Static Commands</title>
+
+<para>
+Static controls are simply a way of displaying text.
+Static controls are called "static" because the user can't interact with them.
+However, you can update the text, so the term "static" is somewhat misleading.
+</para>
+
+      &command-staticcreate;
+      &command-staticdelete;
+      &command-staticupdate;
+   </section>
+
+
+   <section id="groupbox-commands">
+      <title>Group Box Commands</title>
+
+<para>
+A group box control is used to group radio button controls and checkbox controls both graphically and logically.
+Radio buttons and checkboxes must belong to a group box.
+Note that radio buttons and checkboxes which are placed in a group box still use the parent's origin NOT the group box's origin.
+</para>
+
+      &command-groupboxcreate;
+      &command-groupboxdelete;
+   </section>
+
+   <section id="checkbox-commands">
+      <title>Checkbox Commands</title>
+
+<para>
+Checkbox controls are used to ask the user yes/no questions.
+A checkbox control has two components: a checkbox and a text label that indicates what putting a check in the checkbox means.
+</para>
+
+<para>
+For multiple choice questions, use <link linkend="radiobutton-commands">radio button</link> control.
+</para>
+
+      &command-checkboxcreate;
+      &command-checkboxdelete;
+      &command-checkboxenable;
+      &command-checkboxset;
+      &command-checkboxget;
+   </section>
+
+
+   <section id="radiobutton-commands">
+      <title>Radio Button Commands</title>
+
+<para>
+Radio buttons controls are used to ask the user a multiple choice question.
+Each radio button two components: a round button and a text label that indicates what pressing the button means.
+</para>
+
+<para>
+Radio buttons are grouped using a <link linkend="groupbox-commands">groupbox</link> control.
+When the user presses a radio button, it is selected and all other radio buttons in the group are unselected.
+As a result, only one item in the group may be selected at any time.
+</para>
+
+<para>
+For yes/no questions, a <link linkend="checkbox-commands">checkbox</link> control may be more intuitive.
+</para>
+
+<para>
+The term "radio button" comes from car radios that have mechanical preset buttons.
+When you press one of these real radio buttons, it gets pushed in, the tuner changes to your selection, and all other buttons pop out.
+</para>
+
+      &command-radiobuttoncreate;
+      &command-radiobuttondelete;
+      &command-radiobuttonenable;
+      &command-radiobuttonset;
+      &command-radiobuttonget;
+   </section>
+
+   <section id="windows-debug-commands">
+      <title>Debug Commands</title>
+
+      &command-debugwindows;
+   </section>
+
+   <section id="windows-modal-vs-modeless">
+      <title>Modal vs. Modeless Windows</title>
+
+<para>
+Windows programming supports two types of windows: Modal and Modeless.
+The modal windows (<link linkend="command-dialogcreate">DIALOGCREATE</link>) are similar to a non-windows programming model where the application is in control.
+In midstream of processing you, as the programmer, decide to prompt the user for information (that is, <link linkend="command-readlist">READLIST</link>).
+Processing is halted and other components of the application are inaccessible until the user supplies the requested information.
+For example, prompting the user for a file name to open a document is Modal.
+</para>
+
+<para>
+When an application uses a modeless window (<link linkend="command-windowcreate">WINDOWCREATE</link>), the user is in control.
+For example the commander in &PRODUCTNAME; is modeless.
+The program is generally idle and reacts when the user triggers an event (such as pushing a button).
+</para>
+
+<para>
+Modal windows should be avoided where possible because users prefer to be in control of their applications, rather than being forced to answer a question before the application will do anything else.
+</para>
+
+<para>
+&PRODUCTNAME; has some predefined modal dialog boxes that you can use in your &GENERICNAME; programs.
+</para>
+
+      &command-messagebox;
+      &command-yesnobox;
+      &command-selectbox;
+      &command-questionbox;
+      &command-dialogfileopen;
+      &command-dialogfilesave;
+      &command-windowfileedit;
+   </section>
+
+   <section id="windows-example">
+      <title>Example Code for Constructing a Window</title>
+
+<para>
+Below is a code listing that constructs a simple window that draws some polygons on the screen.
+Unlike a traditional program, the logic does not start and the beginning and run line-by-line until it reaches the end.
+Instead, the logic is broken into small chunks and is executed in response to "events" such as mouse clicks.
+</para>
+
+<para>
+The example can create both a modal and a modeless window.
+If it uses a modeless window, then SETUP can be called after WINDOWCREATE stops.
+If it uses a modal window, then SETUP is called during the DIALOGCREATE because DIALOGCREATE does not stop until the window is closed.
+</para>
+
+<programlisting>TO WIN
+  ; For modeless example use this line
+  WINDOWCREATE "root "d1 [Draw Pictures] 0 0 150 110 [] SETUP  ; Create main window
+
+  ; For modal example use this line
+  ; DIALOGCREATE "root "d1 [Draw Pictures] 0 0 150 110 [SETUP] ; Create main window
+END
+
+TO SETUP
+  STATICCREATE "d1 "st4 [Select Shape] 5 10 50 10 ; Label the List box
+
+  LISTBOXCREATE "d1 "l1 5 25 80 40 ; Create List box with 3 Items owned by d1
+  LISTBOXADDSTRING "l1 "Square
+  LISTBOXADDSTRING "l1 "Triangle
+  LISTBOXADDSTRING "l1 "Hexagon
+
+  STATICCREATE "d1 "st11 [Red] 100 10 40 10 ; Label the scrollbar
+
+  SCROLLBARCREATE "d1 "s1 100 25 10 50 [MYRED] ; Create scroll bar, call MYRED when clicked
+  SCROLLBARSET "s1 1 255 125 MYRED             ; Init
+
+  BUTTONCREATE "d1 "b1 "End   5   80 40 10 [MYEND]       ; Create button to call myend
+  BUTTONCREATE "d1 "b3 "Clear 55  80 35 10 [CLEARSCREEN] ; Create button to clear screen
+  BUTTONCREATE "d1 "b2 "Draw  100 80 35 10 [DRAWTHING]   ; Create button to call drawthing
+
+END
+
+; run this procedure when the "Draw" button pushed
+TO DRAWTHING
+  SETPENCOLOR (LIST SCROLLBARGET "s1 0 0)  ; Ask scrollbar what to setpencolor to
+
+  ; Draw appropriate shape according to the listbox
+
+  IF EQUALP [Hexagon]  LISTBOXGETSELECT "l1 [REPEAT 6 [FORWARD 100 RIGHT 60]]
+  IF EQUALP [Square]   LISTBOXGETSELECT "l1 [REPEAT 4 [FORWARD 100 RIGHT 90]]
+  IF EQUALP [Triangle] LISTBOXGETSELECT "l1 [REPEAT 3 [FORWARD 100 RIGHT 120]]
+END
+
+; run this procedure when the "End" button is pushed
+TO MYEND
+  ; For modeless example use this
+  WINDOWDELETE "d1
+
+  ; For modal example use this
+  ; DIALOGDELETE "d1
+END
+
+; run this procedure when red scroll bar is adjusted
+TO MYRED
+  STATICUPDATE "st11 SENTENCE [Red] SCROLLBARGET "s1 ; Update static label of position
+END
+</programlisting>
+
+   </section>
+
+
+</chapter>

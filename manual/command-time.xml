@@ -1,0 +1,32 @@
+<section id="command-time">
+<title>TIME</title>
+<indexterm><primary>TIME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TIME</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the current time on the system as a list of words.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW TIME</userinput>
+[Wed Jul 14 23:34:08 1993]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,43 @@
+<section id="command-dialogfileopen">
+    <title>DIALOGFILEOPEN</title>
+<indexterm><primary>DIALOGFILEOPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIALOGFILEOPEN</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Displays a standard "Open" windows dialog box.
+It does NOT open a file; it just allows the user to select the desired file using a Graphical User Interface.
+The <parameter>filename</parameter> input is used to set the defaults of name, directory and/or extension.
+The output is the fully-specified file name that the user selected.
+If the user presses "Cancel", then DIALOGFILEOPEN outputs the empty list (<userinput>[]</userinput>).
+</para>
+
+<para>
+The <parameter>filename</parameter> input must be a word that specifies the directory to start in, the default filename, and/or extension of the filename.
+Wildcard characters ("*") are permitted as the filename or extension.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW DIALOGFILEOPEN "|c:\\Program Files\\&PRODUCTNAME;\\Examples\\Windows\\*.lgo|</userinput>
+<replaceable>The dialog box shows all files ending in ".lgo" in the specified directory.</replaceable>
+c:\Program Files\&PRODUCTNAME;\Examples\Windows\Visual.lgo
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

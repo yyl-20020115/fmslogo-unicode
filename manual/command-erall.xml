@@ -1,0 +1,52 @@
+<section id="command-erall">
+    <title>ERALL</title>
+<indexterm><primary>ERALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERALL</command>
+(<command>ERALL</command> <parameter>showwarning</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases all unburied procedures, variables, and property lists from the workspace.
+</para>
+
+<para>
+By default, ERALL warns you about what you are about to do.
+ERALL has an optional input that controls if this warning should be displayed.
+If you pass in FALSE, the warning is suppressed.
+</para>
+
+<para>
+<userinput>(ERALL "false)</userinput> is equivalent to <userinput><link linkend="command-erase">ERASE</link> <link linkend="command-contents">CONTENTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FOO
+END
+
+TO BAR
+END
+
+SHOW PROCEDURES</userinput>
+[bar foo]
+<userinput>(ERALL "false)
+SHOW PROCEDURES</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

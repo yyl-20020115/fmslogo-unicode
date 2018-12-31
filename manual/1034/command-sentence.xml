@@ -1,0 +1,50 @@
+<section id="command-sentence">
+<title>FRASE</title>
+<indexterm><primary>FRASE</primary></indexterm>
+<indexterm><primary>FR</primary></indexterm>
+<indexterm><primary>SENTENCE</primary></indexterm>
+<indexterm><primary>SE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>FRASE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>FR</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+(<command>FRASE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)
+(<command>FR</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)
+<command>SENTENCE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>SE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+(<command>SENTENCE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)
+(<command>SE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>cosa3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>  
+Devuelve una lista cuyos elementos son sus argumentos, si esos argumentos no son listas.
+Devuelve los elementos de sus argumentos, si esos argumentos son listas.
+</para>
+
+<para>
+FRASE lanza un error si cualquiera de sus argumentos es un vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA (FRASE "Una "frase "es "simplemente "una "lista "de "palabras)</userinput>
+[Una frase es simplemente una lista de palabras]</programlisting>
+
+<programlisting><userinput>SHOW (FRASE "Una "frase [es simplemente una] "lista [de palabras])</userinput>
+[Una frase es simplemente una lista de palabras]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

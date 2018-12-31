@@ -1,0 +1,47 @@
+<section id="command-outport">
+<title>ESCRIBEPUERTO2</title>
+<indexterm><primary>ESCRIBEPUERTO2</primary></indexterm>
+<indexterm><primary>OUTPORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ESCRIBEPUERTO2</command> <parameter>dirección_de_puerto</parameter> <parameter>datos</parameter>
+<command>OUTPORT</command> <parameter>dirección_de_puerto</parameter> <parameter>datos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe 2 bytes de <parameter>datos</parameter> al puerto de E/S especificado con <parameter>dirección_de_puerto</parameter>.
+El argumento <parameter>datos</parameter> debe ser un entero de no más de 2 bytes (entre 0 y 65525).
+</para>
+
+<para>
+No debes confundir este procedimiento con <link linkend="command-portopen">ABREPUERTO</link> y <link linkend="command-portwritechar">ESCRIBECARACTERPUERTO</link> que sirven para las comunicaciones a través de los puertos Serie y Paralelo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ESCRIBEPUERTO2 198 0</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-outportb">ESCRIBEPUERTO</link></member>
+<member><link linkend="command-inport">LEEPUERTO2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

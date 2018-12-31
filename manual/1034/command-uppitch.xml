@@ -1,0 +1,43 @@
+<section id="command-uppitch">
+<title>CABECEA</title>
+<indexterm><primary>CABECEA</primary></indexterm>
+<indexterm><primary>ARRIBA</primary></indexterm>
+<indexterm><primary>UPPITCH</primary></indexterm>
+<indexterm><primary>UP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CABECEA</command> <parameter>ángulo</parameter>
+<command>ARRIBA</command> <parameter>ángulo</parameter>
+<command>UPPITCH</command> <parameter>ángulo</parameter>
+<command>UP</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Inclina la nariz de la tortuga hacia arriba en el <parameter>ángulo</parameter> especificado, medido en grados (1/360 de la circunferencia).
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+CABECEA 45
+REPITE 3 [AVANZA 100 GIRAIZQUIERDA 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

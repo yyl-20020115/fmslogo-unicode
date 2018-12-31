@@ -1,0 +1,35 @@
+<section id="command-turtlemode">
+<title>MODOTORTUGA</title>
+<indexterm><primary>MODOTORTUGA</primary></indexterm>
+<indexterm><primary>TURTLEMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MODOTORTUGA</command>
+<command>TURTLEMODE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el modo de bitmap de la tortuga actual.
+Ve <link linkend="command-setturtlemode">PONMODOTORTUGA</link> por una explicación de los modos posibles.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 4 [ AVANZA 30 GIRADERECHA 90 ]
+COPIAAREA 50 50
+PONFORMA
+PONMODOTORTUGA 3</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

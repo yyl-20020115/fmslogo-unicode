@@ -1,0 +1,43 @@
+<section id="command-butfirst">
+<title>BUTFIRST</title>
+<indexterm><primary>BUTFIRST</primary></indexterm>
+<indexterm><primary>BF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTFIRST</command> <parameter>thing</parameter>
+<command>BF</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If <parameter>thing</parameter> is a word, outputs a word containing all but the first character of the input.
+If <parameter>thing</parameter> is a list, outputs a list containing all but the first member of the input.
+</para>
+
+<para>
+BUTFIRST throws a bad input error if given the empty list, the empty string, or an array.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW BUTFIRST [1 2 3]</userinput>
+[2 3]</programlisting>
+
+<programlisting><userinput>SHOW BUTFIRST "Hello</userinput>
+ello</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>
+

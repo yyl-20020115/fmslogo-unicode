@@ -1,0 +1,65 @@
+<section id="command-arc">
+<title>ARCO</title>
+<indexterm><primary>ARCO</primary></indexterm>
+<indexterm><primary>ARC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ARCO</command> <parameter>ángulo</parameter> <parameter>radio</parameter>
+<command>ARC</command> <parameter>ángulo</parameter> <parameter>radio</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Dibuja un arco (parte de una circunferencia), según el rumbo y posición de la tortuga y los argumentos.
+El centro del arco es la posición actual de la tortuga.
+ARCO no mueve la tortuga.
+El arco traza un ángulo igual a <parameter>ángulo</parameter>.
+El tamaño del arco depende del argumento <parameter>radio</parameter>.
+</para>
+
+<para>
+Si <parameter>radio</parameter> es positivo, entonces el arco empieza <parameter>radio</parameter> pasos de tortuga detrás de la tortuga.
+Si <parameter>radio</parameter> es negativo, entonces el arco empieza <parameter>radio</parameter> pasos de tortuga en frente de la tortuga.
+En ambos casos, el arco traza un ángulo igual al argumento <parameter>ángulo</parameter>.
+Si <parameter>ángulo</parameter> es positivo, entonces se dibuja el arco en sentido horario.
+Si <parameter>ángulo</parameter> es negativo, entonces se dibuja el arco en sentido antihorario.
+Si <parameter>ángulo</parameter> es mayor o igual que 360 (o menor o igual que -360), entonces ARCO dibuja una circunferencia.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Ejemplos en 2D:
+<programlisting><userinput>ARCO 360 100
+ARCO 90 50</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 36 [BALANCEADERECHA 10 ARCO 90 100]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-arc2">ARCO2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

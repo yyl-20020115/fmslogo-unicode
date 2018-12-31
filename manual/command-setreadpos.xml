@@ -1,0 +1,49 @@
+<section id="command-setreadpos">
+<title>SETREADPOS</title>
+<indexterm><primary>SETREADPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETREADPOS</command> <parameter>charpos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the file pointer of the read stream file so that the next <link linkend="command-readlist">READLIST</link>, etc., begins reading at the <parameter>charpos</parameter>-th character in the file, counting from 0.
+(That is, <userinput>SETREADPOS 0</userinput> starts reading from the beginning of the file.)
+This is meaningless if the read stream is [].
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+SHOW READLIST</userinput>
+[Hello]
+<userinput>SETREADPOS 0
+SHOW READLIST</userinput>
+[Hello]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

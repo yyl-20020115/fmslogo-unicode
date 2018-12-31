@@ -1,0 +1,39 @@
+<section id="command-checkboxget">
+    <title>CHECKBOXGET</title>
+<indexterm><primary>CHECKBOXGET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHECKBOXGET</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the state (True or False) of the checkbox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO CHECKONTHINGS
+  IFELSE CHECKBOXGET "myhideturtle [HIDETURTLE] [SHOWTURTLE]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 40
+CHECKBOXCREATE "mywindow "mygroupbox "myhideturtle [Hide Turtle] 20 20 60 20
+BUTTONCREATE "mywindow "mybutton "Go 40 50 25 25 [CHECKONTHINGS]
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

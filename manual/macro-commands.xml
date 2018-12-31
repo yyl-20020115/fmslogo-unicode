@@ -1,0 +1,7 @@
+<chapter id="macro-commands">
+   <title>Macro Commands</title>
+
+       &command-.macro;
+       &command-.defmacro;
+       &command-macroexpand;
+</chapter>

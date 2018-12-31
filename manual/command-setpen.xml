@@ -1,0 +1,44 @@
+<section id="command-setpen">
+<title>SETPEN</title>
+<indexterm><primary>SETPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPEN</command> <parameter>characteristics</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pen's position, mode, and hardware-dependent characteristics according to the information in the <parameter>characteristics</parameter> input.
+The characteristics input is a list with the following members: [PENDOWNP PENMODE PENSIZE PENCOLOR PENPAINT].
+The format of this list may change in futures version of &PRODUCTNAME;, as additional pen characteristics are added.
+To guarantee portability, the input should be taken from an earlier invocation of <link linkend="command-pen">PEN</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CLEARSCREEN
+REPEAT 4 [FORWARD 100 RIGHT 90]
+MAKE "savepen PEN
+
+CLEARSCREEN
+SETPENSIZE [20 20]
+REPEAT 4 [FORWARD 100 RIGHT 90]
+SETPEN :savepen
+
+CLEARSCREEN
+REPEAT 4 [FORWARD 100 RIGHT 90]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

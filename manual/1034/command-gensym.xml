@@ -1,0 +1,39 @@
+<section id="command-gensym">
+<title>GENSIMBOLO</title>
+<indexterm><primary>GENSIMBOLO</primary></indexterm>
+<indexterm><primary>GENSYM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GENSIMBOLO</command>
+<command>GENSYM</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una única palabra cada vez que es ejecutado.
+Las palabras tienen la forma G1, G2, etc.
+Típicamente, se usa GENSIMBOLO para generar nombres de variables dinámicamente.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>HAZ GENSIMBOLO 1
+MUESTRA :g1</userinput>
+1</programlisting>
+
+    <programlisting><userinput>HAZ GENSIMBOLO "Hola
+SHOW :g2</userinput>
+Hola</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

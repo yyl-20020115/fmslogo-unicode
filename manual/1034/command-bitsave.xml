@@ -1,0 +1,56 @@
+<section id="command-bitsave">
+    <title>BITSAVE</title>
+<indexterm><primary>BITSAVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITSAVE</command> <parameter>filename</parameter>
+(<command>BITSAVE</command> <parameter>filename</parameter> <parameter>maxcolordepth</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Saves a picture (bitmap image) of your work on the computer's disk.
+It also allows you to add more work to an existing piece of work.
+The dimensions of the picture are determined by <link linkend="command-activearea">ACTIVEAREA</link>.
+</para>
+
+<para>
+Remember that if your image was generated with a &GENERICNAME; program you really don't need to save it as an image unless you want to use the image in another application such as Microsoft Paint or as a wallpaper.
+</para>
+
+<para>
+The <parameter>filename</parameter> input must be a word that is the name of the bitmap file to save.
+</para>
+
+<para>
+The <parameter>maxcolordepth</parameter> input is total number of colors in the bitmap in bits per pixel.  That is 1 = 2 colors, 4 = 16 colors, 8 = 256 colors, 24 = 16.7 million colors).  The default value is 24.
+</para>
+
+<para>
+The format of the saved image is known as a Microsoft Windows Bitmap (BMP).
+You can use these files with other applications such as Microsoft Paint.
+Note that these files can be <emphasis>big</emphasis> and may take a long time to read or write on slow machines.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 72 [CIRCLE2 100 RIGHT 5]
+BITSAVE "myfile.bmp
+CLEARSCREEN
+BITLOAD "myfile.bmp</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,41 @@
+<section id="command-shownp">
+    <title>VISIBLE?</title>
+<indexterm><primary>VISIBLE?</primary></indexterm>
+<indexterm><primary>SHOWN?</primary></indexterm>
+<indexterm><primary>SHOWNP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VISIBLE?</command>
+<command>SHOWNP</command>
+<command>SHOWN?</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si la tortuga está mostrada (visible), FALSO, si está oculta.
+Puedes usar <link linkend="command-showturtle">MUESTRATORTUGA</link> y <link linkend="command-hideturtle">OCULTATORTUGA</link> para mostrar y ocultar la tortuga.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRATORTUGA
+MUESTRA VISIBLE?</userinput>
+cierto
+
+<userinput>OCULTATORTUGA
+MUESTRA VISIBLE?</userinput>
+falso</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

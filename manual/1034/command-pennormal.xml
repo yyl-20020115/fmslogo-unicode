@@ -1,0 +1,36 @@
+<section id="command-pennormal">
+    <title>LAPIZINICIAL</title>
+<indexterm><primary>LAPIZINICIAL</primary></indexterm>
+<indexterm><primary>PENNORMAL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LAPIZINICIAL</command>
+<command>PENNORMAL</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Restaura todas las características del lápiz a los valores iniciales.
+Es decir, pone el lápiz hacia abajo, en el modo «LápizNormal», con un grosor de un píxel, y con el color negro.
+</para>
+</listitem>
+
+
+</varlistentry>
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>LAPIZINVIERTE
+AVANZA 100
+LAPIZINICIAL
+RETROCEDE 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

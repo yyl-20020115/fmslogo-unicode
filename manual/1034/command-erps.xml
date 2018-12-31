@@ -1,0 +1,45 @@
+<section id="command-erps">
+    <title>BPROCS</title>
+<indexterm><primary>BPROCS</primary></indexterm>
+<indexterm><primary>ERPS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BPROCS</command>
+<command>ERPS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra todos los procedimientos no tapados en el área de trabajo.
+BPROCS es la abreviatura de <userinput><link linkend="command-erase">BORRA</link> <link linkend="command-procedures">LPROCS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+FIN
+
+PARA BAR
+FIN
+
+MUESTRA LPROCS</userinput>
+[bar foo]
+<userinput>BPROCS
+MUESTRA LPROCS</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

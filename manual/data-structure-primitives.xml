@@ -1,0 +1,85 @@
+<chapter id="data-structure-commands">
+   <title>Data Structure Commands</title>
+
+   <section id="data-structure-constructors">
+      <title>Data Structure Constructors</title>
+      &command-word;
+      &command-list;
+      &command-sentence;
+      &command-fput;
+      &command-lput;
+      &command-array;
+      &command-mdarray;
+      &command-listtoarray;
+      &command-arraytolist;
+      &command-combine;
+      &command-reverse;
+      &command-sort;
+      &command-gensym;
+   </section>
+
+   <section id="data-structure-selectors">
+      <title>Data Structure Selectors</title>
+      &command-first;
+      &command-firsts;
+      &command-last;
+      &command-butfirst;
+      &command-butfirsts;
+      &command-butlast;
+      &command-item;
+      &command-mditem;
+      &command-pick;
+      &command-remove;
+      &command-remdup;
+      &command-quoted;
+   </section>
+
+   <section id="data-structure-mutators">
+      <title>Data Structure Mutators</title>
+
+      &command-setitem;
+      &command-mdsetitem;
+      &command-.setfirst;
+      &command-.setbf;
+      &command-.setitem;
+      &command-push;
+      &command-pop;
+      &command-queue;
+      &command-dequeue;
+   </section>
+
+   <section id="data-structure-predicates">
+      <title>Data Structure Predicates</title>
+
+      &command-wordp;
+      &command-numberp;
+      &command-listp;
+      &command-arrayp;
+      &command-emptyp;
+      &command-equalp;
+      &command-notequalp;
+      &command-beforep;
+      &command-.eq;
+      &command-memberp;
+      &command-substringp;
+      &command-backslashedp;
+   </section>
+
+   <section id="queries">
+      <title>Data Structure Queries</title>
+
+      &command-count;
+      &command-ascii;
+      &command-rawascii;
+      &command-char;
+      &command-member;
+      &command-lowercase;
+      &command-uppercase;
+      &command-standout;
+      &command-parse;
+      &command-runparse;
+      &command-time;
+      &command-timemilli;
+   </section>
+
+</chapter>

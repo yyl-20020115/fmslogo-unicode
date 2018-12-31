@@ -1,0 +1,48 @@
+<section id="command-print">
+<title>PRINT</title>
+<indexterm><primary>PRINT</primary></indexterm>
+<indexterm><primary>PR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PRINT</command> <parameter>thing</parameter>
+<command>PR</command> <parameter>thing</parameter>
+(<command>PRINT</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>...</parameter>)
+(<command>PR</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>Prints the input or inputs to the current write stream (initially the <link linkend="commander-history">command-recall window</link>).
+All the inputs are printed on a single line, separated by spaces, ending with a newline.
+If an input is a list, square brackets are not printed around it, but brackets are printed around sublists.
+Braces are always printed around arrays.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>PRINT "Hello</userinput>
+Hello</programlisting>
+
+<programlisting><userinput>PRINT [Hello how are you]</userinput>
+Hello how are you</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link></member>
+<member><link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

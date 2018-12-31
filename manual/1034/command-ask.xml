@@ -1,0 +1,55 @@
+<section id="command-ask">
+<title>PIDE</title>
+<indexterm><primary>PIDE</primary></indexterm>
+<indexterm><primary>ASK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PIDE</command> <parameter>índice_de_tortuga</parameter> <parameter>lista_de_instrucciones</parameter>
+<command>ASK</command> <parameter>índice_de_tortuga</parameter> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Instruye a la tortuga especificada ejecutar una lista de instrucciones especificada (la cual contiene normalmente instrucciones de tortuga).
+</para>
+<para>
+Primero, PIDE selecciona a la tortuga cuyo índice es igual al argumento <parameter>índice_de_tortuga</parameter>.
+Entonces, PIDE ejecuta <parameter>lista_de_instrucciones</parameter>.
+Por último, PIDE reselecciona a la tortuga previo.
+</para>
+<para>
+PIDE devuelve lo que <parameter>lista_de_instrucciones</parameter> devuelve.
+Si <parameter>lista_de_instrucciones</parameter> no devuelve nada, entonces PIDE tampoco devuelve nada.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Manda a cuatro tortugas en rumbos distintos:
+<programlisting><userinput>REPITE 4 [PIDE CUENTAREPITE [ GIRADERECHA 90 * CUENTAREPITE AVANZA 100 ]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setturtle">ACTIVA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,33 @@
+<section id="command-uppercase">
+<title>MAYUSCULAS</title>
+<indexterm><primary>MAYUSCULAS</primary></indexterm>
+<indexterm><primary>UPPERCASE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MAYUSCULAS</command> <parameter>palabra</parameter>
+<command>UPPERCASE</command> <parameter>palabra</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una copia del argumento <parameter>palabra</parameter>, pero en la que se han cambiado las minúsculas por las correspondientes mayúsculas.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA MAYUSCULAS "HolA</userinput>
+HOLA</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

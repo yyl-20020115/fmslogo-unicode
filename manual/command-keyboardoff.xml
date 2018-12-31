@@ -1,0 +1,40 @@
+<section id="command-keyboardoff">
+    <title>KEYBOARDOFF</title>
+<indexterm><primary>KEYBOARDOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>KEYBOARDOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Disables trapping of keyboard events.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>KEYBOARDON [PRINT CHAR KEYBOARDVALUE]
+FULLSCREEN
+SETFOCUS [&PRODUCTNAME;]
+a</userinput>
+a
+<userinput>b</userinput>
+b
+<userinput>SPLITSCREEN
+KEYBOARDOFF</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

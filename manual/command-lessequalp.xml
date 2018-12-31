@@ -1,0 +1,51 @@
+<section id="command-lessequalp">
+<title>LESSEQUALP</title>
+<indexterm><primary>LESSEQUALP</primary></indexterm>
+<indexterm><primary>&lt;=</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LESSEQUALP</command> <parameter>num1</parameter> <parameter>num2</parameter>
+<command>LESSEQUAL?</command> <parameter>num1</parameter> <parameter>num2</parameter>
+<parameter>num1</parameter> <command>&lt;=</command> <parameter>num2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>num1</parameter> is less than or equal to <parameter>num2</parameter>.
+Outputs FALSE, otherwise.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW 1 &lt;= 2</userinput>
+true
+</programlisting>
+<programlisting><userinput>SHOW LESSEQUALP 1 2</userinput>
+true
+</programlisting>
+<programlisting><userinput>SHOW LESSEQUALP 2 2</userinput>
+true
+</programlisting>
+<programlisting><userinput>SHOW LESSEQUALP 2 1</userinput>
+false
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-lessp">LESSP</link></member>
+<member><link linkend="command-equalp">EQUALP</link></member>
+<member><link linkend="command-greaterp">GREATERP</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

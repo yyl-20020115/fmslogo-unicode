@@ -1,0 +1,45 @@
+<section id="command-and">
+    <title>AND</title>
+<indexterm><primary>AND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>AND</command> <parameter>boolean1</parameter> <parameter>boolean2</parameter>
+(<command>AND</command> <parameter>boolean1</parameter> <parameter>boolean2</parameter> <parameter>boolean3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if all inputs are TRUE, otherwise FALSE.
+All inputs must be TRUE or FALSE.
+</para>
+
+<para>
+The comparison is always case-insensitive, regardless of the value of <link linkend="command-caseignoredp">CASEIGNOREDP</link>.
+That is, "true", "True", and "TRUE" are all the same.
+</para>
+
+<para>
+If given no inputs, AND outputs TRUE.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW AND "true "true</userinput>
+true
+<userinput>SHOW AND "true "false</userinput>
+false
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

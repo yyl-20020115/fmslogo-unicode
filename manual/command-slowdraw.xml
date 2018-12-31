@@ -1,0 +1,41 @@
+<section id="command-slowdraw">
+<title>SLOWDRAW</title>
+<indexterm><primary>SLOWDRAW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SLOWDRAW</command> <parameter>slowness</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Redefines FORWARD, BACK, FD, and BK to take longer so that you can see the turtle as it moves (otherwise, the turtle moves as fast as it can).
+The <parameter>slowness</parameter> input controls how long it takes for turtle to complete each movement instruction.
+The larger the <parameter>slowness</parameter> input, the slower the turtle moves.
+</para>
+
+<para>
+Running <userinput>SLOWDRAW 0</userinput> restores FORWARD, BACK, FD, and BK to their original speed.
+</para>
+
+<para>
+The <parameter>slowness</parameter> input must be a non-negative integer.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SLOWDRAW 100
+REPEAT 4 [ FORWARD 100 RIGHT 90 ]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

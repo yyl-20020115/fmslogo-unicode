@@ -1,0 +1,30 @@
+<section id="command-refresh">
+    <title>REFRESCA</title>
+<indexterm><primary>REFRESCA</primary></indexterm>
+<indexterm><primary>REFRESH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>REFRESCA</command>
+<command>REFRESH</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Le dice a &GENERICNAME; a recordar los movimientos de la tortuga para que pueda reconstruir tu dibujo en caso de que la pantalla se estuviera ocultado por una otra ventana.
+</para>
+
+<para>
+REFRESCA existe por compatibilidad con otros entornos de &GENERICNAME;.
+No se lo necesitan en &PRODUCTNAME;.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

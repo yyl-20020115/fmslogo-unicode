@@ -1,0 +1,63 @@
+<section id="command-trace">
+<title>TRACE</title>
+<indexterm><primary>TRACE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TRACE</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Marks the named items for tracing.
+A message is printed whenever a traced procedure is invoked, giving the actual input values, and whenever a traced procedure runs <link linkend="command-stop">STOP</link> or <link linkend="command-output">OUTPUT</link>.
+A message is printed whenever a new value is assigned to a traced variable using <link linkend="command-make">MAKE</link>.
+A message is printed whenever a new property is given to a traced property list using <link linkend="command-pprop">PPROP</link>.
+</para>
+
+<para>
+TRACE does not throw an error if it is asked to trace a procedure, variable, or property list that is not in the workspace, but doing so has no effect.
+TRACE also does not throw an error if asked to trace a primitive, but this also has no effect.
+</para>
+
+<para>
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explanation of the <parameter>contentslist</parameter> input.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPRINT :a
+  PRINT :a
+END
+
+MYPRINT "Hello</userinput>
+Hello
+
+<userinput>TRACE "MYPRINT
+MYPRINT "Hello</userinput>
+( MYPRINT "Hello )
+Hello
+<userinput>UNTRACE "MYPRINT
+MYPRINT "Hello</userinput>
+Hello</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-untrace">UNTRACE</link></member>
+<member><link linkend="commander-trace">The Trace Button</link></member>
+<member><link linkend="workspace-queries">Workspace Queries</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

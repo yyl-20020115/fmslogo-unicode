@@ -1,0 +1,40 @@
+<section id="command-last">
+<title>LAST</title>
+<indexterm><primary>LAST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LAST</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If <parameter>thing</parameter> is a word, outputs the last character of the word.
+If <parameter>thing</parameter> is a list, outputs the last member of the list.
+</para>
+
+<para>
+LAST throws a bad input error if given the empty list, the empty string, or an array.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW LAST [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>SHOW LAST "Hello</userinput>
+o</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,41 @@
+<section id="command-nostatus">
+<title>QUITAESTADO</title>
+<indexterm><primary>QUITAESTADO</primary></indexterm>
+<indexterm><primary>NOSTATUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>QUITAESTADO</command>
+<command>NOSTATUS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cierre la ventana que muestra el estado de &PRODUCTNAME;, si está abierta.
+Tiene el mismo efecto que pulsar el <link linkend="commander-status">Botón de Estado</link> cuando está deprimido.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ESTADO
+QUITAESTADO</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-status">ESTADO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

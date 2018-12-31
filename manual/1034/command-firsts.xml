@@ -1,0 +1,41 @@
+<section id="command-firsts">
+<title>PRIMEROS</title>
+<indexterm><primary>PRIMEROS</primary></indexterm>
+<indexterm><primary>FIRSTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PRIMEROS</command> <parameter>lista</parameter>
+<command>FIRSTS</command> <parameter>lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que contiene el primer elemento de cada una de los miembros de <parameter>lista</parameter>.
+Lanza un error si algún miembro del argumento es vacío.
+</para>
+<para>
+El argumento <parameter>lista</parameter> puede ser vacío, en cuyo caso PRIMEROS devuelve la lista vacía.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA PRIMEROS [[1 2 3] [a b c]]</userinput>
+[1 a]</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-first">PRIMERO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

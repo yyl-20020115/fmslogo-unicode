@@ -1,0 +1,38 @@
+<section id="command-fontfacenames">
+    <title>FONTFACENAMES</title>
+<indexterm><primary>FONTFACENAMES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FONTFACENAMES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list of the names of every font typeface that is supported by the operating system.
+The order of this list is not defined.
+</para>
+
+<para>
+Each typeface name is given as a list and can be used as input to <link linkend="command-setlabelfont">SETLABELFONT</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW FONTFACENAMES</userinput>
+[[System] [Courier New] [Times New Roman] [Arial] [Verdana] [Webdings] [Microsoft Sans Serif]]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

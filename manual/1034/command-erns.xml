@@ -1,0 +1,41 @@
+<section id="command-erns">
+    <title>BNOMBRES</title>
+<indexterm><primary>BNOMBRES</primary></indexterm>
+<indexterm><primary>ERNS</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BNOMBRES</command>
+<command>ERNS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra todas las variables no tapadas en el área de trabajo.
+BNOMBRES es la abreviatura de <userinput><link linkend="command-erase">BORRA</link> <link linkend="command-names">LVARS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo 1
+HAZ "bar 2
+IMVARS</userinput>
+haz "bar 2
+haz "foo 1
+<userinput>BNOMBRES
+IMVARS</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

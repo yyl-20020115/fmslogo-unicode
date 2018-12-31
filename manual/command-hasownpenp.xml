@@ -1,0 +1,45 @@
+<section id="command-hasownpenp">
+<title>HASOWNPENP</title>
+<indexterm><primary>HASOWNPENP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>HASOWNPENP</command>
+<command>HASOWNPEN?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the currently selected turtle has its own setting for <link linkend="command-penmode">PENMODE</link>, <link linkend="command-pensize">PENSIZE</link>, and <link linkend="command-pencolor">PENCOLOR</link>.
+Outputs FALSE if the currently selected turtle shares its pen settings with other turtles.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETTURTLE 1
+SHOW HASOWNPENP</userinput>
+false
+</programlisting>
+
+<programlisting><userinput>(SETTURTLE 1 "true)
+SHOW HASOWNPENP</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setturtle">SETTURTLE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

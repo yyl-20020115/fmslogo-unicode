@@ -1,0 +1,52 @@
+<section id="command-settimer">
+    <title>SETTIMER</title>
+<indexterm><primary>SETTIMER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETTIMER</command> <parameter>id</parameter> <parameter>delay</parameter> <parameter>callback</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Sets up a timer identified by <parameter>id</parameter> (a number from 1-31) to call the instructions in <parameter>callback</parameter> in <parameter>delay</parameter> milliseconds of time.
+It continues to "fire" every <parameter>delay</parameter> milliseconds until you invoke <link linkend="command-cleartimer">CLEARTIMER</link> with the same <parameter>id</parameter>.
+</para>
+
+
+<para>
+You can clear the timer at any time with CLEARTIMER.
+In particular, you can clear the timer in the <parameter>callback</parameter> instructions to create a one-shot timer event.
+You can also create a timer at any time, including in the <parameter>callback</parameter> instructions.
+Halting clears all timers.
+</para>
+
+<para>
+Timers with <parameter>id</parameter> values from 1-16 run their callbacks in <link linkend="command-noyield">NOYIELD</link> mode, which means they are not interrupted by user interaction and the screen isn't repainted if it becomes occulded when the <parameter>callback</parameter> is running.
+Timers with <parameter>id</parameter> values from 17-31 run their callbacks in the normal, interruptable mode.
+</para>
+
+<para>
+Each timer <parameter>id</parameter> can have different values for <parameter>callback</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETTIMER 17 200 [SETPENCOLOR (LIST RANDOM 256 RANDOM 256 RANDOM 256)]</userinput>
+<replaceable>&PRODUCTNAME; is ready to run more instructions and the timer changes the pen color randomly every 200 milliseconds.</replaceable>
+<userinput>REPEAT 72 [REPEAT 4 [FORWARD 100 RIGHT 90] RIGHT 5]
+CLEARTIMER 17</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

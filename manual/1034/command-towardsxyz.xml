@@ -1,0 +1,44 @@
+<section id="command-towardsxyz">
+<title>HACIAXYZ</title>
+<indexterm><primary>HACIAXYZ</primary></indexterm>
+<indexterm><primary>TOWARDSXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HACIAXYZ</command> <parameter>posición</parameter>
+<command>TOWARDSXYZ</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que contiene [balanceo cabeceo rumbo] en grados, la orientación que debe tomar la tortuga para moverse desde su posición actual en línea recta hasta otra que se indica en el argumento <parameter>posición</parameter>.
+El argumento <parameter>posición</parameter> debe ser una lista de tres números, las coordenadas X, Y y Z de la otra posición.
+</para>
+<para>
+Se diseñaba HACIAXYZ para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Para usarlo, es importante entender tu <link linkend="understand-your-orientation-in-3D">orientación en 3D</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+POSICIONATE [0 0 0]
+MUESTRA HACIAXYZ [100 100 0]</userinput>
+[0 0 45]</programlisting>
+
+<programlisting><userinput>PERSPECTIVA
+PONORIENTACION HACIAXYZ [100 100 100]
+AVANZA DISTANCIAXYZ [100 100 100]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

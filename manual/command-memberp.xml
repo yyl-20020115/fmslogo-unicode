@@ -1,0 +1,53 @@
+<section id="command-memberp">
+<title>MEMBERP</title>
+<indexterm><primary>MEMBERP</primary></indexterm>
+<indexterm><primary>MEMBER?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MEMBERP</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+<command>MEMBER?</command> <parameter>thing1</parameter> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>thing1</parameter> is a member of <parameter>thing2</parameter>.
+Outputs FALSE, otherwise.
+</para>
+
+<para>
+If <parameter>thing2</parameter> is a list or an array, outputs TRUE if <parameter>thing1</parameter> is <link linkend="command-equalp">EQUALP</link> to an item of <parameter>thing2</parameter>, FALSE otherwise.
+</para>
+
+<para>
+If <parameter>thing2</parameter> is a word, outputs TRUE if <parameter>thing1</parameter> is a single character that is <link linkend="command-equalp">EQUALP</link> to a character in <parameter>thing2</parameter>, FALSE otherwise.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+
+<listitem>
+
+<programlisting><userinput>SHOW MEMBERP 1 [1 2 3]</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW MEMBERP 4 [1 2 3]</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW MEMBERP "b "abc</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW MEMBERP "bc "abc</userinput>
+false</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

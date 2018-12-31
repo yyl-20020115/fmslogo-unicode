@@ -1,0 +1,76 @@
+<section id="command-random">
+    <title>AZAR</title>
+<indexterm><primary>AZAR</primary></indexterm>
+<indexterm><primary>RANDOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>AZAR</command> <parameter>rango</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Devuelve un entero uniformemente distribuido entre 0 y el argumento <parameter>rango</parameter> (incluido 0 y excluido <parameter>rango</parameter>).
+El argumento <parameter>rango</parameter> debe ser un entero no negativo.
+</para>
+
+<para>
+Por ejemplo, si el argumento es 10, entonces AZAR devuelve cualquier de los enteros siguientes con probabilidad igual: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+</para>
+
+<para>
+Las computadora son inherentemente deterministas.
+Es decir, dado el mismo conjunto de entradas, las computadoras siempre siguen un programa para producir exactamente la misma salida.
+Esto lo hace difícil que una computadora generase números verdaderamente aleatorios.
+Por esta razón, cuando una computador genera un número aleatorio, se lo llaman «pseudoaleatorio», que quiere decir «falso aleatorio».
+</para>
+
+<para>
+Así es como funciona AZAR.
+Imaginate que AZAR tiene una lista gigantesca de números que aparecen en un orden predeterminado que solo parece aleatorio.
+Cada vez que se ejecuta AZAR, lee el próximo número de la lista, lo escala al rango pedido, y lo devuelve el resultado.
+Si AZAR siempre empezaba a la cabeza de esta lista, siempre produjera la misma secuencia cada vez que se ejecutara &GENERICNAME;, lo que no se viera nada aleatorio.
+Por supuesto, AZAR no puede elegir al azar un lugar por empezar en la lista, porque las computadoras no pueden crear aleatoriedad verdadera.
+Para franquear este problema, cuando se inicia &GENERICNAME;, usa el tiempo actual por determinar por donde en la lista AZAR debe empezar sacando los números.
+Siempre y cuando se empiece cada programa a un tiempo distinto, la secuencia aleatoria producida por AZAR sera diferente, lo que es bastante bien para simular la aleatoriedad verdadera.
+Pero, si logras iniciar dos instancias de &PRODUCTNAME; al mismo tiempo exacto, entonces AZAR produjera la misma secuencia exacta de números.
+</para>
+
+<para>
+Por lo común, quieras que AZAR devuelve distintos valores cada vez que ejecutas tu programa.
+Pero algunas veces, pueda que quisieras que AZAR produjera la misma secuencia exacta de números.
+En estos casos, puedes usar <link linkend="command-rerandom">REAZAR</link> para reiniciar el lugar en la lista por donde AZAR sacará el próximo número.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 5 [MUESTRA AZAR 10]</userinput>
+6
+8
+3
+0
+9</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-rerandom">REAZAR</link></member>
+<member><link linkend="command-pick">SACAALAZAR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

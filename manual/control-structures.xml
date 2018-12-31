@@ -1,0 +1,178 @@
+<chapter id="control-structures">
+   <title>Control Structures</title>
+
+<para>
+&GENERICNAME; has many facilities for controlling which instructions get executed next.
+Taken together, these facilities are commonly called "flow control", because they control the "flow" of execution.
+</para>
+
+<para>
+In the following descriptions, an "instruction list" input may be a list or a word.
+If it's a word, it is parsed into list form before it is run.
+Thus, <userinput><link linkend="command-run">RUN</link> <link linkend="command-readword">READWORD</link></userinput> or <userinput><link linkend="command-run">RUN</link> <link linkend="command-readlist">READLIST</link></userinput> work.
+The former is slightly preferable because it allows for a continued line (with <userinput>~</userinput>) that includes a comment (with <userinput>;</userinput>) on the first line.
+</para>
+
+<para>
+Pay attention to the difference between an "operation" and a "command".
+An operation is a procedure that outputs a value.
+A command is a procedure that does NOT output a value.
+Most procedures are either one or the other, but some are both.
+</para>
+
+   <section id="control-commands">
+       <title>Control Commands</title>
+
+       &command-run;
+       &command-runresult;
+       &command-repeat;
+       &command-repcount;
+       &command-if;
+       &command-ifelse;
+       &command-test;
+       &command-iftrue;
+       &command-iffalse;
+       &command-true;
+       &command-false;
+       &command-stop;
+       &command-output;
+       &command-catch;
+       &command-throw;
+       &command-error;
+       &command-pause;
+       &command-continue;
+       &command-yield;
+       &command-noyield;
+       &command-eventcheck;
+       &command-setcursorwait;
+       &command-setcursornowait;
+       &command-halt;
+       &command-wait;
+       &command-settimer;
+       &command-cleartimer;
+       &command-bye;
+       &command-.maybeoutput;
+       &command-ignore;
+       &command-backtick;
+       &command-for;
+       &command-forever;
+       &command-do.while;
+       &command-while;
+       &command-do.until;
+       &command-until;
+<!-- commented out of the manual until they are implemented in FMSLogo
+       &command-goto;
+       &command-tag;
+-->
+    </section>
+
+
+   <section id="template-based-iteration">
+       <title>Template-Based Iteration</title>
+
+<para>
+This section describes iteration tools that are based on the idea of a "template".
+This is a generalization of an instruction list or an expression list in which "slots" are provided for the tool to insert varying data.
+Three different forms of template can be used: explicit-slot templates, named-procedure templates, and named-slot templates.
+</para>
+
+<para>
+These iteration tools are extended versions of the ones in Appendix B of the book Computer Science Logo Style, Volume 3: Advanced Topics by Brian Harvey [MIT Press, 1987].
+The extensions are primarily to allow for variable numbers of inputs.
+</para>
+
+     <section id="explict-slot-templates">
+         <title>Explicit-Slot Templates</title>
+
+<para>
+The most commonly used form of template is the "explicit-slot" form, which is sometimes called the "question mark" form.
+</para>
+
+<para>
+Example:
+<programlisting><userinput>SHOW MAP [? * ?] [2 3 4 5]</userinput>
+[4 9 16 25]</programlisting>
+</para>
+
+<para>
+In this example, <link linkend="command-map">MAP</link> evaluates the template <userinput>[? * ?]</userinput> repeatedly, with each of the members of the data list <userinput>[2 3 4 5]</userinput> substituted in turn for the question marks.
+The same value was used for every question mark in a given evaluation.
+Some tools allow for more than one datum to be substituted in parallel; in these cases the slots are indicated by <userinput>?1</userinput> for the first datum, <userinput>?2</userinput> for the second, and so on.
+</para>
+
+
+<para>
+Example:
+<programlisting><userinput>SHOW (MAP [(WORD ?1 ?2 ?1)] [a b c] [d e f])</userinput>
+[ada beb cfc]</programlisting>
+</para>
+
+<para>
+If the template wishes to compute the datum number, the form <userinput>(? 1)</userinput> is equivalent to <userinput>?1</userinput>, so <userinput>(? ?1)</userinput> means the datum whose number is given in datum number 1.
+Some tools allow additional slot designations, as shown in the individual descriptions.
+</para>
+
+     </section>
+
+
+     <section id="named-procedure-templates">
+         <title>Named-Procedure Templates</title>
+
+<para>
+The second form of template is the "named-procedure" form.
+If the template is a word rather than a list, it is taken as the name of a procedure.
+That procedure must accept a number of inputs equal to the number of parallel data slots provided by the tool; the procedure is applied to all the available data in order.
+That is, if data <userinput>?1</userinput> through <userinput>?3</userinput> are available, the template <userinput>"PROC</userinput> is equivalent to <userinput>[PROC ?1 ?2 ?3]</userinput>.
+</para>
+
+<para>
+Example:
+<programlisting><userinput>SHOW (MAP "word [a b c] [d e f])</userinput>
+[ad be cf]</programlisting>
+
+<programlisting><userinput>TO DOTPRODUCT :a :b  ; vector dot product
+  OUTPUT APPLY "sum (MAP "product :a :b)
+END</userinput></programlisting>
+</para>
+
+       </section>
+
+
+     <section id="named-slot-templates">
+         <title>Named-Slot Templates</title>
+
+<para>
+The third form of template is "named-slot" or "lambda" form.
+This form is indicated by a template list containing more than one item, whose first item is itself a list.
+The first item is taken as a list of names; local variables are created with those names and given the available data in order as their values.
+The number of names must equal the number of available data.
+This form is needed when one iteration tool is used within the template list of another, and the ? notation would be ambiguous in the inner template.
+</para>
+
+<para>
+Example:
+<programlisting><userinput>TO MATRIXMULTIPLY :m1 :m2 [:tm2 TRANSPOSE :m2]
+  OUTPUT MAP [[row] MAP [[col] DOTPRODUCT :row :col] :tm2] :m1
+END</userinput></programlisting>
+</para>
+
+       </section>
+
+       &command-apply;
+       &command-invoke;
+       &command-foreach;
+       &command-map;
+       &command-map.se;
+       &command-filter;
+       &command-find;
+       &command-reduce;
+       &command-crossmap;
+       &command-cascade;
+       &command-cascade.2;
+       &command-transfer;
+       &command-iseq;
+       &command-rseq;
+
+   </section>
+
+</chapter>

@@ -1,0 +1,50 @@
+<section id="command-setroll">
+<title>PONBALANCEO</title>
+<indexterm><primary>SETBALANCEO</primary></indexterm>
+<indexterm><primary>SETROLL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONBALANCEO</command> <parameter>ángulo</parameter>
+<command>SETROLL</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Gira la tortuga a su lado hasta un balanceo absoluto.
+El argumento <parameter>ángulo</parameter> es el balanceo nuevo que se mide en grados desde el eje X positivo hacia el eje Z negativo, rotando alrededor del eje Y.
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Para usarlo, es importante entender tu <link linkend="understand-your-orientation-in-3D">orientación en 3D</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+PONBALANCEO 45
+MUESTRA BALANCEO</userinput>
+45
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-roll">BALANCEO</link></member>
+<member><link linkend="command-pitch">CABECEO</link></member>
+<member><link linkend="command-heading">RUMBO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

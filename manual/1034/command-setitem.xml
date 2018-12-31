@@ -1,0 +1,39 @@
+<section id="command-setitem">
+<title>PONELEMENTO</title>
+<indexterm><primary>PONELEMENTO</primary></indexterm>
+<indexterm><primary>SETITEM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONELEMENTO</command> <parameter>índice</parameter> <parameter>vector</parameter> <parameter>valor</parameter>
+<command>SETITEM</command> <parameter>índice</parameter> <parameter>vector</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Cambia el valor del elemento número <parameter>índice</parameter> en <parameter>vector</parameter> por un <parameter>valor</parameter>.</para>
+
+<para>PONELEMENTO asegura que el vector resultante no contiene ciclos.
+Es decir, <parameter>valor</parameter> no puede ser una lista o un vector que contiene <parameter>vector</parameter>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>HAZ "mi_vector (VECTOR 3 0)
+PONELEMENTO 2 :mi_vector 1
+PONELEMENTO 1 :mi_vector [2]
+PONELEMENTO 0 :mi_vector 3
+MUESTRA :mi_vector</userinput>
+{3 [2] 1}</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

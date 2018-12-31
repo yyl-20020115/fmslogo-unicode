@@ -1,0 +1,59 @@
+<section id="command-goto">
+    <title>GOTO</title>
+<indexterm><primary>GOTO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GOTO</command> <parameter>tag</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Changes the point of execution within a procedure to a given tag.
+</para>
+
+<para>
+GOTO can only be used inside a procedure.
+The <parameter>tag</parameter> input must be a word and there must be a <link linkend="command-tag">TAG</link> instruction with the same tag value within the procedure.
+Instruction evaluation continues following the tag.
+It is best to avoid GOTOs, but in some instances, such as "finite state machines", they may be the cleanest option.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO STATES
+  TAG "State1
+    PRINT "State1
+    GOTO "State3
+
+  TAG "State2
+    PRINT "State2
+    GOTO "State4
+
+  TAG "State3
+    PRINT "State3
+    GOTO "State2
+
+  TAG "State4
+    PRINT "State4
+    STOP
+END
+
+STATES</userinput>
+State1
+State3
+State2
+State4
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

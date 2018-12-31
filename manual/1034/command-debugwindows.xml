@@ -1,0 +1,46 @@
+<section id="command-debugwindows">
+    <title>DEBUGWINDOWS</title>
+<indexterm><primary>DEBUGWINDOWS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DEBUGWINDOWS</command>
+(<command>DEBUGWINDOWS</command> <parameter>name</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the tree (hierarchy of parent-child relationships) of a window.
+For each window that is printed, both the window type and name are printed.
+</para>
+
+<para>
+If a <parameter>name</parameter> input is given, then DEBUGWINDOWS prints the hierarchy of the window that is identified by <parameter>name</parameter>.
+If no <parameter>name</parameter> input is given, all windows and controls are printed.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+LISTBOXCREATE "mywindow "mylist 25 0 50 50
+BUTTONCREATE "mywindow "mydraw "Draw 25 50 50 25 [Print "Click]
+DEBUGWINDOWS</userinput>
+Window mywindow
+  Button  mydraw
+  ListBox  mylist
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

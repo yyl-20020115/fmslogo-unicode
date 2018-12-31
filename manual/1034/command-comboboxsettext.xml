@@ -1,0 +1,38 @@
+<section id="command-comboboxsettext">
+    <title>COMBOBOXSETTEXT</title>
+<indexterm><primary>COMBOBOXSETTEXT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBOBOXSETTEXT</command> <parameter>name</parameter> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the contents of the edit control portion of the combobox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+COMBOBOXCREATE "mywindow "mycombo 25 0 50 50
+COMBOBOXADDSTRING "mycombo [3]
+COMBOBOXADDSTRING "mycombo [4]
+COMBOBOXADDSTRING "mycombo [5]
+COMBOBOXADDSTRING "mycombo [6]
+COMBOBOXSETTEXT "mycombo [3]
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

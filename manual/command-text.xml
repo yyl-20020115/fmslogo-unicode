@@ -1,0 +1,37 @@
+<section id="command-text">
+    <title>TEXT</title>
+<indexterm><primary>TEXT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TEXT</command> <parameter>procname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the text of the procedure named <parameter>procname</parameter> in the form expected by <link linkend="command-define">DEFINE</link>: a list of lists, the first of which describes the inputs to the procedure and the rest of which are the lines of its body.
+The text does not reflect formatting information used when the procedure was defined, such as continuation lines and extra spaces.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [PRINT :a] [PRINT :b]]
+ABC "Hello "Bye</userinput>
+Hello
+Bye
+<userinput>SHOW TEXT "ABC</userinput>
+[[a b] [PRINT :a] [PRINT :b]]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

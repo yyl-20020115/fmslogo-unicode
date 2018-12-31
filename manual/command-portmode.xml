@@ -1,0 +1,39 @@
+<section id="command-portmode">
+<title>PORTMODE</title>
+<indexterm><primary>PORTMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PORTMODE</command> <parameter>modestring</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the mode (speed, parity, data bits, and stop bits) of the open COM port.
+The flow control characteristic cannot be set through &PRODUCTNAME;.
+</para>
+
+<para>
+The <parameter>modestring</parameter> must be of the form <userinput>"COM<replaceable>n</replaceable>:<replaceable>SPEED</replaceable>,<replaceable>PARITY</replaceable>,<replaceable>DATA</replaceable>,<replaceable>STOP</replaceable></userinput>.
+This is the same format that is used by MODE, the Windows command shell program.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>PORTOPEN "com1
+PORTMODE "com1:9600,n,8,1</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

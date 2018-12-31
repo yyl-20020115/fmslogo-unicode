@@ -1,0 +1,53 @@
+<section id="command-nodribble">
+<title>NODRIBBLE</title>
+<indexterm><primary>NODRIBBLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NODRIBBLE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Stops copying information to the dribble file and closes the file.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+For the following example, you must run each instruction separately.
+</para>
+
+<programlisting><userinput>DRIBBLE "dummy.fil
+FORWARD 100
+RIGHT 90
+NODRIBBLE
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 3 [SHOW READLIST]</userinput>
+[FORWARD 100]
+[RIGHT 90]
+[NODRIBBLE]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-dribble">DRIBBLE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

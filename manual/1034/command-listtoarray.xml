@@ -1,0 +1,35 @@
+<section id="command-listtoarray">
+<title>LISTAAVECTOR</title>
+<indexterm><primary>LISTAAVECTOR</primary></indexterm>
+<indexterm><primary>LISTTOARRAY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTAAVECTOR</command> <parameter>lista</parameter>
+(<command>LISTAAVECTOR</command> <parameter>lista</parameter> <parameter>origen</parameter>)
+<command>LISTTOARRAY</command> <parameter>lista</parameter>
+(<command>LISTTOARRAY</command> <parameter>lista</parameter> <parameter>origen</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+  <para>Convierte una lista en vector, ya que devuelve una vector del mismo tamaño que el argumento <parameter>lista</parameter>, cuyos elementos son los miembros del argumento <parameter>lista</parameter>.</para>
+
+  <para>Si se da un argumento <parameter>origen</parameter>, entonces el primer elemento del vector es al índice <parameter>origen</parameter>.
+  Por defecto, el origen es 1.</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA LISTAAVECTOR [1 2 3]</userinput>
+{1 2 3}</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

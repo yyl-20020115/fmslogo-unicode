@@ -1,0 +1,37 @@
+<section id="command-names">
+    <title>LVARS</title>
+<indexterm><primary>LVARS</primary></indexterm>
+<indexterm><primary>NAMES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LVARS</command>
+<command>NAMES</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos que contiene una lista vacía de procedimientos (que indica que no incluye nombres de procedimientos), seguida por una lista con los nombres de las variables no tapadas del área de trabajo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo 1
+HAZ "bar 2
+MUESTRA LVARS</userinput>
+[[] [bar foo]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

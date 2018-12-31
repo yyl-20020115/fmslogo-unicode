@@ -1,0 +1,60 @@
+<section id="command-arc">
+<title>ARC</title>
+<indexterm><primary>ARC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ARC</command> <parameter>angle</parameter> <parameter>radius</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Draws an arc (part of a circle) based on the turtle heading, turtle position, and inputs.
+The center-point of the arc is the turtle's current position.
+ARC does not move the turtle.
+The arc sweeps an amount given by the <parameter>angle</parameter> input.
+The size (curvature) of the arc is based on the <parameter>radius</parameter> input.
+</para>
+
+<para>
+If <parameter>radius</parameter> is positive, then the arc starts <parameter>radius</parameter> turtle steps behind the turtle.
+If <parameter>radius</parameter> is negative, then the arc starts <parameter>radius</parameter> turtle steps in front of the turtle.
+In both cases, the arc sweeps an angle equal to the <parameter>angle</parameter> input.
+If <parameter>angle</parameter> is positive, then the arc is drawn in a clockwise direction.
+If <parameter>angle</parameter> is negative, then the arc is drawn in a counter-clockwise direction.
+If <parameter>angle</parameter> is 360 or greater (or -360 or less), then ARC draws a circle.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+A 2D example:
+<programlisting><userinput>ARC 360 100
+ARC 90 50</userinput>
+</programlisting>
+</para>
+
+<para>
+A 3D example:
+<programlisting><userinput>PERSPECTIVE
+REPEAT 36 [RIGHTROLL 10 ARC 90 100]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-arc2">ARC2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,83 @@
+<section id="command-step">
+<title>PASO</title>
+<indexterm><primary>PASO</primary></indexterm>
+<indexterm><primary>STEP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PASO</command> <parameter>lista_de_contenidos</parameter>
+<command>STEP</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Marca los elementos nombrados para ejecución en modo PASO.
+</para>
+
+<para>
+Cuando &PRODUCTNAME; ejecuta un procedimiento en modo PASO, te muestra cada línea de instrucción del cuerpo del procedimiento en un cuadro de diálogo antes de ejecutarla y espera hasta que te pulsaras el botón OK para continuar con una nueva línea.
+Se trunca la línea de instrucción según los valores actuales de <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> y <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+Cuando una variable «cubre» a otra que está en modo PASO, &PRODUCTNAME; escribe un mensaje a tal efecto en la caja de historia de instrucciones.
+Se cubre una variable cuando se crea una otra variable con <link linkend="command-local">LOCAL</link> o se ejecuta un procedimiento con un parámetro con el mismo nombre de la variable.
+Se la llama cubierta porque no se puede conseguir el valor de la variable cubierta, solo el de la variable nueva (la que cubre).
+Si la variable está cubierta por LOCAL, entonces se escribe la línea de instrucción que ha causado el cubrimiento después del mensaje.
+Se trunca la línea de instrucción según los valores actuales de <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> y <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+PASO no tiene efecto sobre las listas de propiedades.
+</para>
+
+<para>
+PASO no lanza un error si le pidas que marce un procedimiento, una variable o una lista de propiedades que no esté en el área de trabajo, pero esto no tiene ningún efecto.
+PASO tampoco lanza un error si le pidas que marce una primitiva, pero esto tampoco tiene efecto.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+
+<para>
+Puedes marcar todos los procedimientos y variables para ejecución en modo PASO con el <link linkend="commander-step">Botón Paso</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  AVANZA        10
+  GIRADERECHA   90
+  AVANZA        20
+  GIRAIZQUIERDA 90
+FIN
+
+PASO "MIPROGRAMA
+MIPROGRAMA</userinput>
+<replaceable>Cada línea de MIPROGRAMA espera OK para continuar con la siguiente línea.</replaceable>
+<userinput>NOPASO "MIPROGRAMA
+MIPROGRAMA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-unstep">NOPASO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

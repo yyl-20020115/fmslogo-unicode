@@ -1,0 +1,49 @@
+<section id="command-orientation">
+<title>ORIENTATION</title>
+<indexterm><primary>ORIENTATION</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ORIENTATION</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list, the turtle's [roll pitch heading] each in degrees.
+It is important to <link linkend="understand-your-orientation-in-3D">understand your orientation in 3D</link>.
+</para>
+
+<para>
+ORIENTATION is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+When used in 2D modes, the roll and pitch outputs are zero.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETORIENTATION [180 45 90]
+SHOW ORIENTATION</userinput>
+[180 45 90]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setorientation">SETORIENTATION</link></member>
+<member><link linkend="command-roll">ROLL</link></member>
+<member><link linkend="command-pitch">PITCH</link></member>
+<member><link linkend="command-heading">HEADING</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

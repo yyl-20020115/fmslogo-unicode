@@ -1,0 +1,53 @@
+<section id="command-tag">
+    <title>TAG</title>
+<indexterm><primary>TAG</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TAG</command> <parameter>tag</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+TAG marks a point in a procedure to which a <link linkend="command-goto">GOTO</link> instruction with the same <parameter>tag</parameter> input can jump.
+TAG may only be used only inside a procedure.
+The <parameter>tag</parameter> input must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO STATES
+  TAG "State1
+    PRINT "State1
+    GOTO "State3
+
+  TAG "State2
+    PRINT "State2
+    GOTO "State4
+
+  TAG "State3
+    PRINT "State3
+    GOTO "State2
+
+  TAG "State4
+    PRINT "State4
+    STOP
+END
+
+STATES</userinput>
+State1
+State3
+State2
+State4
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

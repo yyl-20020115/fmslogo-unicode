@@ -1,0 +1,109 @@
+<chapter id="communication">
+   <title>Communication</title>
+
+   <section id="transmitters">
+      <title>Transmitters</title>
+
+<para>
+If there is a variable named <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link> with a nonnegative integer value, then complex list and array structures are printed only to the allowed depth.
+That is, members of members of ... of members are allowed only so far.
+An elispsis indicates when items are omitted because they exceed the depth limit.
+For example, a list with two items that is just before the depth limit is printed as <userinput>[...  ...]</userinput>.
+</para>
+
+<para>
+If there is a variable named <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> with a nonnegative integer value, then only the first so many items of any array or list are printed.
+A single ellipsis replaces all missing objects within the structure.
+The width limit also applies to the number of characters printed in a word, except that a PRINTWIDTHLIMIT between 0 and 9 is treated as if it were 10 when applied to words.
+This limit applies not only to the top-level printed object but to any substructures within it.
+</para>
+
+      &command-print;
+      &command-type;
+      &command-show;
+   </section>
+
+
+
+   <section id="receivers">
+      <title>Receivers</title>
+
+      &command-readlist;
+      &command-readword;
+      &command-readchar;
+      &command-readchars;
+      &command-readrawline;
+   </section>
+
+   <section id="file-access">
+      <title>File Access</title>
+
+      &command-openread;
+      &command-openwrite;
+      &command-openappend;
+      &command-openupdate;
+      &command-close;
+      &command-allopen;
+      &command-closeall;
+      &command-erasefile;
+      &command-dribble;
+      &command-nodribble;
+      &command-setread;
+      &command-setwrite;
+      &command-reader;
+      &command-writer;
+      &command-setreadpos;
+      &command-setwritepos;
+      &command-readpos;
+      &command-writepos;
+      &command-eofp;
+   </section>
+
+   <section id="hardware-communications">
+      <title>Hardware Communications</title>
+
+<para>
+All commands that start with PORT are for serial (RS-232) and parallel port communications.
+All commands that start with INPORT or OUTPORT are for "hardware" port communications.
+</para>
+
+      &command-portopen;
+      &command-portclose;
+      &command-portflush;
+      &command-portmode;
+      &command-portreadarray;
+      &command-portreadchar;
+      &command-portwritearray;
+      &command-portwritechar;
+      &command-inport;
+      &command-outport;
+      &command-inportb;
+      &command-outportb;
+      &command-ingameport;
+   </section>
+
+   <section id="dll-communications">
+      <title>DLL Communications</title>
+
+      &command-dllload;
+      &command-dllcall;
+      &command-dllfree;
+   </section>
+
+   <section id="keyboard-and-mouse-access">
+      <title>Keyboard and Mouse Access</title>
+
+      &command-keyp;
+      &command-keyboardon;
+      &command-keyboardoff;
+      &command-keyboardvalue;
+      &command-mouseon;
+      &command-mouseoff;
+      &command-mousepos;
+      &command-cleartext;
+      &command-setcursor;
+      &command-cursor;
+      &command-setmargins;
+   </section>
+
+</chapter>

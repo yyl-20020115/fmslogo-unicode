@@ -1,0 +1,61 @@
+<section id="command-ellipse">
+<title>ELIPSE</title>
+<indexterm><primary>ELIPSE</primary></indexterm>
+<indexterm><primary>ELLIPSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ELIPSE</command> <parameter>medioeje.al.través</parameter> <parameter>medioeje.en.línea</parameter>
+<command>ELLIPSE</command> <parameter>medioeje.al.través</parameter> <parameter>medioeje.en.línea</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Dibuja una elipse, según el rumbo y posición de la tortuga y los argumentos.
+El centro de la elipse es la posición actual de la tortuga.
+ELIPSE no mueve la tortuga.  
+El tamaño y forma de la elipse depende de los valores de <parameter>medioeje.al.través</parameter> y <parameter>medioeje.en.línea</parameter>.
+El argumento <parameter>medioeje.al.través</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo perpendicular al rumbo actual de la tortuga.
+El argumento <parameter>medioeje.en.línea</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo actual de la tortuga.
+Por consiguiente, el rumbo actual de la tortuga determina la orientación de la elipse.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Un ejemplo en 2D:
+<programlisting><userinput>ELIPSE 100 200
+BORRAPANTALLA
+ELIPSE 50 50
+BORRAPANTALLA
+ELIPSE 50 50</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 18 [ELIPSE 100 200 BALANCEADERECHA 10]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipse2">ELIPSE2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

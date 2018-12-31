@@ -1,0 +1,78 @@
+<section id="command-array">
+   <title>ARRAY</title>
+<indexterm><primary>ARRAY</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ARRAY</command> <parameter>size</parameter>
+(<command>ARRAY</command> <parameter>size</parameter> origin)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Outputs an array of <parameter>size</parameter> items, each of which initially is an empty list.
+The <parameter>size</parameter> input must be a non-negative integer.
+</para>
+
+<para>
+Array items can be selected with <link linkend="command-item">ITEM</link> and changed with <link linkend="command-setitem">SETITEM</link>.
+The first element in an array is item number 1, unless an <parameter>origin</parameter> input is given, in which case the first element of the array has that number as its index.
+If given, the <parameter>origin</parameter> input must be an integer.
+You can get the origin of an array with <link linkend="command-first">FIRST</link>.
+</para>
+
+
+<para>
+&PRODUCTNAME; has a special syntax for creating arrays and specifying its members at the same time.
+Arrays are delimited by curly braces and the origin can be optionally specified by appending an @ character after the closing curly brace, followed by the origin.
+For example, <userinput>{a b c}@0</userinput> creates an array with three items and an origin of 0.
+<link linkend="command-print">PRINT</link> and friends render arrays using the same syntax.
+</para>
+
+<para>
+Unlike lists, items in arrays can be modified after the array is created.
+This can lead to confusing behavior if the same array is referenced from multiple places.
+This is shown in the following program, which modifies an array in one list and, in doing so, also modifies it in a second list.
+<programlisting><userinput>MAKE "array {a b c}
+MAKE "list1 LIST 1 :array
+MAKE "list2 LIST 2 :array
+SHOW :list1</userinput>
+[1 {a b c}]
+
+<userinput>SHOW :list2</userinput>
+[2 {a b c}]
+
+<userinput>SETITEM 2 ITEM 2 :list1 "X
+SHOW :list1</userinput>
+[1 {a X c}]
+
+<userinput>SHOW :list2</userinput>
+[2 {a X c}]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>MAKE "myarray (ARRAY 3 0)
+SETITEM 2 :myarray 1
+SETITEM 1 :myarray 2
+SETITEM 0 :myarray 3
+SHOW :myarray</userinput>
+{3 2 1}</programlisting>
+
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

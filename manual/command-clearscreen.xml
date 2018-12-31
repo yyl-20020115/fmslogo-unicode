@@ -1,0 +1,50 @@
+<section id="command-clearscreen">
+<title>CLEARSCREEN</title>
+<indexterm><primary>CLEARSCREEN</primary></indexterm>
+<indexterm><primary>CS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLEARSCREEN</command>
+<command>CS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Fills the screen window with <link linkend="command-screencolor">SCREENCOLOR</link> and sends the turtle to its initial position and heading.
+</para>
+
+<para>
+CLEARSCREEN also resets some state that is not directly related to the screen.
+<itemizedlist>
+  <listitem><para>It removes all turtles created with <link linkend="command-setturtle">SETTURTLE</link> so that there is only one turtle.</para></listitem>
+  <listitem><para>It removes all completed and in-progress polygons which were defined with <link linkend="command-polystart">POLYSTART</link> and <link linkend="command-polyend">POLYEND</link>.</para></listitem>
+</itemizedlist>
+
+
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FORWARD 100
+CLEARSCREEN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-home">HOME</link></member>
+<member><link linkend="command-setscreencolor">SETSCREENCOLOR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

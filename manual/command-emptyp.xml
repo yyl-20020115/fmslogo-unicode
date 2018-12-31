@@ -1,0 +1,43 @@
+<section id="command-emptyp">
+<title>EMPTYP</title>
+<indexterm><primary>EMPTYP</primary></indexterm>
+<indexterm><primary>EMPTY?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EMPTYP</command> <parameter>thing</parameter>
+<command>EMPTY?</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>thing</parameter> is either the empty string or the empty list, FALSE otherwise.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW EMPTYP "Hello</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW EMPTYP "</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW EMPTYP [1 2 3]</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW EMPTYP []</userinput>
+true</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

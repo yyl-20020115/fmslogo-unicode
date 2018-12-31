@@ -1,0 +1,36 @@
+<section id="command-checkboxdelete">
+    <title>CHECKBOXDELETE</title>
+<indexterm><primary>CHECKBOXDELETE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHECKBOXDELETE</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes (closes) the checkbox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 40
+CHECKBOXCREATE "mywindow "mygroupbox "mycheckbox [Check Me] 20 20 60 20
+CHECKBOXDELETE "mycheckbox
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

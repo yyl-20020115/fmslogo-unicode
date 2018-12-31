@@ -1,0 +1,70 @@
+<section id="command-reduce">
+<title>REDUCE</title>
+<indexterm><primary>REDUCE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REDUCE</command> <parameter>template</parameter> <parameter>data</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the result of applying the template to accumulate the items of the <parameter>data</parameter> input, two items at a time.
+</para>
+
+<para>
+The <parameter>template</parameter> input must be a two-slot procedure.
+Typically, <parameter>template</parameter> is the name of an associative operation, like "<link linkend="command-sum">SUM</link>.
+</para>
+
+<para>
+If the <parameter>data</parameter> input has only one item (member in a list or character in a word), REDUCE outputs that item.
+Otherwise, <parameter>template</parameter> is first applied with <userinput>?1</userinput> filled with the next-to-last item and <userinput>?2</userinput> with the last item.
+Then, if there are more item, the template is applied with <userinput>?1</userinput> filled with the next item to the left and <userinput>?2</userinput> with the result from the previous evaluation.
+This process continues until all items have been used.
+</para>
+
+<para>
+The <parameter>data</parameter> input must not be empty.
+It must be either a list or a word (not an array).
+</para>
+
+<para>
+If <parameter>template</parameter> is the name of a procedure that is capable of accepting arbitrarily many inputs, it is more efficient to use <link linkend="command-apply">APPLY</link> instead of REDUCE.
+REDUCE is good for associative procedures that have been written to accept exactly two inputs.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MAX :a :b
+  OUTPUT IFELSE :a > :b [:a] [:b]
+END
+
+PRINT REDUCE "MAX [2 3 8 7 9 0]</userinput>
+9
+</programlisting>
+
+<para>
+Alternatively, REDUCE can be used to write MAX as a procedure that accepts any number of inputs, as SUM does:
+</para>
+
+<programlisting><userinput>TO MAX [:inputs] 2
+  IF EMPTYP :inputs [(THROW "error [not enough inputs to max])]
+  OUTPUT REDUCE [IFELSE ?1 > ?2 [?1] [?2]] :inputs
+END
+
+PRINT (MAX 2 3 8 7 9 0)</userinput>
+9
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

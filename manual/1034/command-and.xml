@@ -1,0 +1,50 @@
+<section id="command-and">
+    <title>Y</title>
+<indexterm><primary>Y</primary></indexterm>
+<indexterm><primary>AND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>Y</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter>
+(<command>Y</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter> <parameter>booleano3</parameter> <parameter>...</parameter>)
+<command>AND</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter>
+(<command>AND</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter> <parameter>booleano3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si todos los argumentos tienen el valor CIERTO, en otro caso, devuelve FALSO.
+Todos los argumentos deben tener un valor de CIERTO o FALSO.
+</para>
+
+<para>
+La comparación siempre es insensible a las mayúsculas y minúsculas, no importa el valor de <link linkend="command-caseignoredp">IGNORAMAYUSCULAS?</link>.
+Es decir, «cierto», «Cierto» y «CIERTO» son todos iguales.
+</para>
+
+<para>
+Si no hay argumentos, Y devuelve CIERTO.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA Y "cierto "cierto</userinput>
+cierto
+<userinput>MUESTRA Y "cierto "falso</userinput>
+falso
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

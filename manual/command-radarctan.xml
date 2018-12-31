@@ -1,0 +1,44 @@
+<section id="command-radarctan">
+<title>RADARCTAN</title>
+<indexterm><primary>RADARCTAN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RADARCTAN</command> <parameter>angle</parameter>
+(<command>RADARCTAN</command> <parameter>x</parameter> <parameter>y</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+With one input, outputs the inverse tangent angle of <parameter>num</parameter>.
+The output is given in radians in the range [-PI/2,PI/2].
+</para>
+
+<para>
+With two inputs, outputs the inverse tangent angle of <parameter>y</parameter> / <parameter>x</parameter>.
+The output is given in radians in the range [-PI,PI].
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW (RADARCTAN 1) = PI/4</userinput>
+true</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-arctan">ARCTAN</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

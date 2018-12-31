@@ -1,0 +1,35 @@
+<section id="command-count">
+<title>COUNT</title>
+<indexterm><primary>COUNT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COUNT</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the number of characters in <parameter>thing</parameter>, if <parameter>thing</parameter> is a word; outputs the number of items in <parameter>thing</parameter>, if it is a list or an array.
+(For an array, this may or may not be the index of the last item, depending on the array's origin.)
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW COUNT [1 2 3]</userinput>
+3</programlisting>
+
+<programlisting><userinput>SHOW COUNT "ab</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

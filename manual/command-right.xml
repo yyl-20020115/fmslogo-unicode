@@ -1,0 +1,32 @@
+<section id="command-right">
+<title>RIGHT</title>
+<indexterm><primary>RIGHT</primary></indexterm>
+<indexterm><primary>RT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RIGHT</command> <parameter>angle</parameter>
+<command>RT</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Turns the turtle clockwise by the specified angle, measured in degrees (1/360 of a circle).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 3 [FORWARD 100 RIGHT 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

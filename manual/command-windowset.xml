@@ -1,0 +1,117 @@
+<section id="command-windowset">
+    <title>WINDOWSET</title>
+<indexterm><primary>WINDOWSET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WINDOWSET</command> <parameter>caption</parameter> <parameter>mode</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the "mode" (for example, hidden, visible, etc.) for a window whose title matches <parameter>caption</parameter>.
+This command is designed for experts, you may lose control of &PRODUCTNAME; if you are not careful, so save your work frequently.
+</para>
+
+<para>
+The <parameter>mode</parameter> input must be an integer.
+The following table details acceptable values and their meanings.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Mode</entry> <entry>Meaning</entry></row>
+    </thead>
+    <tbody>
+
+      <row>
+        <entry>0</entry>
+        <entry>Hides the window and activates another window.</entry>
+      </row>
+
+      <row>
+        <entry>1</entry>
+        <entry>Activates and displays a window.
+               If the window is minimized or maximized, it is restored it to its original size and position.
+               An application should specify this flag when displaying the window for the first time.</entry>
+      </row>
+
+      <row>
+        <entry>2</entry>
+        <entry>Activates the window and displays it as a minimized window.</entry>
+      </row>
+
+      <row>
+        <entry>3</entry>
+        <entry>Activates the window and displays it as a maximized window.</entry>
+      </row>
+
+      <row>
+        <entry>4</entry>
+        <entry>Displays the window as a minimized window.
+               The active window remains active.</entry>
+      </row>
+
+      <row>
+        <entry>5</entry>
+        <entry>Activates the window and displays it in its current size and position.</entry>
+      </row>
+
+      <row>
+        <entry>6</entry>
+        <entry>Minimizes the specified window and activates the next top-level window in the Z order.</entry>
+      </row>
+
+      <row>
+        <entry>7</entry>
+        <entry>Displays a window in its most recent size and position.
+               The active window remains active.</entry>
+      </row>
+
+      <row>
+        <entry>8</entry>
+        <entry>Displays the window in its current state.
+               The active window remains active.</entry>
+      </row>
+
+      <row>
+        <entry>9</entry>
+        <entry>Activates and displays the window.
+               If the window is minimized or maximized, it is restored it to its original size and position.
+               An application should specify this flag when restoring a minimized window.</entry>
+      </row>
+
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO HIDEANDRESTORE
+  CLEARSCREEN
+  RIGHT 90
+  LABEL [Back in 2 seconds]
+  WAIT 120
+  WINDOWSET "&PRODUCTNAME; 0 ; hide
+  WAIT 120
+  WINDOWSET "&PRODUCTNAME; 1 ; restore
+END
+
+HIDEANDRESTORE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

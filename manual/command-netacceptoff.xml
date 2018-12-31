@@ -1,0 +1,36 @@
+<section id="command-netacceptoff">
+<title>NETACCEPTOFF</title>
+<indexterm><primary>NETACCEPTOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NETACCEPTOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Stops accepting incoming connections.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>NETSTARTUP ; Start up the network
+
+; Wait for someone to connect to you on local port 5124
+SHOW NETACCEPTON 5124 [PRINT [Ready to send]] [PRINT [Ready to receive]]</userinput>
+true
+
+<userinput>NETACCEPTOFF
+NETSHUTDOWN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

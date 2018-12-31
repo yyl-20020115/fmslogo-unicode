@@ -1,0 +1,52 @@
+<section id="command-eventcheck">
+    <title>SIEVENTO</title>
+<indexterm><primary>SIEVENTO</primary></indexterm>
+<indexterm><primary>EVENTCHECK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SIEVENTO</command>
+<command>EVENTCHECK</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+El comando SIEVENTO es similar a ejecutar <link linkend="command-yield">NOEXCLUSIVO</link> seguido inmediatamente por <link linkend="command-noyield">EXCLUSIVO</link>.
+Chequea si hay eventos en espera de ser procesados.
+Algunos comandos que aceptan listas de instrucciones a ejecutar en respuesta a un evento las ejecutan en modo EXCLUSIVO.
+Si las instrucciones se ejecutan rápidamente, no presentan problemas.
+Pero si son lentos, entonces el usuario perderá el control durante ese tiempo.
+Si salpicas esas instrucciones con unas instrucciones de SIEVENTO, entonces el usuarario no perderá control por un tan largo trecho de tiempo.
+</para>
+
+<para>
+Puedes usar SIEVENTO como alternativo de poner instrucciones de NOEXCLUSIVO y EXCLUSIVO alrededor de bucles que son computacionalmente caros.
+En lugar de esto, puedes envolver el procedimiento entero con un par de NOEXCLUSIVO/EXCLUSIVO y llamar SIEVENTO en lugares estratégicos en tus bucles.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+ 
+<programlisting><userinput>HABILITARATON [REPITE 72 [REPITE 4 [AVANZA 100 GIRADERECHA 90] GIRADERECHA 5]] [] [] [] []</userinput>
+<replaceable>Hagas clic en la pantalla de &PRODUCTNAME; múltiples veces.
+Observa que mientras se dibuja no puedes presionar el Botón Alto, porque la interrupción trabaja en modo EXCLUSIVO.</replaceable>
+
+<userinput>HABILITARATON [REPITE 72 [REPITE 4 [AVANZA 100 GIRADERECHA 90] GIRADERECHA 5 SIEVENTO]] [] [] [] []</userinput>
+<replaceable>Hagas clic en la pantalla de &PRODUCTNAME; múltiples veces.
+Observa que mientras se dibuja sí puedes presionar el Botón Alto.</replaceable>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

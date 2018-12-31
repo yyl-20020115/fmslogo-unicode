@@ -1,0 +1,53 @@
+<section id="command-unbury">
+    <title>DESTAPA</title>
+<indexterm><primary>DESTAPA</primary></indexterm>
+<indexterm><primary>UNBURY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESTAPA</command> <parameter>lista_de_contenidos</parameter>
+<command>UNBURY</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Destapa los procedimientos, variables y listas de propiedades que aparecen en el argumento.
+Después de ser destapados, estos elementos se mostrarán con <link linkend="command-contents">CONTENTIDO</link>, etc.
+</para>
+
+<para>
+DESTAPA no lanza un error si le pidas que destape un procedimiento, una variable o una lista de propiedades que no está tapado, pero esto no tiene ningún efecto.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo [Yo soy Foo]
+HAZ "bar [Yo soy Bar]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+<userinput>TAPAVAR [foo]
+IMVARS</userinput>
+haz "bar [I am Bar]
+<userinput>DESTAPA [ [] [foo] [] ]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

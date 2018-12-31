@@ -1,0 +1,60 @@
+<section id="command-setbitindex">
+    <title>SETBITINDEX</title>
+<indexterm><primary>SETBITINDEX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETBITINDEX</command> <parameter>index</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the current bitmap cut buffer according to <parameter>index</parameter>.
+The <parameter>index</parameter> input must be a number from 0 to 1023.
+Its purpose is to allow multiple images to be stored in memory ready for quick pasting when doing animation.
+</para>
+
+<para>
+The index of 0 is the default and also has the behavior of using the clipboard as the cut buffer.
+That is if you "cut" an image in an application like Microsoft Paint, then you can paste it directly in &PRODUCTNAME;.
+The reverse is also true, if "cut" an image in &PRODUCTNAME; it is available applications like Microsoft Paint.
+</para>
+
+<para>
+Use <link linkend="command-bitindex">BITINDEX</link> to obtain the current setting.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETBITINDEX 0
+REPEAT 3 [FORWARD 50 RIGHT 120]
+BITCUT 100 100
+
+CLEARSCREEN
+SETBITINDEX 1
+REPEAT 4 [FORWARD 50 RIGHT 90]
+BITCUT 100 100
+
+CLEARSCREEN
+SETBITMODE 3
+PENUP
+HIDETURTLE
+REPEAT 72 [FORWARD 50 BITPASTE BACK 50 RIGHT 5]
+SETBITINDEX 0
+REPEAT 72 [FORWARD 100 BITPASTE BACK 100 RIGHT 5]
+PENDOWN</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

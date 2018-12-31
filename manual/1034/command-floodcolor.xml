@@ -1,0 +1,39 @@
+<section id="command-floodcolor">
+    <title>COLORRELLENO</title>
+<indexterm><primary>COLORRELLENO</primary></indexterm>
+<indexterm><primary>FLOODCOLOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COLORRELLENO</command>
+<command>FLOODCOLOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el color de relleno.
+Lo devuelto es o un color indexado (un número de 0 a 15) o una lista con las intensidades de los colores [rojo verde azul] en un rango 0-255, dependiendo de como se puso el color del relleno.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONCOLORRELLENO [100 200 50]
+MUESTRA COLORRELLENO</userinput>
+[100 200 50]</programlisting>
+
+<programlisting><userinput>PONCOLORRELLENO 2
+MUESTRA COLORRELLENO</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

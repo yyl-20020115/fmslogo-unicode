@@ -1,0 +1,34 @@
+<section id="command-pensize">
+    <title>PENSIZE</title>
+<indexterm><primary>PENSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENSIZE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the size of the pen as a list with two items: [Width Height].
+The width item is ignored by &PRODUCTNAME;.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETPENSIZE [10 20]
+SHOW PENSIZE</userinput>
+[20 20]
+<userinput>SETPENSIZE [1 1]
+SHOW PENSIZE</userinput>
+[1 1]</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

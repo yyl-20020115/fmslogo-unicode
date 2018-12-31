@@ -1,0 +1,35 @@
+<section id="command-sqrt">
+    <title>RAIZCUADRADA</title>
+<indexterm><primary>RAIZCUADRADA</primary></indexterm>
+<indexterm><primary>RC</primary></indexterm>
+<indexterm><primary>SQRT</primary></indexterm>
+	
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RAIZCUADRADA</command> <parameter>número</parameter>
+<command>RC</command> <parameter>número</parameter>
+<command>SQRT</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la raíz cuadrada del valor numérico del argumento que, como es sabido, no puede ser un número negativo.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA RAIZCUADRADA 4</userinput>
+2</programlisting>
+    <programlisting><userinput>MUESTRA RAIZCUADRADA 2</userinput>
+1.4142135623731</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

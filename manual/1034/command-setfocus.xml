@@ -1,0 +1,45 @@
+<section id="command-setfocus">
+<title>PONFOCO</title>
+<indexterm><primary>PONFOCO</primary></indexterm>
+<indexterm><primary>SETFOCUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONFOCO</command> <parameter>título</parameter>
+<command>SETFOCUS</command> <parameter>título</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Da foco de teclado a la ventana cuyo título es <parameter>título</parameter>.
+Cuando una ventana tiene el foco, está seleccionada y se la dirige todas las pulsaciones de teclado.
+</para>
+
+<para>
+El «título» de una ventana no es el mismo que el «nombre» que se usa los <link linkend="windows-commands">procedimienos de las ventanas</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONFOCO [&PRODUCTNAME;]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-getfocus">LEEFOCO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

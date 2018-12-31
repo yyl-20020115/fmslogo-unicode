@@ -1,0 +1,2089 @@
+<appendix id='from-english-procedure-names'>
+<title>English to Greek: Procedure Names</title>
+<indexterm><primary>From English (procedure names)</primary></indexterm>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>English Procedure</entry>
+        <entry>Greek Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><link linkend='command-.defmacro'>.defmacro</link></entry>
+        <entry><literallayout>.ÏÑÉÓÌÏÓ_ÌÁÊÑÏÅÍÔËÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-.eq'>.eq</link></entry>
+        <entry><literallayout>.ÉÓÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-.macro'>.macro</link></entry>
+        <entry><literallayout>.ÌÁÊÑÏÅÍÔÏËÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-.maybeoutput'>.maybeoutput</link></entry>
+        <entry><literallayout>.ÐÉÈÁÍÇ_ÅÎÏÄÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-activearea'>activearea</link></entry>
+        <entry><literallayout>ÅÍÅÑÃÇ_ÐÅÑÉÏ×Ç</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-allopen'>allopen</link></entry>
+        <entry><literallayout>ÁÍÏÉ×ÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-and'>and</link></entry>
+        <entry><literallayout>ÊÁÉ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-apply'>apply</link></entry>
+        <entry><literallayout>ÅÖÁÑÌÏÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-array'>array</link></entry>
+        <entry><literallayout>ÐÉÍÁÊÁÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-arrayp'>array?</link></entry>
+        <entry><literallayout>ÐÉÍÁÊÁÓ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ashift'>ashift</link></entry>
+        <entry><literallayout>ÐÑÏÓÇÌÁÓÌÅÍÇ_ÏËÉÓÈÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-back'>back</link></entry>
+        <entry><literallayout>ÐÉÓÙ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-beforep'>before?</link></entry>
+        <entry><literallayout>ÐÑÉÍ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitand'>bitand</link></entry>
+        <entry><literallayout>ÄÕÁÄÉÊÏ_ÊÁÉ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitnot'>bitnot</link></entry>
+        <entry><literallayout>ÄÕÁÄÉÊÏ_Ï×É</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitor'>bitor</link></entry>
+        <entry><literallayout>ÄÕÁÄÉÊÏ_Ç</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bitxor'>bitxor</link></entry>
+        <entry><literallayout>ÄÕÁÄÉÊÏ_ÁÐ0ÏÊËÅÉÓÔÉÊÏ_Ç</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butfirst'>butfirst</link></entry>
+        <entry><literallayout>×ÙÑÉÓ_ÐÑÙÔÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butfirsts'>butfirsts</link></entry>
+        <entry><literallayout>×ÙÑÉÓ_ÐÑÙÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-butlast'>butlast</link></entry>
+        <entry><literallayout>×ÙÑÉÓ_ÔÅËÅÕÔÁÉÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttoncreate'>buttoncreate</link></entry>
+        <entry><literallayout>ÊÏÕÌÐÉ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttondelete'>buttondelete</link></entry>
+        <entry><literallayout>ÊÏÕÌÐÉ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttonenable'>buttonenable</link></entry>
+        <entry><literallayout>ÊÏÕÌÐÉ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-buttonupdate'>buttonupdate</link></entry>
+        <entry><literallayout>ÊÏÕÌÐÉ_ÅÍÇÌÅÑÙÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-bye'>bye</link></entry>
+        <entry><literallayout>ÁÍÔÉÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-char'>char</link></entry>
+        <entry><literallayout>×ÁÑÁÊÔÇÑÁÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-chdir'>chdir</link></entry>
+        <entry><literallayout>ÊÁÔÁËÏÃÏÓ_ÁËËÁÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxcreate'>checkboxcreate</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxdelete'>checkboxdelete</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxenable'>checkboxenable</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxget'>checkboxget</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-checkboxset'>checkboxset</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clean'>clean</link></entry>
+        <entry><literallayout>ÊÁÈÁÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+        <entry><literallayout>ÊÁÈÁÑÉÓÌÏÓ_ÏÈÏÍÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cleartext'>cleartext</link></entry>
+        <entry><literallayout>ÊÁÈÁÑÉÌÓÏÓ_ÊÅÉÌÅÍÏÕ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cleartimer'>cleartimer</link></entry>
+        <entry><literallayout>ÊÁÈÁÑÉÓÌÏÓ_×ÑÏÍÏÌÅÔÑÏÕ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-close'>close</link></entry>
+        <entry><literallayout>ÊËÅÉÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-closeall'>closeall</link></entry>
+        <entry><literallayout>ÊËÅÉÓÉÌÏ_ÏËÙÍ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxaddstring'>comboboxaddstring</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÐÑÏÓÈÇÊÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxcreate'>comboboxcreate</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxdelete'>comboboxdelete</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxdeletestring'>comboboxdeletestring</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÁÖÁÉÑÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxenable'>comboboxenable</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxgettext'>comboboxgettext</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-comboboxsettext'>comboboxsettext</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-contents'>contents</link></entry>
+        <entry><literallayout>ÐÅÑÉÅ×ÏÌÅÍÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-continue'>continue</link></entry>
+        <entry><literallayout>ÓÕÍÅ×ÅÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-copydef'>copydef</link></entry>
+        <entry><literallayout>ÁÍÔÉÃÑÁÖÇ_ÏÑÉÓÌÏÕ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-cos'>cos</link></entry>
+        <entry><literallayout>ÓÕÍÇÌÉÔÏÍÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-count'>count</link></entry>
+        <entry><literallayout>ÌÅÔÑÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-define'>define</link></entry>
+        <entry><literallayout>ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-definedp'>defined?</link></entry>
+        <entry><literallayout>ÏÑÉÓÔÇÊÅ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogcreate'>dialogcreate</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogdelete'>dialogdelete</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogenable'>dialogenable</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogfileopen'>dialogfileopen</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÁÑ×ÅÉÏ_ÁÍÏÉÃÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dialogfilesave'>dialogfilesave</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÁÑ×ÅÉÏ_ÁÐÏÈÇÊÅÕÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-difference'>difference</link></entry>
+        <entry><literallayout>ÄÉÁÖÏÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-directories'>directories</link></entry>
+        <entry><literallayout>ÊÁÔÁËÏÃÏÉ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllcall'>dllcall</link></entry>
+        <entry><literallayout>DLL_ÊËÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllfree'>dllfree</link></entry>
+        <entry><literallayout>DLL_ÊËÅÉÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dllload'>dllload</link></entry>
+        <entry><literallayout>DLL_ÁÍÏÉÃÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-downpitch'>down</link></entry>
+        <entry><literallayout>ÊÁÔÙ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-dribble'>dribble</link></entry>
+        <entry><literallayout>ÊÁÔÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-emptyp'>empty?</link></entry>
+        <entry><literallayout>ÁÄÅÉÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-end'>end</link></entry>
+        <entry><literallayout>ÔÅËÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-eofp'>eof?</link></entry>
+        <entry><literallayout>ÔÅËÏÓ_ÁÑ×ÅÉÏÕ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-equalp'>equal?</link></entry>
+        <entry><literallayout>ÉÓÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erase'>erase</link></entry>
+        <entry><literallayout>ÓÂÇÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erasefile'>erasefile</link></entry>
+        <entry><literallayout>ÓÂÇÓÉÌÏ_ÁÑ×ÅÉÏÕ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-erract'>erract</link></entry>
+        <entry><literallayout>ÏÄÇÃÉÅÓ_ÓÖÁËÌÁÔÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-error'>error</link></entry>
+        <entry><literallayout>ÓÖÁËÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-eventcheck'>eventcheck</link></entry>
+        <entry><literallayout>ÅËÅÃ×ÏÓ_ÃÅÃÏÍÏÔÙÍ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-false'>false</link></entry>
+        <entry><literallayout>ØÅÕÄÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-files'>files</link></entry>
+        <entry><literallayout>ÁÑ×ÅÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fill'>fill</link></entry>
+        <entry><literallayout>ÃÅÌÉÓÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-first'>first</link></entry>
+        <entry><literallayout>ÐÑÙÔÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-firsts'>firsts</link></entry>
+        <entry><literallayout>ÐÑÙÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+        <entry><literallayout>×ÑÙÌÁ_ÃÅÌÉÓÌÁÔÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fontfacenames'>fontfacenames</link></entry>
+        <entry><literallayout>ÃÑÁÌÌÁÔÏÓÅÉÑÅÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-forward'>forward</link></entry>
+        <entry><literallayout>ÅÌÐÑÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fullscreen'>fullscreen</link></entry>
+        <entry><literallayout>ÐËÇÑÇÓ_ÏÈÏÍÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-fulltext'>fulltext</link></entry>
+        <entry><literallayout>ÐËÇÑÅÓ_ÊÅÉÌÅÍÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-getfocus'>getfocus</link></entry>
+        <entry><literallayout>ÅÓÔÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-gifload'>gifload</link></entry>
+        <entry><literallayout>GIF_ÁÍÏÉÃÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-gifsave'>gifsave</link></entry>
+        <entry><literallayout>GIF_ÁÐÏÈÇÊÅÕÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-gifsize'>gifsize</link></entry>
+        <entry><literallayout>GIF_ÌÅÃÅÈÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-gprop'>gprop</link></entry>
+        <entry><literallayout>ÉÄÉÏÔÇÔÁ_ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-greaterp'>greater?</link></entry>
+        <entry><literallayout>ÌÅÃÁËÕÔÅÑÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-greaterequalp'>greaterequal?</link></entry>
+        <entry><literallayout>ÌÅÃÁËÕÔÅÑÏ_ÉÓÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-groupboxcreate'>groupboxcreate</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÏÌÁÄÁÓ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-groupboxdelete'>groupboxdelete</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÏÌÁÄÁÓ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-heading'>heading</link></entry>
+        <entry><literallayout>ÊÁÔÅÕÈÕÍÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-help'>help</link></entry>
+        <entry><literallayout>ÂÏÇÈÅÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-home'>home</link></entry>
+        <entry><literallayout>ÓÐÉÔÉ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-if'>if</link></entry>
+        <entry><literallayout>ÁÍ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-ifelse'>ifelse</link></entry>
+        <entry><literallayout>ÁÍ_ÁËËÉÙÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+        <entry><literallayout>ÁÍ_ØÅÕÄÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+        <entry><literallayout>ÁÍ_ÁËÇÈÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-int'>int</link></entry>
+        <entry><literallayout>ÁÊÅÑÁÉÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-item'>item</link></entry>
+        <entry><literallayout>ÓÔÏÉ×ÅÉÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyp'>key?</link></entry>
+        <entry><literallayout>ÐËÇÊÔÑÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardoff'>keyboardoff</link></entry>
+        <entry><literallayout>ÐËÇÊÔÑÏËÏÃÉÏ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardon'>keyboardon</link></entry>
+        <entry><literallayout>ÐËÇÊÔÑÏËÏÃÉÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-keyboardvalue'>keyboardvalue</link></entry>
+        <entry><literallayout>ÐËÇÊÔÑÏËÏÃÉÏ_ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-label'>label</link></entry>
+        <entry><literallayout>ÅÔÉÊÅÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-labelfont'>labelfont</link></entry>
+        <entry><literallayout>ÅÔÉÊÅÔÁ_ÃÑÁÌÌÁÔÏÓÅÉÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-labelsize'>labelsize</link></entry>
+        <entry><literallayout>ÅÔÉÊÅÔÁ_ÌÅÃÅÈÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-last'>last</link></entry>
+        <entry><literallayout>ÔÅËÅÕÔÁÉÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-left'>left</link></entry>
+        <entry><literallayout>ÁÑÉÓÔÅÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lessp'>less?</link></entry>
+        <entry><literallayout>ÌÉÊÑÏÔÅÑÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lessequalp'>lessequal?</link></entry>
+        <entry><literallayout>ÌÉÊÑÏÔÅÑÏ_ÉÓÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-light'>light</link></entry>
+        <entry><literallayout>ÖÙÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-list'>list</link></entry>
+        <entry><literallayout>ËÉÓÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listp'>list?</link></entry>
+        <entry><literallayout>ËÉÓÔÁ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxaddstring'>listboxaddstring</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÐÑÏÓÈÇÊÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxcreate'>listboxcreate</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxdelete'>listboxdelete</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxdeletestring'>listboxdeletestring</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÁÖÁÉÑÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxenable'>listboxenable</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÅÍÅÑÃÏÐÉÏÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-listboxgetselect'>listboxgetselect</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÅÐÉËÏÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-load'>load</link></entry>
+        <entry><literallayout>ÖÏÑÔÙÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-local'>local</link></entry>
+        <entry><literallayout>ÔÏÐÉÊÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-logoversion'>logoversion</link></entry>
+        <entry><literallayout>ÅÊÄÏÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lowercase'>lowercase</link></entry>
+        <entry><literallayout>ÐÅÆÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lput'>lput</link></entry>
+        <entry><literallayout>ÐÑÏÓÈÇÊÇ_ÔÅËÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-lshift'>lshift</link></entry>
+        <entry><literallayout>ÏËÉÓÈÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-machine'>machine</link></entry>
+        <entry><literallayout>ÌÇ×ÁÍÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-macrop'>macro?</link></entry>
+        <entry><literallayout>ÌÁÊÑÏÅÍÔÏËÇ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-make'>Make</link></entry>
+        <entry><literallayout>ÌÅÔÁÂËÇÔÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-member'>member</link></entry>
+        <entry><literallayout>ÌÅËÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-memberp'>member?</link></entry>
+        <entry><literallayout>ÌÅËÏÓ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-messagebox'>messagebox</link></entry>
+        <entry><literallayout>ÌÇÍÕÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midiclose'>midiclose</link></entry>
+        <entry><literallayout>MIDI_ÊËÅÉÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midimessage'>midimessage</link></entry>
+        <entry><literallayout>MIDI_ÌÇÍÕÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-midiopen'>midiopen</link></entry>
+        <entry><literallayout>MIDI_ÁÍÏÉÃÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-minus'>minus</link></entry>
+        <entry><literallayout>ÌÅÉÏÍ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mkdir'>mkdir</link></entry>
+        <entry><literallayout>ÊÁÔÁËÏÃÏÓ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mouseoff'>mouseoff</link></entry>
+        <entry><literallayout>ÐÏÍÔÉÊÉ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mouseon'>mouseon</link></entry>
+        <entry><literallayout>ÐÏÍÔÉÊÉ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-mousepos'>mousepos</link></entry>
+        <entry><literallayout>ÐÏÍÔÉÊÉ_ÈÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-namep'>name?</link></entry>
+        <entry><literallayout>ÏÍÏÌÁ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-names'>names</link></entry>
+        <entry><literallayout>ÏÍÏÌÁÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptoff'>netacceptoff</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netaccepton'>netaccepton</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptreceivevalue'>netacceptreceivevalue</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÔÉÌÇ_ËÇØÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netacceptsendvalue'>netacceptsendvalue</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÔÉÌÇ_ÁÐÏÓÔÏËÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectoff'>netconnectoff</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnecton'>netconnecton</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectreceivevalue'>netconnectreceivevalue</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÔÉÌÇ_ËÇØÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netconnectsendvalue'>netconnectsendvalue</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÔÉÌÇ_ÁÐÏÓÔÏËÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netshutdown'>netshutdown</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-netstartup'>netstartup</link></entry>
+        <entry><literallayout>ÄÉÊÔÕÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-nodes'>nodes</link></entry>
+        <entry><literallayout>ÊÏÌÂÏÉ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-not'>not</link></entry>
+        <entry><literallayout>Ï×É</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-notequalp'>notequal?</link></entry>
+        <entry><literallayout>Ï×É_ÉÓÏ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-numberp'>number?</link></entry>
+        <entry><literallayout>ÁÑÉÈÌÏÓ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-openappend'>openappend</link></entry>
+        <entry><literallayout>ÁÍÏÉÃÌÁ_ÐÑÏÓÁÑÔÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-openread'>openread</link></entry>
+        <entry><literallayout>ÁÍÏÉÃÌÁ_ÁÍÁÃÍÙÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-openupdate'>openupdate</link></entry>
+        <entry><literallayout>ÁÍÏÉÃÌÁ_ÅÍÇÌÅÑÙÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-openwrite'>openwrite</link></entry>
+        <entry><literallayout>ÁÍÏÉÃÌÁ_ÅÃÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-or'>or</link></entry>
+        <entry><literallayout>Ç</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-output'>output</link></entry>
+        <entry><literallayout>ÅÎÏÄÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-parse'>parse</link></entry>
+        <entry><literallayout>ÅÐÅÎÅÑÃÁÓÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pause'>pause</link></entry>
+        <entry><literallayout>ÐÁÕÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+        <entry><literallayout>ÐÅÍÁ_×ÑÙÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÊÁÔÙ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pendownp'>pendown?</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÊÁÔÙ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penerase'>penerase</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÓÂÇÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penmode'>penmode</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÓÕÓÔÇÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penpaint'>penpaint</link></entry>
+        <entry><literallayout>ÐÅÍÁ_Ó×ÅÄÉÁÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penpattern'>penpattern</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÌÏÔÉÂÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penreverse'>penreverse</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÁÍÔÉÓÔÑÏÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pensize'>pensize</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÌÅÃÅÈÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-penup'>penup</link></entry>
+        <entry><literallayout>ÐÅÍÁ_ÐÁÍÙ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-perspective'>perspective</link></entry>
+        <entry><literallayout>ÐÑÏÏÐÔÉÊÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-playwave'>playwave</link></entry>
+        <entry><literallayout>ÁÍÁÐÁÑÁÃÙÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-plist'>Plist</link></entry>
+        <entry><literallayout>ÉÄÉÏÔÇÔÁ_ËÉÓÔÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-plists'>plists</link></entry>
+        <entry><literallayout>ÉÄÉÏÔÇÔÁ_ËÉÓÔÅÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-polyend'>polyend</link></entry>
+        <entry><literallayout>ÐÏËÕÃÙÍÏ_ÔÅËÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-polystart'>polystart</link></entry>
+        <entry><literallayout>ÐÏËÕÃÙÍÏ_ÁÑ×Ç</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-polyview'>polyview</link></entry>
+        <entry><literallayout>ÐÏËÕÃÙÍÏ_ÐÑÏÂÏËÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-popdir'>popdir</link></entry>
+        <entry><literallayout>ÊÁÔÁËÏÃÏÓ_ÐÁÍÙ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portclose'>portclose</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÊËÅÉÓÉÌÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portflush'>portflush</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÊÁÈÁÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portmode'>portmode</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÓÕÓÔÇÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portopen'>portopen</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÁÍÏÉÃÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portreadarray'>portreadarray</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÁÍÁÃÍÙÓÇ_ÐÉÍÁÊÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portreadchar'>portreadchar</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portwritearray'>portwritearray</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÅÃÃÑÁÖÇ_ÐÉÍÁÊÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-portwritechar'>portwritechar</link></entry>
+        <entry><literallayout>ÈÕÑÁ_ÅÃÃÑÁÖÇ_×ÁÑÁÊÔÇÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pos'>pos</link></entry>
+        <entry><literallayout>ÈÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-posxyz'>posxyz</link></entry>
+        <entry><literallayout>ÈÅÓÇ_XYZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-power'>power</link></entry>
+        <entry><literallayout>ÄÕÍÁÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-pprop'>Pprop</link></entry>
+        <entry><literallayout>ÉÄÉÏÔÇÔÁ_ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-print'>print</link></entry>
+        <entry><literallayout>ÅÊÔÕÐÙÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-printdepthlimit'>printdepthlimit</link></entry>
+        <entry><literallayout>ÂÁÈÏÓ_ÅÊÔÕÐÙÓÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-printwidthlimit'>printwidthlimit</link></entry>
+        <entry><literallayout>ÐËÁÔÏÓ_ÅÊÔÕÐÙÓÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-product'>product</link></entry>
+        <entry><literallayout>ÃÉÍÏÌÅÍÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-questionbox'>questionbox</link></entry>
+        <entry><literallayout>ÌÇÍÕÌÁ_ÅÑÙÔÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-quotient'>quotient</link></entry>
+        <entry><literallayout>ÄÉÁÉÑÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttoncreate'>radiobuttoncreate</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttondelete'>radiobuttondelete</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonenable'>radiobuttonenable</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonget'>radiobuttonget</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-radiobuttonset'>radiobuttonset</link></entry>
+        <entry><literallayout>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readchar'>readchar</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readchars'>readchars</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÙÍ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-reader'>reader</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_ÐÇÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readlist'>readlist</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_ËÉÓÔÁÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readpos'>readpos</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_ÈÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-readword'>readword</link></entry>
+        <entry><literallayout>ÁÍÁÃÍÙÓÇ_ËÅÎÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-redefp'>redefp</link></entry>
+        <entry><literallayout>ÅÐÁÍÁÐÑÏÓÄÉÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remainder'>remainder</link></entry>
+        <entry><literallayout>ÕÐÏËÏÉÐÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-remprop'>remprop</link></entry>
+        <entry><literallayout>ÉÄÉÏÔÇÔÁ_ÁÖÁÉÑÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-repcount'>repcount</link></entry>
+        <entry><literallayout>ÅÐÁÍÁËÇØÇ_ÁÑÉÈÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+        <entry><literallayout>ÅÐÁÍÁËÇØÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-rmdir'>rmdir</link></entry>
+        <entry><literallayout>ÊÁÔÁËÏÃÏÓ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-round'>round</link></entry>
+        <entry><literallayout>ÓÔÑÏÃÃÕËÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-run'>run</link></entry>
+        <entry><literallayout>ÅÊÔÅËÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-runparse'>runparse</link></entry>
+        <entry><literallayout>ÅÊÔÅËÅÓÇ_ÅÐÅÎÅÑÃÁÓÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-runresult'>runresult</link></entry>
+        <entry><literallayout>ÅÊÔÅËÅÓÇ_ÁÐÏÔÅËÅÓÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-save'>save</link></entry>
+        <entry><literallayout>ÁÐÏÈÇÊÅÕÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-selectbox'>selectbox</link></entry>
+        <entry><literallayout>ÌÇÍÕÌÁ_ÅÐÉËÏÃÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sentence'>sentence</link></entry>
+        <entry><literallayout>ÐÑÏÔÁÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-setactivearea'>setactivearea</link></entry>
+        <entry><literallayout>ÅÍÅÑÃÇ_ÐÅÑÉÏ×Ç_ÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-show'>show</link></entry>
+        <entry><literallayout>ÅÌÖÁÍÉÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sin'>sin</link></entry>
+        <entry><literallayout>ÇÌÉÔÏÍÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sound'>sound</link></entry>
+        <entry><literallayout>Ç×ÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+        <entry><literallayout>ÑÉÆÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-startup'>startup</link></entry>
+        <entry><literallayout>ÅÊÊÉÍÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-step'>step</link></entry>
+        <entry><literallayout>ÂÇÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-stop'>stop</link></entry>
+        <entry><literallayout>ÓÔÁÌÁÔÇÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-sum'>sum</link></entry>
+        <entry><literallayout>ÁÈÑÏÉÓÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-test'>test</link></entry>
+        <entry><literallayout>ÄÏÊÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-thing'>thing</link></entry>
+        <entry><literallayout>ÔÉÌÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-time'>time</link></entry>
+        <entry><literallayout>ÙÑÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-timemilli'>timemilli</link></entry>
+        <entry><literallayout>×ÑÏÍÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-towards'>towards</link></entry>
+        <entry><literallayout>ÐÑÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-towardsxyz'>towardsxyz</link></entry>
+        <entry><literallayout>ÐÑÏÓ_XYZ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-true'>true</link></entry>
+        <entry><literallayout>ÁËÇÈÇÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-turtle'>turtle</link></entry>
+        <entry><literallayout>×ÅËÙÍÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-turtlemode'>turtlemode</link></entry>
+        <entry><literallayout>×ÅËÙÍÁ_ÓÕÓÔÇÌÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-turtles'>turtles</link></entry>
+        <entry><literallayout>×ÅËÙÍÅÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-uppercase'>uppercase</link></entry>
+        <entry><literallayout>ÊÅÖÁËÁÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wait'>wait</link></entry>
+        <entry><literallayout>ÁÍÁÌÏÍÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-window'>window</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowcreate'>windowcreate</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÄÇÌÉÏÕÑÃÉÁ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowdelete'>windowdelete</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÄÉÁÃÑÁÖÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-windowenable'>windowenable</link></entry>
+        <entry><literallayout>ÐÁÑÁÈÕÑÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-winhelp'>winhelp</link></entry>
+        <entry><literallayout>BOHUEIA</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-word'>word</link></entry>
+        <entry><literallayout>ËÅÎÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-wordp'>word?</link></entry>
+        <entry><literallayout>ËÅÎÇ?</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-writepos'>writepos</link></entry>
+        <entry><literallayout>ÅÃÃÑÁÖÇ_ÈÅÓÇ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-writer'>writer</link></entry>
+        <entry><literallayout>ÅÃÃÑÁÖÇ_ÐÑÏÏÑÉÓÌÏÓ</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-yesnobox'>yesnobox</link></entry>
+        <entry><literallayout>ÌÇÍÕÌÁ_ÍÁÉ_Ï×É</literallayout></entry>
+      </row>
+      <row>
+        <entry><link linkend='command-zoom'>zoom</link></entry>
+        <entry><literallayout>ÌÅÃÅÈÕÍÓÇ</literallayout></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>
+
+<appendix id='to-english-procedure-names'>
+<title>Greek to English: Procedure Names</title>
+<indexterm><primary>To English (procedure names)</primary></indexterm>
+<informaltable>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Greek Procedure</entry>
+        <entry>English Procedure</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>.ÐÉÈÁÍÇ_ÅÎÏÄÏÓ</entry>
+        <entry><link linkend='command-.maybeoutput'>.maybeoutput</link></entry>
+      </row>
+      <row>
+        <entry>.ÉÓÏ</entry>
+        <entry><link linkend='command-.eq'>.eq</link></entry>
+      </row>
+      <row>
+        <entry>.ÌÁÊÑÏÅÍÔÏËÇ</entry>
+        <entry><link linkend='command-.macro'>.macro</link></entry>
+      </row>
+      <row>
+        <entry>.ÏÑÉÓÌÏÓ_ÌÁÊÑÏÅÍÔËÇ</entry>
+        <entry><link linkend='command-.defmacro'>.defmacro</link></entry>
+      </row>
+      <row>
+        <entry>×ÅËÙÍÁ</entry>
+        <entry><link linkend='command-turtle'>turtle</link></entry>
+      </row>
+      <row>
+        <entry>×ÅËÙÍÁ_ÓÕÓÔÇÌÁ</entry>
+        <entry><link linkend='command-turtlemode'>turtlemode</link></entry>
+      </row>
+      <row>
+        <entry>×ÅËÙÍÅÓ</entry>
+        <entry><link linkend='command-turtles'>turtles</link></entry>
+      </row>
+      <row>
+        <entry>×ÁÑÁÊÔÇÑÁÓ</entry>
+        <entry><link linkend='command-char'>char</link></entry>
+      </row>
+      <row>
+        <entry>×ÑÏÍÏÓ</entry>
+        <entry><link linkend='command-timemilli'>timemilli</link></entry>
+      </row>
+      <row>
+        <entry>×ÑÙÌÁ_ÃÅÌÉÓÌÁÔÏÓ</entry>
+        <entry><link linkend='command-floodcolor'>floodcolor</link></entry>
+      </row>
+      <row>
+        <entry>×ÙÑÉÓ_ÐÑÙÔÁ</entry>
+        <entry><link linkend='command-butfirsts'>butfirsts</link></entry>
+      </row>
+      <row>
+        <entry>×ÙÑÉÓ_ÐÑÙÔÏ</entry>
+        <entry><link linkend='command-butfirst'>butfirst</link></entry>
+      </row>
+      <row>
+        <entry>×ÙÑÉÓ_ÔÅËÅÕÔÁÉÏ</entry>
+        <entry><link linkend='command-butlast'>butlast</link></entry>
+      </row>
+      <row>
+        <entry>ÁÄÅÉÏ?</entry>
+        <entry><link linkend='command-emptyp'>empty?</link></entry>
+      </row>
+      <row>
+        <entry>ÅÃÃÑÁÖÇ_ÐÑÏÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-writer'>writer</link></entry>
+      </row>
+      <row>
+        <entry>ÅÃÃÑÁÖÇ_ÈÅÓÇ</entry>
+        <entry><link linkend='command-writepos'>writepos</link></entry>
+      </row>
+      <row>
+        <entry>ÂÁÈÏÓ_ÅÊÔÕÐÙÓÇÓ</entry>
+        <entry><link linkend='command-printdepthlimit'>printdepthlimit</link></entry>
+      </row>
+      <row>
+        <entry>ÃÅÌÉÓÌÁ</entry>
+        <entry><link linkend='command-fill'>fill</link></entry>
+      </row>
+      <row>
+        <entry>ÂÇÌÁ</entry>
+        <entry><link linkend='command-step'>step</link></entry>
+      </row>
+      <row>
+        <entry>ÅÐÁÍÁÐÑÏÓÄÉÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-redefp'>redefp</link></entry>
+      </row>
+      <row>
+        <entry>ÅÐÁÍÁËÇØÇ</entry>
+        <entry><link linkend='command-repeat'>repeat</link></entry>
+      </row>
+      <row>
+        <entry>ÅÐÁÍÁËÇØÇ_ÁÑÉÈÌÏÓ</entry>
+        <entry><link linkend='command-repcount'>repcount</link></entry>
+      </row>
+      <row>
+        <entry>ÅÐÅÎÅÑÃÁÓÉÁ</entry>
+        <entry><link linkend='command-parse'>parse</link></entry>
+      </row>
+      <row>
+        <entry>ÁÐÏÈÇÊÅÕÓÇ</entry>
+        <entry><link linkend='command-save'>save</link></entry>
+      </row>
+      <row>
+        <entry>ÅËÅÃ×ÏÓ_ÃÅÃÏÍÏÔÙÍ</entry>
+        <entry><link linkend='command-eventcheck'>eventcheck</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÁÉÑÅÓÇ</entry>
+        <entry><link linkend='command-quotient'>quotient</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÄÏÓÇ</entry>
+        <entry><link linkend='command-logoversion'>logoversion</link></entry>
+      </row>
+      <row>
+        <entry>ÁÊÅÑÁÉÏÓ</entry>
+        <entry><link linkend='command-int'>int</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÁÖÏÑÁ</entry>
+        <entry><link linkend='command-difference'>difference</link></entry>
+      </row>
+      <row>
+        <entry>ÁËÇÈÇÓ</entry>
+        <entry><link linkend='command-true'>true</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÊÉÍÇÓÇ</entry>
+        <entry><link linkend='command-startup'>startup</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netshutdown'>netshutdown</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netacceptoff'>netacceptoff</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netaccepton'>netaccepton</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÔÉÌÇ_ÁÐÏÓÔÏËÇÓ</entry>
+        <entry><link linkend='command-netacceptsendvalue'>netacceptsendvalue</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÁÐÏÄÏ×Ç_ÔÉÌÇ_ËÇØÇÓ</entry>
+        <entry><link linkend='command-netacceptreceivevalue'>netacceptreceivevalue</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netstartup'>netstartup</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netconnectoff'>netconnectoff</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-netconnecton'>netconnecton</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÔÉÌÇ_ÁÐÏÓÔÏËÇÓ</entry>
+        <entry><link linkend='command-netconnectsendvalue'>netconnectsendvalue</link></entry>
+      </row>
+      <row>
+        <entry>ÄÉÊÔÕÏ_ÓÕÍÄÅÓÇ_ÔÉÌÇ_ËÇØÇÓ</entry>
+        <entry><link linkend='command-netconnectreceivevalue'>netconnectreceivevalue</link></entry>
+      </row>
+      <row>
+        <entry>ÃÉÍÏÌÅÍÏ</entry>
+        <entry><link linkend='command-product'>product</link></entry>
+      </row>
+      <row>
+        <entry>ÁÈÑÏÉÓÌÁ</entry>
+        <entry><link linkend='command-sum'>sum</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÔÅËÅÓÇ</entry>
+        <entry><link linkend='command-run'>run</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÔÅËÅÓÇ_ÅÐÅÎÅÑÃÁÓÉÁ</entry>
+        <entry><link linkend='command-runparse'>runparse</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÔÅËÅÓÇ_ÁÐÏÔÅËÅÓÌÁ</entry>
+        <entry><link linkend='command-runresult'>runresult</link></entry>
+      </row>
+      <row>
+        <entry>ÅÊÔÕÐÙÓÇ</entry>
+        <entry><link linkend='command-print'>print</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍ</entry>
+        <entry><link linkend='command-if'>if</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍ_ÁËÇÈÇÓ</entry>
+        <entry><link linkend='command-iftrue'>iftrue</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍ_ÁËËÉÙÓ</entry>
+        <entry><link linkend='command-ifelse'>ifelse</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍ_ØÅÕÄÇÓ</entry>
+        <entry><link linkend='command-iffalse'>iffalse</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÁ</entry>
+        <entry><link linkend='command-readchar'>readchar</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÙÍ</entry>
+        <entry><link linkend='command-readchars'>readchars</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_ÐÇÃÇ</entry>
+        <entry><link linkend='command-reader'>reader</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_ËÅÎÇÓ</entry>
+        <entry><link linkend='command-readword'>readword</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_ÈÅÓÇ</entry>
+        <entry><link linkend='command-readpos'>readpos</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÃÍÙÓÇ_ËÉÓÔÁÓ</entry>
+        <entry><link linkend='command-readlist'>readlist</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÐÁÑÁÃÙÃÇ</entry>
+        <entry><link linkend='command-playwave'>playwave</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÁÌÏÍÇ</entry>
+        <entry><link linkend='command-wait'>wait</link></entry>
+      </row>
+      <row>
+        <entry>ÅÍÅÑÃÇ_ÐÅÑÉÏ×Ç</entry>
+        <entry><link linkend='command-activearea'>activearea</link></entry>
+      </row>
+      <row>
+        <entry>ÅÍÅÑÃÇ_ÐÅÑÉÏ×Ç_ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-setactivearea'>setactivearea</link></entry>
+      </row>
+      <row>
+        <entry>ÂÏÇÈÅÉÁ</entry>
+        <entry><link linkend='command-help'>help</link></entry>
+      </row>
+      <row>
+        <entry>ÅÌÐÑÏÓ</entry>
+        <entry><link linkend='command-forward'>forward</link></entry>
+      </row>
+      <row>
+        <entry>ÄÏÊÉÌÇ</entry>
+        <entry><link linkend='command-test'>test</link></entry>
+      </row>
+      <row>
+        <entry>ÅÎÏÄÏÓ</entry>
+        <entry><link linkend='command-output'>output</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÏÉ×ÔÁ</entry>
+        <entry><link linkend='command-allopen'>allopen</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÏÉÃÌÁ_ÅÃÃÑÁÖÇ</entry>
+        <entry><link linkend='command-openwrite'>openwrite</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÏÉÃÌÁ_ÁÍÁÃÍÙÓÇ</entry>
+        <entry><link linkend='command-openread'>openread</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÏÉÃÌÁ_ÅÍÇÌÅÑÙÓÇ</entry>
+        <entry><link linkend='command-openupdate'>openupdate</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÏÉÃÌÁ_ÐÑÏÓÁÑÔÇÓÇ</entry>
+        <entry><link linkend='command-openappend'>openappend</link></entry>
+      </row>
+      <row>
+        <entry>ÅÌÖÁÍÉÓÇ</entry>
+        <entry><link linkend='command-show'>show</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÔÉÃÑÁÖÇ_ÏÑÉÓÌÏÕ</entry>
+        <entry><link linkend='command-copydef'>copydef</link></entry>
+      </row>
+      <row>
+        <entry>ÁÍÔÉÏ</entry>
+        <entry><link linkend='command-bye'>bye</link></entry>
+      </row>
+      <row>
+        <entry>ÁÑ×ÅÉÁ</entry>
+        <entry><link linkend='command-files'>files</link></entry>
+      </row>
+      <row>
+        <entry>ÃÑÁÌÌÁÔÏÓÅÉÑÅÓ</entry>
+        <entry><link linkend='command-fontfacenames'>fontfacenames</link></entry>
+      </row>
+      <row>
+        <entry>ÁÑÉÈÌÏÓ?</entry>
+        <entry><link linkend='command-numberp'>number?</link></entry>
+      </row>
+      <row>
+        <entry>ÁÑÉÓÔÅÑÁ</entry>
+        <entry><link linkend='command-left'>left</link></entry>
+      </row>
+      <row>
+        <entry>ÄÕÁÄÉÊÏ_ÁÐ0ÏÊËÅÉÓÔÉÊÏ_Ç</entry>
+        <entry><link linkend='command-bitxor'>bitxor</link></entry>
+      </row>
+      <row>
+        <entry>ÄÕÁÄÉÊÏ_Ç</entry>
+        <entry><link linkend='command-bitor'>bitor</link></entry>
+      </row>
+      <row>
+        <entry>ÄÕÁÄÉÊÏ_ÊÁÉ</entry>
+        <entry><link linkend='command-bitand'>bitand</link></entry>
+      </row>
+      <row>
+        <entry>ÄÕÁÄÉÊÏ_Ï×É</entry>
+        <entry><link linkend='command-bitnot'>bitnot</link></entry>
+      </row>
+      <row>
+        <entry>ÅÖÁÑÌÏÃÇ</entry>
+        <entry><link linkend='command-apply'>apply</link></entry>
+      </row>
+      <row>
+        <entry>ÅÔÉÊÅÔÁ</entry>
+        <entry><link linkend='command-label'>label</link></entry>
+      </row>
+      <row>
+        <entry>ÅÔÉÊÅÔÁ_ÃÑÁÌÌÁÔÏÓÅÉÑÁ</entry>
+        <entry><link linkend='command-labelfont'>labelfont</link></entry>
+      </row>
+      <row>
+        <entry>ÅÔÉÊÅÔÁ_ÌÅÃÅÈÏÓ</entry>
+        <entry><link linkend='command-labelsize'>labelsize</link></entry>
+      </row>
+      <row>
+        <entry>ÄÕÍÁÌÇ</entry>
+        <entry><link linkend='command-power'>power</link></entry>
+      </row>
+      <row>
+        <entry>ÅÓÔÉÁ</entry>
+        <entry><link linkend='command-getfocus'>getfocus</link></entry>
+      </row>
+      <row>
+        <entry>BOHUEIA</entry>
+        <entry><link linkend='command-winhelp'>winhelp</link></entry>
+      </row>
+      <row>
+        <entry>Ç</entry>
+        <entry><link linkend='command-or'>or</link></entry>
+      </row>
+      <row>
+        <entry>Ç×ÏÓ</entry>
+        <entry><link linkend='command-sound'>sound</link></entry>
+      </row>
+      <row>
+        <entry>ÇÌÉÔÏÍÏ</entry>
+        <entry><link linkend='command-sin'>sin</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÆÁ</entry>
+        <entry><link linkend='command-lowercase'>lowercase</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_×ÑÙÌÁ</entry>
+        <entry><link linkend='command-pencolor'>pencolor</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÁÍÔÉÓÔÑÏÖÇ</entry>
+        <entry><link linkend='command-penreverse'>penreverse</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÐÁÍÙ</entry>
+        <entry><link linkend='command-penup'>penup</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÊÁÔÙ</entry>
+        <entry><link linkend='command-pendown'>pendown</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÊÁÔÙ?</entry>
+        <entry><link linkend='command-pendownp'>pendown?</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÌÅÃÅÈÏÓ</entry>
+        <entry><link linkend='command-pensize'>pensize</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÌÏÔÉÂÏ</entry>
+        <entry><link linkend='command-penpattern'>penpattern</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_Ó×ÅÄÉÁÓÇ</entry>
+        <entry><link linkend='command-penpaint'>penpaint</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÓÂÇÓÉÌÏ</entry>
+        <entry><link linkend='command-penerase'>penerase</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÍÁ_ÓÕÓÔÇÌÁ</entry>
+        <entry><link linkend='command-penmode'>penmode</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ</entry>
+        <entry><link linkend='command-window'>window</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-windowcreate'>windowcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-windowdelete'>windowdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-dialogcreate'>dialogcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-dialogdelete'>dialogdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÄÉÁËÏÃÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-dialogenable'>dialogenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-windowenable'>windowenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÁÑ×ÅÉÏ_ÁÐÏÈÇÊÅÕÓÇ</entry>
+        <entry><link linkend='command-dialogfilesave'>dialogfilesave</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÑÁÈÕÑÏ_ÁÑ×ÅÉÏ_ÁÍÏÉÃÌÁ</entry>
+        <entry><link linkend='command-dialogfileopen'>dialogfileopen</link></entry>
+      </row>
+      <row>
+        <entry>ÐÅÑÉÅ×ÏÌÅÍÁ</entry>
+        <entry><link linkend='command-contents'>contents</link></entry>
+      </row>
+      <row>
+        <entry>ÐÁÕÓÇ</entry>
+        <entry><link linkend='command-pause'>pause</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-radiobuttoncreate'>radiobuttoncreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-radiobuttondelete'>radiobuttondelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-radiobuttonenable'>radiobuttonenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-radiobuttonset'>radiobuttonset</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅÐÉËÏÃÇÓ_ÔÉÌÇ</entry>
+        <entry><link linkend='command-radiobuttonget'>radiobuttonget</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-checkboxcreate'>checkboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-checkboxdelete'>checkboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-checkboxenable'>checkboxenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-checkboxset'>checkboxset</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÅËÅÃ×ÏÕ_ÔÉÌÇ</entry>
+        <entry><link linkend='command-checkboxget'>checkboxget</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-comboboxcreate'>comboboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-comboboxdelete'>comboboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-comboboxenable'>comboboxenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÁÖÁÉÑÅÓÇ</entry>
+        <entry><link linkend='command-comboboxdeletestring'>comboboxdeletestring</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÐÑÏÓÈÇÊÇ</entry>
+        <entry><link linkend='command-comboboxaddstring'>comboboxaddstring</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-comboboxsettext'>comboboxsettext</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÊÅÉÌÅÍÏÕ_ÔÉÌÇ</entry>
+        <entry><link linkend='command-comboboxgettext'>comboboxgettext</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-listboxcreate'>listboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÅÐÉËÏÃÇ</entry>
+        <entry><link linkend='command-listboxgetselect'>listboxgetselect</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-listboxdelete'>listboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÅÍÅÑÃÏÐÉÏÇÓÇ</entry>
+        <entry><link linkend='command-listboxenable'>listboxenable</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÁÖÁÉÑÅÓÇ</entry>
+        <entry><link linkend='command-listboxdeletestring'>listboxdeletestring</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ËÉÓÔÁÓ_ÐÑÏÓÈÇÊÇ</entry>
+        <entry><link linkend='command-listboxaddstring'>listboxaddstring</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÏÌÁÄÁÓ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-groupboxcreate'>groupboxcreate</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÉÓÉÏ_ÏÌÁÄÁÓ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-groupboxdelete'>groupboxdelete</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÁÔÏÓ_ÅÊÔÕÐÙÓÇÓ</entry>
+        <entry><link linkend='command-printwidthlimit'>printwidthlimit</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÊÔÑÏ?</entry>
+        <entry><link linkend='command-keyp'>key?</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÊÔÑÏËÏÃÉÏ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-keyboardoff'>keyboardoff</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÊÔÑÏËÏÃÉÏ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-keyboardon'>keyboardon</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÊÔÑÏËÏÃÉÏ_ÔÉÌÇ</entry>
+        <entry><link linkend='command-keyboardvalue'>keyboardvalue</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÑÅÓ_ÊÅÉÌÅÍÏ</entry>
+        <entry><link linkend='command-fulltext'>fulltext</link></entry>
+      </row>
+      <row>
+        <entry>ÐËÇÑÇÓ_ÏÈÏÍÇ</entry>
+        <entry><link linkend='command-fullscreen'>fullscreen</link></entry>
+      </row>
+      <row>
+        <entry>ÐÉÍÁÊÁÓ</entry>
+        <entry><link linkend='command-array'>array</link></entry>
+      </row>
+      <row>
+        <entry>ÐÉÍÁÊÁÓ?</entry>
+        <entry><link linkend='command-arrayp'>array?</link></entry>
+      </row>
+      <row>
+        <entry>ÐÉÓÙ</entry>
+        <entry><link linkend='command-back'>back</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏËÕÃÙÍÏ_ÁÑ×Ç</entry>
+        <entry><link linkend='command-polystart'>polystart</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏËÕÃÙÍÏ_ÐÑÏÂÏËÇ</entry>
+        <entry><link linkend='command-polyview'>polyview</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏËÕÃÙÍÏ_ÔÅËÏÓ</entry>
+        <entry><link linkend='command-polyend'>polyend</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏÍÔÉÊÉ_ÁÐÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-mouseoff'>mouseoff</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏÍÔÉÊÉ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-mouseon'>mouseon</link></entry>
+      </row>
+      <row>
+        <entry>ÐÏÍÔÉÊÉ_ÈÅÓÇ</entry>
+        <entry><link linkend='command-mousepos'>mousepos</link></entry>
+      </row>
+      <row>
+        <entry>DLL_ÁÍÏÉÃÌÁ</entry>
+        <entry><link linkend='command-dllload'>dllload</link></entry>
+      </row>
+      <row>
+        <entry>DLL_ÊËÅÉÓÉÌÏ</entry>
+        <entry><link linkend='command-dllfree'>dllfree</link></entry>
+      </row>
+      <row>
+        <entry>DLL_ÊËÇÓÇ</entry>
+        <entry><link linkend='command-dllcall'>dllcall</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÉÍ?</entry>
+        <entry><link linkend='command-beforep'>before?</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÏÐÔÉÊÇ</entry>
+        <entry><link linkend='command-perspective'>perspective</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÓ</entry>
+        <entry><link linkend='command-towards'>towards</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÓ_XYZ</entry>
+        <entry><link linkend='command-towardsxyz'>towardsxyz</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÔÁÓÇ</entry>
+        <entry><link linkend='command-sentence'>sentence</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÓÇÌÁÓÌÅÍÇ_ÏËÉÓÈÇÓÇ</entry>
+        <entry><link linkend='command-ashift'>ashift</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÏÓÈÇÊÇ_ÔÅËÏÓ</entry>
+        <entry><link linkend='command-lput'>lput</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÙÔÁ</entry>
+        <entry><link linkend='command-firsts'>firsts</link></entry>
+      </row>
+      <row>
+        <entry>ÐÑÙÔÏ</entry>
+        <entry><link linkend='command-first'>first</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÉ</entry>
+        <entry><link linkend='command-and'>and</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÈÁÑÉÌÓÏÓ_ÊÅÉÌÅÍÏÕ</entry>
+        <entry><link linkend='command-cleartext'>cleartext</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÈÁÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-clean'>clean</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÈÁÑÉÓÌÏÓ_×ÑÏÍÏÌÅÔÑÏÕ</entry>
+        <entry><link linkend='command-cleartimer'>cleartimer</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÈÁÑÉÓÌÏÓ_ÏÈÏÍÇÓ</entry>
+        <entry><link linkend='command-clearscreen'>clearscreen</link></entry>
+      </row>
+      <row>
+        <entry>ÉÄÉÏÔÇÔÁ_ÁÖÁÉÑÅÓÇ</entry>
+        <entry><link linkend='command-remprop'>remprop</link></entry>
+      </row>
+      <row>
+        <entry>ÉÄÉÏÔÇÔÁ_ËÉÓÔÁ</entry>
+        <entry><link linkend='command-plist'>Plist</link></entry>
+      </row>
+      <row>
+        <entry>ÉÄÉÏÔÇÔÁ_ËÉÓÔÅÓ</entry>
+        <entry><link linkend='command-plists'>plists</link></entry>
+      </row>
+      <row>
+        <entry>ÉÄÉÏÔÇÔÁ_ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-pprop'>Pprop</link></entry>
+      </row>
+      <row>
+        <entry>ÉÄÉÏÔÇÔÁ_ÔÉÌÇ</entry>
+        <entry><link linkend='command-gprop'>gprop</link></entry>
+      </row>
+      <row>
+        <entry>ËÅÎÇ</entry>
+        <entry><link linkend='command-word'>word</link></entry>
+      </row>
+      <row>
+        <entry>ËÅÎÇ?</entry>
+        <entry><link linkend='command-wordp'>word?</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-dribble'>dribble</link></entry>
+      </row>
+      <row>
+        <entry>ÊÅÖÁËÁÉÁ</entry>
+        <entry><link linkend='command-uppercase'>uppercase</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁËÏÃÏÉ</entry>
+        <entry><link linkend='command-directories'>directories</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁËÏÃÏÓ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-mkdir'>mkdir</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁËÏÃÏÓ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-rmdir'>rmdir</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁËÏÃÏÓ_ÁËËÁÃÇ</entry>
+        <entry><link linkend='command-chdir'>chdir</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÁËÏÃÏÓ_ÐÁÍÙ</entry>
+        <entry><link linkend='command-popdir'>popdir</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÅÕÈÕÍÓÇ</entry>
+        <entry><link linkend='command-heading'>heading</link></entry>
+      </row>
+      <row>
+        <entry>ÈÅÓÇ</entry>
+        <entry><link linkend='command-pos'>pos</link></entry>
+      </row>
+      <row>
+        <entry>ÈÅÓÇ_XYZ</entry>
+        <entry><link linkend='command-posxyz'>posxyz</link></entry>
+      </row>
+      <row>
+        <entry>ÊÁÔÙ</entry>
+        <entry><link linkend='command-downpitch'>down</link></entry>
+      </row>
+      <row>
+        <entry>ÊËÅÉÓÉÌÏ</entry>
+        <entry><link linkend='command-close'>close</link></entry>
+      </row>
+      <row>
+        <entry>ÊËÅÉÓÉÌÏ_ÏËÙÍ</entry>
+        <entry><link linkend='command-closeall'>closeall</link></entry>
+      </row>
+      <row>
+        <entry>ËÉÓÔÁ</entry>
+        <entry><link linkend='command-list'>list</link></entry>
+      </row>
+      <row>
+        <entry>ËÉÓÔÁ?</entry>
+        <entry><link linkend='command-listp'>list?</link></entry>
+      </row>
+      <row>
+        <entry>ÊÏÌÂÏÉ</entry>
+        <entry><link linkend='command-nodes'>nodes</link></entry>
+      </row>
+      <row>
+        <entry>ÊÏÕÌÐÉ_ÄÇÌÉÏÕÑÃÉÁ</entry>
+        <entry><link linkend='command-buttoncreate'>buttoncreate</link></entry>
+      </row>
+      <row>
+        <entry>ÊÏÕÌÐÉ_ÄÉÁÃÑÁÖÇ</entry>
+        <entry><link linkend='command-buttondelete'>buttondelete</link></entry>
+      </row>
+      <row>
+        <entry>ÊÏÕÌÐÉ_ÅÍÅÑÃÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-buttonenable'>buttonenable</link></entry>
+      </row>
+      <row>
+        <entry>ÊÏÕÌÐÉ_ÅÍÇÌÅÑÙÓÇ</entry>
+        <entry><link linkend='command-buttonupdate'>buttonupdate</link></entry>
+      </row>
+      <row>
+        <entry>ÉÓÏ?</entry>
+        <entry><link linkend='command-equalp'>equal?</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÅÃÃÑÁÖÇ_×ÁÑÁÊÔÇÑÁ</entry>
+        <entry><link linkend='command-portwritechar'>portwritechar</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÅÃÃÑÁÖÇ_ÐÉÍÁÊÁ</entry>
+        <entry><link linkend='command-portwritearray'>portwritearray</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÁÍÁÃÍÙÓÇ_×ÁÑÁÊÔÇÑÁ</entry>
+        <entry><link linkend='command-portreadchar'>portreadchar</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÁÍÁÃÍÙÓÇ_ÐÉÍÁÊÁ</entry>
+        <entry><link linkend='command-portreadarray'>portreadarray</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÁÍÏÉÃÌÁ</entry>
+        <entry><link linkend='command-portopen'>portopen</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÊÁÈÁÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-portflush'>portflush</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÊËÅÉÓÉÌÏ</entry>
+        <entry><link linkend='command-portclose'>portclose</link></entry>
+      </row>
+      <row>
+        <entry>ÈÕÑÁ_ÓÕÓÔÇÌÁ</entry>
+        <entry><link linkend='command-portmode'>portmode</link></entry>
+      </row>
+      <row>
+        <entry>GIF_ÁÐÏÈÇÊÅÕÓÇ</entry>
+        <entry><link linkend='command-gifsave'>gifsave</link></entry>
+      </row>
+      <row>
+        <entry>GIF_ÁÍÏÉÃÌÁ</entry>
+        <entry><link linkend='command-gifload'>gifload</link></entry>
+      </row>
+      <row>
+        <entry>GIF_ÌÅÃÅÈÏÓ</entry>
+        <entry><link linkend='command-gifsize'>gifsize</link></entry>
+      </row>
+      <row>
+        <entry>Ï×É</entry>
+        <entry><link linkend='command-not'>not</link></entry>
+      </row>
+      <row>
+        <entry>Ï×É_ÉÓÏ?</entry>
+        <entry><link linkend='command-notequalp'>notequal?</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÃÅÈÕÍÓÇ</entry>
+        <entry><link linkend='command-zoom'>zoom</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÃÁËÕÔÅÑÏ?</entry>
+        <entry><link linkend='command-greaterp'>greater?</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÃÁËÕÔÅÑÏ_ÉÓÏ?</entry>
+        <entry><link linkend='command-greaterequalp'>greaterequal?</link></entry>
+      </row>
+      <row>
+        <entry>ÏÄÇÃÉÅÓ_ÓÖÁËÌÁÔÏÓ</entry>
+        <entry><link linkend='command-erract'>erract</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÉÏÍ</entry>
+        <entry><link linkend='command-minus'>minus</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅËÏÓ</entry>
+        <entry><link linkend='command-member'>member</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅËÏÓ?</entry>
+        <entry><link linkend='command-memberp'>member?</link></entry>
+      </row>
+      <row>
+        <entry>ÌÁÊÑÏÅÍÔÏËÇ?</entry>
+        <entry><link linkend='command-macrop'>macro?</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÔÁÂËÇÔÇ</entry>
+        <entry><link linkend='command-make'>Make</link></entry>
+      </row>
+      <row>
+        <entry>ÌÅÔÑÇÓÇ</entry>
+        <entry><link linkend='command-count'>count</link></entry>
+      </row>
+      <row>
+        <entry>ÌÇ×ÁÍÇ</entry>
+        <entry><link linkend='command-machine'>machine</link></entry>
+      </row>
+      <row>
+        <entry>ÌÇÍÕÌÁ</entry>
+        <entry><link linkend='command-messagebox'>messagebox</link></entry>
+      </row>
+      <row>
+        <entry>ÌÇÍÕÌÁ_ÅÐÉËÏÃÇ</entry>
+        <entry><link linkend='command-selectbox'>selectbox</link></entry>
+      </row>
+      <row>
+        <entry>ÌÇÍÕÌÁ_ÅÑÙÔÇÓÇ</entry>
+        <entry><link linkend='command-questionbox'>questionbox</link></entry>
+      </row>
+      <row>
+        <entry>ÌÇÍÕÌÁ_ÍÁÉ_Ï×É</entry>
+        <entry><link linkend='command-yesnobox'>yesnobox</link></entry>
+      </row>
+      <row>
+        <entry>ÌÉÊÑÏÔÅÑÏ?</entry>
+        <entry><link linkend='command-lessp'>less?</link></entry>
+      </row>
+      <row>
+        <entry>ÌÉÊÑÏÔÅÑÏ_ÉÓÏ?</entry>
+        <entry><link linkend='command-lessequalp'>lessequal?</link></entry>
+      </row>
+      <row>
+        <entry>ÏËÉÓÈÇÓÇ</entry>
+        <entry><link linkend='command-lshift'>lshift</link></entry>
+      </row>
+      <row>
+        <entry>ÏÍÏÌÁ?</entry>
+        <entry><link linkend='command-namep'>name?</link></entry>
+      </row>
+      <row>
+        <entry>ÏÍÏÌÁÔÁ</entry>
+        <entry><link linkend='command-names'>names</link></entry>
+      </row>
+      <row>
+        <entry>ÏÑÉÓÌÏÓ</entry>
+        <entry><link linkend='command-define'>define</link></entry>
+      </row>
+      <row>
+        <entry>ÏÑÉÓÔÇÊÅ?</entry>
+        <entry><link linkend='command-definedp'>defined?</link></entry>
+      </row>
+      <row>
+        <entry>MIDI_ÁÍÏÉÃÌÁ</entry>
+        <entry><link linkend='command-midiopen'>midiopen</link></entry>
+      </row>
+      <row>
+        <entry>MIDI_ÊËÅÉÓÉÌÏ</entry>
+        <entry><link linkend='command-midiclose'>midiclose</link></entry>
+      </row>
+      <row>
+        <entry>MIDI_ÌÇÍÕÌÁ</entry>
+        <entry><link linkend='command-midimessage'>midimessage</link></entry>
+      </row>
+      <row>
+        <entry>ÑÉÆÁ</entry>
+        <entry><link linkend='command-sqrt'>sqrt</link></entry>
+      </row>
+      <row>
+        <entry>ÓÂÇÓÉÌÏ</entry>
+        <entry><link linkend='command-erase'>erase</link></entry>
+      </row>
+      <row>
+        <entry>ÓÂÇÓÉÌÏ_ÁÑ×ÅÉÏÕ</entry>
+        <entry><link linkend='command-erasefile'>erasefile</link></entry>
+      </row>
+      <row>
+        <entry>ÔÅËÅÕÔÁÉÏ</entry>
+        <entry><link linkend='command-last'>last</link></entry>
+      </row>
+      <row>
+        <entry>ÔÅËÏÓ</entry>
+        <entry><link linkend='command-end'>end</link></entry>
+      </row>
+      <row>
+        <entry>ÔÅËÏÓ_ÁÑ×ÅÉÏÕ?</entry>
+        <entry><link linkend='command-eofp'>eof?</link></entry>
+      </row>
+      <row>
+        <entry>ØÅÕÄÇÓ</entry>
+        <entry><link linkend='command-false'>false</link></entry>
+      </row>
+      <row>
+        <entry>ÓÐÉÔÉ</entry>
+        <entry><link linkend='command-home'>home</link></entry>
+      </row>
+      <row>
+        <entry>ÕÐÏËÏÉÐÏ</entry>
+        <entry><link linkend='command-remainder'>remainder</link></entry>
+      </row>
+      <row>
+        <entry>ÔÉÌÇ</entry>
+        <entry><link linkend='command-thing'>thing</link></entry>
+      </row>
+      <row>
+        <entry>ÔÏÐÉÊÏ</entry>
+        <entry><link linkend='command-local'>local</link></entry>
+      </row>
+      <row>
+        <entry>ÖÏÑÔÙÓÇ</entry>
+        <entry><link linkend='command-load'>load</link></entry>
+      </row>
+      <row>
+        <entry>ÓÖÁËÌÁ</entry>
+        <entry><link linkend='command-error'>error</link></entry>
+      </row>
+      <row>
+        <entry>ÓÔÁÌÁÔÇÌÁ</entry>
+        <entry><link linkend='command-stop'>stop</link></entry>
+      </row>
+      <row>
+        <entry>ÓÕÍÅ×ÅÉÁ</entry>
+        <entry><link linkend='command-continue'>continue</link></entry>
+      </row>
+      <row>
+        <entry>ÓÕÍÇÌÉÔÏÍÏ</entry>
+        <entry><link linkend='command-cos'>cos</link></entry>
+      </row>
+      <row>
+        <entry>ÓÔÏÉ×ÅÉÏ</entry>
+        <entry><link linkend='command-item'>item</link></entry>
+      </row>
+      <row>
+        <entry>ÓÔÑÏÃÃÕËÏÐÏÉÇÓÇ</entry>
+        <entry><link linkend='command-round'>round</link></entry>
+      </row>
+      <row>
+        <entry>ÖÙÓ</entry>
+        <entry><link linkend='command-light'>light</link></entry>
+      </row>
+      <row>
+        <entry>ÙÑÁ</entry>
+        <entry><link linkend='command-time'>time</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</appendix>

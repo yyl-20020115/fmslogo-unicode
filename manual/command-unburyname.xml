@@ -1,0 +1,44 @@
+<section id="command-unburyname">
+    <title>UNBURYNAME</title>
+<indexterm><primary>UNBURYNAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>UNBURYNAME</command> <parameter>varname</parameter>
+<command>UNBURYNAME</command> <parameter>varnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Unburies the variable(s) named in the input.
+UNBURYNAME abbreviates <userinput><link linkend="command-unbury">UNBURY</link> <link linkend="command-namelist">NAMELIST</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo [I am Foo]
+MAKE "bar [I am Bar]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+<userinput>BURYNAME [foo]
+PONS</userinput>
+Make "bar [I am Bar]
+<userinput>UNBURYNAME [foo]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

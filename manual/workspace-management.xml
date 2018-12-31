@@ -1,0 +1,180 @@
+<chapter id="workspace-management">
+   <title>Workspace Management</title>
+
+   <section id="procedure-definition">
+       <title>Procedure Definition</title>
+
+       &command-to;
+       &command-end;
+       &command-define;
+       &command-text;
+       &command-fulltext;
+       &command-copydef;
+       &command-arity;
+    </section>
+
+   <section id="variable-definition">
+       <title>Variable Definition</title>
+
+       &command-make;
+       &command-name;
+       &command-local;
+       &command-localmake;
+       &command-thing;
+    </section>
+
+
+   <section id="property-lists">
+       <title>Property Lists</title>
+
+<para>
+Property lists provide a way to associate words with things.
+Property lists are sometimes called "dictionaries", "associative arrays", or simply "name-value pairs".
+</para>
+
+
+<para>
+Property lists, abbreviated to "plists", are always accessed by their name&mdash;you can't get at the plist directly.
+Among other things, this means you cannot pass a plist into a &GENERICNAME; procedure, you can only pass its name.
+</para>
+
+<para>
+You can get, set, and remove properties (name-value pairs) from a plist.
+If you try to get a property that doesn't exist, or you try to get a property from a plist that doesn't exist, you get the empty list.
+In general, you shouldn't care if a property list exists or not.
+However, if you do care, you can use <link linkend="command-plists">PLISTS</link> to get the names of all unburied property lists.
+</para>
+
+<para>
+Names of property lists are always case-insensitive.
+Names of individual properties are case-sensitive or case-insensitive depending on the value of <link linkend="command-caseignoredp">CASEIGNOREDP</link>, which is TRUE by default.
+</para>
+
+       &command-pprop;
+       &command-gprop;
+       &command-remprop;
+       &command-plist;
+    </section>
+
+   <section id="workspace-predicates">
+       <title>Workspace Predicates</title>
+
+       &command-procedurep;
+       &command-primitivep;
+       &command-definedp;
+       &command-namep;
+       &command-macrop;
+       &command-proplistp;
+    </section>
+
+   <section id="workspace-queries">
+       <title>Workspace Queries</title>
+
+<para>
+Most workspace query procedures output a "contents list", which can be used as input to many <link linkend="workspace-inspection">Workspace Inspection</link> and <link linkend="workspace-control">Workspace Control</link> procedures.
+All procedures whose input is indicated as "contentslist" accept any of the following:
+
+<itemizedlist>
+<listitem><para>A single word (taken as a procedure name)</para></listitem>
+<listitem><para>A list of words (taken as procedure names)</para></listitem>
+<listitem><para>A list of two lists (taken as procedure names and variable names, respectively)</para></listitem>
+<listitem><para>A list of three lists (taken as procedure names, variable names, and property list names, respectively)</para></listitem>
+</itemizedlist>
+
+</para>
+
+       &command-contents;
+       &command-procedures;
+       &command-names;
+       &command-plists;
+       &command-namelist;
+       &command-pllist;
+       &command-buried;
+       &command-stepped;
+       &command-traced;
+    </section>
+
+   <section id="workspace-inspection">
+       <title>Workspace Inspection</title>
+
+<para>
+The workspace inspection procedures print the definition of various workspace types to the current write stream.
+</para>
+
+       &command-po;
+       &command-poall;
+       &command-pops;
+       &command-pons;
+       &command-popls;
+       &command-pon;
+       &command-popl;
+       &command-pot;
+       &command-pots;
+    </section>
+
+   <section id="workspace-control">
+       <title>Workspace Control</title>
+
+<para>
+The workspace control procedures manipulate workspace "things" (procedures, variables, and property lists).
+You can use these procedures to erase, bury, unbury, and edit other procedures.
+</para>
+
+<para>
+If a thing is erased, it is completely removed from the workspace.
+It is no longer usable or callable.
+</para>
+
+<para>
+If a thing is buried, it is not included in the contents list output by <link linkend="command-contents">CONTENTS</link>, <link linkend="command-procedures">PROCEDURES</link>, <link linkend="command-names">NAMES</link>, or <link linkend="command-plists">PLISTS</link>, but is included in the list output by <link linkend="command-buried">BURIED</link>.
+By implication, buried things are not printed by <link linkend="command-poall">POALL</link> or saved by <link linkend="command-save">SAVE</link>.
+However, buried things are still usable; a buried procedure can still be called and a buried variable can still be used.
+</para>
+
+<para>
+Typically, items are buried to keep them from cluttering up the workspace.
+For example, all Logolib procedures bury themselves after they are called so that they don't show up when you run <link linkend="command-edall">EDALL</link>.
+</para>
+
+<para>
+Buried things can be completely restored to the workspace by unburying them (for example, with <link linkend="command-unbury">UNBURY</link>).
+</para>
+
+       &command-erase;
+       &command-erall;
+       &command-erps;
+       &command-erns;
+       &command-erpls;
+       &command-ern;
+       &command-erpl;
+       &command-bury;
+       &command-buryall;
+       &command-buryname;
+       &command-unbury;
+       &command-unburyall;
+       &command-unburyname;
+       &command-trace;
+       &command-untrace;
+       &command-step;
+       &command-unstep;
+       &command-edit;
+       &command-edall;
+       &command-edps;
+       &command-edns;
+       &command-edpls;
+       &command-edn;
+       &command-edpl;
+       &command-save;
+       &command-savel;
+       &command-load;
+    </section>
+
+   <section id="workspace-debug-commands">
+      <title>Debug Commands</title>
+
+       &command-nodes;
+       &command-status;
+       &command-nostatus;
+   </section>
+
+</chapter>

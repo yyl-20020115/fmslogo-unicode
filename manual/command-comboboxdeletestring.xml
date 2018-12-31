@@ -1,0 +1,49 @@
+<section id="command-comboboxdeletestring">
+    <title>COMBOBOXDELETESTRING</title>
+<indexterm><primary>COMBOBOXDELETESTRING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBOBOXDELETESTRING</command> <parameter>name</parameter> <parameter>index</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes the item at <parameter>index</parameter> from the listbox portion of a combobox that is identified by <parameter>name</parameter>.
+</para>
+
+<para>
+Combobox items are zero-indexed, which means that the first item in the combobox is at index 0, the second is at index 1, etc.
+</para>
+
+<para>
+If there are <parameter>index</parameter> items or fewer in the combobox, then the instruction does nothing.
+This is not considered an error.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+COMBOBOXCREATE "mywindow "mycombo 25 0 50 50
+COMBOBOXADDSTRING "mycombo [3]
+COMBOBOXADDSTRING "mycombo [4]
+COMBOBOXADDSTRING "mycombo [5]
+COMBOBOXADDSTRING "mycombo [6]
+COMBOBOXDELETESTRING "mycombo 1
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

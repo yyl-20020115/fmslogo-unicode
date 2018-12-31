@@ -1,0 +1,57 @@
+<section id="command-setpencolor">
+<title>SETPENCOLOR</title>
+<indexterm><primary>SETPENCOLOR</primary></indexterm>
+<indexterm><primary>SETPC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPENCOLOR</command> <parameter>color</parameter>
+<command>SETPENCOLOUR</command> <parameter>color</parameter>
+<command>SETPC</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pen color to <parameter>color</parameter>, which can either be a color index or a color vector.
+A color index is a number from 0 - 15.
+A color vector is a list of [red green blue] intensities, each in the range of 0 - 255.
+For an explanation of the <parameter>color</parameter> input, see the section on <link linkend="using-color">Using Color</link>.
+</para>
+
+<para>
+The pen color affects any line drawn by the turtle (such as <link linkend="command-forward">FORWARD</link>).
+It also affects text that is drawn with <link linkend="command-label">LABEL</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>REPEAT 255 [
+  SETPENCOLOR (LIST REPCOUNT 0 0)
+  FORWARD 100
+  BACK    100
+  RIGHT 1
+]</userinput>
+</programlisting>
+
+<programlisting><userinput>; using variables in a color vector
+MAKE "red   100
+MAKE "green 100
+MAKE "blue  100
+SETPENCOLOR [:red :green :blue]      ; error
+SETPENCOLOR (LIST :red :green :blue) ; works</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

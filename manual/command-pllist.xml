@@ -1,0 +1,38 @@
+<section id="command-pllist">
+    <title>PLLIST</title>
+<indexterm><primary>PLLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PLLIST</command> <parameter>plistname</parameter>
+<command>PLLIST</command> <parameter>plistnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of two empty lists followed by a list of the name or names given as input.
+The third sublist is taken to mean the names of property lists.
+This is useful in conjunction with workspace control procedures that require a contents list as input.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PLLIST [FOO BAR]</userinput>
+[[] [] [FOO BAR]]
+<userinput>PLLIST "abc</userinput>
+[[] [] [abc]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

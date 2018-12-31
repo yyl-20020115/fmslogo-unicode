@@ -1,0 +1,37 @@
+<section id="command-ashift">
+    <title>ASHIFT</title>
+<indexterm><primary>ASHIFT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ASHIFT</command> <parameter>int</parameter> <parameter>amount</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs <parameter>int</parameter> arithmetic-shifted to the left by <parameter>amount</parameter> bits.
+If <parameter>amount</parameter> is negative, the shift is to the right with sign extension.
+The inputs must be integers.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW ASHIFT 5 2</userinput>
+20
+<userinput>SHOW ASHIFT 20 -1</userinput>
+10
+<userinput>SHOW ASHIFT -20 -1</userinput>
+-10
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,49 @@
+<section id="command-setx">
+<title>PONX</title>
+<indexterm><primary>PONX</primary></indexterm>
+<indexterm><primary>SETX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONX</command> <parameter>xcor</parameter>
+<command>SETX</command> <parameter>xcor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a lo largo del eje X desde la posición actual a una nueva coordenada absoluta X.
+El argumento <parameter>xcor</parameter> es la nueva coordenada X.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONX 100
+PONY 100
+PONX 0
+PONY 0</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-xcor">COORX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+<member><link linkend="command-setz">PONZ</link></member>
+<member><link linkend="command-setxy">PONXY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

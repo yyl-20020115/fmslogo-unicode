@@ -1,0 +1,34 @@
+<section id="command-allopen">
+<title>ALLOPEN</title>
+<indexterm><primary>ALLOPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ALLOPEN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list whose members are the names of all files currently open.
+This list does not include the <link linkend="command-dribble">DRIBBLE</link> file.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy1.fil
+OPENWRITE "dummy2.fil
+SHOW ALLOPEN</userinput>
+[dummy1.fil dummy2.fil]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

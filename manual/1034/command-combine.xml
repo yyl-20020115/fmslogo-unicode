@@ -1,0 +1,35 @@
+<section id="command-combine">
+<title>COMBINA</title>
+<indexterm><primary>COMBINA</primary></indexterm>
+<indexterm><primary>COMBINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+  <synopsis><command>COMBINA</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>COMBINE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Combina ambos de sus argumentos en un solo valor.
+Si <parameter>cosa2</parameter> es una palabra, funciona como <link linkend="command-word">PALABRA</link>.
+Si <parameter>cosa2</parameter> es una lista, funciona como <link linkend="command-fput">PONPRIMERO</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA COMBINA "a "b</userinput>
+ab</programlisting>
+
+    <programlisting><userinput>MUESTRA COMBINA "a [b]</userinput>
+[a b]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

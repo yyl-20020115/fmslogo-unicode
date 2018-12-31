@@ -1,0 +1,52 @@
+<section id="command-labelsize">
+<title>LABELSIZE</title>
+<indexterm><primary>LABELSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LABELSIZE</command> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the size (width and height) of the given text if it were rendered with the <link linkend="command-label">LABEL</link> command.
+The input may be a word or a list.
+The output is a two item list [width height].
+</para>
+
+<para>
+The width and height are always output relative to the text, not the turtle's orientation.
+The width is the length of the text along the direction that words are read.
+The height is line height of <link linkend="command-labelfont">LABELFONT</link> and is independent of the <parameter>text</parameter> input.
+</para>
+
+<para>
+LABELSIZE's output may vary slightly depending on the turtle's orientation.
+For the best results, run LABELSIZE when the turtle's heading matches the heading when you run LABEL.
+</para>
+
+<para>
+You can use LABELSIZE to build other forms of LABEL, such as CENTERLABEL or VERTICALLABEL.
+You can also use this information to "prepare" a site for text (for example, frame it or set a background).
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETLABELFONT [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+SHOW LABELSIZE "Hello</userinput>
+[44 24]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

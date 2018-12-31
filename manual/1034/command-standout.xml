@@ -1,0 +1,39 @@
+<section id="command-standout">
+<title>STANDOUT</title>
+<indexterm><primary>STANDOUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>STANDOUT</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>STANDOUT aun no es soportado en &PRODUCTNAME;.</para></note>
+
+<para>
+En otros entornos de &GENERICNAME;, STANDOUT devuelve una palabra que, cuando se lo escribe, aparece como el argumento, pero en modo sobresaliente (en negrita, en vídeo inverso, o cualquier otro efecto empleado por tu terminal).
+La palabra devuelto contiene los caracteres mágicos específicos a tu terminal al frente y al fin; la <parameter>cosa</parameter> original queda como palabra entre esos caracteres en forma idéntica de que si se lo ha escrito con <link linkend="command-type">MUESTRAT</link>.
+Lo devuelto siempre es palabra, no importa el tipo original del argumento, pero pueda incluir espacios y otros caracteres de formato.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA (LISTA "Esto "es STANDOUT "muy "importante)</userinput>
+Esto es muy importante</programlisting>
+
+<programlisting><userinput>MUESTRA STANDOUT [1 2 3]</userinput>
+[1 2 3]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,96 @@
+<section id="command-fill">
+    <title>RELLENA</title>
+<indexterm><primary>RELLENA</primary></indexterm>
+<indexterm><primary>FILL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RELLENA</command>
+(<command>RELLENA</command> <parameter>modo</parameter>)
+<command>FILL</command>
+(<command>FILL</command> <parameter>modo</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Rellena de color una región de la pantalla, en la que se encuentra la tortuga y que está limitada por líneas previamente dibujadas.
+Por el color, RELLENA usa el valor actual <link linkend="command-floodcolor">COLORRELLENO</link>.
+</para>
+
+<para>
+Si <parameter>modo</parameter> es CIERTO, entonces RELLENA rellena hasta que se encuentra con el COLORLAPIZ actual.
+Si <parameter>modo</parameter> es FALSO o no es dado, entonces RELLENA rellena solo mientras que se encuentre sobre el mismo color.
+</para>
+
+<para>
+RELLENA se puede usar en modo PERSPECTIVA para rellenar de un determinado color las caras visibles de un objeto.
+Por ejemplo, de un cubo no dibujes las seis caras, sólo tres como máximo permanecen visibles, entonces dibujes solo esas tres y rellenalas.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Rellena un cuadrado:
+    <programlisting><userinput>REPITE 4 [AVANZA 100 GIRADERECHA 90]
+GIRADERECHA 45
+SUBELAPIZ
+AVANZA 20
+RELLENA</userinput>
+</programlisting>
+</para>
+
+<para>Rellena mientras que se encuentre sobre el mismo color:
+    <programlisting><userinput>PONCOLORRELLENO 4
+PONCOLORLAPIZ 1
+CIRCULO 50
+PONCOLORLAPIZ 2
+CIRCULO 100
+RELLENA</userinput>
+</programlisting>
+</para>
+
+<para>Rellena hasta que el color de las líneas coincide con COLORLAPIZ:
+    <programlisting><userinput>PONCOLORRELLENO 4
+PONCOLORLAPIZ 1
+CIRCULO 50
+PONCOLORLAPIZ 2
+CIRCULO 100
+(RELLENA "CIERTO)</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D:
+    <programlisting><userinput>PARA CUADRADO :color
+  REPITE 4 [AVANZA 100 GIRADERECHA 90]
+  SUBELAPIZ
+  GIRADERECHA 45
+  AVANZA 50
+  PONCOLORRELLENO :color
+  RELLENA
+  RETROCEDE 50
+  GIRAIZQUIERDA 45
+  BAJALAPIZ
+FIN
+
+PERSPECTIVA
+BALANCEADERECHA 45
+BAJANARIZ 45
+CUADRADO 1
+BALANCEADERECHA 90
+CUADRADO 2
+CABECEA 90
+CUADRADO 3</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,39 @@
+<section id="command-forward">
+<title>AVANZA</title>
+<indexterm><primary>AVANZA</primary></indexterm>
+<indexterm><primary>AV</primary></indexterm>
+<indexterm><primary>FORWARD</primary></indexterm>
+<indexterm><primary>FD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>AVANZA</command> <parameter>distancia</parameter>
+<command>AV</command> <parameter>distancia</parameter>
+<command>FORWARD</command> <parameter>distancia</parameter>
+<command>FD</command> <parameter>distancia</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga hacia adelante, en la dirección de su rumbo, a la <parameter>distancia</parameter> especificada (medida en pasos de la tortuga).
+El rumbo de la tortuga no cambia.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 4 [AVANZA 100 GIRADERECHA 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

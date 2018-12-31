@@ -1,0 +1,41 @@
+<section id="command-pon">
+    <title>IMDEFVAR</title>
+<indexterm><primary>IMDEFVAR</primary></indexterm>
+<indexterm><primary>PON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMDEFVAR</command> <parameter>nombre_de_variable</parameter>
+<command>IMDEFVAR</command> <parameter>lista_de_nombres</parameter>
+<command>PON</command> <parameter>nombre_de_variable</parameter>
+<command>PON</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las definiciones de las variables nombradas al flujo de escritura actual.
+IMDEFVAR es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-namelist">LISTANOMBRES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo 1
+HAZ "bar 2
+IMDEFVAR [foo bar]</userinput>
+haz "foo 1
+haz "bar 2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

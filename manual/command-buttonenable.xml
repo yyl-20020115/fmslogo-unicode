@@ -1,0 +1,40 @@
+<section id="command-buttonenable">
+    <title>BUTTONENABLE</title>
+<indexterm><primary>BUTTONENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTTONENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the button identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the button is enabled.
+If <parameter>state</parameter> equals FALSE, then the button is disabled.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+BUTTONCREATE "mywindow "mybutton "PUSH 25 25 25 25 [PRINT "pushed]
+BUTTONENABLE "mybutton "False</userinput>
+
+<replaceable>The button is now disabled</replaceable>
+
+<userinput>BUTTONENABLE "mybutton "True
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

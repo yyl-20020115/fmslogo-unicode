@@ -1,0 +1,47 @@
+<section id="command-remprop">
+    <title>REMPROP</title>
+<indexterm><primary>REMPROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REMPROP</command> <parameter>plistname</parameter> <parameter>propertyname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Removes the property named <parameter>propertyname</parameter> from the property list named <parameter>plistname</parameter>,
+if it exists.
+If REMPROP removes the final property from a property list, then the property list may be erased.
+</para>
+<para>
+The <parameter>plistname</parameter> input must be a word.
+</para>
+<para>
+The <parameter>propertyname</parameter> input may be word, list, or array.
+Property names are compared in the same manner as <link linkend="command-equalp">EQUALP</link> compares its inputs.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+PPROP "plist1 "p2 2
+SHOW PLIST "plist1</userinput>
+[p2 2 p1 1]
+<userinput>REMPROP "plist1 "p1
+SHOW PLIST "plist1</userinput>
+[p2 2]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

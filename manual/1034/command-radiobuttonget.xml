@@ -1,0 +1,42 @@
+<section id="command-radiobuttonget">
+    <title>RADIOBUTTONGET</title>
+<indexterm><primary>RADIOBUTTONGET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RADIOBUTTONGET</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the state (TRUE or FALSE) of the radio button that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO CHECKONTHINGS
+  IFELSE RADIOBUTTONGET "myhideturtle [HIDETURTLE] [SHOWTURTLE]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 60
+RADIOBUTTONCREATE "mywindow "mygroupbox "myhideturtle [Hide Turtle] 20 20 60 20
+RADIOBUTTONCREATE "mywindow "mygroupbox "myshowturtle [Show Turtle] 20 40 60 20
+RADIOBUTTONSET "myhideturtle "TRUE
+RADIOBUTTONSET "myshowturtle "FALSE
+BUTTONCREATE "mywindow "mybutton "Go 40 70 25 20 [CHECKONTHINGS]
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,37 @@
+<section id="command-fullscreen">
+<title>FULLSCREEN</title>
+<indexterm><primary>FULLSCREEN</primary></indexterm>
+<indexterm><primary>FS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FULLSCREEN</command>
+<command>FS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Undocks the commander window from the screen window so that you can resize it to maximize the space available for graphics.
+The commander window is always on top of the screen window, so you may find it useful to minimize the commander window after undocking it.
+</para>
+
+<para>
+Compare this command with <link linkend="command-splitscreen">SPLITSCREEN</link> and <link linkend="command-textscreen">TEXTSCREEN</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FULLSCREEN
+ICON "Commander</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

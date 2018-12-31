@@ -1,0 +1,36 @@
+<section id="command-log10">
+    <title>LOG10</title>
+<indexterm><primary>LOG10</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LOG10</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the common logarithm of <parameter>num</parameter>.
+That is, 10 raised to the output is <parameter>num</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW LOG10 1</userinput>
+0</programlisting>
+    <programlisting><userinput>SHOW LOG10 10</userinput>
+1</programlisting>
+    <programlisting><userinput>SHOW LOG10 100</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

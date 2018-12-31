@@ -1,0 +1,34 @@
+<section id="command-netshutdown">
+    <title>NETSHUTDOWN</title>
+<indexterm><primary>NETSHUTDOWN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NETSHUTDOWN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Turns off networking in &PRODUCTNAME;.
+No network procedure in &PRODUCTNAME; will work until you call <link linkend="command-netstartup">NETSTARTUP</link> again.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>NETSTARTUP
+NETSHUTDOWN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

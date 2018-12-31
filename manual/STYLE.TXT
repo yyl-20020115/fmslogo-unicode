@@ -1,0 +1,34 @@
+This is a brief overview of the style of the FMSLogo manual.
+
+Most of the style violations are checked by check-manual.pl, which is runnable
+with "make test".  This should be run before any change to the manual is
+committed.
+
+This document describes the style guidelines that are not checked
+programmatically.
+
+1) The manual uses the serial comma (also called a Oxford comma).
+   This is the third comma in the sentence:
+   A SQUARE consists of moving forward, turning left, and repeating four times.
+
+2) The voice is primarily formal and authoritative (to give confidence)
+   Where techinical accuracy is not compromised, it is also friendly and
+   encouraging, as if talking to a friend.
+   It is never condescending or insulting.
+   The use of "you" is preferred to "the programmer" or "the user".
+   The use of "you" is also an acceptable way to use the active voice.
+
+3) The documentation is generally in the present tense, not future tense.
+   For example "COMMAND does X", not "COMMAND will do X".
+
+4) Punctuation falls outside the quotation to clarify what's really intended
+   to be quoted.  For example: SHOW 123 prints "123".
+
+5) When giving examples, the explanation should be given outside the code
+   sample, as an introductory sentence (as opposed to inside the code
+   sample as a comment).
+   This is violated in many places and all of them should be fixed.
+   Ideally this would be enforced by check-manual.pl.
+
+6) Unless the specific context prevents it, procedure names are given in
+   all caps.  Variable names and property list names are given lowercase.

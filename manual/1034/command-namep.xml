@@ -1,0 +1,47 @@
+<section id="command-namep">
+    <title>VAR?</title>
+<indexterm><primary>VAR?</primary></indexterm>
+<indexterm><primary>NAMEP</primary></indexterm>
+<indexterm><primary>NAME?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VAR?</command> <parameter>nombre</parameter>
+<command>NAMEP</command> <parameter>nombre</parameter>
+<command>NAME?</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de una variable.
+Devuelve FALSO, si no.
+</para>
+
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+HAZ "xyz 1
+MUESTRA VAR? "ABC</userinput>
+falso
+
+<userinput>MUESTRA VAR? "xyz</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

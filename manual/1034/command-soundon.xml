@@ -1,0 +1,44 @@
+<section id="command-soundon">
+<title>SOUNDON</title>
+<indexterm><primary>SOUNDON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SOUNDON</command> <parameter>frequency</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Starts playing a sound on the PC speaker.
+The sound remains playing until you call <link linkend="command-soundoff">SOUNDOFF</link>.
+</para>
+
+<para>
+The <parameter>frequency</parameter> input is the frequency of the sound you want to hear.
+The larger the frequency the higher the pitch.
+</para>
+
+<para>
+SOUNDON does not work on Windows NT or Windows XP because it uses <link linkend="command-outport">OUTPORT</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SOUNDON 1000
+SOUNDOFF</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

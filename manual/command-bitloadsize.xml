@@ -1,0 +1,35 @@
+<section id="command-bitloadsize">
+    <title>BITLOADSIZE</title>
+<indexterm><primary>BITLOADSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITLOADSIZE</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Output the width and height of the bitmap that is specified by the <parameter>filename</parameter> input.
+The <parameter>filename</parameter> input must be a word that is the name of valid bitmap file.
+</para>
+<para>
+The output is a two-member list of the form [width height].
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW BITLOADSIZE "c:\\windows\\forest.bmp</userinput>
+[256 256]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

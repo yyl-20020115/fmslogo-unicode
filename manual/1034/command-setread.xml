@@ -1,0 +1,67 @@
+<section id="command-setread">
+<title>PONLECTUTRA</title>
+<indexterm><primary>PONLECTURA</primary></indexterm>
+<indexterm><primary>SETREAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONLECTURA</command> <parameter>nombre_de_archivo</parameter>
+<command>SETREAD</command> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el flujo de lectura al archivo llamado <parameter>nombre_de_archivo</parameter>.
+El flujo de lectura es usado por <link linkend="command-readlist">LEELISTA</link>, <link linkend="command-readword">LEEPALABRA</link>, etc.
+El archivo debe está abierto por <link linkend="command-openread">ABRELECTURA</link> o <link linkend="command-openupdate">ABREACTUALIZAR</link>.
+Si <parameter>nombre_de_archivo</parameter> es la lista vacía, entonces el flujo de lectura se vuelve el Centro de Comandos.
+</para>
+
+<para>
+Cambiando el flujo de lectura no cierra el archivo que fue previamente el flujo de lectura.
+Así que, es posible oscilar entre leyendo de archivos distintos.
+</para>
+
+<para>
+Si cierres (con <link linkend="command-close">CIERRA</link>) el archivo de la lectura actual, además de cerrar el archivo, el flujo de lectura se vuelve el Centro de Comandos.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+REPITE 2 [MUESTRA LEELISTA]</userinput>
+[Hola]
+[Adiós, Amigo]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setread">PONLECTURA</link></member>
+<member><link linkend="command-writer">ESCRITURA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

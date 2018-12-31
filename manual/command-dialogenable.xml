@@ -1,0 +1,45 @@
+<section id="command-dialogenable">
+    <title>DIALOGENABLE</title>
+<indexterm><primary>DIALOGENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIALOGENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the dialog identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the window is enabled.
+If <parameter>state</parameter> equals FALSE, then the window is disabled.
+</para>
+
+<para>
+Be careful when using DIALOGENABLE to disable a dialog.
+Because DIALOGCREATE doesn't stop until the dialog closes, if you disable the dialog box, the user may not be able to close the dialog, which means &PRODUCTNAME; may get stuck waiting forever.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO MYSETUP
+  BUTTONCREATE "mydialog "mydisable "Disable 25 25 50 20 [DIALOGENABLE "mydialog "false]
+  BUTTONCREATE "mydialog "myok      "OK      25 50 50 20 [DIALOGDELETE "mydialog]
+END
+
+DIALOGCREATE "main "mydialog "mytitle 0 0 100 100 [MYSETUP]</userinput>
+<replaceable>Clicking the "Disable" button causes &PRODUCTNAME; to lock up</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,40 @@
+<section id="command-erpls">
+    <title>BPROPS</title>
+<indexterm><primary>BPROPS</primary></indexterm>
+<indexterm><primary>ERPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BPROPS</command>
+<command>ERPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra todas las listas de propiedades no tapadas en el área de trabajo.
+BPROPS es la abreviatura de <userinput><link linkend="command-erase">BORRA</link> <link linkend="command-plists">LPROPS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1 1
+PONPROP "lprop2 "p2 2
+IMPROPS</userinput>
+ponprop "lprop1 "p1 1
+ponprop "lprop2 "p2 1
+<userinput>BPROPS
+IMPROPS</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

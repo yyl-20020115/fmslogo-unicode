@@ -1,0 +1,33 @@
+<section id="command-textscreen">
+<title>PANTALLATEXTO</title>
+<indexterm><primary>PANTALLATEXTO</primary></indexterm>
+<indexterm><primary>PT</primary></indexterm>
+<indexterm><primary>TEXTSCREEN</primary></indexterm>
+<indexterm><primary>TS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PANTALLATEXTO</command>
+<command>PT</command>
+<command>TEXTSCREEN</command>
+<command>TS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Desempotra el Centro de Comandos de la pantalla para que puedas cambiar su tamaño y así maximizar el espacio disponible para interacciones de texto.
+</para>
+
+<para>
+Compara este comando con <link linkend="command-splitscreen">PANTALLAPARTIDA</link> y <link linkend="command-fullscreen">PANTALLAGRAFICA</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

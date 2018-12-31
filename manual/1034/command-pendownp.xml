@@ -1,0 +1,48 @@
+<section id="command-pendownp">
+<title>BAJALAPIZ?</title>
+<indexterm><primary>BAJALAPIZ?</primary></indexterm>
+<indexterm><primary>PENDOWN?</primary></indexterm>
+<indexterm><primary>PENDOWNP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BAJALAPIZ?</command>
+<command>PENDOWNP</command>
+<command>PENDOWN?</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el lápiz está bajado y FALSO, si no lo está.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SUBELAPIZ
+MUESTRA BAJALAPIZ?</userinput>
+falso</programlisting>
+
+<programlisting><userinput>BAJALAPIZ
+MUESTRA BAJALAPIZ?</userinput>
+cierto</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-penup">SUBELAPIZ</link></member>
+<member><link linkend="command-pendown">BAJALAPIZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

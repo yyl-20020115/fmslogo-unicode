@@ -1,0 +1,30 @@
+<section id="command-setpenpattern">
+    <title>PONPATRONLAPIZ</title>
+<indexterm><primary>PONPATRONLAPIZ</primary></indexterm>
+<indexterm><primary>SETPENPATTERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPATRONLAPIZ</command> <parameter>patrón</parameter>
+<command>SETPENPATTERN</command> <parameter>patrón</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>No se soporta PONPATRONLAPIZ en &PRODUCTNAME;.</para></note>
+
+<para>
+Pone las características del lápiz dependientes del «hardware».
+No se garantiza que PONPATRONLAPIZ sea compatible ni entre distintos entornos de &GENERICNAME; ni entre distintos computadoras.
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

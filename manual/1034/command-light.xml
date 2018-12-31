@@ -1,0 +1,40 @@
+<section id="command-light">
+<title>LUZ</title>
+<indexterm><primary>LUZ</primary></indexterm>
+<indexterm><primary>LIGHT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LUZ</command>
+<command>LIGHT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve las propiedades de iluminación en una lista de dos números con los valores de Ambiente y Difusión.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONLUZ [0.3 0.6]
+MUESTRA LUZ</userinput>
+[0.3 0.6]</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setlight">PONLUZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

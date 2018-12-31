@@ -1,0 +1,47 @@
+<section id="command-reverse">
+    <title>REVERSE</title>
+<indexterm><primary>REVERSE</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REVERSE</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the reverse of its input.
+</para>
+
+<para>
+If <parameter>thing</parameter> is a list, then REVERSE outputs a list with the same members in the reverse order.
+</para>
+
+<para>
+If <parameter>thing</parameter> is a word, then REVERSE outputs a word with the same letters in the reverse order.
+</para>
+
+<para>
+REVERSE throws an error if <parameter>thing</parameter> is an array.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW REVERSE [1 2 3]</userinput>
+[3 2 1]</programlisting>
+
+<programlisting><userinput>SHOW REVERSE "abc</userinput>
+cba</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

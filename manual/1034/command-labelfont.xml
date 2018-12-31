@@ -1,0 +1,40 @@
+<section id="command-labelfont">
+<title>TIPO</title>
+<indexterm><primary>TIPO</primary></indexterm>
+<indexterm><primary>LABELFONT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TIPO</command>
+<command>LABELFONT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que describe el tipo de letra que usa actualmente el comando <link linkend="command-label">ROTULO</link>.
+</para>
+
+<para>
+La devuelta es una lista de la forma: <userinput>[[NombreDeFamilia] Altura Anchura Orientación Peso Itálica Subrayado Tachada ConjuntoDeCaracteres PrecisiónDeSalida PrecisiónDeRecorte Cualidad InclinaciónyFamilia]</userinput>.
+Ve <link linkend="command-setlabelfont">PONTIPO</link> para una definición de cada elemento de esta lista.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONTIPO [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+MUESTRA TIPO</userinput>
+[[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,120 @@
+<section id="command-windowset">
+    <title>ACTIVAVENTANA</title>
+<indexterm><primary>ACTIVAVENTANA</primary></indexterm>
+<indexterm><primary>WINDOWSET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ACTIVAVENTANA</command> <parameter>título</parameter> <parameter>modo</parameter>
+<command>WINDOWSET</command> <parameter>título</parameter> <parameter>modo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el «modo» (por ejemplo, oculta, visible, etc.) a la ventana cuyo título es <parameter>título</parameter>.
+Es un procedimiento para expertos.
+Con ésta puedes perder el control de &PRODUCTNAME; si no llevas cuidado, por lo que debes guardar su trabajo frecuentemente.
+</para>
+
+<para>
+El argumento <parameter>modo</parameter> debe ser un entero.
+La tabla siguiente muestra los valores aceptables y sus significados.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Modo</entry> <entry>Significado</entry></row>
+    </thead>
+    <tbody>
+
+      <row>
+        <entry>0</entry>
+        <entry>Oculta la ventana y activa otra ventana.</entry>
+      </row>
+
+      <row>
+        <entry>1</entry>
+        <entry>Activa y despliega una ventana.
+               Si la ventana está minimizada o maximizada, restaura la ventana a su tamaño y posición original.
+               Una aplicación debería especificar este valor cuando despliega una ventana por primera vez.</entry>
+      </row>
+
+      <row>
+        <entry>2</entry>
+        <entry>Activa una ventana y la despliega minimizada.</entry>
+      </row>
+
+      <row>
+        <entry>3</entry>
+        <entry>Activa una ventana y la despliega maximizada.</entry>
+      </row>
+
+      <row>
+        <entry>4</entry>
+        <entry>Despliega una ventana como minimizada.
+               La ventana activa permanece activa.</entry>
+      </row>
+
+      <row>
+        <entry>5</entry>
+        <entry>Activa una ventana y la despliega en su tamaño y posición actual.</entry>
+      </row>
+
+      <row>
+        <entry>6</entry>
+        <entry>Minimiza la ventana especificada y activa la siguiente ventana superior en el orden Z.</entry>
+      </row>
+
+      <row>
+        <entry>7</entry>
+        <entry>Despliega una ventana con su tamaño y posición más recientes.
+               La ventana activa permanece activa.</entry>
+      </row>
+
+      <row>
+        <entry>8</entry>
+        <entry>Despliega una ventana en su estado actual.
+               La ventana activa permanece activa.</entry>
+      </row>
+
+      <row>
+        <entry>9</entry>
+        <entry>Activa y despliega una ventana.
+               Si la ventana está minimizada o maximizada, restaura la ventana a su tamaño y posición original.
+               Una aplicación debería especificar este valor cuando restaura una ventana minimizada.</entry>
+      </row>
+
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA OCULTA_Y_RESTAURA
+  BORRAPANTALLA
+  GIRADERECHA 90
+  ROTULO [Volveré en dos segundos]
+  ESPERA 120
+  ACTIVAVENTANA "&PRODUCTNAME; 0 ; oculta
+  ESPERA 120
+  ACTIVAVENTANA "&PRODUCTNAME; 1 ; restaura
+FIN
+
+OCULTA_Y_RESTAURA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,76 @@
+<section id="command-setlight">
+<title>PONLUZ</title>
+<indexterm><primary>PONLUZ</primary></indexterm>
+<indexterm><primary>SETLIGHT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONLUZ</command> <parameter>propiedades</parameter>
+<command>SETLIGHT</command> <parameter>propiedades</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Establece cómo <link linkend="command-polyview">MUESTRAPOLIGONO</link> ilumina los polígonos.
+El argumento <parameter>propiedades</parameter> es una lista de dos números en un rango de 0,0 a 1,0, la cantidad de ambiente y luz difusa.
+Ambiente define cómo se ilumina la escena, mientras mayor sea, más luminosa será la luz.
+Luz difusa no es una propiedad de la fuente luminosa misma, sino indica cuanto lisa es la superficie (cuanto esparce la luz).
+Un valor alto significa que los objetos son más lisos y reflectores (como un mármol) un valor bajo significa que los objetos son ásperos (como la tiza).
+</para>
+
+<para>
+Para posicionar la luz usa a <userinput>ACTIVA -3</userinput>.
+</para>
+
+<para>
+Se diseñaba PONLUZ para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Mientras que PONLUZ sí ejecuta en modos 2D, no se puede observar su efecto sin MUESTRAPOLIGONO.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Un ejemplo simple:
+<programlisting><userinput>PONLUZ [0.3 0.6]
+MUESTRA LUZ</userinput>
+[0.3 0.6]</programlisting>
+</para>
+
+<para>Un espectáculo de luz:
+    <programlisting><userinput>PARA CUADRADO
+  EMPIEZAPOLIGONO
+  REPITE 4 [AVANZA 100 GIRADERECHA 90]
+  TERMINAPOLIGONO
+FIN
+
+PERSPECTIVA
+REPITE 72 [CUADRADO BALANCEADERECHA 5]
+MUESTRAPOLIGONO
+
+REPITE 10 [
+  PONLUZ (LISTA (AZAR 100)/100 (AZAR 100)/100)
+  MUESTRA LUZ
+  ESPERA 60
+]</userinput></programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-light">LUZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

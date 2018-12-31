@@ -1,0 +1,76 @@
+<section id="command-setturtle">
+<title>SETTURTLE</title>
+<indexterm><primary>SETTURTLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETTURTLE</command> <parameter>index</parameter>
+(<command>SETTURTLE</command> <parameter>index</parameter> <parameter>hasownpen</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Selects turtle <parameter>index</parameter> for control.
+If the turtle was not previously activated, then all turtles from zero to <parameter>index</parameter> are activated.
+From now until you select a different turtle, all turtle commands refers to the newly selected turtle.
+</para>
+
+<para>
+Normally, all turtles share the same <link linkend="command-penmode">PENMODE</link>, <link linkend="command-pensize">PENSIZE</link> and <link linkend="command-pencolor">PENCOLOR</link>.
+However, if you supply the optional boolean <parameter>hasownpen</parameter> input as <userinput>"true</userinput>, then the selected turtle, as well as all newly activated turtles, have their own PENMODE, PENSIZE, and PENCOLOR.
+You also can change a previously activated turtle to use its own pen (or not) by specifying a <parameter>hasownpen</parameter> input.
+</para>
+
+<para>
+If no <parameter>hasownpen</parameter> input is given and SETTURTLE does not activate any new turtles, then the selected turtle's pen remains unchanged.
+If no <parameter>hasownpen</parameter> input is given and SETTURTLE activates a new turtle, then the new turtle uses the shared pen (the one that &PRODUCTNAME; initally gave to turtle 0 when it started).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+An example in 2D:
+<programlisting><userinput>REPEAT 8 [SETTURTLE REPCOUNT RIGHT REPCOUNT*30 FORWARD 20*REPCOUNT]</userinput>
+</programlisting>
+</para>
+
+<para>
+An example in 3D that draws a cube from the default vantage point:
+<programlisting><userinput>PERSPECTIVE
+CLEARSCREEN
+REPEAT 4 [REPEAT 4 [FORWARD 100 RIGHT 90] FORWARD 100 DOWNPITCH 90]</userinput></programlisting>
+</para>
+
+<para>
+An example in 3D that uses SETTURTLE to draw the same cube from a different vantage point:
+<programlisting><userinput>PERSPECTIVE
+CLEARSCREEN
+SETTURTLE -1       ; Select the "eye position" turtle
+SETXYZ 500 500 500 ; Move the vantage point
+
+; Draw a cube from the new vantage point.
+SETTURTLE 0
+REPEAT 4 [REPEAT 4 [FORWARD 100 RIGHT 90] FORWARD 100 DOWNPITCH 90]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-turtle">TURTLE</link></member>
+<member><link linkend="command-turtles">TURTLES</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,44 @@
+<section id="command-ingameport">
+<title>INGAMEPORT</title>
+<indexterm><primary>INGAMEPORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>INGAMEPORT</command> <parameter>mask</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads the value (or resistance across) the game port channel specified by <parameter>mask</parameter>.
+The <parameter>mask</parameter> input must be either 1, 2, 4, or 8.
+If <parameter>mask</parameter> is 1, then INGAMEPORT reads the x-axis.
+If <parameter>mask</parameter> is 2, then INGAMEPORT reads the y-axis.
+If <parameter>mask</parameter> is 4, then INGAMEPORT reads the rudder.
+If <parameter>mask</parameter> is 8, then INGAMEPORT reads the z-axis.
+You can read the button states using <userinput>INPORT 513</userinput>.
+</para>
+
+<para>
+INGAMEPORT outputs -1 if nothing is connected to the game port or if the <parameter>mask</parameter> input is an unsupported value.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+<programlisting><userinput>REPEAT 10000 [SHOW INGAMEPORT 1 WAIT 10]</userinput>
+</programlisting>
+Now move the Joystick around.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

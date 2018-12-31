@@ -1,0 +1,46 @@
+<section id="command-setpen">
+<title>PONLAPIZ</title>
+<indexterm><primary>PONLAPIZ</primary></indexterm>
+<indexterm><primary>SETPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONLAPIZ</command> <parameter>características</parameter>
+<command>SETPEN</command> <parameter>características</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición del lápiz, el modo y las características dependientes del hardware de acuerdo con la información del argumento <parameter>características</parameter>.
+El argumento <parameter>características</parameter> debe ser una lista con los elementos siguientes: [BAJALAPIZ? LAPIZMODO GROSOR COLORLAPIZ PATRONLAPIZ].
+El formato de esta lista puede cambiar en versiones futuras de &PRODUCTNAME;, a medida que se añade características adicionales.
+Para garantizar la compatibilidad de tu programa, el argumento debería ser una lista devuelta de una ejecución previa de <link linkend="command-pen">LAPIZ</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>BORRAPANTALLA
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+HAZ "lapizguardado LAPIZ
+
+BORRAPANTALLA
+PONGROSOR [20 20]
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+PONLAPIZ :lapizguardado
+
+BORRAPANTALLA
+REPITE 4 [AVANZA 100 GIRADERECHA 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

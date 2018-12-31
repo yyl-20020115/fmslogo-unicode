@@ -1,0 +1,50 @@
+<section id="command-eofp">
+<title>EOFP</title>
+<indexterm><primary>EOFP</primary></indexterm>
+<indexterm><primary>EOF?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EOFP</command>
+<command>EOF?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if there are no more characters to be read in the read stream file, FALSE otherwise.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST SHOW EOFP]</userinput>
+[Hello]
+false
+[Good Bye]
+true
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

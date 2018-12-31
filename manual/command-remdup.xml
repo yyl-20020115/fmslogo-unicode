@@ -1,0 +1,41 @@
+<section id="command-remdup">
+<title>REMDUP</title>
+<indexterm><primary>REMDUP</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REMDUP</command> <parameter>things</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a copy of its input with duplicate members removed.
+If two or more members of the input are equal, the rightmost of those members is the one that remains in the output.
+</para>
+
+<para>
+REMDUP throws an error if <parameter>things</parameter> is an array.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW REMDUP [a b c c b]</userinput>
+[a c b]</programlisting>
+
+<programlisting><userinput>SHOW REMDUP "Hello</userinput>
+Helo</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

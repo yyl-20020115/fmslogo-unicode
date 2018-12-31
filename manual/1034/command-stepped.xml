@@ -1,0 +1,42 @@
+<section id="command-stepped">
+<title>LISTAPASO</title>
+<indexterm><primary>LISTAPASO</primary></indexterm>
+<indexterm><primary>STEPPED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTAPASO</command>
+<command>STEPPED</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos que contiene los nombres de todos los elementos del área de trabajo que están afectados por <link linkend="command-step">PASO</link>.
+Es una lista de tres listas: los nombres de los procedimientos, los nombres de las variables y los nombres las listas de propiedades.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIAVANZA
+  AVANZA 10
+FIN
+
+MUESTRA LISTAPASO</userinput>
+[[] [] []]
+<userinput>PASO "MIAVANZA
+MUESTRA LISTAPASO</userinput>
+[[miavanza] [] []]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

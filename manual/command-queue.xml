@@ -1,0 +1,43 @@
+<section id="command-queue">
+<title>QUEUE</title>
+<indexterm><primary>QUEUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>QUEUE</command> <parameter>queuename</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Adds a thing to the back of a queue whose name is <parameter>queuename</parameter>.</para>
+
+<para>This variable must have a list as its value; the initial value should be the empty list.
+New members are added at the back of the list.
+Later, you can <link linkend="command-dequeue">DEQUEUE</link> value from the queue.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>MAKE "myqueue []
+QUEUE "myqueue 1
+QUEUE "myqueue 2
+QUEUE "myqueue 3
+SHOW :myqueue</userinput>
+[1 2 3]
+
+<userinput>SHOW DEQUEUE "myqueue</userinput>
+1
+
+<userinput>SHOW :myqueue</userinput>
+[2 3]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

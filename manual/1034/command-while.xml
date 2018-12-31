@@ -1,0 +1,46 @@
+<section id="command-while">
+    <title>MIENTRAS</title>
+<indexterm><primary>MIENTRAS</primary></indexterm>
+<indexterm><primary>WHILE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MIENTRAS</command> <parameter>lista_de_prueba</parameter> <parameter>lista_de_instrucciones</parameter>
+<command>WHILE</command> <parameter>lista_de_prueba</parameter> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta repetidamente la <parameter>lista_de_instrucciones</parameter> mientras que <parameter>lista_de_prueba</parameter> evalúa a CIERTO.
+MIENTRAS evalúa <parameter>lista_de_prueba</parameter> antes de evaluar <parameter>lista_de_instrucciones</parameter>, así que es posible que no se ejecuta <parameter>lista_de_instrucciones</parameter> ni una vez.
+El argumento <parameter>lista_de_prueba</parameter> debe contener una expresión que evalúa a CIERTO o FALSO.
+</para>
+
+<para>
+El hecho de que el argumento <parameter>lista_de_prueba</parameter> es una lista pueda engañar porque debería contener exactamente una expresión.
+Sólo es una lista para aplazar cuando se lo evalúa.
+Por ser una lista, se necesita evaluarlo explícitamente con <link linkend="command-run">EJECUTA</link>.
+Esto permite que MIENTRAS reevalúa <parameter>lista_de_prueba</parameter> antes de cada iteración, en lugar de sólo una vez.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "i 0
+MIENTRAS [:i &lt; 3] [HAZ "i :i+1 ESCRIBE :i]</userinput>
+1
+2
+3
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

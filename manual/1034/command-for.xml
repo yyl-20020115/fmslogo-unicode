@@ -1,0 +1,92 @@
+<section id="command-for">
+    <title>DESDE</title>
+<indexterm><primary>DESDE</primary></indexterm>
+<indexterm><primary>FOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESDE</command> <parameter>lista_de_control</parameter> <parameter>lista_de_instrucciones</parameter>
+<command>FOR</command> <parameter>lista_de_control</parameter> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+DESDE es una herramienta flexible para la iteración.
+</para>
+
+<para>
+El argumento <parameter>lista_de_control</parameter> controla como ocurre la iteración.
+Debe ser una lista con tres o cuatro miembros.
+En orden, son:
+
+<orderedlist>
+
+<listitem>
+<para>
+Una palabra que se usa como el nombre del «variable de control».
+Esta variable es local al procedimiento.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Una palabra o lista que se evalúa para obtener el valor inicial de la variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Una palabra o lista que se evalúa para obtener un número, el valor límite de la variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Una palabra o lista opcional que se evalúa para obtener el tamaño del incremento.
+Si falta el cuarto miembro tendrá el valor 1 o –1, dependiendo de si el valor límite sea mayor o menor que el valor inicial.
+</para>
+</listitem>
+</orderedlist>
+</para>
+
+<para>
+El argumento <parameter>lista_de_instrucciones</parameter> contiene las instrucciones que DESDE ejecuta en cada iteración.
+</para>
+
+<para>
+El efecto de DESDE es que se ejecuta repetidamente las instrucciones contenidas en <parameter>lista_de_instrucciones</parameter>, y asigna un nuevo valor a la variable de control en cada iteración.
+Primero asigna el valor inicial a la variable de control y compara ese valor al valor límite.
+La ejecución termina cuando el signo de (actual - límite) es lo mismo que el signo del tamaño de incremento.
+En otro caso, se ejecutan las instrucciones contenidas en <parameter>lista_de_instrucciones</parameter>, se incrementa la variable de control por el valor del incremento y se vuelve a la comparación.
+</para>
+
+<para>
+Si no hay un tamaño de incremento, entonces se ejecuta <parameter>lista_de_instrucciones</parameter> al menos una vez.
+Con un tamaño de incremento explicito, se puede conseguir que DESDE nunca ejecutara <parameter>lista_de_instrucciones</parameter> (por ejemplo, <userinput>DESDE [i 1 0 1] [<replaceable>...</replaceable>]</userinput>).
+</para>
+
+<para>
+En muchos casos, puedes reescribir una instrucción DESDE en términos de <link linkend="command-repeat">REPITE</link> y <link linkend="command-repcount">CUENTAREPITE</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DESDE [i 2 7 1.5] [ESCRIBE :i]</userinput>
+2
+3.5
+5
+6.5
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

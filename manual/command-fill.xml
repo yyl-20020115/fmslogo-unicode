@@ -1,0 +1,94 @@
+<section id="command-fill">
+    <title>FILL</title>
+<indexterm><primary>FILL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FILL</command>
+(<command>FILL</command> <parameter>fillmode</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Fills in a region of the graphics window containing the turtle and bounded by lines that have been drawn earlier.
+It fills using the current value of <link linkend="command-floodcolor">FLOODCOLOR</link>.
+</para>
+
+<para>
+If <parameter>fillmode</parameter> is TRUE, then FILL fills until the current PENCOLOR is encountered.
+If <parameter>fillmode</parameter> is FALSE, then FILL fills while on same color.
+If <parameter>fillmode</parameter> is not given, it defaults to FALSE.
+</para>
+
+<para>
+FILL can be used in <link linkend="command-perspective">PERSPECTIVE</link> mode as long as the area to filled is bounded and you only fill what's in plain view.
+For example if you have a cube don't draw all 6 faces, only 3 at most can be in view, so draw just those faces and fill them.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>Fill a square:
+    <programlisting><userinput>REPEAT 4 [FORWARD 100 RIGHT 90]
+RIGHT 45
+PENUP
+FORWARD 20
+FILL</userinput>
+</programlisting>
+</para>
+
+<para>Fill while on the same color:
+    <programlisting><userinput>SETFLOODCOLOR 4
+SETPENCOLOR 1
+CIRCLE 50
+SETPENCOLOR 2
+CIRCLE 100
+FILL</userinput>
+</programlisting>
+</para>
+
+<para>Fill until the lines match PENCOLOR:
+    <programlisting><userinput>SETFLOODCOLOR 4
+SETPENCOLOR 1
+CIRCLE 50
+SETPENCOLOR 2
+CIRCLE 100
+(FILL "TRUE)</userinput>
+</programlisting>
+</para>
+
+<para>A 3D example:
+    <programlisting><userinput>TO SQUARE :color
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+  PENUP
+  RIGHT 45
+  FORWARD 50
+  SETFLOODCOLOR :color
+  FILL
+  BACK 50
+  LEFT 45
+  PENDOWN
+END
+
+PERSPECTIVE
+RIGHTROLL 45
+DOWNPITCH 45
+SQUARE 1
+RIGHTROLL 90
+SQUARE 2
+UPPITCH 90
+SQUARE 3</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

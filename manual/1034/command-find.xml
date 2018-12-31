@@ -1,0 +1,55 @@
+<section id="command-find">
+    <title>ENCUENTRA</title>
+<indexterm><primary>ENCUENTRA</primary></indexterm>
+<indexterm><primary>FIND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ENCUENTRA</command> <parameter>plantilla_de_prueba</parameter> <parameter>datos</parameter>
+<command>FIND</command> <parameter>plantilla_de_prueba</parameter> <parameter>datos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el primer elemento del argumento <parameter>datos</parameter> por lo cual la evaluación de <parameter>plantilla_de_prueba</parameter> con este elemento es CIERTO.
+Si no hay un tal elemento, entonces ENCUENTRA devuelve la lista vaciá.
+</para>
+
+<para>
+En una plantilla, los símbolos <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> representan el porción de los datos a la derecha del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> por <userinput>[C D E]</userinput>.
+</para>
+
+<para>
+Se usa el símbolo <userinput>?RESTANTE</userinput> sólo en la versión de &PRODUCTNAME; española.
+Se usa <userinput>?REST</userinput> en todas las versiones de &PRODUCTNAME;.
+</para>
+
+<para>
+En una plantilla, el símbolo <userinput>#</userinput> representa la posición en <parameter>datos</parameter> del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>#</userinput> por <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA NEGATIVO? :arg
+  DEVUELVE :arg &lt; 0
+FIN
+
+MUESTRA ENCUENTRA "NEGATIVO? [2 4 3 0]</userinput>
+[]
+<userinput>MUESTRA ENCUENTRA "NEGATIVO? [2 1 0 -3 -6]</userinput>
+-3
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,39 @@
+<section id="command-zcor">
+<title>COORZ</title>
+<indexterm><primary>COORZ</primary></indexterm>
+<indexterm><primary>ZCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COORZ</command>
+<command>ZCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un número, la coordenada Z de la tortuga.
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+PONZ 100
+MUESTRA COORZ</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

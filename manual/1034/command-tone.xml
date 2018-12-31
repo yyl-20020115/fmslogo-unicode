@@ -1,0 +1,52 @@
+<section id="command-tone">
+<title>TONE</title>
+<indexterm><primary>TONE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TONE</command> <parameter>frequency</parameter> <parameter>duration</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Plays a tone on the PC speaker.
+</para>
+
+<para>
+The <parameter>frequency</parameter> input must be a number and is measured in hertz (cycles per second).
+The larger the frequency the higher the pitch.
+</para>
+
+<para>
+The <parameter>duration</parameter> input must be a number and is measured in milliseconds.
+The larger the duration the longer the tone plays for.
+</para>
+
+<para>
+&PRODUCTNAME; cannot respond to user control while it plays a tone.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>TONE 1000 200</userinput>
+</programlisting>
+
+<programlisting><userinput>REPEAT 50 [ TONE REPCOUNT * 10 50 ]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

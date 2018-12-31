@@ -1,0 +1,37 @@
+<section id="command-setmargins">
+    <title>SETMARGINS</title>
+<indexterm><primary>SETMARGINS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETMARGINS</command> <parameter>margins</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>SETMARGINS is not supported (or needed) in &PRODUCTNAME;.</para></note>
+
+<para>
+In other &GENERICNAME; environments, SETMARGINS clears the text screen and then arrange for all further printing to be shifted down and to the right according to the <parameter>margins</parameter> input, effectively adding margins to the text screen.
+Specifically, every time a newline character is printed (explicitly or implicitly) &GENERICNAME; types x_margin spaces, and on every invocation of SETCURSOR the margins are added to the input x and y coordinates.
+(<link linkend="command-cursor">CURSOR</link> reports the cursor position relative to the margins, so this shift is invisible to &GENERICNAME; programs.)
+</para>
+
+<para>
+The input is a list of two numbers, as for <link linkend="command-setcursor">SETCURSOR</link>.
+</para>
+
+<para>
+The purpose of this command is to accommodate the display of screens in lecture halls with inadequate TV monitors that miss the top and left edges of the screen.
+This is not necessary in &PRODUCTNAME;, as the window can just be moved to the visible portion of the TV monitor.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

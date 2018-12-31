@@ -1,0 +1,36 @@
+<section id="command-popls">
+    <title>IMPROPS</title>
+<indexterm><primary>IMPROPS</primary></indexterm>
+<indexterm><primary>POPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMPROPS</command>
+<command>POPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe todas las propiedades de todas las listas de propiedades no tapadas del área de trabajo al flujo de escritura actual.
+IMPROPS es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-plists">LPROPS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1 1
+IMPROPS</userinput>
+ponprop "lprop1 "p1 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

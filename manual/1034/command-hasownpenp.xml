@@ -1,0 +1,49 @@
+<section id="command-hasownpenp">
+<title>HASOWNPEN?</title>
+<indexterm><primary>HASOWNPEN?</primary></indexterm>
+<indexterm><primary>HASOWNPENP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HASOWNPEN?</command>
+<command>HASOWNPENP</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si la tortuga actual tiene su propio <link linkend="command-penmode">LAPIZMODO</link>, <link linkend="command-pensize">GROSOR</link> y <link linkend="command-pencolor">COLORLAPIZ</link>.
+Devuelve FALSO si la tortuga actual comparte su control de lápiz con otras tortugas.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ACTIVA 1
+MUESTRA HASOWNPEN?</userinput>
+falso
+</programlisting>
+
+<programlisting><userinput>(ACTIVA 1 "cierto)
+MUESTRA HASOWNPEN?</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-setturtle">ACTIVA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

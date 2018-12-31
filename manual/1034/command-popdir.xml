@@ -1,0 +1,45 @@
+<section id="command-popdir">
+<title>POPDIR</title>
+<indexterm><primary>POPDIR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POPDIR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Pops you up (1 level) out of a directory.
+It is equivalent to:
+<programlisting><userinput>CHDIR "..</userinput></programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CHDIR "Examples</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;\Examples"
+
+<userinput>POPDIR</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;"
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-chdir">CHDIR</link></member>
+<member><link linkend="command-mkdir">MKDIR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>
+

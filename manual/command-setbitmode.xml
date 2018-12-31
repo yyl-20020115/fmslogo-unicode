@@ -1,0 +1,91 @@
+<section id="command-setbitmode">
+<title>SETBITMODE</title>
+<indexterm><primary>SETBITMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETBITMODE</command> <parameter>mode</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the current bitmap mode according to <parameter>mode</parameter>.
+The <parameter>mode</parameter> input must be a number from 1 to 9.
+The meaning of each value is given by the following table:
+
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Mode</entry> <entry>Meaning</entry></row>
+    </thead>
+    <tbody>
+      <row><entry>1</entry> <entry>Take copy of memory then copy to screen</entry></row>
+      <row><entry>2</entry> <entry>Take copy of memory OR with copy of screen then copy to screen</entry></row>
+      <row><entry>3</entry> <entry>Take copy of memory AND with copy of screen then copy to screen</entry></row>
+      <row><entry>4</entry> <entry>Take copy of memory XOR with copy of screen then copy to screen</entry></row>
+      <row><entry>5</entry> <entry>Take copy of memory AND with invert of screen then copy to screen</entry></row>
+      <row><entry>6</entry> <entry>Take invert of memory then copy to screen</entry></row>
+      <row><entry>7</entry> <entry>Take copy of memory OR with copy of screen then invert to screen</entry></row>
+      <row><entry>8</entry> <entry>Take invert of memory OR with copy of screen then copy to screen</entry></row>
+      <row><entry>9</entry> <entry>Take invert of screen then copy to screen</entry></row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+The purpose of SETBITMODE is to allow images to be pasted using different methods.
+Sometimes you want the background erased and sometimes not.
+Sometimes you wish to invert the image before pasting it and sometimes not.
+</para>
+
+<para>
+Use <link linkend="command-bitmode">BITMODE</link> to obtain the current setting.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; Fill the screen with white
+SETSCREENCOLOR [255 255 255]
+
+; Draw a circle and fill it with red
+PENDOWN
+CIRCLE 50
+SETFLOODCOLOR [255 0 0]
+FILL
+
+; Copy the red circle to the clipboard
+PENUP
+SETXY -50 -50
+BITCOPY 101 101
+
+; Fill the screen with yellow
+SETSCREENCOLOR [255 255 0]
+
+; Paste by simply copying the image onto the background
+SETBITMODE 1
+BITPASTE
+; Notice how the white background still exists
+
+; Fill the screen with yellow
+SETSCREENCOLOR [255 255 0]
+
+; Now, paste by AND-ing the image onto the background
+SETBITMODE 3
+BITPASTE
+; Notice the white background disappeared</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

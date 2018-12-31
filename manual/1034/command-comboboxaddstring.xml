@@ -1,0 +1,46 @@
+<section id="command-comboboxaddstring">
+    <title>COMBOBOXADDSTRING</title>
+<indexterm><primary>COMBOBOXADDSTRING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBOBOXADDSTRING</command> <parameter>name</parameter> <parameter>item</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Appends <parameter>item</parameter> to the listbox portion of the combobox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO DODRAW
+  CLEARSCREEN
+  MAKE "sides FIRST COMBOBOXGETTEXT "mycombo
+  REPEAT :sides [FORWARD 50 RIGHT 360.0/:sides]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+COMBOBOXCREATE "mywindow "mycombo 25 0 50 50
+COMBOBOXADDSTRING "mycombo [3]
+COMBOBOXADDSTRING "mycombo [4]
+COMBOBOXADDSTRING "mycombo [5]
+COMBOBOXADDSTRING "mycombo [6]
+BUTTONCREATE "mywindow "mydraw "Draw 25 50 50 25 [DODRAW]</userinput>
+<replaceable>Select or enter number of sides from combobox and then click the Draw button</replaceable>
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

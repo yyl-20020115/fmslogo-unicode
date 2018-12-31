@@ -1,0 +1,32 @@
+<section id="command-cascade.2">
+<title>CASCADE.2</title>
+<indexterm><primary>CASCADE.2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CASCADE.2</command> <parameter>endtest</parameter> <parameter>template1</parameter> <parameter>startvalue1</parameter> <parameter>template2</parameter> <parameter>startvalue2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the result of invoking <link linkend="command-cascade">CASCADE</link> with the same inputs.
+The only difference is that the default number of inputs is five instead of three.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FIBONACCI :n
+  OUTPUT CASCADE.2 :n [?1 + ?2] 1 [?1] 0
+END</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

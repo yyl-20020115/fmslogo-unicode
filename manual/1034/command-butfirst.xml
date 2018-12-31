@@ -1,0 +1,48 @@
+<section id="command-butfirst">
+<title>MENOSPRIMERO</title>
+<indexterm><primary>MENOSPRIMERO</primary></indexterm>
+<indexterm><primary>MPR</primary></indexterm>
+<indexterm><primary>MP</primary></indexterm>
+<indexterm><primary>BUTFIRST</primary></indexterm>
+<indexterm><primary>BF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MENOSPRIMERO</command> <parameter>cosa</parameter>
+<command>MPR</command> <parameter>cosa</parameter>
+<command>MP</command> <parameter>cosa</parameter>
+<command>BUTFIRST</command> <parameter>cosa</parameter>
+<command>BF</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa</parameter> es una palabra, devuelve una palabra que contiene todos los caracteres de la palabra, menos el primero.
+Si <parameter>cosa</parameter> es una lista, devuelve una lista que contiene todos los miembros del argumento, menos el primero.
+</para>
+
+<para>
+MENOSPRIMERO lanza un error de mala entrada si <parameter>cosa</parameter> es la lista vacía, la palabra vacía, o un vector vacío.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA MENOSPRIMERO [1 2 3]</userinput>
+[2 3]</programlisting>
+
+<programlisting><userinput>MUESTRA MENOSPRIMERO "Hola</userinput>
+ola</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

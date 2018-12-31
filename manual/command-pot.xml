@@ -1,0 +1,44 @@
+<section id="command-pot">
+    <title>POT</title>
+<indexterm><primary>POT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POT</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the title lines of the named procedures, the definitions of the named variables, and the contents of the named property lists to the current write stream.
+For property lists, the entire list is shown on one line instead of as a series of <link linkend="command-pprop">PPROP</link> instructions as in <link linkend="command-po">PO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+PPROP "plist1 "p2 2
+DEFINE "ABC [[a b] [PRINT :a] [PRINT :b]]
+MAKE "var 32
+
+POT [[ABC] [var] [plist1]]</userinput>
+to ABC :a :b
+Make "var 32
+Plist "plist1 = [p2 2 p1 1]
+
+<userinput>POT PROCEDURES</userinput>
+to ABC :a :b
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

@@ -1,0 +1,50 @@
+<section id="command-edn">
+    <title>EDNOMBRE</title>
+<indexterm><primary>EDNOMBRE</primary></indexterm>
+<indexterm><primary>EDN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDNOMBRE</command> <parameter>nombre_de_variable</parameter>
+<command>EDNOMBRE</command> <parameter>lista_de_nombres</parameter>
+<command>EDN</command> <parameter>nombre_de_variable</parameter>
+<command>EDN</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de las variables nombradas en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDNOMBRE es la abreviatura de <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-namelist">LISTANOMBRES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  ESCRIBE :mivariable
+FIN
+
+HAZ "mivariable "Hrla
+MIPROGRAMA</userinput>
+Hrla
+<userinput>EDNOMBRE [mivariable]</userinput>
+<replaceable>Cambia «Hrla» por «Hola» y sal del Editor</replaceable>
+<userinput>MIPROGRAMA</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

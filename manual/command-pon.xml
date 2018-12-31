@@ -1,0 +1,38 @@
+<section id="command-pon">
+    <title>PON</title>
+<indexterm><primary>PON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PON</command> <parameter>varname</parameter>
+<command>PON</command> <parameter>varlistname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the definitions of the named variable(s) to the current write stream.
+PON abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-namelist">NAMELIST</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo 1
+MAKE "bar 2
+PON [foo bar]</userinput>
+Make "foo 1
+Make "bar 2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

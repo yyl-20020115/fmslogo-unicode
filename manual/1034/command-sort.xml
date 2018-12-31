@@ -1,0 +1,108 @@
+<section id="command-sort">
+    <title>ORDENA</title>
+<indexterm><primary>ORDENA</primary></indexterm>
+<indexterm><primary>SORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ORDENA</command> <parameter>secuencia</parameter>
+(<command>ORDENA</command> <parameter>secuencia</parameter> <parameter>predicado</parameter>)
+<command>SORT</command> <parameter>secuencia</parameter>
+(<command>SORT</command> <parameter>secuencia</parameter> <parameter>predicado</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Ordena una secuencia (lista, vector, o palabra) en orden ascendente o según un predicado dado.
+Lo devuelto es una secuencia nuevo del mismo tipo como <parameter>secuencia</parameter> que contiene los mismos miembros ordenado tal que no hay dos elementos sucesivo, A y B, donde <userinput>(<parameter>predicado</parameter> A B)</userinput> es FALSO y <userinput>(<parameter>predicado</parameter> B A)</userinput> es CIERTO.
+</para>
+
+<para>
+El argumento <parameter>predicado</parameter> debe ser el nombre de un procedimiento o una plantilla.
+El predicado debe tomar dos argumentos y devuelve o CIERTO o FALSO.
+</para>
+
+<para>
+Si el argumento <parameter>predicado</parameter> no es dado, entonces, el predicado usado depende del argumento <parameter>secuencia</parameter>, de acuerdo con la tabla siguiente.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry><parameter>secuencia</parameter> tipo</entry> <entry>devuelto</entry></row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>Una lista de números</entry>
+        <entry>Una lista ordenado por <link linkend="command-lessp">MENOR?</link></entry>
+      </row>
+      <row>
+         <entry>Una lista de no números</entry>
+         <entry>Una lista ordenado por <link linkend="command-beforep">ANTERIOR?</link></entry>
+      </row>
+      <row>
+         <entry>Un vector de números</entry>
+         <entry>Un vector ordenado por <link linkend="command-lessp">MENOR?</link></entry>
+      </row>
+      <row>
+         <entry>Un vector de no números</entry>
+         <entry>Un vector ordenado por <link linkend="command-beforep">ANTERIOR?</link></entry>
+      </row>
+      <row>
+         <entry>Una palabra</entry>
+         <entry>Una palabra cuyos caracteres son ordenado por <link linkend="command-beforep">ANTERIOR?</link></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+Ordenando en orden ascendente:
+<programlisting><userinput>MUESTRA ORDENA [3 1 2]</userinput>
+[1 2 3]
+</programlisting>
+</para>
+
+<para>
+Ordenando en orden descendente:
+<programlisting><userinput>MUESTRA (ORDENA [3 1 2] "MAYOR?)</userinput>
+[3 2 1]
+</programlisting>
+</para>
+
+<para>
+Ordenando registros complejos:
+<programlisting><userinput>;      [nombre años altura]
+HAZ "a [Ana     12  52]
+HAZ "b [Barto   11  54]
+HAZ "c [Clara   12  57]
+HAZ "d [Diego   12  52]
+HAZ "e [Ernesto 11  54]
+HAZ "datos (LISTA :e :d :c :b :a)
+
+; Ordena por altura.
+MUESTRA (ORDENA :datos [MENOR? ULTIMO ?1 ULTIMO ?2])</userinput>
+[[Diego 12 52] [Ana 12 52] [Ernesto 11 54] [Barto 11 54] [Clara 12 57]]
+
+<userinput>; Ordena por altura con empates ordenado por nombre.
+MUESTRA (ORDENA (ORDENA :datos [ANTERIOR? PRIMERO ?1 PRIMERO ?2]) [MENOR? ULTIMO ?1 ULTIMO ?2])</userinput>
+[[Ana 12 52] [Diego 12 52] [Barto 11 54] [Ernesto 11 54] [Clara 12 57]]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

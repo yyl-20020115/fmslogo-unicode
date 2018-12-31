@@ -1,0 +1,32 @@
+<section id="command-pos">
+    <title>POS</title>
+<indexterm><primary>POS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the turtle's current position, as a list of two numbers, the X and Y coordinates.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETPOS [100 100]
+SHOW POS</userinput>
+[100 100]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

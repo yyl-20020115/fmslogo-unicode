@@ -1,0 +1,43 @@
+<section id="command-mousepos">
+    <title>POSRATON</title>
+<indexterm><primary>POSRATON</primary></indexterm>
+<indexterm><primary>MOUSEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POSRATON</command>
+<command>MOUSEPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Devuelve la posición del puntero del ratón, al tiempo del previo evento de ratón.
+La devuelve como una lista de dos elementos: [X, Y].
+Es menester ejecutar previamente <link linkend="command-mouseon">HABILITARATON</link> para habilita la captura de los eventos de ratón.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SUBELAPIZ
+HABILITARATON [PONPOS POSRATON BAJALAPIZ] [SUBELAPIZ] [] [] [PONPOS POSRATON]</userinput>
+
+<replaceable>Mueve el ratón.
+Mantiene presionado el botón izquierdo para dibujar.</replaceable>
+
+<userinput>INHABILITARATON</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

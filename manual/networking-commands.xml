@@ -1,0 +1,168 @@
+<chapter id="networking-commands">
+   <title>Networking Commands</title>
+
+<para>
+Networking allows &PRODUCTNAME; to communicate with the rest of the world.
+&PRODUCTNAME; uses TCP/IP sockets, the same technology upon which the Internet is built.
+So if you have an Internet connection, then your friend can be in England, you can be in Canada, and you can use &PRODUCTNAME; to draw on each other's screen or build games that you play together.
+</para>
+
+<para>
+&PRODUCTNAME; can send data to and receive data from instances of &PRODUCTNAME; which are running on other computers.
+The NETCONNECT family of commands is used to initiate connections to other computers.
+The NETACCEPT family of commands is used to accept connections from other computers.
+You can have at most two connections, the one you initiated and the one you accepted.
+You can send and receive data on either type of connection.
+</para>
+
+
+<section id="networking-tools">
+  <title>Networking Tools (Outside of &PRODUCTNAME;)</title>
+
+<para>
+In order to use networking within &PRODUCTNAME;, it is helpful to understand the networking tools that the rest of the world uses.
+</para>
+
+<formalpara>
+<title>DNS (Domain Name Service)</title>
+<para>
+TCP/IP identifies machines using cryptic IP addresses that look something like "21.100.200.5" (four numbers, each less than 256, separated by dots).
+These numbers have no intrinsic meaning and are hard for people remember, so machines may also be given names.
+DNS is a network service for "resolving" easy-to-remember names to hard-to-remember IP addresses.
+If you try to connect to a machine using its easy-to-remember DNS name, the software you use (including &PRODUCTNAME;) uses DNS to resolve the name to an IP address before creating the connection.
+</para>
+</formalpara>
+
+<para>
+For example, a Web browser can download &PRODUCTNAME; from a machine named "sourceforge.net".
+The Web browser needs to use DNS to resolve this name to an IP address before it can create a TCP/IP socket to download &PRODUCTNAME;.
+So the Web browser first asks its DNS server for the IP address of "sourceforge.net".
+The DNS server might reply with something like "216.34.181.60".
+Once the Web browser knows the IP address for sourceforge.net, it can create the connection and start downloading &PRODUCTNAME;.
+</para>
+
+<!-- Commented out until &PRODUCTNAME; can listen on the loopback adapter.
+<para>
+By convention, there's a special range of IP addresses that includes "127.0.0.1" that means "whatever machine I'm on".
+There's also a special host name "localhost" that resolves to "127.0.0.1".
+If you are writing both the client and the server programs, it's usually easiest to develop the program on one machine and use "localhost" as the remote machine name.
+Later, you can run the client and server on different machines and connect across the network using the machine's real name.
+</para>
+-->
+
+<formalpara>
+<title>PING</title>
+<para>
+Ping is a simple command-line program that is used to test network connectivity.
+To use it, start a Windows command prompt and type
+
+<programlisting><userinput>PING <parameter>remotemachine</parameter></userinput>
+</programlisting>
+
+where <parameter>remotemachine</parameter> is the name or IP address of the machine you'd like to test connectivity to.
+PING reports if it can reach that machine and how long it takes to do so.
+If PING cannot reach the remote machine, then no other networking software, including the &PRODUCTNAME; Networking commands will be able to connect to it.
+If PING fails with the name, but succeeds with the IP address, then there is probably something wrong with DNS or the name.
+</para>
+</formalpara>
+
+<formalpara>
+<title>Ports and Service Names</title>
+<para>
+A single machine may offer multiple networking services, such as TELNET, FTP, HTTP, or POPMAIL.
+One of these services can be provided by &PRODUCTNAME;.
+TCP requires that each of these services be assigned a unique "TCP port", which is number from 1 to 65535.
+For example, the TCP port 80 is usually reserved for HTTP, so if you connect to a machine on TCP port 80, you are likely connecting to that machine's HTTP service.
+</para>
+</formalpara>
+
+<para>
+When using NETACCEPTON to create your own service, you must also choose which TCP port to assign to your service.
+You should choose one that is not reserved for some other service.
+In general, picking one above 1024 is recommended.
+</para>
+
+<formalpara>
+<title>TELNET</title>
+<para>
+Similar to how PING can be used to determine if you can connect on a machine, TELNET can be used to determine if you can connect to a particular service on a machine.
+To use it open a Windows command prompt and run
+
+<programlisting><userinput>TELNET <parameter>remotemachine</parameter> <parameter>remoteport</parameter></userinput>
+</programlisting>
+
+where <parameter>remotemachine</parameter> is the DNS name or IP address of the remote machine and <parameter>remoteport</parameter> is the TCP port number of service that you want to connect to.
+</para>
+</formalpara>
+
+<para>
+If you can PING a machine, but cannot use TELNET to connect to its port, then it may mean that the machine is not listening on that port (that is, it's not providing the service at this time), or that a firewall is blocking connections on the port.
+</para>
+
+
+<formalpara>
+<title>Network Router</title>
+<para>
+Nowadays, it is rare to connect a computer directly to the Internet.
+Instead, most networks have a router that is directly connected to the Internet and the other machines are connected to it.
+These routers typically perform multiple services, including DNS, DHCP (assignment of IP addresses), Firewall (blocking network connections), and network address translation (maintaining a different "internal" IP addresses that all appear as the same IP address to the rest of the Internet).
+</para>
+</formalpara>
+
+<para>
+In general, when Windows boots up, it tries to get an IP address using DHCP.
+Your network router (acting as a DHCP server) assigns it an IP address and (acting as a DNS server) uses the computer name for the IP address.
+You can determine your machine's name by starting a command prompt and running
+
+<programlisting><userinput>ECHO %COMPUTERNAME%</userinput>
+</programlisting>
+
+You can determine your machine's IP address by starting a command prompt and running
+
+<programlisting><userinput>ipconfig</userinput>
+</programlisting>
+
+</para>
+
+<formalpara>
+<title>Firewalls</title>
+<para>
+The Internet can be dangerous, as there are people connected to the Internet who want to attack your computer.
+Firewalls make the Internet safer by blocking connections.
+In addition to blocking unwanted connections from attackers, firewalls may block connections from friendly &PRODUCTNAME; machines, making it impossible for &PRODUCTNAME; to connect through them.
+Not only does your network router act as a firewall, but each Windows machine may have its own "personal" firewall.
+</para>
+</formalpara>
+
+<para>
+If you cannot use TELNET to connect to a port on the remote machine, then a firewall may be blocking the connection.
+To resolve the problem, you must configure all intermediate firewalls to allow these connections.
+It is not safe to solve such a problem by disabling the firewall completely.
+Instead, it's worth learning how to allow connections on specific ports, as needed.
+</para>
+
+<formalpara>
+<title>Packet Sniffer</title>
+<para>
+Even if you are able to connect to the remote machines, it's sometimes helpful to see the exact data is being transmitted or received.
+For this, the tool-of-choice is a packet sniffer.
+A packet sniffer can show you everything that your network adapter sends or receives, including what &PRODUCTNAME; is sending or receiving.
+There's a good free packet sniffer called Wireshark.
+To enable Wireshark to capturing network traffic sent to and from the same machine may additionally require a tool called "RawCap".
+</para>
+</formalpara>
+
+</section>
+
+   &command-netstartup;
+   &command-netshutdown;
+   &command-netaccepton;
+   &command-netacceptoff;
+   &command-netacceptreceivevalue;
+   &command-netacceptsendvalue;
+   &command-netconnecton;
+   &command-netconnectoff;
+   &command-netconnectsendvalue;
+   &command-netconnectreceivevalue;
+
+</chapter>

@@ -1,0 +1,39 @@
+<section id="command-false">
+    <title>FALSO</title>
+<indexterm><primary>FALSO</primary></indexterm>
+<indexterm><primary>FALSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem><para>(forma especial)</para>
+<synopsis><command>FALSO</command>
+<command>FALSE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Es una palabra especial que indica el resultado negativo de una condición.
+FALSO es una palabra reservada, no un procedimiento ni una variable.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 1=0</userinput>
+falso
+</programlisting>
+
+<programlisting><userinput>SISINO "FALSO [ESCRIBE [No se puede llegar aquí]] [ESCRIBE [FALSO siempre es falso]]</userinput>
+FALSO siempre es falso
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

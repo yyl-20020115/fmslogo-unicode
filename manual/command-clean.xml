@@ -1,0 +1,33 @@
+<section id="command-clean">
+    <title>CLEAN</title>
+<indexterm><primary>CLEAN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLEAN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases all lines that the turtle has drawn on the graphics window.
+The turtle's state (position, heading, pen mode, etc.) is not changed.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>FORWARD 100
+CLEAN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

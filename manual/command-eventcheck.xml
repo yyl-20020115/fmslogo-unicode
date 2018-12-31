@@ -1,0 +1,49 @@
+<section id="command-eventcheck">
+    <title>EVENTCHECK</title>
+<indexterm><primary>EVENTCHECK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EVENTCHECK</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+The EVENTCHECK command is like calling <link linkend="command-yield">YIELD</link> immediately followed by <link linkend="command-noyield">NOYIELD</link>.
+It checks to see if any events are waiting to be processed.
+Some commands that input "callbacks" run them in a no-yield state.
+If the callback code is short and quick you won't see any problems.
+But if it's long the user will notice that they lose control during this period.
+If you sprinkle a few EVENTCHECK instructions around, then the user will not loose control for such a "long" period of time.
+</para>
+
+<para>
+This command can be used as an alternative to placing YIELD and NOYIELD commands around computationally intensive loops.
+You can wrap the whole procedure in a NOYIELD/YIELD pair then you can call EVENTCHECK in strategic locations in your loops.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MOUSEON [REPEAT 72 [REPEAT 4 [FORWARD 100 RIGHT 90] RIGHT 5]] [] [] [] []</userinput>
+<replaceable>Click the mouse in &PRODUCTNAME; Screen.
+Note that while it is drawing you cannot HALT it, because mouse callbacks do not yield.</replaceable>
+
+<userinput>MOUSEON [REPEAT 72 [REPEAT 4 [FORWARD 100 RIGHT 90] RIGHT 5 EVENTCHECK]] [] [] [] []</userinput>
+<replaceable>Click the mouse in &PRODUCTNAME; Screen.
+Note that while it is drawing you can now HALT</replaceable>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,42 @@
+<section id="command-pllist">
+    <title>LISTAPROPIEDADES</title>
+<indexterm><primary>LISTAPROPIEDADES</primary></indexterm>
+<indexterm><primary>PLLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTAPROPIEDADES</command> <parameter>nombre</parameter>
+<command>LISTAPROPIEDADES</command> <parameter>lista_de_nombres</parameter>
+<command>PLLIST</command> <parameter>nombre</parameter>
+<command>PLLIST</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos formada por dos listas vacías seguidas de otra lista con el nombre o nombres de los argumentos.
+(La tercera lista en una lista de contenidos contiene los nombres de listas de propiedades.)
+Esto es útil en conjunto con los procedimientos de <link linkend="workspace-control">control del área de trabajo</link> que requieren una lista de contenidos como argumento.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA LISTAPROPIEDADES [foo bar]</userinput>
+[[] [] [foo bar]]</programlisting>
+
+<programlisting><userinput>MUESTRA LISTAPROPIEDADES "abc</userinput>
+[[] [] [abc]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

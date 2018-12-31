@@ -1,0 +1,100 @@
+<section id="command-setturtlemode">
+<title>SETTURTLEMODE</title>
+<indexterm><primary>SETTURTLEMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETTURTLEMODE</command> <parameter>mode</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the bitmap mode for the currently selected turtle.
+The bitmap mode controls how bitmapped turtles (see <link linkend="command-bitmapturtle">BITMAPTURTLE</link>) paste their image onto the screen.
+Sometimes you want the background erased and sometimes not.
+Sometimes you wish to invert the image before pasting it and sometimes not.
+</para>
+
+<para>
+The <parameter>mode</parameter> input must be an integer from 1 to 9.
+The meaning of each value is given by the following table:
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Mode</entry> <entry>Turtle Image</entry></row>
+    </thead>
+    <tbody>
+      <row><entry>1</entry> <entry>The bitmap in memory, without modification</entry></row>
+      <row><entry>2</entry> <entry>A bitwise OR of the bitmap in memory and the screen</entry></row>
+      <row><entry>3</entry> <entry>A bitwise AND of the bitmap in memory and the screen</entry></row>
+      <row><entry>4</entry> <entry>A bitwise XOR of the bitmap in memory with the screen</entry></row>
+      <row><entry>5</entry> <entry>A bitwise AND of the bitmap in memory with the bitwise inversion of screen</entry></row>
+      <row><entry>6</entry> <entry>A bitwise inversion of the bitmap in memory</entry></row>
+      <row><entry>7</entry> <entry>A bitwise OR of the bitmap in memory with the bitwise inversion of the screen</entry></row>
+      <row><entry>8</entry> <entry>A bitwise OR of the bitwise inversion of the bitmap in memory and the screen</entry></row>
+      <row><entry>9</entry> <entry>A bitwise inversion of the screen</entry></row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+SETTURTLEMODE has no effect if the selected turtle is not currently bitmapped.
+It is an error to run SETTURTLEMODE on a turtle that was bitmapped with a rotating bitmap.
+</para>
+
+<para>
+Use <link linkend="command-setturtle">SETTURTLE</link> to select a different turtle.
+</para>
+
+<para>
+Use <link linkend="command-turtlemode">TURTLEMODE</link> to obtain the selected turtle's mode.
+</para>
+
+<para>
+Use <link linkend="command-bitmapturtle">BITMAPTURTLE</link> to map a turtle to a bitmap.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; Fill the screen with white
+SETSCREENCOLOR [255 255 255]
+CLEARSCREEN
+
+; Draw a circle and fill it with red
+PENDOWN
+CIRCLE 50
+SETFLOODCOLOR [255 0 0]
+FILL
+
+; Copy the red circle to the clipboard
+PENUP
+SETXY -50 -50
+BITCOPY 101 101
+
+; Use a simple copy for the turtle's mode
+BITMAPTURTLE
+
+; Fill the screen with yellow
+SETSCREENCOLOR [255 255 0]
+; Notice that the white corners show up when using the default turtle mode
+
+; Set the turtle mode to AND the image onto the background
+SETTURTLEMODE 3
+; Notice that the white corners disappeared</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

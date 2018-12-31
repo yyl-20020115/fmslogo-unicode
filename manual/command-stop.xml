@@ -1,0 +1,43 @@
+<section id="command-stop">
+    <title>STOP</title>
+<indexterm><primary>STOP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>STOP</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Ends the running of the procedure in which it appears.
+Control is returned to the context in which that procedure was invoked.
+The stopped procedure does not output a value.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM :arg
+  PRINT [Before Stop]
+  IF 1=:arg [STOP]
+  PRINT [After Stop]
+END
+
+MYPROGRAM 1</userinput>
+Before Stop
+
+<userinput>MYPROGRAM 2</userinput>
+Before Stop
+After Stop
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

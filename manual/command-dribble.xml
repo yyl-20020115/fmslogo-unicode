@@ -1,0 +1,60 @@
+<section id="command-dribble">
+<title>DRIBBLE</title>
+<indexterm><primary>DRIBBLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DRIBBLE</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Creates a new file whose name is the <parameter>filename</parameter> input, like <link linkend="command-openwrite">OPENWRITE</link>, and begins recording in that file everything that is read from the keyboard.
+This writing is in addition to the writing to <link linkend="command-writer">WRITER</link>.
+The intent is to create a transcript of a &GENERICNAME; session, including things like prompt characters and interactions.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+For the following example, you must run each instruction separately.
+</para>
+
+<programlisting><userinput>; Dribble a few instructions, then stop.
+DRIBBLE "dummy.fil
+FORWARD 100
+RIGHT 90
+NODRIBBLE
+
+; Open the dribble file and see what was written.
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 3 [SHOW READLIST]</userinput>
+[FORWARD 100]
+[RIGHT 90]
+[NODRIBBLE]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-nodribble">NODRIBBLE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,33 @@
+<section id="command-parse">
+<title>PARSE</title>
+<indexterm><primary>PARSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PARSE</command> <parameter>word</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the list that would result if <parameter>word</parameter> were entered in response to a <link linkend="command-readlist">READLIST</link> operation.
+That is, PARSE <link linkend="command-readword">READWORD</link> outputs the same value as READLIST for the same characters read.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW PARSE "Hello</userinput>
+[Hello]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

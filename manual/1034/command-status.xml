@@ -1,0 +1,41 @@
+<section id="command-status">
+<title>ESTADO</title>
+<indexterm><primary>ESTADO</primary></indexterm>
+<indexterm><primary>STATUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ESTADO</command>
+<command>STATUS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre una ventana que muestra lo que &PRODUCTNAME; está haciendo.
+Tiene el mismo efecto que pulsar el <link linkend="commander-status">Botón de Estado</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ESTADO
+QUITAESTADO</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-nostatus">QUITAESTADO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

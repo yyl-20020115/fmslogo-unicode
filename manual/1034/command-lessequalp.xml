@@ -1,0 +1,53 @@
+<section id="command-lessequalp">
+<title>MENOROIGUAL?</title>
+<indexterm><primary>MENOROIGUAL?</primary></indexterm>
+<indexterm><primary>LESSEQUALP</primary></indexterm>
+<indexterm><primary>&lt;=</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MENOROIGUAL?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>LESSEQUALP</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>LESSEQUAL?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<parameter>número1</parameter> <command>&lt;=</command> <parameter>número2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>número1</parameter> es menor o igual que <parameter>número2</parameter>.
+Devuelve FALSO, sino.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 1 &lt;= 2</userinput>
+cierto
+</programlisting>
+<programlisting><userinput>MUESTRA MENOROIGUAL? 1 2</userinput>
+cierto
+</programlisting>
+<programlisting><userinput>MUESTRA MENOROIGUAL? 2 2</userinput>
+cierto
+</programlisting>
+<programlisting><userinput>MUESTRA MENOROIGUAL? 2 1</userinput>
+falso
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-lessp">MENOR?</link></member>
+<member><link linkend="command-equalp">IGUAL?</link></member>
+<member><link linkend="command-greaterp">MAYOR?</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,71 @@
+<section id="command-setlight">
+<title>SETLIGHT</title>
+<indexterm><primary>SETLIGHT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETLIGHT</command> <parameter>properties</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets how <link linkend="command-polyview">POLYVIEW</link> illuminates polygons.
+The <parameter>properties</parameter> input is a list of two numbers ranging from 0.0 to 1.0, the amount of ambient and diffuse light.
+The ambient component defines how much background light there is; the larger the number the brighter the light.
+The diffusion component is not a property of light source, but a property of how smooth the surface is (how much it scatters light).
+A higher value means the objects are smoother and reflective (like marble) a low value means the objects are rough (like chalk).
+</para>
+
+<para>
+To position the light use <userinput>SETTURTLE -3</userinput>.
+</para>
+
+<para>
+SETLIGHT is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+While it does run in 2D modes, the effect is not noticable without POLYVIEW.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>; simple usage
+SETLIGHT [0.3 0.6]
+SHOW LIGHT</userinput>
+[0.3 0.6]</programlisting>
+
+<programlisting><userinput>; a lightshow
+TO SQUARE
+  POLYSTART
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+  POLYEND
+END
+
+PERSPECTIVE
+REPEAT 72 [SQUARE RIGHTROLL 5]
+POLYVIEW
+
+REPEAT 10 [
+  SETLIGHT (LIST (RANDOM 100)/100 (RANDOM 100)/100)
+  SHOW LIGHT
+  WAIT 60
+]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-light">LIGHT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+
+</variablelist>
+</section>

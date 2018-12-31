@@ -1,0 +1,56 @@
+<section id="command-greaterequalp">
+<title>MAYOROIGUAL?</title>
+<indexterm><primary>MAYOROIGUAL?</primary></indexterm>
+<indexterm><primary>GREATEREQUALP</primary></indexterm>
+<indexterm><primary>>=</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MAYOROIGUAL?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>GREATEREQUALP</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<command>GREATEREQUAL?</command> <parameter>número1</parameter> <parameter>número2</parameter>
+<parameter>número1</parameter> <command>&gt;=</command> <parameter>número2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>número1</parameter> es mayor o igual que <parameter>número2</parameter>.
+Devuelve FALSO, sino.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 1 &gt;= 1</userinput>
+cierto
+</programlisting>
+<programlisting><userinput>MUESTRA MAYOROIGUAL? 1 1</userinput>
+cierto
+</programlisting>
+<programlisting><userinput>MUESTRA MAYOROIGUAL? 1 2</userinput>
+falso
+</programlisting>
+<programlisting><userinput>MUESTRA MAYOROIGUAL? 2 1</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-lessp">MENOR?</link></member>
+<member><link linkend="command-equalp">IGUAL?</link></member>
+<member><link linkend="command-greaterp">MAYOR?</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

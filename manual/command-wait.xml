@@ -1,0 +1,30 @@
+<section id="command-wait">
+    <title>WAIT</title>
+<indexterm><primary>WAIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WAIT</command> <parameter>delay</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Delays further execution for about <parameter>delay</parameter> 1/60ths of a second.
+This also yields to other processes running on your system.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>WAIT 600 ; ten seconds</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

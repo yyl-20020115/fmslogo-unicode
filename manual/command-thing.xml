@@ -1,0 +1,41 @@
+<section id="command-thing">
+    <title>THING</title>
+<indexterm><primary>THING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>THING</command> <parameter>varname</parameter>
+:<parameter>varname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the value of the variable whose name is the input word.
+If there is more than one such variable, the innermost local variable of that name is chosen.
+</para>
+
+<para>
+The colon notation for showing variables is an abbreviation for
+<programlisting><userinput>THING "</userinput></programlisting>
+So <userinput>:FOO</userinput> is the same as <userinput>(THING "FOO)</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "FOO [Hello how are you]
+SHOW THING "FOO</userinput>
+[Hello how are you]
+<userinput>SHOW :FOO</userinput>
+[Hello how are you]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

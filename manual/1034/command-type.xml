@@ -1,0 +1,39 @@
+<section id="command-type">
+<title>MUESTRAT</title>
+<indexterm><primary>MUESTRAT</primary></indexterm>
+<indexterm><primary>TYPE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MUESTRAT</command> <parameter>cosa</parameter>
+(<command>MUESTRAT</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)
+<command>TYPE</command> <parameter>cosa</parameter>
+(<command>TYPE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe el argumento o argumentos igual que <link linkend="command-print">ESCRIBE</link>, pero no produce el carácter de nueva línea y los argumentos no se escriban separados por espacios.
+</para>
+
+<para>
+No aparecen los caracteres hasta que se escribe un carácter de nueva línea (por ejemplo, por ESCRIBE o <link linkend="command-show">MUESTRA</link>) o &PRODUCTNAME; lea del teclado (por mandato del programa).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>TYPE "Hola
+TYPE "Cómo
+ESCRIBE "Estás</userinput>
+HolaCómoEstás</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

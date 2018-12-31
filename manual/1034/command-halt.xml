@@ -1,0 +1,35 @@
+<section id="command-halt">
+    <title>HALT</title>
+<indexterm><primary>HALT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HALT</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Inmediatamente detiene a &PRODUCTNAME; de ejecutar más instrucciones y devuelve el control al centro de comandos.
+Equivale a pulsar el <link linkend="commander-halt">Botón Alto</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SIEMPRE [AVANZA CUENTAREPITE GIRADERECHA 91 PONCOLORLAPIZ CUENTAREPITE]</userinput>
+<replaceable>Teclea «HALT» en la caja de entrada del centro de comandos y pulsa el botón Ejecutar.</replaceable>
+Parando...
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

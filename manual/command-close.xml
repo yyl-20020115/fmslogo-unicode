@@ -1,0 +1,54 @@
+<section id="command-close">
+<title>CLOSE</title>
+<indexterm><primary>CLOSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLOSE</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Closes the file named <parameter>filename</parameter>.
+All subsequent attempts to read from or write to the file will fail.
+</para>
+
+<para>
+You can also close the reserved file <userinput>"clipboard</userinput> with this command.
+</para>
+
+<para>
+If you close the current <link linkend="command-reader">READER</link> or <link linkend="command-writer">WRITER</link>, then the reader or writer is reset to the Commander.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST]</userinput>
+[Hello]
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

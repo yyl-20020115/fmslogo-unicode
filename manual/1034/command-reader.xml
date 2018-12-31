@@ -1,0 +1,34 @@
+<section id="command-reader">
+<title>LECTURA</title>
+<indexterm><primary>LECTURA</primary></indexterm>
+<indexterm><primary>READER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LECTURA</command>
+<command>READER</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el nombre del archivo del flujo de lectura actual, o la lista vacía se el flujo de lectura actual es el Centro de Comandos.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+MUESTRA LECTURA</userinput>
+ejemplo.txt
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

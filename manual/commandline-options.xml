@@ -1,0 +1,196 @@
+<chapter id="commandline-options">
+<title>Command Line Options</title>
+<indexterm><primary>command line options</primary></indexterm>
+
+<para>
+Command line options can be set as properties of your shortcut to &PRODUCTNAME;.
+Just add these switches after the &LOGOEXE;.
+</para>
+
+<para>
+You can add any command line option to the &PRODUCTNAME; desktop shortcut so that when you double-click on it, &PRODUCTNAME; starts with the selected option.
+For example, if you want to start &PRODUCTNAME; in "<link linkend="commandline-e">expert</link>" mode:
+
+
+<orderedlist>
+<listitem>
+<para>
+Right-click on the &PRODUCTNAME; desktop shortcut and select <guimenuitem>Properties</guimenuitem> from the popup menu.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Click the Shortcut tab in the Properties dialog.
+</para>
+</listitem>
+
+<listitem>
+<para>
+In the Target field, append "-E" so the line looks like this <userinput>"C:\Program Files\FMSLogo\fmslogo.exe" -E</userinput>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Click the OK button.
+</para>
+</listitem>
+</orderedlist>
+
+The next time you double-click the shortcut, &PRODUCTNAME; will start in expert mode.
+</para>
+
+<section id="commandline-w">
+<title>-W</title>
+
+<synopsis>-W <replaceable>width</replaceable></synopsis>
+
+<para>
+This sets the width of your virtual drawing workspace to <option>width</option>.
+Be aware that the larger you set this the more memory is required.
+The default is 1000.
+</para>
+
+<para>
+If the <option>-F</option> command-line option is given in addition to <option>-W</option>, then the width of the virtual drawing workspace is reduced to fit within the dimensions of the display.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -W 2000 -H 2000</synopsis>
+</section>
+
+
+<section id="commandline-h">
+<title>-H</title>
+
+<synopsis>-H <replaceable>height</replaceable></synopsis>
+
+<para>
+This sets the height of your virtual drawing workspace to <option>height</option>.
+Be aware that the larger you set this the more memory is required.
+The default is 1000.
+</para>
+
+<para>
+If the <option>-F</option> command-line option is given in addition to <option>-H</option>, then the height of the virtual drawing workspace is reduced to fit within the dimensions of the display.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -W 2000 -H 2000</synopsis>
+</section>
+
+
+
+<section id="commandline-f">
+<title>-F</title>
+
+<synopsis>-F</synopsis>
+
+<para>
+This tells &PRODUCTNAME; not to use scrollbars on the screen window ("F" stands for "fixed-size").
+If this option is not given, then scrollbars are used, as needed.
+If you use this option without using <link linkend="commandline-h">-H</link> or <link linkend="commandline-w">-W</link>, then &PRODUCTNAME; automatically calculates a workspace to fit your full screen.
+</para>
+
+<para>
+<link linkend="command-fullscreen">FULLSCREEN</link>, <link linkend="command-splitscreen">SPLITSCREEN</link>, and <link linkend="command-textscreen">TEXTSCREEN</link> do not change the dimensions of the screen window when &PRODUCTNAME; is started in fixed-size mode.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -F</synopsis>
+<synopsis>&LOGOEXE; -F -W 400 -H 200</synopsis>
+</section>
+
+
+
+<section id="commandline-p">
+<title>-P</title>
+
+<synopsis>-P</synopsis>
+
+<para>
+This enables <link linkend="command-perspective">PERSPECTIVE</link> mode to be the default mode to start in.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -P</synopsis>
+</section>
+
+
+<section id="commandline-e">
+<title>-E</title>
+
+<synopsis>-E</synopsis>
+
+<para>
+This enables "Expert" mode.
+</para>
+
+<para>
+In "Expert" mode the following occurs:
+</para>
+
+<para>
+<link linkend="command-pos">POS</link> and <link linkend="command-posxyz">POSXYZ</link> do not "round" their output and you may see positions such as [0 -1.0e-12].
+This is due to "normal" floating point errors.
+Rounding POS serves no purpose other than to make the POS look good.
+But in some applications this rounding can introduce errors if you save and restore the position.
+In other words, SETPOS POS has no side effect (does not round) in "Expert" mode.
+</para>
+
+<para>
+&PRODUCTNAME; allows multiple edit sessions.
+Multiple edit sessions can lead to unexpected behavior if you don't understand how &PRODUCTNAME; manages the workspace.
+If procedures are lost or have unexpected changes then you should not be using expert mode.
+</para>
+
+<para>
+&PRODUCTNAME; allows you to save directly to the workspace.
+Saving directly to workspace can lead to unexpected behavior if you don't understand how &PRODUCTNAME; manages the workspace.
+If procedures are lost or change unexpectedly then you should not be using expert mode.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -E</synopsis>
+</section>
+
+<section id="commandline-l">
+<title>-L</title>
+
+<synopsis>-L <replaceable>file1</replaceable> <replaceable>[file2]</replaceable></synopsis>
+
+<para>
+&PRODUCTNAME; allows you to <link linkend="command-load">LOAD</link> one or more filenames on the command line when starting &PRODUCTNAME;.
+These files are loaded before the interpreter starts reading commands from the commander.
+If you load a file that runs a program that includes a <link linkend="command-bye">BYE</link> instruction, &PRODUCTNAME; runs that program and exits.
+You can therefore write stand-alone programs in &PRODUCTNAME; and run them as new shortcuts.
+Note, the "-L" switch must follow any other switches.
+</para>
+
+<para>Example:</para>
+<synopsis>&LOGOEXE; -L myprog.lgo</synopsis>
+</section>
+
+
+<section id="invoking-and-exiting-fmslogo">
+<title>Invoking and Exiting &PRODUCTNAME;</title>
+
+<para>
+To start &PRODUCTNAME;, just click on the &PRODUCTNAME; icon.
+To exit &PRODUCTNAME;, enter the command <link linkend="command-bye">BYE</link> or <link linkend="menu-file-exit">File-Exit</link>.
+</para>
+
+<para>
+If you invoke a procedure that has not been defined, &PRODUCTNAME; first looks for a file in the current directory named <filename>proc.lgo</filename> where "proc" is the procedure name in lower case letters.
+If such a file exists, &PRODUCTNAME; loads that file.
+If the missing procedure is still undefined, or if there is no such file, &PRODUCTNAME; then looks in the library directory for a file named <filename>proc</filename> (without the ".lgo" extension) and, if it exists, loads it.
+If neither file contains a definition for the procedure, then &PRODUCTNAME; signals an error.
+</para>
+
+<para>
+Many of &PRODUCTNAME;'s built-in procedures are included in the default library, so if you use a different library you may want to include some or all of the default library in it.
+</para>
+</section>
+
+</chapter>

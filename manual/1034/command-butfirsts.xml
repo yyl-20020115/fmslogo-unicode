@@ -1,0 +1,43 @@
+<section id="command-butfirsts">
+<title>MENOSPRIMEROS</title>
+<indexterm><primary>MENOSPRIMEROS</primary></indexterm>
+<indexterm><primary>MPS</primary></indexterm>
+<indexterm><primary>BUTFIRSTS</primary></indexterm>
+<indexterm><primary>BFS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MENOSPRIMEROS</command> <parameter>lista</parameter>
+<command>MPS</command> <parameter>lista</parameter>
+<command>BUTFIRSTS</command> <parameter>lista</parameter>
+<command>BFS</command> <parameter>lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que contiene el <link linkend="command-butfirst">BUTFIRST</link> de cada uno del los miembros de <parameter>lista</parameter>.
+MENOSPRIMEROS lanza un error si cualquier miembro de <parameter>lista</parameter> es vacío.
+</para>
+
+<para>
+El argumento <parameter>lista</parameter> puede ser vacío, en cuyo caso MENOSPRIMEROS devuelve la lista vacía.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA MENOSPRIMEROS [[1 2 3] [a b c]]</userinput>
+[[2 3] [c d]]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

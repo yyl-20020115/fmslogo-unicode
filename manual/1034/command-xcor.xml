@@ -1,0 +1,33 @@
+<section id="command-xcor">
+    <title>COORX</title>
+<indexterm><primary>COORX</primary></indexterm>
+<indexterm><primary>XCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COORX</command>
+<command>XCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un número, la coordenada X de la tortuga.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONX 100
+MUESTRA COORX</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

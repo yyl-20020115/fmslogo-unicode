@@ -1,0 +1,36 @@
+<section id="command-scrolly">
+<title>DESPLAZAY</title>
+<indexterm><primary>DESPLAZAY</primary></indexterm>
+<indexterm><primary>SCROLLY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESPLAZAY</command> <parameter>deltay</parameter>
+<command>SCROLLY</command> <parameter>deltay</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cambia la posición de la barra de desplazamiento vertical de la ventana de «Pantalla».
+El argumento <parameter>deltay</parameter> es la cantidad de desplazamiento.
+Un número positivo desplaza hacia arriba y un número negativo hacia abajo.
+Si <parameter>deltay</parameter> es 0, entonces el desplazamiento vertical restablece a la posición central.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 10 [DESPLAZAY 10]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

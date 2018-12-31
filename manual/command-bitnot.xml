@@ -1,0 +1,33 @@
+<section id="command-bitnot">
+    <title>BITNOT</title>
+<indexterm><primary>BITNOT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITNOT</command> <parameter>int</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the bitwise negation of its input, which must be an integer.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW BITNOT 1</userinput>
+-2
+<userinput>SHOW BITNOT 5</userinput>
+-6
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

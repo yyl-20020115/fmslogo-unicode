@@ -1,0 +1,33 @@
+<section id="command-type">
+<title>TYPE</title>
+<indexterm><primary>TYPE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TYPE</command> <parameter>thing</parameter>
+(<command>TYPE</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the input or inputs like <link linkend="command-print">PRINT</link>, except that no newline character is printed at the end and multiple inputs are not separated by spaces.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TYPE "Hello
+TYPE "How
+TYPE "Are
+PRINT "You</userinput>
+HelloHowAreYou</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

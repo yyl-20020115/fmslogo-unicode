@@ -1,0 +1,39 @@
+<section id="command-goldenratio">
+<title>GOLDENRATIO</title>
+<indexterm><primary>GOLDENRATIO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GOLDENRATIO</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a close approximation to the golden ratio, which is <userinput>(1 + SQRT 5)/2</userinput>.
+</para>
+
+<para>
+The golden ratio expresses the relationship when the sum of two quantities is to the larger quantity as the larger quantity is to the smaller quantity.
+That is:
+</para>
+
+<para>
+GOLDENRATIO = ((A + B) / A) = (A / B)
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW GOLDENRATIO</userinput>
+1.61803398874989</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

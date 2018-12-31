@@ -1,0 +1,48 @@
+<section id="command-buryall">
+    <title>BURYALL</title>
+<indexterm><primary>BURYALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BURYALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Buries all procedures, variables, and property lists in the workspace.
+BURYALL abbreviates <userinput><link linkend="command-bury">BURY</link> <link linkend="command-contents">CONTENTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FOO
+  PRINT [I am Foo]
+END
+
+TO BAR
+  PRINT [I am Bar]
+END
+
+POTS</userinput>
+TO BAR
+TO FOO
+<userinput>BURYALL
+POTS</userinput>
+<userinput>FOO</userinput>
+I am Foo
+<userinput>BAR</userinput>
+I am Bar
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

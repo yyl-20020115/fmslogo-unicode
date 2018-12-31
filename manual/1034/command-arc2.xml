@@ -1,0 +1,57 @@
+<section id="command-arc2">
+<title>ARCO2</title>
+<indexterm><primary>ARCO2</primary></indexterm>
+<indexterm><primary>ARC2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ARCO2</command> <parameter>ángulo</parameter> <parameter>radio</parameter>
+<command>ARC2</command> <parameter>ángulo</parameter> <parameter>radio</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga tal que traza un arco (parte de una circunferencia).
+El arco traza un ángulo igual a <parameter>ángulo</parameter>.
+El tamaño del arco depende del argumento <parameter>radio</parameter>.
+</para>
+
+<para>
+Si <parameter>ángulo</parameter> es positivo, entonces la tortuga mueve hacia adelante en sentido horario.
+Si <parameter>ángulo</parameter> es negativo, entonces la tortuga mueve hacia detrás en sentido antihorario.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Ejemplos en 2D:
+<programlisting><userinput>ARCO2 360 100
+ARCO2 90 50</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 36 [BALANCEADERECHA 10 ARCO2 180 100 ARCO2 -180 100]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-arc">ARCO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

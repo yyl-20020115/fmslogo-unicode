@@ -1,0 +1,39 @@
+<section id="command-bitsize">
+    <title>BITSIZE</title>
+<indexterm><primary>BITSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITSIZE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Output the width and height of the bitmap specified by the current <link linkend="command-bitindex">BITINDEX</link>.
+The output is a two-member list of the form [width height].
+BITSIZE outputs [0 0] if no bitmap is loaded.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW BITSIZE</userinput>
+[0 0]
+
+<userinput>BITCOPY 100 200
+SHOW BITSIZE</userinput>
+[100 200]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

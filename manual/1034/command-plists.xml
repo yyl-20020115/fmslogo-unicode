@@ -1,0 +1,37 @@
+<section id="command-plists">
+    <title>LPROPS</title>
+<indexterm><primary>LPROPS</primary></indexterm>
+<indexterm><primary>PLISTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LPROPS</command>
+<command>PLISTS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos, que es una lista de tres listas.
+Las dos primeras son vacías que indica que no incluye nombres de procedimientos o variables.
+La tercera es una lista de los nombres de todas las listas de propiedades no tapadas del área de trabajo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "propiedades "propiedad 1
+MUESTRA LPROP</userinput>
+[[] [] [propiedades]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,44 @@
+<section id="command-emptyp">
+<title>VACIO?</title>
+<indexterm><primary>VACIO?</primary></indexterm>
+<indexterm><primary>EMPTYP</primary></indexterm>
+<indexterm><primary>EMPTY?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VACIO?</command> <parameter>cosa</parameter>
+<command>EMPTYP</command> <parameter>cosa</parameter>
+<command>EMPTY?</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento <parameter>cosa</parameter> es la lista vaciá o la palabra vaciá, FALSO si no lo es.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA VACIO? "Hola</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA VACIO? "</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA VACIO? [1 2 3]</userinput>
+falso</programlisting>
+
+<programlisting><userinput>SHOW VACIO? []</userinput>
+cierto</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

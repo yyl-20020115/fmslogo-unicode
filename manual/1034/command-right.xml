@@ -1,0 +1,37 @@
+<section id="command-right">
+<title>GIRADERECHA</title>
+<indexterm><primary>GIRADERECHA</primary></indexterm>
+<indexterm><primary>GD</primary></indexterm>
+<indexterm><primary>RIGHT</primary></indexterm>
+<indexterm><primary>RT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GIRADERECHA</command> <parameter>ángulo</parameter>
+<command>GD</command> <parameter>ángulo</parameter>
+<command>RIGHT</command> <parameter>ángulo</parameter>
+<command>RT</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Gira la tortuga en el sentido horario en el <parameter>ángulo</parameter> especificado, medido en grados (1/360 de la circunferencia).
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 3 [AVANZA 100 GIRAIZQUIERDA 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,30 @@
+<section id="command-setcursor">
+    <title>PONCURSOR</title>
+<indexterm><primary>PONCURSOR</primary></indexterm>
+<indexterm><primary>SETCURSOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCURSOR</command> <parameter>coordenadas</parameter>
+<command>SETCURSOR</command> <parameter>coordenadas</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>No se soporta PONCURSOR en &PRODUCTNAME;.</para></note>
+
+<para>
+En otros entornos de &GENERICNAME;, PONCURSOR mueve el cursor del pantalla a las coordenadas x,y dado por el argumento <parameter>coordenadas</parameter> (una lista de dos números).
+El origen es la esquina de arriba izquierda.
+El rumbo positivo es al abajo y a la derecha.
+Este comando también escribe cualquier carácter que es en el búfer.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

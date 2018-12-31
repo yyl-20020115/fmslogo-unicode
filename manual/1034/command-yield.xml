@@ -1,0 +1,37 @@
+<section id="command-yield">
+<title>NOEXCLUSIVO</title>
+<indexterm><primary>NOEXCLUSIVO</primary></indexterm>
+<indexterm><primary>YIELD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOEXCLUSIVO</command>
+<command>YIELD</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Le dice a &PRODUCTNAME; que es permisible interrumpir la ejecución de código &GENERICNAME; para procesar los mensajes de ventanas, tal como las pulsaciones de tecla, clics del ratón, y notificaciones para actualizar la pantalla.
+El modo por defecto es NOEXCLUSIVO.
+</para>
+
+<para>
+La descripción del comando <link linkend="command-noyield">EXCLUSIVO</link> tiene una explicación de lo que pasa cuando no interrumpe la ejecución para procesar estos mensajes.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-eventcheck">SIEVENTO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

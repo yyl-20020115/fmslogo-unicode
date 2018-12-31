@@ -1,0 +1,17 @@
+<chapter id="special-variables">
+   <title>Special Variables</title>
+
+<para>
+Some of &PRODUCTNAME;'s behavior can be controlled with special variable.
+The special variables follow the normal scoping rules, so a procedure can locally set one of them to limit the scope of its effect.
+Initially, no variables exist except <link linkend="command-caseignoredp">CASEIGNOREDP</link>, which is TRUE and buried.
+</para>
+
+    &command-caseignoredp;
+    &command-erract;
+    &command-printdepthlimit;
+    &command-printwidthlimit;
+    &command-redefp;
+    &command-startup;
+
+</chapter>

@@ -1,0 +1,43 @@
+<section id="command-ignore">
+    <title>IGNORA</title>
+<indexterm><primary>IGNORA</primary></indexterm>
+<indexterm><primary>IGNORE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IGNORA</command> <parameter>valor</parameter>
+<command>IGNORE</command> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+No hace nada.
+Es útil cuando se evalúa una expresión por su efecto secundario y lo que devuelve no es importante.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA :arg
+  ESCRIBE :arg
+  DEVUELVE CUENTA :arg
+FIN
+
+MIPROGRAMA "Hola</userinput>
+Hola
+No dices qué debo hacer con 4
+
+<userinput>IGNORA MIPROGRAMA "Hola</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

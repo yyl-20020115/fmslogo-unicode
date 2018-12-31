@@ -1,0 +1,144 @@
+<section id="command-machine">
+    <title>MACHINE</title>
+<indexterm><primary>MACHINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MACHINE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list that describes the characteristics of the machine.
+The list has the following format:
+
+<programlisting>[IsWindows Wordsize BitmapWidth BitmapHeight
+IsPaletteEnable WindowsVersionMajor WindowsVersionMinor
+WorkingAreaWidth WorkingAreaHeight DesktopWidth DesktopHeight
+OuterWindowWidth OuterWindowHeight InnerWindowWidth InnerWindowHeight]</programlisting>
+
+Where the meaning of each member is given by the table below.
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>Item</entry>
+        <entry>Name</entry>
+        <entry>Meaning</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>1</entry>
+        <entry>IsWindows</entry>
+        <entry>1, if this is Microsoft Windows.  0, otherwise.</entry>
+      </row>
+      <row>
+        <entry>2</entry>
+        <entry>Wordsize</entry>
+        <entry>
+            The number of bits in a machine word.
+            If the version of &PRODUCTNAME; was compiled for a 32-bit machine, this is 32 even when running on a 64-bit Windows.
+        </entry>
+      </row>
+      <row>
+        <entry>3</entry>
+        <entry>BitmapWidth</entry>
+        <entry>The width of the drawable area on the &PRODUCTNAME; Screen, in pixels.</entry>
+      </row>
+      <row>
+        <entry>4</entry>
+        <entry>BitmapHeight</entry>
+        <entry>The height of the drawable area on the &PRODUCTNAME; Screen, in pixels.</entry>
+      </row>
+      <row>
+        <entry>5</entry>
+        <entry>IsPaletteEnabled</entry>
+        <entry>0, always (&PRODUCTNAME; does not support displays that use palettes).</entry>
+      </row>
+      <row>
+        <entry>6</entry>
+        <entry>WindowsVersionMajor</entry>
+        <entry>The major version of Windows.</entry>
+      </row>
+      <row>
+        <entry>7</entry>
+        <entry>WindowsVersionMinor</entry>
+        <entry>The minor version of Windows.</entry>
+      </row>
+      <row>
+        <entry>8</entry>
+        <entry>WorkingAreaWidth</entry>
+        <entry>The width of the part of the desktop that is not obscured by the taskbar, in pixels.</entry>
+      </row>
+      <row>
+        <entry>9</entry>
+        <entry>WorkingAreaHeight</entry>
+        <entry>The height of the part of the desktop that is not obscured by the taskbar, in pixels.</entry>
+      </row>
+      <row>
+        <entry>10</entry>
+        <entry>DesktopWidth</entry>
+        <entry>The width of the whole desktop, in pixels.</entry>
+      </row>
+      <row>
+        <entry>11</entry>
+        <entry>DesktopHeight</entry>
+        <entry>The height of the whole desktop, in pixels.</entry>
+      </row>
+      <row>
+        <entry>12</entry>
+         <entry>OuterWindowWidth</entry>
+         <entry>
+           The width of the &PRODUCTNAME; screen window, in pixels.
+           This includes the window frame, the vertical scollbar, etc.
+         </entry>
+      </row>
+      <row>
+        <entry>13</entry>
+         <entry>OuterWindowHeight</entry>
+         <entry>
+           The height of the &PRODUCTNAME; screen window, in pixels.
+           This includes the window frame, the title bar, the menu bar, the horizontal scrollbar, etc.
+           If the commander window is docked, this also includes the thickness of the splitter and the commander.
+         </entry>
+      </row>
+      <row>
+        <entry>14</entry>
+         <entry>InnerWindowWidth</entry>
+         <entry>
+           The width of the client area of the &PRODUCTNAME; screen window, in pixels.
+           This only includes the drawable surface, not the window frame, scrollbar, etc.
+         </entry>
+      </row>
+      <row>
+        <entry>15</entry>
+         <entry>InnerWindowHeight</entry>
+         <entry>
+           The height of the client area of the &PRODUCTNAME; screen window, in pixels.
+           This only includes the drawable surface, not the window frame, scrollbar, etc.
+         </entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW MACHINE</userinput>
+[1 32 1000 1000 0 5 1 1280 772 1280 800 1035 594 1027 251]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

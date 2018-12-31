@@ -1,0 +1,36 @@
+<section id="command-readrawline">
+<title>READRAWLINE</title>
+<indexterm><primary>READRAWLINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>READRAWLINE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee una línea desde el flujo de lectura actual y la devuelve como una palabra.
+READRAWLINE devuelve la exacta cadena de caracteres que aparecen en la línea, sin ningún tratamiento especial por las barras inversas, barras verticales, tildes de la eñe, o cualquier otro carácter de formato.
+La devuelta es una sola palabra, aun si la línea contiene un espacio, un corchete, etc.
+</para>
+<para>
+Si el flujo de lectura es un archivo que no se termina en un carácter de nueva línea, entonces trata el fin del archivo como carácter de nueva línea.
+Cuando se había leído por completo el archivo, READRAWLINE devuelve la lista vacía (no la palabra vacía).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA READRAWLINE
+Caracteres | Especiales</userinput>
+Caracteres | Especiales</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

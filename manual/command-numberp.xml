@@ -1,0 +1,37 @@
+<section id="command-numberp">
+<title>NUMBERP</title>
+<indexterm><primary>NUMBERP</primary></indexterm>
+<indexterm><primary>NUMBER?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NUMBERP</command> <parameter>thing</parameter>
+<command>NUMBER?</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs TRUE if <parameter>thing</parameter> is a number, FALSE otherwise.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW NUMBERP 1</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW NUMBERP "1</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW NUMBERP [1]</userinput>
+false</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

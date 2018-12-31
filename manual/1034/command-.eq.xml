@@ -1,0 +1,46 @@
+<section id="command-.eq">
+<title>.IG</title>
+<indexterm><primary>.IG</primary></indexterm>
+<indexterm><primary>.EQ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>.IG</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>.EQ</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si los dos argumentos <parameter>cosa1</parameter> y <parameter>cosa2</parameter> son la misma cosa, así que ejecutando un mutador sobre solo uno de los argumentos cambiaría las dos.
+En otro caso, devuelve FALSO aunque los argumentos tengan valores iguales.
+</para>
+
+<para>
+PRECAUCIÓN: los procedimientos cuyos nombres empiezan con punto (.) son <emphasis>peligrosos</emphasis>.
+No se recomienda su uso a los no expertos.
+El uso de tales mutadores puede llevar a listas con ciclos, bucles infinitos; cambios inesperados de los datos de otras estructuras que comparten los datos modificados; errores fatales; y pérdida permanente de la memoria si se libera una estructura con ciclos.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "x 1
+HAZ "y 1
+MUESTRA .IG :x :y</userinput>
+falso</programlisting>
+
+<programlisting><userinput>HAZ "x 1
+HAZ "y :x
+MUESTRA .IG :x :y</userinput>
+cierto</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

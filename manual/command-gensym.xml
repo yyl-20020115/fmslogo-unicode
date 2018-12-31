@@ -1,0 +1,37 @@
+<section id="command-gensym">
+<title>GENSYM</title>
+<indexterm><primary>GENSYM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GENSYM</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a unique word each time it is invoked.
+The words are of the form G1, G2, etc.
+This is typically used to dynamically generate variable names.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>MAKE GENSYM 1
+SHOW :g1</userinput>
+1</programlisting>
+
+    <programlisting><userinput>MAKE GENSYM "Hello
+SHOW :g2</userinput>
+Hello</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

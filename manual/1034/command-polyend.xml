@@ -1,0 +1,48 @@
+<section id="command-polyend">
+    <title>TERMINAPOLIGONO</title>
+<indexterm><primary>TERMINAPOLIGONO</primary></indexterm>
+<indexterm><primary>POLYEND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TERMINAPOLIGONO</command>
+<command>POLYEND</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Completa la definición del polígono que fue empezado por el más reciente ejecución de <link linkend="command-polystart">EMPIEZAPOLIGONO</link>.
+</para>
+
+<para>
+Asegúrate de entender las <link linkend="polygon-restrictions">restricciones de los polígonos</link>.
+</para>
+
+<para>
+Se diseñaba TERMINAPOLIGONO para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link> y no funciona en modos 2D.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PARA CUADRADO
+  EMPIEZAPOLIGONO
+  REPITE 4 [AVANZA 100 GIRADERECHA 90]
+  TERMINAPOLIGONO
+FIN
+
+PERSPECTIVA
+REPITE 72 [CUADRADO BALANCEADERECHA 5]
+MUESTRAPOLIGONO</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

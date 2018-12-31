@@ -1,0 +1,44 @@
+<section id="command-pencolor">
+<title>COLORLAPIZ</title>
+<indexterm><primary>COLORLAPIZ</primary></indexterm>
+<indexterm><primary>CL</primary></indexterm>
+<indexterm><primary>PENCOLOR</primary></indexterm>
+<indexterm><primary>PC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COLORLAPIZ</command>
+<command>CL</command>
+<command>PENCOLOR</command>
+<command>PC</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el color del lápiz.
+Lo devuelto es o un color indexado (un número de 0 a 15) o una lista con las intensidades de los colores [rojo verde azul] en un rango 0-255, dependiendo de como se puso el color del lápiz.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONCOLORLAPIZ [100 200 50]
+MUESTRA COLORLAPIZ</userinput>
+[100 200 50]</programlisting>
+
+<programlisting><userinput>PONCOLORLAPIZ 2
+MUESTRA COLORLAPIZ</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

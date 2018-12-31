@@ -1,0 +1,34 @@
+<section id="command-word">
+<title>WORD</title>
+<indexterm><primary>WORD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WORD</command> <parameter>word1</parameter> <parameter>word2</parameter>
+(<command>WORD</command> <parameter>word1</parameter> <parameter>word2</parameter> <parameter>word3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs a word formed by concatenating its inputs.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Examples</term>
+<listitem>
+    <programlisting><userinput>SHOW WORD "o "k</userinput>
+ok
+</programlisting>
+
+    <programlisting><userinput>SHOW (WORD "a "o "k "to)</userinput>
+aokto</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>
+

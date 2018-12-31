@@ -1,0 +1,35 @@
+<section id="command-posxyz">
+<title>POSXYZ</title>
+<indexterm><primary>POSXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POSXYZ</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the turtle's current position, as a list of three numbers, the X, Y, and Z coordinates.
+</para>
+<para>
+POSXYZ is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETPOSXYZ [100 200 300]
+SHOW POSXYZ</userinput>
+[100 200 300]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

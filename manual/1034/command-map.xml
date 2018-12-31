@@ -1,0 +1,60 @@
+<section id="command-map">
+    <title>TEJE</title>
+<indexterm><primary>TEJE</primary></indexterm>
+<indexterm><primary>MAP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TEJE</command> <parameter>lista_de_plantilla</parameter> <parameter>dato</parameter>
+(<command>TEJE</command> <parameter>lista_de_plantilla</parameter> <parameter>dato1</parameter> <parameter>dato2</parameter> <parameter>...</parameter>)
+<command>MAP</command> <parameter>lista_de_plantilla</parameter> <parameter>dato</parameter>
+(<command>MAP</command> <parameter>lista_de_plantilla</parameter> <parameter>dato1</parameter> <parameter>dato2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una palabra o una lista, según el tipo del argumento <parameter>dato</parameter>, del mismo tamaño de <parameter>dato</parameter>.
+(Si proporcionas más que un dato, lo devuelto es del mismo tipo del argumento <parameter>dato1</parameter>.)
+Cada miembro de lo devuelto es el resultado de ejecutar el argumento <parameter>lista_de_plantilla</parameter>, después de llenar su ranura con el miembro correspondiente del argumento <parameter>dato</parameter> (o después de llenar sus ranuras con los miembros correspondientes de cada argumento de dato, si proporcionas más que una).
+Si proporcionas más que un dato, todos los argumentos de datos debe ser del mismo tamaño.
+Si <parameter>lista_de_plantilla</parameter> devuelve una palabra, todos los resultados de las evaluaciones de la plantilla deben ser palabras y TEJE devuelve la palabra que es la concatenación del todos ellos (usando <link linkend="command-word">PALABRA</link>).
+</para>
+
+<para>
+En una plantilla, los símbolos <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> representan el porción de los datos a la derecha del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> por <userinput>[C D E]</userinput>.
+Si usas múltiples ranuras paralelas, entonces <userinput>(?RESTANTE 1)</userinput> va a la ranura <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+Se usa el símbolo <userinput>?RESTANTE</userinput> sólo en la versión de &PRODUCTNAME; española.
+Se usa <userinput>?REST</userinput> en todas las versiones de &PRODUCTNAME;.
+</para>
+
+<para>
+En una plantilla, el símbolo <userinput>#</userinput> representa la posición en <parameter>lista_de_datos</parameter> del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>#</userinput> por <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA TEJE [2 * ?] [1 2 3 4 5 6]</userinput>
+[2 4 6 8 10 12]
+</programlisting>
+
+<programlisting><userinput>MUESTRA (TEJE "LISTA [a b c] [d e f])</userinput>
+[[a d] [b e] [c f]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

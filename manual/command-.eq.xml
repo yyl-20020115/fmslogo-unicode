@@ -1,0 +1,41 @@
+<section id="command-.eq">
+<title>.EQ</title>
+<indexterm><primary>.EQ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>.EQ</command> <parameter>thing1</parameter> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs TRUE if <parameter>thing1</parameter> and <parameter>thing2</parameter> are the same object, so that applying a mutator to one will change the other as well.
+Outputs FALSE otherwise, even if the inputs are equal in value.</para>
+
+<para>WARNING: Primitives whose names start with a period are <emphasis>dangerous</emphasis>.
+Their use by non-experts is not recommended.
+The use of mutators can lead to circular data structures, infinite loops, or crashes.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "x 1
+MAKE "y 1
+SHOW .EQ :x :y</userinput>
+false</programlisting>
+
+<programlisting><userinput>MAKE "x 1
+MAKE "y :x
+SHOW .EQ :x :y</userinput>
+true</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

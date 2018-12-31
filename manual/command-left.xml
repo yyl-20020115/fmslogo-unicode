@@ -1,0 +1,31 @@
+<section id="command-left">
+<title>LEFT</title>
+<indexterm><primary>LEFT</primary></indexterm>
+<indexterm><primary>LT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LEFT</command> <parameter>angle</parameter>
+<command>LT</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Turns the turtle counterclockwise by the specified angle, measured in degrees (1/360 of a circle).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 3 [FORWARD 100 LEFT 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

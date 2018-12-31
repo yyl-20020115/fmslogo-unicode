@@ -1,0 +1,56 @@
+<section id="command-selectbox">
+    <title>SELECTBOX</title>
+<indexterm><primary>SELECTBOX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SELECTBOX</command> <parameter>title</parameter> <parameter>choicelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Displays a dialog box with <parameter>title</parameter> as the title bar and <parameter>choicelist</parameter> as a list of choices.
+The dialog also has an "OK" and a "Cancel" button.
+&PRODUCTNAME; does not evaluate any further instructions until the user clicks one of these buttons.
+The commander window is also disabled until dialog is dismissed.
+If the user presses "OK", then SELECTBOX outputs the index of the selected item (1 for first item, 2 for the second item, etc.) and instruction evaluation continues.
+If the user presses "Cancel", then instruction evaluation is halted, as if by the <link linkend="command-halt">HALT</link> command.
+</para>
+
+<para>
+Both the <parameter>title</parameter> and <parameter>choicelist</parameter> inputs must be lists.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW SELECTBOX [Choose Color] [Red Green Blue]
+<replaceable>Select green and hit OK</replaceable>
+2</userinput>
+</programlisting>
+
+<programlisting><userinput>SHOW SELECTBOX [Which are colors] [[Red Green Blue] [One Two Three] None]
+<replaceable>Select "Red Green Blue" and hit OK</replaceable>
+1</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-messagebox">MESSAGEBOX</link></member>
+<member><link linkend="command-questionbox">QUESTIONBOX</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

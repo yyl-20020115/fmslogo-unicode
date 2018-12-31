@@ -1,0 +1,54 @@
+<section id="command-polyview">
+    <title>POLYVIEW</title>
+<indexterm><primary>POLYVIEW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POLYVIEW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+POLYVIEW erases the screen and renders all polygons defined with <link linkend="command-polystart">POLYSTART</link> and <link linkend="command-polyend">POLYEND</link> as shaded polygons.
+Only shaded polygons are shown.
+Polygons are illuminated according to the position of the light source using <userinput>SETTURTLE -3</userinput> and lighting configuration that was set with <link linkend="command-setlight">SETLIGHT</link>.
+Make sure you understand the <link linkend="polygon-restrictions">Polygon Restrictions</link>.
+</para>
+
+<para>
+If you need to add other things to your drawing such as LABELs or BITMAPs etc., you must do them after the last POLYVIEW.
+</para>
+
+<para>
+You can call POLYVIEW immediately after any POLYEND to watch polygons get shaded as your program builds your object.
+But keep in mind POLYVIEW is an expensive operation and slows down the program considerably if you call it with every POLYEND.
+</para>
+
+<para>
+POLYVIEW is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode and does not run in 2D modes.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO SQUARE
+  POLYSTART
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+  POLYEND
+END
+
+PERSPECTIVE
+REPEAT 72 [SQUARE RIGHTROLL 5]
+POLYVIEW</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

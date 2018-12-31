@@ -1,0 +1,33 @@
+<section id="command-back">
+<title>BACK</title>
+<indexterm><primary>BACK</primary></indexterm>
+<indexterm><primary>BK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BACK</command> <parameter>distance</parameter>
+<command>BK</command> <parameter>distance</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle backward, exactly opposite to the direction that it's headed, by the specified distance, measured in turtle steps.
+The heading of the turtle does not change.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 4 [BACK 100 RIGHT 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

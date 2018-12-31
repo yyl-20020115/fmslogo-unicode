@@ -1,0 +1,49 @@
+<section id="command-forever">
+<title>SIEMPRE</title>
+<indexterm><primary>SIEMPRE</primary></indexterm>
+<indexterm><primary>FOREVER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SIEMPRE</command> <parameter>lista_de_instrucciones</parameter>
+<command>FOREVER</command> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta <parameter>lista_de_instrucciones</parameter> repetidamente, para siempre.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SIEMPRE [ESCRIBE "|Despiertame cuando has terminado.|]</userinput>
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+Despiertame cuando has terminado.
+<replaceable>...</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-repeat">REPITE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

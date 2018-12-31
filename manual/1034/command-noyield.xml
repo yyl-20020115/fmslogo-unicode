@@ -1,0 +1,88 @@
+<section id="command-noyield">
+    <title>EXCLUSIVO</title>
+<indexterm><primary>NOYIELD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EXCLUSIVO</command>
+<command>NOYIELD</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Le dice a &PRODUCTNAME; que no es permisible interrumpir la ejecución de código &GENERICNAME; para procesar los mensajes de ventanas, tal como las pulsaciones de tecla, clics del ratón, y notificaciones para actualizar la pantalla.
+Cuando &PRODUCTNAME; está en modo EXCLUSIVO, no te responde cuando ejecuta instrucciones de &GENERICNAME; y desoye interacciones de usuario importantes como cuando presiones al <link linkend="commander-halt">Botón Alto</link>.
+&PRODUCTNAME; pueda aparecer congelado hasta que el código &GENERICNAME; termina o ejecuta <link linkend="command-yield">NOEXCLUSIVO</link>.
+</para>
+
+<para>
+El modo por defecto es NOEXCLUSIVO, pero se ejecutan las listas de instrucciones provistas a <link linkend="command-keyboardon">HABILITATECLADO</link>, <link linkend="command-mouseon">HABILITARATON</link> y algunas de las provistas a <link linkend="command-settimer">SETTIMER</link> en modo EXCLUSIVO.
+</para>
+
+<para>
+El concepto del modo EXCLUSIVO tenía más sentido históricamente cuando Microsoft Windows fue un sistema operativo multitarea cooperativa y las aplicaciones tenían control completo de la CPU hasta que decidían cederseles a otras aplicaciones.
+Una vez que una aplicación había cedido control de la CPU a otra, tenía que esperar hasta que todas las otras aplicaciones ha cedido la CPU antes de que se pudiera ejecutar de nuevo, sin saber cuanto tiempo había que esperar.
+Por eso, para garantizar un buen desempeño, las aplicaciones no cedían la CPU hasta que no tuviesen nada que hacer.
+Hoy por hoy, Microsoft Windows les da a todas las aplicaciones un porción de tiempo justo a la CPU, así que EXCLUSIVO solo impide que &PRODUCTNAME; se interrumpe a si mismo.
+En general, estas interrupciones son deseables, lo que hace difícil usar bien EXCLUSIVO.
+No obstante, se proporcione EXCLUSIVO porque en algunos casos &PRODUCTNAME; funciona mejor si no se interrumpa.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Puedes conseguir el balance correcto entre rendimiento y capacidad de respuesta para tus programas si tengas en cuento los siguientes ejemplos.
+Digamos que tu programa tenga dos bucles anidados y que la mayoría del trabajo se hace en el bucle interior.
+</para>
+
+<para>
+Caso 1: El usuario tiene el control por 10,000 operaciones (menor rendimiento):
+<programlisting>NOEXCLUSIVO
+REPITE 100 [
+  REPITE 100 [
+    <replaceable>; (trabajo a hacer)</replaceable>
+  ]
+]</programlisting>
+</para>
+
+
+<para>
+Caso 2: El usuario pierde el control por 10,000 operaciones (mejor rendimiento):
+<programlisting>EXCLUSIVO
+REPITE 100 [
+  REPITE 100 [
+    <replaceable>; (trabajo a hacer)</replaceable>
+  ]
+]</programlisting>
+</para>
+
+<para>
+Caso 3: El usuario pierde el control por 100 operaciones (rendimiento mediano):
+<programlisting>REPITE 100 [
+  EXCLUSIVO
+  REPITE 100 [
+    <replaceable>; (trabajo a hacer)</replaceable>
+  ]
+  NOEXCLUSIVO
+]</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-eventcheck">SIEVENTO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

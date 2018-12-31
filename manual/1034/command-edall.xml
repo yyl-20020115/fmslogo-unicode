@@ -1,0 +1,49 @@
+<section id="command-edall">
+    <title>EDTODO</title>
+<indexterm><primary>EDTODO</primary></indexterm>
+<indexterm><primary>EDALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDTODO</command>
+<command>EDALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de todos los procedimientos, variables y listas de propiedades no tapados en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDTODO es la abreviatura <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-contents">CONTENIDO</link></userinput>.
+Equivale a presionar el <link linkend="commander-edall">Botón EdTodo</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  ESCRIBE :mivariable
+FIN
+
+HAZ "mivariable "Hrla
+MIPROGRAMA</userinput>
+Hrla
+<userinput>EDTODO</userinput>
+<replaceable>Cambia «Hrla» por «Hola» y sal del Editor</replaceable>
+<userinput>MIPROGRAMA</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

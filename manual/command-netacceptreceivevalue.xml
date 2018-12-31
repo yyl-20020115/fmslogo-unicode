@@ -1,0 +1,70 @@
+<section id="command-netacceptreceivevalue">
+<title>NETACCEPTRECEIVEVALUE</title>
+<indexterm><primary>NETACCEPTRECEIVEVALUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NETACCEPTRECEIVEVALUE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the value of the last network data received on the accept socket.
+It is best to call this procedure in your <parameter>receiveready</parameter> callback code of your <link linkend="command-netaccepton">NETACCEPTON</link> instruction.
+If you don't, then the data is discarded the next time <parameter>receiveready</parameter> is run.
+</para>
+
+<para>
+&PRODUCTNAME; does not guarantee that the remote machine that sent the data is friendly.
+It is therefore a good practice to make sure that the data looks correct before using it.
+For example, if you want to accept turtle commands from a remote machine, its bad to simply <link linkend="command-run">RUN</link> all data that you receive, as the data could include a <link linkend="command-shell">SHELL</link> command that installs malware.
+Instead, your program should verify that the data it received is a well-formed turtle command before running it.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+This example sets up both a client and server.
+The client (connector) sends data to the server (accepter).
+
+<programlisting><userinput>NETSTARTUP ; Start up the network
+
+; Wait for someone to connect to you on local port 5124
+SHOW NETACCEPTON 5124 [] [PRINT NETACCEPTRECEIVEVALUE]</userinput>
+true
+
+<userinput>; Connect to local machine on port 5124
+; If you want to run this portion on a different computer, then replace
+; the "localhost with the name of the other computer.
+SHOW NETCONNECTON "localhost 5124 [PRINT [Ok to Send Again]] []</userinput>
+true
+
+<userinput>WAIT 100 ; Wait little for connection to establish</userinput>
+Ok to Send Again
+Ok to Send Again
+Ok to Send Again
+<userinput>SHOW NETCONNECTSENDVALUE [Hello thanks for taking my call] ; Send some data</userinput>
+true
+
+<userinput>WAIT 100 ; Wait a little before we shut things down</userinput>
+Hello thanks for taking my call
+
+<userinput>NETCONNECTOFF
+NETACCEPTOFF
+NETSHUTDOWN</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

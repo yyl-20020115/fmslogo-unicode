@@ -1,0 +1,43 @@
+<section id="command-pops">
+    <title>IMDEFPROCS</title>
+<indexterm><primary>IMDEFPROCS</primary></indexterm>
+<indexterm><primary>POPS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMDEFPROCS</command>
+<command>POPS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las definiciones de todos los procedimientos no tapados del área de trabajo al flujo de escritura actual.
+IMDEFPROCS es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-procedures">LPROCS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "var 1
+
+PARA XXX
+  ESCRIBE "Hola ; comentario
+FIN
+
+IMDEFPROCS</userinput>
+TO XXX
+  ESCRIBE "Hola ; comentario
+FIN
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

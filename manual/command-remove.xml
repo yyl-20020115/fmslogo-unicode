@@ -1,0 +1,42 @@
+<section id="command-remove">
+<title>REMOVE</title>
+<indexterm><primary>REMOVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REMOVE</command> <parameter>thingtoremove</parameter> <parameter>things</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a new thing that is equal to <parameter>things</parameter> with all members equal to <parameter>thingtoremove</parameter> removed.
+</para>
+<para>
+The <parameter>things</parameter> input must be either a list or a word.
+</para>
+<para>
+Because the members of a word are single characters, if <parameter>things</parameter> is a word, then <parameter>thingtoremove</parameter> should be a single character.
+REMOVE does not remove multi-character substrings from a word.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW REMOVE "b [a b c b]</userinput>
+[a c]</programlisting>
+
+<programlisting><userinput>SHOW REMOVE "e "Hello</userinput>
+Hllo</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

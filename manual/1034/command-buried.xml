@@ -1,0 +1,39 @@
+<section id="command-buried">
+    <title>TAPADO</title>
+<indexterm><primary>TAPADO</primary></indexterm>
+<indexterm><primary>BURIED</primary></indexterm>
+
+<variablelist>
+
+  
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TAPADO</command>
+<command>BURIED</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos que consiste de los nombres de todos los elementos que están tapados en el área de trabajo: los procedimientos tapados, las variables tapadas y las listas de propiedades tapadas.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA TAPADO</userinput>
+[[] [] []]
+<userinput>HAZ "foo 1
+TAPA [[] [foo]]
+MUESTRA TAPADO</userinput>
+[[] [foo] []]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

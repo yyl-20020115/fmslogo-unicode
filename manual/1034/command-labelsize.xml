@@ -1,0 +1,54 @@
+<section id="command-labelsize">
+<title>ROTULOTAM</title>
+<indexterm><primary>ROTULOTAM</primary></indexterm>
+<indexterm><primary>LABELSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ROTULOTAM</command> <parameter>texto</parameter>
+<command>LABELSIZE</command> <parameter>texto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el tamaño (anchura y altura) de <parameter>texto</parameter> tal como si fuera escrito con el comando <link linkend="command-label">ROTULO</link>.
+El argumento puede ser una palabra o una lista, la misma que se emplea con ROTULO.
+La devuelta es una lista de dos enteros [anchura altura].
+</para>
+
+<para>
+La anchura y altura siempre son devueltas relativas al texto, y no la orientación de la tortuga.
+La anchura es la longitud del texto a través del rumbo en que se lee las palabras.
+La altura es la altura del línea de <link linkend="command-labelfont">TIPO</link> y es independiente del argumento <parameter>texto</parameter>.
+</para>
+
+<para>
+Lo que devuelve ROTULOTAM puede variar un poco según la orientación de la tortuga.
+Para los mejores resultados, ejecuta ROTULOTAM cuando el rumbo de la tortuga es igual a lo de cuando ejecutaras ROTULO.
+</para>
+
+<para>
+Puedes usar ROTULOTAM para construir otras formas de ROTULO, tal como ROTOLOCENTRO o ROTOLOVERTICAL.
+También puedes usar esta información para «preparar» un sitio para texto (por ejemplo, para enmarcarlo o darle un fondo).
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONTIPO [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+MUESTRA ROTULOTAM "Hola</userinput>
+[38 24]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

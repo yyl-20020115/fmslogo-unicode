@@ -1,0 +1,49 @@
+<section id="command-pen">
+<title>LAPIZ</title>
+<indexterm><primary>LAPIZ</primary></indexterm>
+<indexterm><primary>PEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LAPIZ</command>
+<command>PEN</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista con información sobre el lápiz: posición, modo y características específicas del hardware, que se puede usar con <link linkend="command-setpen">PONLAPIZ</link>.
+Lo devuelto es una lista con los elementos siguientes: [BAJALAPIZ? LAPIZMODO GROSOR COLORLAPIZ PATRONLAPIZ].
+</para>
+
+<para>
+El formato de esta lista puede cambiar en versiones futuras de &PRODUCTNAME;, a medida que se añade características adicionales.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>BORRAPANTALLA
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+HAZ "lapizguardado LAPIZ
+
+BORRAPANTALLA
+PONGROSOR [20 20]
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+PONLAPIZ :lapizguardado
+
+BORRAPANTALLA
+REPITE 4 [AVANZA 100 GIRADERECHA 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

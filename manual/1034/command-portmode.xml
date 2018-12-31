@@ -1,0 +1,41 @@
+<section id="command-portmode">
+<title>MODOPUERTO</title>
+<indexterm><primary>MODOPUERTO</primary></indexterm>
+<indexterm><primary>PORTMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MODOPUERTO</command> <parameter>modo</parameter>
+<command>PORTMODE</command> <parameter>modo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para> 
+Fija el modo (velocidad, paridad, bits de datos, y bits de parada) del puerto abierto.
+&PRODUCTNAME; no puede fijar la característica de flujo de control.
+</para>
+
+<para>
+El argumento <parameter>modo</parameter> debe ser de la forma <userinput>"COM<replaceable>n</replaceable>:<replaceable>VELOCIDAD</replaceable>,<replaceable>PARIDAD</replaceable>,<replaceable>DATOS</replaceable>,<replaceable>PARADA</replaceable></userinput>.
+Este es la misma forma que usa el comando MODE del intérprete de comandos de Windows.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MODOPUERTO "com1:9600,n,8,1</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,35 @@
+<section id="command-buttonupdate">
+    <title>BUTTONUPDATE</title>
+<indexterm><primary>BUTTONUPDATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTTONUPDATE</command> <parameter>name</parameter> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Replaces the text on the button identified by <parameter>name</parameter> with <parameter>text</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+MAKE "Pushed 0
+BUTTONCREATE "mywindow "mybutton :Pushed 25 25 25 25 [MAKE "Pushed :Pushed + 1 BUTTONUPDATE "mybutton :Pushed]</userinput>
+<replaceable>Push the button a few times.</replaceable>
+<userinput>BUTTONDELETE "mybutton
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-dllfree">
+<title>QUITADLL</title>
+<indexterm><primary>QUITADLL</primary></indexterm>
+<indexterm><primary>DLLFREE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>QUITADLL</command>
+(<command>QUITADLL</command> <parameter>nombre_de_biblioteca</parameter>)
+<command>DLLFREE</command>
+(<command>DLLFREE</command> <parameter>nombre_de_biblioteca</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cierra una biblioteca (DLL) previamente cargada con <link linkend="command-dllload">CARAGADLL</link>.
+Si el argumento <parameter>nombre_de_biblioteca</parameter> es dado, entonces se cierra la biblioteca con ese nombre.
+Si no, QUITADLL cierra la biblioteca cargada más recientemente.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>CARGADLL "user32.dll
+QUITADLL</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

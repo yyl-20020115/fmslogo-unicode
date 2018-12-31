@@ -1,0 +1,70 @@
+<section id="command-ellipse2">
+<title>ELIPSE2</title>
+<indexterm><primary>ELIPSE2</primary></indexterm>
+<indexterm><primary>ELLIPSE2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ELIPSE2</command> <parameter>medioeje.en.línea</parameter> <parameter>medioeje.al.través</parameter>
+<command>ELLIPSE2</command> <parameter>medioeje.en.línea</parameter> <parameter>medioeje.al.través</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga tal que traza una elipse en sentido horario.
+El tamaño y forma de la elipse depende de los valores de <parameter>medioeje.al.través</parameter> y <parameter>medioeje.en.línea</parameter>.
+El argumento <parameter>medioeje.al.través</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo perpendicular al rumbo actual de la tortuga.
+El argumento <parameter>medioeje.en.línea</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo actual de la tortuga.
+Por consiguiente, el rumbo actual de la tortuga determina la orientación de la elipse.
+</para>
+
+<para>
+Se dibuja la elipse tangente al rumbo y posición actual de la tortuga.
+Este punto tangente es al extremo del eje al través de la elipse.
+La elipse entera aparece a la derecha de la tortuga.
+</para>
+
+<para>
+Nota que los argumentos <parameter>medioeje.en.línea</parameter> y <parameter>medioeje.al.través</parameter> son en orden reverso de lo del comando <link linkend="command-ellipse">ELIPSE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Un ejemplo en 2D:
+<programlisting><userinput>ELIPSE2 100 200
+BORRAPANTALLA
+ELIPSE2 50 50
+BORRAPANTALLA
+ELIPSE2 50 50</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D
+<programlisting><userinput>PERSPECTIVA
+REPITE 72 [ELIPSE2 200 100 BALANCEADERECHA 5 AVANZA 5]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipse">ELIPSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

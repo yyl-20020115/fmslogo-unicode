@@ -1,0 +1,36 @@
+<section id="command-allopen">
+<title>ABIERTOS</title>
+<indexterm><primary>ABIERTOS</primary></indexterm>
+<indexterm><primary>ALLOPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ABIERTOS</command>
+<command>ALLOPEN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista cuyos elementos son los nombres de todos los archivos que están abierto actualmente.
+Esta lista no incluye el archivo <link linkend="command-dribble">ECO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ABREESCRITURA "ejemplo1.txt
+ABREESCRITURA "ejemplo2.txt
+MUESTRA ABIERTOS</userinput>
+[ejemplo1.txt ejemplo2.txt]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

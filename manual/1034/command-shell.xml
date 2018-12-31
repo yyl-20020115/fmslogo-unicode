@@ -1,0 +1,62 @@
+<section id="command-shell">
+<title>SHELL</title>
+<indexterm><primary>SHELL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SHELL</command> <parameter>command</parameter>
+(<command>SHELL</command> <parameter>command</parameter> <parameter>wait</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Runs an input string as a shell command.
+Outputs TRUE if the command was executed, FALSE otherwise.
+If the command is a literal list in the instruction line, and if you want a backslash character sent to the shell, you must use \\ to get the backslash through &GENERICNAME;'s reader intact.
+</para>
+
+<para>
+The optional <parameter>wait</parameter> input controls whether &PRODUCTNAME; waits for <parameter>command</parameter> to finish running before it runs the next instruction.
+If present, <parameter>wait</parameter> must be either TRUE or FALSE.
+When no <parameter>wait</parameter> input is given, SHELL does not wait for the command to finish.
+</para>
+
+<para>
+If your <parameter>command</parameter> contains spaces in the file path to the executable, it's a good idea to put double-quotes around it, or else you may end up running the wrong program.
+For example, if a file named <userinput>c:\Program.exe</userinput> exists, then the following instruction runs <userinput>c:\Program.exe</userinput> with the command-line parameter <userinput>Files\Audacity\audacity.exe</userinput>:
+
+<programlisting><userinput>SHOW SHELL [c:\\Program Files\\Audacity\\audacity.exe]</userinput>
+</programlisting>
+
+However, the following instruction always runs <userinput>audacity.exe</userinput>, regardless of whether <userinput>c:\Program.exe</userinput> exists:
+
+<programlisting><userinput>SHOW SHELL [\"c:\\Program Files\\Audacity\\audacity.exe\"]</userinput>
+</programlisting>
+
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW SHELL [notepad c:\\test.txt]</userinput>
+true
+</programlisting>
+
+<programlisting><userinput>SHOW SHELL [unknown-app c:\\test.txt]</userinput>
+false
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

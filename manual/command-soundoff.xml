@@ -1,0 +1,38 @@
+<section id="command-soundoff">
+<title>SOUNDOFF</title>
+<indexterm><primary>SOUNDOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SOUNDOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Shutoff a sound turned on by <link linkend="command-soundon">SOUNDON</link>.
+</para>
+
+<para>
+SOUNDOFF does not work on Windows NT or Windows XP because it uses <link linkend="command-outport">OUTPORT</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SOUNDON 1000
+SOUNDOFF</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,33 @@
+<section id="command-run">
+    <title>RUN</title>
+<indexterm><primary>RUN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RUN</command> <parameter>instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Runs the instructions in <parameter>instructionlist</parameter>; outputs if the list contains an expression that outputs.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "thingstodo [PRINT "Hello]
+RUN :thingstodo</userinput>
+Hello
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,43 @@
+<section id="command-fence">
+    <title>MODOJAULA</title>
+<indexterm><primary>MODOJAULA</primary></indexterm>
+<indexterm><primary>FENCE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MODOJAULA</command>
+<command>FENCE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace que la tortuga entra en modo «jaula».
+De ahora en adelante, cuando la tortuga se mueve fuera de los límites de la pantalla, se moverá hasta el límite de la pantalla, donde se detendrá, al tiempo que aparece un mensaje de error «tortuga fuera de los límites».
+</para>
+
+<para>
+Compara este comando con <link linkend="command-wrap">MODOVUELTA</link>, <link linkend="command-window">MODOVENTANA</link> y <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MODOJAULA
+AVANZA 10000</userinput>
+tortuga fuera de los límites
+<userinput>AVANZA 10</userinput>
+tortuga fuera de los límites
+<userinput>RETROCEDE 500</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

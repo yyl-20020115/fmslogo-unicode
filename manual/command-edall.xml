@@ -1,0 +1,46 @@
+<section id="command-edall">
+    <title>EDALL</title>
+<indexterm><primary>EDALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EDALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens all definitions in the workspace in the <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDALL abbreviates <userinput><link linkend="command-edit">EDIT</link> <link linkend="command-contents">CONTENTS</link></userinput>.
+It is equivalent to pressing the <link linkend="commander-edall">Edall button</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM
+  PRINT :myvariable
+END
+
+MAKE "myvariable "Hrllo
+MYPROGRAM</userinput>
+Hrllo
+<userinput>EDALL</userinput>
+<replaceable>change Hrllo to Hello and exit editor</replaceable>
+<userinput>MYPROGRAM</userinput>
+Hello
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

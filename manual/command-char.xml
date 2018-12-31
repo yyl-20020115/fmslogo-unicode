@@ -1,0 +1,41 @@
+<section id="command-char">
+<title>CHAR</title>
+<indexterm><primary>CHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHAR</command> <parameter>number</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the character represented by the numeric code <parameter>number</parameter>, which must be an integer between 0 and 255.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW CHAR 97</userinput>
+a</programlisting>
+
+<programlisting><userinput>SHOW CHAR 65</userinput>
+A</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-ascii">ASCII</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

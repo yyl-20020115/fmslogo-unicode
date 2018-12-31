@@ -1,0 +1,40 @@
+<section id="command-standout">
+<title>STANDOUT</title>
+<indexterm><primary>STANDOUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>STANDOUT</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>STANDOUT is not yet supported in &PRODUCTNAME;.</para></note>
+
+<para>
+In other &GENERICNAME; environments, STANDOUT outputs a word that, when printed, appears like the input but displayed in standout mode (boldface, reverse video, or whatever your terminal does for standout).
+The word contains terminal-specific magic characters at the beginning and end; in between is the printed form (as if displayed using <link linkend="command-type">TYPE</link>) of the input.
+The output is always a word, even if the input is of some other type, but it may include spaces and other formatting characters.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW (LIST "This "is STANDOUT "very "important)</userinput>
+This is very important</programlisting>
+
+<programlisting><userinput>SHOW STANDOUT [1 2 3]</userinput>
+[1 2 3]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

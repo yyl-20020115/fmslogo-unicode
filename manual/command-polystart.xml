@@ -1,0 +1,52 @@
+<section id="command-polystart">
+    <title>POLYSTART</title>
+<indexterm><primary>POLYSTART</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POLYSTART</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Starts the definition of a new polygon.
+Each subsequent move while the turtle's pen is down adds the destination coordinate as a vertex to the polygon.
+The polygon's definition is completed by running the <link linkend="command-polyend">POLYEND</link> command.
+</para>
+
+<para>
+Make sure you understand the <link linkend="polygon-restrictions">Polygon Restrictions</link>.
+</para>
+
+<para>
+After all of the polygons are defined, you can view them as shaded polygons by running the <link linkend="command-polyview">POLYVIEW</link> command.
+</para>
+
+<para>
+POLYSTART is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode and does not run in 2D modes.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO SQUARE
+  POLYSTART
+  REPEAT 4 [FORWARD 100 RIGHT 90]
+  POLYEND
+END
+
+PERSPECTIVE
+REPEAT 72 [SQUARE RIGHTROLL 5]
+POLYVIEW</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

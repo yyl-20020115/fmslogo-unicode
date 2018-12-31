@@ -1,0 +1,50 @@
+<section id="command-rawascii">
+<title>RAWASCII</title>
+<indexterm><primary>RAWASCII</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RAWASCII</command> <parameter>character</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the number that represents <parameter>character</parameter> in your current code page.
+</para>
+
+<para>
+Unlike <link linkend="command-ascii">ASCII</link>, RAWASCII interprets control characters as representing themselves.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW RAWASCII "a</userinput>
+97</programlisting>
+
+<programlisting><userinput>SHOW RAWASCII "A</userinput>
+65</programlisting>
+
+<programlisting><userinput>SHOW RAWASCII "|(|</userinput>
+6</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-ascii">ASCII</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

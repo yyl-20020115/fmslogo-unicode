@@ -1,0 +1,69 @@
+<section id="command-random">
+    <title>RANDOM</title>
+<indexterm><primary>RANDOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RANDOM</command> <parameter>range</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Outputs a uniform random integer from 0 to the <parameter>range</parameter> input (not including the <parameter>range</parameter> input).
+The <parameter>range</parameter> input must be a nonnegative integer.
+</para>
+
+<para>
+For example, if the input is 10, then RANDOM outputs any of these integers with equal probability: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+</para>
+
+<para>
+Computers are inherently deterministic, which means that, given a set of inputs, computers always follow a program to produce the exact same output.
+This makes it difficult for a computer to generate truly random numbers.
+For this reason, when a computer generates a random number, it is often called a pseudo-random number, which means "fake random number".
+Here's how RANDOM works.
+Imagine that RANDOM has a giant list of numbers that appear in a predetermined, random-looking order.
+Each time you run RANDOM, it reads the next number from the list, scales it to the requested range, and outputs the result.
+If RANDOM always started at the top of this list, then it would always produce the same sequence of numbers each time &GENERICNAME; was run, which wouldn't appear random at all.
+Of course, RANDOM can't just pick a random place in the list to start, because computers can't create true randomness.
+To get around this problem, when &GENERICNAME; starts up, it uses the current time to determine where in the list it should start getting numbers from.
+As long as you start each program at a different time, the random sequence is different, which is usually good enough to simulate true randomness.
+But if you manage to start two instances of &GENERICNAME; at exactly the same time, then RANDOM would output the exact same sequence of numbers.
+</para>
+
+<para>
+Normally, you want RANDOM to output different values each time your program is run.
+But sometimes you may want to produce the exact same sequence of numbers.
+In these cases, you can use <link linkend="command-rerandom">RERANDOM</link> to reset the location in the list where RANDOM gets its next number from.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 5 [SHOW RANDOM 10]</userinput>
+6
+8
+3
+0
+9</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-rerandom">RERANDOM</link></member>
+<member><link linkend="command-pick">PICK</link></member>
+</simplelist></listitem>
+
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,47 @@
+<section id="command-readpos">
+<title>READPOS</title>
+<indexterm><primary>READPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the file character position of the current read stream file as a number.
+An output value of 0 means that the read position is at the beginning of the stream.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READPOS SHOW READLIST]</userinput>
+0
+[Hello]
+7
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

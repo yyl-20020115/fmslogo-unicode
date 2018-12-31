@@ -1,0 +1,32 @@
+<section id="command-pi">
+    <title>PI</title>
+<indexterm><primary>PI</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PI</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el valor del número pi (3.14159265358979).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA PI</userinput>
+3.14159265358979</programlisting>
+    <programlisting><userinput>MUESTRA RADSEN PI/2</userinput>
+1</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,28 @@
+There are a few special cases for the installer that should be tested:
+1) Using a non-default install location
+2) Installing/Uninstalling as a power user.
+3) Installing/Uninstalling as a limited user.
+4) Installing a non-English build.
+5) Installing/Uninstalling while FMSLogo is running.
+6) Installing when FMSLogo is already installed.
+7) Installing with/without desktop and start menu shortcuts.
+
+
+Test Cases:
+0) Start with no versions of FMSLogo installed.
+1) Install an English build as an administrator.  Uncheck "Desktop Shortcut". Install to "c:\Program Files\FMSLogoTest".
+2) Start FMSLogo and run "SETPENCOLOUR 1 FD 100".  This should draw a blue line.
+3) Try to uninstall FMSLogo as a limited (non-admin) user.  This should fail with an informative error message.
+4) Try to uninstall FMSLogo as administrator while FMSLogo is running.  This should fail with an informative error message.
+5) Try to install FMSLogo as a limited (non-admin) user to "c:\Program Files\FMSLogoNoInstall".  This should fail with an informative error message.
+6) Install a French build of FMSLogo as a limited (non-admin) user a non-default location for the directory and start menu folder.  This should succeed.
+7) Start FMSLogo and run "FCC 1 FD 100".  This should draw a blue line.
+8) Uninstall FMSLogo as a limited user.  Verify that it was uninstalled.
+9) Verify that the FMSLogo which was installed by the administrator still exists.
+10) Install a French FMSLogo as an administrator.  This should notify you that FMSLogo is already installed and that you must uninstall it.  Click "No".  This should abort.
+11) Install a French FMSLogo as an administrator.  This should notify you that FMSLogo is already installed and that you must uninstall it.  Click "Yes".  This should uninstall the old version.  Install to "c:\Program Files\FMSLogoTest2".  Verify that FMSLogo was installed there and that it's French.
+12) Uninstall FMSLogo as an administrator.
+13) Install FMSLogo with /LCID=1036 and confirm that the language selection is never displayed and the French version is installed.
+14) Install FMSLogo with /S switch and confirm that no dialog box is displayed and the English version gets installed.
+15) Start an FMSLogo installer, then attempt to start a second installer with the /S switch.  Confirm that FMSLogo does not get installed (it should fail silently when the installer is running).
+16) Start an FMSLogo installer with /LCID=9999.  Confirm that the language selection is shown.

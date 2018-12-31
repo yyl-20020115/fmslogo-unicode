@@ -1,0 +1,76 @@
+<section id="command-ellipsearc">
+<title>ARCOELIPSE</title>
+<indexterm><primary>ARCOELIPSE</primary></indexterm>
+<indexterm><primary>ELLIPSEARC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ARCOELIPSE</command> <parameter>ángulo</parameter> <parameter>medioeje.al.través</parameter> <parameter>medioeje.en.línea</parameter> <parameter>principioángulo</parameter>
+<command>ELLIPSEARC</command> <parameter>ángulo</parameter> <parameter>medioeje.al.través</parameter> <parameter>medioeje.en.línea</parameter> <parameter>principioángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Dibuja una parte o la totalidad de una elipse, según el rumbo y posición de la tortuga y los argumentos.
+ARCOELIPSE no mueve la tortuga.
+La posición de la tortuga quede en el centro de la elipse.
+El arco de la elipse empieza al lugar descrito por <parameter>principioángulo</parameter> y traza un ángulo igual a <parameter>ángulo</parameter> en sentido horario.
+</para>
+
+<para>
+El tamaño depende de los valores de <parameter>medioeje.al.través</parameter> y <parameter>medioeje.en.línea</parameter>.
+El argumento <parameter>medioeje.al.través</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo perpendicular al rumbo actual de la tortuga.
+El argumento <parameter>medioeje.en.línea</parameter> es la distancia desde la tortuga hasta la elipse en el rumbo actual de la tortuga.
+Por consiguiente, el rumbo actual de la tortuga determina la orientación de la elipse.
+</para>
+
+<para>
+El argumento <parameter>principioángulo</parameter> es relativo al rumbo de la tortuga.
+Un <parameter>principioángulo</parameter> de 0 indica que el arco elíptico empieza detrás de la tortuga.
+Se mide el <parameter>principioángulo</parameter> en sentido horario, entonces un valor de 90 indica que arco elíptico empieza a la izquierda de la tortuga (90 grados en el sentido del reloj de detrás de la tortuga).
+</para>
+
+<para>
+Normalmente, se dibuja el arco elíptico en sentido horario, pero si <parameter>ángulo</parameter> es negativo, entonces se dibuja el arco elíptico en sentido <emphasis>antihorario</emphasis>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Un ejemplo 2D:
+<programlisting><userinput>ARCOELIPSE 360 100 200 0
+BORRAPANTALLA
+ARCOELIPSE 90 50 50 0
+BORRAPANTALLA
+ARCOELIPSE 90 50 50 90</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 72 [ARCOELIPSE 90 100 150 45 BALANCEADERECHA 5]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipsearc2">ARCOELIPSE2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

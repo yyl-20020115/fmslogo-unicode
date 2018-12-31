@@ -1,0 +1,42 @@
+<section id="command-setxy">
+<title>SETXY</title>
+<indexterm><primary>SETXY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETXY</command> <parameter>xcor</parameter> <parameter>ycor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle to an absolute X,Y coordinate.
+The two inputs are numbers, the X and Y coordinates to move to.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 360 [SETXY REPCOUNT 100*SIN REPCOUNT]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-pos">POS</link></member>
+<member><link linkend="command-setpos">SETPOS</link></member>
+<member><link linkend="command-setx">SETX</link></member>
+<member><link linkend="command-sety">SETY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+
+</variablelist>
+</section>

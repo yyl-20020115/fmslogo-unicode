@@ -1,0 +1,78 @@
+<section id="command-groupboxcreate">
+    <title>GROUPBOXCREATE</title>
+<indexterm><primary>GROUPBOXCREATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GROUPBOXCREATE</command> <parameter>parent</parameter> <parameter>name</parameter> <parameter>xpos</parameter> <parameter>ypos</parameter> <parameter>width</parameter> <parameter>height</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Create a group box control.
+A group box control is a unique control compared with the other controls because all it does is group radio buttons (see <link linkend="command-radiobuttoncreate">RADIOBUTTONCREATE</link>) and checkboxes (see <link linkend="command-checkboxcreate">CHECKBOXCREATE</link>) both graphically and logically.
+Radio buttons and checkboxes must belong to a group box control.
+</para>
+
+<para>
+The <parameter>parent</parameter> input is the name of the window that owns the new group box control.
+If no window or dialog with that name exists, then the &PRODUCTNAME; screen window is used as the parent.
+</para>
+
+<para>
+The <parameter>name</parameter> input identifies the new group box control and <emphasis>must</emphasis> be a unique word.
+</para>
+
+<para>
+The <parameter>xpos</parameter> input is the X coordinate where the upper-left corner of the new group box control is placed.
+</para>
+
+<para>
+The <parameter>ypos</parameter> input is the Y coordinate where the upper-left corner of the new group box control is placed.
+</para>
+
+<para>
+The <parameter>width</parameter> input is the width of the new group box control.
+</para>
+
+<para>
+The <parameter>height</parameter> input is the height of the new group box control.
+</para>
+
+<para>
+If the parent of the group box is the &PRODUCTNAME; screen window, then the <parameter>xpos</parameter>, <parameter>ypos</parameter>, <parameter>width</parameter>, and <parameter>height</parameter> inputs are all given in turtle coordinates.
+Otherwise, they are given in "dialog units", the origin is the upper-left corner of the parent, and Y values increase as you move down the screen.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO CHECKONTHINGS
+  IFELSE CHECKBOXGET "myhideturtle [HIDETURTLE] [SHOWTURTLE]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 40
+CHECKBOXCREATE "mywindow "mygroupbox "myhideturtle [Hide Turtle] 20 20 60 20
+BUTTONCREATE "mywindow "mybutton "Go 40 50 25 25 [CHECKONTHINGS]</userinput>
+
+<replaceable>Clicking on the Go button shows or hides the turtle,
+depending on whether the checkbox is checked.</replaceable>
+
+<userinput>; Delete the window and all of its child controls.
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

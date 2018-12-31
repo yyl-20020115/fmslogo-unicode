@@ -1,0 +1,33 @@
+<section id="command-dllfree">
+<title>DLLFREE</title>
+<indexterm><primary>DLLFREE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DLLFREE</command>
+(<command>DLLFREE</command> <parameter>dllname</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Unloads a DLL that was loaded with <link linkend="command-dllload">DLLLOAD</link>.
+If a <parameter>dllname</parameter> input is given, then the DLL by that name is unloaded.
+Otherwise, the most recently loaded DLL is unloaded.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DLLLOAD "user32.dll
+DLLFREE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

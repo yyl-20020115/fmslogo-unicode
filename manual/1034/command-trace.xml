@@ -1,0 +1,69 @@
+<section id="command-trace">
+<title>TRAZA</title>
+<indexterm><primary>TRAZA</primary></indexterm>
+<indexterm><primary>TRACE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TRAZA</command> <parameter>lista_de_contenidos</parameter>
+<command>TRACE</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Marca los elementos nombrados como «trazados».
+Cuando se ejecuta un procedimiento trazado, &PRODUCTNAME; escribe un mensaje con los valores actuales de los argumentos.
+También escribe un mensaje cuando un procedimiento trazado ejecuta <link linkend="command-stop">ALTO</link> o <link linkend="command-output">DEVULEVE</link>.
+Escribe un mensaje cuando se asigna un nuevo valor a una variable trazada usando <link linkend="command-make">HAZ</link>
+Escribe un mensaje cuando se agrega una nueva propiedad en una lista de propiedades trazada usando <link linkend="command-pprop">PONPROP</link>.
+</para>
+
+<para>
+TRAZA no lanza un error si le pidas que trace un procedimiento, una variable o una lista de propiedades que no está en el área de trabajo, pero esto no tiene ningún efecto.
+TRAZA tampoco lanza un error si le pidas que trace una primitiva, pero esto tampoco tiene efecto.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIESCRIBE :a
+  ESCRIBE :a
+FIN
+
+MIESCRIBE "Hola</userinput>
+Hola
+
+<userinput>TRAZA "MIESCRIBE
+MIESCRIBE "Hola</userinput>
+( MIESCRIBE "Hola )
+Hola
+MIESCRIBE se detuvo
+<userinput>NOTRAZA "MIESCRIBE
+MIESCRIBE "Hola</userinput>
+Hola</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-untrace">NOTRAZA</link></member>
+<member><link linkend="commander-trace">El Botón Trazar</link></member>
+<member><link linkend="workspace-queries">Preguntas del área de trabajo</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

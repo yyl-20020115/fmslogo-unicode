@@ -1,0 +1,40 @@
+<section id="command-erpl">
+    <title>ERPL</title>
+<indexterm><primary>ERPL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERPL</command> <parameter>plname</parameter>
+<command>ERPL</command> <parameter>plnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases the property lists named in the input from the workspace.
+ERPL abbreviates <userinput><link linkend="command-erase">ERASE</link> <link linkend="command-pllist">PLLIST</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+PPROP "plist2 "p2 2
+POPLS</userinput>
+Pprop "plist1 "p1 1
+Pprop "plist2 "p2 1
+<userinput>ERPL [plist2]
+POPLS</userinput>
+Pprop "plist1 "p1 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,200 @@
+<chapter id="editor">
+  <title>Editor</title>
+  <indexterm><primary>Editor</primary></indexterm>
+
+  <para>Cuando termina el Editor, &PRODUCTNAME; carga las definiciones y modifica el área de trabajo.
+  Soporta múltiples sesiones de Editor.
+  Pero hay que llevar cuidado de no tener el mismo procedimiento en distintas sesiones de Editor.
+  El último Editor que termina gana, guardando las definiciones que contiene.
+  También tengas en cuenta que si anulas procedimientos, listas de propiedades, o nombres, se borrarán (veas <link linkend="command-erase">BORRA</link>) del área de trabajo y cuando se ejecute Guardar y Salir.</para>
+
+  <section id="editor-menu">
+    <title>Menú Editor</title>
+
+    <section id="editor-menu-file">
+      <title>Menú Archivo</title>
+
+      <section id="editor-menu-file-saveandexit">
+        <title>Archivo - Guardar y Salir</title>
+        <para>Sale del Editor y guarda el contenido en el área de trabajo.
+        Cuando termina el Editor, &GENERICNAME; carga las definiciones editadas y modifica el área de trabajo.
+        &PRODUCTNAME; soporta múltiples sesiones de Editor, pero cuida de no tener un procedimiento en más de un editor.
+        Cuando termina el último Editor guarda la última definición.
+        También date cuenta de que si, cuando estaba en el Editor, anulas procedimientos, propiedades, listas o nombres se borrarán <link linkend="command-erase">BORRA</link>) del área de trabajo cuando terminas y guardas el editor.
+        Veas también <link linkend="editor-errors">Edición de errores</link>.
+        </para>
+      </section>
+
+      <section id="editor-menu-file-savetoworkspace">
+        <title>Archivo - Guardar en área de trabajo</title>
+        <para>Guarda el contenido del Editor al área de trabajo.
+        Esta opción sólo es disponible en <link linkend="commandline-e">modo experto</link>.
+        </para>
+      </section>
+
+      <section id="editor-menu-file-print">
+        <title>Archivo - Imprimir...</title>
+        <para>Imprime el contenido del Editor.</para>
+      </section>
+
+      <section id="editor-menu-file-exit">
+        <title>Archivo - Salir</title>
+        <para>Sale del Editor y te pregunta si desearas guardar los cambios en el área de trabajo.
+        Elijes esta opción (y responde «No» a la pregunta) si quieres descartar tus cambios.</para>
+      </section>
+
+    </section>
+
+    <section id="editor-menu-edit">
+      <title>Menú Edit</title>
+
+      <section id="editor-menu-edit-undo">
+        <title>Edit - Deshacer</title>
+        <para>Borra la última operación del Editor.</para>
+      </section>
+
+      <section id="editor-menu-edit-redo">
+        <title>Edit - Rehacer</title>
+        <para>Revierte la última operación de deshacer.</para>
+      </section>
+
+      <section id="editor-menu-edit-cut">
+        <title>Edit - Cortar</title>
+        <para>Corta y guarda el texto seleccionado en el Portapapeles.
+        Veas también <link linkend="editor-clipboard">Editando con el Portapapeles</link>.</para>
+      </section>
+
+      <section id="editor-menu-edit-copy">
+        <title>Edit - Copiar</title>
+        <para>Copia el texto seleccionado al Portapapeles.
+        Veas también <link linkend="editor-clipboard">Editando con el Portapapeles</link>.</para>
+      </section>
+
+      <section id="editor-menu-edit-paste">
+        <title>Edit - Pegar</title>
+        <para>Pega el texto del Portapapeles en la posición actual del cursor.
+        Veas también <link linkend="editor-clipboard">Editando con el Portapapeles</link>.</para>
+      </section>
+
+      <section id="editor-menu-edit-delete">
+        <title>Edit - Borrar</title>
+        <para>Borra el texto seleccionado.</para>
+      </section>
+
+      <section id="editor-menu-edit-clearall">
+        <title>Edit - Borrar todo</title>
+        <para>Borra todo el texto.</para>
+      </section>
+
+      <section id="editor-menu-edit-selectall">
+        <title>Edit - Seleccionar Todo</title>
+        <para>Selecciona todo el texto del editor.</para>
+      </section>
+
+    </section>
+
+    <section id="editor-menu-search">
+      <title>Menú Buscar</title>
+
+      <section id="editor-menu-search-find">
+        <title>Buscar - Encontrar</title>
+        <para>Muestra un cuadro de diálogo que te permite buscar texto específico en el editor.</para>
+      </section>
+
+      <section id="editor-menu-search-replace">
+        <title>Buscar - Reemplazar</title>
+        <para>Muestra un cuadro de diálogo que te permite buscar texto específico en el editor y reemplazarlo con otro texto.</para>
+      </section>
+
+      <section id="editor-menu-search-next">
+        <title>Buscar - Siguiente</title>
+        <para>Repite la previa operación de Buscar - Encontrar.</para>
+      </section>
+
+    </section>
+
+
+    <section id="editor-menu-set">
+      <title>Menú Configurar</title>
+
+      <section id="editor-menu-set-font">
+        <title>Configurar - Tipo de letra</title>
+        <para>Puedes cambiar la fuente del Editor en esta opción, seleccionando la fuente deseada.
+        La nueva fuente afecta al Editor entero, no solo al texto seleccionado.
+        La fuente escogida quedará seleccionada igualmente después de reiniciar &PRODUCTNAME;.</para>
+      </section>
+
+    </section>
+
+    <section id="editor-menu-test">
+      <title>Menú Probar</title>
+
+      <section id="editor-menu-testbang">
+        <title>Ejecutar Seleción</title>
+        <para>Puedes probar tu código seleccionando una parte del mismo y pulsando en Ejecutar seleción en el Menú Probar.
+        Cada línea será ejecutada.
+        Tengas esto presente: si selecciona código con variables que se deben definir en la selección o que ya están definidas en la memoria de trabajo.
+        Usar esta opción es como si teclearas en el Centro de Comandos.</para>
+      </section>
+
+    </section>
+
+
+    <section id="editor-menu-help">
+      <title>Menú Ayudar</title>
+
+      <section id="editor-menu-help-index">
+        <title>Ayudar - Indice</title>
+        <para>Abre el manual de &PRODUCTNAME; al índice.
+        Veas también <link linkend="editor-context-help">Ayuda Sensible al Contexto</link>.</para>
+      </section>
+
+      <section id="editor-menu-help-editor">
+        <title>Ayudar - Editor</title>
+        <para>Abre el manual de &PRODUCTNAME; al tema del editor.
+        Veas también <link linkend="editor-context-help">Ayuda Sensible al Contexto</link>.</para>
+      </section>
+
+      <section id="editor-menu-help-topicsearch">
+        <title>Ayudar - Búsqueda por tema</title>
+        <para>Abre el manual de &PRODUCTNAME; al tema seleccionado.
+        Veas también <link linkend="editor-context-help">Ayuda Sensible al Contexto</link>.</para>
+      </section>
+
+    </section>
+
+  </section>
+
+  <section id="editor-errors">
+    <title>Edición de errores</title>
+
+    <para>Si se produce un error cuando &GENERICNAME; «carga» el contenido de tu Editor, le ofrece volver a entrar en el Editor.
+    Esta situación normalmente ocurre cuando se espera una continuación a «~» o se espera «]».
+    Cuando el Editor recarga, el cursor se sitúa tras la última definición correcta.
+    Cuando ocurre esto, chequea el Centro de Comandos por una pista del problema.</para>
+
+  </section>
+
+  <section id="editor-clipboard">
+    <title>Editando con el Portapapeles</title>
+    <para>El Editor de &GENERICNAME; soporta el Portapapeles.
+    El Portapapeles es una aplicación donde Windows guarda los datos para las operaciones de cortar y pegar.
+    Esto significa que si cortas texto de una aplicación, tal como Notepad, lo puedes pegar en el Editor de &GENERICNAME; (a la inversa, también).
+    Igualmente el manual soporta el Portapapeles.
+    Esto significa que puede copiar ejemplos de este documento directamente al Editor (veas <link linkend="command-help">AYUDA</link>).</para>
+
+    <para>La <link linkend="commander-input">Caja de Entrada</link> también soporta el Portapapeles.
+    Sólo soporta una línea de texto entre la Caja de Entrada y el Portapapeles.
+    Para ejecutar la acción deseada, puedes usar el menú emergente o las teclas de acceso rápido (<keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo> Cortar, <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo> Copiar, <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo> Pegar).</para>
+
+    <para>La <link linkend="commander-history">Caja de Historia</link> del Centro de Comandos también soporta el Portapapeles.
+    Esto significa que puedes copiar el código en el Portapapeles y pegarlo en el Editor; así como copiar el texto generado por el programa y pegarlo en otra aplicación.</para>
+  </section>
+
+  <section id="editor-context-help">
+    <title>Ayuda Sensible al Contexto</title>
+    <para>El <link linkend="editor">Editor</link>, la <link linkend="commander-input">Caja de Entrada</link> y la <link linkend="commander-history">Caja de Historia</link> disponen de Ayuda Sensible al Contexto.
+    Si seleccionas por ejemplo, la palabra «AVANZA», tecleas <keycap>F1</keycap> o haz clic derecho y seleccionas <guimenuitem>Búsqueda por Tema</guimenuitem>, entonces &PRODUCTNAME; buscará la tema de «AVANZA» en el manual.</para>
+  </section>
+
+</chapter>

@@ -1,0 +1,52 @@
+<section id="command-savel">
+    <title>SAVEL</title>
+<indexterm><primary>SAVEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SAVEL</command> <parameter>contentslist</parameter> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Saves the definitions of the procedures, variables, and property lists specified by <parameter>contentslist</parameter> to a file named <parameter>filename</parameter>.
+</para>
+
+<para>
+SAVEL stands for "save list".
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM1
+  PRINT "Hello1
+END
+
+TO MYPROGRAM2
+  PRINT "Hello2
+END
+
+POTS</userinput>
+TO MYPROGRAM1
+TO MYPROGRAM2
+
+<userinput>SAVEL [[MYPROGRAM1] [] []] "myprogram.lgo
+ERALL
+POTS
+LOAD "myprogram.lgo
+POTS</userinput>
+TO MYPROGRAM1
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

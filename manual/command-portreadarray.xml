@@ -1,0 +1,50 @@
+<section id="command-portreadarray">
+    <title>PORTREADARRAY</title>
+<indexterm><primary>PORTREADARRAY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PORTREADARRAY</command> <parameter>count</parameter> <parameter>buffer</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads data from the currently open port into the given buffer array.
+PORTREADARRAY attempts to read <parameter>count</parameter> bytes from the port, if they are available.
+When bytes are written to <parameter>buffer</parameter>, they are written as small integers (between -128 and 127).
+PORTREADARRAY outputs the actual number of bytes read.
+</para>
+
+<para>
+If <parameter>count</parameter> is larger than the size of the <parameter>buffer</parameter> array, then the number of bytes read is limited to the size of the buffer.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>PORTOPEN "com1
+PRINT SENTENCE [Sending...] PORTWRITEARRAY 3 LISTTOARRAY MAP [ASCII ?] [a t]</userinput>
+Sending... 2
+<userinput>SHOW PORTWRITECHAR 13</userinput>
+1
+<userinput>WAIT 60
+MAKE "buff {0 0 0 0 0 0 0 0 0 0}
+PRINT SENTENCE [Receiving...] PORTREADARRAY 10 :buff</userinput>
+Receiving... 9
+<userinput>PRINT SENTENCE [Data Rx...] MAP [CHAR ?] REMOVE [] ARRAYTOLIST :buff</userinput>
+Data Rx... at | |
+O K |
+<userinput>PORTCLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

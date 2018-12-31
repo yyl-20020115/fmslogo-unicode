@@ -1,0 +1,35 @@
+<section id="command-make">
+    <title>MAKE</title>
+<indexterm><primary>MAKE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MAKE</command> <parameter>varname</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command that assigns the value <parameter>value</parameter> to the variable named <parameter>varname</parameter>, which must be a word.
+Variable names are case-insensitive.
+If a variable with the same name already exists, the value of that variable is changed.
+If not, a new global variable is created.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo [Hello how are you]
+SHOW :foo</userinput>
+[Hello how are you]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

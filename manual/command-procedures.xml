@@ -1,0 +1,38 @@
+<section id="command-procedures">
+<title>PROCEDURES</title>
+<indexterm><primary>PROCEDURES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PROCEDURES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of all unburied user-defined procedures in the workspace.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FOO
+END
+
+TO BAR
+END
+
+SHOW PROCEDURES</userinput>
+[bar foo]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

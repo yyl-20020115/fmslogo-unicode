@@ -1,0 +1,43 @@
+<section id="command-clearpalette">
+    <title>CLEARPALETTE</title>
+<indexterm><primary>CLEARPALETTE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLEARPALETTE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+CLEARPALETTE does nothing.
+It has been kept for compatibility with old programs, but its function is no longer needed.
+</para>
+
+<para>
+Historically, early versions of Microsoft Windows supported video displays that were limited to showing at most 256 colors at one time, although each of the colors used a full 24-bit range.
+The set of 256 possible colors was called the "palette" and could be changed depending on which colors you wanted to use.
+Whenever &PRODUCTNAME; used a new color (for example, when SETPENCOLOR was run), it would add the color to this palette.
+Once all of the 256 colors in the palette were set, a program could not draw a new color, even if some of the colors in the palette were not in active use.
+The CLEARPALETTE command used to remove all colors from the palette so that the palette could be refilled with new colors.
+</para>
+
+<para>
+Display devices, even old ones, no longer have a limited palette of colors, so CLEARPALETTE is no longer needed.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CLEARPALETTE</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

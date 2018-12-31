@@ -1,0 +1,41 @@
+<section id="command-fullscreen">
+<title>PANTALLAGRAFICA</title>
+<indexterm><primary>PANTALLAGRAFICA</primary></indexterm>
+<indexterm><primary>PG</primary></indexterm>
+<indexterm><primary>FULLSCREEN</primary></indexterm>
+<indexterm><primary>FS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PANTALLAGRAFICA</command>
+<command>PG</command>
+<command>FULLSCREEN</command>
+<command>FS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Desempotra el Centro de Comandos de la pantalla para que puedas cambiar su tamaño y así maximizar el espacio disponible para interacciones de gráficos.
+La ventana del Centro de Comandos siempre será encima de la pantalla, así que puede ser útil minimizarlo después de desempotrarlo.
+</para>
+
+<para>
+Compara este comando con <link linkend="command-splitscreen">PANTALLAPARTIDA</link> y <link linkend="command-textscreen">PANTALLATEXTO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PANTALLAGRAFICA
+MINIMIZA [Centro de Comandos]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

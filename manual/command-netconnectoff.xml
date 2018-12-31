@@ -1,0 +1,39 @@
+<section id="command-netconnectoff">
+<title>NETCONNECTOFF</title>
+<indexterm><primary>NETCONNECTOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NETCONNECTOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Shuts down a connection that was created with <link linkend="command-netconnecton">NETCONNECTON</link>.
+After running this command, <link linkend="command-netconnectsendvalue">NETCONNECTSENDVALUE</link> and <link linkend="command-netconnectreceivevalue">NETCONNECTRECEIVEVALUE</link> no longer work.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+The following example assumes that there is a machine named "remotemachinename" that is listening on port 5124.
+
+<programlisting><userinput>NETSTARTUP ; Start up the network
+SHOW NETCONNECTON "remotemachinename 5124 [PRINT [ready to send again]] [PRINT [I have something]]</userinput>
+true
+
+<userinput>NETCONNECTOFF
+NETSHUTDOWN</userinput></programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,37 @@
+<section id="command-checkboxset">
+    <title>CHECKBOXSET</title>
+<indexterm><primary>CHECKBOXSET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHECKBOXSET</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the state of the checkbox that is identified by <parameter>name</parameter> to <parameter>state</parameter>.
+<parameter>state</parameter> must be either True (checked) or False (unchecked).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 40
+CHECKBOXCREATE "mywindow "mygroupbox "mycheckbox [Check Me] 20 20 60 20
+CHECKBOXSET "mycheckbox "true
+CHECKBOXSET "mycheckbox "false
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,53 @@
+<section id="command-catch">
+    <title>CATCH</title>
+<indexterm><primary>CATCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CATCH</command> <parameter>tag</parameter> <parameter>instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command or operation that runs its <parameter>instructionlist</parameter> input and outputs whatever <parameter>instructionlist</parameter> outputs.
+If <parameter>instructionlist</parameter> runs a <link linkend="command-throw">THROW</link> instruction with a tag equal to the <parameter>tag</parameter> input (case-insensitive comparison), then the running of <parameter>instructionlist</parameter> is immediately terminated.
+In this case, CATCH outputs if a value input is given to THROW.
+</para>
+
+<para>
+The <parameter>tag</parameter> input must be a word.
+If <parameter>tag</parameter> is the word <link linkend="command-error">ERROR</link>, then any error condition that arises during the running of <parameter>instructionlist</parameter> has the effect of <userinput>THROW "ERROR</userinput> instead of printing an error message and returning to toplevel.
+In this case, CATCH does <emphasis>not</emphasis> output a value.
+Also, during the running of <parameter>instructionlist</parameter>, the variable <link linkend="command-erract">ERRACT</link> is temporarily unbound.
+(If there is an error while ERRACT has a value, that value is taken as an instruction list to be run after printing the error message.
+Typically the value of ERRACT, if any, is the list <userinput>[<link linkend="command-pause">PAUSE</link>]</userinput>.)
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM2
+  PRINT [Before throw]
+  THROW "tag1
+  PRINT [We never get here because we THROW back]
+END
+
+TO MYPROGRAM1
+  CATCH "tag1 [MYPROGRAM2]
+  PRINT [I'm back]
+END
+
+MYPROGRAM1</userinput>
+Before throw
+I'm back
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

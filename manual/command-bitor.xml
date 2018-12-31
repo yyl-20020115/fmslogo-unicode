@@ -1,0 +1,37 @@
+<section id="command-bitor">
+    <title>BITOR</title>
+<indexterm><primary>BITOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITOR</command> <parameter>int1</parameter> <parameter>int2</parameter>
+(<command>BITOR</command> <parameter>int1</parameter> <parameter>int2</parameter> <parameter>int3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the bitwise OR of its inputs, which must be integers.
+If no inputs are given, then BITOR outputs a value with no bits set.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW BITOR 5 2</userinput>
+7
+<userinput>SHOW BITOR 5 1</userinput>
+5
+<userinput>SHOW (BITOR 6 2 10)</userinput>
+14
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

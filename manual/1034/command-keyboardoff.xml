@@ -1,0 +1,41 @@
+<section id="command-keyboardoff">
+    <title>INHABILITATECLADO</title>
+<indexterm><primary>INHABILITATECLADO</primary></indexterm>
+<indexterm><primary>KEYBOARDOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>INHABILITATECLADO</command>
+<command>KEYBOARDOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Desactiva la captura de los eventos del teclado.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>HABILITATECLADO [ESCRIBE CAR LEETECLA]
+PANTALLAGRAFICA
+PONFOCO [&PRODUCTNAME;]
+a</userinput>
+a
+<userinput>b</userinput>
+b
+<userinput>PANTALLAPARTIDA
+INHABILITATECLADO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

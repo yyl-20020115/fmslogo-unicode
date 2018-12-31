@@ -1,0 +1,37 @@
+<section id="command-rightroll">
+<title>RIGHTROLL</title>
+<indexterm><primary>RIGHTROLL</primary></indexterm>
+<indexterm><primary>RR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RIGHTROLL</command> <parameter>angle</parameter>
+<command>RR</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Rolls the turtle toward his right side by the specified angle, measured in degrees (1/360 of a circle).
+</para>
+<para>
+This command is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+RIGHTROLL 45
+REPEAT 3 [FORWARD 100 LEFT 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

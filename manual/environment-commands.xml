@@ -1,0 +1,13 @@
+<chapter id="environment-commands">
+   <title>Environment Commands</title>
+
+<para>
+&PRODUCTNAME; provides a set of commands that enable you to better interact with the computing environment in which &PRODUCTNAME; runs.
+These commands can help you interface with computing elements outside of &PRODUCTNAME;, such as the underlying operating system or the display.
+</para>
+
+    &command-logoversion;
+    &command-machine;
+    &command-shell;
+
+</chapter>

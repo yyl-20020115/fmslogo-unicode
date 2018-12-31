@@ -1,0 +1,47 @@
+<section id="command-map.se">
+    <title>MAP.SE</title>
+<indexterm><primary>MAP.SE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MAP.SE</command> <parameter>templatelist</parameter> <parameter>data</parameter>
+(<command>MAP.SE</command> <parameter>templatelist</parameter> <parameter>data1</parameter> <parameter>data2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list formed by evaluating <parameter>templatelist</parameter> repeatedly and concatenating the results using <link linkend="command-sentence">SENTENCE</link>.
+That is, the members of the output are the members of the results of the evaluations.
+The output list might, therefore, be of a different length from that of the data input(s).
+(If the result of an evaluation is the empty list, it contributes nothing to the final output.)
+The data inputs may be words or lists.
+</para>
+
+<para>
+In a template, the symbol <userinput>?REST</userinput> represents the portion of the data input to the right of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>?REST</userinput> would be replaced by <userinput>[C D E]</userinput>.
+If multiple parallel slots are used, then <userinput>(?REST 1)</userinput> goes with <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+In a template, the symbol <userinput>#</userinput> represents the position in the data input of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>#</userinput> would be replaced by <userinput>2</userinput>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW (MAP.SE "LIST [a b c] [d e f])</userinput>
+[a d b e c f]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

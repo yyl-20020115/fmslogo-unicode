@@ -1,0 +1,53 @@
+<section id="command-setxyz">
+<title>SETXYZ</title>
+<indexterm><primary>SETXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETXYZ</command> <parameter>xcor</parameter> <parameter>ycor</parameter> <parameter>zcor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle to an absolute 3D position.
+The three inputs are numbers, the X, Y, and Z coordinates to move to.
+</para>
+
+<para>
+SETXYZ is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+In 2D modes, SETXYZ ignores the <parameter>zcor</parameter> input and moves the turtle to the given X and Y coordinates.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>; draw some sine waves in 3D
+PERSPECTIVE
+FOR [i 0 360 10] [
+   FOR [j 0 360] [SETXYZ :j :i*SIN :j -:i]
+   PENUP
+   SETXYZ 0 0 -:i
+   PENDOWN
+]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setposxyz">SETPOSXYZ</link></member>
+<member><link linkend="command-setx">SETX</link></member>
+<member><link linkend="command-sety">SETY</link></member>
+<member><link linkend="command-setz">SETZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

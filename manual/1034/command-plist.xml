@@ -1,0 +1,43 @@
+<section id="command-plist">
+    <title>LPROP</title>
+<indexterm><primary>LPROP</primary></indexterm>
+<indexterm><primary>PLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LPROP</command> <parameter>nombre_de_lista</parameter>
+<command>PLIST</command> <parameter>nombre_de_lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de los propiedades de la lista de propiedades llamada <parameter>nombre_de_lista</parameter>.
+Los elementos impares de esta lista son los nombres de los propiedades y los elementos pares son los valores de las propiedades.
+Lo devuelto es una copia de la lista de propiedades; cambiando las propriedades no cambia la lista devuelta por LPROP, ni viceversa.
+</para>
+
+<para>
+El argumento <parameter>nombre_de_lista</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop "p1 1
+PONPROP "lprop "p2 2
+MUESTRA LPROP "lprop</userinput>
+[p1 1 p2 2]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

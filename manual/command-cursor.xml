@@ -1,0 +1,26 @@
+<section id="command-cursor">
+<title>CURSOR</title>
+<indexterm><primary>CURSOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CURSOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>CURSOR is not supported in &PRODUCTNAME;.</para></note>
+
+<para>
+In other &GENERICNAME; environments, CURSOR outputs a list containing the current x and y coordinates of the screen cursor.
+In &PRODUCTNAME;, it always outputs [0 0].
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

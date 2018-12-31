@@ -1,0 +1,48 @@
+<section id="command-pop">
+<title>DESAPILA</title>
+<indexterm><primary>DESAPILA</primary></indexterm>
+<indexterm><primary>POP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESAPILA</command> <parameter>nombre_de_pila</parameter>
+<command>POP</command> <parameter>nombre_de_pila</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la última cosa que entró en la pila, usando <link linkend="command-push">APILA</link>, y que sale fuera de la pila.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "mi_pila []
+APILA "mi_pila 1
+APILA "mi_pila 2
+APILA "mi_pila 3
+MUESTRA :mi_pila</userinput>
+[3 2 1]
+
+<userinput>MUESTRA DESAPILA "mi_pila</userinput>
+3
+
+<userinput>MUESTRA :mi_pila</userinput>
+[2 1]
+
+<userinput>MUESTRA DESAPILA "mi_pila</userinput>
+2
+
+<userinput>MUESTRA :mi_pila</userinput>
+[1]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

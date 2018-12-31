@@ -1,0 +1,37 @@
+<section id="command-lshift">
+    <title>LSHIFT</title>
+<indexterm><primary>LSHIFT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LSHIFT</command> <parameter>int</parameter> <parameter>amount</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs <parameter>int</parameter> shifted logically to the left by <parameter>amount</parameter> bits.
+If <parameter>amount</parameter> is negative, the shift is to the right with zero fill.
+The inputs must be integers.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW LSHIFT 5 2</userinput>
+20
+<userinput>SHOW LSHIFT 20 -1</userinput>
+10
+<userinput>SHOW LSHIFT -20 -1</userinput>
+2147183638
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

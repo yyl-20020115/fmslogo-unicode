@@ -1,0 +1,42 @@
+<section id="command-pops">
+    <title>POPS</title>
+<indexterm><primary>POPS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POPS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the definitions of all unburied procedures in the workspace to the current write stream.
+POPS abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-procedures">PROCEDURES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "var 1
+
+TO xxx
+  print "Hello ; comment
+end
+
+POPS</userinput>
+TO xxx
+  print "Hello ; comment
+END
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

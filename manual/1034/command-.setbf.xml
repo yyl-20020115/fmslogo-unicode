@@ -1,0 +1,45 @@
+<section id="command-.setbf">
+   <title>.PONMP</title>
+<indexterm><primary>.PONMP</primary></indexterm>
+<indexterm><primary>.SETBF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>.PONMP</command> <parameter>lista</parameter> <parameter>valor</parameter>
+<command>.SETBF</command> <parameter>lista</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cambia el valor de todos los elementos de una lista, menos el primero, por un nuevo <parameter>valor</parameter>.
+</para>
+
+<para>
+El argumento <parameter>lista</parameter> debe ser una lista y no puede ser la lista vaciá.
+</para>
+
+<para>
+PRECAUCIÓN: los procedimientos cuyos nombres empiezan con punto (.) son <emphasis>peligrosos</emphasis>.
+No se recomienda su uso a los no expertos.
+El uso de .PONMP puede llevar a listas con ciclos, bucles infinitos; cambios inesperados de los datos de otras estructuras que comparten los datos modificados; errores fatales si <parameter>valor</parameter> no es, si misma, una lista; y pérdida permanente de la memoria si se libera una estructura con ciclos.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "mi_lista [1 2 3]
+.PONMP :mi_lista [a b]
+MUESTRA :mi_lista</userinput>
+[1 a b]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

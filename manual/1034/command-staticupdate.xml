@@ -1,0 +1,33 @@
+<section id="command-staticupdate">
+<title>STATICUPDATE</title>
+<indexterm><primary>STATICUPDATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>STATICUPDATE</command> <parameter>name</parameter> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Replaces the text of the static control identified by <parameter>name</parameter> with <parameter>text</parameter>.
+If there is more text than can fit within the width of the static control on a single line, then the text is word-wrapped.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+STATICCREATE "mywindow "mystatic [Heading=0] 25 25 50 25
+REPEAT 72 [RIGHT 5 STATICUPDATE "mystatic SENTENCE [Heading=] HEADING WAIT 60]
+WINDOWDELETE "mywindow</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

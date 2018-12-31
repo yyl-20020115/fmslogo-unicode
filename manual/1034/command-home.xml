@@ -1,0 +1,53 @@
+<section id="command-home">
+<title>CENTRO</title>
+<indexterm><primary>CENTRO</primary></indexterm>
+<indexterm><primary>HOME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CENTRO</command>
+<command>HOME</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Sitúa la tortuga en el centro de la pantalla y pon a 0 su rumbo, cabeceo y balanceo.
+</para>
+
+<para>
+En modos 2D, CENTRO es equivalente a
+<programlisting><userinput>PONPOS [0 0] PONRUMBO 0</userinput>
+</programlisting>
+
+En modo PERSPECTIVA, CENTRO es equivalente a
+<programlisting><userinput>POSICIONATE [0 0 0] PONORIENTACION [0 0 0]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>AVANZA 100
+GIRADERECHA 90
+AVANZA 100
+CENTRO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-clearscreen">BORRAPANTALLA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

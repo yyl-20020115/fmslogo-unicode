@@ -1,0 +1,335 @@
+<section id="command-perspective">
+<title>PERSPECTIVA</title>
+<indexterm><primary>PERSPECTIVA</primary></indexterm>
+<indexterm><primary>PERSPECTIVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PERSPECTIVA</command>
+<command>PERSPECTIVE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace que la tortuga entra en el modo «perspectiva».
+De ahora en adelante, habrá una tercera dimensión (eje Z) donde puede vivir la tortuga.
+Perspectiva es un término que describe cómo se representa una realidad en 3 dimensiones en una superficie de 2 dimensiones.
+Debe conocer como dibujar usando &PRODUCTNAME; en 2D antes de pasar al modo 3D.
+</para>
+
+<para>
+Puedes salirte de este modo por entrar en uno modo 2D: <link linkend="command-wrap">MODOVUELTA</link>, <link linkend="command-window">MODOVENTANA</link> o <link linkend="command-fence">MODOJAULA</link>.
+</para>
+
+
+<para>
+Todo lo referente a 2D puede aplicarse a 3D (modo perspectiva).
+Por ejemplo, si tienes un procedimiento que dibuja una estrella en 2D, con el mismo código puedes colocar una estrella sobre las seis caras de un cubo, colocando a la tortuga en la orientación y en las coordenadas correctas en 3D, antes de ejecutar el código 2D que dibuja una estrella.
+</para>
+
+
+<para>
+En 3D, manejas la tortuga como si fuese un avión.
+Los aviones tienen tres controles para moverse en un espacio en 3D.
+Hay timones de profundidad en la cola (cabeceo), un timón de dirección en la aleta (rumbo) y alerones en las alas (balanceo).
+In modos 2D, &PRODUCTNAME; te ofrece una especie de timón de dirección para girar la tortuga hacia la derecha e izquierda.
+En 3D, cuentas con mandos adicionales, como alerones (BALANCEADERECHA y BALANCEAIZQUIERDA) y timones de profundidad (CABECEA y BAJANARIZ).
+Ahora cuentas con un infinito número de aviones (geométricos, claro) para volar en cada uno con cualquier orientación.
+Una vez que la tortuga se encuentra en el plano deseado, te puedes usar los famosos comandos de 2D (AVANZA, RETROCEDE, GIRAIZQUIERDA y GIRADERECHA).
+</para>
+
+<para>
+Cuando comiences en (X=0, Y=0, Z=0), el eje +Y todavía permanece como arriba en la pantalla y el eje +X está a la derecha de la pantalla.
+Pero ahora puedes sumirte en la pantalla (lejos de ti) o surgirte de la pantalla (cerca de ti).
+¿Cómo? De la misma forma en que vuela un avión.
+Cuando un avión balancea a la derecha no cambia su trayectoria, y tampoco lo hace la tortuga.
+Pero si balanceases 90 grados a la derecha y entonces tomases un giro a la derecha, imagínate lo que pasaría.
+Te bajarías en picado muy, muy rápido.
+Piensas en una tortuga de verdad en el suelo.
+Ahora hazla balancear hacia su lado derecho.
+Ahora, si la tortuga gira hacia su pata delantera derecha (como siempre lo hace), su nariz estará apuntando al suelo.
+Ahora AVANZA moverá la tortuga hacia abajo en el eje Z (lejos de ti).
+</para>
+
+<para>
+Para más información sobre cómo maniobrar en 3D, leas la sección titulada <link linkend="understand-your-orientation-in-3D">Orientación en 3D</link>.
+</para>
+
+<para>
+Hay un simple ejemplo de introducción llamado <filename>3DSTEPS.LGO</filename> en el directorio <filename>Examples</filename>.
+Cargalo, ejecutalo y entiéndelo antes de seguir adelante.
+</para>
+
+<para>
+Aquí tiene un resumen de la relación entre los comandos en modo 2D y modo 3D.
+Muchos comandos diseñado por modos 2D se repiten en ambas columnas porque les ha afectado estar en el modo 3D.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Comando 2D</entry> <entry>Comando 3D</entry></row>
+    </thead>
+    <tbody>
+
+      <row rowsep="0">
+        <entry>PONXY</entry>
+        <entry>PONXY (no cambia la coordenada z)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>PONXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>PONX (no cambia la coordenada y)</entry>
+        <entry>PONX (no cambia ni la coordenada y ni la coordenada z)</entry>
+      </row>
+      <row rowsep="0">
+        <entry>PONY (no cambia la coordenada x)</entry>
+        <entry>PONY (no cambia ni la coordenada x ni la coordenada z)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>PONZ (no cambia ni la coordenada x ni la coordenada y)</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>COORX</entry>
+        <entry>COORX</entry>
+      </row>
+      <row rowsep="0">
+        <entry>COORY</entry>
+        <entry>COORY</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>COORZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>POS</entry>
+        <entry>POS (ignora la coordenada z)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>POS3D</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>PONPOS</entry>
+        <entry>PONPOS (no cambia la coordenada z)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>POSICIONATE</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>HACIA</entry>
+        <entry>HACIA</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>HACIAXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>DISTANCIA</entry>
+        <entry>DISTANCIA</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>DISTANCIAXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>RUMBO</entry>
+        <entry>RUMBO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>BALANCEO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>CABECEO</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>ORIENTACION</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>PONRUMBO</entry>
+        <entry>PONRUMBO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>PONBALANCEO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>PONCABECEO</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>PONORIENTACION</entry>
+      </row>
+
+
+      <row rowsep="0">
+        <entry>GIRADERECHA</entry>
+        <entry>GIRADERECHA (en el plano actual)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>BALANCEADERECHA</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>CABECEA</entry>
+      </row>
+
+
+      <row rowsep="0">
+        <entry>GIRAIZQUIERDA</entry>
+        <entry>GIRAIZQUIERDA (en el plano actual)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>BALANCEAIZQUIERDA</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>BAJANARIZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>MODOVENTANA</entry>
+        <entry>PERSPECTIVA</entry>
+      </row>
+      <row rowsep="0">
+        <entry>MODOVUELTA</entry>
+        <entry></entry>
+      </row>
+      <row>
+        <entry>MODOJAULA</entry>
+        <entry></entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>ACTIVA (índices no negativos)</entry>
+        <entry>ACTIVA (índices no negativos)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>ACTIVA -1 (la posición del ojo)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>ACTIVA -2 (la posición donde el ojo mira)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>ACTIVA -3 (la posición del fuente de luz)</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry></entry>
+        <entry>EMPIEZAPOLIGONO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>TERMINAPOLIGONO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>MUESTRAPOLIGONO</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>LUZ</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>PONLUZ</entry>
+      </row>
+
+      <row>
+        <entry>ARCOELIPSE</entry>
+        <entry>ARCOELIPSE (bueno para los esferas)</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<formalpara>
+<title>Limitaciones del modo perspectiva</title>
+<para>
+Hay varios comandos que trabajan en 3D pero que aun así se comportarán como si fuese en 2D.
+Sus acciones tienen lugar en la correcta coordenada X, Y, Z, pero la orientación es limitada a un plano 2D.
+Por ejemplo, no puedes dibujar texto con <link linkend="command-label">ROTULO</link> en los 6 lados de un cubo.
+Pero si en los 8 vértices del cubo, cada etiqueta puede ser correctamente situada en cada vértice utilizando maniobras 3D.
+No hay nada que te impida construir tu propia biblioteca de procedimientos que dibujan cada letra del alfabeto mediante maniobras 3D.
+</para>
+</formalpara>
+
+<para>
+Los comandos siguientes retienen su 2D comportamiento, aún en modo perspectiva.
+
+<itemizedlist spacing="compact">
+  <listitem><para>ROTULO</para></listitem>
+  <listitem><para>CORTAAREA</para></listitem>
+  <listitem><para>BITPEGA</para></listitem>
+  <listitem><para>COPIAAREA</para></listitem>
+  <listitem><para>RECTANGULORELLENO</para></listitem>
+  <listitem><para>RELLENA</para></listitem>
+  <listitem><para>PIXEL</para></listitem>
+  <listitem><para>PONPIXEL</para></listitem>
+</itemizedlist>
+
+</para>
+
+<para>
+El modo perspectiva no realiza eliminaciones de líneas ocultas.
+La eliminación de líneas ocultas requiere que los objetos se compongan de polígonos.
+</para>
+
+<para>
+El modo perspectiva no le permite mover dinámicamente la perspectiva visual.
+Esto es debido a que &PRODUCTNAME; no almacena tu objeto (tus vectores) en 3D; lo almacena en un mapa 2D de bits.
+Sin embargo, puedes hacer manipulaciones dinámicas «rápidas» de otras dos maneras.
+</para>
+
+<para>
+La primera manera de hacer manipulaciones dinámicas «rápidas» requiere que mantengas tu escena muy simple (en lo que concierne a la actuación de tu computadora).
+Simplemente despeja la pantalla y cambia la perspectiva visual (tortuga -1) o el emplazamiento de los objetos y dibujalos de nuevo.
+Fíjate en que los objetos curvados (como aquellos basados en <link linkend="command-ellipsearc">ARCOELIPSE</link>) generan muchos vectores.
+</para>
+
+<para>
+La otra manera de hacer manipulaciones dinámicas «rápidas» es grabar cada «escena» en un mapa de bits y reproducirlas de nuevo a una velocidad deseada.
+Esto es el método que demuestra el ejemplo <filename>GROW.LGO</filename>.
+No importa que estés «grabando» escenas 2D o 3D, da lo mismo.
+Esto vendrá delimitado por la cantidad de memoria de la que disponga tu computadora.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+REPITE 72 [ARCOELIPSE 90 100 150 45 BALANCEADERECHA 5]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

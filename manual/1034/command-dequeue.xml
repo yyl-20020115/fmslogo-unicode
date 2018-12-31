@@ -1,0 +1,49 @@
+<section id="command-dequeue">
+<title>DESCOLA</title>
+<indexterm><primary>DESCOLA</primary></indexterm>
+<indexterm><primary>DEQUEUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESCOLA</command> <parameter>nombre_de_cola</parameter>
+<command>DEQUEUE</command> <parameter>nombre_de_cola</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el objeto que entró primero en la cola, usando <link linkend="command-queue">ENCOLA</link>, y que saldrá de la cola.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>HAZ "mi_cola []
+ENCOLA "mi_cola 1
+ENCOLA "mi_cola 2
+ENCOLA "mi_cola 3
+MUESTRA :mi_cola</userinput>
+[1 2 3]
+
+<userinput>MUESTRA DESCOLA "mi_cola</userinput>
+1
+
+<userinput>MUESTRA :mi_cola</userinput>
+[2 3]
+
+<userinput>MUESTRA DESCOLA "mi_cola</userinput>
+2
+
+<userinput>MUESTRA :mi_cola</userinput>
+[3]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

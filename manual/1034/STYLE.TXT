@@ -1,0 +1,95 @@
+This is a brief overview of the style of the Spanish FMSLogo manual.
+
+Most of the style violations are checked by check-manual.pl, which is runnable
+with "make test".  This should be run before any change to the manual is
+committed.
+
+This document describes the style guidelines that are not checked
+programmatically.
+
+1) The voice is primarily formal and authoritative (to give confidence).
+   Where techinical accuracy is not compromised, it is also friendly and
+   encouraging, as if talking to a friend.
+   It is never condescending or insulting.
+   The use of "tu" is preferred to "el programador" or "el usario".
+   The use of "tu" is also an acceptable way to use the active voice.
+   The manual uses a masculine "tu" form.
+
+2) Quotations are always given according to the RAE « ».
+
+3) The documentation is generally in the present tense, not future tense.
+   For example "COMMAND hace X", not "COMMAND hará X".
+
+4) Punctuation falls outside the quotation to clarify what's really intended
+   to be quoted.  For example: SHOW 123 prints «123».
+
+5) When giving examples, the explanation should be given outside the code
+   sample, as an introductory sentence (as opposed to inside the code
+   sample as a comment).
+   Ideally this would be enforced by check-manual.pl.
+
+6) Because the procedure documentation is a declarative statement of truth for
+   all time, use SER instead of ESTAR when referring to the state of inputs.
+   For example: "Si el argumento es una palabra", not "Si el argumento está
+   una palabra".
+
+7) The following terms should always be translated in the same way
+
+   The Commander              - El Centro de Comandos
+   The (Commander) Input Box  - La Caja de Entrada (del Centro de Comandos)
+   The Commander History Box  - La Caja de Historia de instrucciones
+   The Screen Window          - La Pantalla
+   the command line           - la línea de comandos
+   active area                - área activa
+   array                      - vector
+   command                    - comando
+   predicate                  - predicado
+   template                   - plantilla
+   explicit-slot template     - una plantilla de ranuras numeradas
+   named-slot templates       - una plantilla de ranuras nombradas
+   named-procedure templates  - una plantilla de procedimiento nombrado
+   instruction list           - una lista de instrucciones
+   item                       - elemento
+   input (n)                  - argumento
+   output (n)                 - devuelto
+   throw an error             - lanza un error
+   throws a bad input error   - lanza un error de mala entrada
+   drawing surface            - área de dibujo
+   turtle graphics            - gráficas tortuga
+   workspace                  - área de trabajo
+   an infix operator          - un operador infijo
+   a double-quote (")         - una comilla inglesa (")
+   a backtick (`)             - una comilla invertida
+   a backslash (\)            - una barra inversa (\)
+   a tilda (~)                - una tilde de la eñe
+   the current write stream   - el flujo de escritura actual
+   the current read stream    - el flujo de lectura actual
+   a file                     - un archivo
+   true color                 - color real
+   color-by-index             - color indexado
+   a color name               - un nombre de color
+   a color vector             - un vector de color
+   a propery list             - una lista de propiedades
+   bury (buried)              - tapar (tapado)
+   unbury                     - destapar
+   erase                      - borrar
+   a contents list            - una lista de contenidos
+   logolib                    - la bibioteca (de logo)
+   toplevel                   - el alto nivel interactivo
+   unbound                    - desligado
+   tag                        - etiqueta
+   macro                      - una macro
+
+8) The following terms are generally translated the same way
+
+   clockwise                  - en sentido horario
+   counter-clockwise          - en sentido antihorario
+   upper left corner          - la esquina de arriba a la izquierda
+   lower right corner         - la esquina de abajo a la derecha
+   less than or equal to      - menor o igual que
+   greater than or equal to   - major o igual que
+   anti-aliasing              - antialiasing
+   a font                     - un tipo (de letras)
+   a callback                 - un retrollamada
+   splicing (lists)           - el empalme (empalmar)
+   the dialog box             - el cuadro de diálog

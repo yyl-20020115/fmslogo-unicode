@@ -1,0 +1,104 @@
+<section id="command-keyboardon">
+    <title>HABILITATECLADO</title>
+<indexterm><primary>HABILITATECLADO</primary></indexterm>
+<indexterm><primary>KEYBOARDON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HABILITATECLADO</command> <parameter>tecla_pulsada</parameter>
+(<command>HABILITATECLADO</command> <parameter>tecla_pulsada</parameter> <parameter>tecla_liberada</parameter>)
+<command>KEYBOARDON</command> <parameter>tecla_pulsada</parameter>
+(<command>KEYBOARDON</command> <parameter>tecla_pulsada</parameter> <parameter>tecla_liberada</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Empieza a capturar los eventos del teclado, enviándolos al <parameter>tecla_pulada</parameter> y <parameter>tecla_librada</parameter>.
+Cuando se pulsa una tecla, se ejecuta <parameter>tecla_pulsada</parameter>.
+Cuando se libra una tecla, se ejecuta <parameter>tecla_librada</parameter>.
+Para obtener el carácter afectado, ejecutas a <link linkend="command-keyboardvalue">LEETECLA</link> desde <parameter>tecla_pulsada</parameter> o <parameter>tecla_librada</parameter>.
+</para>
+
+<para>
+<parameter>tecla_pulsada</parameter> y <parameter>tecla_librada</parameter> puede ser o una palabra que es el nombre de un procedimiento o una lista de instrucciones.
+</para>
+
+<para>
+Nota que la «Pantalla» debe tener foco (no la Caja de Entrada del Centro de Comandos) para capturar los eventos del teclado.
+Puedes lograr esto si ejecutaras <userinput>PONFOCO [&PRODUCTNAME;]</userinput> después de ejecutar HABILITATECLADO.
+</para>
+
+<para>
+&PRODUCTNAME; siempre ejecuta <parameter>tecla_pulsada</parameter> y <parameter>tecla_librada</parameter> en modo <link linkend="command-noyield">EXCLUSIVO</link>.
+</para>
+
+<para>
+Para razones históricos, un distinto conjunto de teclas son capturadas cuando HABILITATECLADO es dado un solo argumento y cuando es dado <parameter>tecla_pulsada</parameter> y <parameter>tecla_liberada</parameter>.
+Cuando solo un <parameter>tecla_pulsada</parameter> argumento es dado, las teclas son capturadas como caracteres y no eventos de pulsada de rigor.
+Eso quiere decir que <keycap>a</keycap> minúscula tiene un valor distinto que <keycap>A</keycap> mayúscula, aunque se presionan la misma tecla.
+A causa de esto, un programa que solo busca <userinput>ASCII "a</userinput> no funciona cuando el <keycap>Bloq Mayús</keycap> es en efecto.
+Esto también quiere decir que cuando solo le dieres <parameter>tecla_pulsada</parameter> a HABILITATECLADO, ignora a los pulsaciones de teclas que no se representan con caracteres textuales.
+Esto incluye ignorar a las teclas de dirección, las de función, las de Mayús, las de Ctrl, y otras.
+</para>
+
+<para>
+Por otro lado, cuando HABILITATECLADO tiene dos argumentos, <parameter>tecla_pulsada</parameter> y <parameter>tecla_liberada</parameter>, captura casi todos los eventos del teclado, incluido eventos por las teclas de dirección, las de función, las de Mayús, y las de Ctrl.
+Adicionalmente, cada presión de tecla genera una ejecución diferente de <parameter>tecla_pulsada</parameter>.
+Por lo tanto, un <keycap>A</keycap> mayúscula puede generar los eventos del teclado siguiente: la tecla <keycap>Mayús</keycap> presionada, seguido por la tecla <keycap>A</keycap> presionada, seguido por la tecla <keycap>A</keycap> liberada, seguido por la tecla <keycap>Mayús</keycap> liberada.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+Usando HABILITATECLADO con un solo argumento para escribir caracteres en cuanto están presionados:
+<programlisting><userinput>HABILITATECLADO [ESCRIBE CAR LEETECLA]
+PANTALLAGRAFICA
+PONFOCO [&PRODUCTNAME;]</userinput>
+
+<replaceable>Presiona la tecla «A» del teclado</replaceable>
+a
+<replaceable>Presiona la tecla «B» del teclado</replaceable>
+b
+
+<userinput>PANTALLAPARTIDA
+INHABILITATECLADO</userinput>
+</programlisting>
+</para>
+
+<para>
+Usando HABILITATECLADO con dos argumentos para hacer cosas solo cuando teclas están presionadas:
+<programlisting><userinput>PARA TECLAPRESIONADA
+  SI LEETECLA = ASCII "O [ OCULTATORTUGA ]
+  SI LEETECLA = ASCII "F [ SI COLORFONDO &lt;> 1 [PONCOLORFONDO 1] ]
+FIN
+
+PARA TECLALIBERADA
+  SI LEETECLA = ASCII "O [ MUESTRATORTUGA  ]
+  SI LEETECLA = ASCII "F [ PONCOLORFONDO 7 ]
+FIN
+
+(HABILITATECLADO [TECLAPRESIONADA] [TECLALIBERADA])
+PANTALLAGRAFICA</userinput>
+
+<replaceable>Mientras presionas la tecla «O», se oculta la tortuga.
+Mientras presionas la tecla «F», se pinta la pantalla en color azul.</replaceable>
+
+<userinput>PANTALLAPARTIDA
+INHABILITATECLADO</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,37 @@
+<section id="command-buried">
+    <title>BURIED</title>
+<indexterm><primary>BURIED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BURIED</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of three lists containing names of all buried procedures, variables, and property lists respectively.
+This list includes all unburied named items in the workspace.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW BURIED</userinput>
+[[] [caseignoredp] []]
+<userinput>POTS
+SHOW BURIED</userinput>
+[[pots] [caseignoredp] []]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

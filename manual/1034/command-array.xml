@@ -1,0 +1,80 @@
+<section id="command-array">
+   <title>VECTOR</title>
+<indexterm><primary>VECTOR</primary></indexterm>
+<indexterm><primary>ARRAY</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VECTOR</command> <parameter>tamaño</parameter>
+(<command>VECTOR</command> <parameter>tamaño</parameter> origen)
+<command>ARRAY</command> <parameter>tamaño</parameter>
+(<command>ARRAY</command> <parameter>tamaño</parameter> origen)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Devuelve un vector con <parameter>tamaño</parameter> elementos, cada uno de los cuales es inicialmente una lista vaciá.
+El argumento <parameter>tamaño</parameter> debe ser un número entero no negativo.
+</para>
+
+<para>
+Los elementos del vector pueden seleccionarse con <link linkend="command-item">ELEMENTO</link> y cambiarse con <link linkend="command-setitem">PONELEMENTO</link>.
+El primer elemento del vector es el elemento número 1, a menos que se da un argumento <parameter>origen</parameter>, en cuyo caso, el primer elemento tiene el ese número como índice.
+Si se da un argumento <parameter>origen</parameter>, debe ser un número entero.
+Puedes obtener el origen de un vector con <link linkend="command-first">PRIMERO</link>.
+</para>
+
+<para>
+&PRODUCTNAME; tiene un sintaxis especial para crear vectores y especificar sus elementos al mismo tiempo.
+Los vectores son delimitados con llaves y el origen se puede especificar opcionalmente en añadiendo el carácter @ después del llave que cierre, seguido por el origen.
+Por ejemplo, <userinput>{a b c}@0</userinput> crea un vector con tres elementos y un origen de 0.
+La primitiva <link linkend="command-print">ESCRIBE</link> y sus parientes escriben vectores usando el mismo sintaxis.
+</para>
+
+<para>
+A diferencia de las listas, a los elementos en un vector, se puede modificarlos después de que el vector sea creado.
+Este hecho puede dar lugar a comportamiento confuso si se refiere al mismo vector en lugares múltiples.
+El programa siguiente lo demuestra esto.
+Modifica un vector en una lista y, por tanto, lo modifica en otra lista también.
+<programlisting><userinput>HAZ "vector {a b c}
+HAZ "lista1 LISTA 1 :vector
+HAZ "lista2 LISTA 2 :vector
+MUESTRA :lista1</userinput>
+[1 {a b c}]
+
+<userinput>MUESTRA :lista2</userinput>
+[2 {a b c}]
+
+<userinput>PONELEMENTO 2 ELEMENTO 2 :lista1 "X
+MUESTRA :lista1</userinput>
+[1 {a X c}]
+
+<userinput>MUESTRA :lista2</userinput>
+[2 {a X c}]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>HAZ "mi_matriz (VECTOR 3 0)
+PONELEMENTO 2 :mi_matriz 1
+PONELEMENTO 1 :mi_matriz 2
+PONELEMENTO 0 :mi_matriz 3
+MUESTRA :mi_matriz</userinput>
+{3 2 1}</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

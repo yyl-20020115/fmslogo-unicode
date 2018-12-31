@@ -1,0 +1,37 @@
+<section id="command-cleartext">
+<title>CLEARTEXT</title>
+<indexterm><primary>CLEARTEXT</primary></indexterm>
+<indexterm><primary>CT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLEARTEXT</command>
+<command>CT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Clears all text within the command recall box in the commander window.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PRINT "Hello</userinput>
+Hello
+<userinput>CLEARTEXT</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

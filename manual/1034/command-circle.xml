@@ -1,0 +1,50 @@
+<section id="command-circle">
+<title>CIRCULO</title>
+<indexterm><primary>CIRCULO</primary></indexterm>
+<indexterm><primary>CIRCLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CIRCULO</command> <parameter>radio</parameter>
+<command>CIRCLE</command> <parameter>radio</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Dibuja un círculo, según el rumbo y posición de la tortuga y el argumento <parameter>radio</parameter>.
+El centro del círculo es la posición actual de la tortuga.
+CIRCULO no mueve la tortuga.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Un ejemplo en 2D:
+<programlisting><userinput>CIRCULO 100</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo en 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 36 [CIRCULO 100 BALANCEADERECHA 5]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-circle2">CIRCULO2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

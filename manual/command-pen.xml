@@ -1,0 +1,46 @@
+<section id="command-pen">
+<title>PEN</title>
+<indexterm><primary>PEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PEN</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list containing the pen's position, mode, and hardware-specific characteristics, for use by <link linkend="command-setpen">SETPEN</link>.
+The output is a list with the following members: [PENDOWNP PENMODE PENSIZE PENCOLOR PENPAINT].
+</para>
+
+<para>
+The format of this list may change in future version of &PRODUCTNAME;, as additional pen characteristics are added.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CLEARSCREEN
+REPEAT 4 [FORWARD 100 RIGHT 90]
+MAKE "savepen PEN
+
+CLEARSCREEN
+SETPENSIZE [20 20]
+REPEAT 4 [FORWARD 100 RIGHT 90]
+SETPEN :savepen
+
+CLEARSCREEN
+REPEAT 4 [FORWARD 100 RIGHT 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

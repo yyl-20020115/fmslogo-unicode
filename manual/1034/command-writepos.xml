@@ -1,0 +1,47 @@
+<section id="command-writepos">
+<title>POSESCRITURA</title>
+<indexterm><primary>POSESCRITURA</primary></indexterm>
+<indexterm><primary>WRITEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POSESCRITURA</command>
+<command>WRITEPOS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la posición del archivo del flujo de escritura como número de caracteres ya escrito.
+Un valor de 0 indica que la posición está al principio del flujo.
+Un valor de 1 indica que la posición está al segundo carácter del flujo (que un carácter ya ha sido escrito).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Nota que, en el ejemplo siguiente, se almacena lo que POSESCRITURA devuelve en una lista y se lo muestra después de que el flujo de escritura se vuelve al Centro de Comandos ([]).</para>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+HAZ "historia []
+HAZ "historia PONULTIMO POSESCRITURA :historia
+ESCRIBE "Hola
+HAZ "historia PONULTIMO POSESCRITURA :historia
+ESCRIBE [Adiós, Amigo]
+HAZ "historia PONULTIMO POSESCRITURA :historia
+PONESCRITURA []
+CIERRA "ejemplo.txt
+MUESTRA :historia</userinput>
+[0 6 20]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

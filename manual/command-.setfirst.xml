@@ -1,0 +1,43 @@
+<section id="command-.setfirst">
+   <title>.SETFIRST</title>
+<indexterm><primary>.SETFIRST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>.SETFIRST</command> <parameter>list</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Changes the first member of <parameter>list</parameter> to be <parameter>value</parameter>.
+</para>
+
+<para>
+The <parameter>list</parameter> input must be list and cannot be empty.
+</para>
+
+<para>
+WARNING: Primitives whose names start with a period are <emphasis>dangerous</emphasis>.
+Their use by non-experts is not recommended.
+The use of .SETFIRST can lead to circular list structures, which causes infinite loops for some primitives; unexpected changes to other data structures that share storage with the list being modified; and the permanent loss of memory if a circular structure is released.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Examples</term>
+<listitem>
+<programlisting><userinput>MAKE "mylist [1 2 3]
+.SETFIRST :mylist 0
+SHOW :mylist</userinput>
+[0 2 3]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

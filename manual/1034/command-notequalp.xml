@@ -1,0 +1,81 @@
+<section id="command-notequalp">
+<title>NOIGUALES?</title>
+<indexterm><primary>NOIGUALES?</primary></indexterm>
+<indexterm><primary>NOTEQUALP</primary></indexterm>
+<indexterm><primary>NOTEQUAL?</primary></indexterm>
+<indexterm><primary>&lt;></primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOIGUALES?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>NOTEQUALP</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>NOTEQUAL?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<parameter>cosa1</parameter> <command>&lt;></command> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve FALSO si los argumentos <parameter>cosa1</parameter> y <parameter>cosa2</parameter> son iguales, CIERTO si no lo son.
+</para>
+
+<para>
+Dos números son iguales si tienen el mismo valor numérico.
+Dos palabras no numéricas son iguales si contienen los mismos caracteres en el mismo orden.
+Por defecto, un carácter mayúsculo es igual al carácter minúsculo correspondiente, pero si hay una variable que se llama <link linkend="command-caseignoredp">IGNORAMAYUSCULAS?</link> y si su valor no es CIERTO, entonces un carácter mayúsculo no es considerado igual al carácter correspondiente en minúsculo.
+</para>
+
+<para>
+Dos listas son iguales si sus miembros son iguales y son en el mismo orden.
+</para>
+
+<para>
+Un vector sólo es igual a sí mismo; dos vectores creados separadamente nunca son iguales, aunque sus elementos sean iguales.
+Es importante poder saber si dos variables refieren al mismo vector porque los vectores son mutable.
+Por ejemplo, si dos variables tienen el mismo vector como sus valores, entonces ejecutando <link linkend="command-setitem">PONELEMENTO</link> con uno de ellas cambiaría las dos.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA 1 &lt;> 1</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA NOIGUALES? 1 1</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA NOIGUALES? 1 2</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA NOIGUALES? [1 2 3] [1 2 3]</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA NOIGUALES? [1 2 3] [3 2 1]</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA NOIGUALES? {1 2 3} {1 2 3}</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>HAZ "mi_vector1 {1 2 3}
+HAZ "mi_vector2 :mi_vector1
+MUESTRA NOIGUALES? :mi_vector1 :mi_vector2</userinput>
+falso</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-equalp">IGUALES?</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

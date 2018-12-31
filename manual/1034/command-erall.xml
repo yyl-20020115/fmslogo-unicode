@@ -1,0 +1,55 @@
+<section id="command-erall">
+    <title>BTODO</title>
+<indexterm><primary>BTODO</primary></indexterm>
+<indexterm><primary>ERALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BTODO</command>
+(<command>BTODO</command> <parameter>mostrar_advertencia</parameter>)
+<command>ERALL</command>
+(<command>ERALL</command> <parameter>mostrar_advertencia</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra todos los procedimientos, variables y listas de propiedades no tapados del área de trabajo.
+</para>
+
+<para>
+Por defecto, BTODO te advierte de lo que estás a punto de hacer.
+BTODO tiene un argumento opcional que controla si se debe mostrarte esta advertencia.
+Si le das FALSO por <parameter>mostrar_advertencia</parameter>), se suprime la advertencia.
+</para>
+
+<para>
+<userinput>(BTODO "falso)</userinput> equivale a <userinput><link linkend="command-erase">BORRA</link> <link linkend="command-contents">CONTENIDO</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+FIN
+
+PARA BAR
+FIN
+
+MUESTRA LPROCS</userinput>
+[bar foo]
+<userinput>(BTODO "falso)
+MUESTRA LPROCS</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

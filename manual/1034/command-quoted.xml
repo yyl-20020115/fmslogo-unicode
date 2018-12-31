@@ -1,0 +1,38 @@
+<section id="command-quoted">
+<title>ENTRECOMILLAS</title>
+<indexterm><primary>ENTRECOMILLAS</primary></indexterm>
+<indexterm><primary>QUOTED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ENTRECOMILLAS</command> <parameter>cosa</parameter>
+<command>QUOTED</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si el argumento es una palabra, ENTRECOMILLAS devuelve la palabra con una comilla inglesa (<userinput>"</userinput>) al frente.
+Si el argumento no es una palabra, ENTRECOMILLAS la devuelve sin modificaciones.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA "Hola</userinput>
+Hola
+
+<userinput>MUESTRA ENTRECOMILLAS "Hola</userinput>
+"Hola</programlisting>
+
+<programlisting><userinput>SHOW ENTRECOMILLAS [1 2 3]</userinput>
+[1 2 3]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

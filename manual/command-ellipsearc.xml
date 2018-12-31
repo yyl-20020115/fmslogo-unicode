@@ -1,0 +1,70 @@
+<section id="command-ellipsearc">
+<title>ELLIPSEARC</title>
+<indexterm><primary>ELLIPSEARC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ELLIPSEARC</command> <parameter>angle</parameter> <parameter>crosswise.semiaxis</parameter> <parameter>inline.semiaxis</parameter> <parameter>startangle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Draws part of (or all of) an ellipse based on the turtle heading, turtle position and given inputs.
+ELLIPSEARC does not move the turtle.
+The center-point of the elliptic arc is the turtle's current position.
+The elliptic arc starts at a location given by <parameter>startangle</parameter> and sweeps an angle equal to <parameter>angle</parameter> degrees in the clockwise direction.
+</para>
+
+<para>
+The size and shape of the elliptic arc are determined by the <parameter>crosswise.semiaxis</parameter> and <parameter>inline.semiaxis</parameter> inputs.
+The <parameter>crosswise.semiaxis</parameter> input is the distance from the turtle to the ellipse in the direction perpendicular to the turtle's current heading.
+The <parameter>inline.semiaxis</parameter> input is the distance from the turtle to the ellipse in the direction in which the turtle is currently heading.
+This implies that the turtle's heading determines the orientation of the ellipse.
+</para>
+
+<para>
+The <parameter>startangle</parameter> input is relative to the turtle's current heading.
+A <parameter>startangle</parameter> of 0 indicates that the elliptic arc starts behind the turtle.
+The <parameter>startangle</parameter> is measured in a clockwise direction, so a value of 90 indicates that the elliptic arc should start to the turtle's left (90 degrees clockwise from behind the turtle).
+</para>
+
+<para>
+Normally the elliptic arc is draw clockwise, but if the <parameter>angle</parameter> input is negative, then the elliptic arc is draw counter-clockwise.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+A 2D example:
+<programlisting><userinput>ELLIPSEARC 360 100 200 0
+CLEARSCREEN
+ELLIPSEARC 90 50 50 0
+CLEARSCREEN
+ELLIPSEARC 90 50 50 90</userinput>
+</programlisting>
+</para>
+
+<para>
+A 3D example:
+<programlisting><userinput>PERSPECTIVE
+REPEAT 72 [ELLIPSEARC 90 100 150 45 RIGHTROLL 5]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipsearc2">ELLIPSEARC2</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,40 @@
+<section id="command-pons">
+    <title>PONS</title>
+<indexterm><primary>PONS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PONS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the definitions of all unburied variables in the workspace to the current write stream.
+PONS abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-names">NAMES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "var 1
+
+TO xxx
+  print "Hello ; comment
+end
+
+PONS</userinput>
+Make "var 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

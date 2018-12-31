@@ -1,0 +1,136 @@
+<section id="command-label">
+    <title>ROTULO</title>
+<indexterm><primary>ROTULO</primary></indexterm>
+<indexterm><primary>LABEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ROTULO</command> <parameter>texto</parameter>
+<command>LABEL</command> <parameter>texto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe <parameter>texto</parameter> en la pantalla a la posición y rumbo actuales de la tortuga.
+</para>
+
+<para>
+ROTULO puede escribir cualquier cosa de &GENERICNAME;: números, listas, palabras, o vectores.
+Si <parameter>texto</parameter> es una lista, se escribe cualquier sub-lista delimitada por corchetes, pero la lista más exterior no se escribe entre corchetes.
+Se trunca el texto según los valores actuales de <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> y <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+Se escribe el texto en el tipo de letra descrito por <link linkend="command-labelfont">TIPO</link>, que te puedas poner con <link linkend="command-setlabelfont">PONTIPO</link> o por el ítem de menú <link linkend="menu-set-labelfont">Configurar - Tipo de letra de rotulador</link>.
+</para>
+
+<para>
+Se determina la posición del texto por la posición de la tortuga.
+Más precisamente, la esquina de abajo a la izquierda del texto se coloca a la posición de la tortuga.
+</para>
+
+<para>
+Se determina el ángulo del texto por el rumbo (dirección) de la tortuga.
+No todos los tipos se pueden imprimir a ángulos arbitrarios, así que asegúrate usar tipos de formato de TrueType o OpenType si quieres imprimir texto a ángulos diferentes.
+</para>
+
+<para>
+Se determina el color del texto por el valor de <link linkend="command-pencolor">COLORLAPIZ</link>, que puedas poner con <link linkend="command-setpencolor">PONCOLORLAPIZ</link>.
+</para>
+
+<para>
+El tamaño (anchura y alteza) del cuadro delimitador del texto se puede determinar con <link linkend="command-labelsize">ROTULOTAM</link>.
+</para>
+
+<para>
+Se puede usar ROTULO en modo <link linkend="command-perspective">PERSPECTIVA</link>, pero no se escribe el texto en el mismo plano que la tortuga aunque está en la posición correcta.
+Por lo contrario, se escribe el texto donde está la tortuga sobre la pantalla (en dos dimensiones) y lo orienta según el rumbo de la tortuga (y no su cabeceo o balanceo).
+</para>
+
+<para>
+Las cualidades del texto dependen del dispositivo (pantalla o impresora), del rumbo de la tortuga (dirección) y del tipo.
+En otras palabras, a veces se puede dibujar el texto al rumbo de la tortuga y a veces no.
+A veces no se imprimirá exactamente como aparece en pantalla.
+</para>
+
+<para>
+Si quieres parpadear un mensaje por escribirlo en un color y luego escribir el mismo mensaje en el color del fondo, mejor que deshabilites el antialiasing espacial en TIPO, escogiendo un <parameter>Cualidad</parameter> de 3 cuando ejecutaras PONTIPO.
+Sino, tendrás un esbozo ligero del mensaje que querías completamente borrar.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Rotular a los ejes del sistema de coordenadas Cartesianas:
+<programlisting><userinput>TO EJE
+  PONTIPO [[Courier New] -19 0 0 700 0 0 0 0 3 2 1 49]
+  GIRADERECHA 90
+
+  PONY   200
+  ROTULO "+Y
+  PONY   -200
+  ROTULO "-Y
+  PONY   0
+
+  PONX   200
+  ROTULO "+X
+  PONX   -200
+  ROTULO "-X
+  PONX   0
+
+  PONZ   200
+  ROTULO "+Z
+  PONZ   -200
+  ROTULO "-Z
+  PONZ   0
+
+  GIRADERECHA 90
+FIN
+
+PERSPECTIVA
+BORRAPANTALLA
+ACTIVA -1 ; activa la posición del ojo
+POSICIONATE [600 600 800]
+ACTIVA 0
+EJE</userinput>
+</programlisting>
+</para>
+
+<para>Parpadear un mensaje:
+<programlisting><userinput>TO PARPADEAR :mensaje
+  ; Cualidad=3 para deshabilitar antialiasing
+  PONTIPO [[Arial] -19 0 0 700 0 0 0 0 3 2 3 49]
+  LAPIZNORMAL
+  ROTULO :mensaje
+  ESPERA 180
+  GOMA
+  ROTULO :mensaje
+  LAPIZNORMAL
+FIN
+
+TO CONTARBROMA
+  PARPADEAR [Le dice la profesora a Jaimito:]
+  PARPADEAR [Jaimito, dime las formas verbales del verbo nadar.]
+  PARPADEAR [Y Jaimito dice gritando:]
+  PARPADEAR [- YO NADO, TÚ NADAS...]
+  PARPADEAR [Y la profesora le dice:]
+  PARPADEAR [- Más bajito, Jaimito.]
+  PARPADEAR [Y Jaimito contesta:]
+  PARPADEAR [- Yo buceo, tú buceas...]
+  PARPADEAR [¡ja, ja, ja!]
+FIN</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

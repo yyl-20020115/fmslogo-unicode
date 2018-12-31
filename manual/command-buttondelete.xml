@@ -1,0 +1,35 @@
+<section id="command-buttondelete">
+    <title>BUTTONDELETE</title>
+<indexterm><primary>BUTTONDELETE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTTONDELETE</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes (closes) the button that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+BUTTONCREATE "mywindow "mybutton "PUSH 25 25 25 25 [PRINT "pushed]
+BUTTONDELETE "mybutton
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,33 @@
+<section id="command-apply">
+    <title>APPLY</title>
+<indexterm><primary>APPLY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>APPLY</command> <parameter>template</parameter> <parameter>inputlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command or operation that runs the <parameter>template</parameter>, filling its slots with the members of <parameter>inputlist</parameter>.
+The number of members in <parameter>inputlist</parameter> must be an acceptable number of slots for template.
+It is illegal to apply the primitive <link linkend="command-to">TO</link> as a template, but anything else is okay.
+APPLY outputs what <parameter>template</parameter> outputs, if anything.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW APPLY "SUM [1 2 3]</userinput>
+6
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

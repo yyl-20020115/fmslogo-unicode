@@ -1,0 +1,33 @@
+<section id="command-yield">
+<title>YIELD</title>
+<indexterm><primary>YIELD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>YIELD</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+YIELD tells &PRODUCTNAME; that it's okay to interrupt running &GENERICNAME; code in order to process windows messages, such as keyboard input, mouse clicks, or notifications to repaint the screen.
+The default state is to yield.
+</para>
+
+<para>
+See the <link linkend="command-noyield">NOYIELD</link> command for an explaination of what "yielding" means.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-eventcheck">EVENTCHECK</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

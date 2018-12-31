@@ -1,0 +1,36 @@
+<section id="command-floodcolor">
+    <title>FLOODCOLOR</title>
+<indexterm><primary>FLOODCOLOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FLOODCOLOR</command>
+<command>FLOODCOLOUR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs flood color information.
+This is either a color index (a number from 0 - 15), or a list containing [red green blue] intensities, depending on how the flood color was set.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETFLOODCOLOR [100 200 50]
+SHOW FLOODCOLOR</userinput>
+[100 200 50]</programlisting>
+
+<programlisting><userinput>SETFLOODCOLOR 2
+SHOW FLOODCOLOR</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

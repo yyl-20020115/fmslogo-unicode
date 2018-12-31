@@ -1,0 +1,48 @@
+<section id="command-remprop">
+    <title>BOPROP</title>
+<indexterm><primary>BOPROP</primary></indexterm>
+<indexterm><primary>REMPROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BOPROP</command> <parameter>nombre_de_lista</parameter> <parameter>nombre_de_propiedad</parameter>
+<command>REMPROP</command> <parameter>nombre_de_lista</parameter> <parameter>nombre_de_propiedad</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra (elimina) la propiedad llamada <parameter>nombre_de_propiedad</parameter> de la lista de propiedades <parameter>nombre_de_lista</parameter>, si existe.
+Si BOPROP borra la última propiedad de la lista, entonces puede borrar la lista también.
+</para>
+<para>
+El argumento <parameter>nombre_de_lista</parameter> debe ser una palabra.
+</para>
+<para>
+El argumento <parameter>nombre_de_propiedad</parameter> puede ser una palabra, una lista o un vector.
+Los nombres de propiedades se comparan de la misma manera que <link linkend="command-equalp">IGUALES?</link> compara sus argumentos.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1 1
+PONPROP "lprop1 "p2 2
+MUESTRA LPROP "lprop1</userinput>
+[p1 1 p2 2]
+<userinput>BOPROP "lprop1 "p1
+MUESTRA LPROP "lprop1</userinput>
+[p2 2]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

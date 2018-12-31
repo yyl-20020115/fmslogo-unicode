@@ -1,0 +1,46 @@
+<section id="command-comboboxenable">
+    <title>COMBOBOXENABLE</title>
+<indexterm><primary>COMBOBOXENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBOBOXENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the combobox identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the combobox is enabled.
+If <parameter>state</parameter> equals FALSE, then the combobox is disabled.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+COMBOBOXCREATE "mywindow "mycombo 25 0 50 50
+COMBOBOXADDSTRING "mycombo [3]
+COMBOBOXADDSTRING "mycombo [4]
+COMBOBOXADDSTRING "mycombo [5]
+COMBOBOXADDSTRING "mycombo [6]
+COMBOBOXSETTEXT "mycombo [3]
+COMBOBOXENABLE "mycombo "False</userinput>
+
+<replaceable>The combobox is now disabled</replaceable>
+
+<userinput>COMBOBOXENABLE "mycombo "True
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

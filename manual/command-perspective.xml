@@ -1,0 +1,334 @@
+<section id="command-perspective">
+<title>PERSPECTIVE</title>
+<indexterm><primary>PERSPECTIVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PERSPECTIVE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Tells the turtle to enter "perspective" mode.
+Perspective mode adds a third dimension (Z axis) for the turtle to live in.
+Perspective is a term to describe how we view a three-dimensional world on a two-dimensional surface.
+You should be familiar with using &PRODUCTNAME; in 2D before jumping into 3D.
+</para>
+
+<para>
+You can switch out perspective mode by entering any of the 2D modes: <link linkend="command-wrap">WRAP</link>, <link linkend="command-window">WINDOW</link>, or <link linkend="command-fence">FENCE</link>.
+</para>
+
+
+<para>
+Everything that works in 2D applies in 3D (perspective mode).
+For example, if you had code that drew a 2D picture, say a star, you can run the same code and place that star on six sides of a cube by getting the turtle to the correct 3D coordinate and orientation before you run your 2D command for drawing a star.
+</para>
+
+
+<para>
+You move the turtle just like you fly an airplane.
+Airplanes have 3 controls to move them through 3D space.
+They have elevators on the tail (pitch), a rudder on the fin (yaw) and ailerons on the wings (roll).
+In 2D, you only have a rudder (right/left) also known as "yaw" and you only move around on one geometric plane.
+&PRODUCTNAME; offers the additional controls, ailerons (RIGHTROLL and LEFTROLL) and elevators (UPPITCH and DOWNPITCH) to maneuver 3D space.
+In 3D space, you can move around in an infinite number of geometric planes at any orientation.
+Once you set the pitch and roll to select the desired geometric plane you can use familiar 2D commands (FORWARD, BACK, LEFT, RIGHT) to traverse it.
+</para>
+
+<para>
+When you start at (X=0, Y=0, Z=0) the +Y axis is still up the screen and the +X axis is to the right of the screen.
+But now you can go into the screen (away from you) or out of the screen (closer to you).
+How? Just like an airplane flies.
+When an airplane rolls to the right it does not change its trajectory, and neither does the turtle.
+But if you rolled 90 degrees to the right and then take a right turn guess what happens.
+You'll go down real fast, straight down.
+Think of a real turtle on the floor.
+Now roll him on to his right side.
+Now if he takes a right turn towards his right front leg (like he always does) his nose will face the floor.
+FORWARD will now go down in the Z axis (away from you).
+</para>
+
+
+<para>
+For more information on maneuvering in 3D, read the section on <link linkend="understand-your-orientation-in-3D">understanding your orientation in 3D</link>.
+</para>
+
+<para>
+There is a simple 3D introductory example called <filename>3DSTEPS.LGO</filename> in the <filename>Examples</filename> directory.
+Load it, run it, and understand it thoroughly before moving on.
+</para>
+
+<para>
+The table below summarizes of the relationship between commands in 2D mode and 3D mode.
+Many commands are repeated in both columns because they are designed for 2D mode but their behavior is affected by being in 3D mode.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>2D Command</entry> <entry>3D Command</entry></row>
+    </thead>
+    <tbody>
+
+      <row rowsep="0">
+        <entry>SETXY</entry>
+        <entry>SETXY (does not change z-coordinate)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>SETX (does not change y-coordinate)</entry>
+        <entry>SETX (does not change y-coordinate or z-coordinate)</entry>
+      </row>
+      <row rowsep="0">
+        <entry>SETY (does not change x-coordinate)</entry>
+        <entry>SETY (does not change x-coordinate or z-coordinate)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETZ (does not change x-coordinate or y-coordinate)</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>XCOR</entry>
+        <entry>XCOR</entry>
+      </row>
+      <row rowsep="0">
+        <entry>YCOR</entry>
+        <entry>YCOR</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>ZCOR</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>POS</entry>
+        <entry>POS (z-coordinate is ignored)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>POSXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>SETPOS</entry>
+        <entry>SETPOS (does not change z-coordinate)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETPOSXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>TOWARDS</entry>
+        <entry>TOWARDS</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>TOWARDSXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>DISTANCE</entry>
+        <entry>DISTANCE</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>DISTANCEXYZ</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>HEADING</entry>
+        <entry>HEADING</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>ROLL</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>PITCH</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>ORIENTATION</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>SETHEADING</entry>
+        <entry>SETHEADING</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>SETROLL</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>SETPITCH</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETORIENTATION</entry>
+      </row>
+
+
+      <row rowsep="0">
+        <entry>RIGHT</entry>
+        <entry>RIGHT (on current plane)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>RIGHTROLL</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>UPPITCH</entry>
+      </row>
+
+
+      <row rowsep="0">
+        <entry>LEFT</entry>
+        <entry>LEFT (on current plane)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>LEFTROLL</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>DOWNPITCH</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>WINDOW</entry>
+        <entry>PERSPECTIVE</entry>
+      </row>
+      <row rowsep="0">
+        <entry>WRAP</entry>
+        <entry></entry>
+      </row>
+      <row>
+        <entry>FENCE</entry>
+        <entry></entry>
+      </row>
+
+      <row rowsep="0">
+        <entry>SETTURTLE 0-1023</entry>
+        <entry>SETTURTLE 0-1023</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>SETTURTLE -1 (the eye position)</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>SETTURTLE -2 (where the eye is looking)</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETTURTLE -3 (the position of the light)</entry>
+      </row>
+
+      <row rowsep="0">
+        <entry></entry>
+        <entry>POLYSTART</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>POLYEND</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>POLYVIEW</entry>
+      </row>
+      <row rowsep="0">
+        <entry></entry>
+        <entry>LIGHT</entry>
+      </row>
+      <row>
+        <entry></entry>
+        <entry>SETLIGHT</entry>
+      </row>
+
+      <row>
+        <entry>ELLIPSEARC</entry>
+        <entry>ELLIPSEARC (great for spheres)</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<formalpara>
+<title>Limitations of Perspecive Mode</title>
+<para>
+There are several 2D commands which work in perspective mode but still behave in a 2D fashion.
+Their actions take place at the correct X, Y, Z coordinate, but the orientation is limited to a 2D plane.
+For example, you can not draw text with <link linkend="command-label">LABEL</link> on 6 sides of cube.
+However, you can LABEL the 8 vertices of the cube by moving to each vertex using 3D maneuvers.
+Furthermore, nothing prevents you from building a "3D block letter" alphabet library made up of 3D vectors.
+</para>
+</formalpara>
+
+<para>
+The following commands retain their 2D feel, even in perspective mode.
+
+<itemizedlist spacing="compact">
+  <listitem><para>LABEL</para></listitem>
+  <listitem><para>BITCUT</para></listitem>
+  <listitem><para>BITPASTE</para></listitem>
+  <listitem><para>BITCOPY</para></listitem>
+  <listitem><para>BITBLOCK</para></listitem>
+  <listitem><para>FILL</para></listitem>
+  <listitem><para>PIXEL</para></listitem>
+  <listitem><para>SETPIXEL</para></listitem>
+</itemizedlist>
+
+</para>
+
+<para>
+Perspective mode does not do hidden line removal.
+Hidden line removal requires objects be composed of polygons.
+</para>
+
+<para>
+Perspective mode does not allow you to dynamically move the eye view.
+This is because &PRODUCTNAME; does not store your object (your vectors) in 3D, it stores them in a 2D bitmap.
+However you can do "fast" dynamic manipulation in two other ways.
+</para>
+
+<para>
+The first way to do "fast" dynamic manipulation requires that you keep your scene very simple (relative to the performance of your computer).
+You simply clear the screen and change the eye view (turtle -1) or the placement of the objects and draw again.
+Note curved objects (like those based on <link linkend="command-ellipsearc">ELLIPSEARC</link>) generate many vectors.
+</para>
+
+<para>
+The other way to do "fast" dynamic manipulation is to record each "scene" in a bitmap and play them back at any rate you wish.
+This method is shown in the <filename>GROW.LGO</filename> example.
+It does not matter whether you're "recording" 2D scenes or 3D scenes.
+This is limited by how much memory your computer has.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+REPEAT 72 [ELLIPSEARC 90 100 150 45 RIGHTROLL 5]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

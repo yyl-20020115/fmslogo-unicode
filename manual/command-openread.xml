@@ -1,0 +1,64 @@
+<section id="command-openread">
+<title>OPENREAD</title>
+<indexterm><primary>OPENREAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OPENREAD</command> <parameter>filename</parameter>
+(<command>OPENREAD</command> <parameter>filename</parameter> <parameter>binarymode</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens the file named <parameter>filename</parameter> for reading.
+The read position is initially at the beginning of the file.
+</para>
+
+<para>
+The <parameter>filename</parameter> can also be the reserved word <userinput>"clipboard</userinput> to read data from the clipboard just like a file.
+</para>
+
+<para>
+The <parameter>binarymode</parameter> is a boolean value (TRUE or FALSE).
+If <parameter>binarymode</parameter> is FALSE or not given, then the file is read as a text file.
+That is, the end-of-line sequence is converted from CRLF to LF.
+If <parameter>binarymode</parameter> is TRUE, then the file is read as a binary file.
+That is, no end-of-line sequence conversion is performed.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST]</userinput>
+[Hello]
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-close">CLOSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

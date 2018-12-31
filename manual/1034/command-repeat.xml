@@ -1,0 +1,47 @@
+<section id="command-repeat">
+<title>REPITE</title>
+<indexterm><primary>REPITE</primary></indexterm>
+<indexterm><primary>REPEAT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>REPITE</command> <parameter>veces</parameter> <parameter>lista_de_instrucciones</parameter>
+<command>REPEAT</command> <parameter>veces</parameter> <parameter>lista_de_instrucciones</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta las instrucciones en <parameter>lista_de_instrucciones</parameter> tantas veces como indica el argumento <parameter>veces</parameter>.
+</para>
+
+<para>
+Se puede determinar el número de veces que <parameter>lista_de_instrucciones</parameter> ha sido ejecutado usando <link linkend="command-repcount">CUENTAREPITE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 3 [ESCRIBE (LISTA "Es "la "vuelta CUENTAREPITE)]</userinput>
+Es la vuelta 1
+Es la vuelta 2
+Es la vuelta 3
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-forever">SIEMPRE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

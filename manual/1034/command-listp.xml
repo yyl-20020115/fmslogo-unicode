@@ -1,0 +1,42 @@
+<section id="command-listp">
+<title>LISTA?</title>
+<indexterm><primary>LISTA?</primary></indexterm>
+<indexterm><primary>LISTP</primary></indexterm>
+<indexterm><primary>LIST?</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LISTA?</command> <parameter>cosa</parameter>
+<command>LISTP</command> <parameter>cosa</parameter>
+<command>LIST?</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento <parameter>cosa</parameter> es una lista, FALSO si no lo es.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA LISTA? "Hola</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA LISTA? [Hola]</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA LISTA? {Hola}</userinput>
+falso</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

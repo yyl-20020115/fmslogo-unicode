@@ -1,0 +1,35 @@
+<section id="command-clean">
+    <title>LIMPIA</title>
+<indexterm><primary>LIMPIA</primary></indexterm>
+<indexterm><primary>CLEAN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LIMPIA</command>
+<command>CLEAN</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra todas las líneas que la tortuga dibujó en la pantalla.
+El estado de la tortuga (posición, rumbo, modo del lápiz, etcétera) no cambia.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>AVANZA 100
+LIMPIA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

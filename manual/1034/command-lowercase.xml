@@ -1,0 +1,31 @@
+<section id="command-lowercase">
+<title>MINUSCULAS</title>
+<indexterm><primary>MINUSCULAS</primary></indexterm>
+<indexterm><primary>LOWERCASE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MINUSCULAS</command> <parameter>palabra</parameter>
+<command>LOWERCASE</command> <parameter>palabra</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una copia del argumento <parameter>palabra</parameter>, pero en la que se han cambiado las mayúsculas por las correspondientes minúsculas.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA MINUSCULAS "HolA</userinput>
+hola</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

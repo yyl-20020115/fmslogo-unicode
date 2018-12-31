@@ -1,0 +1,56 @@
+<section id="command-print">
+<title>ESCRIBE</title>
+<indexterm><primary>ESCRIBE</primary></indexterm>
+<indexterm><primary>ES</primary></indexterm>
+<indexterm><primary>PRINT</primary></indexterm>
+<indexterm><primary>PR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ESCRIBE</command> <parameter>cosa</parameter>
+<command>ES</command> <parameter>cosa</parameter>
+(<command>ESCRIBE</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)
+(<command>ES</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)
+<command>PRINT</command> <parameter>cosa</parameter>
+<command>PR</command> <parameter>cosa</parameter>
+(<command>PRINT</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)
+(<command>PR</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Escribe el argumento o argumentos al flujo de escritura actual (inicialmente la <link linkend="commander-history">Caja de Historia</link>).
+Todos los argumentos se escriben en una sola línea, separadas por espacios y terminando en una nueva línea.
+Si el argumento es una lista, no escribe los corchetes, pero sí se escriben corchetes en las listas inferiores.
+Los vectores se escriben entre llaves.
+La segunda forma (con paréntesis) se emplea cuando ESCRIBE lleva más de un argumento.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ESCRIBE "Hola</userinput>
+Hola</programlisting>
+
+<programlisting><userinput>ESCRIBE [Hola, cómo estás]</userinput>
+Hola, cómo estás</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link></member>
+<member><link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

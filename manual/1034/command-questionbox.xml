@@ -1,0 +1,54 @@
+<section id="command-questionbox">
+    <title>QUESTIONBOX</title>
+<indexterm><primary>QUESTIONBOX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>QUESTIONBOX</command> <parameter>title</parameter> <parameter>question</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Displays a dialog box with <parameter>title</parameter> in the title bar, <parameter>question</parameter> as the message, and an edit control for text input.
+The dialog box also has "OK" and "Cancel" buttons.
+Processing does not continue until the user clicks one of these buttons.
+The commander window is also disabled until dialog is dismissed.
+If the user presses "OK", then QUESTIONBOX outputs the text in the edit control as a list.
+If the user presses "Cancel", then processing is halted, as if by the <link linkend="command-halt">HALT</link> command.
+</para>
+
+<para>
+Both the <parameter>title</parameter> and <parameter>question</parameter> inputs may be lists or words.
+The <parameter>question</parameter> input is truncated according to the current values of <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> and <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+The question box is automatically sized to fit <parameter>question</parameter>.
+The question is not word-wrapped, so if you have a long question, you may want to put in some line breaks.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW QUESTIONBOX [Question] [Do you like &GENERICNAME;?]</userinput>
+[Yes, I do.]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-messagebox">MESSAGEBOX</link></member>
+<member><link linkend="command-selectbox">SELECTBOX</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

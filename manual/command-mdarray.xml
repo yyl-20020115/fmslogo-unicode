@@ -1,0 +1,59 @@
+<section id="command-mdarray">
+<title>MDARRAY</title>
+<indexterm><primary>MDARRAY</primary></indexterm>
+
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MDARRAY</command> <parameter>sizelist</parameter>
+(<command>MDARRAY</command> <parameter>sizelist</parameter> <parameter>origin</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a multi-dimensional array.
+</para>
+
+<para>
+The <parameter>sizelist</parameter> input describes the size of each dimension in the multi-dimensional array.
+The number of items in this list determines the dimension of the array.
+<parameter>sizelist</parameter> must be a list of one or more positive integers.
+</para>
+
+<para>
+The <parameter>origin</parameter> input is the index of the first element of every dimension in the output array.
+If given, it must be a single integer.
+If no <parameter>origin</parameter> input is given, then every dimension in the array has an origin of 1.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "myarray (MDARRAY [2 3] 0)
+MDSETITEM [0 0] :myarray 1
+MDSETITEM [0 1] :myarray 2
+MDSETITEM [0 2] :myarray 3
+MDSETITEM [1 0] :myarray 4
+MDSETITEM [1 1] :myarray 5
+MDSETITEM [1 2] :myarray 6
+SHOW :myarray</userinput>
+{{1 2 3} {4 5 6}}</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-mditem">MDITEM</link></member>
+<member><link linkend="command-mdsetitem">MDSETITEM</link></member>
+<member><link linkend="command-array">ARRAY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

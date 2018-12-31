@@ -1,0 +1,32 @@
+<section id="command-fput">
+<title>PONPRIMERO</title>
+<indexterm><primary>PONPRIMERO</primary></indexterm>
+<indexterm><primary>PP</primary></indexterm>
+<indexterm><primary>FPUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPRIMERO</command> <parameter>cosa</parameter> <parameter>lista</parameter>
+<command>PP</command> <parameter>cosa</parameter> <parameter>lista</parameter>
+<command>FPUT</command> <parameter>cosa</parameter> <parameter>lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Devuelve una lista igual a <parameter>lista</parameter> con <parameter>cosa</parameter> puesta al frente.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA PONPRIMERO 1 [2 3 4]</userinput>
+[1 2 3 4]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

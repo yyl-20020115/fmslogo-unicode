@@ -1,0 +1,33 @@
+<section id="command-round">
+    <title>ROUND</title>
+<indexterm><primary>ROUND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ROUND</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the nearest integer to the input.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW ROUND 8.2</userinput>
+8</programlisting>
+<programlisting><userinput>SHOW ROUND 8.7</userinput>
+9</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

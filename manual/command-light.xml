@@ -1,0 +1,37 @@
+<section id="command-light">
+<title>LIGHT</title>
+<indexterm><primary>LIGHT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LIGHT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the lighting attributes as a list of two numbers, the Ambient and Diffuse values.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETLIGHT [0.3 0.6]
+SHOW LIGHT</userinput>
+[0.3 0.6]</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setlight">SETLIGHT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

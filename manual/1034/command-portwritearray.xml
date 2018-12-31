@@ -1,0 +1,50 @@
+<section id="command-portwritearray">
+    <title>ESCRIBECADENAPUERTO</title>
+<indexterm><primary>ESCRIBECADENAPUERTO</primary></indexterm>
+<indexterm><primary>PORTWRITEARRAY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ESCRIBECADENAPUERTO</command> <parameter>total</parameter> <parameter>vector</parameter>
+<command>PORTWRITEARRAY</command> <parameter>total</parameter> <parameter>vector</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe al puerto abierto los datos en <parameter>vector</parameter>, que debe ser un vector de enteros del tamaño de un byte (entre -127 y 255).
+Intenta escribir <parameter>total</parameter> caracteres al puerto, si es posible.
+Si se escriben los datos con éxito, entonces ESCRIBECADENAPUERTO devuelve <code>1</code>, sino devuelve <code>0</code>.
+</para>
+
+<para>
+Si <parameter>total</parameter> es más grande que el tamaño del argumento <parameter>vector</parameter>, entonces intenta escribir todo el vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>ABREPUERTO "com1
+ESCRIBE FRASE [Enviando...] ESCRIBECADENAPUERTO 3 LISTAAVECTOR TEJE [ASCII ?] [a t]</userinput>
+Enviando... 2
+<userinput>MUESTRA ESCRIBECARACTERPUERTO 13</userinput>
+1
+<userinput>ESPERA 60
+HAZ "datos {0 0 0 0 0 0 0 0 0 0}
+ESCRIBE FRASE [Recibiendo...] LEECADENAPUERTO 10 :vector</userinput>
+Recibiendo... 9
+<userinput>ESCRIBE FRASE [Datos Rx...] TEJE [CAR ?] QUITA [] VECTORALISTA :vector</userinput>
+Datos Rx... at | |
+O K |
+<userinput>CIERRAPUERTO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,58 @@
+<section id="command-catch">
+    <title>ATRAPA</title>
+<indexterm><primary>ATRAPA</primary></indexterm>
+<indexterm><primary>CATCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ATRAPA</command> <parameter>etiqueta</parameter> <parameter>lista_de_instrucción</parameter>
+<command>CATCH</command> <parameter>etiqueta</parameter> <parameter>lista_de_instrucción</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta las instrucciones en <parameter>lista_de_instrucción</parameter> y devuelve lo que las instrucciones devuelve (o no devuelve nada, si las instrucciones no devuelven nada).
+Si <parameter>lista_de_instrucción</parameter> ejecuta una instrucción <link linkend="command-throw">LANZA</link> con un argumento igual al argumento <parameter>etiqueta</parameter> de ATRAPA (con una comparación insensible a las mayúsculas y minúsculas), entonces termina la ejecución inmediatamente.
+En este caso, si LANZA fue dado un valor, ATRAPA devuelve este valor.
+</para>
+
+<para>
+El argumento <parameter>etiqueta</parameter> debe ser una palabra.
+Si <parameter>etiqueta</parameter> es la palabra <link linkend="command-error">ERROR</link>, entonces cualquier condición de error que sucede mientras que se ejecuta <parameter>lista_de_instrucción</parameter> tiene el efecto de ejecutar <userinput>LANZA "ERROR</userinput> en lugar de escribir un mensaje de error y devolver control al alto nivel interactivo.
+En este caso, ATRAPA <emphasis>no</emphasis> devuelve un valor.
+Además, mientras se ejecuta <parameter>lista_de_instrucción</parameter>, la variable <link linkend="command-erract">ERRACT</link> se vuelve desligado.
+(Si hay un error mientras ERRACT tiene un valor, se toma ese valor como una lista de instrucciones para ser ejecutado después de escribir el mensaje de error.
+Típicamente, si ERRACT tiene un valor, es la lista <userinput>[<link linkend="command-pause">PAUSA</link>]</userinput>.)
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA2
+  ESCRIBE [Antes de lanzar]
+  LANZA "etiqueta1
+  ESCRIBE [Nunca llega aquí porque LANZA retrocede]
+FIN
+
+PARA MIPROGRAMA1
+  ATRAPA "etiqueta1 [MIPROGRAMA2]
+  ESCRIBE [Estoy de vuelta]
+FIN
+
+MIPROGRAMA1</userinput>
+Antes de lanzar
+Estoy de vuelta
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

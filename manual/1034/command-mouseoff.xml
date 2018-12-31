@@ -1,0 +1,47 @@
+<section id="command-mouseoff">
+    <title>INHABILITARATON</title>
+<indexterm><primary>INHABILITARATON</primary></indexterm>
+<indexterm><primary>MOUSEOFF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>INHABILITARATON</command>
+<command>MOUSEOFF</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Inhabilita la captura de los eventos del ratón.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>SUBELAPIZ
+HABILITARATON [PONPOS POSRATON BAJALAPIZ] [SUBELAPIZ] [] [] [PONPOS POSRATON]</userinput>
+
+<replaceable>Mueve el ratón.
+Mantiene presionado el botón izquierdo para dibujar.</replaceable>
+
+<userinput>INHABILITARATON</userinput>
+<replaceable>Mueve el ratón y mantiene presionado el botón izquierdo.
+Ahora, ya nada sucede.</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-mouseon">HABILITARATON</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

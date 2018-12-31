@@ -1,0 +1,44 @@
+<section id="command-beforep">
+<title>ANTERIOR?</title>
+<indexterm><primary>ANTERIOR?</primary></indexterm>
+<indexterm><primary>BEFOREP</primary></indexterm>
+<indexterm><primary>BEFORE?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ANTERIOR?</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter>
+<command>BEFOREP</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter>
+<command>BEFORE?</command> <parameter>palabra1</parameter> <parameter>palabra2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>palabra1</parameter> es anterior en orden alfabético a <parameter>palabra2</parameter>, o según la secuencia ASCII si los caracteres no son letras.
+La sensibilidad a las mayúsculas y minúsculas es determinado por el valor de la variable <link linkend="command-caseignoredp">CASEIGNOREDP</link>.
+Tengas en cuenta que si los argumentos son números, el resultado pueda ser no igual que con <link linkend="command-lessp">MENOR?</link>.
+Por ejemplo, <userinput>ANTERIOR 3 12</userinput> es FALSO porque "3" viene antes de "1" en orden ASCII.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA ANTERIOR? "ABC "abd</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA ANTERIOR? "abd "ABC</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA ANTERIOR? "a "a</userinput>
+falso</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

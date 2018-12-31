@@ -1,0 +1,51 @@
+<section id="command-or">
+    <title>O</title>
+<indexterm><primary>O</primary></indexterm>
+<indexterm><primary>OR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>O</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter>
+(<command>O</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter> <parameter>booleano3</parameter> <parameter>...</parameter>)
+<command>OR</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter>
+(<command>OR</command> <parameter>booleano1</parameter> <parameter>booleano2</parameter> <parameter>booleano3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si al menos uno de los argumentos tienen el valor CIERTO.
+En otro caso, devuelve FALSO.
+Todos los argumentos deben tener un valor de CIERTO o FALSO.
+</para>
+
+<para>
+La comparación siempre es insensible a las mayúsculas y minúsculas, no importa el valor de <link linkend="command-caseignoredp">IGNORAMAYUSCULAS?</link>.
+Es decir, «cierto», «Cierto» y «CIERTO» son todos iguales.
+</para>
+
+<para>
+Si no hay argumentos, O devuelve FALSO.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA O "cierto "cierto</userinput>
+cierto
+<userinput>MUESTRA O "cierto "falso</userinput>
+cierto
+<userinput>SHOW OR "falso "falso</userinput>
+falso
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

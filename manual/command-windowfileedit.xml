@@ -1,0 +1,40 @@
+<section id="command-windowfileedit">
+    <title>WINDOWFILEEDIT</title>
+<indexterm><primary>WINDOWFILEEDIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WINDOWFILEEDIT</command> <parameter>filename</parameter> <parameter>callback</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens the <link linkend="editor">editor</link> on the file with the given <parameter>filename</parameter>.
+When the contents of the file is saved, it is saved to the file, not the workspace.
+The <parameter>callback</parameter> instruction list is run when the user closes the editor.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <para>Simple example
+    <programlisting><userinput>WINDOWFILEEDIT "|c:\\Program Files\\&PRODUCTNAME;\\Logolib\\DEMO| [PRINT "Done]</userinput>
+</programlisting>
+    </para>
+
+    <para>Let the user select the file to edit
+    <programlisting><userinput>WINDOWFILEEDIT DIALOGFILEOPEN "|c:\\Program Files\\&PRODUCTNAME;\\Logolib\\*| [PRINT "Done]</userinput>
+</programlisting>
+    </para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

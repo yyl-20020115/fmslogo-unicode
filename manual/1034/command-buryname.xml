@@ -1,0 +1,46 @@
+<section id="command-buryname">
+    <title>TAPAVAR</title>
+<indexterm><primary>TAPAVAR</primary></indexterm>
+<indexterm><primary>BURYNAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TAPAVAR</command> <parameter>nombre_de_variable</parameter>
+<command>TAPAVAR</command> <parameter>lista_de_nombres</parameter>
+<command>BURYNAME</command> <parameter>nombre_de_variable</parameter>
+<command>BURYNAME</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Tapa las variables nombradas por el argumento.
+TAPAVAR es la abreviatura de <userinput><link linkend="command-bury">TAPA</link> <link linkend="command-namelist">LISTANOMBRES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo [Yo soy Foo]
+HAZ "bar [Yo soy Bar]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+<userinput>TAPAVAR [foo]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+<userinput>MUESTRA :foo</userinput>
+[Yo soy Foo]
+<userinput>MUESTRA :bar</userinput>
+[Yo soy Bar]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

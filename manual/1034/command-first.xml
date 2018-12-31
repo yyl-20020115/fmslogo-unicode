@@ -1,0 +1,48 @@
+<section id="command-first">
+<title>PRIMERO</title>
+<indexterm><primary>PRIMERO</primary></indexterm>
+<indexterm><primary>PRI</primary></indexterm>
+<indexterm><primary>FIRST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PRIMERO</command> <parameter>cosa</parameter>
+<command>PRI</command> <parameter>cosa</parameter>
+<command>FIRST</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa</parameter> es una palabra, devuelve el primer carácter de la palabra.
+Si <parameter>cosa</parameter> es una lista, devuelve el primer miembro de la lista.
+Si <parameter>cosa</parameter> es un vector, devuelve el origen del vector (esto es, el índice del primer elemento del vector).
+</para>
+
+<para>
+PRIMERO lanza un error de mala entrada si <parameter>cosa</parameter> es la lista vacía, la palabra vacía, o un vector vacío.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA PRIMERO [1 2 3]</userinput>
+1</programlisting>
+
+<programlisting><userinput>MUESTRA PRIMERO "Hola</userinput>
+H</programlisting>
+
+<programlisting><userinput>MUESTRA PRIMERO {a b c}</userinput>
+1</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

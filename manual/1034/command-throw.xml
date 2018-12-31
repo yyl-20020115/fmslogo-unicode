@@ -1,0 +1,82 @@
+<section id="command-throw">
+    <title>LANZA</title>
+<indexterm><primary>LANZA</primary></indexterm>
+<indexterm><primary>THROW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LANZA</command> <parameter>etiqueta</parameter>
+(<command>LANZA</command> <parameter>etiqueta</parameter> <parameter>valor</parameter>)
+(<command>LANZA</command> "ERROR <parameter>texto_de_error</parameter>)
+(<command>LANZA</command> "ERROR <parameter>4</parameter> <parameter>mal_valor</parameter>)
+<command>THROW</command> <parameter>etiqueta</parameter>
+(<command>THROW</command> <parameter>etiqueta</parameter> <parameter>valor</parameter>)
+(<command>THROW</command> "ERROR <parameter>texto_de_error</parameter>)
+(<command>THROW</command> "ERROR <parameter>4</parameter> <parameter>mal_valor</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Termina la ejecución de la lista de instrucciones de <link linkend="command-catch">ATRAPA</link>.
+LANZA se debe usar dentro del ámbito de una instrucción de ATRAPA que tiene el mismo etiqueta que el argumento <parameter>etiqueta</parameter> de LANZA.
+Si se ejecuta LANZA con un argumento <parameter>valor</parameter>, entonces ATRAPA devuelve <parameter>valor</parameter>.
+Si no se ejecuta LANZA con un argumento <parameter>valor</parameter>, entonces ATRAPA no devuelve nada.
+</para>
+
+<para>
+El argumento <parameter>etiqueta</parameter> debe ser una palabra.
+</para>
+
+<para>
+<userinput>LANZA "SYSTEM</userinput> termina la sesión de &PRODUCTNAME; inmediatamente.
+</para>
+
+<para>
+<userinput>LANZA "TOPLEVEL</userinput> termina la ejecución de todos los procedimientos y todas las pausas interactivas y devuelve el control al alto nivel interactivo.
+Este tiene el mismo efecto que presionar el <link linkend="commander-halt">Botón Alto</link>.
+</para>
+
+<para>
+Se puede usar <userinput>LANZA "ERROR</userinput> para generar una condición de error.
+Si no se atrapa el error, escribe un mensaje (<userinput>ATRAPA "Error</userinput>) con la indicación usual de donde ocurrió el error que, en este caso, sería la instrucción de LANZA.
+Si <parameter>etiqueta</parameter> es igual a <userinput>"ERROR</userinput> y das un argumento <parameter>texto_de_error</parameter>, entonces se usa <parameter>texto_de_error</parameter> como el texto del mensaje de error en lugar del texto estándar.
+En este caso, el lugar que indica el error no es el lugar de la instrucción de LANZA, sino el lugar donde se ejecuta el procedimiento que contiene esta instrucción de LANZA.
+Este habilita que los procedimientos definidos por usuarios puedan generar mensajes de error como si fueran primitivas.
+Si <parameter>etiqueta</parameter> es igual a <userinput>"ERROR</userinput> y el segundo argumento es 4 (el código por error de mala entrada) y existe un tercer argumento, entonces se lanza un error de «mala entrada» y se usa el tercer argumento como el valor de la mala entrada.
+</para>
+
+<para>
+Nota que cuando usas <userinput>LANZA "ERROR</userinput>, el <userinput>ATRAPA "ERROR</userinput> correspondiente, si existe, no devuelve un valor porque se trata el segundo argumento de LANZA como un mensaje a mostrar, no un valor a devolver.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA2
+  ESCRIBE [Antes de lanzar]
+  LANZA "etiqueta1
+  ESCRIBE [Nunca llega aquí porque LANZA retrocede]
+FIN
+
+PARA MIPROGRAMA1
+  ATRAPA "etiqueta1 [MIPROGRAMA2]
+  ESCRIBE [Estoy de vuelta]
+FIN
+
+MIPROGRAMA1</userinput>
+Antes de lanzar
+Estoy de vuelta
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

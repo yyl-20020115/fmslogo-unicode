@@ -1,0 +1,50 @@
+<section id="command-bitcopy">
+<title>BITCOPY</title>
+<indexterm><primary>BITCOPY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITCOPY</command> <parameter>width</parameter> <parameter>height</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Copies part of the image and stores it in memory (or the clipboard, if <link linkend="command-bitindex">BITINDEX</link> is 0).
+Anytime later, you can use <link linkend="command-bitpaste">BITPASTE</link> to "paste" it into the image.
+&PRODUCTNAME; copies a rectangle starting at the turtle's position with a width of <parameter>width</parameter> pixels and a height of <parameter>height</parameter> pixels.
+</para>
+
+<para>
+The rectangle that is copied is always taken horizontally and vertically, regardless of the turtle's heading.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETPENSIZE [2 2]
+REPEAT 72 [CIRCLE2 100 SETPENCOLOR (LIST REPCOUNT*3 0 0) RIGHT 5]
+PENUP
+SETXY -50 -50
+BITCOPY 100 100
+CLEARSCREEN
+PENUP
+REPEAT 36 [FORWARD 150 BITPASTE BACK 150 RIGHT 10]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setbitindex">SETBITINDEX</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

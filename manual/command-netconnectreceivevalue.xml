@@ -1,0 +1,62 @@
+<section id="command-netconnectreceivevalue">
+<title>NETCONNECTRECEIVEVALUE</title>
+<indexterm><primary>NETCONNECTRECEIVEVALUE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NETCONNECTRECEIVEVALUE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the value of the last network data received on the connection that was created with <link linkend="command-netconnecton">NETCONNECTON</link>.
+It is best to call this procedure in your <parameter>receiveready</parameter> callback code of your NETCONNECTON command.
+If you don't, then the data is discarded the next time <parameter>receiveready</parameter> is run.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+The following example sets up both a client and server.
+The server (accepter) sends data to the client (connector).
+
+<programlisting><userinput>NETSTARTUP ; Start up the network
+
+; Wait for someone to connect to you on port 5124
+SHOW NETACCEPTON 5124 [PRINT [Ok to Send Again]] []</userinput>
+true
+Ok to Send Again
+
+<userinput>; Connect to local machine on port 5124
+; If you want to run this portion on a different computer, then replace
+; the "localhost with the name of the other computer.
+SHOW NETCONNECTON "localhost 5124 [] [PRINT NETCONNECTRECEIVEVALUE]</userinput>
+true
+
+<userinput>WAIT 100 ; Wait a little to establish the connection</userinput>
+Ok to Send Again
+Ok to Send Again
+
+<userinput>SHOW NETACCEPTSENDVALUE [Who are you that called me] ; Send some data</userinput>
+true
+
+<userinput>WAIT 100 ; Wait a little before we shut things down</userinput>
+Who are you that called me
+
+<userinput>NETCONNECTOFF
+NETACCEPTOFF
+NETSHUTDOWN</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

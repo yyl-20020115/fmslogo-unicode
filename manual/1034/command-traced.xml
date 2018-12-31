@@ -1,0 +1,49 @@
+<section id="command-traced">
+<title>TRAZADOS</title>
+<indexterm><primary>TRAZADOS</primary></indexterm>
+<indexterm><primary>TRACED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TRAZADOS</command>
+<command>TRACED</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de contenidos que consiste de los nombres de todos los elementos que están trazados en el área de trabajo: los procedimientos, las variables y las listas de propiedades.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIAVANZA
+  AVANZA 10
+FIN
+
+MUESTRA TRAZADOS</userinput>
+[[] [] []]
+
+<userinput>TRAZA "MIAVANZA
+MUESTRA TRAZADOS</userinput>
+[[miavanza] [] []]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-trace">TRAZA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,59 @@
+<section id="command-setwrite">
+<title>SETWRITE</title>
+<indexterm><primary>SETWRITE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETWRITE</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the write stream to the file named <parameter>filename</parameter>.
+The write stream is used by <link linkend="command-print">PRINT</link>, <link linkend="command-show">SHOW</link>, etc.
+The file must already be open with <link linkend="command-openwrite">OPENWRITE</link>, <link linkend="command-openappend">OPENAPPEND</link>, or <link linkend="command-openupdate">OPENUPDATE</link>.
+If the input is the empty list, then the write stream becomes the Commander, as usual.
+Changing the write stream does not close the file that was previously the write stream, so it is possible to alternate between files.
+</para>
+
+<para>
+If you <link linkend="command-close">CLOSE</link> the current writer, then the write stream is closed and <link linkend="command-writer">WRITER</link> is changed back to the Commander.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST]</userinput>
+[Hello]
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setread">SETREAD</link></member>
+<member><link linkend="command-writer">WRITER</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

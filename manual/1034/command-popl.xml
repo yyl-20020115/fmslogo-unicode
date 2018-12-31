@@ -1,0 +1,44 @@
+<section id="command-popl">
+    <title>IMDEFPROP</title>
+<indexterm><primary>IMDEFPROP</primary></indexterm>
+<indexterm><primary>POPL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMDEFPROP</command> <parameter>nombre</parameter>
+<command>IMDEFPROP</command> <parameter>lista_de_nombres</parameter>
+<command>POPL</command> <parameter>nombre</parameter>
+<command>POPL</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe todas las propiedades de las listas de propiedades nombradas al flujo de escritura actual.
+IMDEFPROP es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-pllist">LISTAPROPIEDADES</link></userinput>.
+</para>
+
+<para>
+IMDEFPROP trata a todas las lista de propiedades que no existen como si fueron listas de propiedades vaciás.
+Esto conforma con el comportamiento de <link linkend="command-gprop">PROPIEDAD</link> cuando le pides que devuelva una propiedad que no existe.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1 1
+IMDEFPROP [lprop1 lprop2]</userinput>
+ponprop "lprop1 "p1 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

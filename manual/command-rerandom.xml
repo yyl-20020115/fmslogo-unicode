@@ -1,0 +1,40 @@
+<section id="command-rerandom">
+    <title>RERANDOM</title>
+<indexterm><primary>RERANDOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RERANDOM</command>
+(<command>RERANDOM</command> <parameter>seed</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Makes the output of <link linkend="command-random">RANDOM</link> reproducible.
+Ordinarily the sequence of random numbers is different each time &GENERICNAME; is used.
+If you need the same sequence of pseudo-random numbers repeatedly, for example, to debug a program, run RERANDOM before the first invocation of RANDOM or PICK.
+If you need more than one repeatable sequence, you can give RERANDOM an integer input called a "seed"; each distinct seed selects a unique sequence of numbers.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>RERANDOM
+REPEAT 2 [SHOW RANDOM 10]</userinput>
+6
+2
+<userinput>RERANDOM
+REPEAT 2 [SHOW RANDOM 10]</userinput>
+6
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

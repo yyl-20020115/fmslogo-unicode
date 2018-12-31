@@ -1,0 +1,49 @@
+<section id="command-circle2">
+<title>CIRCULO2</title>
+<indexterm><primary>CIRCULO2</primary></indexterm>
+<indexterm><primary>CIRCLE2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CIRCULO2</command> <parameter>radio</parameter>
+<command>CIRCLE2</command> <parameter>radio</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga tal que traza un círculo con un radio dado.
+La tortuga termina en la misma posición donde empieza.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Un ejemplo en 2D:
+<programlisting><userinput>CIRCULO2 100</userinput>
+</programlisting>
+</para>
+
+<para>Un ejemplo in 3D:
+<programlisting><userinput>PERSPECTIVA
+REPITE 72 [CIRCULO2 100 BALANCEADERECHA 5]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-circle">CIRCULO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-dialogdelete">
+    <title>DIALOGDELETE</title>
+<indexterm><primary>DIALOGDELETE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIALOGDELETE</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes (closes) the dialog whose name is <parameter>name</parameter>.
+All child window and controls are also deleted.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>TO MYSETUP
+  BUTTONCREATE "mydialog "myok "OK 25 25 50 50 [DIALOGDELETE "mydialog]
+END
+
+DIALOGCREATE "main "mydialog "mytitle 0 0 100 100 [MYSETUP]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

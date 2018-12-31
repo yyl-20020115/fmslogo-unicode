@@ -1,0 +1,54 @@
+<section id="command-unicon">
+<title>UNICON</title>
+<indexterm><primary>UNICON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>UNICON</command> <parameter>título</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Activa y muestra la ventana cuyo título es <parameter>título</parameter>.
+Si la ventana está minimizada o maximizada, se restaurará a su tamaño y posición original.
+El término «ICON» viene del inglés y se refiere a los viejos tiempos cuando las aplicaciones de Microsoft Windows fueron minimizadas en pequeños iconos.
+</para>
+
+<para>
+El «título» de una ventana no es el mismo que el «nombre» que se usa los <link linkend="windows-commands">procedimienos de las ventanas</link>.
+</para>
+
+<para>
+Este comando es obsoleto en favor de <link linkend="command-restore">RESTORE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA OCULTA_Y_MUESTRA
+  MINIMIZA "&PRODUCTNAME;
+  ESPERA 120
+  UNICON "&PRODUCTNAME;
+FIN
+
+OCULTA_Y_MUESTRA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-minimize">MINIMIZA</link></member>
+<member><link linkend="command-maximize">MAXIMIZA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

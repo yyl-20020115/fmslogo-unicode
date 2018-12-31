@@ -1,0 +1,100 @@
+<section id="command-ellipsearc2">
+<title>ELLIPSEARC2</title>
+<indexterm><primary>ELLIPSEARC2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ELLIPSEARC2</command> <parameter>arc.angle</parameter> <parameter>y.semiaxis</parameter> <parameter>x.semiaxis</parameter> <parameter>start.angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle clockwise over an elliptic arc.
+The arc spans <parameter>arc.angle</parameter> degrees of the ellipse, starting at the point described by <parameter>start.angle</parameter> degrees and ending at the point described by (<parameter>start.angle</parameter> + <parameter>arc.angle</parameter>).
+</para>
+
+<para>
+The size and shape of the elliptic arc can visualized in the following manner.
+First, imagine an ellipse drawn in the center of the screen, such that the <parameter>x.semiaxis</parameter> is the distance from the center to the ellipse along the X-axis and <parameter>y.semiaxis</parameter> is the distance from the center to the ellipse along the Y-axis.
+ELLIPSEARC2 draws part of this ellipse, an arc between two points on the ellipse.
+The starting point for this arc can be visualized by imagining a turtle at the ellipse's center with a <link linkend="command-heading">HEADING</link> of <parameter>start.angle</parameter>.
+Wherever this turtle intersects the ellipse as it moves forward is the starting point of the arc.
+The ending point can be similarly imagined as if that turtle had turned RIGHT an additional <parameter>arc.angle</parameter> degrees before moving forward to intersect the ellipse.
+</para>
+
+<para>
+The position and orientation of the ellipse arc more difficult to understand, especially since the elliptic arc is not always drawn from where the turtle starts to where the turtle ends up.
+However, there are two simple cases.
+First, if <parameter>start.angle</parameter> is a multiple of 90 degrees, then the arc is drawn tangent to the turtle's heading.
+Second, if <parameter>start.angle</parameter> and <parameter>arc.angle</parameter> sum to a multiple of 90 degrees, then the turtle ends up tangent to the arc which is drawn.
+</para>
+
+<para>
+Despite the confusing behavior, it is straight-forward to use ELLIPSEARC2 to iteratively draw contiguous segments of an ellipse.
+If your first call has a <parameter>start.angle</parameter> of 0 and in each subsequent call, the <parameter>start.angle</parameter> is the sum of all <parameter>arc.angle</parameter> inputs previously given, you'll end drawing contiguous ellipse arcs, even though the intermediate turtle positions may not lie on the ellipse.
+</para>
+
+<para>
+Normally, the arc is drawn in clockwise direction, but if the <parameter>arc.angle</parameter> input is negative, then the turtle moves backward in a counter-clockwise direction.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+A simple 2D example:
+<programlisting><userinput>ELLIPSEARC2 90 100 200 0
+ELLIPSEARC2 90  50 100 0</userinput>
+</programlisting>
+</para>
+
+<para>
+A 2D ellipse built out of multiple consecutive arcs:
+<programlisting><userinput>SETPENSIZE 10
+SETPENCOLOR "RED
+ELLIPSEARC2 90 150 100 0
+SETPENCOLOR "LIME
+ELLIPSEARC2 90 150 100 90
+SETPENCOLOR "BLUE
+ELLIPSEARC2 90 150 100 180
+SETPENCOLOR "YELLOW
+ELLIPSEARC2 90 150 100 270</userinput>
+</programlisting>
+</para>
+
+<para>
+An ellipse drawn with a dashed line using multiple consecutive arcs:
+<programlisting><userinput>REPEAT 36 [
+   PENDOWN
+   ELLIPSEARC2 10 50 200 REPCOUNT*20-20
+   PENUP
+   ELLIPSEARC2 10 50 200 REPCOUNT*20-10
+]</userinput>
+</programlisting>
+</para>
+
+<para>
+A 3D example:
+<programlisting><userinput>PERSPECTIVE
+REPEAT 72 [ELLIPSEARC2 90 50 100 0 RIGHTROLL 5]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-ellipsearc">ELLIPSEARC</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

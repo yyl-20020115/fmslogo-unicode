@@ -1,0 +1,76 @@
+<section id="command-throw">
+    <title>THROW</title>
+<indexterm><primary>THROW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>THROW</command> <parameter>tag</parameter>
+(<command>THROW</command> <parameter>tag</parameter> <parameter>value</parameter>)
+(<command>THROW</command> "ERROR <parameter>errortext</parameter>)
+(<command>THROW</command> "ERROR <parameter>4</parameter> <parameter>badvalue</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Ends the running of a CATCH instruction's <parameter>instructionlist</parameter> input.
+THROW must be used within the scope of a <link linkend="command-catch">CATCH</link> instruction that has a tag equal to <parameter>tag</parameter>.
+If THROW is given a <parameter>value</parameter> input, then CATCH outputs <parameter>value</parameter>.
+If THROW is not given a <parameter>value</parameter> input, then the corresponding CATCH does not output a value.
+</para>
+
+<para>
+The <parameter>tag</parameter> input must be a word.
+</para>
+
+<para>
+<userinput>THROW "SYSTEM</userinput> causes &PRODUCTNAME; to immediately exit.
+</para>
+
+<para>
+<userinput>THROW "TOPLEVEL</userinput> terminates all running procedures and interactive pauses, and returns control to the toplevel instruction prompt.
+This has the same effect as pressing the <link linkend="commander-halt">Halt Button</link>.
+</para>
+
+<para>
+<userinput>THROW "ERROR</userinput> can be used to generate an error condition.
+If the error is not caught, it prints a message (<userinput>Throw "Error</userinput>) with the usual indication of where the error (in this case the THROW) occurred.
+If <parameter>tag</parameter> equals <userinput>"ERROR</userinput> and an <parameter>errortext</parameter> input is given, then <parameter>errortext</parameter> is used as the text of the error message instead of the standard message.
+In this case, the location indicated for the error is not the location of the THROW, but the location where the procedure containing the THROW was invoked.
+This allows user-defined procedures to generate error messages as if they were primitives.
+If <parameter>tag</parameter> equals <userinput>"ERROR</userinput> and the second input is 4 (the error code for bad input) and a third input exists, then a "bad input" error is thrown and the third input is used as the value of the bad input.
+</para>
+
+<para>
+Note that when <userinput>THROW "ERROR</userinput> is used, the corresponding <userinput>CATCH "ERROR</userinput>, if any, does not output a value because the second input to THROW is treated as an error message, not an output.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM2
+  PRINT [Before throw]
+  (THROW "tag1 [We need to get back])
+  PRINT [We never get here because we THROW back]
+END
+
+TO MYPROGRAM1
+  SHOW CATCH "tag1 [MYPROGRAM2]
+  PRINT [I'm back]
+END
+
+MYPROGRAM1</userinput>
+Before throw
+[We need to get back]
+I'm back
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

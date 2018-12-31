@@ -1,0 +1,39 @@
+<section id="command-keyp">
+<title>KEYP</title>
+<indexterm><primary>KEYP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>KEYP</command>
+<command>KEY?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+A predicate that outputs TRUE if there are more characters to read from the read stream.
+If the read stream is a file, then KEYP is equivalent to <userinput>NOT EOFP</userinput>.
+If the read stream is set to the Commander, then KEYP always outputs TRUE.
+</para>
+
+<para>
+KEYP is provided for compatibility with other &GENERICNAME; environments.
+The traditional semantics of KEYP are not appropriate to &PRODUCTNAME;'s graphical environment.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-keyboardon">KEYBOARDON</link></member>
+<member><link linkend="command-reader">READER</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

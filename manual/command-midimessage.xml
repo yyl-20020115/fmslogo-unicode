@@ -1,0 +1,82 @@
+<section id="command-midimessage">
+<title>MIDIMESSAGE</title>
+<indexterm><primary>MIDIMESSAGE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MIDIMESSAGE</command> <parameter>message</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sends a MIDI message to the MIDI sequencer.
+You must call <link linkend="command-midiopen">MIDIOPEN</link> before using this command.
+</para>
+
+<para>
+The <parameter>message</parameter> input must be a list.
+It has three forms: the short form, the long form and the System Exclusive form.
+</para>
+
+
+<formalpara>
+<title>The Short Form</title>
+<para>
+The short form of <parameter>message</parameter> has three integer members: [status data1 data2].
+The first integer is known as the "status byte", but it can also be thought of as a "command byte", since it specifies what should be done.
+data1 and data2 are both required, even if the message requires only 1 (just use 0).
+</para>
+</formalpara>
+
+
+<formalpara>
+<title>The Long Form</title>
+<para>
+The long form of <parameter>message</parameter> is similar to the short form, but it contains many short-form triples.
+It has the form [status data1 data2 status data1 data2 ...].
+</para>
+</formalpara>
+
+<formalpara>
+<title>The System Exclusive Form</title>
+<para>
+The system exclusive form is a list that starts with 240 (0xF0 in hexadecimal).
+It can then be followed by any number of data bytes.
+It has the form [240 data1 data2 ...]
+</para>
+</formalpara>
+
+<para>
+The meaning of the midi messages are given in the <link linkend="midi-table">MIDI Table</link>.
+</para>
+
+<para>
+This documentation does not attempt to teach you MIDI, but it contains enough information to get you started.
+For more information you may be interested in reading a book on MIDI such as: "MIDI Basics" by Akira Otsuka and Akihiko Nakajima.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PRINT MIDIOPEN</userinput>
+[MIDI Mapper]
+<userinput>MIDIMESSAGE (LIST 192+13 56 0 192+13 56 0)</userinput>
+<replaceable>listen to tone</replaceable>
+<userinput>MIDIMESSAGE (LIST 144+13 100 100)
+MIDICLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

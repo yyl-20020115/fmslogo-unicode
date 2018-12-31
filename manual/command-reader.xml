@@ -1,0 +1,33 @@
+<section id="command-reader">
+    <title>READER</title>
+<indexterm><primary>READER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READER</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the name of the current read stream file, or the empty list if the read stream is the Commander.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>OPENREAD "dummy.fil
+SETREAD "dummy.fil
+SHOW READER</userinput>
+dummy.fil
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

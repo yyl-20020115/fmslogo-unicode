@@ -1,0 +1,49 @@
+<section id="command-setfloodcolor">
+<title>PONCOLORRELLENO</title>
+<indexterm><primary>PONCOLORRELLENO</primary></indexterm>
+<indexterm><primary>PONCR</primary></indexterm>
+<indexterm><primary>SETFLOODCOLOR</primary></indexterm>
+<indexterm><primary>SETFC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCOLORRELLENO</command> <parameter>color</parameter>
+<command>PONCR</command> <parameter>color</parameter>
+<command>SETFLOODCOLOR</command> <parameter>color</parameter>
+<command>SETFC</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone como color de relleno <parameter>color</parameter>, que puede ser un color indexado, un vector de color, o un nombre de color.
+Un color indexado es un entero en un rango de 0 - 15.
+Un vector de color es una lista con las intensidades de [rojo verde azul], en un rango 0-255.
+Para una explicación del argumento <parameter>color</parameter>, ve <link linkend="using-color">Usando Color</link>.
+</para>
+
+<para>
+El color de relleno afecta a los comandos <link linkend="command-fill">RELLENA</link> y <link linkend="command-bitblock">RECTANGULORELLENO</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>BORRAPANTALLA
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+GIRADERECHA 45
+SUBELAPIZ
+AVANZA 20
+PONCOLORRELLENO [0 255 0]
+RELLENA</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

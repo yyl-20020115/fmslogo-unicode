@@ -1,0 +1,44 @@
+<section id="command-greaterp">
+<title>GREATERP</title>
+<indexterm><primary>GREATERP</primary></indexterm>
+<indexterm><primary>></primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>GREATERP</command> <parameter>num1</parameter> <parameter>num2</parameter>
+<command>GREATER?</command> <parameter>num1</parameter> <parameter>num2</parameter>
+<parameter>num1</parameter> <command>&gt;</command> <parameter>num2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>num1</parameter> is strictly greater than <parameter>num2</parameter>.
+Outputs FALSE, otherwise.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW 1 &gt; 2</userinput>
+false
+</programlisting>
+<programlisting><userinput>SHOW 2 &gt; 1</userinput>
+true
+</programlisting>
+<programlisting><userinput>SHOW 2 &gt; 2</userinput>
+false
+</programlisting>
+<programlisting><userinput>SHOW GREATERP 2 1</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

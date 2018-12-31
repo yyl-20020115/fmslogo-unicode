@@ -1,0 +1,60 @@
+<section id="command-nodes">
+    <title>NODOS</title>
+<indexterm><primary>NODOS</primary></indexterm>
+<indexterm><primary>NODES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NODOS</command>
+<command>NODES</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista de dos enteros.
+El primero es el número de nodos de memoria que usa &PRODUCTNAME; actualmente.
+El segundo es el número máximo de nodos que han sido usado en cualquier tiempo desde la última invocación de NODOS.
+</para>
+
+<para>
+Un nodo es un pequeño bloque de memoria usado por &GENERICNAME;.
+Cada número usa un nodo.
+Cada palabra no numérica usa un nodo, más algo de memoria adicional por cada carácter en la palabra que no se almacena en un nodo.
+Cada vector ocupa un nodo, más algo de memoria adicional que no se almacena en un nodo, más la memoria requerida por cada elemento (que puede ser o no ser en un nodo).
+Cada lista requiere un nodo para cada elemento, además de la memoria que requieren los elementos.
+</para>
+
+<para>
+NODOS es útil si quieres asegurarte de que tu programa no mantenga, sin intención, referencias a un gran número de nodos que pudieran causar el uso de memoria de &PRODUCTNAME; de seguir creciendo y creciendo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>; Ve cual está el uso de memoria actual
+MUESTRA NODOS</userinput>
+[5559 5582]
+
+<userinput>; Haz una variable que usa muchos nodos.
+HAZ "granlista SECENT 1 100000
+MUESTRA NODOS</userinput>
+[206102 1506144]
+
+<userinput>; Borra la variable para librar la memoria de los nodos.
+BOVAR "granlista
+MUESTRA NODOS</userinput>
+[6267 206283]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

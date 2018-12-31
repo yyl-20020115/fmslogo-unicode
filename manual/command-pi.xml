@@ -1,0 +1,33 @@
+<section id="command-pi">
+    <title>PI</title>
+<indexterm><primary>PI</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PI</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the value pi (3.14159265358979...).
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW PI</userinput>
+3.14159265358979</programlisting>
+    <programlisting><userinput>SHOW RADSIN PI/2</userinput>
+1</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,47 @@
+<section id="command-foreach">
+    <title>FOREACH</title>
+<indexterm><primary>FOREACH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FOREACH</command> <parameter>datalist</parameter> <parameter>templatelist</parameter>
+(<command>FOREACH</command> <parameter>datalist1</parameter> <parameter>datalist2</parameter> <parameter>...</parameter> <parameter>templatelist</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command that evaluates the <parameter>templatelist</parameter> repeatedly, once for each item in <parameter>datalist</parameter>.
+If more than one data list is given, each of them must be the same length.
+If the data inputs are words, then the template is evaluated once for each character.
+</para>
+
+<para>
+In a template, the symbol <userinput>?REST</userinput> represents the portion of the data input to the right of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>?REST</userinput> would be replaced by <userinput>[C D E]</userinput>.
+If multiple parallel slots are used, then <userinput>(?REST 1)</userinput> goes with <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+In a template, the symbol <userinput>#</userinput> represents the position in the data input of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>#</userinput> would be replaced by <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FOREACH [a b c d] [PRINT (SENTENCE "index # "value ? "rest ?rest)]</userinput>
+index 1 value a rest b c d
+index 2 value b rest c d
+index 3 value c rest d
+index 4 value d rest
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

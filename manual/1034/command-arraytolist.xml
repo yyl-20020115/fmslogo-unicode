@@ -1,0 +1,50 @@
+<section id="command-arraytolist">
+<title>VECTORALISTA</title>
+<indexterm><primary>VECTORALISTA</primary></indexterm>
+<indexterm><primary>ARRAYTOLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VECTORALISTA</command> <parameter>vector</parameter>
+<command>ARRAYTOLIST</command> <parameter>vector</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+  <para>Convierte un vector en lista, ya que devuelve una lista cuyos miembros son los elementos de <parameter>vector</parameter>.
+  El primer miembro de la lista es el primer elemento del vector, independientemente del origen del vector.</para>
+
+  <para>Puedes usar VECTORALISTA para disponer los datos en un vector a los procedimientos que toman listas, como <link linkend="command-map">TEJE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>Un ejemplo sencillo:
+<programlisting><userinput>MUESTRA VECTORALISTA {1 2 3}</userinput>
+[1 2 3]</programlisting>
+</para>
+
+<para>Usando TEJE sobre los datos en un vector:
+<programlisting><userinput>HAZ "mi_vector {1 2 3 4 5}
+HAZ "mi_vector LISTAAVECTOR TEJE [? * ?] VECTORALISTA :mi_vector
+MUESTRA :mi_vector</userinput>
+{1 4 9 16 25}</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-listtoarray">LISTAAVECTOR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

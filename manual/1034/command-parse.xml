@@ -1,0 +1,34 @@
+<section id="command-parse">
+<title>ANALIZA</title>
+<indexterm><primary>ANALIZA</primary></indexterm>
+<indexterm><primary>PARSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ANALIZA</command> <parameter>palabra</parameter>
+<command>PARSE</command> <parameter>palabra</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la lista que resultaría si <parameter>palabra</parameter> hubiese sido leída mediante <link linkend="command-readlist">LEELISTA</link>.
+Esto es, ANALIZA <link linkend="command-readword">LEEPALABRA</link> devuelve el mismo valor que LEELISTA para el mismo argumento.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA ANALIZA "Hola</userinput>
+[Hola]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

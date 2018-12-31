@@ -1,0 +1,35 @@
+<section id="command-midiclose">
+<title>MIDICLOSE</title>
+<indexterm><primary>MIDICLOSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MIDICLOSE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Closes the MIDI device that was opened with <link linkend="command-midiopen">MIDIOPEN</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PRINT MIDIOPEN</userinput>
+[MIDI Mapper]
+<userinput>MIDICLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

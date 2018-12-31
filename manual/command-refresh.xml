@@ -1,0 +1,28 @@
+<section id="command-refresh">
+    <title>REFRESH</title>
+<indexterm><primary>REFRESH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REFRESH</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Tells &GENERICNAME; to remember the turtle's motions so that they can be reconstructed in case the graphics window is obscured by another window.
+</para>
+
+<para>
+REFRESH is not needed in &PRODUCTNAME;.
+It is provided for compatibility with other &GENERICNAME; environments.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

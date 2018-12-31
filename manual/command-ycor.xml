@@ -1,0 +1,32 @@
+<section id="command-ycor">
+    <title>YCOR</title>
+<indexterm><primary>YCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>YCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the turtle's Y coordinate.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETY 100
+SHOW YCOR</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

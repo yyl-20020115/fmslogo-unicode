@@ -1,0 +1,50 @@
+<section id="command-setz">
+<title>SETZ</title>
+<indexterm><primary>SETZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETZ</command> <parameter>zcor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle along the Z axis from its current position to a new absolute Z coordinate.
+The <parameter>zcor</parameter> input is the new Z coordinate.
+</para>
+<para>
+SETZ is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+PENUP
+SETX 100
+PENDOWN
+SETZ 100
+SETY 100
+SETZ 0
+SETY 0</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setx">SETX</link></member>
+<member><link linkend="command-sety">SETY</link></member>
+<member><link linkend="command-zcor">ZCOR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

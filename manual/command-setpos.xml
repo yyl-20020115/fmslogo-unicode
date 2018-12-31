@@ -1,0 +1,71 @@
+<section id="command-setpos">
+<title>SETPOS</title>
+<indexterm><primary>SETPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPOS</command> <parameter>position</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle to an absolute X,Y coordinate.
+The <parameter>position</parameter> input is a list of two numbers, the X and Y coordinates.
+</para>
+
+<para>
+There is often some confusion on how to call SETPOS with variables.
+Let's look at some code:
+
+<programlisting><userinput>MAKE "x 0
+MAKE "y 100
+SETPOS [:x :y]      ; fails
+SETPOS (LIST :x :y) ; works</userinput>
+</programlisting>
+
+The first case is a list that contains 2 words <userinput>":x</userinput> and <userinput>":y</userinput>.
+In the second case a list is constructed containing the value of <userinput>:x</userinput> and <userinput>:y</userinput>.
+</para>
+
+<para>
+You can see this more clearly by using <link linkend="command-show">SHOW</link>:
+
+<programlisting><userinput>SHOW [:x :y]</userinput>
+[:x :y]
+<userinput>SHOW (LIST :x :y)</userinput>
+[0 100]
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+Draw a square using SETPOS:
+<programlisting><userinput>CLEARSCREEN
+SETPOS [0 100]
+SETPOS [100 100]
+SETPOS [100 0]
+SETPOS [0 0]</userinput></programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-pos">POS</link></member>
+<member><link linkend="command-setx">SETX</link></member>
+<member><link linkend="command-sety">SETY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,85 @@
+<section id="command-bitpastetoindex">
+<title>BITPASTETOINDEX</title>
+<indexterm><primary>BITPASTETOINDEX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITPASTETOINDEX</command> <parameter>index</parameter> <parameter>x</parameter> <parameter>y</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Pastes the entire image that was "cut" with <link linkend="command-bitcut">BITCUT</link> to the <parameter>x</parameter>, <parameter>y</parameter> coordinate of the bitmap at the <parameter>index</parameter> input.
+Don't confuse the indices here; the <parameter>index</parameter> input specifies the index to paste to, whereas <link linkend="command-setbitindex">SETBITINDEX</link> specifies the index to copy from.
+</para>
+
+<para>
+The <parameter>x</parameter> and <parameter>y</parameter> inputs specify the coordinates on the destination bitmap where the lower-left corner of the source bitmap is pasted.
+</para>
+
+<para>
+This command is useful for producing flicker-free animation.
+For example, let's say you have a ball rolling across a background.
+You have to erase the ball, put the background back, and draw the ball in its new position.
+The problem is that the user momentarily sees a screen with no ball after you erase it, but before you draw it in its new position.
+This is called "flicker".
+However, if you create the entire animation frame in memory (by using BITPASTETOINDEX) and <link linkend="command-bitpaste">BITPASTE</link> each frame to the screen in a single instruction, then the user doesn't see any flicker.
+</para>
+
+<para>
+Note that the destination index must already have an image to paste to.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>; Draw a red block 100x100 in Bitmap Buffer 1
+SETBITINDEX 1
+SETFLOODCOLOR [255 0 0]
+BITBLOCK 100 100
+BITCOPY 100 100
+
+; Draw a green block 50x50 in Bitmap Buffer 2
+CLEARSCREEN
+SETBITINDEX 2
+SETFLOODCOLOR [0 255 0]
+BITBLOCK 50 50
+BITCOPY 50 50
+
+; Reserve 100x100 space in Bitmap Buffer 3
+CLEARSCREEN
+SETBITINDEX 3
+BITCOPY 100 100
+
+; Copy 1 to 3
+SETBITINDEX 1
+BITPASTETOINDEX 3 0 0
+
+; Copy 2 to 3
+SETBITINDEX 2
+BITPASTETOINDEX 3 25 25
+
+; Paste 3 to Screen
+SETBITINDEX 3
+BITPASTE</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setbitmode">SETBITMODE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

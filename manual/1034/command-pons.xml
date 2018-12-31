@@ -1,0 +1,42 @@
+<section id="command-pons">
+    <title>IMVARS</title>
+<indexterm><primary>IMVARS</primary></indexterm>
+<indexterm><primary>PONS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMVARS</command>
+<command>PONS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las definiciones de todas las variables no tapadas del área de trabajo al flujo de escritura actual.
+IMVARS es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-names">LVARS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "var 1
+
+PARA XXX
+  ESCRIBE "Hola ; comentario
+FIN
+
+IMVARS</userinput>
+haz "var 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

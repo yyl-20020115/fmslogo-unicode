@@ -1,0 +1,41 @@
+<section id="command-backslashedp">
+<title>TIENEBARRA?</title>
+<indexterm><primary>BACKSLASHEDP</primary></indexterm>
+<indexterm><primary>BACKSLASHED?</primary></indexterm>
+
+<variablelist>
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TIENEBARRA?</command> <parameter>carácter</parameter>
+<command>BACKSLASHEDP</command> <parameter>carácter</parameter>
+<command>BACKSLASHED?</command> <parameter>carácter</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>carácter</parameter> fue entrado inmediatamente después de una barra inversa (<userinput>\</userinput>) o entre barras verticales (<userinput>|</userinput>) para suprimir su significado usual.
+Devuelve FALSO si no lo fue.
+</para>
+
+<para>
+Es decir, TIENEBARRA? devuelve CIERTO si (y solamente si) <parameter>carácter</parameter> es un espacio, un carácter tab, una nueva línea, o uno de los siguientes <userinput>()[]+-*/=&lt;>":;\~?</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA TIENEBARRA? "a</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA TIENEBARRA? "|(|</userinput>
+cierto</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

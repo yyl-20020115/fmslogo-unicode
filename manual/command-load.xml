@@ -1,0 +1,76 @@
+<section id="command-load">
+    <title>LOAD</title>
+<indexterm><primary>LOAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LOAD</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads instructions from the file named <parameter>filename</parameter> and runs them.
+The file can include procedure definitions with <link linkend="command-to">TO</link>, and these are accepted even if a procedure by the same name already exists.
+If the file assigns a list value to a variable named <link linkend="command-startup">STARTUP</link>, then that list is <link linkend="command-run">RUN</link> as an instruction list after the file is loaded.
+</para>
+
+<para>
+It is important to understand that the file is executed, not copied, into the workspace:
+
+<itemizedlist>
+<listitem>
+<para>
+If &GENERICNAME; sees a TO instruction, then it defines that procedure (the instructions between the TO and END are not immediately run, but instead become the body of the procedure).
+</para>
+</listitem>
+
+<listitem>
+<para>
+If &GENERICNAME; sees a MAKE instruction, then it makes that name.
+</para>
+</listitem>
+
+<listitem>
+<para>
+If &GENERICNAME; sees instructions that are outside of a procedure definition, then it runs those instructions in the order seen.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM1
+  PRINT "Hello1
+END
+
+TO MYPROGRAM2
+  PRINT "Hello2
+END
+
+POTS</userinput>
+TO MYPROGRAM1
+TO MYPROGRAM2
+
+<userinput>SAVE "myprograms.lgo
+ERALL
+POTS
+LOAD "myprograms.lgo
+POTS</userinput>
+TO MYPROGRAM1
+TO MYPROGRAM2
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,50 @@
+<section id="command-copydef">
+    <title>COPIADEF</title>
+<indexterm><primary>COPIADEF</primary></indexterm>
+<indexterm><primary>COPYDEF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COPIADEF</command> <parameter>nuevo_nombre</parameter> <parameter>antiguo_nombre</parameter>
+<command>COPYDEF</command> <parameter>nuevo_nombre</parameter> <parameter>antiguo_nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Crea un procedimiento de nombre <parameter>nuevo_nombre</parameter>, idéntico a otro llamado <parameter>antiguo_nombre</parameter>, que puede ser una primitiva.
+Si <parameter>nuevo_nombre</parameter> ya está definido, se pierde la definición anterior.
+Si <parameter>nuevo_nombre</parameter> es una primitiva, no se permite su redefinición a no ser que la variable <link linkend="command-redefp">REDEFP</link> tenga el valor CIERTO.
+Las definiciones creadas con COPIADEF no se guardan con <link linkend="command-save">GUARDA</link>; las primitivas no se guardan nunca y se tapan los procedimientos no primitivos creados con COPIADEF.
+(Puedes estar confuso si ejecutas <link linkend="command-po">IMDEFS</link> o <link linkend="command-pot">IMTITULOSTODO</link> con un no primitiva definida con COPIADEF porque su línea de título contendría el nombre antiguo.
+Es por eso que se la tapa.)
+</para>
+
+<para>
+Nota: se diferencian algunos dialectos de &GENERICNAME; en el orden de los parámetros de COPIADEF.
+&PRODUCTNAME; usa «el orden <link linkend="command-make">HAZ</link>» y no «el orden <link linkend="command-name">NOMBRE</link>».
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>TO BIENVENIDA
+  ESCRIBE "Hola
+FIN
+
+BIENVENIDA</userinput>
+Hola
+<userinput>COPIADEF "DECIRHOLA "BIENVENIDA
+DECIRHOLA</userinput>
+Hola
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,59 @@
+<section id="command-polyview">
+    <title>MUESTRAPOLIGONO</title>
+<indexterm><primary>MUESTRAPOLIGONO</primary></indexterm>
+<indexterm><primary>POLYVIEW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MUESTRAPOLIGONO</command>
+<command>POLYVIEW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra la pantalla y dibuja todos los polígonos definidos por <link linkend="command-polystart">EMPIEZAPOLIGONO</link> y <link linkend="command-polyend">TERMINAPOLIGONO</link> como polígonos sombreados.
+Se muestra solamente polígonos sombreados.
+Los polígonos son iluminados según la posición del fuente de luz usando <userinput>ACTIVA -3</userinput> y los parámetros de iluminación que se puso con <link linkend="command-setlight">PONLUZ</link>.
+</para>
+
+<para>
+Asegúrate de entender las <link linkend="polygon-restrictions">restricciones de los polígonos</link>.
+</para>
+
+<para>
+Si necesitas agregar otras cosas a tu dibujo, tal como ROTULOs o imágenes, debes agregarlos después de ejecutar MUESTRAPOLIGONO.
+</para>
+
+<para>
+Puedes ejecutar MUESTRAPOLIGONO inmediatamente después de cualquier ejecución de TERMINAPOLIGONO para mirar como sombrea los polígonos mientras tu programa construye tu objecto.
+Pero tengas en cuenta que MUESTRAPOLIGONO es una operación costosa y hará que tu programa ejecutase considerablemente más lentamente si lo ejecutaras después de cada TERMINAPOLIGONO.
+</para>
+
+<para>
+Se diseñaba MUESTRAPOLIGONO para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link> y no funciona en modos 2D.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PARA CUADRADO
+  EMPIEZAPOLIGONO
+  REPITE 4 [AVANZA 100 GIRADERECHA 90]
+  TERMINAPOLIGONO
+FIN
+
+PERSPECTIVA
+REPITE 72 [CUADRADO BALANCEADERECHA 5]
+MUESTRAPOLIGONO</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

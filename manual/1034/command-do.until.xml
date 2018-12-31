@@ -1,0 +1,47 @@
+<section id="command-do.until">
+    <title>HAZ.HASTA</title>
+<indexterm><primary>HAZ.HASTA</primary></indexterm>
+<indexterm><primary>DO.UNTIL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HAZ.HASTA</command> <parameter>lista_de_instrucciones</parameter> <parameter>lista_de_prueba</parameter>
+<command>DO.UNTIL</command> <parameter>lista_de_instrucciones</parameter> <parameter>lista_de_prueba</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta repetidamente la <parameter>lista_de_instrucciones</parameter> mientras que <parameter>lista_de_prueba</parameter> evalúa a FALSO.
+HAZ.HASTA evalúa <parameter>lista_de_instrucciones</parameter> antes de evaluar <parameter>lista_de_prueba</parameter>, así que siempre se ejecuta <parameter>lista_de_instrucciones</parameter> al menos una vez.
+El argumento <parameter>lista_de_prueba</parameter> debe contener una expresión que evalúa a CIERTO o FALSO.
+</para>
+
+<para>
+El hecho de que el argumento <parameter>lista_de_prueba</parameter> es una lista pueda engañar porque debería contener exactamente una expresión.
+Sólo es una lista para aplazar cuando se lo evalúa.
+Por ser una lista, se necesita evaluarlo explícitamente con <link linkend="command-run">EJECUTA</link>.
+Esto permite que HAZ.HASTA reevalúa <parameter>lista_de_prueba</parameter> después de cada iteración, en lugar de sólo una vez.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "i 0
+HAZ.HASTA [HAZ "i :i+1 ESCRIBE :i] [:i > 3]</userinput>
+1
+2
+3
+4
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,41 @@
+<section id="command-repcount">
+    <title>CUENTAREPITE</title>
+<indexterm><primary>CUENTAREPITE</primary></indexterm>
+<indexterm><primary>REPCOUNT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CUENTAREPITE</command>
+<command>REPCOUNT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el número de repetición actual de una lista de instrucción que <link linkend="command-repeat">REPITE</link> ejecuta.
+Esto es, devuelve 1 si es la primera vez que REPITE ejecuta la lista de instrucción, 2 si es la segunda vez y así sucesivamente.
+CUENTAREPITE devuelve -1 si lo ejecutas fuera del contexto de una lista de instrucción del comando SIEMPRE o REPITE.
+</para>
+
+<para>
+Si anidas dos instrucciones de REPITE, CUENTAREPITE devuelve el número de repetición del REPITE lo más interior.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 3 [ESCRIBE (LISTA "Es "la "vuelta CUENTAREPITE)]</userinput>
+Es la vuelta 1
+Es la vuelta 2
+Es la vuelta 3
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

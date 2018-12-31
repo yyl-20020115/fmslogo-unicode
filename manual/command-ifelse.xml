@@ -1,0 +1,63 @@
+<section id="command-ifelse">
+    <title>IFELSE</title>
+<indexterm><primary>IFELSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>IFELSE</command> <parameter>condition</parameter> <parameter>true.instructionlist</parameter> <parameter>false.instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command or operation where:
+
+<itemizedlist>
+<listitem>
+<para>
+If <parameter>condition</parameter> evaluates to TRUE, then IFELSE runs <parameter>true.instructionlist</parameter>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+If <parameter>condition</parameter> evalutes to FALSE, then IFELSE runs <parameter>false.instructionlist</parameter>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+It is an error if <parameter>condition</parameter> does not evaluate to either TRUE or FALSE.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; simple examples
+IFELSE 1=1 [PRINT [Yes it is true]] [PRINT [No it is false]]</userinput>
+Yes it is true
+
+<userinput>IFELSE 1=0 [PRINT [Yes it is true]] [PRINT [No it is false]]</userinput>
+No it is false
+
+<userinput>; example where IFELSE outputs a value
+TO MAX :a :b
+  OUTPUT (IFELSE :a > :b [:a] [:b])
+END
+
+SHOW MAX 1 2</userinput>
+2
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

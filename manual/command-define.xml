@@ -1,0 +1,43 @@
+<section id="command-define">
+<title>DEFINE</title>
+<indexterm><primary>DEFINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DEFINE</command> <parameter>procname</parameter> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Defines a procedure with name <parameter>procname</parameter> and definition <parameter>text</parameter>.
+If there is already a procedure with the same name, the new definition replaces the old one.
+The <parameter>text</parameter> input must be a list whose members are lists.
+The first member is a list of inputs; it looks like a <link linkend="command-to">TO</link> line without the word TO, without the procedure name, and without the colons before input names.
+In other words, the members of this first sublist are words for the names of required inputs and lists for the names of optional or rest inputs.
+The remaining sublists of the <parameter>text</parameter> input make up the body of the procedure, with one sublist for each instruction line of the body.
+(There is no <link linkend="command-end">END</link> line in the <parameter>text</parameter> input.)
+</para>
+
+<para>
+It is an error to redefine a primitive procedure unless the variable <link linkend="command-redefp">REDEFP</link> has the value TRUE.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [PRINT :a] [PRINT :b]]
+ABC "Hello "Bye</userinput>
+Hello
+Bye</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

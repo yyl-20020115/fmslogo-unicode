@@ -1,0 +1,46 @@
+<section id="command-fulltext">
+    <title>FULLTEXT</title>
+<indexterm><primary>FULLTEXT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FULLTEXT</command> <parameter>procname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a representation of the procedure <parameter>procname</parameter> in which formatting information is preserved.
+If the procedure was defined with <link linkend="command-to">TO</link>, <link linkend="command-edit">EDIT</link>, or <link linkend="command-load">LOAD</link>, then the output is a list of words.
+Each word represents one entire line of the definition in the form output by <link linkend="command-readword">READWORD</link>, including extra spaces and continuation lines.
+The last item of the output represents the <link linkend="command-end">END</link> line.
+If the procedure was defined with <link linkend="command-define">DEFINE</link>, then the output is a list of lists.
+If these lists are printed, one per line, the result looks like a definition using TO.
+</para>
+
+<para>
+Note: the output from FULLTEXT is not suitable for use as input to DEFINE!
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [PRINT :a] [PRINT :b]]
+ABC "Hello "Bye</userinput>
+Hello
+Bye
+<userinput>SHOW FULLTEXT "ABC</userinput>
+[[to ABC :a :b] [PRINT :a] [PRINT :b] end]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

@@ -1,0 +1,55 @@
+<section id="command-savel">
+    <title>GUARDAL</title>
+<indexterm><primary>GUARDAL</primary></indexterm>
+<indexterm><primary>SAVEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GUARDAL</command> <parameter>lista_de_contenidos</parameter> <parameter>nombre_de_archivo</parameter>
+<command>SAVEL</command> <parameter>lista_de_contenidos</parameter> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Guarda las definiciones de todos los procedimientos, variables y listas de propiedades que se especifican en <parameter>lista_de_contenidos</parameter> en un archivo llamada <parameter>nombre_de_archivo</parameter>.
+</para>
+
+<para>
+GUARDAL quiere decir «guarda lista de contenidos».
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA1
+  ESCRIBE "Hola1
+FIN
+
+PARA MIPROGRAMA2
+  ESCRIBE "Hola2
+FIN
+
+IMTS</userinput>
+PARA MIPROGRAMA1
+PARA MIPROGRAMA2
+
+<userinput>GUARDAL [[MIPROGRAMA1] [] []] "miprograma.lgo
+BTODO
+IMTS
+CARGA "misprogramas.lgo
+IMTS</userinput>
+PARA MIPROGRAMA1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,44 @@
+<section id="command-pendown">
+<title>BAJALAPIZ</title>
+<indexterm><primary>BAJALAPIZ</primary></indexterm>
+<indexterm><primary>BL</primary></indexterm>
+<indexterm><primary>PENDOWN</primary></indexterm>
+<indexterm><primary>PD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BAJALAPIZ</command>
+<command>BL</command>
+<command>PENDOWN</command>
+<command>PD</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición del lápiz hacia abajo, sin cambiar el modo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 10 [AVANZA 10 SUBELAPIZ AVANZA 10 BAJALAPIZ]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-penup">SUBELAPIZ</link></member>
+<member><link linkend="command-pendownp">BAJALAPIZ?</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,53 @@
+<section id="command-quotient">
+<title>COCIENTE</title>
+<indexterm><primary>COCIENTE</primary></indexterm>
+<indexterm><primary>QUOTIENT</primary></indexterm>
+<indexterm><primary>/</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COCIENTE</command> <parameter>dividendo</parameter> <parameter>divisor</parameter>
+(<command>COCIENTE</command> <parameter>divisor</parameter>)
+<command>QUOTIENT</command> <parameter>dividendo</parameter> <parameter>divisor</parameter>
+(<command>QUOTIENT</command> <parameter>divisor</parameter>)
+<parameter>dividendo</parameter> <command>/</command> <parameter>divisor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el cociente de la división de los valores numéricos de los argumentos.
+Es decir, COCIENTE devuelve <parameter>dividendo</parameter> dividido por <parameter>divisor</parameter>.
+El resultado únicamente es un entero si el <parameter>dividendo</parameter> es múltiplo del <parameter>divisor</parameter>.
+Por ejemplo, <userinput>COCIENTE 5 2</userinput> es <userinput>2.5</userinput>, no <userinput>2</userinput>, pero <userinput>COCIENTE 4 2</userinput> es <userinput>2</userinput>, no <userinput>2.0</userinput>.
+</para>
+
+<para>
+En la forma de una sola enterada, se supone que el dividendo es 1.
+</para>
+
+<para>
+Es un error ejecutar COCIENTE con un <parameter>divisor</parameter> igual a 0.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 5 / 2</userinput>
+2.5</programlisting>
+<programlisting><userinput>MUESTRA (COCIENTE 5 2)</userinput>
+2.5</programlisting>
+<programlisting><userinput>MUESTRA (COCIENTE 2)</userinput>
+0.5</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

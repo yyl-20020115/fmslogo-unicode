@@ -1,0 +1,38 @@
+<section id="command-contents">
+    <title>CONTENTS</title>
+<indexterm><primary>CONTENTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CONTENTS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of three lists containing names of defined procedures, variables, and property lists, respectively.
+This list includes all unburied named items in the workspace.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM
+END
+MAKE "name 1
+PPROP "properties "property 1
+SHOW CONTENTS</userinput>
+[[myprogram] [name] [properties]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

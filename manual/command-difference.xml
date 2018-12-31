@@ -1,0 +1,38 @@
+<section id="command-difference">
+<title>DIFFERENCE</title>
+<indexterm><primary>DIFFERENCE</primary></indexterm>
+<indexterm><primary>-</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DIFFERENCE</command> <parameter>number1</parameter> <parameter>number2</parameter>
+<parameter>number1</parameter> <command>-</command> <parameter>number2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the difference of its inputs.
+</para>
+<para>
+The minus sign (-) means infix difference in ambiguous contexts (when preceded by a complete expression), unless it is preceded by a space and followed by a non-space.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW 3 - 2</userinput>
+1</programlisting>
+
+<programlisting><userinput>SHOW DIFFERENCE 3 2</userinput>
+1</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

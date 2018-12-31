@@ -1,0 +1,48 @@
+<section id="command-primitivep">
+    <title>PRIMITIVA?</title>
+<indexterm><primary>PRIMITIVA?</primary></indexterm>
+<indexterm><primary>PRIMITIVEP</primary></indexterm>
+<indexterm><primary>PRIMITIVE?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PRIMITIVA?</command> <parameter>nombre</parameter>
+<command>PRIMITIVEP</command> <parameter>nombre</parameter>
+<command>PRIMITIVE?</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de una primitiva (un procedimiento que es integrado de &PRODUCTNAME;), si no devuelve FALSO.
+Observa que muchos de los procedimientos de &PRODUCTNAME; provienen de la biblioteca y, por lo tanto, no son primitivas.
+</para>
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIAVANZA :arg
+  AVANZA :arg
+FIN
+
+MUESTRA PRIMITIVA? "MIAVANZA</userinput>
+falso
+
+<userinput>MUESTRA PRIMITIVA? "AVANZA</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

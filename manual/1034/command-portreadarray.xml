@@ -1,0 +1,51 @@
+<section id="command-portreadarray">
+<title>LEECADENAPUERTO</title>
+<indexterm><primary>LEECADENAPUERTO</primary></indexterm>
+<indexterm><primary>PORTREADARRAY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEECADENAPUERTO</command> <parameter>total</parameter> <parameter>vector</parameter>
+<command>PORTREADARRAY</command> <parameter>total</parameter> <parameter>vector</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee del puerto abierto y escribe los datos en el argumento <parameter>vector</parameter>.
+Intentará leer hasta <parameter>total</parameter> bytes que estén disponibles.
+Escribe los bytes a <parameter>vector</parameter> como enteros pequeños (entre -128 y 127).
+Devuelve el número de bytes leído.
+</para>
+
+<para>
+Si <parameter>total</parameter> es más grande que el tamaño de <parameter>vector</parameter>, entonces se limita el número de bytes leído del puerto hasta el tamaño del vector.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>ABREPUERTO "com1
+ESCRIBE FRASE [Enviando...] ESCRIBECADENAPUERTO 3 LISTAAVECTOR TEJE [ASCII ?] [a t]</userinput>
+Enviando... 2
+<userinput>MUESTRA ESCRIBECARACTERPUERTO 13</userinput>
+1
+<userinput>ESPERA 60
+HAZ "datos {0 0 0 0 0 0 0 0 0 0}
+ESCRIBE FRASE [Recibiendo...] LEECADENAPUERTO 10 :vector</userinput>
+Recibiendo... 9
+<userinput>ESCRIBE FRASE [Datos Rx...] TEJE [CAR ?] QUITA [] VECTORALISTA :vector</userinput>
+Datos Rx... at | |
+O K |
+<userinput>CIERRAPUERTO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

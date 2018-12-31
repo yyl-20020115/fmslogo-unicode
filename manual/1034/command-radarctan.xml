@@ -1,0 +1,45 @@
+<section id="command-radarctan">
+<title>RADARCTAN</title>
+<indexterm><primary>RADARCTAN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RADARCTAN</command> <parameter>ángulo</parameter>
+(<command>RADARCTAN</command> <parameter>x</parameter> <parameter>y</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Con un argumento, devuelve el arcotangente del argumento.
+Lo devuelto es dado en radianes en el rango [-PI/2,PI/2].
+</para>
+
+<para>
+Con dos argumentos, devuelve el arcotangente de <parameter>y</parameter> / <parameter>x</parameter>.
+Lo devuelto es dado en radianes en el rango [-PI,PI].
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA (RADARCTAN 1) = PI/4</userinput>
+cierto</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-arctan">ARCTAN</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

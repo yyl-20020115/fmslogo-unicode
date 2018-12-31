@@ -1,0 +1,37 @@
+<section id="command-posxyz">
+<title>POS3D</title>
+<indexterm><primary>POSXYZ</primary></indexterm>
+<indexterm><primary>POS3D</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POS3D</command>
+<command>POSXYZ</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la posición actual de la tortuga, como una lista de tres números, las coordenadas X, Y y Z.
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+POSICIONATE [100 100 50]
+MUESTRA POS3D</userinput>
+[100 100 50]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

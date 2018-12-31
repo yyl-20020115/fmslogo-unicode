@@ -1,0 +1,58 @@
+<section id="command-setread">
+<title>SETREAD</title>
+<indexterm><primary>SETREAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETREAD</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the read stream to the file named <parameter>filename</parameter>.
+The read stream is used by <link linkend="command-readlist">READLIST</link>, <link linkend="command-readword">READWORD</link>, etc.
+The file must already be open with <link linkend="command-openread">OPENREAD</link> or <link linkend="command-openupdate">OPENUPDATE</link>.
+If the input is the empty list, then the read stream becomes the Commander, as usual.
+Changing the read stream does not close the file that was previously the read stream, so it is possible to alternate between files.
+</para>
+
+<para>
+If you <link linkend="command-close">CLOSE</link> the current reader, then the read stream is closed and <link linkend="command-reader">READER</link> is changed back to the Commander.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST]</userinput>
+[Hello]
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setwrite">SETWRITE</link></member>
+<member><link linkend="command-reader">READER</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

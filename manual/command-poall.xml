@@ -1,0 +1,40 @@
+<section id="command-poall">
+    <title>POALL</title>
+<indexterm><primary>POALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints all unburied definitions in the workspace to the current write stream.
+POALL abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-contents">CONTENTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO xxx
+  print "Hello ; comment
+end
+
+POALL</userinput>
+TO xxx
+  print "Hello ; comment
+END
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

@@ -1,0 +1,44 @@
+<section id="command-outport">
+<title>OUTPORT</title>
+<indexterm><primary>OUTPORT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OUTPORT</command> <parameter>portid</parameter> <parameter>data</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Writes <parameter>data</parameter> to the "hardware" port specified by <parameter>portid</parameter>.
+The <parameter>data</parameter> input must be a 2 byte integer (a number from 0 to 65525).
+</para>
+<para>
+Do not confuse OUTPORTB with <link linkend="command-portopen">PORTOPEN</link> and <link linkend="command-portwritechar">PORTWRITECHAR</link> which are for communications through the serial and parallel ports.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OUTPORT 198 0</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-outportb">OUTPORTB</link></member>
+<member><link linkend="command-inport">INPORT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

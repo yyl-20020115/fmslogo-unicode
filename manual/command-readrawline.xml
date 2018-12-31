@@ -1,0 +1,36 @@
+<section id="command-readrawline">
+<title>READRAWLINE</title>
+<indexterm><primary>READRAWLINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READRAWLINE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads a line from the read stream and outputs that line as a word.
+READRAWLINE outputs the exact string of characters as they appear in the line, with no special meaning for backslash, vertical bar, tilde, or any other formatting characters.
+The output is a single word even if the line contains spaces, brackets, etc.
+</para>
+<para>
+If the read stream is a file and the last character in the file is not an end-of-line sequence, then READRAWLINE treats the end-of-file as an end-of-line.
+After the file as been completely read, READRAWLINE outputs the empty list (not the empty word).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW READRAWLINE
+Special | Characters</userinput>
+Special | Characters</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

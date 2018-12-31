@@ -1,0 +1,33 @@
+<section id="command-halt">
+    <title>HALT</title>
+<indexterm><primary>HALT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>HALT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+The HALT command immediately stops &PRODUCTNAME; from processing any further commands and returns control to the commander.
+It is the same as pressing the <link linkend="commander-halt">Halt Button</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FOREVER [FORWARD REPCOUNT RIGHT 91 SETPENCOLOR REPCOUNT]</userinput>
+<replaceable>Type "HALT" in the commander's input box and press the Execute button.</replaceable>
+Stopping...
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

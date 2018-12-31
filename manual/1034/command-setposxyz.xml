@@ -1,0 +1,67 @@
+<section id="command-setposxyz">
+<title>POSICIONATE</title>
+<indexterm><primary>POSICIONATE</primary></indexterm>
+<indexterm><primary>SETPOSXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>POSICIONATE</command> <parameter>posición</parameter>
+<command>SETPOSXYZ</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a las coordenadas absolutas X, Y, Z.
+El argumento <parameter>posición</parameter> debe ser una lista de tres números, las coordenadas X, Y y Z.
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+Cuando se lo ejecuta en un modo 2D, POSICIONATE ignora la coordenada Z y mueve la tortuga a las coordenadas X e Y.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+Dibuja un cubo con POSICIONATE:    
+<programlisting><userinput>BORRAPANTALLA
+PERSPECTIVA
+POSICIONATE [0 100 0]
+POSICIONATE [100 100 0]
+POSICIONATE [100 0 0]
+POSICIONATE [0 0 0]
+POSICIONATE [0 0 100]
+POSICIONATE [100 0 100]
+POSICIONATE [100 100 100]
+POSICIONATE [0 100 100]
+POSICIONATE [0 0 100]
+POSICIONATE [0 100 100]
+POSICIONATE [0 100 0]
+POSICIONATE [100 100 0]
+POSICIONATE [100 100 100]
+POSICIONATE [100 0 100]
+POSICIONATE [100 0 0]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-posxyz">POS3D</link></member>
+<member><link linkend="command-setx">PONX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+<member><link linkend="command-setz">PONZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,32 @@
+<section id="command-xcor">
+    <title>XCOR</title>
+<indexterm><primary>XCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>XCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the turtle's X coordinate.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETX 100
+SHOW XCOR</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

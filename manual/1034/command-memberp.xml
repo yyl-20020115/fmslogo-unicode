@@ -1,0 +1,54 @@
+<section id="command-memberp">
+<title>MIEMBRO?</title>
+<indexterm><primary>MIEMBRO?</primary></indexterm>
+<indexterm><primary>MEMBERP</primary></indexterm>
+<indexterm><primary>MEMBER?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis>
+<command>MIEMBRO?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>MEMBERP</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>MEMBER?</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si <parameter>cosa1</parameter> es miembro de <parameter>cosa2</parameter>, FALSO si no lo es.
+</para>
+
+<para>
+Si <parameter>cosa2</parameter> es una lista o un vector, devuelve CIERTO si <parameter>cosa1</parameter> y una de los elementos de <parameter>cosa2</parameter> son <link linkend="command-equalp">IGUALES?</link>, si no devuelve FALSO.
+</para>
+
+<para>
+Si <parameter>cosa2</parameter> es una palabra, devuelve CIERTO si <parameter>cosa1</parameter> es un solo carácter que es igual a un carácter en <parameter>cosa2</parameter> según las reglas de <link linkend="command-equalp">IGUALES?</link>, si no devuelve FALSO.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA MIEMBRO? 1 [1 2 3]</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA MIEMBRO? 4 [1 2 3]</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA MIEMBRO? "b "abc</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA MIEMBRO? "bc "abc</userinput>
+falso</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

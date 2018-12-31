@@ -1,0 +1,36 @@
+<section id="command-form">
+    <title>FORMATONUMERO</title>
+<indexterm><primary>FORMATONUMERO</primary></indexterm>
+<indexterm><primary>FORM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>FORMATONUMERO</command> <parameter>número</parameter> <parameter>ancho</parameter> <parameter>precisión</parameter>
+<command>FORM</command> <parameter>número</parameter> <parameter>ancho</parameter> <parameter>precisión</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una palabra que representa <parameter>número</parameter>, posiblemente precedido por espacios (y por ello no es un número con el que se pueda efectuar operaciones aritméticas).
+Lo devuelto tiene al menos <parameter>ancho</parameter> caracteres y <parameter>precisión</parameter> dígitos después del punto decimal.
+Si <parameter>precisión</parameter> es 0, lo devuelto no tendrá punto decimal.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA FORMATONUMERO 123.1 10 10</userinput>
+123.1000000000</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

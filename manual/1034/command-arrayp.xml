@@ -1,0 +1,40 @@
+<section id="command-arrayp">
+<title>VECTOR?</title>
+<indexterm><primary>VECTOR?</primary></indexterm>
+<indexterm><primary>ARRAYP</primary></indexterm>
+<indexterm><primary>ARRAY?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VECTOR?</command> <parameter>cosa</parameter>
+<command>ARRAYP</command> <parameter>cosa</parameter>
+<command>ARRAY?</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento <parameter>cosa</parameter> es un vector, FALSO si no lo es.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA VECTOR? "Hola</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA VECTOR? [Hola]</userinput>
+falso</programlisting>
+
+<programlisting><userinput>MUESTRA VECTOR? {Hola}</userinput>
+cierto</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

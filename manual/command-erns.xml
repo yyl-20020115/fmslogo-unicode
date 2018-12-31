@@ -1,0 +1,38 @@
+<section id="command-erns">
+    <title>ERNS</title>
+<indexterm><primary>ERNS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERNS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases all unburied variables from the workspace.
+ERNS abbreviates <userinput><link linkend="command-erase">ERASE</link> <link linkend="command-names">NAMES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo 1
+MAKE "bar 2
+PONS</userinput>
+Make "bar 2
+Make "foo 1
+<userinput>ERNS
+PONS</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,104 @@
+<chapter id="commander">
+  <title>El Centro de Comandos</title>
+
+  <para>El Centro de Comandos es donde desarrollarás tu sesión de &PRODUCTNAME;.
+  Tiene la caja de entrada, que es el medio donde instruyes a &PRODUCTNAME; sobre lo que quieres hacer.
+  Tiene la caja de historia, que es donde &PRODUCTNAME; te comunica a ti, mostrando salida y mensajes de error.
+  El Centro de Comandos también tiene botones que te dan acceso rápido a las maneras importantes de controlar tu entorno de &GENERICNAME;.</para>
+
+
+  <section id="commander-input">
+    <title>La Caja de Entrada</title>
+    <para>La Caja de Entrada está ligada a la <link linkend="commander-history">Caja de Historia</link> y el botón Ejecutar.
+    En ella puedes teclear instrucciones y hacer que &GENERICNAME; las ejecuta.
+    Para ello pulsa la tecla <keycap>Intro</keycap> o el Botón ejecutar.
+    Usando las teclas de flecha Arriba/Abajo saltarás automáticamente a la Caja de Historia.</para>
+
+    <para>Dispone también de <link linkend="editor-context-help">Ayuda Sensible al Contexto</link> y <link linkend="editor-clipboard">Editando con el Portapapeles</link>.</para>
+
+  </section>
+
+  <section id="commander-history">
+    <title>La Caja de Historia</title>
+    <para>En la Caja de Historia aparece todo lo que escribe en la Caja de Entrada.
+    Puede ejecutar otra vez una línea de instrucciones mediante doble clic en la misma; también puedes utilizar las teclas de flecha para situarse en la línea y luego pulsar la tecla <keycap>Intro</keycap>.
+    Si la línea deseada permanece oculta, usa la barra de desplazamiento para deslizarla en vista.
+    Una vez que haya pulsado con el ratón en una línea, se copiará automáticamente en la Caja de Entrada.</para>
+
+    <para>Dispone también de <link linkend="editor-context-help">Ayuda Sensible al Contexto</link>.</para>
+  </section>
+
+  <section id="commander-execute">
+    <title>Botón Ejecutar</title>
+    <para>El botón Ejecutar ejecuta las instrucciones en la <link linkend="commander-input">Caja de Entrada</link>.
+    Es igual que si pulsaras la tecla <keycap>Intro</keycap>, excepto que puedes usarlo para interrumpir &GENERICNAME; cuando está ocupado ejecutando otras instrucciones.</para>
+  </section>
+
+  <section id="commander-status">
+    <title>Botón de Estado</title>
+    <para>Este botón abre una ventana con el contenido de lo qué &PRODUCTNAME; está haciendo.
+    Pulsa el botón de nuevo para cerrar la ventana.</para>
+      
+    <para>Veas también los comandos <link linkend="command-status">ESTADO</link> y <link linkend="command-nostatus">QUITAESTADO</link>.</para>
+  </section>
+
+  <section id="commander-trace">
+    <title>Botón Trazar</title>
+    <para>Este botón marca todos los procedimientos para ser ejecutado en modo trazar.
+    Así, se escribe en la Caja de Historia las instrucciones que se están ejecutando para facilitar la depuración de errores.
+    Pulsa el botón de nuevo para desactivar Trazar.
+    Puedes pulsar el botón mientras &PRODUCTNAME; está ejecutando instrucciones para ver lo que está haciendo.
+    El botón Trazar hace su trabajo independientemente de que la primitiva TRAZA está trazando.</para>
+
+    <para>Veas también los comandos <link linkend="command-trace">TRAZA</link> y <link linkend="command-untrace">NOTRAZA</link>.</para>
+  </section>
+
+
+  <section id="commander-halt">
+    <title>Botón Alto</title>
+    <para>Este botón detiene &PRODUCTNAME; de ejecutar más instrucciones.
+    Funcione por lanzar un error «Parando...».
+    Pulsando este botón deja que &PRODUCTNAME; espera tu próxima instrucción, siempre y cuando el error «Parando...» no está atrapado.</para>
+
+    <para>El botón Alto está deshabilitado cuando &PRODUCTNAME; no está ejecutando instrucciones.</para>
+
+    <para>Veas también el comando <link linkend="command-halt">HALT</link>.</para>
+  </section>
+
+
+  <section id="commander-reset">
+    <title>Botón Reiniciar</title>
+    <para>El botón Reiniciar es semejante al comando <link linkend="command-clearscreen">BORRAPANTALLA</link>; borra el área de dibujo y manda la tortuga al centro.</para>
+  </section>
+
+
+  <section id="commander-step">
+    <title>Botón Paso</title>
+    <para>Este botón marca todos los procedimientos para ser ejecutado en modo paso.
+    Así, se ejecuta el programa paso a paso, de instrucción en instrucción.
+    Pulsa el botón de nuevo para desactivarlo.
+    Puedes pulsar el botón mientras &PRODUCTNAME; está ejecutando instrucciones para ver lo que está haciendo.
+    Trabaja independientemente de que se ejecute la primitiva PASO.</para>
+
+    <para>Veas también los comandos <link linkend="command-step">PASO</link> y <link linkend="command-unstep">NOPASO</link>.</para>
+  </section>
+
+
+  <section id="commander-pause">
+    <title>Botón Pausa</title>
+    <para>Detiene &PRODUCTNAME; para que puedas examinar variables, hacer cambios, u otra tarea.
+    Una vez pulsado el botón Pausa, &PRODUCTNAME; mostrará en qué procedimiento se produjo la pausa.
+    Para continuar hay que presionar el botón Cancelar o escribir el comando <link linkend="command-continue">SIGUE</link> en una ventana de diálogo y pulsar OK.
+    Puede utilizar también el comando <link linkend="command-pause">PAUSA</link> dentro del código para que actúe como un «Punto del Ruptura».</para>
+
+    <para>El botón Pausa está deshabilitado cuando &PRODUCTNAME; no está ejecutando instrucciones.</para>
+  </section>
+
+  <section id="commander-edall">
+    <title>Botón EdTodo</title>
+    <para>Abre en el <link linkend="editor">Editor</link> todo lo contenido del área de trabajo (todos los procedimientos, nombres, y listas de propriedades que no son tapados).
+    Hace lo mismo que ejecutando el comando <link linkend="command-edall">EDTODO</link>.
+    </para>
+  </section>
+
+</chapter>

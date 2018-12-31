@@ -1,0 +1,59 @@
+<section id="command-pprop">
+    <title>PPROP</title>
+<indexterm><primary>PPROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PPROP</command> <parameter>plistname</parameter> <parameter>propertyname</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Adds a property to the property list named <parameter>plistname</parameter>.
+The property is named <parameter>propertyname</parameter> and has the value <parameter>value</parameter>.
+If no property list named <parameter>plistname</parameter> exists, then it is created.
+If the property named <parameter>propertyname</parameter> already has a value in the property list, then the value is replaced.
+</para>
+
+<para>
+The <parameter>plistname</parameter> input must be a word.
+</para>
+
+<para>
+The <parameter>propertyname</parameter> input may be word, list, or array.
+Property names are compared in the same manner as <link linkend="command-equalp">EQUALP</link> compares its inputs.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1   1
+PPROP "plist1 "p2   2
+PPROP "plist2 "p1   10
+PPROP "plist2 "p2   20
+PPROP "plist2 [p 3] 30
+
+SHOW GPROP "plist1 "p1</userinput>
+1
+<userinput>SHOW GPROP "plist1 "p2</userinput>
+2
+<userinput>SHOW GPROP "plist2 "p1</userinput>
+10
+<userinput>SHOW GPROP "plist2 "p2</userinput>
+20
+<userinput>SHOW GPROP "plist2 [p 3]</userinput>
+30
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

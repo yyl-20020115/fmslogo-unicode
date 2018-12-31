@@ -1,0 +1,51 @@
+<section id="command-setwritepos">
+<title>PONPOSESCRITURA</title>
+<indexterm><primary>PONPOSESCRITURA</primary></indexterm>
+<indexterm><primary>SETWRITEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPOSESCRITURA</command> <parameter>posición</parameter>
+<command>SETWRITEPOS</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición del archivo del flujo de escritura para que la próxima <link linkend="command-print">ESCRIBE</link>, etc., empezaría escribiendo al carácter numero <parameter>posición</parameter> en el archivo, contando desde 0.
+(Es decir, <userinput>PONPOSESCRITURA 0</userinput> empieza escribiendo del principio del archivo.)
+</para>
+
+<para>
+PONPOSESCRITURA no tiene sentido cuando el flujo de escritura es [].
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+PONPOSESCRITURA 0
+MUESTRAT "J
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABREESCRITURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+MUESTRA LEELISTA</userinput>
+[Jola]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

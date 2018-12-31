@@ -1,0 +1,38 @@
+<section id="command-namelist">
+    <title>NAMELIST</title>
+<indexterm><primary>NAMELIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NAMELIST</command> <parameter>varname</parameter>
+<command>NAMELIST</command> <parameter>varnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of an empty list followed by a list of the name or names given as input.
+This is useful in conjunction with workspace control procedures that require a contents list as input.
+These named variables do not have to exist.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>NAMELIST [FOO BAR]</userinput>
+[[] [FOO BAR]]
+<userinput>NAMELIST "abc</userinput>
+[[] [abc]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

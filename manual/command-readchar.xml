@@ -1,0 +1,56 @@
+<section id="command-readchar">
+<title>READCHAR</title>
+<indexterm><primary>READCHAR</primary></indexterm>
+<indexterm><primary>RC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>READCHAR</command>
+<command>RC</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Reads a single character from the read stream and outputs it.
+If the read stream was opened for text reading, then the character is output as a word.
+If the read stream was opened for binary reading, then the character is output as a number.
+</para>
+<para>
+If the read stream is a file and the end of file is reached, READCHAR outputs the empty list (not the empty word).
+</para>
+<para>
+If the read stream is the Commander, then the "Input Mode" dialog prompts the user for a line of text and READCHAR outputs the first character entered by the user.
+Successive calls to READCHAR read the rest of the line until there are no more characters, in which case the "Input Mode" dialog is shown again.
+</para>
+<para>
+Backslash, vertical bar, and tilde characters have no special meaning in this context.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW READCHAR
+Hello how are you?</userinput>
+H
+<userinput>SHOW READCHAR</userinput>
+e
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-readchars">READCHARS</link></member>
+<member><link linkend="command-readword">READWORD</link></member>
+<member><link linkend="command-readlist">READLIST</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

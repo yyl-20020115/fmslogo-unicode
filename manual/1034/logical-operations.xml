@@ -1,0 +1,7 @@
+<chapter id="logical-operations">
+   <title>Operaciones lógicas</title>
+
+   &command-and;
+   &command-or;
+   &command-not;
+</chapter>

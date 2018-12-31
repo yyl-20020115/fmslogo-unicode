@@ -1,0 +1,42 @@
+<section id="command-.setbf">
+   <title>.SETBF</title>
+<indexterm><primary>.SETBF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>.SETBF</command> <parameter>list</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Changes the BUTFIRST of the <parameter>list</parameter> input to a given value.
+</para>
+
+<para>
+The <parameter>list</parameter> input must be a list and cannot be empty.
+</para>
+
+<para>
+WARNING: Primitives whose names start with a period are <emphasis>dangerous</emphasis>.
+Their use by non-experts is not recommended.
+The use of .SETBF can lead to circular list structures, which gets some primitives into infinite loops; unexpected changes to other data structures that share storage with the list being modified; crashes and core dumps if the <link linkend="command-butfirst">BUTFIRST</link> of a list is not itself a list; and the permanent loss of memory if a circular structure is released.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "mylist [1 2 3]
+.SETBF :mylist [a b]
+SHOW :mylist</userinput>
+[1 a b]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

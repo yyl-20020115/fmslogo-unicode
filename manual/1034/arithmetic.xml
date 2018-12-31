@@ -1,0 +1,74 @@
+<chapter id="arithmetic">
+   <title>Aritmética</title>
+
+   <section id="numeric-operations">
+      <title>Operaciones numéricas</title>
+
+      &command-sum;
+      &command-difference;
+      &command-minus;
+      &command-product;
+      &command-quotient;
+      &command-remainder;
+      &command-modulo;
+      &command-int;
+      &command-round;
+      &command-abs;
+      &command-sign;
+      &command-sqrt;
+      &command-power;
+      &command-exp;
+      &command-log10;
+      &command-ln;
+      &command-pi;
+      &command-goldenratio;
+      &command-tan;
+      &command-radtan;
+      &command-sin;
+      &command-radsin;
+      &command-cos;
+      &command-radcos;
+      &command-arctan;
+      &command-radarctan;
+      &command-arcsin;
+      &command-radarcsin;
+      &command-arccos;
+      &command-radarccos;
+   </section>
+
+   <section id="arithmetic-predicates">
+      <title>Predicados (aritmética)</title>
+
+      &command-lessp;
+      &command-lessequalp;
+      &command-greaterp;
+      &command-greaterequalp;
+   </section>
+
+   <section id="random-numbers">
+      <title>Números aleatorios</title>
+
+      &command-random;
+      &command-rerandom;
+   </section>
+
+
+   <section id="print-formating">
+      <title>Escribir con formato</title>
+
+      &command-form;
+   </section>
+
+
+   <section id="bitwise-operations">
+      <title>Operaciones a nivel de bits</title>
+
+      &command-bitand;
+      &command-bitor;
+      &command-bitxor;
+      &command-bitnot;
+      &command-ashift;
+      &command-lshift;
+   </section>
+
+</chapter>

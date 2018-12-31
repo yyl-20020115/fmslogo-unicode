@@ -1,0 +1,49 @@
+<section id="command-iseq">
+<title>ISEQ</title>
+<indexterm><primary>ISEQ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ISEQ</command> <parameter>from</parameter> <parameter>to</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a consecutive ordered list of integers starting with <parameter>from</parameter> and ending with <parameter>to</parameter>.
+If <parameter>from</parameter> is greater than <parameter>to</parameter>, then ISEQ outputs a sequence that counts backwards.
+</para>
+
+<para>
+The name ISEQ is short for "Integer SEQuence".
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW ISEQ 3 7</userinput>
+[3 4 5 6 7]
+</programlisting>
+
+<programlisting><userinput>SHOW ISEQ 7 3</userinput>
+[7 6 5 4 3]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-rseq">RSEQ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

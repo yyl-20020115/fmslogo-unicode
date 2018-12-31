@@ -1,0 +1,39 @@
+<section id="command-ignore">
+    <title>IGNORE</title>
+<indexterm><primary>IGNORE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>IGNORE</command> <parameter>list</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+IGNORE does nothing.
+This is useful when an expression is evaluated for a side effect and its actual output is unimportant.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM :arg
+  PRINT :arg
+  OUTPUT COUNT :arg
+END
+
+MYPROGRAM "Hello</userinput>
+Hello
+I don't know what to do with 5
+<userinput>IGNORE MYPROGRAM "Hello</userinput>
+Hello
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

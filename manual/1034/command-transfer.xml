@@ -1,0 +1,59 @@
+<section id="command-transfer">
+    <title>TRANSFIERE</title>
+<indexterm><primary>TRANSFIERE</primary></indexterm>
+<indexterm><primary>TRANSFER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TRANSFIERE</command> <parameter>prueba_de_terminar</parameter> <parameter>plantilla</parameter> <parameter>canasta</parameter>
+<command>TRANSFER</command> <parameter>prueba_de_terminar</parameter> <parameter>plantilla</parameter> <parameter>canasta</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de ejecutar repetidamente el argumento <parameter>plantilla</parameter>.
+Se evalúa la plantilla una vez por cada elemento en la lista <parameter>canasta</parameter>.
+TRANSFIERE mantiene una «canasta de salida» que está inicialmente vacía.
+Después de cada evaluación de la plantilla, el resultado se vuelve la nueva «canasta de salida».
+Después de que se ha procesado todos los elementos de <parameter>canasta</parameter>, TRANSFIERE devuelve la «canasta de salida».
+</para>
+
+<para>
+En la plantilla, el símbolo <userinput>?IN</userinput> representa el elemento actual de <parameter>canasta</parameter> y el símbolo <userinput>?OUT</userinput> representa la «canasta de salida».
+(En inglés, IN quiere decir «entrada» y OUT quiere decir «salida».)
+No debes usar las otras símbolos de ranuras en esta plantilla.
+</para>
+
+<para>
+Si el argumento <parameter>prueba_de_terminar</parameter> es la lista vacía, la evaluación sigue hasta que se ha procesado todos los elementos de <parameter>canasta</parameter>.
+Si <parameter>prueba_de_terminar</parameter> no es la lista vacía, debe ser una plantilla que se evalúa a CIERTO o FALSO (un predicado).
+En este caso, la evaluación continúa hasta que <parameter>prueba_de_terminar</parameter> evalúa a CIERTO o se ha procesado todos los elementos de <parameter>canasta</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+Para cada palabra en el argumento final, si esta palabra ya forma parte del resultado, olvidala.  Si no, añade esta palabra al fin del resultado.
+El resultado está inicialmente vacío.
+</para>
+
+<programlisting><userinput>MUESTRA TRANSFIERE [] [SISINO MIEMBRO? ?IN ?OUT [?OUT] [PONULTIMO ?IN ?OUT]] [A A B A C B D A]</userinput>
+[A B C D]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

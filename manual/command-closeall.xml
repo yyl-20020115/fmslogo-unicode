@@ -1,0 +1,41 @@
+<section id="command-closeall">
+    <title>CLOSEALL</title>
+<indexterm><primary>CLOSEALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CLOSEALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Closes all open files.
+</para>
+
+<para>
+This is equivalent to <programlisting><link linkend="command-foreach">FOREACH</link> <link linkend="command-allopen">ALLOPEN</link> [<link linkend="command-close">CLOSE</link> ?]</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>OPENWRITE "dummy1.fil
+OPENWRITE "dummy2.fil
+SHOW ALLOPEN</userinput>
+[dummy1.fil dummy2.fil]
+<userinput>CLOSEALL
+SHOW ALLOPEN</userinput>
+[]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

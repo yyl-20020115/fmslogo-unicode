@@ -1,0 +1,46 @@
+<section id="command-primitivep">
+    <title>PRIMITIVEP</title>
+<indexterm><primary>PRIMITIVEP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PRIMITIVEP</command> <parameter>name</parameter>
+<command>PRIMITIVE?</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the input is the name of a primitive (one that is built into &PRODUCTNAME;), outputs FALSE otherwise.
+Note that many of &PRODUCTNAME;'s procedures are library procedures, not primitives.
+</para>
+
+<para>
+<parameter>name</parameter> must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO FWD :arg
+  FORWARD :arg
+END
+
+SHOW PRIMITIVEP "FWD</userinput>
+false
+
+<userinput>SHOW PRIMITIVEP "FORWARD</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

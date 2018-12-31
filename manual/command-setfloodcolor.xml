@@ -1,0 +1,44 @@
+<section id="command-setfloodcolor">
+<title>SETFLOODCOLOR</title>
+<indexterm><primary>SETFLOODCOLOR</primary></indexterm>
+<indexterm><primary>SETFC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETFLOODCOLOR</command> <parameter>color</parameter>
+<command>SETFLOODCOLOUR</command> <parameter>color</parameter>
+<command>SETFC</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the flood color to <parameter>color</parameter>, which can either be a color index or a color vector.
+A color index is a number from 0 - 15.
+A color vector is a list of [red green blue] intensities, each in the range of 0 - 255.
+For an explanation of the <parameter>color</parameter> input, see the section on <link linkend="using-color">Using Color</link>.
+</para>
+
+<para>
+The flood color affects the <link linkend="command-fill">FILL</link> and <link linkend="command-bitblock">BITBLOCK</link> commands.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CLEARSCREEN
+REPEAT 4 [FORWARD 100 RIGHT 90]
+RIGHT 45
+PENUP
+FORWARD 20
+SETFLOODCOLOR [0 255 0]
+FILL</userinput></programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

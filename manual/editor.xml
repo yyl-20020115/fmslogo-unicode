@@ -1,0 +1,208 @@
+<chapter id="editor">
+    <title>Editor</title>
+    <indexterm><primary>Editor</primary></indexterm>
+
+    <para>When you exit the editor, &PRODUCTNAME; loads the revised definitions and modifies the workspace accordingly.
+Multiple edit sessions are supported, but be careful of having multiple edit sessions that include the same definition.
+The final editor that is exited (and saved) takes precedence.
+Also realize if you delete procedures, property lists, or names while in the editor, then they are erased (see <link linkend="command-erase">ERASE</link>) from the workspace at the time of exiting (and saving) the edit session you deleted them from.
+</para>
+
+    <section id="editor-menu">
+      <title>Editor Menu</title>
+
+      <section id="editor-menu-file">
+        <title>File Menu</title>
+
+         <section id="editor-menu-file-saveandexit">
+          <title>File - Save and Exit</title>
+          <para>Saves the contents of the editor to the workspace and exits the editor.
+When you exit the editor, &PRODUCTNAME; loads the revised definitions and modifies the workspace accordingly.
+Multiple edit sessions are supported, but be careful not to have multiple edit sessions that include the definition of the same procedure, property, or variable.
+The final editor that is exited (and saved) takes precedence.
+Also realize if you delete procedures, property lists, or names while in the editor, then they are erased (see <link linkend="command-erase">ERASE</link>) from the workspace at the time of exiting (and saving) the edit session you deleted them from.
+See also <link linkend="editor-errors">Edit Errors</link>.
+</para>
+        </section>
+
+        <section id="editor-menu-file-savetoworkspace">
+          <title>File - Save to Workspace</title>
+          <para>Saves the contents of the editor to the &GENERICNAME; workspace without exiting.
+This is only available in <link linkend="commandline-e">expert mode</link>.
+</para>
+        </section>
+
+        <section id="editor-menu-file-print">
+          <title>File - Print...</title>
+          <para>Prints the contents of the editor.</para>
+        </section>
+
+        <section id="editor-menu-file-exit">
+          <title>File - Exit</title>
+          <para>Prompts you whether to save the changes to the &GENERICNAME; workspace and then exits the editor.
+          Select this option if you want to discard your changes.</para>
+        </section>
+
+      </section>
+
+      <section id="editor-menu-edit">
+        <title>Edit Menu</title>
+
+        <section id="editor-menu-edit-undo">
+          <title>Edit - Undo</title>
+          <para>Undoes the previous editor operation.</para>
+        </section>
+
+        <section id="editor-menu-edit-redo">
+          <title>Edit - Redo</title>
+          <para>Reverts the previous undo operation.</para>
+        </section>
+
+        <section id="editor-menu-edit-cut">
+          <title>Edit - Cut</title>
+          <para>Copies the selected text to the clipboard and deletes it.
+          See also <link linkend="editor-clipboard">Editing with the Clipboard</link>.</para>
+        </section>
+
+        <section id="editor-menu-edit-copy">
+          <title>Edit - Copy</title>
+          <para>Copies the selected text to the clipboard.
+          See also <link linkend="editor-clipboard">Editing with the Clipboard</link>.</para>
+        </section>
+
+        <section id="editor-menu-edit-paste">
+          <title>Edit - Paste</title>
+          <para>Pastes the text in the clipboard to the cursor position.
+If text is selected it is replaced with the pasted text.
+See also <link linkend="editor-clipboard">Editing with the Clipboard</link>.</para>
+        </section>
+
+        <section id="editor-menu-edit-delete">
+          <title>Edit - Delete</title>
+          <para>Deletes the selected text.</para>
+        </section>
+
+        <section id="editor-menu-edit-clearall">
+          <title>Edit - Clear All</title>
+          <para>Deletes all text in the editor.</para>
+        </section>
+
+        <section id="editor-menu-edit-selectall">
+          <title>Edit - Select All</title>
+          <para>Selects all text in the editor.</para>
+        </section>
+
+      </section>
+
+      <section id="editor-menu-search">
+        <title>Search Menu</title>
+
+        <section id="editor-menu-search-find">
+          <title>Search - Find</title>
+          <para>Displays a dialog box that allows you to search for text within the editor.</para>
+        </section>
+
+        <section id="editor-menu-search-replace">
+          <title>Search - Replace</title>
+          <para>Displays a dialog box that allows you to search for text within the editor and replace it with other text.</para>
+        </section>
+
+        <section id="editor-menu-search-next">
+          <title>Search - Next</title>
+          <para>Repeats the previous Search - Find operation.</para>
+        </section>
+
+      </section>
+
+
+      <section id="editor-menu-set">
+        <title>Set Menu</title>
+
+        <section id="editor-menu-set-font">
+          <title>Set - Font</title>
+          <para>You can change the editor's font by going to the Font Menu of the editor and selecting the desired font.
+The new font affects the entire Editor not just selected Text.
+The chosen font remains selected even after &PRODUCTNAME; has been restarted.</para>
+        </section>
+
+      </section>
+
+      <section id="editor-menu-test">
+        <title>Test Menu</title>
+
+        <section id="editor-menu-testbang">
+          <title>Run Selection</title>
+          <para>You can test your code by selecting a section of code and clicking on Run Selection in the menu.
+This sends each selected line to the commander for execution.
+Keep in mind that if you select code that has variables or other context that they must be defined in the selection or already defined in the workspace.
+Using this feature is as if you typed in that selection into the commander.
+</para>
+        </section>
+
+      </section>
+
+
+      <section id="editor-menu-help">
+        <title>Help Menu</title>
+
+        <section id="editor-menu-help-index">
+          <title>Help - Index</title>
+          <para>Brings you to the help on &PRODUCTNAME;.  See also <link linkend="editor-context-help">Context Sensitive Help</link>.</para>
+        </section>
+
+        <section id="editor-menu-help-editor">
+          <title>Help - Editor</title>
+          <para>Brings you to the help on &PRODUCTNAME;'s editor.  See also <link linkend="editor-context-help">Context Sensitive Help</link>.</para>
+        </section>
+
+        <section id="editor-menu-help-topicsearch">
+          <title>Help - Topic Search</title>
+          <para>Searches for the topic selected by the mouse in the online help.  See also <link linkend="editor-context-help">Context Sensitive Help</link>.</para>
+        </section>
+
+      </section>
+
+    </section>
+
+    <section id="editor-errors">
+      <title>Editor Errors</title>
+
+      <para>If an error occurs when &GENERICNAME; "loads" your edit, it prompts you to fix the error in the Editor.
+This situation commonly occurs when a continuation "~" is missing within a list or missing a matching "]".
+When the editor is reopened, &PRODUCTNAME; places the cursor at the start of the definition that has the error.
+When this occurs make sure to check the commander window for a hint of what the problem was when loading.</para>
+
+    </section>
+
+    <section id="editor-clipboard">
+      <title>Editing with the Clipboard</title>
+<para>
+The Editor and many controls support the clipboard.
+The clipboard is where most Windows application store data during cut and paste operations.
+This means that when you cut text from an application, such as Notepad, it can be pasted into &GENERICNAME;'s Editor (the reverse is also true).
+Even Help supports the clipboard.
+This means you can copy examples in this document directly to the editor (see <link linkend="command-help">HELP</link> command).</para>
+
+<para>
+The <link linkend="commander-input">Input Box</link> also supports the clipboard.
+Only one line of text is supported between the Input Box and the clipboard.
+You can either use the context-sensitive popup menu or keyboard shortcuts for the desired actions (Cut <keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo>, Copy <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>, Paste <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>).
+</para>
+
+<para>
+The <link linkend="commander-history">Output/Command-Recall</link> also supports the clipboard.
+This means you can turn code you entered in the commander into procedure by copying the Commander Output to the clipboard and pasting it into the editor.
+Or take text output you generated and paste it into another application.
+</para>
+    </section>
+
+    <section id="editor-context-help">
+      <title>Context Sensitive Help</title>
+      <para>&PRODUCTNAME;'s <link linkend="editor">Editor</link>, <link linkend="commander-input">Input Box</link> and <link linkend="commander-history">Output/Command-Recall</link> all support context sensitive Help.
+If you select a keyword (such as FORWARD) in these places (double-click works best in the editor) you can ask &PRODUCTNAME; to look up the keyword without going through the Help Menu followed by a Search and so on.
+You simply ask by clicking the right button on the mouse (or by hitting the <keycap>F1</keycap> key), abbreviations are also supported.
+See also <link linkend="editor-clipboard">Editing with the Clipboard</link> to bring information back from the help system (like example code) for you to work with.</para>
+    </section>
+
+
+</chapter>

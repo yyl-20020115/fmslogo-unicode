@@ -1,0 +1,75 @@
+<section id="command-backtick">
+    <title>`</title>
+<indexterm><primary>`</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>`</command> <parameter>lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista igual a su argumento pero con ciertas sustituciones.
+</para>
+
+<para>
+Si un miembro de la lista es la palabra <userinput>,</userinput> (coma) entonces el siguiente miembro debe ser una lista de instrucciones que devuelve un valor cuando se la ejecuta.
+Ese valor reemplaza a la coma y a la lista.
+Eso se llama sustitución.
+</para>
+
+<para>
+Si un miembro de <parameter>lista</parameter> es la palabra <userinput>,@</userinput> (coma arroba), entonces el siguiente miembro debe ser una lista de instrucciones que devuelve una lista cuando se la ejecuta.
+Los miembros de esa lista reemplazan a <userinput>,@</userinput> y a la lista.
+Eso se llama empalmación («splicing» en inglés).
+</para>
+
+<para>
+Se trata una palabra que comienza con <userinput>,</userinput> o <userinput>,@</userinput> como si el resto de la palabra fuera una lista de una sola palabra.
+Por ejemplo, <userinput>,:foo</userinput> equivale a <userinput>,[:foo]</userinput>.
+</para>
+
+<para>
+Se sustituye a una palabra que comienza con <userinput>",</userinput> (comillas inglesas coma) por una palabra que comienza con <userinput>"</userinput> seguido por el resultado de ejecutar la sustitución sobre lo que viene después de la coma.
+Si lo que viene después de la coma es una lista, sólo se usa la primera palabra de la lista en la sustitución.
+</para>
+
+<para>
+Se sustituye a una palabra que comienza con <userinput>:,</userinput> (dos puntos coma) por una palabra que comienza con <userinput>:</userinput> seguido por el resultado de ejecutar la sustitución sobre lo que viene después de la coma.
+Si lo que viene después de la coma es una lista, sólo se usa la primera palabra de la lista en la sustitución.
+</para>
+
+<para>
+Se pueden anidar las comillas invertidas.
+Sólo se sustituye a las comas cuando aparecen al mismo profundidad que la comilla invertida en que se encuentran.
+Ve al segundo y al tercero ejemplos a continuación.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA `[foo baz ,[MENOSPRIMERO [a b c]] garply ,@[MENOSPRIMERO [a b c]]]</userinput>
+[foo baz [b c] garply b c]
+</programlisting>
+
+<programlisting><userinput>MUESTRA `[a `[b ,[1+2] ,[foo ,[1+3] d] e] f]</userinput>
+[a ` [b , [1+2]  , [foo 4 d] e] f]
+</programlisting>
+
+<programlisting><userinput>HAZ "nombre1 "x
+HAZ "nombre2 "y
+MUESTRA `[a `[b ,:,:nombre1 ,",:nombre2 d] e]</userinput>
+[a ` [b , [:x]  , ["y] d] e]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

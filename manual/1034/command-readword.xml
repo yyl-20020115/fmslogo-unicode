@@ -1,0 +1,73 @@
+<section id="command-readword">
+<title>LEEPALABRA</title>
+<indexterm><primary>LEEPALABRA</primary></indexterm>
+<indexterm><primary>LP</primary></indexterm>
+<indexterm><primary>READWORD</primary></indexterm>
+<indexterm><primary>RW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LEEPALABRA</command>
+<command>LP</command>
+<command>READWORD</command>
+<command>RW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Lee una línea desde el flujo de lectura actual (inicialmente un cuadro de diálogo) y la devuelve como una palabra (sin el carácter de nueva línea).
+Devuelve una sola palabra aunque la línea tenga espacios, corchetes, etc.
+Por una línea en blanco, LEEPALABRA devuelve la palabra vaciá.
+Si el flujo de lectura es un archivo que no se termina en un carácter de nueva línea, entonces trata el fin del archivo como carácter de nueva línea.
+Cuando se había leído por completo el archivo, LEEPALABRA devuelve la lista vacía (no la palabra vacía).
+</para>
+
+<para>
+LEEPALABRA procesa las barras inversas, barras verticales, y tildes de la eñe del flujo de lectura.
+En caso de una tilde usada para la continuación de una línea, la palabra devuelta <emphasis>sí incluye</emphasis> la tilde y los caracteres de nueva línea.
+LEEPALABRA también guarda las barras verticales en la lista devuelta.
+Las barras inversas no son preservado en la lista devuelta, excepto por las que sigue una otra barra inversa.
+Este comportamiento extraño facilita que la palabra devuelta sea analizada con <link linkend="command-parse">ANALIZA</link> de una manera que preserva la semántica normal.
+</para>
+
+<para>
+La noción que las barras verticales son a la vez procesadas <emphasis>y</emphasis> preservadas en la lista devuelta merece una explicación expandida.
+Cuando LEEPALABRA procesa la línea, las barras verticales retienen su habilidad de permitir una sola línea de texto de incluir los caracteres de nueva línea.
+Así que, aún si un carácter de nueva línea sigue una barra vertical, LEEPALABRA siga leyendo más texto hasta que encuentre una barra vertical que cierra el agrupamiento, entonces LEEPALABRA siga leyendo hasta que encuentre un carácter de nueva línea que termine la línea.
+Ninguna de las nuevas líneas entre barras verticales son consideradas como el fin de la línea y LEEPALABRA devuelve todo el texto como una sola palabra.
+La palabra devuelta también incluye las barras verticales.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <para>Un ejemplo sencillo:
+<programlisting><userinput>MUESTRA LEEPALABRA
+Hola, cómo estás?</userinput>
+Hola, cómo estás?</programlisting>
+    </para>
+
+    <para>El ejemplo siguiente muestra como las barras verticales son procesadas <emphasis>y</emphasis> preservadas a la vez.
+Nota que LEEPALABRA devuelve todo el texto como una sola palabra.
+<programlisting><userinput>MUESTRA LEEPALABRA
+Esto es una línea | CON UNA BARRA VERTICAL
+ESTO ES AHORA ENTRE BARRAS VERTICALES
+ESTE CUENTO SE HA ACABADO | más texto | DE NUEVO ENTRE BARRAS VERTICALES
+ESTO | pone fin a la línea.</userinput>
+Esto es una línea | CON UNA BARRA VERTICAL
+ESTO ES AHORA ENTRE BARRAS VERTICALES
+ESTE CUENTO SE HA ACABADO | más texto | DE NUEVO ENTRE BARRAS VERTICALES
+ESTO | pone fin a la línea.</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

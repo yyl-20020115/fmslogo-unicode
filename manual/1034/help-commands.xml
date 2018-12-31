@@ -1,0 +1,11 @@
+<chapter id="help-commands">
+   <title>Help Commands</title>
+
+<para>
+You can access &PRODUCTNAME;'s manual and system documentation through &GENERICNAME; commands.
+</para>
+
+    &command-help;
+    &command-winhelp;
+
+</chapter>

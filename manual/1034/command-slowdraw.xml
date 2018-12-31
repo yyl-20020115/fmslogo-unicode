@@ -1,0 +1,43 @@
+<section id="command-slowdraw">
+<title>DIBUJALENTO</title>
+<indexterm><primary>DIBUJALENTO</primary></indexterm>
+<indexterm><primary>SLOWDRAW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DIBUJALENTO</command> <parameter>lentitud</parameter>
+<command>SLOWDRAW</command> <parameter>lentitud</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Redefine AVANZA, RETROCEDE, AV y RE para tomar más tiempo con fin de que puedas ver la tortuga a medida que se mueve (por lo contrario, la tortuga se mueve tan rápido que se puede).
+El argumento <parameter>lentitud</parameter> controla cuánto tiempo tarda la tortuga para completar cada instrucción de movimiento.
+Cuanto más mayor es el argumento <parameter>lentitud</parameter>, más lento se mueve la tortuga.
+</para>
+
+<para>
+Ejecutando <userinput>DIBUJALENTO 0</userinput> restaura AVANZA, RETROCEDE, AV y RE a sus velocidades originales.
+</para>
+
+<para>
+El argumento <parameter>lentitud</parameter> debe ser un entero no negativo.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DIBUJALENTO 100
+REPITE 4 [ AVANZA 100 GIRADERECHA 90 ]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

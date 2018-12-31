@@ -1,0 +1,179 @@
+<chapter id="workspace-management">
+   <title>Manejo de la memoria</title>
+
+   <section id="procedure-definition">
+       <title>Definición de procedimientos</title>
+
+       &command-to;
+       &command-end;
+       &command-define;
+       &command-text;
+       &command-fulltext;
+       &command-copydef;
+       &command-arity;
+    </section>
+
+   <section id="variable-definition">
+       <title>Definición de variables</title>
+
+       &command-make;
+       &command-name;
+       &command-local;
+       &command-localmake;
+       &command-thing;
+    </section>
+
+
+   <section id="property-lists">
+       <title>Listas de propiedades</title>
+
+<para>
+Las listas de propiedades facilitan una manera de asociar palabras con cosas.
+En otras lenguajes de programación, se las llaman «vectores asociativos», «diccionarios» o «mapas».
+</para>
+
+<para>
+Siempre se refieren a las listas de propiedades, abreviado a «lProp», por su nombre &mdash;no puedes meter una lProp en una variable directamente&mdash;.
+Entre otras cosas, esto quiere decir que no puedes pasar una lProp a un procedimiento de &GENERICNAME;, sólo puedes pasarle el nombre.
+</para>
+
+<para>
+Puedes poner, obtener y borrar propiedades (pares de nombres y valores) a una lProp.
+Si intentas ver una propiedad que no existe en la lista, o si intentas ver una propriedad de una lista que no existe, obtienes la lista vacía.
+En general, no deberías preocuparte si una lista de propiedades existe o no.
+Sin embargo, si esto te importa, puedes usar <link linkend="command-plists">LPROPS</link> para conseguir los nombres de todas las listas de propiedades que no son tapadas.
+</para>
+
+<para>
+Los nombres de las listas de propiedades siempre son insensibles a las mayúsculas y minúsculas.
+Los nombres de las propiedades individuales son sensibles a las mayúsculas y minúsculas o no según el valor de <link linkend="command-caseignoredp">IGNORAMAYUSCULAS?</link>, que es CIERTO por defecto.
+</para>
+
+       &command-pprop;
+       &command-gprop;
+       &command-remprop;
+       &command-plist;
+    </section>
+
+   <section id="workspace-predicates">
+       <title>Predicados del área de trabajo</title>
+
+       &command-procedurep;
+       &command-primitivep;
+       &command-definedp;
+       &command-namep;
+       &command-macrop;
+       &command-proplistp;
+    </section>
+
+   <section id="workspace-queries">
+       <title>Preguntas del área de trabajo</title>
+
+<para>
+La mayoría de las preguntas del área de trabajo devuelven una «lista de contenidos», que te puedes usar como argumento de muchos procedimientos de <link linkend="workspace-inspection">inspección</link> y <link linkend="workspace-control">control</link> del área de trabajo.
+Todos los procedimientos cuyo argumento se indica como «lista_de_contenidos» aceptan cualquiera de lo siguiente:
+
+<itemizedlist>
+<listitem><para>Una sola palabra (tomada como nombre de procedimiento)</para></listitem>
+<listitem><para>Una lista de palabras (tomada como nombres de procedimientos)</para></listitem>
+<listitem><para>Una lista de dos listas (tomadas como lista de nombres de procedimientos y lista de nombres de variables, respectivamente)</para></listitem>
+<listitem><para>Una lista de tres listas (tomadas como lista de nombres de procedimientos, lista de nombres de variables y lista de nombres de listas de propiedades, respectivamente)</para></listitem>
+</itemizedlist>
+
+</para>
+
+       &command-contents;
+       &command-procedures;
+       &command-names;
+       &command-plists;
+       &command-namelist;
+       &command-pllist;
+       &command-buried;
+       &command-stepped;
+       &command-traced;
+    </section>
+
+   <section id="workspace-inspection">
+       <title>Inspección del área de trabajo</title>
+
+<para>
+Los procedimientos de inspección del área de trabajo escriben las definiciones de varios elementos del área de trabajo al flujo de escritura actual.
+</para>
+
+       &command-po;
+       &command-poall;
+       &command-pops;
+       &command-pons;
+       &command-popls;
+       &command-pon;
+       &command-popl;
+       &command-pot;
+       &command-pots;
+    </section>
+
+   <section id="workspace-control">
+       <title>Control del área de trabajo</title>
+
+<para>
+Los procedimientos de inspección del área de trabajo manipulan las «cosas» del área de trabajo (procedimientos, variables y listas de propiedades).
+Puedes usar estos procedimientos para borrar, tapar, destapar y editar otros procedimientos.
+</para>
+
+<para>
+Cuando se borra una cosa, está completamente eliminada del área de trabajo.
+A partir de entonces, no se la puede usar o ejecutar.
+</para>
+
+<para>
+Cuando se tapa una cosa, no está incluido en la lista de contenidos devuelta por <link linkend="command-contents">CONTENIDO</link>, <link linkend="command-procedures">LPROCS</link>, <link linkend="command-names">LVARS</link> o <link linkend="command-plists">LPROPS</link>, pero si está incluido en la lista de contenidos devuelta por <link linkend="command-buried">TAPADO</link>.
+Por lo tanto, cosas tapadas no se las escribe <link linkend="command-poall">IMTODO</link> ni se las guarda <link linkend="command-save">GUARDA</link>.
+Sin embargo, las cosas tapadas todavía te las puedes usar; puedes ejecutar un procedimiento tapado y le puedes referir a una variable tapada.
+</para>
+
+<para>
+Normalmente, se tapan las cosas para impedir que desordenen el área de trabajo.
+Por ejemplo, todos los procedimientos de Logolib se tapan a si mismos después de que los ejecutas para que no aparezcan cuando ejecutas <link linkend="command-edall">EDTODO</link>.
+</para>
+
+<para>
+Puedes restaurar las cosas tapadas al área de trabajo destapandolas (por ejemplo, con <link linkend="command-unbury">DESTAPA</link>).
+</para>
+
+       &command-erase;
+       &command-erall;
+       &command-erps;
+       &command-erns;
+       &command-erpls;
+       &command-ern;
+       &command-erpl;
+       &command-bury;
+       &command-buryall;
+       &command-buryname;
+       &command-unbury;
+       &command-unburyall;
+       &command-unburyname;
+       &command-trace;
+       &command-untrace;
+       &command-step;
+       &command-unstep;
+       &command-edit;
+       &command-edall;
+       &command-edps;
+       &command-edns;
+       &command-edpls;
+       &command-edn;
+       &command-edpl;
+       &command-save;
+       &command-savel;
+       &command-load;
+    </section>
+
+   <section id="workspace-debug-commands">
+      <title>Comandos para depurar</title>
+
+       &command-nodes;
+       &command-status;
+       &command-nostatus;
+   </section>
+
+</chapter>

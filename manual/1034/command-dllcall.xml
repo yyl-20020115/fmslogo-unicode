@@ -1,0 +1,184 @@
+<section id="command-dllcall">
+<title>LLAMADLL</title>
+<indexterm><primary>LLAMADLL</primary></indexterm>
+<indexterm><primary>DLLCALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LLAMADLL</command> <parameter>función_y_argumentos</parameter>
+(<command>LLAMADLL</command> <parameter>función_y_argumentos</parameter> <parameter>nombre_de_biblioteca</parameter>)
+<command>DLLCALL</command> <parameter>función_y_argumentos</parameter>
+(<command>DLLCALL</command> <parameter>función_y_argumentos</parameter> <parameter>nombre_de_biblioteca</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Llama a una determinada función y, opcionalmente, devuelve su valor de retorno.
+La función debe estar exportada de una biblioteca (DLL) previamente cargada con <link linkend="command-dllload">CARAGADLL</link>.
+</para>
+
+<para>
+El argumento <parameter>función_y_argumentos</parameter> es de la forma <userinput>[tipof función tipo1 arg1 tipo2 arg2 tipo3 arg3 ...]</userinput>.
+</para>
+
+<para>
+LLAMADLL interpreta <parameter>tipof</parameter> como descripción del valor de retorno de la función.
+El valor de retorno es analizado a una lista, como con <link linkend="command-parse">ANALIZA</link>.
+Todos los búferes que fue creado para «parámetros de retorno» son agregado al fin de esta lista y LLAMADLL devuelve la lista completa.
+El significado de cada <parameter>tipof</parameter> soportado se da en la tabla siguiente:
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>tipof</entry>
+        <entry>Tipo Nativo</entry>
+        <entry>LLAMADLL Devuelve</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><userinput>V</userinput></entry>
+        <entry>void</entry>
+        <entry>Nada</entry>
+      </row>
+      <row>
+        <entry><userinput>W</userinput></entry>
+        <entry>WORD, SHORT, o USHORT</entry>
+        <entry>Devuelve los 16 bits inferiores del valor de retorno de la función como una lista de un solo elemento.</entry>
+      </row>
+      <row>
+        <entry><userinput>L</userinput></entry>
+        <entry>DWORD, LONG, or ULONG</entry>
+        <entry>Devuelve el valor de retorno de la función, interpretado como un entero de 32-bits, como una lista de un solo elemento.</entry>
+      </row>
+      <row>
+        <entry><userinput>F</userinput></entry>
+        <entry>DOUBLE</entry>
+        <entry>Devuelve el valor de retorno de la función como una lista de un solo elemento.</entry>
+      </row>
+      <row>
+        <entry><userinput>S</userinput></entry>
+        <entry>LPSTR</entry>
+        <entry>Copia el puntero de retorno como una cadena que termina con un carácter nulo y llama GlobalFreePtr() sobre este puntero.
+               Se analiza la cadena como con ANALIZA y devuelve la lista resultante.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+<parameter>función</parameter> debe ser una palabra que iguala exactamente a un símbolo exportado de una biblioteca cargada.
+Para las funciones de Win32 que acepta un parámetro de tipo TCHAR, el símbolo exportado probablemente termina con «W» o «A», aún si no la llamaría así de C.
+</para>
+
+<para>
+LLAMADLL pasa <parameter>arg1</parameter> como <parameter>tipo1</parameter>, <parameter>arg2</parameter> como <parameter>tipo2</parameter>, y así sucesivamente.
+Tengas en cuenta que la convención de llamada de Win32 «stdcall» pasa argumentos de derecha a izquierda, así que <parameter>arg1</parameter> es de veras el último parámetro.
+LLAMADLL toma acciones distintas para cada tipo de argumento, según la tabla siguiente:
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>tipo#</entry>
+        <entry>Tipo Nativo</entry>
+        <entry>Acción de LLAMADLL sobre arg#</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry><userinput>V</userinput></entry>
+        <entry>void</entry>
+        <entry>Ignora el argumento</entry>
+      </row>
+      <row>
+        <entry><userinput>W</userinput></entry>
+        <entry>WORD, SHORT, o USHORT</entry>
+        <entry>Empuja los 16 bits inferiores del argumento a la pila de llamada como un valor de 32 bits.</entry>
+      </row>
+      <row>
+        <entry><userinput>L</userinput></entry>
+        <entry>DWORD, LONG, o ULONG</entry>
+        <entry>Empuja el valor del argumento como un entero de 32 bits a la pila de llamada.</entry>
+      </row>
+      <row>
+        <entry><userinput>F</userinput></entry>
+        <entry>DOUBLE</entry>
+        <entry>Interpreta el argumento como un <code>double</code> y empuja el valor como un coma flotante de 64 bits a la pila de llamada.</entry>
+      </row>
+      <row>
+        <entry><userinput>S</userinput></entry>
+        <entry>LPCSTR</entry>
+        <entry>Copia el argumento a un búfer, añade el carácter nulo terminador, y empuja su puntero a la pila de llamada.</entry>
+      </row>
+      <row>
+        <entry><userinput>B</userinput></entry>
+        <entry>PBYTE, PULONG, o LPSTR</entry>
+        <entry>Asigna a un búfer cuantos bytes de memoria designado por el argumento, cuando se lo interpreta como un entero.
+               Inicia todos los bytes del búfer a cero.
+               Marca al búfer como una palabra entre barras verticales así que puede tener bytes que son caracteres de control.
+               Empjua un puntero a este búfer a la pila de llamada.
+               Después de que la función retorna, añade el búfer a la lista para devolver.
+               Si la función devuelve void, entonces LLAMADLL crea una lista para poder devolver el búfer.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+
+<para>
+Si el argumento opcional <parameter>nombre_de_biblioteca</parameter> es dado, entonces LLAMADLL solamente busca a la función dentro de esa biblioteca.
+</para>
+
+<para>
+LLAMADLL devuelve los argumentos de tipo «B» como búferes con el tamaño designado.
+Cada byte en estos búferes que no son sobrescrito por la función queda un byte nulo.
+Por lo tanto, si una función que llena un búfer con una cadena de caracteres solamente usa parte del búfer, el búfer tendrá muchos bytes nulos al fin.
+Un tal búfer no se comporta como una palabra normal.
+No obstante, puedes convertirla a una palabra normal eliminando los bytes nulos con algo así:
+<programlisting><userinput>HAZ "bufer FILTRA [NOIGUALES? CAR 0 ? ] :bufer</userinput>
+</programlisting>
+</para>
+
+<para>
+LLAMADLL es solo para los usuarios experimentados que conocen las convenciones de llamada porque si no está de acuerdo la lista de argumentos con la convención de llamada, Windows responderá de forma imprevisible (incluyendo la caída de &PRODUCTNAME;).
+LLAMADLL puede manejar un variado de funciones, aunque no todas.
+</para>
+
+<para>
+Con LLAMADLL, puedes extender el alcance de &PRODUCTNAME; cuando sus procedimientos no son suficientes para tu tarea.
+Puedes escribir tu propia biblioteca (DLL) con una interfaz compatible para llamar funciones con interfaz incompatible.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+El ejemplo siguiente es equivalente a la llamada en C:
+  <programlisting>MessageBox(NULL, "¿Te gusta &PRODUCTNAME;?", "Pregunta", MB_YESNO);</programlisting>
+
+Nota como se agrega un «A» al fin del nombre de «MessageBox» y como se pasa los argumentos en orden revés para conformar a la convención de stdcall.
+
+<programlisting><userinput>CARAGADLL "user32.dll
+IGNORA LLAMADLL [L MessageBoxA L 4 S [Pregunta] S [¿Te gusta &PRODUCTNAME;?] L 0]</userinput>
+
+<replaceable>Ve como aparece un cuadro de mensaje.</replaceable>
+
+<userinput>QUITADLL</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

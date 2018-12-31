@@ -1,0 +1,43 @@
+<section id="command-macrop">
+    <title>MACROP</title>
+<indexterm><primary>MACROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MACROP</command> <parameter>name</parameter>
+<command>MACRO?</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the input is the name of a user-defined macro or a library macro.
+Outputs FALSE, otherwise.
+</para>
+
+<para>
+<parameter>name</parameter> must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW MACROP "ABC</userinput>
+false
+
+<userinput>.DEFMACRO "ABC [[a b] [PRINT :a] [PRINT :b]]
+SHOW MACROP "ABC</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

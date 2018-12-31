@@ -1,0 +1,28 @@
+<section id="command-setcursor">
+    <title>SETCURSOR</title>
+<indexterm><primary>SETCURSOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETCURSOR</command> <parameter>vector</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<note><para>SETCURSOR is not supported in &PRODUCTNAME;.</para></note>
+
+<para>
+In other &GENERICNAME; environments, SETCURSOR moves the screen cursor to an x,y coordinate given by an input vector (a list of two numbers).
+The origin is the upper left corner, positive direction is down and right.
+This command also forces the immediate printing of any buffered characters.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

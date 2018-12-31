@@ -1,0 +1,46 @@
+<section id="command-towards">
+<title>HACIA</title>
+<indexterm><primary>HACIA</primary></indexterm>
+<indexterm><primary>TOWARDS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HACIA</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un ángulo que indica el rumbo en grados que debe tomar la tortuga para moverse en línea recta desde su posición actual hasta otra que se indica en el argumento <parameter>posición</parameter>.
+El argumento <parameter>posición</parameter> debe ser una lista de dos números, las coordenadas X e Y de la otra posición.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPOS [0 0]
+MUESTRA HACIA [100 100]</userinput>
+45</programlisting>
+
+<programlisting><userinput>PONRUMBO HACIA [100 100]
+AVANZA DISTANCIA [100 100]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-distance">DISTANCIA</link></member>
+<member><link linkend="command-towardsxyz">HACIAXYZ</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

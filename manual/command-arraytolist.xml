@@ -1,0 +1,48 @@
+<section id="command-arraytolist">
+<title>ARRAYTOLIST</title>
+<indexterm><primary>ARRAYTOLIST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ARRAYTOLIST</command> <parameter>array</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Outputs a list whose members are the elements of the input array.
+The first item of the output is the first element of the array, regardless of the array's origin.</para>
+
+<para>ARRAYTOLIST can be used to make data in an array available to list processing procedures, such as <link linkend="command-map">MAP</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>A simple example:
+<programlisting><userinput>SHOW ARRAYTOLIST {1 2 3}</userinput>
+[1 2 3]</programlisting>
+</para>
+
+<para>Using MAP on data in an array:
+<programlisting><userinput>MAKE "myarray {1 2 3 4 5}
+MAKE "myarray LISTTOARRAY MAP [? * ?] ARRAYTOLIST :myarray
+SHOW :myarray</userinput>
+{1 4 9 16 25}</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-listtoarray">LISTTOARRAY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

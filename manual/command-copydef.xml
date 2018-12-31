@@ -1,0 +1,48 @@
+<section id="command-copydef">
+    <title>COPYDEF</title>
+<indexterm><primary>COPYDEF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COPYDEF</command> <parameter>newname</parameter> <parameter>oldname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Makes a new procedure called <parameter>newname</parameter> that is identical to procedure <parameter>oldname</parameter>, which may be a primitive.
+If <parameter>newname</parameter> is already defined, its previous definition is lost.
+If <parameter>newname</parameter> is a primitive, the redefinition is not permitted unless the variable <link linkend="command-redefp">REDEFP</link> has the value TRUE.
+Definitions created by COPYDEF are not saved by <link linkend="command-save">SAVE</link>; primitives are never saved, and user-defined procedures created by COPYDEF are buried.
+(You are likely to be confused if you <link linkend="command-po">PO</link> or <link linkend="command-pot">POT</link> a procedure defined with COPYDEF because its title line will contain the old name.
+This is why it's buried.)
+</para>
+
+<para>
+Note: dialects of &GENERICNAME; differ as to the order of inputs to COPYDEF.
+&PRODUCTNAME; uses <link linkend="command-make">MAKE</link> order, not <link linkend="command-name">NAME</link> order.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO WELCOME
+  PRINT "Hello
+END
+
+WELCOME</userinput>
+Hello
+<userinput>COPYDEF "SAYHELLO "WELCOME
+SAYHELLO</userinput>
+Hello
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

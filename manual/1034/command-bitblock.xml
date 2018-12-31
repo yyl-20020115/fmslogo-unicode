@@ -1,0 +1,38 @@
+<section id="command-bitblock">
+    <title>BITBLOCK</title>
+<indexterm><primary>BITBLOCK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITBLOCK</command> <parameter>width</parameter> <parameter>height</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Draws an opaque block (rectangle) of the given dimensions such that the turtle's current position is at the lower-lefthand corner of the block.
+The color of the block is the value of <link linkend="command-floodcolor">FLOODCOLOR</link>.
+The rectangle is always draw with the <parameter>width</parameter> going horizontally and the <parameter>height</parameter> going vertically, regardless of the turtle's orientation.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETFLOODCOLOR 2
+BITBLOCK 200 100
+
+SETFLOODCOLOR 3
+BITBLOCK 100 50</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,49 @@
+<section id="command-setheading">
+<title>PONRUMBO</title>
+<indexterm><primary>PONRUMBO</primary></indexterm>
+<indexterm><primary>PONR</primary></indexterm>
+<indexterm><primary>SETHEADING</primary></indexterm>
+<indexterm><primary>SETH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONRUMBO</command> <parameter>ángulo</parameter>
+<command>PONR</command> <parameter>ángulo</parameter>
+<command>SETHEADING</command> <parameter>ángulo</parameter>
+<command>SETH</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cambia el rumbo de la tortuga por un nuevo rumbo absoluto.
+El argumento <parameter>ángulo</parameter> es el rumbo nuevo que se mide en grados en sentido horario desde el eje Y.
+En modo PERSPECTIVA, el argumento <parameter>ángulo</parameter> es el rumbo en grados desde el eje positivo X hacia el eje positivo Y rotando alrededor del eje Z.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONRUMBO 45
+MUESTRA RUMBO</userinput>
+45
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-heading">RUMBO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,37 @@
+<section id="command-screencolor">
+    <title>SCREENCOLOR</title>
+<indexterm><primary>SCREENCOLOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCREENCOLOR</command>
+<command>SCREENCOLOUR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs screen color information.
+This is either a color index (a number from 0 - 15), or a list containing [red green blue] intensities, depending on how the screen color was set.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETSCREENCOLOR [100 200 50]
+SHOW SCREENCOLOR</userinput>
+[100 200 50]
+</programlisting>
+
+<programlisting><userinput>SETSCREENCOLOR 2
+SHOW SCREENCOLOR</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

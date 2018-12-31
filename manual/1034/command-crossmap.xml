@@ -1,0 +1,46 @@
+<section id="command-crossmap">
+    <title>ENTRETEJE</title>
+<indexterm><primary>ENTRETEJE</primary></indexterm>
+<indexterm><primary>CROSSMAP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ENTRETEJE</command> <parameter>plantilla</parameter> <parameter>lista_de_datos</parameter>
+(<command>ENTRETEJE</command> <parameter>plantilla</parameter> <parameter>datos1</parameter> <parameter>datos2</parameter> <parameter>...</parameter>)
+<command>CROSSMAP</command> <parameter>plantilla</parameter> <parameter>lista_de_datos</parameter>
+(<command>CROSSMAP</command> <parameter>plantilla</parameter> <parameter>datos1</parameter> <parameter>datos2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista que contiene los resultados de evaluaciones de <parameter>plantilla</parameter> de todas las combinaciones de sus argumentos de datos.
+Cada lista de datos contribuye argumentos a una ranura distinta en la <parameter>plantilla</parameter>; el número de ranuras debe ser igual al número de listas de datos que te das como argumentos a ENTRETEJE.
+Como caso especial, si ENTRETEJE sólo tiene un argumento de datos, se toma éste como una lista de listas de datos, y cada sublista contribuye argumentos a la ranura correspondiente.
+</para>
+
+<para>
+ENTRETEJE se distinguía de <link linkend="command-map">TEJE</link> en que, en lugar de tomar elementos de los argumentos de datos en paralelo, ENTRETEJE evalúa todas las combinaciones posibles de sus argumentos de datos, que no necesitan ser del mismo tamaño.
+</para>
+
+<para>
+Para compatibilidad con los programas en los libros de texto «Computer Science Logo Style» de Brian Harvey, las plantillas de ENTRETEJE puede usar la notación <userinput>:1</userinput> como sinónimo de <userinput>?1</userinput> para indicar las ranuras.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA (ENTRETEJE [PALABRA ?1 ?2] [a b c] [1 2 3 4])</userinput>
+[a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

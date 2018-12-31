@@ -1,0 +1,47 @@
+<section id="command-edpl">
+    <title>EDPROP</title>
+<indexterm><primary>EDPROP</primary></indexterm>
+<indexterm><primary>EDPL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDPROP</command> <parameter>nombre</parameter>
+<command>EDPROP</command> <parameter>lista_de_nombres</parameter>
+<command>EDPL</command> <parameter>nombre</parameter>
+<command>EDPL</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de las listas de propiedades nombradas en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDPROP es la abreviatura de <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-pllist">LISTAPROPIEDADES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop 1 "uno
+PONPROP "lprop 2 "uno
+MUESTRA PROPIEDAD "lprop 2</userinput>
+uno
+<userinput>EDPROP [lprop]</userinput>
+<replaceable>Cambie «uno» por «dos» y sal del editor</replaceable>
+<userinput>MUESTRA PROPIEDAD "lprop 2</userinput>
+dos
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

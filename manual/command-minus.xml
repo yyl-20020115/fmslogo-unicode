@@ -1,0 +1,46 @@
+<section id="command-minus">
+    <title>MINUS</title>
+<indexterm><primary>MINUS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MINUS</command> <parameter>number</parameter>
+<command>-</command><parameter>number</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the negative of its input.
+</para>
+<para>
+The minus sign means unary minus if it is immediately preceded by something requiring an input, or preceded by a space and followed by a non-space.
+There is a difference in binding strength between the two forms:
+</para>
+
+<para>
+<userinput>MINUS 3 + 4</userinput> means <userinput>-(3+4)</userinput>
+</para>
+<para>
+<userinput>- 3 + 4</userinput> means <userinput>(-3)+4</userinput>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW 2 - -3</userinput>
+5
+</programlisting>
+<programlisting><userinput>SHOW 2 - MINUS 3</userinput>
+5
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

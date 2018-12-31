@@ -1,0 +1,91 @@
+<section id="command-bitmapturtle">
+<title>BITMAPTURTLE</title>
+<indexterm><primary>BITMAPTURTLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITMAPTURTLE</command>
+(<command>BITMAPTURTLE</command> <parameter>rotatebitmap</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Maps the current turtle (see <link linkend="command-setturtle">SETTURTLE</link>) to the corresponding bitmap buffer (see <link linkend="command-bitcut">BITCUT</link>).
+BITMAPTURTLE can map turtle 0 to bitmap 0, turtle 1 to bitmap 1, turtle 2 to bitmap 2, etc., on a per-turtle basis.
+Note that there is no way to map a turtle to any bitmap index other than the turtle's index.
+For example, turtle 2 can only be mapped to bitmap 2, not bitmap 1 or bitmap 3.
+</para>
+
+<para>
+Because bitmap 0 is always mapped to the clipboard, BITMAPTURTLE can only map turtle 0 to the clipboard.
+That is, if you select turtle 0 and run BITMAPTURTLE, then the turtle changes to whatever is in the clipboard and is updated whenever the clipboard subsequently changes.
+&PRODUCTNAME; complains if the clipboard is not holding an image while turtle 0 is bitmapped.
+</para>
+
+<para>
+Both <link linkend="command-nobitmapturtle">NOBITMAPTURTLE</link> and <link linkend="command-clearscreen">CLEARSCREEN</link> restores the turtle to its normal shape, but does not erase the corresponding bitmap.
+</para>
+
+<para>
+If the optional <parameter>rotatebitmap</parameter> input is TRUE, then the bitmap rotates with the turtle's heading.
+If the <parameter>rotatebitmap</parameter> input is not given, it defaults to FALSE.
+This must be either TRUE or FALSE.
+</para>
+
+<para>
+A turtle with a rotating bitmap treats all white pixels in the bitmap as transparent.
+There is no way to show white pixels in a rotating bitmap, but you can instead use nearly white pixels that look white, such as a very light grey.
+Neither turtle 0 (the clipboard bitmap), nor any of the special turtles, can be bitmapped using a rotating bitmap.
+</para>
+
+<para>
+A turtle with a rotating bitmap draws the center of the bitmap at the turtle's position.
+A turtle with a non-rotating bitmap keeps the lower-left corner of the bitmap at the turtle's position.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+The following example shows a regular bitmapped turtle that traces a circle.
+<programlisting><userinput>CLEARSCREEN
+LABEL "+
+SETBITINDEX 1
+BITCUT 20 20
+HIDETURTLE
+SETTURTLE 1
+BITMAPTURTLE
+REPEAT 360 [ FORWARD 1 RIGHT 1 WAIT 1 ]</userinput>
+</programlisting>
+</para>
+
+<para>
+The following example shows a turtle with a rotating bitmap that traces a circle on a blue background.
+<programlisting><userinput>SETSCREENCOLOR "WHITE
+CLEARSCREEN
+LABEL "+
+SETBITINDEX 1
+BITCUT 20 20
+HIDETURTLE
+SETTURTLE 1
+SETSCREENCOLOR "BLUE
+(BITMAPTURTLE "TRUE)
+REPEAT 360 [ FORWARD 1 RIGHT 1 WAIT 1 ]</userinput>
+</programlisting>
+</para>
+
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,51 @@
+<section id="command-minimize">
+<title>MINIMIZA</title>
+<indexterm><primary>MINIMIZA</primary></indexterm>
+<indexterm><primary>MINIMIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MINIMIZA</command> <parameter>título</parameter>
+<command>MINIMIZE</command> <parameter>título</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Minimiza la ventana cuyo título es <parameter>título</parameter>.
+</para>
+
+<para>
+El «título» de una ventana no es el mismo que el «nombre» que se usa los <link linkend="windows-commands">procedimienos de las ventanas</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA OCULTA_Y_MUESTRA
+  MINIMIZA "&PRODUCTNAME;
+  ESPERA 120
+  RESTORE "&PRODUCTNAME;
+FIN
+
+OCULTA_Y_MUESTRA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-maximize">MAXIMIZA</link></member>
+<member><link linkend="command-restore">RESTORE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,43 @@
+<section id="command-leftroll">
+<title>BALANCEAIZQUIERDA</title>
+<indexterm><primary>BALANCEAIZQUIERDA</primary></indexterm>
+<indexterm><primary>BI</primary></indexterm>
+<indexterm><primary>LEFTROLL</primary></indexterm>
+<indexterm><primary>LR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BALANCEAIZQUIERDA</command> <parameter>ángulo</parameter>
+<command>BI</command> <parameter>ángulo</parameter>
+<command>LEFTROLL</command> <parameter>ángulo</parameter>
+<command>LR</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Gira la tortuga hacia su lado izquierdo en el <parameter>ángulo</parameter> especificado, medido en grados (1/360 de la circunferencia).
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+BALANCEAIZQUIERDA 45
+REPITE 3 [AVANZA 100 GIRAIZQUIERDA 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

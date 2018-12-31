@@ -1,0 +1,47 @@
+<section id="command-circle2">
+<title>CIRCLE2</title>
+<indexterm><primary>CIRCLE2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CIRCLE2</command> <parameter>radius</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle clockwise along a circle of the given radius.
+The turtle ends in the same position in which it starts.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+A 2D example:
+<programlisting><userinput>CIRCLE2 100</userinput>
+</programlisting>
+</para>
+
+<para>
+A 3D example:
+<programlisting><userinput>PERSPECTIVE
+REPEAT 72 [CIRCLE2 100 RIGHTROLL 5]</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-circle">CIRCLE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

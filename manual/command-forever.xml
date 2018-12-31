@@ -1,0 +1,42 @@
+<section id="command-forever">
+<title>FOREVER</title>
+<indexterm><primary>FOREVER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FOREVER</command> <parameter>instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Runs <parameter>instructionlist</parameter> repeatedly, forever.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FOREVER [PRINT "|Wake me when you are done.|]</userinput>
+Wake me when you are done.
+Wake me when you are done.
+Wake me when you are done.
+Wake me when you are done.
+Wake me when you are done.
+Wake me when you are done.
+<replaceable>...</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-repeat">REPEAT</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

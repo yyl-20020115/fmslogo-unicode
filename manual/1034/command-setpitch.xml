@@ -1,0 +1,117 @@
+<section id="command-setpitch">
+<title>PONCABECEO</title>
+<indexterm><primary>PONCABECEO</primary></indexterm>
+<indexterm><primary>SETPITCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCABECEO</command> <parameter>ángulo</parameter>
+<command>SETPITCH</command> <parameter>ángulo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Inclina la tortuga a una nueva inclinación absoluta.
+El argumento <parameter>ángulo</parameter> se da en grados desde el eje negativo Z hacia el eje positivo Y, rotando alrededor del eje X.
+</para>
+<para>
+Este comando se diseñaba para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link>.
+</para>
+<para>
+PONCABECEO puede confundirte porque puede cambia cada componente de la orientación de la tortuga (balanceo, cabeceo y rumbo) a una equivalente en que el cabeceo no es lo que te pusiste.
+Es decir, CABECEO puede devolver un ángulo diferente de lo que te pusiste con PONCABECEO, aunque PONCABECEO ha puesto correctamente el cabeceo de la tortuga.
+Del mismo modo, ejecutando PONCABECEO sucesivamente con ángulos cada vez más mayor no es garantizado incrementar el cabeceo de la tortuga, particularmente si poniendo el cabeceo cambia el BALANCEO o RUMBO.
+Por lo tanto, es importante entender tu <link linkend="understand-your-orientation-in-3D">orientación en 3D</link>.
+</para>
+<para>
+  Para demostrar esto, supones que quieres dibujar una rueda de bicicleta con todos los radios uniéndose al buje en el centro.
+Tal vez pensaras que lo siguiente funciona:
+
+<programlisting><userinput>PARA RUEDA.INCORRECTA
+  PERSPECTIVA
+  REPITE 36 [
+     PONCABECEO CUENTAREPITE*10
+     AVANZA 100
+     RETROCEDE 100
+  ]
+  BALANCEADERECHA 90
+  CIRCULO 100
+FIN</userinput>
+</programlisting>
+Pero después de ejecutar RUEDA.INCORRECTA, parece que no dibujó algunos de los radios.
+</para>
+
+<para>
+La raíz de este comportamiento sorprendente se puede ver en su forma más sencilla con las instrucciones siguientes:
+
+<programlisting><userinput>PERSPECTIVA
+BORRAPANTALLA
+PONCABECEO 180
+MUESTRA ORIENTACION</userinput>
+[180 0 180]</programlisting>
+</para>
+
+<para>
+Así que, cuando pones el cabeceo a 180 grados de una orientación de <code>[0 0 0]</code> se puede pensarlo como «levantar la nariz hasta que la tortuga está al revés y mirando hacia atrás», pero ORIENTACION muestra que el cabeceo es 0, aunque la tortuga sí está al revés y mirando hacia atrás.
+En cambio, la orientación de la tortuga equivale a <code>[0 180 0]</code>, pero se lo describe como rodado sobre su espalda (balanceo = 180) y mirando hacia atrás (rumbo = 180), o <code>[180 0 180]</code>.
+Entonces, ¿que pasa si pones el balanceo a 180 grados de esta orientación?
+En este caso, pones la orientación a <code>[180 180 180]</code>, que quiere decir «rueda sobre su espalda; levantar la nariz hasta que la tortuga está al revés; y gira de vuelta», que te pone a una orientación de <code>[0 0 0]</code>.
+</para>
+
+<para>
+Hay dos maneras fáciles para solucionar este problema.
+Una es de usar <link linkend="command-setorientation">PONORIENTACION</link>, que actualiza ambos BALANCEO y RUMBO para compensar por el nuevo BALANCEO.
+La otra es de usar <link linkend="command-uppitch">CABECEA</link> en lugar de PONCABECEO cuando hagas cambios incrementales al cabeceo.
+Con estas dos maneras, podemos arreglar RUEDA.INCORRECTA tal que dibujara correctamente una rueda de bicicleta.
+</para>
+
+<programlisting><userinput>PARA RUEDA.BUENA1
+  PERSPECTIVA
+  REPITE 36 [
+     PONORIENTACION (LISTA 0 CUENTAREPITE*10 0) ; manera #1
+     AVANZA 100
+     RETROCEDE 100
+  ]
+  BALANCEADERECHA 90
+  CIRCULO 100
+FIN
+
+TO RUEDA.BUENA2
+  PERSPECTIVA
+  REPITE 36 [
+     CABECEA 10 ; manera #2
+     AVANZA 100
+     RETROCEDE 100
+  ]
+  BALANCEADERECHA 90
+  CIRCULO 100
+FIN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVA
+PONCABECEO 45
+MUESTRA CABECEO</userinput>
+45
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-pitch">CABECEO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

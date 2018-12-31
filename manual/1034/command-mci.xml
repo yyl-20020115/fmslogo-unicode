@@ -1,0 +1,71 @@
+<section id="command-mci">
+<title>MCI</title>
+<indexterm><primary>MCI</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MCI</command> <parameter>mci-command-list</parameter>
+(<command>MCI</command> <parameter>mci-command-list</parameter> <parameter>callback</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+MCI lets you write &GENERICNAME; procedures to manipulate multimedia devices.
+With it, you can link sounds to the steps of drawing a picture.
+You can narrate your own slide show.
+You can even ask your user questions in your own voice.
+The MCI interface is very powerful.
+It opens the door to letting &GENERICNAME; control any multimedia device, including sound cards, CD players, movies, and more.
+</para>
+
+<para>
+Depending on the command, MCI may (or may not) output a status that indicates if the command was successful.
+</para>
+
+<para>
+The <parameter>mci-command-list</parameter> input must be a list.
+The format of the list is described in the section entitled <link linkend="mci">The Media Control Interface</link>.
+</para>
+
+<para>
+The MCI allows you to start a device and optionally "wait" for it to finish or to have it "notify" you when it has finished by running the <parameter>callback</parameter> input.
+The <parameter>callback</parameter> input is an instruction list that is run when the MCI command completes if you use the "notify" option.
+The "notify" mechanism allows you, for example, to play a wave file and be notified when it has completed so that you can start another immediately without sitting and "waiting" for it.
+</para>
+
+<para>
+The Microsoft speaker sound card emulator does <emphasis>not</emphasis> work with MCI.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO SOUNDIT
+  PRINT MCI [open c:\\windows\\tada.wav type waveaudio alias wa1]
+  PRINT MCI [open c:\\windows\\ding.wav type waveaudio alias wa2]
+  MCI [seek wa1 to start]
+  MCI [play wa1 wait]
+
+  REPEAT 2 [
+    MCI [seek wa2 to start]
+    MCI [play wa2 wait]
+  ]
+
+  MCI [close wa1]
+  MCI [close wa2]
+END</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

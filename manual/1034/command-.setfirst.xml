@@ -1,0 +1,45 @@
+<section id="command-.setfirst">
+   <title>.PONPRIMERO</title>
+<indexterm><primary>.PONPRIMERO</primary></indexterm>
+<indexterm><primary>.SETFIRST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>.PONPRIMERO</command> <parameter>lista</parameter> <parameter>valor</parameter>
+<command>.SETFIRST</command> <parameter>lista</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Cambia el valor del primer elemento de <parameter>lista</parameter> por un nuevo <parameter>valor</parameter>.
+</para>
+
+<para>
+El argumento <parameter>lista</parameter> debe ser una lista y no puede ser la lista vaciá.
+</para>
+
+<para>
+PRECAUCIÓN: los procedimientos cuyos nombres empiezan con punto (.) son <emphasis>peligrosos</emphasis>.
+No se recomienda su uso a los no expertos.
+El uso de .PONPRIMERO puede llevar a listas con ciclos, bucles infinitos; cambios inesperados de los datos de otras estructuras que comparten los datos modificados; y pérdida permanente de la memoria si se libera una estructura con ciclos.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "mi_lista [1 2 3]
+.PONPRIMERO :mi_lista 0
+MUESTRA :mi_lista</userinput>
+[0 2 3]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

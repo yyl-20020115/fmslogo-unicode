@@ -1,0 +1,36 @@
+<section id="command-pots">
+<title>IMTS</title>
+<indexterm><primary>IMTS</primary></indexterm>
+<indexterm><primary>POTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMTS</command>
+<command>POTS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las líneas de título de todos los procedimientos no tapados del área de trabajo al flujo de escritura actual.
+IMTS es la abreviatura de <userinput><link linkend="command-pot">IMTITULOSTODO</link> <link linkend="command-procedures">LPROCS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+IMTS</userinput>
+para abc :a :b</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

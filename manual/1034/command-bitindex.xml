@@ -1,0 +1,37 @@
+<section id="command-bitindex">
+    <title>BITINDEX</title>
+<indexterm><primary>BITINDEX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITINDEX</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs current bitmap index, as set by <link linkend="command-setbitindex">SETBITINDEX</link>.
+The default index is 0.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETBITINDEX 99
+SHOW BITINDEX</userinput>
+99
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

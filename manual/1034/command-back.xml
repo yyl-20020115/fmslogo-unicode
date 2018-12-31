@@ -1,0 +1,39 @@
+<section id="command-back">
+<title>RETROCEDE</title>
+<indexterm><primary>RETROCEDE</primary></indexterm>
+<indexterm><primary>RE</primary></indexterm>
+<indexterm><primary>BACK</primary></indexterm>
+<indexterm><primary>BK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RETROCEDE</command> <parameter>distancia</parameter>
+<command>RE</command> <parameter>distancia</parameter>
+<command>BACK</command> <parameter>distancia</parameter>
+<command>BK</command> <parameter>distancia</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga hacia atrás, esto es, en la dirección opuesta a su rumbo, a la <parameter>distancia</parameter> especificada.
+El rumbo de la tortuga no cambia.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 4 [RETROCEDE 100 GIRADERECHA 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

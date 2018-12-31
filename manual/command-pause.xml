@@ -1,0 +1,56 @@
+<section id="command-pause">
+    <title>PAUSE</title>
+<indexterm><primary>PAUSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PAUSE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Command or operation that enters an interactive pause.
+The user is prompted for instructions with a dialog box that includes the name of the procedure in which PAUSE was invoked.
+Local variables of that procedure are available during the pause.
+If the pause is ended by a <link linkend="command-continue">CONTINUE</link> instruction, then PAUSE outputs whatever the input to CONTINUE was.
+</para>
+
+<para>
+If the variable <link linkend="command-erract">ERRACT</link> exists and an error condition occurs, then the contents of that variable are run as an instruction list.
+Typically ERRACT is given the value [PAUSE] so that an interactive pause mode is entered in the event of an error.
+This allows the user to check values of local variables at the time of the error.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+<programlisting><userinput>TO MYPROGRAM
+  REPEAT 180 [RIGHT 2 IF 90=REPCOUNT [PAUSE]]
+  PRINT "Done
+END
+
+MYPROGRAM</userinput>
+Pausing...MYPROGRAM
+</programlisting>
+
+Enter <userinput>SHOW HEADING</userinput> in Pause Mode dialog box and hit OK.
+
+<programlisting>180</programlisting>
+
+Enter <userinput>CONTINUE</userinput> in Pause Box and hit OK.
+
+<programlisting>Done</programlisting>
+
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-penmode">
+    <title>PENMODE</title>
+<indexterm><primary>PENMODE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENMODE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs one of the words "paint", "erase", or "reverse" according to the current pen mode.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>PENPAINT
+SHOW PENMODE</userinput>
+paint
+<userinput>PENERASE
+SHOW PENMODE</userinput>
+erase
+<userinput>PENREVERSE
+SHOW PENMODE</userinput>
+reverse</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

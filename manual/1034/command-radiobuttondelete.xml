@@ -1,0 +1,37 @@
+<section id="command-radiobuttondelete">
+<title>RADIOBUTTONDELETE</title>
+<indexterm><primary>RADIOBUTTONDELETE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RADIOBUTTONDELETE</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Deletes (closes) the radio button that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 60
+RADIOBUTTONCREATE "mywindow "mygroupbox "myradiobutton [Switch Me] 20 20 60 20
+RADIOBUTTONDELETE "myradiobutton
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

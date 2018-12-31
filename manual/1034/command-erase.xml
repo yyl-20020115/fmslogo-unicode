@@ -1,0 +1,56 @@
+<section id="command-erase">
+<title>BORRA</title>
+<indexterm><primary>BORRA</primary></indexterm>
+<indexterm><primary>BO</primary></indexterm>
+<indexterm><primary>ERASE</primary></indexterm>
+<indexterm><primary>ER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BORRA</command> <parameter>lista_de_contenidos</parameter>
+<command>BO</command> <parameter>lista_de_contenidos</parameter>
+<command>ERASE</command> <parameter>lista_de_contenidos</parameter>
+<command>ER</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra del área de trabajo los procedimientos, variables y listas de propiedades nombrados en el argumento <parameter>lista_de_contenidos</parameter>.
+Después de borrar las cosas nombradas, no se las puede ejecutar o usar.
+No se borran las primitivas a no ser que la variable <link linkend="command-redefp">REDEFP</link> tenga el valor CIERTO.
+</para>
+
+<para>
+BORRA no lanza un error si le pidas que borre un procedimiento, una variable o una lista de propiedades que no está en el área de trabajo.
+Sin embargo, BORRA sí lanza un error cuando le pides que borre una primitiva cuando la variable <link linkend="command-redefp">REDEFP</link> no está definida o cuando tenga el valor FALSO.
+</para>
+
+<para>
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de <parameter>lista_de_contenidos</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+  ESCRIBE "Hola
+FIN
+
+FOO</userinput>
+Hola
+<userinput>BORRA "FOO
+FOO</userinput>
+no sé cómo realizar FOO
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

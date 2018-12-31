@@ -1,0 +1,39 @@
+<section id="command-towardsxyz">
+<title>TOWARDSXYZ</title>
+<indexterm><primary>TOWARDSXYZ</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TOWARDSXYZ</command> <parameter>position</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list, containing [roll pitch heading] at which the turtle should be oriented so that it would point from its current position to the position given.
+The position must be given as a three item list containing the X, Y, and Z coordinates of the position to face.
+It is important to <link linkend="understand-your-orientation-in-3D">understand your orientation in 3D</link>.
+</para>
+<para>
+TOWARDSXYZ is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETPOS [0 0 0]
+SHOW TOWARDSXYZ [100 100 0]</userinput>
+[0 0 45]</programlisting>
+
+<programlisting><userinput>SETORIENTATION TOWARDSXYZ [100 100 100]
+FORWARD DISTANCEXYZ [100 100 100]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

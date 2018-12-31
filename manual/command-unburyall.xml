@@ -1,0 +1,43 @@
+<section id="command-unburyall">
+    <title>UNBURYALL</title>
+<indexterm><primary>UNBURYALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>UNBURYALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Unburies all procedures, variables, and property lists in the workspace.
+UNBURYALL abbreviates <userinput><link linkend="command-unbury">UNBURY</link> <link linkend="command-contents">CONTENTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo [I am Foo]
+MAKE "bar [I am Bar]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+<userinput>BURYNAME [foo]
+PONS</userinput>
+Make "bar [I am Bar]
+<userinput>UNBURYALL
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

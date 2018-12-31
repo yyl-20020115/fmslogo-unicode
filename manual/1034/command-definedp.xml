@@ -1,0 +1,45 @@
+<section id="command-definedp">
+    <title>DEFINIDO?</title>
+<indexterm><primary>DEFINIDO?</primary></indexterm>
+<indexterm><primary>DEFINEDP</primary></indexterm>
+<indexterm><primary>DEFINED?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DEFINIDO?</command> <parameter>nombre</parameter>
+<command>DEFINEDP</command> <parameter>nombre</parameter>
+<command>DEFINED?</command> <parameter>nombre</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento es el nombre de un procedimiento definido por el usuario o proviene de la biblioteca de &GENERICNAME;.
+</para>
+
+<para>
+<parameter>nombre</parameter> debe ser una palabra.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA DEFINIDO? "AVANZA</userinput>
+falso
+</programlisting>
+
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+MUESTRA DEFINIDO? "ABC</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

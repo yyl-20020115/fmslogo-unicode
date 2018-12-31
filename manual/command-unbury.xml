@@ -1,0 +1,51 @@
+<section id="command-unbury">
+    <title>UNBURY</title>
+<indexterm><primary>UNBURY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>UNBURY</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Unburies the procedures, variables, and property lists named in the input.
+That is, the named items are returned to view in <link linkend="command-contents">CONTENTS</link> and similar procedures.
+</para>
+
+<para>
+UNBURY does not throw an error if it is asked to bury a procedure, variable, or property list that is not buried, but doing so has no effect.
+</para>
+
+<para>
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explanation of the <parameter>contentslist</parameter> input.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo [I am Foo]
+MAKE "bar [I am Bar]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+<userinput>BURYNAME [foo]
+PONS</userinput>
+Make "bar [I am Bar]
+<userinput>UNBURY [ [] [foo] [] ]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

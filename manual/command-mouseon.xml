@@ -1,0 +1,49 @@
+<section id="command-mouseon">
+    <title>MOUSEON</title>
+<indexterm><primary>MOUSEON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MOUSEON</command> <parameter>leftbuttondown</parameter> <parameter>leftbuttonup</parameter> <parameter>rightbuttondown</parameter> <parameter>rightbuttonup</parameter> <parameter>move</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Starts trapping mouse events that are sent to the "&PRODUCTNAME;" window and passes them to <parameter>leftbuttondown</parameter>, <parameter>leftbuttonup</parameter>, <parameter>rightbuttondown</parameter>, <parameter>rightbuttonup</parameter>, or <parameter>move</parameter>, depending on the type of event.
+The callbacks may either be a word that is the name of a procedure to call, or a list of instructions to run.
+All "callbacks" for the mouse are automatically run in <link linkend="command-noyield">NOYIELD</link> mode.
+</para>
+
+<para>
+To obtain where the mouse was when a button was pushed or the mouse moved call <link linkend="command-mousepos">MOUSEPOS</link> in your button or move procedure.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PENUP
+MOUSEON [SETPOS MOUSEPOS PENDOWN] [PENUP] [] [] [SETPOS MOUSEPOS]</userinput>
+
+<replaceable>Move the mouse around.
+Hold down the left button to draw.</replaceable>
+
+<userinput>MOUSEOFF</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-mouseoff">MOUSEOFF</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

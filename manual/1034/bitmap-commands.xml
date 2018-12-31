@@ -1,0 +1,27 @@
+<chapter id="bitmap-commands">
+   <title>Bitmap Commands</title>
+
+<para>
+This chapter commands that allow you to manipulate sub-images within the primary image.
+</para>
+
+      &command-bitcut;
+      &command-bitcopy;
+      &command-bitpaste;
+      &command-bitpastetoindex;
+      &command-bitfit;
+      &command-setbitindex;
+      &command-bitindex;
+      &command-setbitmode;
+      &command-bitmode;
+      &command-bitblock;
+      &command-bitload;
+      &command-bitsave;
+      &command-bitsize;
+      &command-bitloadsize;
+      &command-gifload;
+      &command-gifsave;
+      &command-gifsize;
+      &command-setactivearea;
+      &command-activearea;
+</chapter>

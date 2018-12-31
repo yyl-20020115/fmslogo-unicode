@@ -1,0 +1,76 @@
+<section id="command-openupdate">
+<title>OPENUPDATE</title>
+<indexterm><primary>OPENUPDATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OPENUPDATE</command> <parameter>filename</parameter>
+(<command>OPENUPDATE</command> <parameter>filename</parameter> <parameter>binarymode</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens the file named <parameter>filename</parameter> named for reading and writing.
+The read and write position is initially set to the end of the old file, if any.
+Each open file has only one position, for both reading and writing.
+If a file opened for update is both <link linkend="command-reader">READER</link> and <link linkend="command-writer">WRITER</link> at the same time, then <link linkend="command-setreadpos">SETREADPOS</link> also affects <link linkend="command-writepos">WRITEPOS</link> and vice versa.
+Also, if you alternate reading and writing the same file, you must SETREADPOS between a write and a read, and SETWRITEPOS between a read and a write.
+</para>
+
+<para>
+<parameter>filename</parameter> can also be the reserved word <userinput>"clipboard</userinput> to read/write data to the clipboard just like a file.
+</para>
+
+<para>
+The <parameter>binarymode</parameter> is a boolean value (TRUE or FALSE).
+If <parameter>binarymode</parameter> is FALSE or not given, then the file is read/written as a text file.
+That is, the end-of-line sequence is converted from LF to CRLF when written and from CRLF to LF when read.
+If <parameter>binarymode</parameter> is TRUE, then the file is read and written as a binary file.
+That is, no end-of-line sequence conversion is performed.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENUPDATE "dummy.fil
+SETREAD "dummy.fil
+SETREADPOS 0
+SHOW READLIST</userinput>
+[Hello]
+<userinput>SETWRITE "dummy.fil
+SETWRITEPOS 7
+PRINT [And how are you today]
+SETWRITE []
+SETREAD "dummy.fil
+SETREADPOS 0
+REPEAT 3 [SHOW READLIST]</userinput>
+[Hello]
+[And how are you today]
+
+<userinput>CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-close">CLOSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

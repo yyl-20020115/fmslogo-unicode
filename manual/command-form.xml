@@ -1,0 +1,32 @@
+<section id="command-form">
+    <title>FORM</title>
+<indexterm><primary>FORM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FORM</command> <parameter>num</parameter> <parameter>width</parameter> <parameter>precision</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a word containing a printable representation of <parameter>num</parameter>, possibly preceded by spaces (and therefore not a number for purposes of performing arithmetic operations).
+The output has at least <parameter>width</parameter> characters, including exactly <parameter>precision</parameter> digits after the decimal point.
+If <parameter>precision</parameter> is 0 then there is no decimal point in the output.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW FORM 123.1 10 10</userinput>
+123.1000000000</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

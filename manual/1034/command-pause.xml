@@ -1,0 +1,61 @@
+<section id="command-pause">
+    <title>PAUSA</title>
+<indexterm><primary>PAUSA</primary></indexterm>
+<indexterm><primary>PAUSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PAUSA</command>
+<command>PAUSE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Entra en un modo de pausa interactiva.
+En este modo, &PRODUCTNAME; le pide instrucciones al usuario con un cuadro de diálogo.
+Escribe el nombre del procedimiento en que se ejecutó PAUSA en la caja de historia de instrucciones.
+Las variables locales de este procedimiento están disponibles durante la pausa.
+Si se termina la PAUSA con una instrucción de <link linkend="command-continue">SIGUE</link>, entonces PAUSA devuelve el argumento de SIGUE, si lo hay.
+</para>
+
+<para>
+Si la variable <link linkend="command-erract">ERRACT</link> existe cuando una condición de error ocurre, entonces se ejecuta el contenido de esa variable como una lista de instrucciones.
+Típicamente, ERRACT tiene [PAUSA] como su valor para que se entre en un modo de pausa interactiva en caso de error.
+Éste permite que el usuario lea los valores de las variables locales al tiempo del error.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>
+<programlisting><userinput>PARA MIPROGRAMA
+  REPITE 180 [GIRADERECHA 2 SI 90=CUENTAREPITE [PAUSA]]
+  ESCRIBE "Hecho
+FIN
+
+MIPROGRAMA</userinput>
+Pausando...MIPROGRAMA
+</programlisting>
+
+Entra <userinput>MUESTRA RUMBO</userinput> en el cuadro de diálogo titulado «Modo de Pausa» y presiona OK.
+
+<programlisting>180</programlisting>
+
+Entra <userinput>SIGUE</userinput> en el cuadro de diálogo titulado «Modo de Pausa» y presiona OK.
+
+<programlisting>Hecho</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

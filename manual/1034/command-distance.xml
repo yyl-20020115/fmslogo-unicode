@@ -1,0 +1,42 @@
+<section id="command-distance">
+    <title>DISTANCIA</title>
+<indexterm><primary>DISTANCIA</primary></indexterm>
+<indexterm><primary>DISTANCE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DISTANCIA</command> <parameter>posición</parameter>
+<command>DISTANCE</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un número que indica la distancia que la tortuga tiene que recorrer en línea recta hasta llegar a la posición que se indica en el argumento <parameter>posición</parameter>.
+El argumento <parameter>posición</parameter> debe ser una lista de dos números, las coordenadas X e Y.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONPOS [0 0]
+MUESTRA DISTANCIA [0 100]</userinput>
+100
+<userinput>MUESTRA DISTANCIA [300 400]</userinput>
+500</programlisting>
+
+<programlisting><userinput>PONRUMBO HACIA [300 400]
+AVANZA DISTANCIA [300 400]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-butfirsts">
+<title>BUTFIRSTS</title>
+<indexterm><primary>BUTFIRSTS</primary></indexterm>
+<indexterm><primary>BFS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTFIRSTS</command> <parameter>list</parameter>
+<command>BFS</command> <parameter>list</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list containing the <link linkend="command-butfirst">BUTFIRST</link> of each member of the input list.
+It is an error if any member of the input list is empty.
+The input itself may be empty, in which case the output is also empty.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW BUTFIRSTS [[1 2 3] [a b c]]</userinput>
+[[2 3] [c d]]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

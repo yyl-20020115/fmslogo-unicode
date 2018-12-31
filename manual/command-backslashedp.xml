@@ -1,0 +1,40 @@
+<section id="command-backslashedp">
+<title>BACKSLASHEDP</title>
+<indexterm><primary>BACKSLASHEDP</primary></indexterm>
+<indexterm><primary>BACKSLASHED?</primary></indexterm>
+
+<variablelist>
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BACKSLASHEDP</command> <parameter>character</parameter>
+<command>BACKSLASHED?</command> <parameter>character</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>character</parameter> was originally entered with a backslash (<userinput>\</userinput>) before it or between vertical bars (<userinput>|</userinput>) to prevent its usual semantic meaning.  Outputs FALSE, otherwise.
+</para>
+
+<para>
+That is, it outputs TRUE if only if <parameter>character</parameter> is a backslashed space, tab, newline, or one of <userinput>()[]+-*/=&lt;>":;\~?</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW BACKSLASHEDP "a</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW BACKSLASHEDP "|(|</userinput>
+true</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

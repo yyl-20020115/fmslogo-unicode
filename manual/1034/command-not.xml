@@ -1,0 +1,38 @@
+<section id="command-not">
+    <title>NO</title>
+<indexterm><primary>NO</primary></indexterm>
+<indexterm><primary>NOT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NO</command> <parameter>booleano</parameter>
+<command>NOT</command> <parameter>booleano</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento tiene el valor FALSO, y viceversa.
+El argumento debe tener un valor de CIERTO o FALSO.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA NO "cierto</userinput>
+falso
+<userinput>MUESTRA NO "falso</userinput>
+cierto
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

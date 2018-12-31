@@ -1,0 +1,49 @@
+<section id="command-.maybeoutput">
+    <title>.QUIZADEVUELVE</title>
+<indexterm><primary>.QUIZADEVUELVE</primary></indexterm>
+<indexterm><primary>.MAYBEOUTPUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem><para>(forma especial)</para>
+<synopsis><command>.QUIZADEVUELVE</command> <parameter>valor</parameter>
+<command>.MAYBEOUTPUT</command> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Funciona como <link linkend="command-output">DEVUELVE</link> excepto que si la expresión que proporciona el argumento <parameter>valor</parameter> no lo proporcionara, funciona como <link linkend="command-stop">ALTO</link>.
+Es para crear estructuras de control para manejar los casos en los que no sabes si alguna expresión producirá un valor o no.
+</para>
+
+<para>
+.QUIZADEVUELVE es una alternativa a <link linkend="command-runresult">RESULTADOEJECUTA</link>.
+Es rápido y fácil de usar, a costa de ser una excepción de las reglas de evaluación de &PRODUCTNAME;.
+(Normalmente, es un error cuando una expresión que debe proporcionar un argumento a algo no devuelve un valor.)
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA INVOCA :procedimiento [:argumentos] 2
+  .QUIZADEVUELVE APLICA :procedimiento :argumentos
+FIN
+
+(INVOCA "ESCRIBE "a "b "c)</userinput>
+a b c
+
+<userinput>ESCRIBE (INVOCA "PALABRA "a "b "c)</userinput>
+abc
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

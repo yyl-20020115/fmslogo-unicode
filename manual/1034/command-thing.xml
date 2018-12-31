@@ -1,0 +1,45 @@
+<section id="command-thing">
+    <title>VALOR</title>
+<indexterm><primary>VALOR</primary></indexterm>
+<indexterm><primary>THING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>VALOR</command> <parameter>nombre_de_variable</parameter>
+<command>THING</command> <parameter>nombre_de_variable</parameter>
+:<parameter>nombre_de_variable</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el valor de una variable cuyo nombre es el argumento.
+Si hay más que una variable con este nombre, devuelve el valor de la variable más al interior.
+</para>
+
+<para>
+La notación con dos puntos (:) es una abreviatura de
+<programlisting><userinput>VALOR "</userinput></programlisting>
+Así <userinput>:FOO</userinput> equivale a <userinput>(VALOR "FOO)</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "FOO [Hola, cómo estás]
+MUESTRA VALOR "FOO</userinput>
+[Hola, cómo estás]
+<userinput>MUESTRA :FOO</userinput>
+[Hola, cómo estás]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

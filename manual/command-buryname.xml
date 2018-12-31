@@ -1,0 +1,44 @@
+<section id="command-buryname">
+    <title>BURYNAME</title>
+<indexterm><primary>BURYNAME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BURYNAME</command> <parameter>varname</parameter>
+<command>BURYNAME</command> <parameter>varnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Buries the variable(s) named in the input.
+BURYNAME abbreviates <userinput><link linkend="command-bury">BURY</link> <link linkend="command-namelist">NAMELIST</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo [I am Foo]
+MAKE "bar [I am Bar]
+PONS</userinput>
+Make "bar [I am Bar]
+Make "foo [I am Foo]
+<userinput>BURYNAME [foo]
+PONS</userinput>
+Make "bar [I am Bar]
+<userinput>SHOW :foo</userinput>
+[I am Foo]
+<userinput>SHOW :bar</userinput>
+[I am Bar]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

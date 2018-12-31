@@ -1,0 +1,43 @@
+<section id="command-window">
+    <title>WINDOW</title>
+<indexterm><primary>WINDOW</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WINDOW</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Tells the turtle to enter "window" mode.
+From now on, when the turtle is asked to move past the boundary of the graphics window, it moves off screen.
+The visible graphics window is considered as just part of an infinite graphics plane; the turtle can be anywhere on the plane.
+If you lose the turtle, <link linkend="command-home">HOME</link> moves it back to the center of the window.
+</para>
+
+<para>
+Compare this command with <link linkend="command-wrap">WRAP</link>, <link linkend="command-fence">FENCE</link>, and <link linkend="command-perspective">PERSPECTIVE</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WRAP
+FORWARD 950
+RIGHT 90
+WINDOW
+FORWARD 950
+FORWARD 100</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

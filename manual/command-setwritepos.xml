@@ -1,0 +1,46 @@
+<section id="command-setwritepos">
+<title>SETWRITEPOS</title>
+<indexterm><primary>SETWRITEPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETWRITEPOS</command> <parameter>charpos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the file pointer of the write stream file so that the next <link linkend="command-print">PRINT</link>, etc., begins writing at the <parameter>charpos</parameter>-th character in the file, counting from 0.
+(That is, <userinput>SETWRITEPOS 0</userinput> starts writing from the beginning of the file.)
+This is meaningless if the write stream is [].
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+SETWRITEPOS 0
+TYPE "J
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+SHOW READLIST</userinput>
+[Jello]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

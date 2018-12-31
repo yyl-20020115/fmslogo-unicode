@@ -1,0 +1,44 @@
+<section id="command-sentence">
+<title>SENTENCE</title>
+<indexterm><primary>SENTENCE</primary></indexterm>
+<indexterm><primary>SE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SENTENCE</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+<command>SE</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+(<command>SENTENCE</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>thing3</parameter> <parameter>...</parameter>)
+(<command>SE</command> <parameter>thing1</parameter> <parameter>thing2</parameter> <parameter>thing3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Outputs a list whose members are its inputs, if those inputs are not lists.
+Outputs the members of its inputs, if those inputs are lists.
+</para>
+
+<para>
+SENTENCE throws an error if any of its inputs is an array.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW (SENTENCE "A "sentence "is "simply "a "list "of "words)</userinput>
+[A sentence is simply a list of words]</programlisting>
+
+<programlisting><userinput>SHOW (SENTENCE "A "sentence [is simply a] "list [of words])</userinput>
+[A sentence is simply a list of words]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

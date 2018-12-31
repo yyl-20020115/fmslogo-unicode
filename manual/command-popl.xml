@@ -1,0 +1,41 @@
+<section id="command-popl">
+    <title>POPL</title>
+<indexterm><primary>POPL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POPL</command> <parameter>plname</parameter>
+<command>POPL</command> <parameter>plnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the contents of the named property lists(s) to the current write stream.
+POPL abbreviates <userinput><link linkend="command-po">PO</link> <link linkend="command-pllist">PLLIST</link></userinput>.
+</para>
+
+<para>
+POPL treats all non-existent property lists as empty property lists.
+This is consistent with how <link linkend="command-gprop">GPROP</link> behaves when asked to get a non-existent property.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+POPL [plist1 plist2]</userinput>
+Pprop "plist1 "p1 1
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

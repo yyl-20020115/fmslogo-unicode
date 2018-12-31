@@ -1,0 +1,36 @@
+<section id="command-scrollx">
+    <title>SCROLLX</title>
+<indexterm><primary>SCROLLX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCROLLX</command> <parameter>deltax</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Scrolls the horizontal scrollbar of the "Screen" window.
+The <parameter>deltax</parameter> input is the amount to move the scroll position by.
+A positive number scrolls to the right and negative number scrolls to the left.
+If <parameter>deltax</parameter> is 0, then the scroller is reset to the center position.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>REPEAT 10 [SCROLLX 10]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,38 @@
+<section id="command-distance">
+    <title>DISTANCE</title>
+<indexterm><primary>DISTANCE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DISTANCE</command> <parameter>position</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the distance the turtle must travel along a straight line to reach the position given as the <parameter>position</parameter> input.
+The <parameter>position</parameter> input must be a list containing two items, the X and Y coordinates.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETPOS [0 0]
+SHOW DISTANCE [0 100]</userinput>
+100
+<userinput>SHOW DISTANCE [300 400]</userinput>
+500</programlisting>
+
+<programlisting><userinput>SETHEADING TOWARDS [300 400]
+FORWARD DISTANCE [300 400]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,53 @@
+<section id="command-edps">
+    <title>EDPROCS</title>
+<indexterm><primary>EDPROCS</primary></indexterm>
+<indexterm><primary>EDPS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDPROCS</command>
+<command>EDPS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de todos los procedimientos no tapados en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDPROCS es la abreviatura de <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-procedures">LPROCS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA1
+  ESCRIBE "Hrla
+FIN
+
+PARA MIPROGRAMA2
+  ESCRIBE "Abiós
+FIN
+
+MIPROGRAMA2</userinput>
+Hrla
+<userinput>MIPROGRAMA2</userinput>
+Abiós
+<userinput>EDPROCS</userinput>
+<replaceable>Cambia «Hrla» por «Hola», cambia «Abiós» por «Adiós» y sal del editor</replaceable>
+<userinput>MIPROGRAMA1</userinput>
+Hola
+<userinput>MIPROGRAMA2</userinput>
+Adiós
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,48 @@
+<section id="command-portopen">
+<title>ABREPUERTO</title>
+<indexterm><primary>ABREPUERTO</primary></indexterm>
+<indexterm><primary>PORTOPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ABREPUERTO</command> <parameter>puerto</parameter>
+<command>PORTOPEN</command> <parameter>puerto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Te da acceso a los puertos serie y paralelo.
+El <parameter>puerto</parameter> es una palabra que contiene el nombre del puerto a que quieres acceso (por ejemplo, COM1-COM4 o LPT1-LPT3).
+</para>
+
+<para>
+Una vez abierto, puedes leer del puerto con <link linkend="command-portreadchar">LEECARACTERPUERTO</link> o <link linkend="command-portreadarray">LEECADENAPUERTO</link> y escribir al puerto con <link linkend="command-portwritechar">ESCRIBECARACTERPUERTO</link> o <link linkend="command-portwritearray">ESCRIBECADENAPUERTO</link>.
+Las características del puerto se fijan con <link linkend="command-portmode">MODOPUERTO</link>.
+Sólo puedes tener un puerto abierto a la vez.
+Cuando has terminado con el puerto, debes cerrarlo con <link linkend="command-portclose">CIERRAPUERTO</link>.
+</para>
+
+<para>
+No debes confundir este comando con <link linkend="command-inport">LEEPUERTO2</link> y <link linkend="command-outport">ESCRIBEPUERTO2</link> que se refieren al puertos de «hardware».
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREPUERTO "com1
+CIERRAPUERTO</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

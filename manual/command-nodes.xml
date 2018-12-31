@@ -1,0 +1,56 @@
+<section id="command-nodes">
+    <title>NODES</title>
+<indexterm><primary>NODES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NODES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list of two numbers.
+The first is the number of nodes of memory currently in use.
+The second is the maximum number of nodes that have been in use at any time since the last invocation of NODES.
+</para>
+
+<para>
+A node is a small block of computer memory used by &GENERICNAME;.
+Each number uses one node.
+Each non-numeric word uses one node, plus some non-node memory for the characters in the word.
+Each array takes one node, plus some non-node memory, as well as the memory required by its members.
+Each list requires one node per member, as well as the memory within the members.
+</para>
+
+<para>
+NODES is useful it you want to ensure that your program isn't inadvertantly keeping references on a large number of NODEs that would cause &PRODUCTNAME;'s memory usage to grow and grow.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>; See what the current node usage is.
+SHOW NODES</userinput>
+[5559 5582]
+
+<userinput>; Make a variable that uses a lot of nodes.
+MAKE "biglist ISEQ 1 100000
+SHOW NODES</userinput>
+[206102 1506144]
+
+<userinput>; Erase the variable to free the nodes.
+ERN "biglist
+SHOW NODES</userinput>
+[6267 206283]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,54 @@
+<section id="command-polystart">
+    <title>EMPIEZAPOLIGONO</title>
+<indexterm><primary>EMPIEZAPOLIGONO</primary></indexterm>
+<indexterm><primary>POLYSTART</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EMPIEZAPOLIGONO</command>
+<command>POLYSTART</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Empieza la definición de un nuevo polígono.
+De ahora hasta que ejecutas <link linkend="command-polyend">TERMINAPOLIGONO</link>, cada vez que la tortuga se mueve mientras que el lápiz está abajo, se la agregará al polígono la coordenada de la destinación como vértice.
+La definición del polígono se completa por el comando <link linkend="command-polyend">TERMINAPOLIGONO</link>.
+</para>
+
+<para>
+Asegúrate de entender las <link linkend="polygon-restrictions">restricciones de los polígonos</link>.
+</para>
+
+<para>
+Después de que todos los polígonos están definidos, puedes verlos como polígonos sombreados ejecutando el comando <link linkend="command-polyview">MUESTRAPOLIGONO</link>.
+</para>
+
+<para>
+Se diseñaba EMPIEZAPOLIGONO para ejecutar en modo <link linkend="command-perspective">PERSPECTIVA</link> y no funciona en modos 2D.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PARA CUADRADO
+  EMPIEZAPOLIGONO
+  REPITE 4 [AVANZA 100 GIRADERECHA 90]
+  TERMINAPOLIGONO
+FIN
+
+PERSPECTIVA
+REPITE 72 [CUADRADO BALANCEADERECHA 5]
+MUESTRAPOLIGONO</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

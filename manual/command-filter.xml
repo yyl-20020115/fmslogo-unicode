@@ -1,0 +1,54 @@
+<section id="command-filter">
+    <title>FILTER</title>
+<indexterm><primary>FILTER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FILTER</command> <parameter>conditiontemplate</parameter> <parameter>data</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a word or list, depending on the type of the <parameter>data</parameter> input, containing a subset of the members (for a list) or characters (for a word) of the input.
+The <parameter>conditiontemplate</parameter> input is evaluated once for each member of the data, and it must produce a TRUE or FALSE value.
+If the value is TRUE, then the corresponding member is included in the output.
+Otherwise, it is omitted.
+</para>
+
+<para>
+In a template, the symbol <userinput>?REST</userinput> represents the portion of the data input to the right of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>?REST</userinput> would be replaced by <userinput>[C D E]</userinput>.
+If multiple parallel slots are used, then <userinput>(?REST 1)</userinput> goes with <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+In a template, the symbol <userinput>#</userinput> represents the position in the data input of the member currently being used as the <userinput>?</userinput> slot-filler.
+That is, if the data input is <userinput>[A B C D E]</userinput> and the template is being evaluated with <userinput>?</userinput> replaced by <userinput>B</userinput>, then <userinput>#</userinput> would be replaced by <userinput>2</userinput>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO VOWELP :arg
+  IF :arg="a [OUTPUT "true]
+  IF :arg="e [OUTPUT "true]
+  IF :arg="i [OUTPUT "true]
+  IF :arg="o [OUTPUT "true]
+  IF :arg="u [OUTPUT "true]
+  OUTPUT "false
+END
+
+PRINT FILTER "vowelp "elephant</userinput>
+eea
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

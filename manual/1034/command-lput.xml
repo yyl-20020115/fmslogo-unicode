@@ -1,0 +1,32 @@
+<section id="command-lput">
+<title>PONULTIMO</title>
+<indexterm><primary>PONULTIMO</primary></indexterm>
+<indexterm><primary>PUL</primary></indexterm>
+<indexterm><primary>LPUT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PONULTIMO</command> <parameter>cosa</parameter> <parameter>lista</parameter>
+<command>PUL</command> <parameter>cosa</parameter> <parameter>lista</parameter>
+<command>LPUT</command> <parameter>cosa</parameter> <parameter>lista</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Devuelve una lista igual a <parameter>lista</parameter> con <parameter>cosa</parameter> añadido como el último elemento.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA PONULTIMO 4 [1 2 3]</userinput>
+[1 2 3 4]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

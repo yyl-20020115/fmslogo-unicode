@@ -1,0 +1,56 @@
+<section id="command-filter">
+    <title>FILTRA</title>
+<indexterm><primary>FILTRA</primary></indexterm>
+<indexterm><primary>FILTER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>FILTRA</command> <parameter>plantilla_de_prueba</parameter> <parameter>datos</parameter>
+<command>FILTER</command> <parameter>plantilla_de_prueba</parameter> <parameter>datos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una palabra o lista, según el tipo del argumento <parameter>datos</parameter>, conteniendo un subconjunto de los elementos (por una lista) o las caracteres (por una palabra) de <parameter>datos</parameter>.
+Evalúa el argumento <parameter>plantilla_de_prueba</parameter> una vez por cada elemento de los datos y éste debe devolver CIERTO o FALSO.
+Si se evalúa a CIERTO, entonces se incluye el elemento correspondiente en la lista (o palabra) devuelta.
+Si no, se lo omite el elemento.
+</para>
+
+<para>
+En una plantilla, los símbolos <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> representan el porción de los datos a la derecha del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> por <userinput>[C D E]</userinput>.
+</para>
+
+<para>
+Se usa el símbolo <userinput>?RESTANTE</userinput> sólo en la versión de &PRODUCTNAME; española.
+Se usa <userinput>?REST</userinput> en todas las versiones de &PRODUCTNAME;.
+</para>
+
+<para>
+En una plantilla, el símbolo <userinput>#</userinput> representa la posición en <parameter>datos</parameter> del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>#</userinput> por <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA VOCAL? :arg
+  DEVUELVE MIEMBRO? :arg "aáeéiíoóuúü
+FIN
+
+ESCRIBE FILTRA "VOCAL? "elefante</userinput>
+eeae
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

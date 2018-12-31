@@ -1,0 +1,86 @@
+<section id="command-noyield">
+    <title>NOYIELD</title>
+<indexterm><primary>NOYIELD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NOYIELD</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+NOYIELD tells &PRODUCTNAME; not to interrupt running &GENERICNAME; instructions to process windows messages, such as keyboard input, mouse clicks, or notifications to repaint the screen.
+When &PRODUCTNAME; is in NOYIELD mode, it is unresponsive while running &GENERICNAME; instructions and ignores important user interactions such as pressing on the <link linkend="commander-halt">Halt Button</link>.
+&PRODUCTNAME; may appear to lock up until the &GENERICNAME; code finishes or it runs <link linkend="command-yield">YIELD</link>.
+</para>
+
+<para>
+The default mode is to yield, but <link linkend="command-keyboardon">KEYBOARDON</link>, <link linkend="command-mouseon">MOUSEON</link>, and some <link linkend="command-settimer">SETTIMER</link> event callbacks are run in NOYIELD mode.
+</para>
+
+<para>
+The notion of not yielding was historically more significant when Windows was a cooperative multi-tasking operating system and applications had complete control of the CPU until they opted to yield to other applications.
+Once an application had yielded, it would have to wait until all other applications had yielded before it could run again, and there was no way of knowing how long that would take.
+As such, to guarantee good performance, applications would not yield until they had run out of work to do.
+Nowadays, Windows gives all applications a fair amount of CPU time, so NOYIELD only prevents &PRODUCTNAME; from interrupting itself.
+These interruptions are generally desireable, which makes it difficult to use NOYIELD well.
+Nonetheless, NOYIELD is available because &PRODUCTNAME; runs faster in some cases if it cannot be interrupted.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+You can achieve the proper balance between performance and responsiveness for your programs by understanding the examples given below.
+Let's say that you have nested loops in your program and that most of the real work is done in the inner loop.
+</para>
+
+<para>
+Case 1: User in control for 10,000 operations, lower performance:
+<programlisting>YIELD
+REPEAT 100 [
+  REPEAT 100 [
+    <replaceable>; (work to be done)</replaceable>
+  ]
+]</programlisting>
+</para>
+
+
+<para>
+Case 2: User out of control for 10,000 operations, good performance:
+<programlisting>NOYIELD
+REPEAT 100 [
+  REPEAT 100 [
+    <replaceable>; (work to be done)</replaceable>
+  ]
+]</programlisting>
+</para>
+
+<para>
+Case 3: User out of control for 100 operations, still good performance:
+<programlisting>REPEAT 100 [
+  NOYIELD
+  REPEAT 100 [
+    <replaceable>; (work to be done)</replaceable>
+  ]
+  YIELD
+]</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-eventcheck">EVENTCHECK</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

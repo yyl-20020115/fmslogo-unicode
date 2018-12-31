@@ -1,0 +1,54 @@
+<section id="command-setreadpos">
+<title>PONPOSLECTURA</title>
+<indexterm><primary>PONPOSLECTURA</primary></indexterm>
+<indexterm><primary>SETREADPOS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONPOSLECTURA</command> <parameter>posición</parameter>
+<command>SETREADPOS</command> <parameter>posición</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición del archivo del flujo de lectura para que la próxima <link linkend="command-readlist">LEELISTA</link>, etc., empezaría leyendo del carácter numero <parameter>posición</parameter> en el archivo, contando desde 0.
+(Es decir, <userinput>PONPOSLECTURA 0</userinput> empieza leyendo del principio del archivo.)
+</para>
+
+<para>
+PONPOSLECTURA no tiene sentido cuando el flujo de lectura es [].
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+MUESTRA LEELISTA</userinput>
+[Hola]
+<userinput>PONPOSLECTURA 0
+MUESTRA LEELISTA</userinput>
+[Hola]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

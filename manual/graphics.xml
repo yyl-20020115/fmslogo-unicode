@@ -1,0 +1,1595 @@
+<chapter id="graphics">
+   <title>Graphics</title>
+
+<para>
+&PRODUCTNAME; provides both traditional and extended &GENERICNAME; turtle graphics.
+Multiple turtles are supported but dynamic turtles and collision detection are not supported.
+</para>
+
+<para>
+The center of the graphics surface (which may not be the center of the screen window, depending on how it is scrolled) is turtle location [0 0].
+Positive X is to the right; positive Y is up.
+Headings (angles) are measured in degrees clockwise from the positive Y axis.
+(This differs from the common mathematical convention of measuring angles counterclockwise from the positive X axis.)
+The turtle is represented as an isosceles triangle; the actual turtle position is at the midpoint of the base (the long side).
+
+<!-- not implemented
+However, the turtle is drawn one step behind its actual position, so that the display of the base of the turtle's triangle does not obscure a line drawn perpendicular to it (as would happen after drawing a square).
+-->
+</para>
+
+<para>
+&PRODUCTNAME; begins with a white background and black pen.
+</para>
+
+<para>
+&PRODUCTNAME; supports color-by-index, color-by-name, and true color.
+See <link linkend="using-color">Using Color</link> for details.
+</para>
+
+
+   <section id="multiple-turtles">
+       <title>Multiple Turtles</title>
+
+<para>
+&PRODUCTNAME; supports multiple turtles.
+Each turtle maintains its own heading (orientation in 3D), position, and pen control.
+Turtles can be individually represented as a picture using <link linkend="command-bitmapturtle">BITMAPTURTLE</link>.
+By default, all turtles share the same pen mode, pen color, and pen size, but you can make individual turtles have their own pen by supplying an optional input to <link linkend="command-setturtle">SETTURTLE</link>.
+</para>
+
+<para>
+Turtles start at index 0, which is the default turtle.
+All turtles between 0 and the highest turtle ever selected are "activated", so don't choose turtle 100 and 200 if you only need 2 turtles.
+Having thousands of active turtles may slow &PRODUCTNAME; down considerably as it pauses to redraw every turtle after every instruction.
+Pressing the "Reset" button or running <link linkend="command-clearscreen">CLEARSCREEN</link> selects turtle 0 and deactivates all other turtles.
+</para>
+
+<para>
+In addition to the turtles which you can create, there are also three special turtles which are used in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Index</entry> <entry>Turtle</entry></row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>-1</entry>
+        <entry>His position represents where your eye is when viewing a 3D scene (defaults to [400 400 600]).
+               His orientation does not matter.
+               Changing this turtle's position does not have any effect on the screen until something new is drawn.
+        </entry>
+      </row>
+      <row>
+        <entry>-2</entry>
+        <entry>Her position represents where your eye is looking when viewing a 3D scene (defaults to [0 0 0]).
+               Her orientation represents which direction is "up" on the screen (defaults to [0 0 0], the positive Y axis is up).
+               Changing this turtle's position does not have any effect on the screen until something new is drawn.
+        </entry>
+      </row>
+      <row>
+        <entry>-3</entry>
+        <entry>Its position represents where the light source is positioned (defaults to [0 0 1000]).
+               Its orientation does not matter.
+               This turtle only matters when you're using <link linkend="command-polystart">POLYSTART</link> and <link linkend="command-polyend">POLYEND</link>.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+Note that you cannot look in the same direction as "up".
+For example, if turtle -2 is in her default position and orientation and you set turtle -1 to somewhere along the position Y axis, say [0 1000 0], you won't be able to see anything.
+</para>
+
+<para>
+These special turtles are never shown or bitmapped.
+Each time you enter <link linkend="command-perspective">PERSPECTIVE</link> mode all special turtles are reset to their default position and orientation.
+</para>
+
+        &command-setturtle;
+        &command-turtle;
+        &command-hasownpenp;
+        &command-turtles;
+        &command-bitmapturtle;
+        &command-nobitmapturtle;
+        &command-setturtlemode;
+        &command-turtlemode;
+        &command-ask;
+
+   </section>
+
+   <section id="turtle-motion">
+       <title>Turtle Motion</title>
+
+        &command-forward;
+        &command-back;
+        &command-left;
+        &command-right;
+        &command-leftroll;
+        &command-rightroll;
+        &command-downpitch;
+        &command-uppitch;
+        &command-setpos;
+        &command-setposxyz;
+        &command-setxy;
+        &command-setxyz;
+        &command-setx;
+        &command-sety;
+        &command-setz;
+        &command-home;
+        &command-setheading;
+        &command-setroll;
+        &command-setpitch;
+        &command-setorientation;
+        &command-ellipsearc;
+        &command-ellipsearc2;
+        &command-ellipse;
+        &command-ellipse2;
+        &command-arc;
+        &command-arc2;
+        &command-circle;
+        &command-circle2;
+
+   </section>
+
+   <section id="turtle-motion-queries">
+       <title>Turtle Motion Queries</title>
+
+        &command-pos;
+        &command-posxyz;
+        &command-xcor;
+        &command-ycor;
+        &command-zcor;
+        &command-heading;
+        &command-roll;
+        &command-pitch;
+        &command-orientation;
+        &command-towards;
+        &command-towardsxyz;
+        &command-distance;
+        &command-distancexyz;
+        &command-pixel;
+        &command-scrunch;
+
+   </section>
+
+   <section id="turtle-control">
+       <title>Turtle Control</title>
+        &command-showturtle;
+        &command-hideturtle;
+        &command-clean;
+        &command-clearscreen;
+        &command-wrap;
+        &command-window;
+        &command-fence;
+        &command-perspective;
+        &command-fill;
+        &command-slowdraw;
+        &command-label;
+        &command-setpixel;
+        &command-fontfacenames;
+        &command-setlabelfont;
+        &command-labelfont;
+        &command-labelsize;
+   </section>
+
+   <section id="window-control">
+       <title>Window Control</title>
+        &command-textscreen;
+        &command-fullscreen;
+        &command-splitscreen;
+        &command-setscrunch;
+        &command-refresh;
+        &command-norefresh;
+        &command-zoom;
+        &command-scrollx;
+        &command-scrolly;
+        &command-setfocus;
+        &command-getfocus;
+        &command-icon;
+        &command-unicon;
+        &command-minimize;
+        &command-restore;
+        &command-maximize;
+        &command-windowset;
+   </section>
+
+   <section id="using-color">
+       <title>Using Color</title>
+       <indexterm><primary>Using Color</primary></indexterm>
+
+<para>
+Several commands (<link linkend="command-setpencolor">SETPENCOLOR</link>, <link linkend="command-setfloodcolor">SETFLOODCOLOR</link>, <link linkend="command-setscreencolor">SETSCREENCOLOR</link>) exist in &GENERICNAME; to specify red, green, and blue intensities of color.
+Each input represents how much red, green, and blue you want in the color.
+Each input has a range of 0-255.
+You can create 16.7 million different colors by mixing different amounts of red, green, and blue.
+</para>
+
+<para>
+Example of instructions that set some common pen colors:
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>Instruction</entry>
+        <entry>Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>SETPENCOLOR [000 000 000]</entry>
+        <entry>black</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb000000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SETPENCOLOR [255 255 255]</entry>
+        <entry>white</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SETPENCOLOR [128 128 128]</entry>
+        <entry>gray</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb808080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SETPENCOLOR [255 000 000]</entry>
+        <entry>red</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF0000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SETPENCOLOR [000 255 000]</entry>
+        <entry>green</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SETPENCOLOR [000 000 255]</entry>
+        <entry>blue</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb0000FF.png"/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+For compatibility with other &GENERICNAME; implementations and simplicity for young programmers, &PRODUCTNAME; also supports single index colors.
+If you set any color with an 16 color index, then &PRODUCTNAME; outputs all colors as a 16 color index.
+If you set any color with an [red green blue] color vector or with a word such as <userinput>"red</userinput>, then &PRODUCTNAME; outputs all colors as [red green blue] color vectors.
+</para>
+
+
+<variablelist>
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETPENCOLOR 5
+SHOW PENCOLOR</userinput>
+5
+
+<userinput>SETPENCOLOR [255 0 0]
+SHOW PENCOLOR</userinput>
+[255 0 0]
+
+<userinput>SETPENCOLOR "Red
+SHOW PENCOLOR</userinput>
+[255 0 0]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>
+Any &PRODUCTNAME; primitive that inputs a color can input it as a color index, color name, or a color vector.
+When using a color index, the index-to-color mapping is given in the following table.
+
+<informaltable frame='all'>
+  <tgroup cols='4'>
+    <thead>
+      <row>
+        <entry>Index</entry>
+        <entry>Color Vector</entry>
+        <entry>Color</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>0</entry>
+        <entry>[0 0 0]</entry>
+        <entry>Black</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb000000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>1</entry>
+        <entry>[0 0 255]</entry>
+        <entry>Blue</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb0000FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>2</entry>
+        <entry>[0 255 0]</entry>
+        <entry>Lime</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>3</entry>
+        <entry>[0 255 255]</entry>
+        <entry>Cyan (Aqua)</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>4</entry>
+        <entry>[255 0 0]</entry>
+        <entry>Red</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF0000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>5</entry>
+        <entry>[255 0 255]</entry>
+        <entry>Magenta (Fuchsia)</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF00FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>6</entry>
+        <entry>[255 255 0]</entry>
+        <entry>Yellow</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>7</entry>
+        <entry>[255 255 255]</entry>
+        <entry>White</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>8</entry>
+        <entry>[155 96 59]</entry>
+        <entry>Brown</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9B603B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>9</entry>
+        <entry>[197 136 18]</entry>
+        <entry>Tan</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbC58812.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>10</entry>
+        <entry>[100 162 64]</entry>
+        <entry>Olive</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb64A240.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>11</entry>
+        <entry>[120 187 187]</entry>
+        <entry>Sky Blue</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb78BBBB.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>12</entry>
+        <entry>[255 149 119]</entry>
+        <entry>Salmon</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF9577.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>13</entry>
+        <entry>[144 113 208]</entry>
+        <entry>Medium Purple</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9071D0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>14</entry>
+        <entry>[255 163 0]</entry>
+        <entry>Orange</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFA300.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>15</entry>
+        <entry>[183 183 183]</entry>
+        <entry>Dark Gray</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbB7B7B7.png"/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+When using a color name, the name-to-color mapping is given in the following table.
+
+<informaltable frame='all'>
+  <tgroup cols='3'>
+    <thead>
+      <row>
+        <entry>Color Name</entry>
+        <entry>Color Vector</entry>
+        <entry>Sample</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>AliceBlue</entry>
+        <entry>[240 248 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF0F8FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>AntiqueWhite</entry>
+        <entry>[250 235 215]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFAEBD7.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Aqua</entry>
+        <entry>[0 255 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Aquamarine</entry>
+        <entry>[127 255 212]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb7FFFD4.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Azure</entry>
+        <entry>[240 255 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF0FFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Beige</entry>
+        <entry>[245 245 220]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF5F5DC.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Bisque</entry>
+        <entry>[255 228 196]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFE4C4.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Black</entry>
+        <entry>[0 0 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb000000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlanchedAlmond</entry>
+        <entry>[255 235 205]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFEBCD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Blue</entry>
+        <entry>[0 0 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb0000FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BlueViolet</entry>
+        <entry>[138 43 226]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb8A2BE2.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Brown</entry>
+        <entry>[165 42 42]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbA52A2A.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>BurlyWood</entry>
+        <entry>[222 184 135]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDEB887.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>CadetBlue</entry>
+        <entry>[95 158 160]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb5F9EA0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Chartreuse</entry>
+        <entry>[127 255 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb7FFF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Chocolate</entry>
+        <entry>[210 105 30]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD2691E.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Coral</entry>
+        <entry>[255 127 80]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF7F50.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>CornflowerBlue</entry>
+        <entry>[100 149 237]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb6495ED.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Cornsilk</entry>
+        <entry>[255 248 220]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb6495ED.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Crimson</entry>
+        <entry>[220 20 60]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDC143C.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Cyan</entry>
+        <entry>[0 255 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkBlue</entry>
+        <entry>[0 0 139]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00008B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkCyan</entry>
+        <entry>[0 139 139]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb008B8B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGoldenRod</entry>
+        <entry>[184 134 11]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbB8860B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGray</entry>
+        <entry>[169 169 169]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbA9A9A9.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGreen</entry>
+        <entry>[0 100 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb006400.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkGrey</entry>
+        <entry>[169 169 169]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbA9A9A9.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkKhaki</entry>
+        <entry>[189 183 107]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbBDB76B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkMagenta</entry>
+        <entry>[139 0 139]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb8B008B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOliveGreen</entry>
+        <entry>[85 107 47]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb556B2F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOrange</entry>
+        <entry>[255 140 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF8C00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkOrchid</entry>
+        <entry>[153 50 204]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9932CC.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkRed</entry>
+        <entry>[139 0 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb8B0000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSalmon</entry>
+        <entry>[233 150 122]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbE9967A.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSeaGreen</entry>
+        <entry>[143 188 143]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb8FBC8F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateBlue</entry>
+        <entry>[72 61 139]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb483D8B.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateGray</entry>
+        <entry>[47 79 79]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb2F4F4F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkSlateGrey</entry>
+        <entry>[47 79 79]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb2F4F4F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkTurquoise</entry>
+        <entry>[0 206 209]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00CED1.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DarkViolet</entry>
+        <entry>[148 0 211]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9400D3.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DeepPink</entry>
+        <entry>[255 20 147]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF1493.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DeepSkyBlue</entry>
+        <entry>[0 191 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00BFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DimGray</entry>
+        <entry>[105 105 105]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb696969.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DimGrey</entry>
+        <entry>[105 105 105]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb696969.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>DodgerBlue</entry>
+        <entry>[30 144 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb1E90FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FireBrick</entry>
+        <entry>[178 34 34]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbB22222.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>FloralWhite</entry>
+        <entry>[255 250 240]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFAF0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>ForestGreen</entry>
+        <entry>[34 139 34]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb228B22.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Fuchsia</entry>
+        <entry>[255 0 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF00FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Gainsboro</entry>
+        <entry>[220 220 220]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDCDCDC.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GhostWhite</entry>
+        <entry>[248 248 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF8F8FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Gold</entry>
+        <entry>[255 215 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFD700.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GoldenRod</entry>
+        <entry>[218 165 32]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDAA520.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Gray</entry>
+        <entry>[128 128 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb808080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Green</entry>
+        <entry>[0 128 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb008000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>GreenYellow</entry>
+        <entry>[173 255 47]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbADFF2F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Grey</entry>
+        <entry>[128 128 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb808080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HoneyDew</entry>
+        <entry>[240 255 240]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF0FFF0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>HotPink</entry>
+        <entry>[255 105 180]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF69B4.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>IndianRed</entry>
+        <entry>[205 92 92]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbCD5C5C.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Indigo</entry>
+        <entry>[75 0 130]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb4B0082.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Ivory</entry>
+        <entry>[255 255 240]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFFF0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Khaki</entry>
+        <entry>[240 230 140]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF0E68C.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lavender</entry>
+        <entry>[230 230 250]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbE6E6FA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LavenderBlush</entry>
+        <entry>[255 240 245]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFF0F5.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LawnGreen</entry>
+        <entry>[124 252 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb7CFC00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LemonChiffon</entry>
+        <entry>[255 250 205]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFACD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightBlue</entry>
+        <entry>[173 216 230]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbADD8E6.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightCoral</entry>
+        <entry>[240 128 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF08080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightCyan</entry>
+        <entry>[224 255 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbE0FFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGoldenRodYellow</entry>
+        <entry>[250 250 210]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFAFAD2.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGray</entry>
+        <entry>[211 211 211]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD3D3D3.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGreen</entry>
+        <entry>[144 238 144]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb90EE90.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightGrey</entry>
+        <entry>[211 211 211]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD3D3D3.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightPink</entry>
+        <entry>[255 182 193]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFB6C1.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSalmon</entry>
+        <entry>[255 160 122]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFA07A.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSeaGreen</entry>
+        <entry>[32 178 170]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb20B2AA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSkyBlue</entry>
+        <entry>[135 206 250]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb87CEFA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSlateGray</entry>
+        <entry>[119 136 153]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb778899.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSlateGrey</entry>
+        <entry>[119 136 153]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb778899.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightSteelBlue</entry>
+        <entry>[176 196 222]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbB0C4DE.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LightYellow</entry>
+        <entry>[255 255 224]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFFE0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Lime</entry>
+        <entry>[0 255 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>LimeGreen</entry>
+        <entry>[50 205 50]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb32CD32.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Linen</entry>
+        <entry>[250 240 230]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFAF0E6.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Magenta</entry>
+        <entry>[255 0 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF00FF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Maroon</entry>
+        <entry>[128 0 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb800000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumAquaMarine</entry>
+        <entry>[102 205 170]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb66CDAA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumBlue</entry>
+        <entry>[0 0 205]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb0000CD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumOrchid</entry>
+        <entry>[186 85 211]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbBA55D3.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumPurple</entry>
+        <entry>[147 112 216]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9370D8.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSeaGreen</entry>
+        <entry>[60 179 113]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb3CB371.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSlateBlue</entry>
+        <entry>[123 104 238]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb7B68EE.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumSpringGreen</entry>
+        <entry>[0 250 154]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FA9A.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumTurquoise</entry>
+        <entry>[72 209 204]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb48D1CC.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MediumVioletRed</entry>
+        <entry>[199 21 133]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbC71585.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MidnightBlue</entry>
+        <entry>[25 25 112]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb191970.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MintCream</entry>
+        <entry>[245 255 250]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF5FFFA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>MistyRose</entry>
+        <entry>[255 228 225]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFE4E1.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Moccasin</entry>
+        <entry>[255 228 181]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFE4B5.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>NavajoWhite</entry>
+        <entry>[255 222 173]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFDEAD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Navy</entry>
+        <entry>[0 0 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb000080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OldLace</entry>
+        <entry>[253 245 230]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFDF5E6.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Olive</entry>
+        <entry>[128 128 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb808000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OliveDrab</entry>
+        <entry>[107 142 35]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb6B8E23.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Orange</entry>
+        <entry>[255 165 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFA500.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>OrangeRed</entry>
+        <entry>[255 69 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF4500.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Orchid</entry>
+        <entry>[218 112 214]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDA70D6.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleGoldenRod</entry>
+        <entry>[238 232 170]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbEEE8AA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleGreen</entry>
+        <entry>[152 251 152]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb98FB98.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleTurquoise</entry>
+        <entry>[175 238 238]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbAFEEEE.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PaleVioletRed</entry>
+        <entry>[216 112 147]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD87093.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PapayaWhip</entry>
+        <entry>[255 239 213]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFEFD5.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PeachPuff</entry>
+        <entry>[255 218 185]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFDAB9.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Peru</entry>
+        <entry>[205 133 63]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbCD853F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Pink</entry>
+        <entry>[255 192 203]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFC0CB.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Plum</entry>
+        <entry>[221 160 221]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbDDA0DD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>PowderBlue</entry>
+        <entry>[176 224 230]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbB0E0E6.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Purple</entry>
+        <entry>[128 0 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb800080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Red</entry>
+        <entry>[255 0 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF0000.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RosyBrown</entry>
+        <entry>[188 143 143]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbBC8F8F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>RoyalBlue</entry>
+        <entry>[65 105 225]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb4169E1.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SaddleBrown</entry>
+        <entry>[139 69 19]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb8B4513.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Salmon</entry>
+        <entry>[250 128 114]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFA8072.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SandyBrown</entry>
+        <entry>[244 164 96]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF4A460.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SeaGreen</entry>
+        <entry>[46 139 87]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb2E8B57.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SeaShell</entry>
+        <entry>[255 245 238]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFF5EE.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Sienna</entry>
+        <entry>[160 82 45]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbA0522D.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Silver</entry>
+        <entry>[192 192 192]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbC0C0C0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SkyBlue</entry>
+        <entry>[135 206 235]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb87CEEB.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateBlue</entry>
+        <entry>[106 90 205]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb6A5ACD.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateGray</entry>
+        <entry>[112 128 144]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb708090.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SlateGrey</entry>
+        <entry>[112 128 144]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb708090.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Snow</entry>
+        <entry>[255 250 250]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFAFA.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SpringGreen</entry>
+        <entry>[0 255 127]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb00FF7F.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>SteelBlue</entry>
+        <entry>[70 130 180]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb4682B4.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Tan</entry>
+        <entry>[210 180 140]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD2B48C.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Teal</entry>
+        <entry>[0 128 128]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb008080.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Thistle</entry>
+        <entry>[216 191 216]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbD8BFD8.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Tomato</entry>
+        <entry>[255 99 71]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFF6347.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Turquoise</entry>
+        <entry>[64 224 208]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb40E0D0.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Violet</entry>
+        <entry>[238 130 238]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbEE82EE.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Wheat</entry>
+        <entry>[245 222 179]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF5DEB3.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>White</entry>
+        <entry>[255 255 255]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFFFF.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>WhiteSmoke</entry>
+        <entry>[245 245 245]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbF5F5F5.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>Yellow</entry>
+        <entry>[255 255 0]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgbFFFF00.png"/></imageobject></mediaobject></entry>
+      </row>
+      <row>
+        <entry>YellowGreen</entry>
+        <entry>[154 205 50]</entry>
+        <entry><mediaobject><imageobject><imagedata align="center" fileref="media/rgb9ACD32.png"/></imageobject></mediaobject></entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+   </section>
+
+   <section id="understand-your-orientation-in-3D">
+       <title>Understand Your Orientation in 3D</title>
+
+<para>
+In 2D life is simple:
+<itemizedlist>
+  <listitem>
+    <para>
+      <link linkend="command-heading">HEADING</link> is affected by <link linkend="command-left">LEFT</link>, <link linkend="command-right">RIGHT</link>, and <link linkend="command-setheading">SETHEADING</link>.
+    </para>
+  </listitem>
+</itemizedlist>
+</para>
+
+<para>
+In 3D, (<link linkend="command-perspective">PERSPECTIVE</link>) mode things are bit more complicated:
+
+<itemizedlist>
+  <listitem>
+    <para>
+      <link linkend="command-heading">HEADING</link> is affected by <link linkend="command-left">LEFT</link>, <link linkend="command-right">RIGHT</link>, and <link linkend="command-setheading">SETHEADING</link>.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      <link linkend="command-roll">ROLL</link> is affected by <link linkend="command-leftroll">LEFTROLL</link>, <link linkend="command-rightroll">RIGHTROLL</link>, and <link linkend="command-setroll">SETROLL</link>.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      <link linkend="command-pitch">PITCH</link> is affected by <link linkend="command-uppitch">UPPITCH</link>, <link linkend="command-downpitch">DOWNPITCH</link>, and <link linkend="command-setpitch">SETPITCH</link>.
+    </para>
+  </listitem>
+</itemizedlist>
+</para>
+
+<para>
+However, there is more to it than that.
+ROLL can also affect your HEADING.
+PITCH can also affect your ROLL, and so on.
+They all interact with one another.
+The easiest way to understand this is with an example:
+
+<programlisting><userinput>PERSPECTIVE
+RIGHT 90
+(SHOW ROUND ROLL ROUND PITCH ROUND HEADING)</userinput>
+0 0 90
+<userinput>CLEARSCREEN
+DOWNPITCH 90
+RIGHTROLL 90
+UPPITCH 90
+(SHOW ROUND ROLL ROUND PITCH ROUND HEADING)</userinput>
+0 0 90
+</programlisting>
+
+</para>
+
+<para>
+The example above only uses rolls and pitches but the heading changed.
+But it is correct, think about the maneuvers I made and where the turtle should be pointing.
+</para>
+
+<para>
+But don't worry, &PRODUCTNAME; makes it easy, you just need to understand some basic rules so that you don't get lost in 3D space.
+The turtle controls ROLL, PITCH, and HEADING do affect one another but in a certain way which is important.
+The most important is that a change in HEADING (with RIGHT, LEFT or SETHEADING) does not effect your ROLL or PITCH.
+This is what allows you to use a lot of your existing 2D code in 3D.
+</para>
+
+<para>
+There is also another rule to understand, you cannot simply say:
+
+<programlisting><userinput>PERSPECTIVE
+SETROLL 45
+SETPITCH 45
+SETHEADING 45
+(SHOW ROUND ROLL ROUND PITCH ROUND HEADING)</userinput>
+45 45 45
+</programlisting>
+
+And expect to be at an absolute orientation of 45, 45, 45.
+</para>
+
+<para>
+<programlisting><userinput>CLEARSCREEN
+RIGHT 45
+RIGHTROLL 30
+UPPITCH 30
+; Now try to set your self up to 45,45,45 again
+SETROLL 45
+SETPITCH 45
+SETHEADING 45
+(SHOW ROUND ROLL ROUND PITCH ROUND HEADING)</userinput>
+248 29 45
+</programlisting>
+</para>
+
+<para>
+But don't worry there is an easy solution, the <link linkend="command-setorientation">SETORIENTATION</link> command.
+</para>
+
+<para>
+<programlisting><userinput>CLEARSCREEN
+RIGHT 45
+RIGHTROLL 30
+UPPITCH 30
+; Now try to set your self up to 45,45,45 again
+SETORIENTATION [45 45 45]
+(SHOW ROUND ROLL ROUND PITCH ROUND HEADING)</userinput>
+45 45 45
+</programlisting>
+</para>
+
+<para>
+SETORIENTATION understands the interactions between ROLL, PITCH, and HEADING.
+All SETORIENTATION knows is that it has to do things in the correct order.
+It basically backs out your current orientation and applies the requested one.
+It does this in a very specific order.
+Your current orientation can also be reported or saved using the <link linkend="command-orientation">ORIENTATION</link> command.
+</para>
+
+<programlisting><userinput>CLEARSCREEN
+RIGHT 45
+SHOW ORIENTATION</userinput>
+[0 0 45]
+<userinput>MAKE "saveit ORIENTATION
+RIGHT 90
+UPPITCH 180
+SETORIENTATION :saveit
+SHOW ORIENTATION</userinput>
+[0 0 45]
+</programlisting>
+
+<para>
+There is also another command that knows about your ORIENTATION and that is <link linkend="command-towardsxyz">TOWARDSXYZ</link>.
+TOWARDSXYZ outputs an orientation that is compatible with SETORIENTATION.
+</para>
+
+
+<programlisting><userinput>SETORIENTATION TOWARDSXYZ [100 100 0]
+SHOW ORIENTATION</userinput>
+[0 0 45]
+<userinput>FORWARD DISTANCEXYZ [100 100 0]
+SHOW POSXYZ</userinput>
+[100 100 0]
+</programlisting>
+
+<para>
+Having said all that, you don't really need to think in terms of absolute ORIENTATION.
+ORIENTATION and SETORIENTATION are used mostly to save, report, and restore your ORIENTATION (just like you do with HEADING and SETHEADING in 2D).
+Futhermore, as explained earlier, changes in your heading with RIGHT, LEFT, and SETHEADING only affect what they affected in 2D (your HEADING).
+</para>
+
+<para>
+You should also be thinking the same way you do in 2D.
+You don't often worry about your absolute HEADING in 2D, it's most often a turn relative to your current HEADING.
+It's no different in 3D except you have more ways to turn.
+Think like the turtle is an airplane and you're in the cockpit.
+Then decide where you want to go next.
+</para>
+
+   </section>
+
+
+   <section id="drawing-3d-solids">
+       <title>Drawing 3D Solids</title>
+
+<para>
+3D Solids in &PRODUCTNAME; uses all the standard 3D commands and a few additional commands to help &PRODUCTNAME; understand what you're drawing.
+In order to do hidden line removal or hidden surface removal, you must define surfaces, not just vectors.
+Surfaces are simply filled polygons.
+You just need to tell &PRODUCTNAME; when you're starting a surface and when you're done.
+If you used only vectors to draw a box, &PRODUCTNAME; would not know if it's a 6-sided closed box (solid cube) or a 4-sided box with an open top and bottom.
+Vectors alone are ambiguous with respect to surfaces.
+</para>
+
+<para>
+&GENERICNAME; programmers are used to dealing with filled polygons, you do it all the time so it should not be a strange new concept.
+But &PRODUCTNAME; in 3D mode fills that polygon with respect to the color you should see based on your eye view, light source, obstructions, and the color of the surface.
+</para>
+
+<para>
+Here are the new commands:
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row><entry>Command</entry> <entry>Description</entry></row>
+    </thead>
+    <tbody>
+      <row><entry>POLYSTART</entry>     <entry>Start a new polygon (a surface of PENCOLOR).</entry></row>
+      <row><entry>POLYEND</entry>       <entry>End the definition of the polygon.</entry></row>
+      <row><entry>POLYVIEW</entry>      <entry>Shade and view all polygons that have been defined.</entry></row>
+      <row><entry>SETTURTLE -3</entry>  <entry>Use this turtle to position light source.</entry></row>
+      <row><entry>SETLIGHT</entry>      <entry>Use to set how objects should be illuminated.</entry></row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+If you drew a box in 3D (6 Polygons) that all were drawn the same color and you FILLed each of them, all you'd see is a flat octagon-looking thing.
+This is not so with the new commands.
+The PENCOLOR in effect when drawing 3D a surface becomes the color of that surface.
+The color is also affected by the angle of the surface between your eye (turtle -1) and the light source (turtle -3).
+</para>
+
+
+<para>
+The 3D lighting model in &PRODUCTNAME; uses some modern techniques, but is primarily designed for performance.
+It does not draw shadows, reflections, etc.
+You may see pixel errors sometimes.
+This is an expected artifact of the algorithm I chose.
+</para>
+
+        &command-polystart;
+        &command-polyend;
+        &command-polyview;
+        &command-setlight;
+        &command-light;
+
+   </section>
+
+
+
+   <section id="polygon-restrictions">
+       <title>Polygon Restrictions</title>
+
+<para>
+Polygons in &PRODUCTNAME; have three easy-to-satisfy restrictions:
+
+<orderedlist>
+  <listitem><para>A polygon's first 3 vertices must form a triangle.</para></listitem>
+  <listitem><para>A polygon must be convex.</para></listitem>
+  <listitem><para>A polygon must be planar.</para></listitem>
+</orderedlist>
+
+</para>
+
+<section id="polygon-restriction-1">
+  <title>Restriction #1: A polygon's first 3 vertices must form a triangle</title>
+
+<para>
+The triangle can be extremely shallow.  This is legal:
+
+<programlisting><userinput>POLYSTART
+MAKE "savepos POSXYZ
+FORWARD 100
+RIGHT   0.00000001 ; very small angles are okay
+FORWARD 100
+SETPOSXYZ :savepos
+POLYEND</userinput></programlisting>
+</para>
+
+<para>
+This is NOT legal (even though it produces a convex polygon):
+
+<programlisting><userinput>POLYSTART
+MAKE "savepos POSXYZ
+FORWARD 50
+FORWARD 50 ; error can't have straight angles
+RIGHT   90
+FORWARD 100
+SETPOSXYZ :savepos
+POLYEND</userinput></programlisting>
+</para>
+   </section>
+
+<section id="polygon-restriction-2">
+  <title>Restriction #2: A polygon must be convex</title>
+
+<para>
+Being "convex" means that if you pick any 2 points within the polygon and connect them with a straight line, the line never goes outside the polygon.
+Triangles, squares, and circles are all convex.
+The letter "E" (as a polygon) is not convex.
+</para>
+
+
+<para>
+This is legal:
+<programlisting><userinput>POLYSTART
+REPEAT 4 [FORWARD 150 RIGHT 90] ; a square is convex
+POLYEND</userinput></programlisting>
+</para>
+
+<para>
+This is NOT legal:
+
+
+<programlisting><userinput>POLYSTART
+REPEAT 3 [
+  FORWARD 150
+  RIGHT   90
+]
+FORWARD 50
+RIGHT   90  ; error: these instruction
+FORWARD 50  ;        add a cavity to the
+LEFT    90  ;        polygon
+FORWARD 50  ;
+LEFT    90  ;
+FORWARD 50  ;
+RIGHT   90  ;
+FORWARD 50
+RIGHT   90
+POLYEND</userinput></programlisting>
+</para>
+
+<para>
+You can always break a convex polygon up into simpler concave polygons.
+</para>
+
+</section>
+
+
+<section id="polygon-restriction-3">
+  <title>Restriction #3: A polygon must be planar</title>
+
+<para>
+Being "planar" means that a polygon must be flat.
+This is easy to do if you never use UPPITCH, DOWNPITCH, RIGHTROLL, or LEFTROLL between POLYSTART and POLYEND.
+</para>
+
+<para>
+This is legal:
+<programlisting><userinput>POLYSTART
+REPEAT 4 [FORWARD 100 RIGHT 90] ; a square is planar
+POLYEND</userinput></programlisting>
+</para>
+
+<para>
+This is NOT legal:
+
+<programlisting><userinput>POLYSTART
+REPEAT 3 [
+  FORWARD   100
+  RIGHT     90
+]
+FORWARD   50
+UPPITCH   90  ; error: these instruction move
+FORWARD   50  ;        out of the polygon's plane
+DOWNPITCH 90  ;
+FORWARD   50  ;
+DOWNPITCH 90  ;
+FORWARD   50  ;
+UPPITCH   90  ;
+FORWARD   50
+RIGHT     90
+POLYEND</userinput></programlisting>
+</para>
+
+<para>
+If you want to create a polygon with a "bend" in it that leaves the plane, you can break up your polygon into simpler polygons that are coplanar.
+</para>
+
+</section>
+
+<section id="polygon-samples">
+   <title>Polygon Samples</title>
+
+<para>
+An example polygon using CIRCLE.
+
+<programlisting><userinput>PERSPECTIVE
+REPEAT 36 [
+  POLYSTART
+  CIRCLE 100
+  POLYEND
+  RIGHTROLL 10
+]
+POLYVIEW</userinput></programlisting>
+</para>
+
+
+<para>
+An example polygon using ARC.
+
+<programlisting><userinput>PERSPECTIVE
+REPEAT 36 [
+  POLYSTART
+  ARC2 180 100
+  RIGHT   90
+  FORWARD 200
+  RIGHT   90
+  POLYEND
+  RIGHTROLL 10
+]
+POLYVIEW</userinput>
+</programlisting>
+</para>
+
+</section> <!-- Polygon Samples -->
+</section> <!-- Polygon Restrictions -->
+
+   <section id="turtle-and-window-queries">
+       <title>Turtle And Window Queries</title>
+
+        &command-shownp;
+   </section>
+
+   <section id="pen-control">
+       <title>Pen Control</title>
+
+<para>
+The turtle carries a pen that can draw pictures.
+At any time the pen can be "up" (in which case moving the turtle does not change what's on the graphics screen) or "down" (in which case the turtle leaves a trace).
+If the pen is down, it can operate in one of three modes: "paint" (so that it draws lines when the turtle moves), "erase" (so that it erases any lines that might have been drawn on or through that path earlier), or "reverse" (so that it inverts the color of each point along the turtle's path).
+</para>
+
+        &command-pendown;
+        &command-penup;
+        &command-penpaint;
+        &command-penerase;
+        &command-penreverse;
+        &command-pennormal;
+        &command-setpencolor;
+        &command-setfloodcolor;
+        &command-setscreencolor;
+        &command-setpensize;
+        &command-setpenpattern;
+        &command-setpen;
+        &command-clearpalette;
+   </section>
+
+   <section id="pen-queries">
+       <title>Pen Queries</title>
+
+        &command-pendownp;
+        &command-penmode;
+        &command-pencolor;
+        &command-floodcolor;
+        &command-screencolor;
+        &command-pensize;
+        &command-penpattern;
+        &command-pen;
+   </section>
+
+</chapter>

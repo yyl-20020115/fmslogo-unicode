@@ -1,0 +1,34 @@
+<section id="command-pots">
+<title>POTS</title>
+<indexterm><primary>POTS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POTS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the title lines of all unburied procedures in the workspace to the current write stream.
+POTS abbreviates <userinput><link linkend="command-pot">POT</link> <link linkend="command-procedures">PROCEDURES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [PRINT :a] [PRINT :b]]
+POTS</userinput>
+to abc :a :b</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

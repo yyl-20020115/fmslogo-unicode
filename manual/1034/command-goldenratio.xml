@@ -1,0 +1,41 @@
+<section id="command-goldenratio">
+<title>NUMEROAUREO</title>
+<indexterm><primary>NUMEROAUREO</primary></indexterm>
+<indexterm><primary>GOLDENRATIO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NUMEROAUREO</command>
+<command>GOLDENRATIO</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una aproximación cercana del número áureo, que es <userinput>(1 + RAIZCUADRADA 5)/2</userinput>.
+</para>
+
+<para>
+El número áureo expresa la proporción cuando la suma de dos cantidades es a la cantidad más grande como la cantidad más grande es a la cantidad más pequeña.
+Es decir:
+</para>
+
+<para>
+NUMEROAUREO = ((A + B) / A) = (A / B)
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA NUMEROAUREO</userinput>
+1.61803398874989</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

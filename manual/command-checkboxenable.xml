@@ -1,0 +1,41 @@
+<section id="command-checkboxenable">
+    <title>CHECKBOXENABLE</title>
+<indexterm><primary>CHECKBOXENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHECKBOXENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the checkbox identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the checkbox is enabled.
+If <parameter>state</parameter> equals FALSE, then the checkbox is disabled.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+GROUPBOXCREATE "mywindow "mygroupbox 10 10 80 40
+CHECKBOXCREATE "mywindow "mygroupbox "mycheckbox [Check Me] 20 20 60 20
+CHECKBOXENABLE "mycheckbox "False</userinput>
+
+<replaceable>The checkbox is now disabled</replaceable>
+
+<userinput>CHECKBOXENABLE "mycheckbox "True
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

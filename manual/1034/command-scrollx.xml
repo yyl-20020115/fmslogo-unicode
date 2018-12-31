@@ -1,0 +1,36 @@
+<section id="command-scrollx">
+    <title>DESPLAZAX</title>
+<indexterm><primary>DESPLAZAX</primary></indexterm>
+<indexterm><primary>SCROLLX</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESPLAZAX</command> <parameter>deltax</parameter>
+<command>SCROLLX</command> <parameter>deltax</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cambia la posición de la barra de desplazamiento horizontal de la ventana de «Pantalla».
+El argumento <parameter>deltax</parameter> es la cantidad de desplazamiento.
+Un número positivo desplaza a la derecha y un número negativo a la izquierda.
+Si <parameter>deltax</parameter> es 0, entonces el desplazamiento horizontal restablece a la posición central.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 10 [DESPLAZAX 10]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

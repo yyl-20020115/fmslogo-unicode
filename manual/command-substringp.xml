@@ -1,0 +1,42 @@
+<section id="command-substringp">
+<title>SUBSTRINGP</title>
+<indexterm><primary>SUBSTRINGP</primary></indexterm>
+<indexterm><primary>SUBSTRING?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SUBSTRINGP</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+<command>SUBSTRING?</command> <parameter>thing1</parameter> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+If <parameter>thing2</parameter> is a word, SUBSTRINGP outputs TRUE if <parameter>thing1</parameter> is <link linkend="command-equalp">EQUALP</link> to a substring of <parameter>thing2</parameter>, FALSE otherwise.
+</para>
+
+<para>
+If <parameter>thing1</parameter> or <parameter>thing2</parameter> is a list or an array, SUBSTRINGP outputs FALSE.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW SUBSTRINGP "bc "abc</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW SUBSTRINGP "bd "abc</userinput>
+false</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

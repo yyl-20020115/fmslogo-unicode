@@ -1,0 +1,53 @@
+<section id="command-setpixel">
+<title>SETPIXEL</title>
+<indexterm><primary>SETPIXEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPIXEL</command> <parameter>colorvector</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pixel under the turtle to the color described by <parameter>colorvector</parameter>.
+The <parameter>colorvector</parameter> input must be a three item list of [red green blue] intensities, each of which must be an integer from 0 to 255.
+For an explanation of color vectors see <link linkend="using-color">Using Color</link>.
+SETPIXEL is similar to running <userinput>SETPENSIZE 1 SETPENCOLOR colorvector PENPAINT FORWARD 0</userinput>, except that SETPIXEL is faster and doesn't affect the pen state.
+</para>
+
+<para>
+By using <link linkend="command-pixel">PIXEL</link> and SETPIXEL, you can scan and redraw an image at a new orientation (for example, to rotate a bitmap).
+</para>
+
+<para>
+SETPIXEL can be used in <link linkend="command-perspective">PERSPECTIVE</link> mode but only the "closest" pixel set is seen.
+See <filename>Examples\3D\3DBITMAP.LGO</filename> for an example of using SETPIXEL in perspective mode.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PENUP
+SETXY -128 -128
+FOR [red 0 255] [
+  FOR [green 0 255] [
+    SETPIXEL (LIST :red :green 0)
+    FORWARD 1
+  ]
+  BACK    256
+  RIGHT   90
+  FORWARD 1
+  LEFT    90
+]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,36 @@
+<section id="command-log10">
+    <title>LOG</title>
+<indexterm><primary>LOG</primary></indexterm>
+<indexterm><primary>LOG10</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LOG</command> <parameter>número</parameter>
+<command>LOG10</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el logaritmo común de <parameter>número</parameter>.
+Esto es, 10 elevado al número devuelto es igual a <parameter>número</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA LOG 1</userinput>
+0</programlisting>
+    <programlisting><userinput>MUESTRA LOG 10</userinput>
+1</programlisting>
+    <programlisting><userinput>MUESTRA LOG 100</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

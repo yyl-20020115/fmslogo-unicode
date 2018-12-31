@@ -1,0 +1,35 @@
+pre.synopsis
+{ 
+  /* light grey background */
+  background-color: #E0E0E0;
+
+  /* quarter-centimeter margins inside the box */
+  padding-top:    0.25cm;
+  padding-bottom: 0.25cm;
+  padding-left:   0.25cm;
+  padding-right:  0.25cm;
+}
+
+pre.programlisting 
+{ 
+  /* light grey background */
+  background-color: #E0E0E0;
+
+  /* quarter-centimeter margins inside the box */
+  padding-top:    0.25cm;
+  padding-bottom: 0.25cm;
+  padding-left:   0.25cm;
+  padding-right:  0.25cm;
+}
+
+.note
+{
+  /* light yellow background */
+  background-color: #ECE795;
+
+  /* quarter-centimeter margins inside the box */
+  padding-top:    0.25cm;
+  padding-bottom: 0.25cm;
+  padding-left:   0.25cm;
+  padding-right:  0.25cm;
+}

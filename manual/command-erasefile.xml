@@ -1,0 +1,44 @@
+<section id="command-erasefile">
+<title>ERASEFILE</title>
+<indexterm><primary>ERASEFILE</primary></indexterm>
+<indexterm><primary>ERF</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERASEFILE</command> <parameter>filename</parameter>
+<command>ERF</command> <parameter>filename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases (deletes, removes) the file named <parameter>filename</parameter>.
+The file must not be currently be open.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+CLOSE "dummy.fil
+
+ERASEFILE "dummy.fil
+OPENREAD "dummy.fil</userinput>
+File system error: I can't open that file
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

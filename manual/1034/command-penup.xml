@@ -1,0 +1,44 @@
+<section id="command-penup">
+<title>SUBELAPIZ</title>
+<indexterm><primary>SUBELAPIZ</primary></indexterm>
+<indexterm><primary>SL</primary></indexterm>
+<indexterm><primary>PENUP</primary></indexterm>
+<indexterm><primary>PU</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SUBELAPIZ</command>
+<command>SL</command>
+<command>PENUP</command>
+<command>PU</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la posición del lápiz hacia arriba, sin cambiar el modo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>REPITE 10 [AVANZA 10 SUBELAPIZ AVANZA 10 BAJALAPIZ]</userinput></programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-pendown">BAJALAPIZ?</link></member>
+<member><link linkend="command-pendownp">BAJALAPIZ?</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

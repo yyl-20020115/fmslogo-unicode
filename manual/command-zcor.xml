@@ -1,0 +1,36 @@
+<section id="command-zcor">
+<title>ZCOR</title>
+<indexterm><primary>ZCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ZCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the turtle's Z coordinate.
+</para>
+<para>
+ZCOR is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETZ 100
+SHOW ZCOR</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

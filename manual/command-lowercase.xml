@@ -1,0 +1,29 @@
+<section id="command-lowercase">
+<title>LOWERCASE</title>
+<indexterm><primary>LOWERCASE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LOWERCASE</command> <parameter>word</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a word which is a copy of <parameter>word</parameter>, but with all uppercase letters changed to the corresponding lowercase letter.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW LOWERCASE "HeLlo</userinput>
+hello</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

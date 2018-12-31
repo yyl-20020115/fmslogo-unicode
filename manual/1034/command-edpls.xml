@@ -1,0 +1,45 @@
+<section id="command-edpls">
+    <title>EDPROPS</title>
+<indexterm><primary>EDPROPS</primary></indexterm>
+<indexterm><primary>EDPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EDPROPS</command>
+<command>EDPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Abre las definiciones de todas las listas de propiedades no tapadas en el <link linkend="editor">editor</link>.
+</para>
+
+<para>
+EDPROPS es la abreviatura de <userinput><link linkend="command-edit">EDITA</link> <link linkend="command-plists">LPROPS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop 1 "uno
+PONPROP "lprop 2 "uno
+MUESTRA PROPIEDAD "lprop 2</userinput>
+uno
+<userinput>EDPROPS</userinput>
+<replaceable>Cambie «uno» por «dos» y sal del editor</replaceable>
+<userinput>MUESTRA PROPIEDAD "lprop 2</userinput>
+dos
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

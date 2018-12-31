@@ -1,0 +1,35 @@
+<section id="command-cascade.2">
+<title>CASCADA.2</title>
+<indexterm><primary>CASCADA.2</primary></indexterm>
+<indexterm><primary>CASCADE.2</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CASCADA.2</command> <parameter>prueba_de_terminar</parameter> <parameter>plantilla1</parameter> <parameter>valor_inicial1</parameter> <parameter>plantilla2</parameter> <parameter>valor_inicial2</parameter>
+<command>CASCADE.2</command> <parameter>prueba_de_terminar</parameter> <parameter>plantilla1</parameter> <parameter>valor_inicial1</parameter> <parameter>plantilla2</parameter> <parameter>valor_inicial2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de ejecutar <link linkend="command-cascade">CASCADA</link> con los mismos argumentos.
+La única diferencia entre los dos procedimientos es que CASCADA.2 tiene cinco argumentos por defecto, mientras que CASCADA tiene tres.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FIBONACCI :n
+  DEVUELVE CASCADA.2 :n [?1 + ?2] 1 [?1] 0
+FIN</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

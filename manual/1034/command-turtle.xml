@@ -1,0 +1,44 @@
+<section id="command-turtle">
+<title>QUIEN</title>
+<indexterm><primary>QUIEN</primary></indexterm>
+<indexterm><primary>TURTLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>QUIEN</command>
+<command>TURTLE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el número correspondiente a la tortuga actual (la a quien todos los comandos de tortuga son dirigidos).
+Para cambiar a otra tortuga usa <link linkend="command-setturtle">ACTIVA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>ACTIVA 8
+MUESTRA QUIEN</userinput>
+8
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-turtles">TORTUGAS</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

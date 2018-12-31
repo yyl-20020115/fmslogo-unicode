@@ -1,0 +1,38 @@
+<section id="command-sign">
+    <title>SIGNO</title>
+<indexterm><primary>SIGNO</primary></indexterm>
+<indexterm><primary>SIGN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>SIGNO</command> <parameter>número</parameter>
+<command>SIGN</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el signo del argumento (-1 si es negativo, 0 si es cero, 1 si es positivo).
+Esto puede ser útil cuando quieres aplicar el signo de un número a un otro.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA SIGNO 5</userinput>
+1</programlisting>
+    <programlisting><userinput>MUESTRA SIGNO 0</userinput>
+0</programlisting>
+<programlisting><userinput>MUESTRA SIGNO -98.6</userinput>
+-1</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

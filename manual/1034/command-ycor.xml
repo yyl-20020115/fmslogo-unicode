@@ -1,0 +1,34 @@
+<section id="command-ycor">
+    <title>COORY</title>
+<indexterm><primary>COORY</primary></indexterm>
+<indexterm><primary>YCOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COORY</command>
+<command>YCOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve un número, la coordenada Y de la tortuga.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONY 100
+MUESTRA COORY</userinput>
+100
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

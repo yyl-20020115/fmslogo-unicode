@@ -1,0 +1,41 @@
+<section id="command-dllload">
+    <title>CARGADLL</title>
+<indexterm><primary>CARGADLL</primary></indexterm>
+<indexterm><primary>DLLLOAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CARGADLL</command> <parameter>nombre_de_biblioteca</parameter>
+<command>DLLLOAD</command> <parameter>nombre_de_biblioteca</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Carga la biblioteca de enlace dinámico (DLL por sus siglas en inglés) cuyo nombre de archivo es <parameter>nombre_de_biblioteca</parameter>.
+Una vez cargada, puedes llamar a las funciones con <link linkend="command-dllcall">LLAMADLL</link>.
+Cuando hayas concluido el trabajo con la biblioteca, debes cerrarla con <link linkend="command-dllfree">QUITADLL</link>.
+</para>
+
+<para>
+Puedes cargar más de una biblioteca a la vez.
+Cargando una biblioteca que ya está cargada solamente incrementa un contador de referencias y requeriría una ejecución más de QUITADLL para quitarla de veras.
+</para>
+
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>CARGADLL "user32.dll
+QUITADLL</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,47 @@
+<section id="command-setxy">
+<title>PONXY</title>
+<indexterm><primary>PONXY</primary></indexterm>
+<indexterm><primary>SETXY</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONXY</command> <parameter>xcor</parameter> <parameter>ycor</parameter>
+<command>SETXY</command> <parameter>xcor</parameter> <parameter>ycor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Mueve la tortuga a las coordenadas absolutas X, Y.
+Requiere dos argumentos numéricos, las coordenadas X, Y.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<para>Dibuja una sinusoide:
+<programlisting><userinput>REPITE 360 [PONXY CUENTAREPITE 100*SEN CUENTAREPITE]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-pos">POS</link></member>
+<member><link linkend="command-setpos">PONPOS</link></member>
+<member><link linkend="command-setx">PONX</link></member>
+<member><link linkend="command-sety">PONY</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

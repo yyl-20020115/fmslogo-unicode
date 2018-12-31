@@ -1,0 +1,36 @@
+<section id="command-printdepthlimit">
+    <title>PRINTDEPTHLIMIT</title>
+<indexterm><primary>PRINTDEPTHLIMIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PRINTDEPTHLIMIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+PRINTDEPTHLIMIT is a special variable.
+If its value is a nonnegative integer, then &PRODUCTNAME; treats its value as maximum depth of a sublist (or subarray) structure that is printed by <link linkend="command-print">PRINT</link>, etc.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>PRINT [[1 [2 [3 [4 [5]]]]]]</userinput>
+[1 [2 [3 [4 [5]]]]]]
+
+<userinput>MAKE "PRINTDEPTHLIMIT 4
+PRINT [[1 [2 [3 [4 [5]]]]]]</userinput>
+[1 [2 [3 [... ...]]]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

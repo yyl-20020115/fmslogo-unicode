@@ -1,0 +1,43 @@
+<section id="command-chdir">
+<title>CHDIR</title>
+<indexterm><primary>CHDIR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CHDIR</command> <parameter>directoryname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Changes the current working directory to <parameter>directoryname</parameter>, just like the DOS command CHDIR (cd).
+The <parameter>directoryname</parameter> input must be a word.
+You can use <link linkend="command-dir">DIR</link> to list both files and directories.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>CHDIR "Examples</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;\Examples"
+
+<userinput>POPDIR</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;"
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-popdir">POPDIR</link></member>
+<member><link linkend="command-mkdir">MKDIR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>
+

@@ -1,0 +1,75 @@
+<section id="command-backtick">
+    <title>`</title>
+<indexterm><primary>`</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>`</command> <parameter>list</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list equal to its input but with certain substitutions.
+</para>
+
+<para>
+If a member of the input list is the word <userinput>,</userinput> (comma) then the following member should be an instruction list that produces an output when run.
+That output value replaces the comma and the instruction list.
+This is called substitution.
+</para>
+
+<para>
+If a member of the input list is the word <userinput>,@</userinput> (comma atsign) then the following member should be an instruction list that outputs a list when run.
+The members of that list replace the <userinput>,@</userinput> and the instruction list.
+This is called splicing.
+</para>
+
+<para>
+A word starting with <userinput>,</userinput> or <userinput>,@</userinput> is treated as if the rest of the word were a one-word list.
+For example, <userinput>,:foo</userinput> is equivalent to <userinput>,[:foo]</userinput>.
+</para>
+
+<para>
+A word starting with <userinput>",</userinput> (quote comma) is replaced with a word beginning with <userinput>"</userinput> followed by the result of running the substitution on what comes after the comma.
+If what comes after the comma is a list, only the first word in the list is used in the substitution.
+</para>
+
+<para>
+A word starting with <userinput>:,</userinput> (quote comma) is replaced with a word beginning with <userinput>:</userinput> followed by the result of running the substitution on what comes after the comma.
+If what comes after the comma is a list, only the first word in the list is used in the substitution.
+</para>
+
+<para>
+Backquotes can be nested.
+Substitution is only done for commas when they appear at the same depth as the backquote in which they are found.
+See the second and third example below.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW `[foo baz ,[BUTFIRST [a b c]] garply ,@[BUTFIRST [a b c]]]</userinput>
+[foo baz [b c] garply b c]
+</programlisting>
+
+<programlisting><userinput>SHOW `[a `[b ,[1+2] ,[foo ,[1+3] d] e] f]</userinput>
+[a ` [b , [1+2]  , [foo 4 d] e] f]
+</programlisting>
+
+<programlisting><userinput>MAKE "name1 "x
+MAKE "name2 "y
+SHOW `[a `[b ,:,:name1 ,",:name2 d] e]</userinput>
+[a ` [b , [:x]  , ["y] d] e]
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

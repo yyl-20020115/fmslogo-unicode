@@ -1,0 +1,36 @@
+<section id="command-cleartimer">
+    <title>TEMPORIZADORACERO</title>
+<indexterm><primary>TEMPORIZADORACERO</primary></indexterm>
+<indexterm><primary>CLEARTIMER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TEMPORIZADORACERO</command> <parameter>id</parameter>
+<command>CLEARTIMER</command> <parameter>id</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Detiene al temporizador puesto por <link linkend="command-settimer">PONTEMPORIZADOR</link> e identificado por <parameter>id</parameter> (1-31).
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONTEMPORIZADOR 17 200 [PONCOLORLAPIZ (LISTA AZAR 256 AZAR 256 AZAR 256)]</userinput>
+<replaceable>&PRODUCTNAME; está disponible a ejecutar más instrucciones y el temporizador cambia el color de lápiz al azar cada 200 milisegundos.</replaceable>
+<userinput>REPITE 72 [REPITE 4 [AVANZA 100 GIRADERECHA 90] GIRADERECHA 5]
+TEMPORIZADORACERO 17</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

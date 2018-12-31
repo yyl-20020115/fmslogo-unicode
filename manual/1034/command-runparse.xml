@@ -1,0 +1,34 @@
+<section id="command-runparse">
+<title>EJECUTAANALIZA</title>
+<indexterm><primary>EJECUTAANALIZA</primary></indexterm>
+<indexterm><primary>RUNPARSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EJECUTAANALIZA</command> <parameter>cosa</parameter>
+<command>RUNPARSE</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la lista que resultaría si el argumento <parameter>cosa</parameter> (palabra o lista) hubiera sido analizado como línea de instrucciones; caracteres tal como los operadores infijos y paréntesis son miembros distintos en la lista devuelta.
+Tengas en cuento que las listas inferiores de una lista que ha sido procesado con EJECUTAANALIZA no son, ellas mismas, ejecutaanalizadas.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA EJECUTAANALIZA "a&lt;b</userinput>
+[a &lt; b]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

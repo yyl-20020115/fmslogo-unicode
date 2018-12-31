@@ -1,0 +1,87 @@
+<section id="command-for">
+    <title>FOR</title>
+<indexterm><primary>FOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FOR</command> <parameter>controllist</parameter> <parameter>instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+FOR is a flexible tool for iteration.
+</para>
+
+<para>
+The <parameter>controllist</parameter> input controls how the iteration occurs.
+It must be a list containing either three or four members.
+In order, they are:
+
+<orderedlist>
+
+<listitem>
+<para>
+A word, which is used as the name of a "control variable".
+The control variable is local to the procedure.
+</para>
+</listitem>
+
+<listitem>
+<para>
+A word or list that is evaluated to determine a number, the "starting value" of the variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+A word or list that is evaluated to determine a number, the "limit value" of the variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+An optional word or list that is evaluated to determine the "step size".
+If the fourth member is missing, the step size is 1 or -1 depending on whether the limit value is greater than or less than the starting value, respectively.
+</para>
+</listitem>
+</orderedlist>
+</para>
+
+<para>
+The <parameter>instructionlist</parameter> input dictates what FOR should do on each iteration.
+The effect of FOR is to run <parameter>instructionlist</parameter> repeatedly, assigning a new value to the "control variable" on each iteration.
+First the "starting value" is assigned to the control variable.
+Then the control value is compared to the "limit value".
+FOR is complete when the sign of (current - limit) is the same as the sign of the "step size".
+</para>
+
+<para>
+If no "step size" is provided, the <parameter>instructionlist</parameter> is always run at least once.
+An explicit step size can lead to a zero-trip FOR, (for example, <userinput>FOR [I 1 0 1] [<replaceable>...</replaceable>]</userinput>).
+Otherwise, <parameter>instructionlist</parameter> is run, then the control variable is incremented by the step size and FOR returns to the comparison step.
+</para>
+
+<para>
+In many cases, a FOR instruction can be rewritten to use <link linkend="command-repeat">REPEAT</link> and <link linkend="command-repcount">REPCOUNT</link>, instead.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>FOR [I 2 7 1.5] [PRINT :I]</userinput>
+2
+3.5
+5
+6.5
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

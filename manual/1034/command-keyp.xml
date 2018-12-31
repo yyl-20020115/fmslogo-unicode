@@ -1,0 +1,42 @@
+<section id="command-keyp">
+<title>TECLA?</title>
+<indexterm><primary>TECLA?</primary></indexterm>
+<indexterm><primary>KEYP</primary></indexterm>
+<indexterm><primary>KEY?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TECLA?</command>
+<command>KEYP</command>
+<command>KEY?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<para>
+Devuelve CIERTO si hay más caracteres por leer del flujo de lectura actual, FALSO si no lo hay.
+Si el flujo de lectura es un archivo, entonces TECLA? es equivalente a <userinput>NO FINLEC?</userinput>.
+Si el flujo de lectura es el Centro de Comandos, entonces TECLA? siempre devuelve CIERTO.
+</para>
+
+<para>
+TECLA? existe por compatibilidad con otros entornos de &GENERICNAME;.
+La semántica tradicional de TECLA? no se conviene al entorno gráfico de &PRODUCTNAME;.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-keyboardon">HABILITATECLADO</link></member>
+<member><link linkend="command-reader">LECTURA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

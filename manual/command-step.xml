@@ -1,0 +1,78 @@
+<section id="command-step">
+<title>STEP</title>
+<indexterm><primary>STEP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>STEP</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Marks the items in the contents list for stepping.
+</para>
+
+<para>
+Whenever a stepped procedure is invoked, each instruction line in the procedure body is displayed in a dialog box before being executed and &PRODUCTNAME; waits for the user to press the OK button before continuing.
+The line is truncated according to the current values of <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> and <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+Whenever a stepped variable is "shadowed", a message to this effect is printed to the commander's Output/Command-Recall box.
+A variable is shadowed whenever a variable of the same name is created with the <link linkend="command-local">LOCAL</link> command or when a procedure is invoked that has an input with the same name.
+If the variable was shadowed by LOCAL, then the instruction line that caused the shadowing is printed after the message.
+This instruction line is truncated according to the current values of <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> and <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+STEP has no effect on property lists.
+</para>
+
+<para>
+STEP does not throw an error if it is asked to step a procedure or variable that is not in the workspace, but doing so has no effect.
+STEP also does not throw an error if asked to step a primitive, but this also has no effect.
+</para>
+
+<para>
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explanation of the <parameter>contentslist</parameter> input.
+</para>
+
+<para>
+You can step all procedures and variables with the <link linkend="commander-step">Step Button</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MYPROGRAM
+  FORWARD 10
+  RIGHT   90
+  FORWARD 20
+  LEFT    90
+END
+
+STEP "MYPROGRAM
+MYPROGRAM</userinput>
+<replaceable>Each line of MYPROGRAM is displayed and waits for OK to continue to next line.</replaceable>
+<userinput>UNSTEP "MYPROGRAM
+MYPROGRAM</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-unstep">UNSTEP</link></member>
+<member><link linkend="workspace-queries">Workspace Queries</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

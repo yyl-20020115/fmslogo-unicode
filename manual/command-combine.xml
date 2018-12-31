@@ -1,0 +1,33 @@
+<section id="command-combine">
+<title>COMBINE</title>
+<indexterm><primary>COMBINE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>COMBINE</command> <parameter>thing1</parameter> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Combines both of its inputs into a single value.
+If the second input is a word, this acts like <link linkend="command-word">WORD</link>.
+If the second input is a list, this acts like <link linkend="command-fput">FPUT</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW COMBINE "a "b</userinput>
+ab</programlisting>
+
+    <programlisting><userinput>SHOW COMBINE "a [b]</userinput>
+[a b]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,67 @@
+<section id="command-save">
+<title>GUARDA</title>
+<indexterm><primary>GUARDA</primary></indexterm>
+<indexterm><primary>SAVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GUARDA</command> <parameter>nombre_de_archivo</parameter>
+<command>SAVE</command> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Guarda las definiciones de todos los procedimientos, variables y listas de propiedades no tapados en un archivo llamado <parameter>nombre_de_archivo</parameter>.
+</para>
+
+<para>
+GUARDA equivale a:
+
+<programlisting>PARA GUARDA :nombre_de_archivo
+  LOCAL "escritura_pasada
+  HAZ "escritura_pasada ESCRITURA
+  ABREESCRITURA :nombre_de_archivo
+  PONESCRITURA :nombre_de_archivo
+  IMTODO
+  PONESCRITURA :escritura_pasada
+  CIERRA :nombre_de_archivo
+FIN
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA1
+  ESCRIBE "Hola1
+FIN
+
+PARA MIPROGRAMA2
+  ESCRIBE "Hola2
+FIN
+
+IMTS</userinput>
+PARA MIPROGRAMA1
+PARA MIPROGRAMA2
+
+<userinput>GUARDA "misprogramas.lgo
+BTODO
+IMTS
+CARGA "misprogramas.lgo
+IMTS</userinput>
+PARA MIPROGRAMA1
+PARA MIPROGRAMA2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

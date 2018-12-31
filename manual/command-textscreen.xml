@@ -1,0 +1,30 @@
+<section id="command-textscreen">
+<title>TEXTSCREEN</title>
+<indexterm><primary>TEXTSCREEN</primary></indexterm>
+<indexterm><primary>TS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>TEXTSCREEN</command>
+<command>TS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Undocks the commander window from the screen window so that you can resize it to maximize the space available for text interaction.
+</para>
+
+<para>
+Compare this command with <link linkend="command-splitscreen">SPLITSCREEN</link> and <link linkend="command-fullscreen">FULLSCREEN</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

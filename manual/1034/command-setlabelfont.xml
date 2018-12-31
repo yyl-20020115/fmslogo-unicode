@@ -1,0 +1,143 @@
+<section id="command-setlabelfont">
+<title>PONTIPO</title>
+<indexterm><primary>PONTIPO</primary></indexterm>
+<indexterm><primary>SETLABELFONT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONTIPO</command> <parameter>tipo_de_letra</parameter>
+<command>SETLABELFONT</command> <parameter>tipo_de_letra</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone el tipo de letra que usa el comando <link linkend="command-label">ROTULO</link>.
+</para>
+
+<para>
+El argumento es una lista con una estructura que describe completamente un tipo de letra.
+Los tipos disponibles dependen de tu sistema operativo.
+&PRODUCTNAME; tiene dos formas de especificar el tipo deseado.
+Una es de ejecutar PONTIPO en tus programas.
+La otra, por uso interactivo, es de usar <link linkend="menu-set-labelfont">Configurar - Tipo de letra de rotulador</link> del menú principal.
+La manera más facíle de construir <parameter>tipo_de_letra</parameter> es de poner el tipo deseado usando el menú y después capturar los atributos del tipo usando <link linkend="command-labelfont">TIPO</link>.
+</para>
+
+<para>
+El argumento <parameter>tipo_de_letra</parameter> debe ser una lista de la forma: <userinput>[[NombreDeFamilia] Altura Anchura Orientación Peso Itálica Subrayado Tachada ConjuntoDeCaracteres PrecisiónDeSalida PrecisiónDeRecorte Cualidad InclinaciónyFamilia]</userinput>.
+El significado de cada elemento de la lista se da en la tabla siguiente:
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Elemento</entry>
+        <entry>Significado</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>NombreDeFamilia</entry>
+        <entry>Una palabra (o lista de palabras) que forma el nombre de la familia del tipo.</entry>
+      </row>
+      <row>
+        <entry>Altura</entry>
+        <entry>Un entero que especifica la altura del tipo en unidades lógicas.
+               Si este valor es mayor que cero, especifica la altura de la celda del tipo.
+               Si es menor que cero, especifica la altura del carácter del tipo.</entry>
+      </row>
+      <row>
+        <entry>Anchura</entry>
+        <entry>Un entero que especifica la anchura del tipo en unidades lógicas.</entry>
+      </row>
+      <row>
+        <entry>Orientación</entry>
+        <entry>Un entero que especifica la orientación del tipo, en grados.</entry>
+      </row>
+      <row>
+        <entry>Peso</entry>
+        <entry>Un entero que especifica el peso del tipo.
+               Tiene un rango entre 0 y 900 con incrementos de 100.
+               Un valor de 0 significa que se usa el peso por defecto del tipo.</entry>
+      </row>
+      <row>
+        <entry>Itálica</entry>
+        <entry>Un entero que, si no es cero, especifica que el tipo es cursiva.</entry>
+      </row>
+      <row>
+        <entry>Subrayado</entry>
+        <entry>Un entero que, si no es cero, especifica que el tipo es subrayado.</entry>
+      </row>
+      <row>
+        <entry>Tachada</entry>
+        <entry>Un entero que, si no es cero, especifica que el tipo es tachada.</entry>
+      </row>
+      <row>
+        <entry>ConjuntoDeCaracteres</entry>
+        <entry>Un entero que especifica un conjunto de caracteres del tipo.</entry>
+      </row>
+      <row>
+        <entry>PrecisiónDeSalida</entry>
+        <entry>Un entero que especifica la precisión de salida.
+               La precisión de salida define cuánto debe aproximarse la salida a los valores de altura, anchura, orientación, escape, espaciado y tipo de fuente requeridos.</entry>
+      </row>
+      <row>
+        <entry>PrecisiónDeRecorte</entry>
+        <entry>Un entero que especifica la precisión de recorte.
+               La precisión de recorte define cómo recortar los caracteres que están parcialmente fuera de la región de recorte.</entry>
+      </row>
+      <row>
+        <entry>Cualidad</entry>
+        <entry>Un entero que especifica la calidad de salida.
+               La calidad de salida define con cuanto cuidado el GDI debe intentar hacer coincidir los atributos de tipos lógicos con el tipo físico actual.
+               0 especifica la cualidad por defecto (definido por la configuración del sistema operativo).
+               1 especifica que apariencia del tipo es menos importante que cuando se usa el valor 2.
+               2 especifica que la calidad de los caracteres del tipo es más importante que la exactitud de aproximación de los atributos del tipo.
+               3 especifica que no hay antialiasing.
+               4 especifica que si hay antialiasing.</entry>
+      </row>
+      <row>
+        <entry>InclinaciónyFamilia</entry>
+        <entry>Un entero que especifica el tipo de paso y familia.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+Si escoges una familia de tipo que no es disponible en el sistema operativo, entonces PONTIPO escribe todas las familias de tipo que son disponibles en el sistema operativo.
+</para>
+
+<para>
+Si quieres parpadear un mensaje por escribirlo en un color y luego escribir el mismo mensaje en el color del fondo, mejor que deshabilites el antialiasing espacial en TIPO, escogiendo un <parameter>Cualidad</parameter> de 3 cuando ejecutaras PONTIPO.
+Sino, tendrás un esbozo ligero del mensaje que querías completamente borrar.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONTIPO [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+ROTULO "Hola</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-fontfacenames">TIPOSDELETRA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

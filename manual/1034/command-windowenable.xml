@@ -1,0 +1,40 @@
+<section id="command-windowenable">
+    <title>WINDOWENABLE</title>
+<indexterm><primary>WINDOWENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>WINDOWENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the window identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the window is enabled.
+If <parameter>state</parameter> equals FALSE, then the window is disabled.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+BUTTONCREATE "mywindow "mybutton "PUSH 25 25 25 25 [print "pushed]
+WINDOWENABLE "mywindow "False</userinput>
+<replaceable>The window is now disabled</replaceable>
+<userinput>WINDOWENABLE "mywindow "True</userinput>
+<replaceable>The window is now enabled</replaceable>
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,65 @@
+<section id="command-openwrite">
+<title>OPENWRITE</title>
+<indexterm><primary>OPENWRITE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>OPENWRITE</command> <parameter>filename</parameter>
+(<command>OPENWRITE</command> <parameter>filename</parameter> <parameter>binarymode</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens the file named <parameter>filename</parameter> for writing.
+If the file by the given filename already exists, the old version is deleted and a new, empty file is created.
+</para>
+
+<para>
+<parameter>filename</parameter> can also be the reserved word <userinput>"clipboard</userinput> to write data to the clipboard just like a file.
+</para>
+
+<para>
+The <parameter>binarymode</parameter> is a boolean value (TRUE or FALSE).
+If <parameter>binarymode</parameter> is FALSE or not given, then the file is written as a text file.
+That is, the end-of-line sequence is converted from LF to CRLF.
+If <parameter>binarymode</parameter> is TRUE, then the file is written as a binary file.
+That is, no end-of-line sequence conversion is performed.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>OPENWRITE "dummy.fil
+SETWRITE "dummy.fil
+PRINT "Hello
+PRINT [Good Bye]
+SETWRITE []
+CLOSE "dummy.fil
+
+OPENREAD "dummy.fil
+SETREAD "dummy.fil
+REPEAT 2 [SHOW READLIST]</userinput>
+[Hello]
+[Good Bye]
+<userinput>SETREAD []
+CLOSE "dummy.fil</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-close">CLOSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

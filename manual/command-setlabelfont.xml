@@ -1,0 +1,132 @@
+<section id="command-setlabelfont">
+<title>SETLABELFONT</title>
+<indexterm><primary>SETLABELFONT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETLABELFONT</command> <parameter>font</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the font to be used by the <link linkend="command-label">LABEL</link> command.
+</para>
+
+<para>
+The input is a list that completely describes a font.
+The available fonts depend on your computer.
+&PRODUCTNAME; has two ways to specify the font you desire.
+This command can be used by &GENERICNAME; programs.
+For interactive use you can use <link linkend="menu-set-labelfont">Set - Label Font</link> from the main menu.
+The easiest way to use fonts in &PRODUCTNAME; is to set the desired font using the Menu and capturing the attributes using <link linkend="command-labelfont">LABELFONT</link> command.
+</para>
+
+<para>
+The <parameter>font</parameter> input must be a list of the form: <userinput>[[FaceName] Height Width Orientation Weight Italic Underline StrikeOut CharSet OutPrecision ClipPrecision Quality PitchAndFamily]</userinput>.
+The meaning of each item within the list is explained by the following table:
+
+<informaltable frame='all'>
+  <tgroup cols='2'>
+    <thead>
+      <row>
+        <entry>Item</entry>
+        <entry>Meaning</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>FaceName</entry>
+        <entry>A word (or list of words) that is the font's typeface name</entry>
+      </row>
+      <row>
+        <entry>Height</entry>
+        <entry>An integer that specifies the font's height, in logical units.
+               If this value is greater than zero, it specifies the cell height of the font.
+               If it is less than zero, it specifies the character height of the font.</entry>
+      </row>
+      <row>
+        <entry>Width</entry>
+        <entry>An integer that specifies the font's width, in logical units</entry>
+      </row>
+      <row>
+        <entry>Orientation</entry>
+        <entry>An integer that specifies the font's orientation, in degrees</entry>
+      </row>
+      <row>
+        <entry>Weight</entry>
+        <entry>An integer that specifies the font's weight.
+               This member ranges from 0 to 900 in increments 100.
+               A value of 0 means use default weight.</entry>
+      </row>
+      <row>
+        <entry>Italic</entry>
+        <entry>An integer.  The font is italicized if and only if this is non-zero.</entry>
+      </row>
+      <row>
+        <entry>Underlined</entry>
+        <entry>An integer.  The font is underlined if and only if this is non-zero.</entry>
+      </row>
+      <row>
+        <entry>StrikeOut</entry>
+        <entry>An integer.  The font is rendered with a horizontal line through it if and only if this is non-zero.</entry>
+      </row>
+      <row>
+        <entry>CharSet</entry>
+        <entry>An integer that specifies the font's character set.</entry>
+      </row>
+      <row>
+        <entry>OutPrecision</entry>
+        <entry>An integer that specifies the font's output precision.</entry>
+      </row>
+      <row>
+        <entry>Quality</entry>
+        <entry>An integer that specifies the font's quality.
+        0 implies the default quality (defined by the current operating system settings).
+        1 implies draft quality.
+        2 implies proof quality.
+        3 implies no anti-aliasing.
+        4 implies anti-aliasing.</entry>
+      </row>
+      <row>
+        <entry>PitchAndFamily</entry>
+        <entry>An integer that specifies the font's pitch and family.</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</informaltable>
+</para>
+
+<para>
+If you choose a font typeface that is not available on the system, then SETLABELFONT lists all fonts that are available.
+</para>
+
+<para>
+If you want to flash a message by writing it in one color, then writing the same message in the background color, you should disable anti-aliasing by choosing a <parameter>Quality</parameter> of 3.
+Otherwise, you'll end up with a faint outline of the message you wanted to completely erase.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETLABELFONT [[Times New Roman] -24 0 0 400 0 0 0 0 3 2 1 18]
+LABEL "Hello</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-fontfacenames">FONTFACENAMES</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+
+</variablelist>
+</section>

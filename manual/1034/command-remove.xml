@@ -1,0 +1,45 @@
+<section id="command-remove">
+<title>QUITA</title>
+<indexterm><primary>QUITA</primary></indexterm>
+<indexterm><primary>REMOVE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>QUITA</command> <parameter>cosa_a_quitar</parameter> <parameter>cosas</parameter>
+<command>REMOVE</command> <parameter>cosa_a_quitar</parameter> <parameter>cosas</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una nueva cosa que es igual a <parameter>cosas</parameter> con todos los miembros igual a <parameter>cosa_a_quitar</parameter> eliminado.
+</para>
+<para>
+El argumento <parameter>cosas</parameter> debe ser o una lista o una palabra.
+</para>
+<para>
+Recordar que los miembros de una palabra son caracteres singulares.
+Entonces, si <parameter>cosas</parameter> es una palabra, <parameter>cosa_a_quitar</parameter> debe ser un carácter singular.
+QUITA no elimina palabras multi-caracteres de una otra palabra.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA QUITA "b [a b c b]</userinput>
+[a c]</programlisting>
+
+<programlisting><userinput>MUESTRA QUITA "o "Hola</userinput>
+Hla</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

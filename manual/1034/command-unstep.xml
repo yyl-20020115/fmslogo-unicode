@@ -1,0 +1,56 @@
+<section id="command-unstep">
+<title>NOPASO</title>
+<indexterm><primary>NOPASO</primary></indexterm>
+<indexterm><primary>UNSTEP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOPASO</command> <parameter>lista_de_contenidos</parameter>
+<command>UNSTEP</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Suprime la ejecución en modo PASO del los elementos nombrados.
+</para>
+
+<para>
+NOPASO no lanza un error si le pidas que suprima el modo PASO de un procedimiento, una variable o una lista de propiedades que no esté en modo PASO, pero esto no tiene ningún efecto.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  AVANZA        10
+  GIRADERECHA   90
+  AVANZA        20
+  GIRAIZQUIERDA 90
+FIN
+
+PASO "MIPROGRAMA
+MIPROGRAMA</userinput>
+<replaceable>Cada línea de MIPROGRAMA espera OK para continuar con la siguiente línea.</replaceable>
+<userinput>NOPASO "MIPROGRAMA
+MIPROGRAMA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-step">PASO</link></member>
+<member><link linkend="commander-step">El Botón Paso</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

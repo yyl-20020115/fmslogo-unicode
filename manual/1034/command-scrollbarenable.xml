@@ -1,0 +1,89 @@
+<section id="command-scrollbarenable">
+    <title>SCROLLBARENABLE</title>
+<indexterm><primary>SCROLLBARENABLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCROLLBARENABLE</command> <parameter>name</parameter> <parameter>state</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Enables or disables the scrollbar identified by <parameter>name</parameter>.
+If <parameter>state</parameter> equals TRUE, then the scrollbar is enabled.
+If <parameter>state</parameter> equals FALSE, then the scrollbar is disabled.
+</para>
+
+<para>
+When a scrollbar is disabled, the position of the scrollbar is hidden.
+If you want the user to be able to see the position of a scrollbar, but not be able to change it, then use an enabled scrollbar and make the scrollbar's callback reset the position back to the correct value.
+This pattern is shown in the second example, below.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+Disabling a scrollbar:
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+SCROLLBARCREATE "mywindow "myscroll 25 25 50 0 []
+SCROLLBARENABLE "myscroll "False</userinput>
+
+<replaceable>The scrollbar is now disabled.</replaceable>
+
+<userinput>SCROLLBARENABLE "myscroll "True
+WINDOWDELETE "mywindow</userinput>
+</programlisting>
+</para>
+
+<para>
+Creating a read-only scrollbar:
+    <programlisting><userinput>TO SCROLLBARCALLBACK
+  ; Whenever the user changes the scrollbar's position,
+  ; change it back to the correct value, which is held
+  ; in :ScrollbarValue.
+  ;
+  ; In order to avoid an infinite loop, only change the
+  ; value if it's different from what we would set it to.
+
+  IF NOT EQUALP :ScrollbarValue SCROLLBARGET "myscroll [
+    SCROLLBARSET "myscroll 0 360 :ScrollbarValue
+  ]
+END
+
+TO SCROLLBARUPDATE :NewValue
+  ; Call this whenever you want to update the value.
+  MAKE "ScrollbarValue :NewValue
+  SCROLLBARCALLBACK
+END
+
+; Create a window with a read-only scrollbar.
+WINDOWCREATE "main "mywindow [Read Only Scrollbar Example] 0 0 100 30 []
+SCROLLBARCREATE "mywindow "myscroll 5 5 90 0 [ SCROLLBARCALLBACK ]
+
+; Set initial value.
+SCROLLBARUPDATE 50</userinput>
+
+<replaceable>Try to change the scrollbar's position with the mouse.
+It snaps back to the value which is set by SCROLLBARUPDATE in SCROLLBARCALLBACK.</replaceable>
+
+<userinput>; Programmatically change the value.
+SCROLLBARUPDATE 100
+
+; Delete the window when you're done.
+WINDOWDELETE "mywindow
+</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

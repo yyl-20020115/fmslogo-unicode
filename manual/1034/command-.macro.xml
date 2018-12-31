@@ -1,0 +1,184 @@
+<section id="command-.macro">
+<title>.MACRO</title>
+<indexterm><primary>.MACRO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem><para>(forma especial)</para>
+<synopsis><command>.MACRO</command> <parameter>nombre_de_macro</parameter> <parameter>:argumento1</parameter> <parameter>:argumento2</parameter> <parameter>...</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Una macro es un tipo especial de procedimiento cuyo resultado se evalúa como instrucciones en el contexto del procedimiento que ejecuta la macro.
+.MACRO es semejante a <link linkend="command-to">PARA</link> excepto que el nuevo procedimiento es una macro.
+</para>
+
+<para>
+Las macros se usan para crear nuevas estructuras de control comparables a <link linkend="command-repeat">REPITE</link> o <link linkend="command-if">SI</link>.
+Tales estructuras de control no pueden ser duplicados exactamente por procedimientos ordinarios.
+Por ejemplo, aquí está una definición de REPITE que usa un procedimiento normal:
+
+<programlisting>PARA MI.REPITE :veces :lista_de_instrucciones
+  SI :veces=0 [ALTO]
+  EJECUTA :lista_de_instrucciones
+  MI.REPITE :veces-1 :lista_de_instrucciones
+FIN
+</programlisting>
+</para>
+
+<para>
+Esta versión parece funcionar bien en la mayoría de usos, por ejemplo:
+
+<programlisting>MI.REPITE 5 [ESCRIBE "hola]
+</programlisting>
+
+Pero, no funciona si las instrucciones a ejecutar incluyen <link linkend="command-output">DEVUELVE</link>, <link linkend="command-stop">ALTO</link> o <link linkend="command-local">LOCAL</link>.
+Por ejemplo, considera este procedimiento:
+
+<programlisting>PARA EJEMPLO
+  ESCRIBE [Averigua mi palabra secreta en tres intentos.]
+  REPITE 3 [SI LEEPALABRA = "secreta [ESCRIBE "Exacto! ALTO]]
+  ESCRIBE [Lo siento, ¡la palabra es «secreta»!]
+FIN
+</programlisting>
+</para>
+
+<para>
+Este procedimiento funciona como escrito, pero si utilizas MI.REPITE en lugar de REPITE, no funcionaría porque ALTO detiene MI.REPITE en lugar de EJEMPLO.
+</para>
+
+<para>
+La solución es definir MI.REPITE como una macro.
+En lugar de computar algo por si mismo, una macro debe devolver una lista que contiene instrucciones.
+Se evalúa el contenido de esta lista como si aparece en el lugar donde se ejecuta la macro.
+La siguiente macro funciona como REPITE:
+
+<programlisting>.MACRO MI.REPITE :veces :lista_de_instrucciones
+  SI :veces=0 [DEVUELVE []]
+  DEVUELVE FRASE :lista_de_instrucciones (LISTA "MI.REPITE :veces-1 :lista_de_instrucciones)
+FIN
+</programlisting>
+</para>
+
+<para>
+Cada macro es una operación; todas las macros siempre devuelven algo.
+Aún en el caso baso, MI.REPITE devuelve la lista de instrucciones vacía.
+</para>
+
+<para>
+Para ver como el macro MI.REPITE funciona, veamos el ejemplo.
+
+<programlisting>MI.REPITE 5 [ESCRIBE "hola]
+</programlisting>
+</para>
+
+<para>
+Primero, &PRODUCTNAME; ejecuta MI.REPITE.
+MI.REPITE devuelve la siguiente lista de instrucciones:
+<programlisting>[ESCRIBE "hola MI.REPITE 4 [ESCRIBE "hola]]
+</programlisting>
+</para>
+
+<para>
+Porque MI.REPITE es una macro, &PRODUCTNAME; inmediatamente ejecuta lo que devuelve.
+Hacer esto escribe «hola» una vez y ejecuta una otra repetición.
+</para>
+
+
+<para>
+El método demostrado arriba, aunque fácil a entender, es demasiado lento porque cada repetición construye una lista de instrucción que se ejecuta separadamente.
+Un método más eficiente es hacer MI.REPITE une macro que funciona como el procedimiento normal excepto cuando las instrucciones a ejecutar incluyen ALTO o DEVUELVE:
+
+<programlisting>.MACRO MI.REPITE :veces :lista_de_instrucciones
+  ATRAPA "repite.etiqueta [
+    DEVUELVE REPITE.FIN RESULTADOEJECUTA [REPITE1 :veces :lista_de_instrucciones]
+  ]
+  DEVUELVE []
+FIN
+
+PARA REPITE.FIN :repite.resultado
+  SI VACIO? :repite.resultado [DEVUELVE [ALTO]]
+  DEVUELVE LISTA "DEVUELVE ENTRECOMILLAS PRIMERO :repite.resultado
+FIN
+
+PARA REPITE1 :veces :lista_de_instrucciones
+  SI :veces=0 [LANZA "repite.etiqueta]
+  EJECUTA :lista_de_instrucciones
+  .QUIZADEVUELVE REPITE1 :veces-1 :lista_de_instrucciones
+FIN
+</programlisting>
+</para>
+
+<para>
+Si las instrucciones no incluyen ALTO o DEVUELVE, entonces REPITE1 llega al caso baso y ejecuta <link linkend="command-throw">LANZA</link>.
+Por lo tanto, la instrucción final de la macro MI.REPITE devuelve una lista vacía, entonces la evaluación de esta lista no hace nada.
+Pero, si ocurre un ALTO o DEVUELVE en <parameter>lista_de_instrucciones</parameter>, entonces REPITE.FIN devuelve una instrucción de ALTO o DEVUELVE que se ejecuta en el contexto de donde se ejecuta MI.REPITE.
+</para>
+
+<para>
+Los comandos que definen macros tienen nombres que empiezan con un punto (.) porque son herramientas avanzadas de &GENERICNAME;.
+Es fácil meterte en problemas por definir una macro que no se termina, o por fallar de construir una lista de instrucciones correctamente.
+</para>
+
+<para>
+Los usuarios de LISP deben notar que las macros de &GENERICNAME; <emphasis>no</emphasis> son formas especiales.
+Esto es, los argumentos de una macro se evalúan normalmente, como los de cualquier procedimiento normal.
+Es solo lo que devuelve una macro que tiene un tratamiento inusual.
+</para>
+
+<para>
+Aquí es como puedes crear <link linkend="command-localmake">HAZLOCAL</link> con .MACRO:
+<programlisting>.MACRO MI.HAZLOCAL :nombre_de_variable :valor
+  DEVUELVE (LISTA
+    "LOCAL PALABRA "" :nombre_de_variable
+    "APLICA ""HAZ (LISTA :nombre_de_variable :valor)
+  )
+FIN
+</programlisting>
+</para>
+
+<para>
+Se la usa de esta manera:
+
+<programlisting>PARA EJEMPLO
+  MI.HAZLOCAL "mivar "hola
+  ESCRIBE :mivar
+FIN
+</programlisting>
+</para>
+
+<para>
+MI.HAZLOCAL devuelve la lista:
+
+<programlisting>[LOCAL "mivar APLICA "HAZ [mivar hola]]
+</programlisting>
+</para>
+
+<para>
+MI.HAZLOCAL usa <link linkend="command-apply">APLICA</link> para evitar decidir si el segundo argumento de <link linkend="command-make">HAZ</link> requiere ser precedido por una comilla inglesa.
+En este caso, sí lo necesita &mdash;<userinput>HAZ "mivar "hola</userinput>&mdash; pero la comilla inglesa sería incorrecto si el valor fuera una lista.
+</para>
+
+<para>
+A menudo, es más conveniente usar la operación <link linkend="command-backtick">`</link> para construir una lista de instrucciones:
+
+<programlisting>.MACRO MI.HAZLOCAL :nombre_de_variable :valor
+  DEVUELVE `[LOCAL ,[PALABRA "" :nombre_de_variable] APLICA "HAZ [,[:nombre_de_variable] ,[:valor]]]
+FIN
+</programlisting>
+</para>
+
+<para>
+Pero, por otra parte, <userinput>`</userinput> es lento, porque tiene recursión de árbol y es escrito en &GENERICNAME;.
+</para>
+
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

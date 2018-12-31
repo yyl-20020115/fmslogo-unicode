@@ -1,0 +1,40 @@
+<section id="command-ern">
+    <title>ERN</title>
+<indexterm><primary>ERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERN</command> <parameter>varname</parameter>
+<command>ERN</command> <parameter>varnamelist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases the variable(s) named in the input from the workspace.
+ERN abbreviates <userinput><link linkend="command-erase">ERASE</link> <link linkend="command-namelist">NAMELIST</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "foo 1
+MAKE "bar 2
+PONS</userinput>
+Make "bar 2
+Make "foo 1
+<userinput>ERN [foo]
+PONS</userinput>
+Make "bar 2
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

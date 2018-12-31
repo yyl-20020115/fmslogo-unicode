@@ -1,0 +1,35 @@
+<section id="command-scrollbarget">
+    <title>SCROLLBARGET</title>
+<indexterm><primary>SCROLLBARGET</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCROLLBARGET</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Output the current position of the scrollbar control that is identified by <parameter>name</parameter>.
+The output is within the range specified by <link linkend="command-scrollbarset">SCROLLBARSET</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+SCROLLBARCREATE "mywindow "myscroll 25 25 50 0 [SETHEADING SCROLLBARGET "myscroll]
+SCROLLBARSET "myscroll 0 360 0</userinput>
+<replaceable>Move the scrollbar and observe what happens to the turtle.</replaceable>
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

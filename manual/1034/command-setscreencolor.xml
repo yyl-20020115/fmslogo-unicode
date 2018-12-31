@@ -1,0 +1,43 @@
+<section id="command-setscreencolor">
+<title>PONCOLORFONDO</title>
+<indexterm><primary>PONCOLORFONDO</primary></indexterm>
+<indexterm><primary>PONCF</primary></indexterm>
+<indexterm><primary>SETSCREENCOLOR</primary></indexterm>
+<indexterm><primary>SETSC</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONCOLORFONDO</command> <parameter>color</parameter>
+<command>PONCF</command> <parameter>color</parameter>
+<command>SETSCREENCOLOR</command> <parameter>color</parameter>
+<command>SETSC</command> <parameter>color</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone como color del fondo de la pantalla <parameter>color</parameter>, que puede ser un color indexado, un vector de color, o un nombre de color.
+Un color indexado es un entero en un rango de 0 - 15.
+Un vector de color es una lista con las intensidades de [rojo verde azul], en un rango 0-255.
+Para una explicación del argumento <parameter>color</parameter>, ve <link linkend="using-color">Usando Color</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONCOLORFONDO [0 0 0]
+PONCOLORLAPIZ [255 255 255]
+REPITE 4 [AVANZA 100 GIRADERECHA 90]
+LIMPIA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

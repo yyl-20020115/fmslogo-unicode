@@ -1,0 +1,81 @@
+<section id="command-load">
+    <title>CARGA</title>
+<indexterm><primary>CARGA</primary></indexterm>
+<indexterm><primary>LOAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CARGA</command> <parameter>nombre_de_archivo</parameter>
+<command>LOAD</command> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Carga las instrucciones del archivo llamado <parameter>nombre_de_archivo</parameter> y las ejecuta.
+El archivo puede incluir definiciones de procedimiento con <link linkend="command-to">PARA</link> aunque esos procedimientos ya existen.
+Si el archivo asigna una lista a una variable nombrada <link linkend="command-startup">STARTUP</link>, entonces se <link linkend="command-run">EJECUTA</link> esa lista como una lista de instrucciones después de que el archivo está cargada.
+</para>
+
+
+<para>
+Es importante entender que se ejecuta el archivo, no lo copia al área de trabajo:
+
+<itemizedlist>
+<listitem>
+<para>
+Si &GENERICNAME; ve una instrucción con PARA, entonces defina ese procedimiento (no se ejecuta las instrucciones entre el PARA y el FIN inmediatamente, pero en lugar de esto, las instrucciones se convierten en el cuerpo del procedimiento).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Si &GENERICNAME; ve una instrucción con HAZ, entonces cree la variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Si &GENERICNAME; ve instrucciones fuera de la definición de un procedimiento, las ejecuta en el orden en que aparezcan.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA1
+  ESCRIBE "Hola1
+FIN
+
+PARA MIPROGRAMA2
+  ESCRIBE "Hola2
+FIN
+
+IMTS</userinput>
+PARA MIPROGRAMA1
+PARA MIPROGRAMA2
+
+<userinput>GUARDA "misprogramas.lgo
+BTODO
+IMTS
+CARGA "misprogramas.lgo
+IMTS</userinput>
+PARA MIPROGRAMA1
+PARA MIPROGRAMA2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

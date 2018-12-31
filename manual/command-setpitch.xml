@@ -1,0 +1,115 @@
+<section id="command-setpitch">
+<title>SETPITCH</title>
+<indexterm><primary>SETPITCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETPITCH</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Pitches the turtle to a new absolute pitch.
+The <parameter>angle</parameter> input is the pitch in degrees which is positive from the negative Z-Axis to the positive Y-Axis rotating about the X-Axis.
+</para>
+<para>
+SETPITCH is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+<para>
+SETPITCH can be confusing because it changes the turtle's orientation (roll, pitch, and heading) to an equivalent orientation, where the pitch may not be what was set.
+That is, PITCH may output a different angle than was set by SETPITCH, even though SETPITCH correctly set the turtle's pitch.
+Similarly, running SETPITCH with incrementally increasing angles is not guaranteed to incrementally increase the turtle's pitch, particularly if setting the pitch changes the ROLL or HEADING.
+Therefore, it is important to <link linkend="understand-your-orientation-in-3D">understand your orientation in 3D</link>.
+</para>
+<para>
+To illustrate this, suppose you want to draw the wheel of a bicycle with all spokes joining at the center.
+You may think that this works:
+
+<programlisting><userinput>TO BADWHEEL
+  PERSPECTIVE
+  REPEAT 36 [
+     SETPITCH REPCOUNT*10
+     FORWARD 100
+     BACK 100
+  ]
+  RIGHTROLL 90
+  CIRCLE 100
+END</userinput>
+</programlisting>
+But after running BADWHEEL, it looks like some spokes weren't drawn.
+</para>
+
+<para>
+The root of this surprising behavior can be seen in its simplest form with the following instructions:
+
+<programlisting><userinput>PERSPECTIVE
+CLEARSCREEN
+SETPITCH 180
+SHOW ORIENTATION</userinput>
+[180 0 180]</programlisting>
+</para>
+
+<para>
+Here, you set the pitch to 180, which, from an orientation of <code>[0 0 0]</code> can be thought of as "keep nosing up until you're upside-down and looking backward", but ORIENTATION shows that the pitch is 0, even though the turtle is upside-down and looking backward.
+Instead, the turtle's orientation is equivalent to <code>[0 180 0]</code>, but it's described as flipping upside-down (roll = 180) and looking backward (heading = 180)&mdash;<code>[180 0 180]</code>.
+So now what happens if you set the pitch to 180 again?
+Well, you set the orientation to <code>[180 180 180]</code>, which means "flip upside down, keep nosing up until you're upside-down and looking backward, then turn around", which puts you back at <code>[0 0 0]</code>.
+</para>
+
+<para>
+There are two easy ways to account for this.
+One way is to use <link linkend="command-setorientation">SETORIENTATION</link>, which updates both ROLL and HEADING to account for this.
+Another is to use <link linkend="command-uppitch">UPPITCH</link> instead of SETPITCH when making incremental changes to the pitch.
+With these, we can fix BADWHEEL above.
+</para>
+
+<programlisting><userinput>TO GOODWHEEL1
+  PERSPECTIVE
+  REPEAT 36 [
+     SETORIENTATION (LIST 0 REPCOUNT*10 0) ; fix #1
+     FORWARD 100
+     BACK 100
+  ]
+  RIGHTROLL 90
+  CIRCLE 100
+END
+
+TO GOODWHEEL2
+  PERSPECTIVE
+  REPEAT 36 [
+     UPPITCH 10 ; fix #2
+     FORWARD 100
+     BACK 100
+  ]
+  RIGHTROLL 90
+  CIRCLE 100
+END</userinput>
+</programlisting>
+
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETPITCH 45
+SHOW PITCH</userinput>
+45
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-pitch">PITCH</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

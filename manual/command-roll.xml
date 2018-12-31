@@ -1,0 +1,43 @@
+<section id="command-roll">
+<title>ROLL</title>
+<indexterm><primary>ROLL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ROLL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the angle of the turtle's roll in degrees.
+It is important to <link linkend="understand-your-orientation-in-3D">understand your orientation in 3D</link>.
+</para>
+<para>
+ROLL is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+In 2D modes, ROLL outputs zero.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SETROLL 90
+SHOW ROLL</userinput>
+90
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setroll">SETROLL</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

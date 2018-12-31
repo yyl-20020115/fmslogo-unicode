@@ -1,0 +1,38 @@
+<section id="command-showturtle">
+<title>MUESTRATORTUGA</title>
+<indexterm><primary>MUESTRATORTUGA</primary></indexterm>
+<indexterm><primary>SHOWTURTLE</primary></indexterm>
+<indexterm><primary>ST</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MUESTRATORTUGA</command>
+<command>SHOWTURTLE</command>
+<command>ST</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace visible la tortuga.
+Es lo opuesto de <link linkend="command-hideturtle">OCULTATORTUGA</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>OCULTATORTUGA
+MUESTRATORTUGA</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,42 @@
+<section id="command-int">
+    <title>ENTERO</title>
+<indexterm><primary>ENTERO</primary></indexterm>
+<indexterm><primary>INT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ENTERO</command> <parameter>número</parameter>
+<command>INT</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el argumento, sin la parte decimal.
+Es decir, ENTERO devuelve un entero con el mismo signo que el argumento, cuyo valor absoluto es menor o igual al valor absoluto del argumento.
+</para>
+
+<para>
+Dentro de la computadora, se representan los números con dos formatos distintos, uno por enteros y el otro por números con partes decimales.
+En la mayoría de las computadoras, el número más grande que se puede representar en el formato de los enteros es más pequeño que el número más grande que se puede representar en el formato con partes decimales.
+La operación ENTERO siempre devuelve un número cuyo valor es matemáticamente un entero, pero si su argumento es muy grande, entonces lo devuelto puede ser en el formato con partes decimales.
+En este caso, operaciones como <link linkend="command-remainder">RESTO</link> que requieren un entero no aceptaran lo devuelto.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA ENTERO 8.2</userinput>
+8</programlisting>
+<programlisting><userinput>MUESTRA ENTERO 8.7</userinput>
+8</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

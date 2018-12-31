@@ -1,0 +1,40 @@
+<section id="command-dllload">
+    <title>DLLLOAD</title>
+<indexterm><primary>DLLLOAD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>DLLLOAD</command> <parameter>dllfilename</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Loads the DLL (Dynamic Linked Library) called <parameter>dllfilename</parameter> into &PRODUCTNAME;.
+Once loaded you can call functions with <link linkend="command-dllcall">DLLCALL</link>.
+When you have finished, you can unload the DLL with <link linkend="command-dllfree">DLLFREE</link>.
+</para>
+
+<para>
+You may load more than one DLL at a time.
+Loading a DLL that is already loaded simply increments a reference count and requires an additional call to DLLFREE to actually unload the DLL.
+</para>
+
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>DLLLOAD "user32.dll
+DLLFREE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

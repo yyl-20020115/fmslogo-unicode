@@ -1,0 +1,51 @@
+<section id="command-setactivearea">
+<title>SETACTIVEAREA</title>
+<indexterm><primary>SETACTIVEAREA</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETACTIVEAREA</command> <parameter>area</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the active area for printing and saving pictures.
+The <parameter>area</parameter> input must be a list of the form: [XLow YLow XHigh YHigh].
+All members must be integers.
+</para>
+
+<para>
+You can achieve the same effect by using <link linkend="menu-bitmap-activearea">Bitmap - Active Area</link> from the menu.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>BITBLOCK 100 100
+SETACTIVEAREA [0 0 50 50]
+BITSAVE "myfile.bmp
+CLEARSCREEN
+BITLOAD "myfile.bmp</userinput>
+
+<replaceable>See how only part of the image that was within the active area was restored.</replaceable>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-activearea">ACTIVEAREA</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

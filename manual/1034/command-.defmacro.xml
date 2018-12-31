@@ -1,0 +1,26 @@
+<section id="command-.defmacro">
+    <title>.DEFMACRO</title>
+<indexterm><primary>.DEFMACRO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>.DEFMACRO</command> <parameter>nombre_de_macro</parameter> <parameter>texto</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+.DEFMACRO es parecido a <link linkend="command-define">DEFINE</link> con las mismas excepciones de <link linkend="command-.macro">.MACRO</link>.
+Ve la documentación de DEFINE y .MACRO para más detalles.
+</para>
+
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

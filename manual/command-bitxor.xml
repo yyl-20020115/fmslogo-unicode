@@ -1,0 +1,37 @@
+<section id="command-bitxor">
+    <title>BITXOR</title>
+<indexterm><primary>BITXOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BITXOR</command> <parameter>int1</parameter> <parameter>int2</parameter>
+(<command>BITXOR</command> <parameter>int1</parameter> <parameter>int2</parameter> <parameter>int3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the bitwise exclusive OR of its inputs, which must be integers.
+If no inputs are given, then BITXOR outputs a value with no bits set.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW BITXOR 5 2</userinput>
+7
+<userinput>SHOW BITXOR 5 1</userinput>
+4
+<userinput>SHOW (BITXOR 6 2 10)</userinput>
+14
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

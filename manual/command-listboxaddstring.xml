@@ -1,0 +1,48 @@
+<section id="command-listboxaddstring">
+    <title>LISTBOXADDSTRING</title>
+<indexterm><primary>LISTBOXADDSTRING</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LISTBOXADDSTRING</command> <parameter>name</parameter> <parameter>item</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Adds <parameter>item</parameter> to the listbox that is identified by <parameter>name</parameter>.
+</para>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>TO DODRAW
+  CLEARSCREEN
+  IF EQUALP [Triangle] LISTBOXGETSELECT "mylist [REPEAT 3 [FORWARD 100 RIGHT 120]]
+  IF EQUALP [Square]   LISTBOXGETSELECT "mylist [REPEAT 4 [FORWARD 100 RIGHT 90]]
+END
+
+WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+LISTBOXCREATE "mywindow "mylist 25 0 50 50
+LISTBOXADDSTRING "mylist [Triangle]
+LISTBOXADDSTRING "mylist [Square]
+BUTTONCREATE "mywindow "mydraw "Draw 25 50 50 25 [DODRAW]</userinput>
+
+<replaceable>Select an item from the listbox and then click the Draw button.</replaceable>
+
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

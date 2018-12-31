@@ -1,0 +1,41 @@
+<section id="command-procedures">
+<title>LPROCS</title>
+<indexterm><primary>LPROCS</primary></indexterm>
+<indexterm><primary>PROCEDURES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>LPROCS</command>
+<command>PROCEDURES</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una lista con los nombres de todos los procedimientos definidos por el usuario y no tapados del área de trabajo.
+Observa que es una lista de nombres, no una lista de contenidos.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+FIN
+
+PARA BAR
+FIN
+
+MUESTRA LPROCS</userinput>
+[bar foo]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

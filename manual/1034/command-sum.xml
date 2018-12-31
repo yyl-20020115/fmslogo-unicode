@@ -1,0 +1,39 @@
+<section id="command-sum">
+<title>ADICION</title>
+<indexterm><primary>ADICION</primary></indexterm>
+<indexterm><primary>SUM</primary></indexterm>
+<indexterm><primary>+</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ADICION</command> <parameter>número1</parameter> <parameter>número2</parameter>
+(<command>ADICION</command> <parameter>número1</parameter> <parameter>número2</parameter> <parameter>...</parameter>)
+<command>SUM</command> <parameter>número1</parameter> <parameter>número2</parameter>
+(<command>SUM</command> <parameter>número1</parameter> <parameter>número2</parameter> <parameter>...</parameter>)
+<parameter>número1</parameter> <command>+</command> <parameter>número2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve la suma del valor numérico de los argumentos.
+Si no hay argumentos, entonces ADICION devuelve 0.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA 2 + 3</userinput>
+5
+</programlisting>
+<programlisting><userinput>MUESTRA (ADICION 1 2 3)</userinput>
+6</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

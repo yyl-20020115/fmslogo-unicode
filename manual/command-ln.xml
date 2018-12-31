@@ -1,0 +1,34 @@
+<section id="command-ln">
+    <title>LN</title>
+<indexterm><primary>LN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LN</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the natural logarithm of the <parameter>num</parameter>.
+That is, e (2.718281828...) raised to the output = <parameter>num</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW LN 1</userinput>
+0</programlisting>
+    <programlisting><userinput>SHOW LN EXP 2</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

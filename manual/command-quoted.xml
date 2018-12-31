@@ -1,0 +1,36 @@
+<section id="command-quoted">
+<title>QUOTED</title>
+<indexterm><primary>QUOTED</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>QUOTED</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If the input is a word, QUOTED outputs the word with a double-quote character (<userinput>"</userinput>) appended to the front.
+Otherwise, QUOTED outputs whatever the input is.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW "Hello</userinput>
+Hello
+
+<userinput>SHOW QUOTED "Hello</userinput>
+"Hello</programlisting>
+
+<programlisting><userinput>SHOW QUOTED [1 2 3]</userinput>
+[1 2 3]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

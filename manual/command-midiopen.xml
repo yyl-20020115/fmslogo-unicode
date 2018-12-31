@@ -1,0 +1,69 @@
+<section id="command-midiopen">
+<title>MIDIOPEN</title>
+<indexterm><primary>MIDIOPEN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MIDIOPEN</command>
+(<command>MIDIOPEN</command> <parameter>id</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Opens the MIDI device and accesses it through a MIDI device driver.
+The device driver chosen depends on several things.
+When no inputs are given, MIDIOPEN attempts to use the MIDI-MAPPER.
+When an <parameter>id</parameter> input is given, MIDIOPEN lets you choose any available MIDI driver available on your system.
+The <parameter>id</parameter> input can be any integer from 0 to 1 less than number of MIDI drivers available.
+To determine which <parameter>id</parameter> maps to which driver try several MIDIOPEN commands with increasing <parameter>id</parameter> inputs.
+MIDIOPEN outputs the name of the driver being used.
+</para>
+
+<para>
+On success, MIDIOPEN outputs a list of words that represents the name of the driver being used.
+</para>
+
+<para>
+MIDI allows you to generate sound on your sound card.
+You must install the appropriate drivers under Windows for your sound card to work.
+Most sound cards come with a MIDI player which reads MIDI messages from a file and passes them to the MIDI driver.
+If you have a working MIDI player under Windows then &PRODUCTNAME; should work, too.
+</para>
+
+<para>
+MIDI commands in &PRODUCTNAME; does not use MIDI files (.MID or .MDI).
+Instead you build up sequences of MIDI messages and send them directly to the MIDI device.
+Note that you can play MIDI files using the <link linkend="command-mci">MCI</link> command.
+&PRODUCTNAME; is not a MIDI sequencer.
+You can think of MIDI commands in &PRODUCTNAME; as a programmable keyboard.
+It just so happens that the link between your programmable keyboard (MIDI commands) and your Speaker is MIDI.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PRINT MIDIOPEN</userinput>
+[MIDI Mapper]
+<userinput>MIDICLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-midimessage">MIDIMESSAGE</link></member>
+<member><link linkend="command-midiclose">MIDICLOSE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

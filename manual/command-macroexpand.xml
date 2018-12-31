@@ -1,0 +1,35 @@
+<section id="command-macroexpand">
+    <title>MACROEXPAND</title>
+<indexterm><primary>MACROEXPAND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MACROEXPAND</command> <parameter>macrocall</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Operation that inputs &GENERICNAME; expression (<parameter>macrocall</parameter>) that invokes a macro and outputs the &GENERICNAME; expression into which the macro would translate the input expression.
+</para>
+
+<para>
+The <parameter>macrocall</parameter> input must be a list that begins with the name of a macro.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW MACROEXPAND [LOCALMAKE "pi 3.14159]</userinput>
+[local "pi apply "make [pi 3.14159]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

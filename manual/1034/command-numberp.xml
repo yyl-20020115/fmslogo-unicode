@@ -1,0 +1,41 @@
+<section id="command-numberp">
+<title>NUMERO?</title>
+<indexterm><primary>NUMERO?</primary></indexterm>
+<indexterm><primary>NUMBERP</primary></indexterm>
+<indexterm><primary>NUMBER?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NUMERO?</command> <parameter>cosa</parameter>
+<command>NUMBERP</command> <parameter>cosa</parameter>
+<command>NUMBER?</command> <parameter>cosa</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve CIERTO si el argumento <parameter>cosa</parameter> es un numero, FALSO si no lo es.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA NUMERO? 1</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA NUMERO? "1</userinput>
+cierto</programlisting>
+
+<programlisting><userinput>MUESTRA NUMERO? [1]</userinput>
+falso</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

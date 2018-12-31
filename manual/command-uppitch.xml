@@ -1,0 +1,37 @@
+<section id="command-uppitch">
+<title>UPPITCH</title>
+<indexterm><primary>UPPITCH</primary></indexterm>
+<indexterm><primary>UP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>UPPITCH</command> <parameter>angle</parameter>
+<command>UP</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Pitches the turtle's nose upward by the specified angle, measured in degrees (1/360 of a circle).
+</para>
+<para>
+UPPITCH is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+UPPITCH 45
+REPEAT 3 [FORWARD 100 LEFT 120]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,38 @@
+<section id="command-make">
+    <title>HAZ</title>
+<indexterm><primary>HAZ</primary></indexterm>
+<indexterm><primary>MAKE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HAZ</command> <parameter>nombre_de_variable</parameter> <parameter>valor</parameter>
+<command>MAKE</command> <parameter>nombre_de_variable</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para> 
+Asigna el valor indicado en <parameter>valor</parameter> a la variable <parameter>nombre_de_variable</parameter>, que debe ser una palabra.
+Los nombres de variables son insensible a las mayúsculas y minúsculas.
+Si la variable ya existe, cambia su valor.
+Si no, se crea una nueva variable global.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo [Hola, cómo estás]
+MUESTRA :foo</userinput>
+[Hola, cómo estás]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

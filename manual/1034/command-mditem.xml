@@ -1,0 +1,39 @@
+<section id="command-mditem">
+<title>ELEMENTOMD</title>
+<indexterm><primary>ELEMENTOMD</primary></indexterm>
+<indexterm><primary>MDITEM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ELEMENTOMD</command> <parameter>índicelista</parameter> <parameter>vectormd</parameter>
+<command>MDITEM</command> <parameter>índicelista</parameter> <parameter>vectormd</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>Devuelve un elemento de un vector multi-dimensional (o una lista multi-dimensional) seleccionado por <parameter>índicelista</parameter>, una lista de enteros que sirve como indices.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA ELEMENTOMD [2 2] {{0 1} {2 3}}</userinput>
+3</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-mdarray">VECTORMD</link></member>
+<member><link linkend="command-mdsetitem">PONELEMENTOMD</link></member>
+<member><link linkend="command-item">ELEMENTO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

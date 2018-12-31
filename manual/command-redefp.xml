@@ -1,0 +1,36 @@
+<section id="command-redefp">
+    <title>REDEFP</title>
+<indexterm><primary>REDEFP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>REDEFP</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If TRUE, allows primitives to be erased (see <link linkend="command-erase">ERASE</link>) or redefined (see <link linkend="command-copydef">COPYDEF</link>).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>ERASE "FORWARD</userinput>
+FORWARD is a primitive
+
+<userinput>MAKE "REDEFP "TRUE
+ERASE "FORWARD
+FORWARD</userinput>
+I don't know how to FORWARD
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,48 @@
+<section id="command-portwritechar">
+    <title>PORTWRITECHAR</title>
+<indexterm><primary>PORTWRITECHAR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PORTWRITECHAR</command> <parameter>data</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Writes one byte to the currently open port.
+PORTWRITECHAR outputs 1 if the byte was written succesfully and outputs -1 otherwise.
+The <parameter>data</parameter> input must be an integer from 0 to 255.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>PORTOPEN "com1
+SHOW PORTWRITECHAR ASCII "a</userinput>
+1
+<userinput>SHOW PORTWRITECHAR ASCII "t</userinput>
+1
+<userinput>SHOW PORTWRITECHAR 13</userinput>
+1
+<userinput>WAIT 60
+PRINT "Reading...</userinput>
+Reading...
+<userinput>REPEAT 10 [MAKE "x PORTREADCHAR IF NOT :x = -1 [TYPE CHAR :x]]
+PRINT ".</userinput>
+at||
+OK|
+.
+<userinput>PORTCLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

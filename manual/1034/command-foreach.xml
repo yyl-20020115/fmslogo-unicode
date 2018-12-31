@@ -1,0 +1,58 @@
+<section id="command-foreach">
+    <title>PARACADA</title>
+<indexterm><primary>PARACADA</primary></indexterm>
+<indexterm><primary>FOREACH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PARACADA</command> <parameter>lista_de_datos</parameter> <parameter>lista_de_plantilla</parameter>
+(<command>PARACADA</command> <parameter>lista_de_datos1</parameter> <parameter>lista_de_datos2</parameter> <parameter>...</parameter> <parameter>lista_de_plantilla</parameter>)
+<command>FOREACH</command> <parameter>lista_de_datos</parameter> <parameter>lista_de_plantilla</parameter>
+(<command>FOREACH</command> <parameter>lista_de_datos1</parameter> <parameter>lista_de_datos2</parameter> <parameter>...</parameter> <parameter>lista_de_plantilla</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta el argumento <parameter>lista_de_plantilla</parameter> repetidamente, una vez por cada elemento en <parameter>lista_de_datos</parameter>.
+Si hay más que una lista de datos, cada lista debe tener el mismo número de elementos.
+Si los argumentos de datos son palabras (en vez de ser listas), entonces se evalúa la plantilla una vez por cada carácter.
+</para>
+
+<para>
+En una plantilla, los símbolos <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> representan el porción de los datos a la derecha del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>?RESTANTE</userinput> y <userinput>?REST</userinput> por <userinput>[C D E]</userinput>.
+Si usas múltiples ranuras paralelas, entonces <userinput>(?RESTANTE 1)</userinput> va a la ranura <userinput>?1</userinput>, etc.
+</para>
+
+<para>
+Se usa el símbolo <userinput>?RESTANTE</userinput> sólo en la versión de &PRODUCTNAME; española.
+Se usa <userinput>?REST</userinput> en todas las versiones de &PRODUCTNAME;.
+</para>
+
+<para>
+En una plantilla, el símbolo <userinput>#</userinput> representa la posición en <parameter>lista_de_datos</parameter> del miembro que se usa actualmente como el valor de la ranura <userinput>?</userinput>.
+Por ejemplo, si los datos son <userinput>[A B C D E]</userinput>, cuando se ejecuta la plantilla con <userinput>?</userinput> reemplazado por <userinput>B</userinput>, entonces también se reemplace a <userinput>#</userinput> por <userinput>2</userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARACADA [a b c d] [ESCRIBE (FRASE "índice # "valor ? "resto ?RESTANTE)]</userinput>
+índice 1 valor a resto b c d
+índice 2 valor b resto c d
+índice 3 valor c resto d
+índice 4 valor d resto
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

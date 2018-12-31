@@ -1,0 +1,41 @@
+<section id="command-proplistp">
+<title>PROPLISTP</title>
+<indexterm><primary>PROPLISTP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PROPLISTP</command> <parameter>name</parameter>
+<command>PROPLIST?</command> <parameter>name</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the input is the name of a property list, outputs FALSE otherwise.
+</para>
+
+<para>
+The <parameter>name</parameter> input must be a word.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW PROPLISTP "Helium</userinput>
+false
+
+<userinput>PPROP "Helium "Symbol       "He</userinput>
+<userinput>PPROP "Helium "AtomicNumber 2</userinput>
+<userinput>SHOW PROPLISTP "Helium</userinput>
+true
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

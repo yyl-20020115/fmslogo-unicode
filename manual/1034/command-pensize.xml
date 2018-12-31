@@ -1,0 +1,39 @@
+<section id="command-pensize">
+    <title>GROSOR</title>
+<indexterm><primary>GROSOR</primary></indexterm>
+<indexterm><primary>PENSIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>GROSOR</command>
+<command>PENSIZE</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el grosor del lápiz como una lista que contiene dos enteros [anchura altura].
+La anchura no se usa en &PRODUCTNAME;.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>PONGROSOR [10 20]
+MUESTRA GROSOR</userinput>
+[20 20]</programlisting>
+
+    <programlisting><userinput>PONGROSOR [1 1]
+MUESTRA GROSOR</userinput>
+[1 1]</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

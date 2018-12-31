@@ -1,0 +1,39 @@
+<section id="command-bitand">
+    <title>BITAND</title>
+<indexterm><primary>BITAND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BITAND</command> <parameter>entero1</parameter> <parameter>entero2</parameter>
+(<command>BITAND</command> <parameter>entero1</parameter> <parameter>entero2</parameter> <parameter>entero3</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resultado de la operación AND bit a bit de los argumentos, que deben ser enteros.
+Si no hay argumentos, entonces BITAND devuelve un valor con todos los bits encendidos.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA BITAND 5 2</userinput>
+0
+<userinput>MUESTRA BITAND 5 1</userinput>
+1
+<userinput>MUESTRA (BITAND 6 2 10)</userinput>
+2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

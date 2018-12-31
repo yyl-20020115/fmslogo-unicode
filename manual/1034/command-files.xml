@@ -1,0 +1,38 @@
+<section id="command-files">
+    <title>FILES</title>
+<indexterm><primary>FILES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FILES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list of the names of each file in the current working directory.
+The file names are sorted alphabetically.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW FILES</userinput>
+[fmslogo.exe LICENSE.TXT logohelp.chm README.TXT startup.logoscript turtle.bmp uninstall.exe]
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-directories">DIRECTORIES</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>
+

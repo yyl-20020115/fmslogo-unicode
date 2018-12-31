@@ -1,0 +1,43 @@
+<section id="command-rerandom">
+    <title>REAZAR</title>
+<indexterm><primary>REAZAR</primary></indexterm>
+<indexterm><primary>RERANDOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>REAZAR</command>
+(<command>REAZAR</command> <parameter>semilla</parameter>)
+<command>RERANDOM</command>
+(<command>RERANDOM</command> <parameter>semilla</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Hace que lo que devuelve <link linkend="command-random">AZAR</link> sea reproducible.
+Generalmente la secuencia de números aleatorios es distinta cada vez que se usa &GENERICNAME;.
+Si necesitas que AZAR repitiera la misma secuencia de números pseudoaleatorios (por ejemplo, para depurar un programa), puedes ejecutar REAZAR antes de ejecutar AZAR o SACAALAZAR.
+Si necesitas más de una secuencia repetida, puedes proporcionar a REAZAR un argumento de número entero, llamada una «semilla»; cada distinta semilla selecciona una secuencia única de números.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>REAZAR
+REPITE 2 [MUESTRA AZAR 10]</userinput>
+6
+2
+<userinput>REAZAR
+REPITE 2 [MUESTRA AZAR 10]</userinput>
+6
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

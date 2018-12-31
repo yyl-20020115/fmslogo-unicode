@@ -1,0 +1,35 @@
+<section id="command-round">
+    <title>REDONDEA</title>
+<indexterm><primary>REDONDEA</primary></indexterm>
+<indexterm><primary>ROUND</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>REDONDEA</command> <parameter>número</parameter>
+<command>ROUND</command> <parameter>número</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el entero más cercano al valor numérico del argumento.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA REDONDEA 8.2</userinput>
+8</programlisting>
+<programlisting><userinput>MUESTRA REDONDEA 8.7</userinput>
+9</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

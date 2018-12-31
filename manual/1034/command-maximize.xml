@@ -1,0 +1,51 @@
+<section id="command-maximize">
+<title>MAXIMIZA</title>
+<indexterm><primary>MAXIMIZA</primary></indexterm>
+<indexterm><primary>MAXIMIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MAXIMIZA</command> <parameter>título</parameter>
+<command>MAXIMIZE</command> <parameter>título</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Maximiza la ventana cuyo título es <parameter>título</parameter>.
+</para>
+
+<para>
+El «título» de una ventana no es el mismo que el «nombre» que se usa los <link linkend="windows-commands">procedimienos de las ventanas</link>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MAXLOGO
+  MAXIMIZA "&PRODUCTNAME;
+  ESPERA 120
+  RESTORE "&PRODUCTNAME;
+FIN
+
+MAXLOGO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-minimize">MINIMIZA</link></member>
+<member><link linkend="command-restore">RESTORE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

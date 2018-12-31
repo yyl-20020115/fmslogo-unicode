@@ -1,0 +1,37 @@
+<section id="command-shownp">
+    <title>SHOWNP</title>
+<indexterm><primary>SHOWNP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SHOWNP</command>
+<command>SHOWN?</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if the turtle is shown (visible), FALSE if the turtle is hidden.
+You can use <link linkend="command-showturtle">SHOWTURTLE</link> and <link linkend="command-hideturtle">HIDETURTLE</link> to show and hide the turtle.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOWTURTLE
+SHOW SHOWNP</userinput>
+true
+<userinput>HIDETURTLE
+SHOW SHOWNP</userinput>
+false</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

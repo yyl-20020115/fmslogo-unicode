@@ -1,0 +1,51 @@
+<section id="command-po">
+    <title>IMDEFS</title>
+<indexterm><primary>IMDEFS</primary></indexterm>
+<indexterm><primary>PO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMDEFS</command> <parameter>lista_de_contenidos</parameter>
+<command>PO</command> <parameter>lista_de_contenidos</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe las definiciones de todos los procedimientos, variables y listas de propiedades nombrados en el argumento <parameter>lista_de_contenidos</parameter> al flujo de escritura actual.
+Ve la sección titulada <link linkend="workspace-queries">Preguntas del área de trabajo</link> para una explicación del formato de una lista de contenidos.
+</para>
+
+<para>
+IMDEFS lanza un error si le pidas que escriba un procedimiento o variable que no está en el área de trabajo.
+Sin embargo, no es un error pedir a IMDEFS que escriba los contendidos de una lista de propiedades que no está en el área de trabajo.
+Esto conforma con el comportamiento de <link linkend="command-gprop">PROPIEDAD</link> cuando le pides que devuelva una propiedad que no existe.
+</para>
+
+<para>
+IMDEFS es una abreviatura de «imprime definiciones».
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA XXX
+  ESCRIBE "Hola ; comentario
+FIN
+
+IMDEFS "XXX</userinput>
+TO XXX
+  ESCRIBE "Hola ; comentario
+FIN
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

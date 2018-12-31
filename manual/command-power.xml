@@ -1,0 +1,32 @@
+<section id="command-power">
+    <title>POWER</title>
+<indexterm><primary>POWER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>POWER</command> <parameter>base</parameter> <parameter>exponent</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs <parameter>base</parameter> raised to the power of <parameter>exponent</parameter>.
+If <parameter>base</parameter> is negative, then <parameter>exponent</parameter> must be an integer.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SHOW POWER 2 3</userinput>
+8</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

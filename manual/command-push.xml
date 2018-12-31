@@ -1,0 +1,43 @@
+<section id="command-push">
+<title>PUSH</title>
+<indexterm><primary>PUSH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PUSH</command> <parameter>stackname</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>Adds a thing to the front of a stack whose name is <parameter>stackname</parameter>.</para>
+
+<para>This variable must have a list as its value; the initial value should be the empty list.
+New members are added at the front of the list.
+Later, you can <link linkend="command-pop">POP</link> value off the stack.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>MAKE "mystack []
+PUSH "mystack 1
+PUSH "mystack 2
+PUSH "mystack 3
+SHOW :mystack</userinput>
+[3 2 1]
+
+<userinput>SHOW POP "mystack</userinput>
+3
+
+<userinput>SHOW :mystack</userinput>
+[2 1]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

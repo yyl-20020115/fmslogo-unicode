@@ -1,0 +1,36 @@
+<section id="command-caseignoredp">
+    <title>CASEIGNOREDP</title>
+<indexterm><primary>CASEIGNOREDP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>CASEIGNOREDP</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Normally, lower-case and upper-case letters are considered equal by <link linkend="command-equalp">EQUALP</link>, <link linkend="command-beforep">BEFOREP</link>, <link linkend="command-memberp">MEMBERP</link>, etc.
+However, if a variable named CASEIGNOREDP exists and its value is not TRUE, then those predicates consider lower-case and upper-case letters to be distinct (that is, not equal).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>MAKE "CASEIGNOREDP "FALSE
+SHOW EQUALP "a "A</userinput>
+false</programlisting>
+
+<programlisting><userinput>MAKE "CASEIGNOREDP "TRUE
+SHOW EQUALP "a "A</userinput>
+true</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

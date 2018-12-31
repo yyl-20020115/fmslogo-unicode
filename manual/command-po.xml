@@ -1,0 +1,50 @@
+<section id="command-po">
+    <title>PO</title>
+<indexterm><primary>PO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PO</command> <parameter>contentslist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints the definitions of all procedures, variables, and property lists named in <parameter>contentslist</parameter> to the current write stream.
+See the <link linkend="workspace-queries">Workspace Queries</link> section for an explaination of the formats of <parameter>contentslist</parameter>.
+</para>
+
+<para>
+PO throws an error if it is asked to print out a procedure or variable name that is not in the workspace.
+However, it is not an error to ask PO to print out the contents of a property list that is not in the workspace.
+This is consistent with how <link linkend="command-gprop">GPROP</link> behaves when asked to get a non-existent property.
+</para>
+
+<para>
+PO stands for "Print Out".
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO xxx
+  print "Hello ; comment
+end
+
+PO "xxx</userinput>
+TO xxx
+  print "Hello ; comment
+END
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

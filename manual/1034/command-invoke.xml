@@ -1,0 +1,41 @@
+<section id="command-invoke">
+    <title>INVOCA</title>
+<indexterm><primary>INVOCA</primary></indexterm>
+<indexterm><primary>INVOKE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>INVOCA</command> <parameter>plantilla</parameter> <parameter>argumento</parameter>
+(<command>INVOCA</command> <parameter>plantilla</parameter> <parameter>argumento1</parameter> <parameter>argumento2</parameter> <parameter>...</parameter>)
+<command>INVOKE</command> <parameter>plantilla</parameter> <parameter>argumento</parameter>
+(<command>INVOKE</command> <parameter>plantilla</parameter> <parameter>argumento1</parameter> <parameter>argumento2</parameter> <parameter>...</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Ejecuta el argumento <parameter>plantilla</parameter>, llenando las ranuras con el resto de sus argumentos, y devuelve el resultado, si lo hay.
+El número de elementos en <parameter>lista_de_argumentos</parameter> debe ser aceptable para la plantilla.
+Es ilegal invocar la primitiva <link linkend="command-to">PARA</link> como plantilla, pero cualquier otro procedimiento es legal.
+</para>
+
+<para>
+INVOCA parece a <link linkend="command-apply">APLICA</link> excepto que se proporciona los argumentos a INVOCA como expresiones distintos en lugar de una lista.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA (INVOCA "ADICION 1 2 3)</userinput>
+6</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

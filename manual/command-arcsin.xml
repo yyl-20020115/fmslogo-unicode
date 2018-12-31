@@ -1,0 +1,41 @@
+<section id="command-arcsin">
+<title>ARCSIN</title>
+<indexterm><primary>ARCSIN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ARCSIN</command> <parameter>num</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Outputs the inverse sine of its input.
+The output is given in degrees in the range [-90, 90].
+<parameter>num</parameter> must be in the range [-1, 1].
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW ARCSIN 0.5</userinput>
+30</programlisting>
+<programlisting><userinput>SHOW ARCSIN SIN 45</userinput>
+45</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-radarcsin">RADARCSIN</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

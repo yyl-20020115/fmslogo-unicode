@@ -1,0 +1,34 @@
+<section id="command-scrunch">
+    <title>SCRUNCH</title>
+<indexterm><primary>SCRUNCH</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCRUNCH</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a list containing two numbers, the X and Y scrunch factors, as used by <link linkend="command-setscrunch">SETSCRUNCH</link>.
+Note that SETSCRUNCH takes two numbers as inputs, not one list of numbers.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>SETSCRUNCH 2.0 1.0
+REPEAT 4 [FORWARD 100 RIGHT 90]
+SHOW SCRUNCH</userinput>
+[2 1]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

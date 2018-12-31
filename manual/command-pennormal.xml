@@ -1,0 +1,31 @@
+<section id="command-pennormal">
+    <title>PENNORMAL</title>
+<indexterm><primary>PENNORMAL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PENNORMAL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Sets the pen's state to the startup default of down and paint.
+</para>
+
+</listitem>
+</varlistentry>
+<varlistentry><term>Example</term>
+<listitem>
+    <programlisting><userinput>PENREVERSE
+FORWARD 100
+PENNORMAL
+BACK 100</userinput></programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</section>

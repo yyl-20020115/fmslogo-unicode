@@ -1,0 +1,35 @@
+<section id="command-names">
+    <title>NAMES</title>
+<indexterm><primary>NAMES</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>NAMES</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs a contents list consisting of an empty procedure list (indicating no procedure names) followed by a list of all unburied variable names in the workspace.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "FOO 1
+MAKE "BAR 2
+SHOW NAMES</userinput>
+[[] [bar foo]]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</section>

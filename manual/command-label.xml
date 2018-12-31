@@ -1,0 +1,124 @@
+<section id="command-label">
+    <title>LABEL</title>
+<indexterm><primary>LABEL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>LABEL</command> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Prints <parameter>text</parameter> to the screen at the turtle's current position and heading.
+</para>
+
+<para>
+You can print any &GENERICNAME; thing (numbers, lists, strings, etc.).
+If <parameter>text</parameter> is a list, then any sub-lists are delimited by square brackets, but the entire object is not delimited by brackets.
+The text is truncated according to the current values of <link linkend="command-printwidthlimit">PRINTWIDTHLIMIT</link> and <link linkend="command-printdepthlimit">PRINTDEPTHLIMIT</link>.
+</para>
+
+<para>
+The text is printed in the font described by <link linkend="command-labelfont">LABELFONT</link>, which is set with <link linkend="command-setlabelfont">SETLABELFONT</link> or the <link linkend="menu-set-labelfont">Set->Label Font</link> menu item.
+</para>
+
+<para>
+The position of the text is determined by the location of the turtle.
+More precisely, the top-left corner of the text is placed at the turtle's position.
+</para>
+
+<para>
+The angle of the text is determined by the heading (direction) of the turtle.
+Not all fonts are capable of printing text at different angles, so be sure to use a TrueType or OpenType font if printing at different angles is desired.
+</para>
+
+<para>
+The color of the text is determined by the value of <link linkend="command-pencolor">PENCOLOR</link>, which is set with <link linkend="command-setpencolor">SETPENCOLOR</link>.
+</para>
+
+<para>
+The width and height of the text's bounding box can be determined with <link linkend="command-labelsize">LABELSIZE</link>.
+</para>
+
+<para>
+LABEL can be used in <link linkend="command-perspective">PERSPECTIVE</link> mode, but the text is not printed on the same plane as the turtle.
+Instead, the text is placed wherever the turtle is on the screen (in two dimensions) and oriented according to the turtle's heading.
+</para>
+
+<para>
+The capabilities of the text changes depending on the device (screen or printer), the turtle heading (direction), and the font.
+In other words, sometimes the text can be drawn at the turtle heading and sometimes it cannot.
+Sometimes what is on the screen is not exactly what you print.
+</para>
+
+<para>
+If you want to flash a message by writing it in one color, then writing the same message in the background color, you should disable anti-aliasing in the LABELFONT by choosing a <parameter>Quality</parameter> of 3 when you run SETLABELFONT.
+Otherwise, you'll end up with a faint outline of the message which you wanted to completely erase.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>; label the axes of a 3D Cartesian Coordinate System
+TO AXIS
+  SETLABELFONT [[Courier New] -19 0 0 700 0 0 0 0 3 2 1 49]
+  RIGHT 90
+
+  SETY  200
+  LABEL "+Y
+  SETY  -200
+  LABEL "-Y
+  SETY 0
+
+  SETX 200
+  LABEL "+X
+  SETX -200
+  LABEL "-X
+  SETX 0
+
+  SETZ 200
+  LABEL "+Z
+  SETZ -200
+  LABEL "-Z
+  SETZ 0
+  LEFT 90
+END
+
+PERSPECTIVE
+CLEARSCREEN
+SETTURTLE -1 ; select the eye position
+SETPOSXYZ [600 600 800]
+SETTURTLE 0
+AXIS</userinput>
+</programlisting>
+
+<programlisting><userinput>; flash a message
+TO FLASH :message
+  ; Quality=3 disables anti-aliasing
+  SETLABELFONT [[Arial] -19 0 0 700 0 0 0 0 3 2 3 49]
+  PENPAINT
+  LABEL :message
+  WAIT 180
+  PENERASE
+  LABEL :message
+  PENPAINT
+END
+
+TO TELLJOKE
+  FLASH [Q: Why did the chicken cross the road?]
+  FLASH [A: To get to the other side!]
+  FLASH [Ha! ha! ha!]
+END</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

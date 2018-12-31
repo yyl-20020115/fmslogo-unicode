@@ -1,0 +1,43 @@
+<section id="command-beforep">
+<title>BEFOREP</title>
+<indexterm><primary>BEFOREP</primary></indexterm>
+<indexterm><primary>BEFORE?</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BEFOREP</command> <parameter>word1</parameter> <parameter>word2</parameter>
+<command>BEFORE?</command> <parameter>word1</parameter> <parameter>word2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if <parameter>word1</parameter> comes before <parameter>word2</parameter> in ASCII collating sequence (for words of letters, in alphabetical order).
+Case-sensitivity is determined by the value of <link linkend="command-caseignoredp">CASEIGNOREDP</link>.
+Note that if the inputs are numbers, the result may not be the same as with <link linkend="command-lessp">LESSP</link>.
+For example, <userinput>BEFOREP 3 12</userinput> is FALSE because 3 collates before 1.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW BEFOREP "ABC "abd</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW BEFOREP "abd "ABC</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW BEFOREP "a "a</userinput>
+false</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

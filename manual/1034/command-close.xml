@@ -1,0 +1,55 @@
+<section id="command-close">
+<title>CIERRA</title>
+<indexterm><primary>CIERRA</primary></indexterm>
+<indexterm><primary>CLOSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>CIERRA</command> <parameter>nombre_de_archivo</parameter>
+<command>CLOSE</command> <parameter>nombre_de_archivo</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Cierra el archivo nombrado <parameter>nombre_de_archivo</parameter>.
+Fallará todos los intentos siguientes para leer de o escribir a este archivo.
+</para>
+
+<para>
+Puedes también cerrar el archivo reservada llamado <userinput>"clipboard</userinput> con este comando.
+</para>
+
+<para>
+Si cierras la <link linkend="command-reader">LECTURA</link> o <link linkend="command-writer">ESCRITURA</link> actual, entonces se revuelve la lectura o escritura al Centro de Comandos.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>ABREESCRITURA "ejemplo.txt
+PONESCRITURA "ejemplo.txt
+ESCRIBE "Hola
+ESCRIBE [Adiós, Amigo]
+PONESCRITURA []
+CIERRA "ejemplo.txt
+
+ABRELECTURA "ejemplo.txt
+PONLECTURA "ejemplo.txt
+REPITE 2 [MUESTRA LEELISTA]</userinput>
+[Hola]
+[Adiós, Amigo]
+<userinput>PONLECTURA []
+CIERRA "ejemplo.txt</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

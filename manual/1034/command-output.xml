@@ -1,0 +1,49 @@
+<section id="command-output">
+<title>DEVUELVE</title>
+<indexterm><primary>DEVUELVE</primary></indexterm>
+<indexterm><primary>DEV</primary></indexterm>
+<indexterm><primary>OUTPUT</primary></indexterm>
+<indexterm><primary>OP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DEVUELVE</command> <parameter>valor</parameter>
+<command>DEV</command> <parameter>valor</parameter>
+<command>OUTPUT</command> <parameter>valor</parameter>
+<command>OP</command> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Termina la ejecución del procedimiento en que aparece.
+Este procedimiento devuelve <parameter>valor</parameter> al contexto en el que se lo llamó.
+No seas confuso: DEVUELVE es un comando, pero el procedimiento que ejecuta DEVUELVE es una operación.
+</para>
+
+<para>
+El argumento <parameter>valor</parameter> puede ser cualquier cosa de &GENERICNAME; (palabra, lista, vector, etc.).
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA
+  DEVUELVE [Lo que devuelve es esto]
+FIN
+
+MUESTRA MIPROGRAMA</userinput>
+[Lo que devuelve es esto]
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

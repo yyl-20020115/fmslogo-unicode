@@ -1,0 +1,40 @@
+<section id="command-activearea">
+    <title>ACTIVEAREA</title>
+<indexterm><primary>ACTIVEAREA</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ACTIVEAREA</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs the current active area, as set by <link linkend="command-setactivearea">SETACTIVEAREA</link>.
+</para>
+
+<para>
+The active area is output as a list of the form: [XLow YLow XHigh YHigh].
+All members are integers.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SETACTIVEAREA [-10 -10 10 10]
+SHOW ACTIVEAREA</userinput>
+[-10 -10 10 10]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

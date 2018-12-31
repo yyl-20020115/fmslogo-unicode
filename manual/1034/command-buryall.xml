@@ -1,0 +1,50 @@
+<section id="command-buryall">
+    <title>TAPATODO</title>
+<indexterm><primary>TAPATODO</primary></indexterm>
+<indexterm><primary>BURYALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TAPATODO</command>
+<command>BURYALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Tapa todos los procedimientos, variables y listas de propiedades en el área de trabajo.
+TAPATODO es la abreviatura de <userinput><link linkend="command-bury">TAPA</link> <link linkend="command-contents">CONTENIDO</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA FOO
+  ESCRIBE [Yo soy Foo]
+FIN
+
+PARA BAR
+  ESCRIBE [Yo soy Bar]
+FIN
+
+IMTS</userinput>
+PARA BAR
+PARA FOO
+<userinput>TAPATODO
+IMTS</userinput>
+<userinput>FOO</userinput>
+Yo soy Foo
+<userinput>BAR</userinput>
+Yo soy Bar
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

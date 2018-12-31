@@ -1,0 +1,49 @@
+<section id="command-maximize">
+<title>MAXIMIZE</title>
+<indexterm><primary>MAXIMIZE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MAXIMIZE</command> <parameter>caption</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Maximizes the window whose title matches <parameter>caption</parameter>.
+</para>
+
+<para>
+A window's "caption" is not the same as the window's "name" used by the <link linkend="windows-commands">windows commands</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>TO MAXLOGO
+  MAXIMIZE "&PRODUCTNAME;
+  WAIT 120
+  RESTORE "&PRODUCTNAME;
+END
+
+MAXLOGO</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-minimize">MINIMIZE</link></member>
+<member><link linkend="command-restore">RESTORE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

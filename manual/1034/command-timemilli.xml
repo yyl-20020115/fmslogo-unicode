@@ -1,0 +1,36 @@
+<section id="command-timemilli">
+<title>HORAMILI</title>
+<indexterm><primary>HORAMILI</primary></indexterm>
+<indexterm><primary>TIMEMILLI</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HORAMILI</command>
+<command>TIMEMILLI</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el tiempo transcurrido desde que se inició Windows, con una precisión de milisegundos.
+Se usa HORAMILI por cronometrando eventos con precisión.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "comienzo HORAMILI
+REPITE 36 [ELIPSE 100 200 GIRADERECHA 5]
+MUESTRA HORAMILI - :comienzo</userinput>
+8189</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

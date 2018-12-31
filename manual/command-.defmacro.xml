@@ -1,0 +1,26 @@
+<section id="command-.defmacro">
+    <title>.DEFMACRO</title>
+<indexterm><primary>.DEFMACRO</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>.DEFMACRO</command> <parameter>procname</parameter> <parameter>text</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+.DEFMACRO is like <link linkend="command-define">DEFINE</link> with the same exceptions as <link linkend="command-.macro">.MACRO</link>.
+</para>
+
+<para>
+See <link linkend="command-define">DEFINE</link> and <link linkend="command-.macro">.MACRO</link> for more details.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

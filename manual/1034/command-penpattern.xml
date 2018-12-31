@@ -1,0 +1,29 @@
+<section id="command-penpattern">
+  <title>PATRONLAPIZ</title>
+<indexterm><primary>PATRONLAPIZ</primary></indexterm>
+<indexterm><primary>PENPATTERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PATRONLAPIZ</command>
+<command>PENPATTERN</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+
+<note><para>No se soporta PATRONLAPIZ en &PRODUCTNAME;.</para></note>
+
+<para>
+Devuelve las características del lápiz dependientes del «hardware».
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

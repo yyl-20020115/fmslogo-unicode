@@ -1,0 +1,54 @@
+<section id="command-zoom">
+    <title>PONLUPA</title>
+<indexterm><primary>PONLUPA</primary></indexterm>
+<indexterm><primary>ZOOM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PONLUPA</command> <parameter>escala</parameter>
+<command>ZOOM</command> <parameter>escala</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Pone la escala de la pantalla.
+El argumento <parameter>escala</parameter> es el nivel de ampliación.
+Un número mayor que 1,0 aumenta más (por ejemplo, 2,0 le hace el doble), un número menor que 1,0 dibuja a tamaño más reducido (0,5 le hace la mitad).
+Si una imagen existente está en la pantalla cuando ejecutas PONLUPA, la imagen se estirará o empequeñecerá, según la escala.
+La imagen resultante puede parecer un poco dentada, pero si dibujas mientras que hay una ampliación que no es 1, las nuevas líneas no estarán tan dentadas.
+</para>
+
+<para>
+Aunque las cosas pueden parecer dentadas, &PRODUCTNAME; recuerda todo como si el nivel de ampliación fuera normal (1,0) y solo imprime a la escala normal.
+Una vez que hayas restaurado el nivel de ampliación normal, no se estirará o empequeñecerá tu imagen.
+En otras palabras, a un nivel de ampliación normal, las lineas nunca están dentadas, aún si las hayas dibujado a un nivel de ampliación de 0,5 o 2,0.
+</para>
+
+<para>
+PONLUPA funciona mejor cuando <parameter>escala</parameter> es una potencia de dos, tal como 2, 4, 8, 1/2 (0,5), 1/4 (0,25), 1/8 (0,125), etc.
+</para>
+
+<para>
+Puedes también controlar el nivel de ampliación usando el <link linkend="menu-zoom">Menú Zoom</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>REPITE 4 [AVANZA 100 GIRADERECHA 90]
+PONLUPA 0.5
+PONLUPA 2.0</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

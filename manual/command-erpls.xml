@@ -1,0 +1,38 @@
+<section id="command-erpls">
+    <title>ERPLS</title>
+<indexterm><primary>ERPLS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ERPLS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Erases all unburied property lists from the workspace.
+ERPLS abbreviates <userinput><link linkend="command-erase">ERASE</link> <link linkend="command-plists">PLISTS</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PPROP "plist1 "p1 1
+PPROP "plist2 "p2 2
+POPLS</userinput>
+Pprop "plist1 "p1 1
+Pprop "plist2 "p2 1
+<userinput>ERPLS
+POPLS</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

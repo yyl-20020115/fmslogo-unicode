@@ -1,0 +1,34 @@
+<section id="command-time">
+<title>HORA</title>
+<indexterm><primary>HORA</primary></indexterm>
+<indexterm><primary>TIME</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HORA</command>
+<command>TIME</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve en una lista la hora actual del sistema.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA HORA</userinput>
+[Wed Jul 14 23:34:08 1993]</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,40 @@
+<section id="command-screencolor">
+    <title>COLORFONDO</title>
+<indexterm><primary>COLORFONDO</primary></indexterm>
+<indexterm><primary>SCREENCOLOR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>COLORFONDO</command>
+<command>SCREENCOLOR</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el color del fondo de la pantalla.
+Lo devuelto es o un color indexado (un número de 0 a 15) o una lista con las intensidades de los colores [rojo verde azul] en un rango 0-255, dependiendo de como se puso el color de fondo.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONCOLORFONDO [100 200 50]
+MUESTRA COLORFONDO</userinput>
+[100 200 50]
+</programlisting>
+
+<programlisting><userinput>PONCOLORFONDO 2
+MUESTRA COLORFONDO</userinput>
+2</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

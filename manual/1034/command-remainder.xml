@@ -1,0 +1,54 @@
+<section id="command-remainder">
+    <title>RESTO</title>
+<indexterm><primary>RESTO</primary></indexterm>
+<indexterm><primary>REMAINDER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>RESTO</command> <parameter>dividendo</parameter> <parameter>divisor</parameter>
+<command>REMAINDER</command> <parameter>dividendo</parameter> <parameter>divisor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el resto de la división de <parameter>dividendo</parameter> por <parameter>divisor</parameter>.
+Ambos <parameter>dividendo</parameter> y <parameter>divisor</parameter> deben ser números y <parameter>divisor</parameter> no debe ser 0. 
+</para>
+
+<para>
+Matemáticamente, un resto es un número tal que
+<informalequation><mathphrase>dividendo = cociente * divisor + resto</mathphrase></informalequation>
+Donde cociente es un entero y -divisor &lt; resto &lt; divisor.
+Por esta definición, dos restos puede ser posible por un divisor y dividendo dados, uno que es positivo y el otro negativo.
+Para que RESTO sea bien definido, siempre devuelve el resto cuyo signo es igual al signo de <parameter>dividendo</parameter>.
+Por lo contrario, <link linkend="command-modulo">MODULO</link> usa el signo de <parameter>divisor</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>MUESTRA RESTO 5 3</userinput>
+2</programlisting>
+
+<programlisting><userinput>MUESTRA RESTO -5 3</userinput>
+-2</programlisting>
+
+<programlisting><userinput>MUESTRA RESTO 3.8 1.2</userinput>
+0.2</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-modulo">MODULO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,33 @@
+<section id="command-forward">
+<title>FORWARD</title>
+<indexterm><primary>FORWARD</primary></indexterm>
+<indexterm><primary>FD</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>FORWARD</command> <parameter>distance</parameter>
+<command>FD</command> <parameter>distance</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Moves the turtle forward in the direction that it's headed by the specified distance, measured in turtle steps.
+The heading of the turtle does not change.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 4 [FORWARD 100 RIGHT 90]</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

@@ -1,0 +1,246 @@
+<chapter id="main-menu">
+   <title>Main Menu</title>
+   <para>The main menu is where you do high-level tasks in &PRODUCTNAME;, such as loading a &GENERICNAME; program, loading an image, setting up a printer, or even reading this help file.</para>
+
+      <section id="menu-file">
+        <title>File Menu</title>
+        <para>The File menu includes options that enable you to operate on &GENERICNAME; procedure files.
+Note that, as a side effect, any selection in this menu that has a directory in its dialog box effectively changes the current working directory to that directory.</para>
+
+        <section id="menu-file-new">
+          <title>File - New</title>
+          <para>This <link linkend="command-erase">ERASE</link>s all procedures, variables, and property lists in the workspace.
+It's like starting with a "new" session.</para>
+        </section>
+
+        <section id="menu-file-load">
+          <title>File - Load...</title>
+          <para>This loads procedures from disk into memory so that they can be executed or edited.
+See also the <link linkend="command-load">LOAD</link> command.</para>
+        </section>
+
+        <section id="menu-file-open">
+          <title>File - Open...</title>
+          <para>This erases all procedures in the workspace, then loads procedures from disk into memory.
+This is equivalent to <link linkend="menu-file-new">File - New</link> followed by <link linkend="menu-file-load">File - Load</link>.
+It exists to emphasize the difference between File - Load (which is modeled after the <link linkend="command-load">LOAD</link> command) and the way File - Open behaves in most Windows applications.</para>
+        </section>
+
+        <section id="menu-file-save">
+          <title>File - Save</title>
+          <para>This saves everything that is loaded in memory onto the disk.
+See also the <link linkend="command-save">SAVE</link> command.</para>
+        </section>
+
+        <section id="menu-file-saveas">
+          <title>File - Save As...</title>
+          <para>This is the same as <link linkend="menu-file-save">File - Save</link>, except that it prompts you for a file name.</para>
+        </section>
+
+        <section id="menu-file-setasscreensaver">
+          <title>File - Set As Screen Saver</title>
+          <para>This saves the current workspace to a file, configures the &PRODUCTNAME; screen saver to load this file, and sets the &PRODUCTNAME; screen saver as the active screen saver.  If the &PRODUCTNAME; screen saver is not installed, then this option is disabled.</para>
+        </section>
+
+        <section id="menu-file-edit">
+          <title>File - Edit...</title>
+          <para>This is how you edit procedures that have already been loaded (or developed) in memory.
+          This menu option prompts you to select which existing procedures you want to edit.
+          You can also enter a new one.
+See also the <link linkend="command-edit">EDIT</link> command.</para>
+        </section>
+
+        <section id="menu-file-erase">
+          <title>File - Erase...</title>
+          <para>This is how you erase procedures that have already been loaded (or developed) in memory.
+          This menu option prompts you to select which existing procedures you want to erase.
+See also the <link linkend="command-erase">ERASE</link> command.</para>
+        </section>
+
+        <section id="menu-file-exit">
+          <title>File - Exit</title>
+          <para>This is how you exit &PRODUCTNAME;.
+See also the <link linkend="command-bye">BYE</link> command.</para>
+        </section>
+
+      </section>
+
+
+      <section id="menu-bitmap">
+        <title>Bitmap Menu</title>
+        <para>The Bitmap menu includes options that operate on bitmap files.</para>
+
+        <section id="menu-bitmap-new">
+          <title>Bitmap - New</title>
+          <para>This clears the work done on the screen and creates a new environment to save things in.</para>
+        </section>
+
+        <section id="menu-bitmap-load">
+          <title>Bitmap - Load...</title>
+          <para>This reads an image that is stored on your file system.
+You can load images in either the Microsoft Windows Bitmap (BMP) format or the Graphical Interlace Format (GIF) format.
+Also see the <link linkend="command-bitload">BITLOAD</link> command.</para>
+
+          <para>See also the section on <link linkend="using-color">using color</link>.</para>
+        </section>
+
+        <section id="menu-bitmap-save">
+          <title>Bitmap - Save...</title>
+          <para>This saves the picture that you're working so that you can use it with other applications or continue to work on it later.
+You can save pictures as either a Microsoft Windows Bitmap (BMP) or a Graphical Interlace Format (GIF).
+Remember, if your image was generated with a &GENERICNAME; program you really don't need to save it as an image unless you want to use the image in another application such as Microsoft Paint or as a wallpaper.
+Also see the <link linkend="command-bitsave">BITSAVE</link> command.</para>
+
+          <para>See also the <link linkend="command-setactivearea">SETACTIVEAREA</link> command.</para>
+        </section>
+
+
+        <section id="menu-bitmap-saveas">
+          <title>Bitmap - Save As...</title>
+          <para>This is similar to the Bitmap - Save menu option, but it prompts you for a new file name.</para>
+        </section>
+
+
+        <section id="menu-bitmap-print">
+          <title>Bitmap - Print...</title>
+          <para>This prints the active area on the screen to the printer.</para>
+        </section>
+
+
+        <section id="menu-bitmap-printersetup">
+          <title>Bitmap - Printer Setup...</title>
+          <para>This brings up a dialog box to configure the default printer.</para>
+        </section>
+
+        <section id="menu-bitmap-activearea">
+          <title>Bitmap - Active Area...</title>
+          <para>This allows you to select which portion of the screen will be printed or saved.
+The primary purpose of this option is performance and space.
+You no longer need to wait for the software to build a full image.
+It takes less time and less memory to print and disk space to save a partial image.
+As a side effect you can adjust where your image ends up on the page by selecting different extents.
+You may at anytime click on reset to put the extents back to the full image.
+&PRODUCTNAME; remembers what you set them to even after you exit.</para>
+
+          <para>This menu option also allows you to set how many "turtle steps" are mapped to an inch on your printout.
+The default is 125 turtle steps per inch of paper.
+Since &PRODUCTNAME;'s drawing surface defaults to 1000 x 1000 turtle steps, that equates to about 8 x 8 inches (1000/125 x 1000/125).
+You may increase this number to take advantage of higher resolution printers but your image will become smaller.
+You can compensate for this by increasing your drawing surface (and your drawing's size).</para>
+
+          <para>You can also set the active area with the &GENERICNAME; command <link linkend="command-setactivearea">SETACTIVEAREA</link> and get it with the &GENERICNAME; operation <link linkend="command-activearea">ACTIVEAREA</link>.</para>
+        </section>
+
+      </section>
+
+      <section id="menu-set">
+        <title>Set Menu</title>
+        <para>The Set menu allows you to change some of the characteristics of how &PRODUCTNAME; behaves when drawing.</para>
+
+        <section id="menu-set-pensize">
+          <title>Set - Pen Size...</title>
+          <para>This allows you to set the pen size with which the turtle draws.
+You can also set the pen size with the &GENERICNAME; command <link linkend="command-setpensize">SETPENSIZE</link> and get it with the &GENERICNAME; command <link linkend="command-pensize">PENSIZE</link>.</para>
+        </section>
+
+        <section id="menu-set-labelfont">
+          <title>Set - Label Font...</title>
+          <para>This allows you to set the font with which the <link linkend="command-label">LABEL</link> command writes.
+You can also set the font with the &GENERICNAME; command <link linkend="command-setlabelfont">SETLABELFONT</link> and get it with the &GENERICNAME; command <link linkend="command-labelfont">LABELFONT</link>.</para>
+        </section>
+
+        <section id="menu-set-commanderfont">
+          <title>Set - Commander Font...</title>
+          <para>This allows you to choose the font that is used by the <link linkend="commander">Commander</link>.
+The chosen font remains selected even after &PRODUCTNAME; has been restarted.</para>
+        </section>
+
+        <section id="menu-set-pencolor">
+          <title>Set - Pen Color...</title>
+          <para>This allows you to set the pen color.
+You can also set the pen color with the &GENERICNAME; command <link linkend="command-setpencolor">SETPENCOLOR</link> and get it with the &GENERICNAME; command <link linkend="command-pencolor">PENCOLOR</link>.</para>
+        </section>
+
+
+        <section id="menu-set-floodcolor">
+          <title>Set - Flood Color...</title>
+          <para>This allows you to set the flood color with which the turtle <link linkend="command-fill">FILL</link>s.
+You can also set the flood color with the &GENERICNAME; command <link linkend="command-setfloodcolor">SETFLOODCOLOR</link> and get it with the &GENERICNAME; command <link linkend="command-floodcolor">FLOODCOLOR</link>.</para>
+        </section>
+
+        <section id="menu-set-screencolor">
+          <title>Set - Screen Color...</title>
+          <para>This allows you to set the screen color.
+You can also set the screen color with the &GENERICNAME; command <link linkend="command-setscreencolor">SETSCREENCOLOR</link> and get it with the &GENERICNAME; command <link linkend="command-screencolor">SCREENCOLOR</link>.</para>
+        </section>
+
+      </section>
+
+
+      <section id="menu-zoom">
+        <title>Zoom Menu</title>
+        <para>The Zoom menu allows you set the zoom factor.
+You can also set the zoom factor with the &GENERICNAME; command <link linkend="command-zoom">ZOOM</link>.</para>
+
+        <section id="menu-zoom-in">
+          <title>Zoom - In</title>
+          <para>This menu option doubles the current zoom factor.</para>
+        </section>
+
+        <section id="menu-zoom-out">
+          <title>Zoom - Out</title>
+          <para>This menu option halves the current zoom factor.</para>
+        </section>
+
+        <section id="menu-zoom-normal">
+          <title>Zoom - Normal</title>
+          <para>This menu option restores the zoom factor to 1.0 (no zooming).</para>
+        </section>
+
+      </section>
+
+      <section id="menu-help">
+        <title>Help Menu</title>
+        <para>The Help menu allows you to learn more about &PRODUCTNAME;.
+For more information, select the Help menu command name.
+Also see the <link linkend="command-help">HELP</link> command.</para>
+
+        <section id="menu-help-index">
+          <title>Help - Index</title>
+          <para>This displays the manual for &PRODUCTNAME; and presents you with a searchable index.</para>
+        </section>
+
+        <section id="menu-help-tutorial">
+          <title>Help - Tutorial</title>
+          <para>This brings you to the <link linkend="tutorial">tutorial</link> section in the help menu.</para>
+        </section>
+
+        <section id="menu-help-demo">
+          <title>Help - Demo</title>
+          <para>This runs the DEMO program from the &GENERICNAME; library.</para>
+        </section>
+
+        <section id="menu-help-example">
+          <title>Help - Examples</title>
+          <para>This brings you to an HTML page that describes each example program that comes with &PRODUCTNAME;.</para>
+        </section>
+
+        <section id="menu-help-releasenotes">
+          <title>Help - Release Notes</title>
+          <para>This displays the release notes for this version of &PRODUCTNAME;.</para>
+        </section>
+
+
+        <section id="menu-help-aboutfmslogo">
+          <title>Help - About &PRODUCTNAME;</title>
+          <para>This displays the copyright and version information for &PRODUCTNAME;.</para>
+        </section>
+
+        <section id="menu-help-aboutms">
+          <title>Help - About MS</title>
+          <para>This displays information on Multiple Sclerosis.</para>
+        </section>
+
+      </section>
+
+</chapter>

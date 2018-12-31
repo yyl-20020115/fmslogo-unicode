@@ -1,0 +1,47 @@
+<section id="command-rmdir">
+<title>RMDIR</title>
+<indexterm><primary>RMDIR</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>RMDIR</command> <parameter>directoryname</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Removes (deletes) a directory named <parameter>directoryname</parameter>.
+The <parameter>directoryname</parameter> input must be a word (a name of an existing directory).
+You cannot remove a directory if it is your working directory.
+You cannot remove a directory that contains files or other directories (both <link linkend="command-files">FILES</link> and <link linkend="command-directories">DIRECTORIES</link> must output the empty list when it is your working directory).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MKDIR "junk</userinput>
+Now in newly created directory "junk"
+
+<userinput>POPDIR</userinput>
+Changed to "C:\Program Files\&PRODUCTNAME;"
+
+<userinput>RMDIR "junk</userinput>
+Removed directory "junk"
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-mkdir">MKDIR</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>
+

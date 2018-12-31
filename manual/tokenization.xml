@@ -1,0 +1,114 @@
+<chapter id="language-mechanics">
+   <title>Language Mechanics</title>
+
+<para>
+This chapter explains how the &GENERICNAME; language works.
+</para>
+
+<section id="tokenization">
+   <title>Tokenization</title>
+   <indexterm><primary>tokenization</primary></indexterm>
+
+   <indexterm><primary>;</primary></indexterm>
+   <indexterm><primary>semicolon</primary></indexterm>
+   <indexterm><primary>comment</primary></indexterm>
+
+   <indexterm><primary>~</primary></indexterm>
+   <indexterm><primary>line continuation</primary></indexterm>
+
+   <para>Names of procedures, variables, and property lists are case-insensitive.
+So are the special words <link linkend="command-end">END</link>, <link linkend="command-true">TRUE</link>, and <link linkend="command-false">FALSE</link>.
+Case of letters is preserved in everything you type, however.</para>
+
+    <para>Within square brackets, words are delimited only by spaces and square brackets.
+<userinput>[2+3]</userinput> is a list containing one word.</para>
+
+    <para>A word not after a quotation mark or inside square brackets is delimited by a space, a bracket, a parenthesis, or an infix operator <userinput>+-*/=&lt;></userinput>.
+Words that follow colons are also in this category.
+Note that quote and colon are not delimiters.</para>
+
+    <para>A word consisting of a question mark followed by a number (e.g., <userinput>?3</userinput>), is parsed as if it were the sequence<programlisting>(? 3)</programlisting>
+making the number an input to the <userinput>?</userinput> procedure.
+(See the section on <link linkend="template-based-iteration">Template-Based Iteration</link>).
+This special treatment does not apply to words read as data, to words with a non-number following the question mark, or if the question mark is backslashed.</para>
+
+    <para>A line (an instruction line or one read by <link linkend="command-readlist">READLIST</link> or <link linkend="command-readword">READWORD</link>) can be continued onto the following line if its last character is a tilde (<userinput>~</userinput>).
+<link linkend="command-readword">READWORD</link> preserves the tilde and the newline; <link linkend="command-readlist">READLIST</link> does not.
+    A tilde which appears anywhere else in a line has no special meaning.</para>
+
+
+    <para>A semicolon begins a comment in an instruction line.
+&GENERICNAME; ignores characters from the semicolon to the end of the line.
+A tilde (<userinput>~</userinput>) as the last character in the line still indicates a continuation line, but not a continuation of the comment.</para>
+
+    <para>Example:</para>
+
+    <programlisting><userinput>print "abc;comment ~
+def</userinput>
+abcdef</programlisting>
+
+
+    <para>Semicolon has no special meaning in data lines read by <link linkend="command-readlist">READLIST</link> or <link linkend="command-readword">READWORD</link>, but such a line can later be reparsed using <link linkend="command-runparse">RUNPARSE</link> and then comments will be recognized.
+<!-- not true in fms:
+If a tilde is typed for line continuation, &GENERICNAME; uses a tilde as a prompt character for the continuation line.
+--></para>
+
+    <para>To include an otherwise delimiting character (including semicolon or tilde) in a word, precede it with backslash (<userinput>\</userinput>).
+If the last character of a line is a backslash, then the newline character following the backslash is part of the last word on the line, and the line continues onto the following line.
+To include a backslash in a word, use <userinput>\\</userinput>.
+<!-- not true in fms:
+If the combination backslash-newline is entered, &GENERICNAME; will use a backslash as a prompt character for the continuation line.
+-->
+All of this applies to data lines read with <link linkend="command-readlist">READLIST</link> or <link linkend="command-readword">READWORD</link> as well as to instruction lines.</para>
+
+    <para>In &PRODUCTNAME; there is no "prompt character" nor is the carriage return passed from the input control box of the commander.
+However, &PRODUCTNAME; does add the linefeed control character which translates to a carriage return.</para>
+
+    <para>Example:</para>
+
+    <programlisting><userinput>print "Hello\nhow\nare\nyou</userinput>
+Hello
+how
+are
+you</programlisting>
+
+    <para>This works in a procedure or from the input control box.</para>
+
+    <para>A character entered with backslash is <link linkend="command-equalp">EQUALP</link> to the same character without the backslash, but can be distinguished by the <link linkend="command-backslashedp">BACKSLASHEDP</link> predicate.  Backslashing is effective only on characters for which it is necessary: whitespace, parentheses, brackets, infix operators, backslash, vertical bar, tilde, quote, question mark, colon, and semicolon.</para>
+
+    <para>An alternative notation to include otherwise delimiting characters in words is to enclose a group of characters in vertical bars (<userinput>|</userinput>).
+All characters between vertical bars are treated as if they were letters.
+In data read with <link linkend="command-readword">READWORD</link> the vertical bars are preserved in the resulting word.
+In data read with <link linkend="command-readlist">READLIST</link> (or resulting from a <link linkend="command-parse">PARSE</link> or <link linkend="command-runparse">RUNPARSE</link> of a word) the vertical bars do not appear explicitly; all potentially delimiting characters (including spaces, brackets, parentheses, and infix operators) appear as though entered with a backslash.
+Within vertical bars, backslash may still be used; the only characters that must be backslashed in this context are backslash and vertical bar themselves.</para>
+
+    <para>Characters entered between vertical bars are forever special, even if the word or list containing them is later reparsed with <link linkend="command-parse">PARSE</link> or <link linkend="command-runparse">RUNPARSE</link>.
+The same is true of a character typed after a backslash, except that when a quoted word containing a backslashed character is runparsed, the backslashed character loses its special quality and acts thereafter as if typed normally.
+This distinction is important only if you are building a &GENERICNAME; expression out of parts, to be RUN later, and want to use parentheses.  For example,</para>
+
+
+    <programlisting>PRINT RUN (SENTENCE "\( 2 "+ 3 "\))</programlisting>
+
+    <para>prints 5, but</para>
+
+    <programlisting>RUN (SENTENCE "MAKE ""|(| 2)</programlisting>
+
+    <para>creates a variable whose name is open-parenthesis.  (Each example would fail if vertical bars and backslashes were interchanged.)</para>
+
+</section>
+
+<section id="procedure-loading">
+<title>Procedure Loading</title>
+<para>
+When &PRODUCTNAME; encounters a token that it neither a variable, a number, a word, an infix operator, a parenthesis, nor a bracket, then the token is interpreted as the name of a procedure.
+If this is the name of a primitive or a procedure that has already been defined, then &PRODUCTNAME; calls that procedure.
+Otherwise, &PRODUCTNAME; attempts to load the procedure into the workspace.
+If a ".lgo" file with the same name as with the procedure exists in the current working directory, then &PRODUCTNAME; loads that file (as with the <link linkend="command-load">LOAD</link> command).
+If no errors were encountered and the procedure was defined by loading the file, then that procedure is called.
+However, if the procedure is still not defined and a file with the same name exists in the Logolib directory, then that Logolib file is loaded.
+If no errors were encountered and the procedure was defined by loading the Logolib file, then the procedure is called.
+If the procedure is still not defined, then &PRODUCTNAME; throws an "I don't know how to" error.
+</para>
+</section>
+
+</chapter>

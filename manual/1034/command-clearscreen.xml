@@ -1,0 +1,54 @@
+<section id="command-clearscreen">
+<title>BORRAPANTALLA</title>
+<indexterm><primary>BORRAPANTALLA</primary></indexterm>
+<indexterm><primary>BP</primary></indexterm>
+<indexterm><primary>CLEARSCREEN</primary></indexterm>
+<indexterm><primary>CS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BORRAPANTALLA</command>
+<command>BP</command>
+<command>CLEARSCREEN</command>
+<command>CS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Llena la pantalla con <link linkend="command-screencolor">COLORFONDO</link> y envía la tortuga a su posición y rumbo inicial.
+</para>
+
+<para>
+BORRAPANTALLA también restablece algunas cosas que no se relacionen directamente a la pantalla.
+<itemizedlist>
+  <listitem><para>Elimina todas las tortugas que fueron creadas con <link linkend="command-setturtle">ACTIVA</link>, así que solo una tortuga queda.</para></listitem>
+  <listitem><para>Elimina todos los polígonos completados o parciales que fueron definidos con <link linkend="command-polystart">EMPIEZAPOLIGONO</link> y <link linkend="command-polyend">TERMINAPOLIGONO</link>.</para></listitem>
+</itemizedlist>
+
+
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>AVANZA 100
+BORRAPANTALLA</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-home">CENTRO</link></member>
+<member><link linkend="command-setscreencolor">PONCOLORFONDO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

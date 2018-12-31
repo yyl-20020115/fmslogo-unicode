@@ -1,0 +1,73 @@
+<section id="command-equalp">
+<title>EQUALP</title>
+<indexterm><primary>EQUALP</primary></indexterm>
+<indexterm><primary>EQUAL?</primary></indexterm>
+<indexterm><primary>=</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>EQUALP</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+<command>EQUAL?</command> <parameter>thing1</parameter> <parameter>thing2</parameter>
+<parameter>thing1</parameter> <command>=</command> <parameter>thing2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Outputs TRUE if both inputs are equal, FALSE otherwise.
+</para>
+
+<para>
+Two numbers are equal if they have the same numeric value.
+Two non-numeric words are equal if they contain the same characters in the same order.
+By default, an upper case letter is equal to its corresponding lower case letter.
+However, if a variable named <link linkend="command-caseignoredp">CASEIGNOREDP</link> is defined and its value is not TRUE, then an upper case letter is not equal to its corresponding lower case letter.
+</para>
+
+<para>
+Two lists are equal if their members are equal and appear in the same order.
+</para>
+
+<para>
+An array is only equal to itself; two separately created arrays are never equal even if all of their items are equal.
+It is important to be able to know if two expressions have the same array as their value because arrays are mutable.
+For example, if two different variables have the same array as their value, then running <link linkend="command-setitem">SETITEM</link> on one of them would change both of them.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>SHOW 1=1</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW EQUALP 1 1</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW EQUALP 1 2</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW EQUALP [1 2 3] [1 2 3]</userinput>
+true</programlisting>
+
+<programlisting><userinput>SHOW EQUALP [1 2 3] [3 2 1]</userinput>
+false</programlisting>
+
+<programlisting><userinput>SHOW EQUALP {1 2 3} {1 2 3}</userinput>
+false</programlisting>
+
+<programlisting><userinput>MAKE "myarray1 {1 2 3}
+MAKE "myarray2 :myarray1
+SHOW EQUALP :myarray1 :myarray2</userinput>
+true</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

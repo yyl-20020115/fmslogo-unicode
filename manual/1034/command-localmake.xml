@@ -1,0 +1,44 @@
+<section id="command-localmake">
+<title>HAZLOCAL</title>
+<indexterm><primary>HAZLOCAL</primary></indexterm>
+<indexterm><primary>LOCALMAKE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>HAZLOCAL</command> <parameter>nombre_de_variable</parameter> <parameter>valor</parameter>
+<command>LOCALMAKE</command> <parameter>nombre_de_variable</parameter> <parameter>valor</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Crea un variable que es local al procedimiento en que se encuentra y la asigna un valor.
+Es la abreviatura del siguiente:
+<programlisting><link linkend="command-local">LOCAL</link> <parameter>nombre_de_variable</parameter>
+<link linkend="command-make">HAZ</link> <parameter>nombre_de_variable</parameter> <parameter>valor</parameter></programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA DIHOLA
+  HAZLOCAL "mensaje [Hola]
+  ESCRIBE :mensaje
+FIN
+
+DIHOLA</userinput>
+Hola
+
+<userinput>MUESTRA :mensaje</userinput>
+mensaje no tiene un valor todavía
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

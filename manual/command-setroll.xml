@@ -1,0 +1,48 @@
+<section id="command-setroll">
+<title>SETROLL</title>
+<indexterm><primary>SETROLL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETROLL</command> <parameter>angle</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Rolls the turtle to a new absolute roll.
+The <parameter>angle</parameter> input is the roll in degrees which is positive from the positive X-Axis to the negative Z-Axis rotating about the Y-Axis.
+It is important to <link linkend="understand-your-orientation-in-3D">understand your orientation in 3D</link>.
+</para>
+<para>
+SETROLL is designed to run in <link linkend="command-perspective">PERSPECTIVE</link> mode.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>PERSPECTIVE
+SETROLL 45
+SHOW ROLL</userinput>
+45
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-roll">ROLL</link></member>
+<member><link linkend="command-pitch">PITCH</link></member>
+<member><link linkend="command-heading">HEADING</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

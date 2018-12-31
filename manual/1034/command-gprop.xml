@@ -1,0 +1,56 @@
+<section id="command-gprop">
+    <title>PROPIEDAD</title>
+<indexterm><primary>PROPIEDAD</primary></indexterm>
+<indexterm><primary>GPROP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>PROPIEDAD</command> <parameter>nombre_de_lista</parameter> <parameter>nombre_de_propiedad</parameter>
+<command>GPROP</command> <parameter>nombre_de_lista</parameter> <parameter>nombre_de_propiedad</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el valor de la propiedad llamada <parameter>nombre_de_propiedad</parameter> de una lista de propiedades llamada <parameter>nombre_de_lista</parameter>, o devuelve la lista vacía si no existe tal propiedad o tal lista.
+</para>
+<para>
+El argumento <parameter>nombre_de_lista</parameter> debe ser una palabra.
+</para>
+<para>
+El argumento <parameter>nombre_de_propiedad</parameter> puede ser una palabra, una lista o un vector.
+Los nombres de propiedades se comparan de la misma manera que <link linkend="command-equalp">IGUALES?</link> compara sus argumentos.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PONPROP "lprop1 "p1   1
+PONPROP "lprop1 "p2   2
+PONPROP "lprop2 "p1   10
+PONPROP "lprop2 "p2   20
+PONPROP "lprop2 [p 3] 30
+
+MUESTRA PROPIEDAD "lprop1 "p1</userinput>
+1
+<userinput>MUESTRA PROPIEDAD "lprop1 "p2</userinput>
+2
+<userinput>MUESTRA PROPIEDAD "lprop2 "p1</userinput>
+10
+<userinput>MUESTRA PROPIEDAD "lprop2 "p2</userinput>
+20
+<userinput>MUESTRA PROPIEDAD "lprop2 [p 3]</userinput>
+30
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

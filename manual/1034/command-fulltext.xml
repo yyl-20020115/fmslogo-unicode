@@ -1,0 +1,48 @@
+<section id="command-fulltext">
+    <title>TEXTOCOMPLETO</title>
+<indexterm><primary>TEXTOCOMPLETO</primary></indexterm>
+<indexterm><primary>FULLTEXT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>TEXTOCOMPLETO</command> <parameter>nombre_de_procedimiento</parameter>
+<command>FULLTEXT</command> <parameter>nombre_de_procedimiento</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve una representación del procedimiento <parameter>nombre_de_procedimiento</parameter> en que se preserva el formato original.
+Si se definió el procedimiento con <link linkend="command-to">PARA</link>, <link linkend="command-edit">EDITA</link> o <link linkend="command-load">CARGA</link>, entonces lo devuelto es una lista de palabras.
+Cada palabra representa una línea entera del definición en la forma que devuelve <link linkend="command-readword">LEEPALABRA</link>, incluidos los espacios extras y las tildes de la eñe que representan continuaciones de la línea.
+La última palabra de lo devuelto representa la línea <link linkend="command-end">FIN</link>.
+Si se definió el procedimiento con <link linkend="command-define">DEFINE</link>, entonces lo devuelto es una lista con sublistas.
+Si se escribe estas listas, una por línea, el resultado se parece a una definición usando PARA.
+</para>
+
+<para>
+Nota que lo devuelto de TEXTOCOMPLETO no es adecuado por uso como argumento a DEFINE.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>DEFINE "ABC [[a b] [ESCRIBE :a] [ESCRIBE :b]]
+ABC "Hola "Adiós</userinput>
+Hola
+Adiós
+<userinput>MUESTRA TEXTOCOMPLETO "ABC</userinput>
+[[para abc :a :b] [ESCRIBE :a] [ESCRIBE :b] [fin]]</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

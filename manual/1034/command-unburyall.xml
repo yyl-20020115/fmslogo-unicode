@@ -1,0 +1,45 @@
+<section id="command-unburyall">
+    <title>DESTAPATODO</title>
+<indexterm><primary>DESTAPATODO</primary></indexterm>
+<indexterm><primary>UNBURYALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>DESTAPATODO</command>
+<command>UNBURYALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Destapa todos los procedimientos, variables y listas de propiedades en el área de trabajo.
+DESTAPATODO es la abreviatura de <userinput><link linkend="command-unbury">DESTAPA</link> <link linkend="command-contents">CONTENIDO</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo [Yo soy Foo]
+HAZ "bar [Yo soy Bar]
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+<userinput>TAPAVAR [foo]
+IMVARS</userinput>
+haz "bar [I am Bar]
+<userinput>DESTAPATODO
+IMVARS</userinput>
+haz "bar [Yo soy Bar]
+haz "foo [Yo soy Foo]
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

@@ -1,0 +1,33 @@
+<section id="command-portclose">
+<title>PORTCLOSE</title>
+<indexterm><primary>PORTCLOSE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>PORTCLOSE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Closes a port that was opened by <link linkend="command-portopen">PORTOPEN</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<programlisting><userinput>PORTOPEN "com1
+PORTCLOSE</userinput>
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

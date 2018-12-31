@@ -1,0 +1,98 @@
+<section id="command-keyboardon">
+    <title>KEYBOARDON</title>
+<indexterm><primary>KEYBOARDON</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>KEYBOARDON</command> <parameter>keydown</parameter>
+(<command>KEYBOARDON</command> <parameter>keydown</parameter> <parameter>keyup</parameter>)</synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+
+<para>
+Starts trapping keyboard events and sending them to <parameter>keydown</parameter> and <parameter>keyup</parameter>.
+When a key is pressed down, <parameter>keydown</parameter> is called.
+When a key is released, <parameter>keyup</parameter> is called.
+You can determine the key that was pressed or released by calling <link linkend="command-keyboardvalue">KEYBOARDVALUE</link> in your <parameter>keydown</parameter> or <parameter>keyup</parameter> procedure.
+</para>
+
+<para>
+<parameter>keydown</parameter> or <parameter>keyup</parameter> may either be a word that is the name of a procedure to call, or a list of commands.
+</para>
+
+<para>
+Note the "Screen" must have focus (NOT the commander) to catch the key events.
+You can force this by calling <userinput>SETFOCUS [&PRODUCTNAME;]</userinput> after you call KEYBOARDON.
+All the "callbacks" for the keyboard are automatically run in <link linkend="command-noyield">NOYIELD</link> mode.
+</para>
+
+<para>
+For historical reasons, the set of keys that are captured when KEYBOARDON is given one input is different from the set of keys that are captured when it is given two inputs.
+When only a <parameter>keydown</parameter> input is given, the keys are trapped as characters, not as strict keydown events.
+This means that lowercase <keycap>a</keycap> has a different value than uppercase <keycap>A</keycap>, even though the same key is pressed.
+Because of this, a program that only looks for <userinput>ASCII "a</userinput> doesn't work when <keycap>Caps Lock</keycap> is on.
+This also means that when only one input is given to KEYBOARDON, it ignores keystrokes that don't have a textual character representation.
+This includes ignoring the arrow keys, the function keys, most navigation keys, the Shift key, the Control key, and others.
+</para>
+
+<para>
+In contrast, when KEYBOARDON has two inputs, it captures nearly all key events, including the arrow keys, the function keys, the navigation keys, the Shift key, and the Control key.
+Furthermore, each unique key press generates a separate callback.
+So uppercase <keycap>A</keycap> might generate the following keyboard events: a <keycap>Shift</keycap> keydown event, followed by an <keycap>A</keycap> keydown event, followed by an <keycap>A</keycap> keyup event, followed by a <keycap>Shift</keycap> keyup event.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+
+<para>
+Using KEYBOARDON on with one input to print characters that are typed:
+<programlisting><userinput>KEYBOARDON [PRINT CHAR KEYBOARDVALUE]
+FULLSCREEN
+SETFOCUS [&PRODUCTNAME;]</userinput>
+
+<replaceable>Press the 'A' key on the keyboard</replaceable>
+a
+<replaceable>Press the 'B' key on the keyboard</replaceable>
+b
+
+<userinput>SPLITSCREEN
+KEYBOARDOFF</userinput>
+</programlisting>
+</para>
+
+<para>
+Using KEYBOARDON with two inputs to perform actions only while keys are held down:
+<programlisting><userinput>TO ONKEYDOWN
+  IF KEYBOARDVALUE = ASCII "T [ HIDETURTLE ]
+  IF KEYBOARDVALUE = ASCII "S [ IF SCREENCOLOR &lt;> 1 [SETSCREENCOLOR 1] ]
+END
+
+TO ONKEYUP
+  IF KEYBOARDVALUE = ASCII "T [ SHOWTURTLE ]
+  IF KEYBOARDVALUE = ASCII "S [ SETSCREENCOLOR 7 ]
+END
+
+(KEYBOARDON [ONKEYDOWN] [ONKEYUP])
+FULLSCREEN</userinput>
+
+<replaceable>While you hold down the "T" key, the turtle hides.
+While you hold down the "S" key, the screen turns blue.</replaceable>
+
+<userinput>SPLITSCREEN
+KEYBOARDOFF</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

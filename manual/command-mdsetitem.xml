@@ -1,0 +1,47 @@
+<section id="command-mdsetitem">
+<title>MDSETITEM</title>
+<indexterm><primary>MDSETITEM</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>MDSETITEM</command> <parameter>indexlist</parameter> <parameter>mdarray</parameter> <parameter>value</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Replaces an item in a multi-dimensional array with a new value.
+The item to replace is selected by a list of indices.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>MAKE "myarray (MDARRAY [2 3] 0)
+MDSETITEM [0 0] :myarray 1
+MDSETITEM [0 1] :myarray 2
+MDSETITEM [0 2] :myarray 3
+MDSETITEM [1 0] :myarray 4
+MDSETITEM [1 1] :myarray 5
+MDSETITEM [1 2] :myarray 6
+SHOW :myarray</userinput>
+{{1 2 3} {4 5 6}}
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-mdarray">MDARRAY</link></member>
+<member><link linkend="command-mditem">MDITEM</link></member>
+<member><link linkend="command-setitem">SETITEM</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

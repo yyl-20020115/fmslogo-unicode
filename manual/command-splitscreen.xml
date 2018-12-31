@@ -1,0 +1,35 @@
+<section id="command-splitscreen">
+<title>SPLITSCREEN</title>
+<indexterm><primary>SPLITSCREEN</primary></indexterm>
+<indexterm><primary>SS</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SPLITSCREEN</command>
+<command>SS</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Docks the commander window and the screen window inside the same frame and separates the two with a movable splitter bar.
+This leaves some room for text interaction while also keeping most of the graphics window visible.
+</para>
+
+<para>
+This is the default configuration.
+</para>
+
+<para>
+Compare this command with <link linkend="command-fullscreen">FULLSCREEN</link> and <link linkend="command-textscreen">TEXTSCREEN</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

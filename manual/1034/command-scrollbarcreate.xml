@@ -1,0 +1,98 @@
+<section id="command-scrollbarcreate">
+    <title>SCROLLBARCREATE</title>
+<indexterm><primary>SCROLLBARCREATE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SCROLLBARCREATE</command> <parameter>parent</parameter> <parameter>name</parameter> <parameter>xpos</parameter> <parameter>ypos</parameter> <parameter>width</parameter> <parameter>height</parameter> <parameter>callback</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Creates a scrollbar control.
+Scrollbar controls let the user select a value by sliding a "scroller" along a bar that represents a range of possible values.
+The position of the scrollbar is often linked to a static control that displays the scrollbar's current position, but this is not required.
+</para>
+
+<para>
+When a scrollbar is first created, it has a range from 0 to 100 and an initial position of 0.
+You can change the range and position with <link linkend="command-scrollbarset">SCROLLBARSET</link>.
+</para>
+
+<para>
+The orientation (vertical or horizontal) of the scrollbar is determined by the longest dimension.
+That is, if <parameter>width</parameter> > <parameter>height</parameter>, then the scrollbar is horizontal.
+Otherwise, the scrollbar is vertical.
+</para>
+
+<para>
+The <parameter>parent</parameter> input is the name of the window that owns the new scrollbar.
+If no window or dialog with that name exists, then the &PRODUCTNAME; screen window is used as the parent.
+</para>
+
+<para>
+The <parameter>name</parameter> input identifies the new scrollbar and <emphasis>must</emphasis> be a unique word.
+</para>
+
+<para>
+The <parameter>xpos</parameter> input is the X coordinate where the upper-left corner of the new scrollbar is placed.
+</para>
+
+<para>
+The <parameter>ypos</parameter> input is the Y coordinate where the upper-left corner of the new scrollbar is placed.
+</para>
+
+<para>
+The <parameter>width</parameter> input is the width of the new scrollbar.
+If the <parameter>height</parameter> input is greater than or equal to the <parameter>width</parameter> input, then the scrollbar is vertical and the system's default scrollbar width is used instead of the <parameter>width</parameter> input.
+</para>
+
+<para>
+The <parameter>height</parameter> input is the height of the new scrollbar.
+If the <parameter>height</parameter> input is less than the <parameter>width</parameter> input, then the scrollbar is horizonal and the system's default scrollbar height is used instead of the <parameter>height</parameter> input.
+</para>
+
+<para>
+The <parameter>callback</parameter> input is an instruction list that is run whenever the position of the scrollbar changes.
+One common use for the <parameter>callback</parameter> input is to inform the user of what value has been selected.
+</para>
+
+<para>
+If the parent of the scrollbar is the &PRODUCTNAME; screen window, then the <parameter>xpos</parameter>, <parameter>ypos</parameter>, <parameter>width</parameter>, and <parameter>height</parameter> inputs are all given in turtle coordinates.
+Otherwise, they are given in "dialog units", the origin is the upper-left corner of the parent, and Y values increase as you move down the screen.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+Create a scrollbar in a new window:
+<programlisting><userinput>WINDOWCREATE "main "mywindow "mytitle 0 0 100 100 []
+SCROLLBARCREATE "mywindow "myscroll 25 25 50 0 [SETHEADING SCROLLBARGET "myscroll]
+SCROLLBARSET "myscroll 0 360 0</userinput>
+<replaceable>Move the scrollbar and observe what happens to the turtle.</replaceable>
+<userinput>WINDOWDELETE "mywindow</userinput>
+</programlisting>
+</para>
+
+<para>
+Create a scrollbar on &PRODUCTNAME; screen window:
+<programlisting><userinput>SCROLLBARCREATE "main "myscroll 25 25 100 0 [SETHEADING SCROLLBARGET "myscroll]
+SCROLLBARSET "myscroll 0 360 0</userinput>
+<replaceable>Move the scrollbar and observe what happens to the turtle.</replaceable>
+<userinput>SCROLLBARDELETE "myscroll</userinput>
+</programlisting>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

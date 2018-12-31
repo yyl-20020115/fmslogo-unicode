@@ -1,0 +1,41 @@
+<section id="command-poall">
+    <title>IMTODO</title>
+<indexterm><primary>IMTODO</primary></indexterm>
+<indexterm><primary>POALL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>IMTODO</command>
+<command>POALL</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Escribe todas las definiciones no tapadas del área de trabajo al flujo de escritura actual.
+IMTODO es la abreviatura de <userinput><link linkend="command-po">IMDEFS</link> <link linkend="command-contents">CONTENIDO</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA XXX
+  ESCRIBE "Hola ; comentario
+FIN
+
+IMTODO</userinput>
+TO XXX
+  ESCRIBE "Hola ; comentario
+FIN
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

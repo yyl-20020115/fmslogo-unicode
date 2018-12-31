@@ -1,0 +1,60 @@
+<section id="command-nodribble">
+<title>NOECO</title>
+<indexterm><primary>NOECO</primary></indexterm>
+<indexterm><primary>NODRIBBLE</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>NOECO</command>
+<command>NODRIBBLE</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Termina escribiendo todo al archivo eco y lo cierra.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<para>
+En el ejemplo siguiente, debes ejecutar todas las instrucciones una por una.
+</para>
+
+<programlisting><userinput>; Eco unas pocas instrucciones, entonces para.
+ECO "eco.txt
+AVANZA 100
+GIRADERECHA 90
+NOECO
+
+; Abre el archivo eco y ve lo que fue escrito.
+ABRELECTURA "eco.txt
+PONLECTURA "eco.txt
+REPITE 3 [MUESTRA LEELISTA]</userinput>
+[AVANZA 100]
+[GIRADERECHA 90]
+[NOECO]
+<userinput>PONLECTURA []
+CIERRA "eco.txt</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ve También</term>
+<listitem><simplelist>
+<member><link linkend="command-dribble">ECO</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

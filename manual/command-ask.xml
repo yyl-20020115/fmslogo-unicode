@@ -1,0 +1,46 @@
+<section id="command-ask">
+<title>ASK</title>
+<indexterm><primary>ASK</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>ASK</command> <parameter>turtle</parameter> <parameter>instructionlist</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+Instructs a specific turtle to run a given set of instructions (which are usually turtle instructions).
+</para>
+<para>
+ASK selects the turtle whose index matches the <parameter>turtle</parameter> input, runs <parameter>instructionlist</parameter>, then reselects the previous turtle.
+</para>
+<para>
+ASK outputs whatever <parameter>instructionlist</parameter> outputs.
+If <parameter>instructionlist</parameter> does not output anything, then ASK doesn't output anything, either.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<para>
+Send four turtles in four different directions:
+<programlisting><userinput>REPEAT 4 [ASK REPCOUNT [ RIGHT 90 * REPCOUNT FORWARD 100 ]</userinput>
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>See Also</term>
+<listitem><simplelist>
+<member><link linkend="command-setturtle">SETTURTLE</link></member>
+</simplelist></listitem>
+</varlistentry>
+
+</variablelist>
+</section>

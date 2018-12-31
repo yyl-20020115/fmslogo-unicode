@@ -1,0 +1,667 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+
+  <!-- Get character entites used in publishing, like &mdash; -->
+  <!ENTITY % isopub PUBLIC
+    "ISO 8879:1986//ENTITIES Publishing//EN//XML"
+    "http://www.oasis-open.org/docbook/xml/4.5/ent/isopub.ent"
+  > %isopub;
+
+  <!ENTITY LOGOEXE      "fmslogo.exe">
+  <!ENTITY PRODUCTNAME  "FMSLogo">
+  <!ENTITY GENERICNAME  "Logo">
+
+  <!ENTITY PRODUCTVERSION            SYSTEM "../logoversion.xml">
+  <!ENTITY PRODUCTLOCALE             SYSTEM "locale.xml">
+
+  <!ENTITY introduction              SYSTEM "introduction.xml">
+  <!ENTITY commandline-options       SYSTEM "commandline-options.xml">
+  <!ENTITY editor                    SYSTEM "editor.xml">
+  <!ENTITY commander                 SYSTEM "commander.xml">
+  <!ENTITY main-menu                 SYSTEM "main-menu.xml">
+  <!ENTITY tokenization              SYSTEM "tokenization.xml">
+  <!ENTITY data-structure-primitives SYSTEM "data-structure-primitives.xml">
+  <!ENTITY communication             SYSTEM "communication.xml">
+  <!ENTITY arithmetic                SYSTEM "arithmetic.xml">
+  <!ENTITY logical-operations        SYSTEM "logical-operations.xml">
+  <!ENTITY graphics                  SYSTEM "graphics.xml">
+  <!ENTITY workspace-management      SYSTEM "workspace-management.xml">
+  <!ENTITY control-structures        SYSTEM "control-structures.xml">
+  <!ENTITY macro-commands            SYSTEM "macro-commands.xml">
+  <!ENTITY error-processing          SYSTEM "error-processing.xml">
+  <!ENTITY special-variables         SYSTEM "special-variables.xml">
+  <!ENTITY help-commands             SYSTEM "help-commands.xml">
+  <!ENTITY environment-commands      SYSTEM "environment-commands.xml">
+  <!ENTITY directory-commands        SYSTEM "directory-commands.xml">
+  <!ENTITY windows-commands          SYSTEM "windows-commands.xml">
+  <!ENTITY bitmap-commands           SYSTEM "bitmap-commands.xml">
+  <!ENTITY networking-commands       SYSTEM "networking-commands.xml">
+  <!ENTITY multimedia-commands       SYSTEM "multimedia-commands.xml">
+  <!ENTITY media-control-interface   SYSTEM "media-control-interface.xml">
+  <!ENTITY glossary                  SYSTEM "glossary.xml">
+  <!ENTITY translations              SYSTEM "../translations-1034.xml">
+
+  <!ENTITY command-.setbf       SYSTEM "command-.setbf.xml">
+  <!ENTITY command-.setfirst    SYSTEM "command-.setfirst.xml">
+  <!ENTITY command-.setitem     SYSTEM "command-.setitem.xml">
+  <!ENTITY command-array        SYSTEM "command-array.xml">
+  <!ENTITY command-arraytolist  SYSTEM "command-arraytolist.xml">
+  <!ENTITY command-butfirst     SYSTEM "command-butfirst.xml">
+  <!ENTITY command-butfirsts    SYSTEM "command-butfirsts.xml">
+  <!ENTITY command-butlast      SYSTEM "command-butlast.xml">
+  <!ENTITY command-combine      SYSTEM "command-combine.xml">
+  <!ENTITY command-dequeue      SYSTEM "command-dequeue.xml">
+  <!ENTITY command-first        SYSTEM "command-first.xml">
+  <!ENTITY command-firsts       SYSTEM "command-firsts.xml">
+  <!ENTITY command-fput         SYSTEM "command-fput.xml">
+  <!ENTITY command-gensym       SYSTEM "command-gensym.xml">
+  <!ENTITY command-item         SYSTEM "command-item.xml">
+  <!ENTITY command-last         SYSTEM "command-last.xml">
+  <!ENTITY command-list         SYSTEM "command-list.xml">
+  <!ENTITY command-listtoarray  SYSTEM "command-listtoarray.xml">
+  <!ENTITY command-lput         SYSTEM "command-lput.xml">
+  <!ENTITY command-mdarray      SYSTEM "command-mdarray.xml">
+  <!ENTITY command-mditem       SYSTEM "command-mditem.xml">
+  <!ENTITY command-mdsetitem    SYSTEM "command-mdsetitem.xml">
+  <!ENTITY command-pick         SYSTEM "command-pick.xml">
+  <!ENTITY command-pop          SYSTEM "command-pop.xml">
+  <!ENTITY command-push         SYSTEM "command-push.xml">
+  <!ENTITY command-queue        SYSTEM "command-queue.xml">
+  <!ENTITY command-quoted       SYSTEM "command-quoted.xml">
+  <!ENTITY command-remdup       SYSTEM "command-remdup.xml">
+  <!ENTITY command-remove       SYSTEM "command-remove.xml">
+  <!ENTITY command-reverse      SYSTEM "command-reverse.xml">
+  <!ENTITY command-sort         SYSTEM "command-sort.xml">
+  <!ENTITY command-sentence     SYSTEM "command-sentence.xml">
+  <!ENTITY command-setitem      SYSTEM "command-setitem.xml">
+  <!ENTITY command-word         SYSTEM "command-word.xml">
+
+  <!ENTITY command-wordp        SYSTEM "command-wordp.xml">
+  <!ENTITY command-numberp      SYSTEM "command-numberp.xml">
+  <!ENTITY command-listp        SYSTEM "command-listp.xml">
+  <!ENTITY command-arrayp       SYSTEM "command-arrayp.xml">
+  <!ENTITY command-emptyp       SYSTEM "command-emptyp.xml">
+  <!ENTITY command-equalp       SYSTEM "command-equalp.xml">
+  <!ENTITY command-notequalp    SYSTEM "command-notequalp.xml">
+  <!ENTITY command-beforep      SYSTEM "command-beforep.xml">
+  <!ENTITY command-.eq          SYSTEM "command-.eq.xml">
+  <!ENTITY command-memberp      SYSTEM "command-memberp.xml">
+  <!ENTITY command-substringp   SYSTEM "command-substringp.xml">
+  <!ENTITY command-backslashedp SYSTEM "command-backslashedp.xml">
+
+  <!ENTITY command-count        SYSTEM "command-count.xml">
+  <!ENTITY command-ascii        SYSTEM "command-ascii.xml">
+  <!ENTITY command-rawascii     SYSTEM "command-rawascii.xml">
+  <!ENTITY command-char         SYSTEM "command-char.xml">
+  <!ENTITY command-member       SYSTEM "command-member.xml">
+  <!ENTITY command-lowercase    SYSTEM "command-lowercase.xml">
+  <!ENTITY command-uppercase    SYSTEM "command-uppercase.xml">
+  <!ENTITY command-standout     SYSTEM "command-standout.xml">
+  <!ENTITY command-parse        SYSTEM "command-parse.xml">
+  <!ENTITY command-runparse     SYSTEM "command-runparse.xml">
+  <!ENTITY command-time         SYSTEM "command-time.xml">
+  <!ENTITY command-timemilli    SYSTEM "command-timemilli.xml">
+
+  <!ENTITY command-print        SYSTEM "command-print.xml">
+  <!ENTITY command-type         SYSTEM "command-type.xml">
+  <!ENTITY command-show         SYSTEM "command-show.xml">
+
+  <!ENTITY command-readlist     SYSTEM "command-readlist.xml">
+  <!ENTITY command-readword     SYSTEM "command-readword.xml">
+  <!ENTITY command-readchar     SYSTEM "command-readchar.xml">
+  <!ENTITY command-readchars    SYSTEM "command-readchars.xml">
+  <!ENTITY command-readrawline  SYSTEM "command-readrawline.xml">
+
+  <!ENTITY command-openread     SYSTEM "command-openread.xml">
+  <!ENTITY command-openwrite    SYSTEM "command-openwrite.xml">
+  <!ENTITY command-openappend   SYSTEM "command-openappend.xml">
+  <!ENTITY command-openupdate   SYSTEM "command-openupdate.xml">
+  <!ENTITY command-close        SYSTEM "command-close.xml">
+  <!ENTITY command-allopen      SYSTEM "command-allopen.xml">
+  <!ENTITY command-closeall     SYSTEM "command-closeall.xml">
+  <!ENTITY command-erasefile    SYSTEM "command-erasefile.xml">
+  <!ENTITY command-dribble      SYSTEM "command-dribble.xml">
+  <!ENTITY command-nodribble    SYSTEM "command-nodribble.xml">
+  <!ENTITY command-setread      SYSTEM "command-setread.xml">
+  <!ENTITY command-setwrite     SYSTEM "command-setwrite.xml">
+  <!ENTITY command-reader       SYSTEM "command-reader.xml">
+  <!ENTITY command-writer       SYSTEM "command-writer.xml">
+  <!ENTITY command-setreadpos   SYSTEM "command-setreadpos.xml">
+  <!ENTITY command-setwritepos  SYSTEM "command-setwritepos.xml">
+  <!ENTITY command-readpos      SYSTEM "command-readpos.xml">
+  <!ENTITY command-writepos     SYSTEM "command-writepos.xml">
+  <!ENTITY command-eofp         SYSTEM "command-eofp.xml">
+
+  <!ENTITY command-portopen       SYSTEM "command-portopen.xml">
+  <!ENTITY command-portclose      SYSTEM "command-portclose.xml">
+  <!ENTITY command-portflush      SYSTEM "command-portflush.xml">
+  <!ENTITY command-portmode       SYSTEM "command-portmode.xml">
+  <!ENTITY command-portreadarray  SYSTEM "command-portreadarray.xml">
+  <!ENTITY command-portreadchar   SYSTEM "command-portreadchar.xml">
+  <!ENTITY command-portwritearray SYSTEM "command-portwritearray.xml">
+  <!ENTITY command-portwritechar  SYSTEM "command-portwritechar.xml">
+  <!ENTITY command-inport         SYSTEM "command-inport.xml">
+  <!ENTITY command-outport        SYSTEM "command-outport.xml">
+  <!ENTITY command-inportb        SYSTEM "command-inportb.xml">
+  <!ENTITY command-outportb       SYSTEM "command-outportb.xml">
+  <!ENTITY command-ingameport     SYSTEM "command-ingameport.xml">
+
+  <!ENTITY command-dllload        SYSTEM "command-dllload.xml">
+  <!ENTITY command-dllcall        SYSTEM "command-dllcall.xml">
+  <!ENTITY command-dllfree        SYSTEM "command-dllfree.xml">
+
+  <!ENTITY command-keyp           SYSTEM "command-keyp.xml">
+  <!ENTITY command-keyboardon     SYSTEM "command-keyboardon.xml">
+  <!ENTITY command-keyboardoff    SYSTEM "command-keyboardoff.xml">
+  <!ENTITY command-keyboardvalue  SYSTEM "command-keyboardvalue.xml">
+  <!ENTITY command-mouseon        SYSTEM "command-mouseon.xml">
+  <!ENTITY command-mouseoff       SYSTEM "command-mouseoff.xml">
+  <!ENTITY command-mousepos       SYSTEM "command-mousepos.xml">
+  <!ENTITY command-cleartext      SYSTEM "command-cleartext.xml">
+  <!ENTITY command-setcursor      SYSTEM "command-setcursor.xml">
+  <!ENTITY command-cursor         SYSTEM "command-cursor.xml">
+  <!ENTITY command-setmargins     SYSTEM "command-setmargins.xml">
+
+  <!ENTITY command-sum            SYSTEM "command-sum.xml">
+  <!ENTITY command-difference     SYSTEM "command-difference.xml">
+  <!ENTITY command-minus          SYSTEM "command-minus.xml">
+  <!ENTITY command-product        SYSTEM "command-product.xml">
+  <!ENTITY command-quotient       SYSTEM "command-quotient.xml">
+  <!ENTITY command-remainder      SYSTEM "command-remainder.xml">
+  <!ENTITY command-modulo         SYSTEM "command-modulo.xml">
+  <!ENTITY command-int            SYSTEM "command-int.xml">
+  <!ENTITY command-round          SYSTEM "command-round.xml">
+  <!ENTITY command-abs            SYSTEM "command-abs.xml">
+  <!ENTITY command-sign           SYSTEM "command-sign.xml">
+  <!ENTITY command-sqrt           SYSTEM "command-sqrt.xml">
+  <!ENTITY command-power          SYSTEM "command-power.xml">
+  <!ENTITY command-exp            SYSTEM "command-exp.xml">
+  <!ENTITY command-log10          SYSTEM "command-log10.xml">
+  <!ENTITY command-ln             SYSTEM "command-ln.xml">
+  <!ENTITY command-pi             SYSTEM "command-pi.xml">
+  <!ENTITY command-goldenratio    SYSTEM "command-goldenratio.xml">
+  <!ENTITY command-tan            SYSTEM "command-tan.xml">
+  <!ENTITY command-radtan         SYSTEM "command-radtan.xml">
+  <!ENTITY command-sin            SYSTEM "command-sin.xml">
+  <!ENTITY command-radsin         SYSTEM "command-radsin.xml">
+  <!ENTITY command-cos            SYSTEM "command-cos.xml">
+  <!ENTITY command-radcos         SYSTEM "command-radcos.xml">
+  <!ENTITY command-arctan         SYSTEM "command-arctan.xml">
+  <!ENTITY command-radarctan      SYSTEM "command-radarctan.xml">
+  <!ENTITY command-arcsin         SYSTEM "command-arcsin.xml">
+  <!ENTITY command-radarcsin      SYSTEM "command-radarcsin.xml">
+  <!ENTITY command-arccos         SYSTEM "command-arccos.xml">
+  <!ENTITY command-radarccos      SYSTEM "command-radarccos.xml">
+  <!ENTITY command-greaterp       SYSTEM "command-greaterp.xml">
+  <!ENTITY command-greaterequalp  SYSTEM "command-greaterequalp.xml">
+  <!ENTITY command-lessp          SYSTEM "command-lessp.xml">
+  <!ENTITY command-lessequalp     SYSTEM "command-lessequalp.xml">
+  <!ENTITY command-random         SYSTEM "command-random.xml">
+  <!ENTITY command-rerandom       SYSTEM "command-rerandom.xml">
+  <!ENTITY command-form           SYSTEM "command-form.xml">
+  <!ENTITY command-bitand         SYSTEM "command-bitand.xml">
+  <!ENTITY command-bitor          SYSTEM "command-bitor.xml">
+  <!ENTITY command-bitxor         SYSTEM "command-bitxor.xml">
+  <!ENTITY command-bitnot         SYSTEM "command-bitnot.xml">
+  <!ENTITY command-ashift         SYSTEM "command-ashift.xml">
+  <!ENTITY command-lshift         SYSTEM "command-lshift.xml">
+
+  <!ENTITY command-and            SYSTEM "command-and.xml">
+  <!ENTITY command-or             SYSTEM "command-or.xml">
+  <!ENTITY command-not            SYSTEM "command-not.xml">
+
+  <!ENTITY command-setturtle      SYSTEM "command-setturtle.xml">
+  <!ENTITY command-turtle         SYSTEM "command-turtle.xml">
+  <!ENTITY command-turtles        SYSTEM "command-turtles.xml">
+  <!ENTITY command-bitmapturtle   SYSTEM "command-bitmapturtle.xml">
+  <!ENTITY command-nobitmapturtle SYSTEM "command-nobitmapturtle.xml">
+  <!ENTITY command-hasownpenp     SYSTEM "command-hasownpenp.xml">
+  <!ENTITY command-turtlemode     SYSTEM "command-turtlemode.xml">
+  <!ENTITY command-setturtlemode  SYSTEM "command-setturtlemode.xml">
+  <!ENTITY command-ask            SYSTEM "command-ask.xml">
+
+  <!ENTITY command-forward        SYSTEM "command-forward.xml">
+  <!ENTITY command-back           SYSTEM "command-back.xml">
+  <!ENTITY command-left           SYSTEM "command-left.xml">
+  <!ENTITY command-right          SYSTEM "command-right.xml">
+  <!ENTITY command-leftroll       SYSTEM "command-leftroll.xml">
+  <!ENTITY command-rightroll      SYSTEM "command-rightroll.xml">
+  <!ENTITY command-downpitch      SYSTEM "command-downpitch.xml">
+  <!ENTITY command-uppitch        SYSTEM "command-uppitch.xml">
+  <!ENTITY command-setpos         SYSTEM "command-setpos.xml">
+  <!ENTITY command-setposxyz      SYSTEM "command-setposxyz.xml">
+  <!ENTITY command-setxy          SYSTEM "command-setxy.xml">
+  <!ENTITY command-setxyz         SYSTEM "command-setxyz.xml">
+  <!ENTITY command-setx           SYSTEM "command-setx.xml">
+  <!ENTITY command-sety           SYSTEM "command-sety.xml">
+  <!ENTITY command-setz           SYSTEM "command-setz.xml">
+  <!ENTITY command-home           SYSTEM "command-home.xml">
+  <!ENTITY command-setheading     SYSTEM "command-setheading.xml">
+  <!ENTITY command-setroll        SYSTEM "command-setroll.xml">
+  <!ENTITY command-setpitch       SYSTEM "command-setpitch.xml">
+  <!ENTITY command-setorientation SYSTEM "command-setorientation.xml">
+  <!ENTITY command-ellipsearc     SYSTEM "command-ellipsearc.xml">
+  <!ENTITY command-ellipsearc2    SYSTEM "command-ellipsearc2.xml">
+  <!ENTITY command-ellipse        SYSTEM "command-ellipse.xml">
+  <!ENTITY command-ellipse2       SYSTEM "command-ellipse2.xml">
+  <!ENTITY command-arc            SYSTEM "command-arc.xml">
+  <!ENTITY command-arc2           SYSTEM "command-arc2.xml">
+  <!ENTITY command-circle         SYSTEM "command-circle.xml">
+  <!ENTITY command-circle2        SYSTEM "command-circle2.xml">
+
+  <!ENTITY command-pos            SYSTEM "command-pos.xml">
+  <!ENTITY command-posxyz         SYSTEM "command-posxyz.xml">
+  <!ENTITY command-xcor           SYSTEM "command-xcor.xml">
+  <!ENTITY command-ycor           SYSTEM "command-ycor.xml">
+  <!ENTITY command-zcor           SYSTEM "command-zcor.xml">
+  <!ENTITY command-heading        SYSTEM "command-heading.xml">
+  <!ENTITY command-roll           SYSTEM "command-roll.xml">
+  <!ENTITY command-pitch          SYSTEM "command-pitch.xml">
+  <!ENTITY command-orientation    SYSTEM "command-orientation.xml">
+  <!ENTITY command-towards        SYSTEM "command-towards.xml">
+  <!ENTITY command-towardsxyz     SYSTEM "command-towardsxyz.xml">
+  <!ENTITY command-distance       SYSTEM "command-distance.xml">
+  <!ENTITY command-distancexyz    SYSTEM "command-distancexyz.xml">
+  <!ENTITY command-pixel          SYSTEM "command-pixel.xml">
+  <!ENTITY command-scrunch        SYSTEM "command-scrunch.xml">
+
+  <!ENTITY command-showturtle     SYSTEM "command-showturtle.xml">
+  <!ENTITY command-hideturtle     SYSTEM "command-hideturtle.xml">
+  <!ENTITY command-clean          SYSTEM "command-clean.xml">
+  <!ENTITY command-clearscreen    SYSTEM "command-clearscreen.xml">
+  <!ENTITY command-wrap           SYSTEM "command-wrap.xml">
+  <!ENTITY command-window         SYSTEM "command-window.xml">
+  <!ENTITY command-fence          SYSTEM "command-fence.xml">
+  <!ENTITY command-perspective    SYSTEM "command-perspective.xml">
+  <!ENTITY command-fill           SYSTEM "command-fill.xml">
+  <!ENTITY command-slowdraw       SYSTEM "command-slowdraw.xml">
+  <!ENTITY command-label          SYSTEM "command-label.xml">
+  <!ENTITY command-setpixel       SYSTEM "command-setpixel.xml">
+  <!ENTITY command-fontfacenames  SYSTEM "command-fontfacenames.xml">
+  <!ENTITY command-setlabelfont   SYSTEM "command-setlabelfont.xml">
+  <!ENTITY command-labelfont      SYSTEM "command-labelfont.xml">
+  <!ENTITY command-labelsize      SYSTEM "command-labelsize.xml">
+  <!ENTITY command-textscreen     SYSTEM "command-textscreen.xml">
+  <!ENTITY command-fullscreen     SYSTEM "command-fullscreen.xml">
+  <!ENTITY command-splitscreen    SYSTEM "command-splitscreen.xml">
+  <!ENTITY command-setscrunch     SYSTEM "command-setscrunch.xml">
+  <!ENTITY command-refresh        SYSTEM "command-refresh.xml">
+  <!ENTITY command-norefresh      SYSTEM "command-norefresh.xml">
+  <!ENTITY command-zoom           SYSTEM "command-zoom.xml">
+  <!ENTITY command-scrollx        SYSTEM "command-scrollx.xml">
+  <!ENTITY command-scrolly        SYSTEM "command-scrolly.xml">
+  <!ENTITY command-setfocus       SYSTEM "command-setfocus.xml">
+  <!ENTITY command-getfocus       SYSTEM "command-getfocus.xml">
+  <!ENTITY command-minimize       SYSTEM "command-minimize.xml">
+  <!ENTITY command-restore        SYSTEM "command-restore.xml">
+  <!ENTITY command-maximize       SYSTEM "command-maximize.xml">
+  <!ENTITY command-icon           SYSTEM "command-icon.xml">
+  <!ENTITY command-unicon         SYSTEM "command-unicon.xml">
+  <!ENTITY command-windowset      SYSTEM "command-windowset.xml">
+
+  <!ENTITY command-polystart      SYSTEM "command-polystart.xml">
+  <!ENTITY command-polyend        SYSTEM "command-polyend.xml">
+  <!ENTITY command-polyview       SYSTEM "command-polyview.xml">
+  <!ENTITY command-setlight       SYSTEM "command-setlight.xml">
+  <!ENTITY command-light          SYSTEM "command-light.xml">
+
+  <!ENTITY command-shownp         SYSTEM "command-shownp.xml">
+
+  <!ENTITY command-pendown        SYSTEM "command-pendown.xml">
+  <!ENTITY command-penup          SYSTEM "command-penup.xml">
+  <!ENTITY command-penpaint       SYSTEM "command-penpaint.xml">
+  <!ENTITY command-penerase       SYSTEM "command-penerase.xml">
+  <!ENTITY command-penreverse     SYSTEM "command-penreverse.xml">
+  <!ENTITY command-pennormal      SYSTEM "command-pennormal.xml">
+  <!ENTITY command-setpencolor    SYSTEM "command-setpencolor.xml">
+  <!ENTITY command-setfloodcolor  SYSTEM "command-setfloodcolor.xml">
+  <!ENTITY command-setscreencolor SYSTEM "command-setscreencolor.xml">
+  <!ENTITY command-setpensize     SYSTEM "command-setpensize.xml">
+  <!ENTITY command-setpenpattern  SYSTEM "command-setpenpattern.xml">
+  <!ENTITY command-setpen         SYSTEM "command-setpen.xml">
+  <!ENTITY command-clearpalette   SYSTEM "command-clearpalette.xml">
+
+  <!ENTITY command-pendownp       SYSTEM "command-pendownp.xml">
+  <!ENTITY command-penmode        SYSTEM "command-penmode.xml">
+  <!ENTITY command-pencolor       SYSTEM "command-pencolor.xml">
+  <!ENTITY command-floodcolor     SYSTEM "command-floodcolor.xml">
+  <!ENTITY command-screencolor    SYSTEM "command-screencolor.xml">
+  <!ENTITY command-pensize        SYSTEM "command-pensize.xml">
+  <!ENTITY command-penpattern     SYSTEM "command-penpattern.xml">
+  <!ENTITY command-pen            SYSTEM "command-pen.xml">
+
+  <!ENTITY command-to             SYSTEM "command-to.xml">
+  <!ENTITY command-end            SYSTEM "command-end.xml">
+  <!ENTITY command-define         SYSTEM "command-define.xml">
+  <!ENTITY command-text           SYSTEM "command-text.xml">
+  <!ENTITY command-fulltext       SYSTEM "command-fulltext.xml">
+  <!ENTITY command-copydef        SYSTEM "command-copydef.xml">
+  <!ENTITY command-arity          SYSTEM "command-arity.xml">
+
+  <!ENTITY command-make           SYSTEM "command-make.xml">
+  <!ENTITY command-name           SYSTEM "command-name.xml">
+  <!ENTITY command-local          SYSTEM "command-local.xml">
+  <!ENTITY command-localmake      SYSTEM "command-localmake.xml">
+  <!ENTITY command-thing          SYSTEM "command-thing.xml">
+
+  <!ENTITY command-pprop          SYSTEM "command-pprop.xml">
+  <!ENTITY command-gprop          SYSTEM "command-gprop.xml">
+  <!ENTITY command-remprop        SYSTEM "command-remprop.xml">
+  <!ENTITY command-plist          SYSTEM "command-plist.xml">
+
+  <!ENTITY command-procedurep     SYSTEM "command-procedurep.xml">
+  <!ENTITY command-primitivep     SYSTEM "command-primitivep.xml">
+  <!ENTITY command-definedp       SYSTEM "command-definedp.xml">
+  <!ENTITY command-namep          SYSTEM "command-namep.xml">
+  <!ENTITY command-macrop         SYSTEM "command-macrop.xml">
+  <!ENTITY command-proplistp      SYSTEM "command-proplistp.xml">
+
+  <!ENTITY command-contents       SYSTEM "command-contents.xml">
+  <!ENTITY command-procedures     SYSTEM "command-procedures.xml">
+  <!ENTITY command-names          SYSTEM "command-names.xml">
+  <!ENTITY command-plists         SYSTEM "command-plists.xml">
+  <!ENTITY command-namelist       SYSTEM "command-namelist.xml">
+  <!ENTITY command-pllist         SYSTEM "command-pllist.xml">
+  <!ENTITY command-buried         SYSTEM "command-buried.xml">
+  <!ENTITY command-traced         SYSTEM "command-traced.xml">
+  <!ENTITY command-stepped        SYSTEM "command-stepped.xml">
+
+  <!ENTITY command-po             SYSTEM "command-po.xml">
+  <!ENTITY command-poall          SYSTEM "command-poall.xml">
+  <!ENTITY command-pops           SYSTEM "command-pops.xml">
+  <!ENTITY command-pons           SYSTEM "command-pons.xml">
+  <!ENTITY command-popls          SYSTEM "command-popls.xml">
+  <!ENTITY command-pon            SYSTEM "command-pon.xml">
+  <!ENTITY command-popl           SYSTEM "command-popl.xml">
+  <!ENTITY command-pot            SYSTEM "command-pot.xml">
+  <!ENTITY command-pots           SYSTEM "command-pots.xml">
+
+  <!ENTITY command-erase          SYSTEM "command-erase.xml">
+  <!ENTITY command-erall          SYSTEM "command-erall.xml">
+  <!ENTITY command-erps           SYSTEM "command-erps.xml">
+  <!ENTITY command-erns           SYSTEM "command-erns.xml">
+  <!ENTITY command-erpls          SYSTEM "command-erpls.xml">
+  <!ENTITY command-ern            SYSTEM "command-ern.xml">
+  <!ENTITY command-erpl           SYSTEM "command-erpl.xml">
+  <!ENTITY command-bury           SYSTEM "command-bury.xml">
+  <!ENTITY command-buryall        SYSTEM "command-buryall.xml">
+  <!ENTITY command-buryname       SYSTEM "command-buryname.xml">
+  <!ENTITY command-unbury         SYSTEM "command-unbury.xml">
+  <!ENTITY command-unburyall      SYSTEM "command-unburyall.xml">
+  <!ENTITY command-unburyname     SYSTEM "command-unburyname.xml">
+  <!ENTITY command-trace          SYSTEM "command-trace.xml">
+  <!ENTITY command-untrace        SYSTEM "command-untrace.xml">
+  <!ENTITY command-step           SYSTEM "command-step.xml">
+  <!ENTITY command-unstep         SYSTEM "command-unstep.xml">
+  <!ENTITY command-edit           SYSTEM "command-edit.xml">
+  <!ENTITY command-edall          SYSTEM "command-edall.xml">
+  <!ENTITY command-edps           SYSTEM "command-edps.xml">
+  <!ENTITY command-edns           SYSTEM "command-edns.xml">
+  <!ENTITY command-edpls          SYSTEM "command-edpls.xml">
+  <!ENTITY command-edn            SYSTEM "command-edn.xml">
+  <!ENTITY command-edpl           SYSTEM "command-edpl.xml">
+  <!ENTITY command-save           SYSTEM "command-save.xml">
+  <!ENTITY command-savel          SYSTEM "command-savel.xml">
+  <!ENTITY command-load           SYSTEM "command-load.xml">
+  <!ENTITY command-status         SYSTEM "command-status.xml">
+  <!ENTITY command-nostatus       SYSTEM "command-nostatus.xml">
+  <!ENTITY command-nodes          SYSTEM "command-nodes.xml">
+
+  <!ENTITY command-run              SYSTEM "command-run.xml">
+  <!ENTITY command-runresult        SYSTEM "command-runresult.xml">
+  <!ENTITY command-repeat           SYSTEM "command-repeat.xml">
+  <!ENTITY command-repcount         SYSTEM "command-repcount.xml">
+  <!ENTITY command-if               SYSTEM "command-if.xml">
+  <!ENTITY command-ifelse           SYSTEM "command-ifelse.xml">
+  <!ENTITY command-test             SYSTEM "command-test.xml">
+  <!ENTITY command-iftrue           SYSTEM "command-iftrue.xml">
+  <!ENTITY command-iffalse          SYSTEM "command-iffalse.xml">
+  <!ENTITY command-true             SYSTEM "command-true.xml">
+  <!ENTITY command-false            SYSTEM "command-false.xml">
+  <!ENTITY command-stop             SYSTEM "command-stop.xml">
+  <!ENTITY command-output           SYSTEM "command-output.xml">
+  <!ENTITY command-catch            SYSTEM "command-catch.xml">
+  <!ENTITY command-throw            SYSTEM "command-throw.xml">
+  <!ENTITY command-error            SYSTEM "command-error.xml">
+  <!ENTITY command-pause            SYSTEM "command-pause.xml">
+  <!ENTITY command-continue         SYSTEM "command-continue.xml">
+  <!ENTITY command-yield            SYSTEM "command-yield.xml">
+  <!ENTITY command-noyield          SYSTEM "command-noyield.xml">
+  <!ENTITY command-eventcheck       SYSTEM "command-eventcheck.xml">
+  <!ENTITY command-setcursorwait    SYSTEM "command-setcursorwait.xml">
+  <!ENTITY command-setcursornowait  SYSTEM "command-setcursornowait.xml">
+  <!ENTITY command-halt             SYSTEM "command-halt.xml">
+  <!ENTITY command-wait             SYSTEM "command-wait.xml">
+  <!ENTITY command-settimer         SYSTEM "command-settimer.xml">
+  <!ENTITY command-cleartimer       SYSTEM "command-cleartimer.xml">
+  <!ENTITY command-bye              SYSTEM "command-bye.xml">
+  <!ENTITY command-.maybeoutput     SYSTEM "command-.maybeoutput.xml">
+  <!ENTITY command-ignore           SYSTEM "command-ignore.xml">
+  <!ENTITY command-backtick         SYSTEM "command-backtick.xml">
+  <!ENTITY command-for              SYSTEM "command-for.xml">
+  <!ENTITY command-forever          SYSTEM "command-forever.xml">
+  <!ENTITY command-do.while         SYSTEM "command-do.while.xml">
+  <!ENTITY command-while            SYSTEM "command-while.xml">
+  <!ENTITY command-do.until         SYSTEM "command-do.until.xml">
+  <!ENTITY command-until            SYSTEM "command-until.xml">
+  <!ENTITY command-goto             SYSTEM "command-goto.xml">
+  <!ENTITY command-tag              SYSTEM "command-tag.xml">
+
+  <!ENTITY command-apply          SYSTEM "command-apply.xml">
+  <!ENTITY command-invoke         SYSTEM "command-invoke.xml">
+  <!ENTITY command-foreach        SYSTEM "command-foreach.xml">
+  <!ENTITY command-map            SYSTEM "command-map.xml">
+  <!ENTITY command-map.se         SYSTEM "command-map.se.xml">
+  <!ENTITY command-filter         SYSTEM "command-filter.xml">
+  <!ENTITY command-find           SYSTEM "command-find.xml">
+  <!ENTITY command-reduce         SYSTEM "command-reduce.xml">
+  <!ENTITY command-crossmap       SYSTEM "command-crossmap.xml">
+  <!ENTITY command-cascade        SYSTEM "command-cascade.xml">
+  <!ENTITY command-cascade.2      SYSTEM "command-cascade.2.xml">
+  <!ENTITY command-transfer       SYSTEM "command-transfer.xml">
+  <!ENTITY command-iseq           SYSTEM "command-iseq.xml">
+  <!ENTITY command-rseq           SYSTEM "command-rseq.xml">
+
+  <!ENTITY command-.macro         SYSTEM "command-.macro.xml">
+  <!ENTITY command-.defmacro      SYSTEM "command-.defmacro.xml">
+  <!ENTITY command-macroexpand    SYSTEM "command-macroexpand.xml">
+
+  <!ENTITY command-caseignoredp    SYSTEM "command-caseignoredp.xml">
+  <!ENTITY command-erract          SYSTEM "command-erract.xml">
+  <!ENTITY command-printdepthlimit SYSTEM "command-printdepthlimit.xml">
+  <!ENTITY command-printwidthlimit SYSTEM "command-printwidthlimit.xml">
+  <!ENTITY command-redefp          SYSTEM "command-redefp.xml">
+  <!ENTITY command-startup         SYSTEM "command-startup.xml">
+
+  <!ENTITY command-shell           SYSTEM "command-shell.xml">
+  <!ENTITY command-logoversion     SYSTEM "command-logoversion.xml">
+  <!ENTITY command-machine         SYSTEM "command-machine.xml">
+
+  <!ENTITY command-help            SYSTEM "command-help.xml">
+  <!ENTITY command-winhelp         SYSTEM "command-winhelp.xml">
+
+  <!ENTITY command-dir             SYSTEM "command-dir.xml">
+  <!ENTITY command-files           SYSTEM "command-files.xml">
+  <!ENTITY command-directories     SYSTEM "command-directories.xml">
+  <!ENTITY command-chdir           SYSTEM "command-chdir.xml">
+  <!ENTITY command-popdir          SYSTEM "command-popdir.xml">
+  <!ENTITY command-mkdir           SYSTEM "command-mkdir.xml">
+  <!ENTITY command-rmdir           SYSTEM "command-rmdir.xml">
+
+  <!ENTITY command-windowcreate    SYSTEM "command-windowcreate.xml">
+  <!ENTITY command-windowdelete    SYSTEM "command-windowdelete.xml">
+  <!ENTITY command-windowenable    SYSTEM "command-windowenable.xml">
+  <!ENTITY command-dialogcreate    SYSTEM "command-dialogcreate.xml">
+  <!ENTITY command-dialogdelete    SYSTEM "command-dialogdelete.xml">
+  <!ENTITY command-dialogenable    SYSTEM "command-dialogenable.xml">
+
+  <!ENTITY command-listboxcreate        SYSTEM "command-listboxcreate.xml">
+  <!ENTITY command-listboxdelete        SYSTEM "command-listboxdelete.xml">
+  <!ENTITY command-listboxenable        SYSTEM "command-listboxenable.xml">
+  <!ENTITY command-listboxgetselect     SYSTEM "command-listboxgetselect.xml">
+  <!ENTITY command-listboxaddstring     SYSTEM "command-listboxaddstring.xml">
+  <!ENTITY command-listboxdeletestring  SYSTEM "command-listboxdeletestring.xml">
+
+  <!ENTITY command-comboboxcreate        SYSTEM "command-comboboxcreate.xml">
+  <!ENTITY command-comboboxdelete        SYSTEM "command-comboboxdelete.xml">
+  <!ENTITY command-comboboxenable        SYSTEM "command-comboboxenable.xml">
+  <!ENTITY command-comboboxgettext       SYSTEM "command-comboboxgettext.xml">
+  <!ENTITY command-comboboxsettext       SYSTEM "command-comboboxsettext.xml">
+  <!ENTITY command-comboboxaddstring     SYSTEM "command-comboboxaddstring.xml">
+  <!ENTITY command-comboboxdeletestring  SYSTEM "command-comboboxdeletestring.xml">
+
+  <!ENTITY command-scrollbarcreate       SYSTEM "command-scrollbarcreate.xml">
+  <!ENTITY command-scrollbardelete       SYSTEM "command-scrollbardelete.xml">
+  <!ENTITY command-scrollbarenable       SYSTEM "command-scrollbarenable.xml">
+  <!ENTITY command-scrollbarget          SYSTEM "command-scrollbarget.xml">
+  <!ENTITY command-scrollbarset          SYSTEM "command-scrollbarset.xml">
+
+  <!ENTITY command-buttoncreate          SYSTEM "command-buttoncreate.xml">
+  <!ENTITY command-buttondelete          SYSTEM "command-buttondelete.xml">
+  <!ENTITY command-buttonenable          SYSTEM "command-buttonenable.xml">
+  <!ENTITY command-buttonupdate          SYSTEM "command-buttonupdate.xml">
+
+  <!ENTITY command-staticcreate          SYSTEM "command-staticcreate.xml">
+  <!ENTITY command-staticdelete          SYSTEM "command-staticdelete.xml">
+  <!ENTITY command-staticupdate          SYSTEM "command-staticupdate.xml">
+
+  <!ENTITY command-groupboxcreate        SYSTEM "command-groupboxcreate.xml">
+  <!ENTITY command-groupboxdelete        SYSTEM "command-groupboxdelete.xml">
+
+  <!ENTITY command-checkboxcreate        SYSTEM "command-checkboxcreate.xml">
+  <!ENTITY command-checkboxdelete        SYSTEM "command-checkboxdelete.xml">
+  <!ENTITY command-checkboxenable        SYSTEM "command-checkboxenable.xml">
+  <!ENTITY command-checkboxget           SYSTEM "command-checkboxget.xml">
+  <!ENTITY command-checkboxset           SYSTEM "command-checkboxset.xml">
+
+  <!ENTITY command-radiobuttoncreate     SYSTEM "command-radiobuttoncreate.xml">
+  <!ENTITY command-radiobuttondelete     SYSTEM "command-radiobuttondelete.xml">
+  <!ENTITY command-radiobuttonenable     SYSTEM "command-radiobuttonenable.xml">
+  <!ENTITY command-radiobuttonget        SYSTEM "command-radiobuttonget.xml">
+  <!ENTITY command-radiobuttonset        SYSTEM "command-radiobuttonset.xml">
+
+  <!ENTITY command-debugwindows          SYSTEM "command-debugwindows.xml">
+
+  <!ENTITY command-messagebox            SYSTEM "command-messagebox.xml">
+  <!ENTITY command-yesnobox              SYSTEM "command-yesnobox.xml">
+  <!ENTITY command-selectbox             SYSTEM "command-selectbox.xml">
+  <!ENTITY command-questionbox           SYSTEM "command-questionbox.xml">
+  <!ENTITY command-dialogfileopen        SYSTEM "command-dialogfileopen.xml">
+  <!ENTITY command-dialogfilesave        SYSTEM "command-dialogfilesave.xml">
+  <!ENTITY command-windowfileedit        SYSTEM "command-windowfileedit.xml">
+
+  <!ENTITY command-bitcut                SYSTEM "command-bitcut.xml">
+  <!ENTITY command-bitcopy               SYSTEM "command-bitcopy.xml">
+  <!ENTITY command-bitpaste              SYSTEM "command-bitpaste.xml">
+  <!ENTITY command-bitpastetoindex       SYSTEM "command-bitpastetoindex.xml">
+  <!ENTITY command-bitfit                SYSTEM "command-bitfit.xml">
+  <!ENTITY command-setbitindex           SYSTEM "command-setbitindex.xml">
+  <!ENTITY command-bitindex              SYSTEM "command-bitindex.xml">
+  <!ENTITY command-setbitindex           SYSTEM "command-setbitindex.xml">
+  <!ENTITY command-bitindex              SYSTEM "command-bitindex.xml">
+  <!ENTITY command-setbitmode            SYSTEM "command-setbitmode.xml">
+  <!ENTITY command-bitmode               SYSTEM "command-bitmode.xml">
+  <!ENTITY command-bitblock              SYSTEM "command-bitblock.xml">
+  <!ENTITY command-bitload               SYSTEM "command-bitload.xml">
+  <!ENTITY command-bitsave               SYSTEM "command-bitsave.xml">
+  <!ENTITY command-bitsize               SYSTEM "command-bitsize.xml">
+  <!ENTITY command-bitloadsize           SYSTEM "command-bitloadsize.xml">
+  <!ENTITY command-gifload               SYSTEM "command-gifload.xml">
+  <!ENTITY command-gifsave               SYSTEM "command-gifsave.xml">
+  <!ENTITY command-gifsize               SYSTEM "command-gifsize.xml">
+  <!ENTITY command-setactivearea         SYSTEM "command-setactivearea.xml">
+  <!ENTITY command-activearea            SYSTEM "command-activearea.xml">
+
+  <!ENTITY command-netstartup             SYSTEM "command-netstartup.xml">
+  <!ENTITY command-netshutdown            SYSTEM "command-netshutdown.xml">
+  <!ENTITY command-netaccepton            SYSTEM "command-netaccepton.xml">
+  <!ENTITY command-netacceptoff           SYSTEM "command-netacceptoff.xml">
+  <!ENTITY command-netacceptreceivevalue  SYSTEM "command-netacceptreceivevalue.xml">
+  <!ENTITY command-netacceptsendvalue     SYSTEM "command-netacceptsendvalue.xml">
+  <!ENTITY command-netconnecton           SYSTEM "command-netconnecton.xml">
+  <!ENTITY command-netconnectoff          SYSTEM "command-netconnectoff.xml">
+  <!ENTITY command-netconnectsendvalue    SYSTEM "command-netconnectsendvalue.xml">
+  <!ENTITY command-netconnectreceivevalue SYSTEM "command-netconnectreceivevalue.xml">
+
+  <!ENTITY command-midiopen               SYSTEM "command-midiopen.xml">
+  <!ENTITY command-midiclose              SYSTEM "command-midiclose.xml">
+  <!ENTITY command-midimessage            SYSTEM "command-midimessage.xml">
+
+  <!ENTITY command-playwave               SYSTEM "command-playwave.xml">
+
+  <!ENTITY command-soundon                SYSTEM "command-soundon.xml">
+  <!ENTITY command-soundoff               SYSTEM "command-soundoff.xml">
+  <!ENTITY command-tone                   SYSTEM "command-tone.xml">
+  <!ENTITY command-sound                  SYSTEM "command-sound.xml">
+
+  <!ENTITY command-mci                    SYSTEM "command-mci.xml">
+]>
+
+<book id="fmslogo" lang="es">
+  <title>&PRODUCTNAME; &PRODUCTVERSION;</title>
+  <bookinfo>
+
+    <copyright>
+      <year>1989</year>
+      <holder>The Regents of the University of California</holder>
+    </copyright>
+
+    <copyright>
+      <year>1993-1997</year>
+      <holder>George Mills</holder>
+    </copyright>
+
+    <copyright>
+      <year>1998-2003</year>
+      <holder>Neil Hodgson</holder>
+    </copyright>
+
+    <legalnotice>
+      <para>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</para>
+
+      <para>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</para>
+
+      <para>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</para>
+
+      <para>Portions of the editor are copyrighted by Neil Hodgson.</para>
+
+      <para>Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation.</para>
+
+      <para>NEIL HODGSON DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL NEIL HODGSON BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</para>
+
+    </legalnotice>
+
+    <legalnotice>
+      <para>Traducción por Rosario Ruiz y otros.</para>
+    </legalnotice>
+
+  </bookinfo>
+
+  &introduction;
+  &commandline-options;
+  &editor;
+  &commander;
+  &main-menu;
+  &tokenization;
+  &data-structure-primitives;
+  &communication;
+  &arithmetic;
+  &logical-operations;
+  &graphics;
+  &workspace-management;
+  &control-structures;
+  &macro-commands;
+  &error-processing;
+  &special-variables;
+  &help-commands;
+  &environment-commands;
+  &directory-commands;
+  &windows-commands;
+  &bitmap-commands;
+  &networking-commands;
+  &multimedia-commands;
+  &translations;
+  &glossary;
+
+</book>

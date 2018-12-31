@@ -1,0 +1,180 @@
+<glossary id='glossary'>
+<title>Glossary</title>
+
+    <glossentry id="glossary-array">
+      <glossterm>Array</glossterm>
+      <glossdef>
+        <para>
+A primitive data type that is an ordered set of zero or more things.
+For example, <userinput>{123 abc}</userinput> is an array with two members.
+Arrays are similar to lists, except you can easily change the items within an array, but you can't easily create a new array that is everything after a specified item.  That is, <link linkend="command-setitem">SETITEM</link> works, but <link linkend="command-butfirst">BUTFIRST</link> doesn't.
+In general, procedures operator on arrays are faster than equivalent procedures operate on lists.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-command">
+      <glossterm>Command</glossterm>
+      <glossdef>
+        <para>
+A <link linkend="glossary-procedure">procedure</link> that does not output a value.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-colorvector">
+      <glossterm>Color Vector</glossterm>
+      <glossdef>
+        <para>
+A list of three numbers that represents the magnitude of red, green, and blue that are associated with a particular color.
+The numbers within the list must be integers from 0 to 255, inclusive.
+Wherever a colorvector is accepted as input, you may also supply a color index.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-contentslist">
+      <glossterm>Contents List</glossterm>
+      <glossdef>
+        <para>
+A list of three lists, which respectively contains the names of all procedures, variables, and property lists within a workspace.
+Contents lists are sometimes abbreviated by omitting the list of things that are irrelevant in a particular context.
+For example, <userinput>[[SQUARE TRIANGLE] [myvar] [myplist]]</userinput> is a contents list for a workspace that contains two procedures (SQUARE and TRIANGLE), a variable (myvar), and a property list (myplist).
+If you were only interested in the variables, then the contents list could be abbreviated to [[] [myvar]].
+Note that you can't remove a list that comes before the one you're interested in, so the list of procedure names still appears, even though it is empty.
+You can remove a list that comes after the one you're interested in, so the list of property lists is omitted.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-element">
+      <glossterm>Element</glossterm>
+      <glossdef>
+        <para>
+An item of an array that is indexed based on the physical layout in memory, instead of by its origin.
+For example, in the array <userinput>{a b c}@0</userinput>, <userinput>b</userinput> is the first item, but the second element.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-form">
+      <glossterm>Form</glossterm>
+      <glossdef>
+        <para>
+A series of tokens that is syntactically correct for evaluation in &GENERICNAME;.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-expression">
+      <glossterm>Expression</glossterm>
+      <glossdef>
+        <para>
+A series of tokens that, when RUN, produces a value.
+This include operations with all of its inputs, as well constant expressions like 3 or <userinput>"foo</userinput>.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-instruction">
+      <glossterm>Instruction</glossterm>
+      <glossdef>
+        <para>
+A series of tokens that that, when RUN, produces no value.
+Generally, this is a command with all of its inputs.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-item">
+      <glossterm>Item</glossterm>
+      <glossdef>
+        <para>
+An indexed thing that is contained within a <link linkend="glossary-word">word</link>, a <link linkend="glossary-list">list</link>, or an <link linkend="glossary-array">array</link>.
+For example, the third item of <userinput>"abcd</userinput> is <userinput>"c</userinput>.
+Items are usually called <link linkend="glossary-member">members</link> when their location within a word or list is unimportant.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-list">
+      <glossterm>List</glossterm>
+      <glossdef>
+        <para>
+A primitive data type that is an ordered sequence of zero or more things.
+For example, <userinput>[123 abc]</userinput> is a list with two members.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-instructionlist">
+      <glossterm>Instruction List</glossterm>
+      <glossdef>
+        <para>
+A list of words that are intended to be RUN by some other command.
+These should be well-formed expressions or instructions, depending on if the procedure that runs the instructionlist expects an output or not.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-member">
+      <glossterm>Member</glossterm>
+      <glossdef>
+        <para>
+A thing that is contained within a <link linkend="glossary-word">word</link> or <link linkend="glossary-list">list</link>.
+For example <userinput>"c</userinput> is a member of <userinput>"abcd</userinput>.
+Members are usually called <link linkend="glossary-item">items</link> when their location within a word or list is signficiant.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-operation">
+      <glossterm>Operation</glossterm>
+      <glossdef>
+        <para>
+A <link linkend="glossary-procedure">procedure</link> that outputs a value.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-procedure">
+      <glossterm>Procedure</glossterm>
+      <glossdef>
+        <para>
+A named collection of instructions that peforms some task.
+Procedures that output a value are called operations.
+Procedures that don't output a value are called commands.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-run">
+      <glossterm>Run</glossterm>
+      <glossdef>
+        <para>
+The process of evaluating one or more instructions or expressions and performing all of the side effects associated with them.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-specialform">
+      <glossterm>Special Form</glossterm>
+      <glossdef>
+        <para>
+A series of tokens that is syntactically correct for evaluation in &GENERICNAME;, but whose meaning is determined by a special rule rather than
+by the default rule of running it as an instruction or expression.
+        </para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry id="glossary-word">
+      <glossterm>Word</glossterm>
+      <glossdef>
+        <para>
+A primivite data type that is a sequence of characters.
+This includes constants, like <userinput>"foo</userinput> and numbers, like <userinput>3.14</userinput>.
+        </para>
+      </glossdef>
+    </glossentry>
+
+</glossary>

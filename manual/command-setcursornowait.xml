@@ -1,0 +1,45 @@
+<section id="command-setcursornowait">
+    <title>SETCURSORNOWAIT</title>
+<indexterm><primary>SETCURSORNOWAIT</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>SETCURSORNOWAIT</command></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+SETCURSORNOWAIT changes the cursor to the familiar arrow shape.
+This should be just before a call to <link linkend="command-yield">YIELD</link>.
+</para>
+
+<para>
+Once &PRODUCTNAME; is set to yield, the appropriate (non-hourglass) cursor is used on the next event involving the cursor (like moving the mouse), regardless of whether you call SETCURSORNOWAIT.
+However, calling SETCURSORNOWAIT shows the arrow cursor without waiting for the next event.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>REPEAT 100 [
+  NOYIELD
+  SETCURSORWAIT
+  REPEAT 100 [
+    <replaceable>; (work to be done)</replaceable>
+  ]
+  SETCURSORNOWAIT
+  YIELD
+]</userinput>
+</programlisting>
+
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

@@ -1,0 +1,47 @@
+<section id="command-member">
+<title>MIEMBRO</title>
+<indexterm><primary>MIEMBRO</primary></indexterm>
+<indexterm><primary>MEMBER</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>MIEMBRO</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter>
+<command>MEMBER</command> <parameter>cosa1</parameter> <parameter>cosa2</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Si <parameter>cosa2</parameter> es una palabra o lista y <link linkend="command-memberp">MIEMBRO?</link> devolvería CIERTO con los mismos argumentos, entonces MIEMBRO devuelve la parte de <parameter>cosa2</parameter> desde la primera aparición de <parameter>cosa1</parameter> hasta el fin.
+</para>
+
+<para>
+Si <link linkend="command-memberp">MIEMBRO?</link> devolvería FALSO con los mismos argumentos, entonces MIEMBRO devuelve la palabra vacía o la lista vacía según el tipo de <parameter>cosa2</parameter>.
+</para>
+
+<para>
+MIEMBRO lanza un error si <parameter>cosa2</parameter> es un vector.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+
+<programlisting><userinput>MUESTRA MIEMBRO "b [a b c d]</userinput>
+[b c d]</programlisting>
+
+<programlisting><userinput>MUESTRA MIEMBRO "c [a b c d]</userinput>
+[c d]</programlisting>
+
+<programlisting><userinput>MUESTRA MIEMBRO "b "abba"</userinput>
+bba</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

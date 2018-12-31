@@ -1,0 +1,47 @@
+<section id="command-stop">
+    <title>ALTO</title>
+<indexterm><primary>ALTO</primary></indexterm>
+<indexterm><primary>STOP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>ALTO</command>
+<command>STOP</command></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Termina la ejecución del procedimiento en que aparece.
+Devuelve el control al contexto en el que se llamó el procedimiento.
+El procedimiento no devuelve ningún valor.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA MIPROGRAMA :arg
+  ESCRIBE [Antes de ALTO]
+  SI 1=:arg [ALTO]
+  ESCRIBE [Después de ALTO]
+FIN
+
+MIPROGRAMA 1</userinput>
+Antes de ALTO
+
+<userinput>MIPROGRAMA 2</userinput>
+Antes de ALTO
+Después de ALTO
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

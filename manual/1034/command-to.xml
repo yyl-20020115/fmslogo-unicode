@@ -1,0 +1,136 @@
+<section id="command-to">
+<title>PARA</title>
+<indexterm><primary>TO</primary></indexterm>
+<indexterm><primary>PARA</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem><para>(forma especial)</para>
+<synopsis><command>PARA</command> <parameter>nombre_de_procedimiento</parameter> <parameter>:argumento1</parameter> <parameter>:argumento2</parameter> <parameter>...</parameter>
+<command>TO</command> <parameter>nombre_de_procedimiento</parameter> <parameter>:argumento1</parameter> <parameter>:argumento2</parameter> <parameter>...</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Le dice a &GENERICNAME; que acepte una definición de procedimiento.
+El procedimiento se llamará <parameter>nombre_de_procedimiento</parameter> y no debe existir otro procedimiento con el mismo nombre.
+Los parámetros se llamarán <parameter>argumento1</parameter>, <parameter>argumento2</parameter>, etc.
+Un procedimiento puede tener varios argumentos o ninguno.
+Los nombres de procedimientos y de argumentos se pueden escribir indistintamente en mayúsculas o minúsculas.
+</para>
+
+<para>
+Diferente de los otros procedimientos, PARA toma como argumentos las palabras que se teclean en una línea de instrucciones, como si todas estuvieran entrecomilladas, y no los resultados de ejecutarlas.
+(Por ello es una «forma especial».)
+</para>
+
+<para>
+&PRODUCTNAME; admite un número variable de argumentos en los procedimientos.
+Todos los procedimientos tienen un número mínimo, por defecto y máximo de argumentos.
+El número máximo de argumentos puede ser infinito.
+</para>
+
+<para>
+El número mínimo de argumentos es el número de parámetros requeridos.
+Un parámetro requerido se indica con la notación:
+<programlisting><userinput>:nombre_de_argumento</userinput></programlisting>
+</para>
+
+<para>
+Además de los parámetros requeridos puede haber cero o más parámetros opcionales, que se representan con la siguiente notación:
+
+<programlisting><userinput>[:nombre_de_argumento valor_expresión_por_defecto]</userinput></programlisting>
+
+Cuando se ejecuta el procedimiento, si no se proporcionan argumentos reales para los parámetros optativos, se pone como valor la evaluación de la correspondiente expresión «valor_expresión_por_defecto».
+Estos argumentos se procesan de izquierda a derecha, así valor_expresión_por_defecto se puede basar en un argumento previo.
+Por ejemplo:
+
+<programlisting><userinput>PARA PROC :lista [:valor_inicial PRIMERO :lista]</userinput></programlisting>
+</para>
+
+<para>
+Cuando se ejecuta el procedimiento como:
+
+<programlisting><userinput>PROC [a b c]</userinput></programlisting>
+
+El parámetro <parameter>:lista</parameter> tiene el valor <userinput>[a b c]</userinput> y el parámetro <parameter>:valor_inicial</parameter> tiene el valor <userinput>"a</userinput>.
+Cuando se ejecuta el procedimiento como:
+
+<programlisting><userinput>(PROC [a b c] "x)</userinput></programlisting>
+
+Entonces <parameter>:lista</parameter> tiene el valor <userinput>[a b c]</userinput> y <parameter>:valor_inicial</parameter> tiene el valor <userinput>"x</userinput>.
+</para>
+
+<para>
+Después de todos los parámetros requeridos y de los optativos, puede venir un parámetro «restante», con la siguiente notación:
+
+<programlisting><userinput>[:nombre]</userinput></programlisting>
+
+Sólo puede haber un parámetro de este tipo.
+Cuando se ejecuta el procedimiento, el valor de este parámetro será una lista que contiene todos los argumentos reales que no se encajan en los parámetros requeridos u optativos.
+Por ejemplo:
+
+<programlisting><userinput>PARA PROC :parám1 [:parám2 "foo] [:parám3]</userinput></programlisting>
+
+Cuando se ejecuta el procedimiento como:
+
+<programlisting><userinput>PROC "x</userinput></programlisting>
+
+Entonces <parameter>:parám1</parameter> tiene el valor <userinput>"x</userinput>, <parameter>:parám2</parameter> tiene el valor <parameter>"foo</parameter> y <parameter>:parám3</parameter> tiene el valor <userinput>[]</userinput> (la lista vacía).
+
+Cuando se ejecuta el procedimiento como:
+
+<programlisting><userinput>(PROC "a "b "c "d)</userinput></programlisting>
+
+Entonces <parameter>:parám1</parameter> tiene el valor <userinput>"a</userinput>, <parameter>:parám2</parameter> tiene el valor <userinput>"b</userinput> y <parameter>:parám3</parameter> tiene el valor <userinput>[c d]</userinput>.
+</para>
+
+<para>
+El número máximo de argumentos para un procedimiento es infinito si tiene un parámetro «restante»; de lo contrario, es el número de parámetros requeridos más el número de parámetros optativos.
+</para>
+
+<para>
+El número de argumentos por defecto para un procedimiento, que es el número de argumentos que acepta si no se lo ejecuta entre paréntesis, es generalmente igual a su mínimo.
+Si quieres un número diferente de argumentos por defecto debes indicarlo poniendo el número por defecto deseado después del último parámetro de la línea PARA.
+</para>
+
+<para>
+Por ejemplo:
+
+<programlisting><userinput>PARA PROC :parám1 [:parám2 "foo] [:parám3] 3</userinput></programlisting>
+
+Este procedimiento tiene un mínimo de un argumento, tres argumentos por defecto y un máximo infinito.
+</para>
+
+<para>
+&PRODUCTNAME; te muestra un editorcito si ejecutas PARA desde el Centro de Comandos.
+Las instrucciones que tecleas en el editorcito se vuelven parte del definición del nuevo procedimiento.
+Cuando has completado la definición, puedes guardarla pulsando el botón <link linkend="command-end">FIN</link>.
+</para>
+
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>PARA RECITA :veces :cosa
+  REPITE :veces [ESCRIBE :cosa]
+FIN
+
+RECITA 2 "Hola</userinput>
+Hola
+Hola
+<userinput>RECITA 3 "Adiós</userinput>
+Adiós
+Adiós
+Adiós</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

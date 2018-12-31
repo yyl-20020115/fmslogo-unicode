@@ -1,0 +1,44 @@
+<section id="command-ern">
+    <title>BOVAR</title>
+<indexterm><primary>BOVAR</primary></indexterm>
+<indexterm><primary>ERN</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>BOVAR</command> <parameter>nombre_de_variable</parameter>
+<command>BOVAR</command> <parameter>lista_de_nombres</parameter>
+<command>ERN</command> <parameter>nombre_de_variable</parameter>
+<command>ERN</command> <parameter>lista_de_nombres</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Borra las variables nombradas del área de trabajo.
+BOVAR es la abreviatura de <userinput><link linkend="command-erase">BORRA</link> <link linkend="command-namelist">LISTANOMBRES</link></userinput>.
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+<programlisting><userinput>HAZ "foo 1
+HAZ "bar 2
+IMVARS</userinput>
+haz "bar 2
+haz "foo 1
+<userinput>BOVAR [foo]
+IMVARS</userinput>
+haz "bar 2
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+</section>

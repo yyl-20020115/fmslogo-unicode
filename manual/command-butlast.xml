@@ -1,0 +1,41 @@
+<section id="command-butlast">
+<title>BUTLAST</title>
+<indexterm><primary>BUTLAST</primary></indexterm>
+<indexterm><primary>BL</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Synopsis</term>
+<listitem>
+<synopsis><command>BUTLAST</command> <parameter>thing</parameter>
+<command>BL</command> <parameter>thing</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Description</term>
+<listitem>
+<para>
+If the input is a word, BUTLAST outputs a word containing all but the last character of the input.
+If the input is a list, BUTLAST outputs a list containing all but the last member of the input.
+</para>
+
+<para>
+BUTLAST throws a bad input error if given the empty list, the empty string, or an array.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Example</term>
+<listitem>
+<programlisting><userinput>SHOW BUTLAST [1 2 3]</userinput>
+[1 2]</programlisting>
+
+<programlisting><userinput>SHOW BUTLAST "Hello</userinput>
+Hell</programlisting>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</section>

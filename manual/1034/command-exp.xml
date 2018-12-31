@@ -1,0 +1,30 @@
+<section id="command-exp">
+    <title>EXP</title>
+<indexterm><primary>EXP</primary></indexterm>
+
+<variablelist>
+
+<varlistentry><term>Sinopsis</term>
+<listitem>
+<synopsis><command>EXP</command> <parameter>exponente</parameter></synopsis>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Descripción</term>
+<listitem>
+<para>
+Devuelve el número e (2.718281828+) elevado a la potencia <parameter>exponente</parameter>.
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Ejemplo</term>
+<listitem>
+    <programlisting><userinput>MUESTRA EXP 2</userinput>
+7.38905609893065</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</section>

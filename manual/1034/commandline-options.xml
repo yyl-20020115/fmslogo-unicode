@@ -1,0 +1,203 @@
+<chapter id="commandline-options">
+<title>Opciones de la línea de comandos</title>
+<indexterm><primary>Opciones de la línea de comandos</primary></indexterm>
+
+<para>
+Las opciones de la línea de comandos pueden fijarse como propiedades del funcionamiento de &PRODUCTNAME;.
+Sólo hay que agregar estos interruptores después de teclear &LOGOEXE;.
+</para>
+
+<para>
+Puedes agregar cualquier opción de la línea de comandos al acceso directo del escritorio de &PRODUCTNAME; para que cuando hicieras doble clic, &PRODUCTNAME; empezara con las opciones deseadas.
+Por ejemplo, si quieres que &PRODUCTNAME; siempre empezara en modo «<link linkend="commandline-e">experto</link>»:
+
+<orderedlist>
+<listitem>
+<para>
+Haz clic derecho sobre el acceso directo de &PRODUCTNAME; y selecciona <guimenuitem>Propriedades</guimenuitem> del menú.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Haz clic sobre la pestaña <guilabel>Acceso directo</guilabel> en el cuadro de diálogo de Propriedades.
+</para>
+</listitem>
+
+<listitem>
+<para>
+En la caja de texto de Destino, agrega «-E» para que la línea parece como <userinput>"C:\Program Files\FMSLogo\fmslogo.exe" -E</userinput>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Haz clic en el botón <guibutton>Aceptar</guibutton>.
+</para>
+</listitem>
+</orderedlist>
+
+La próxima vez que haces doble clic en el acceso directo, &PRODUCTNAME; empezará en modo «experto».
+</para>
+
+<section id="commandline-w">
+<title>-W</title>
+
+<synopsis>-W <replaceable>anchura</replaceable></synopsis>
+
+<para>
+Pone la anchura del área de dibujo a la valor de <option>anchura</option>.
+Mientras mayor sea la anchura más memoria se requiere.
+Por omisión se establece en 1000.
+</para>
+
+<para>
+Si das las opciones <option>-F</option> y <option>-W</option> al mismo tiempo, entonces la anchura del área de dibujo es reducida para encajar en la resolución de pantalla.
+</para>
+
+<para>
+La letra «W» viene de la palabra por «anchura» en inglés: «width».
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -W 2000 -H 2000</synopsis>
+</section>
+
+
+<section id="commandline-h">
+<title>-H</title>
+
+<synopsis>-H <replaceable>altura</replaceable></synopsis>
+
+<para>
+Pone la altura del área de dibujo a la valor de <option>altura</option>.
+Mientras mayor sea la altura más memoria se requiere.
+Por omisión se establece en 1000.
+</para>
+
+<para>
+Si das las opciones <option>-F</option> y <option>-H</option> al mismo tiempo, entonces la altura del área de dibujo es reducida para encajar en la resolución de pantalla.
+</para>
+
+<para>
+La letra «H» viene de la palabra por «altura» en inglés: «height».
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -W 2000 -H 2000</synopsis>
+</section>
+
+
+
+<section id="commandline-f">
+<title>-F</title>
+
+<synopsis>-F</synopsis>
+
+<para>
+Instruye a &PRODUCTNAME; a no utilizar barras de desplazamiento en el área de dibujo («F» es corto por "fije el tamaño").
+Si esta opción no es dado, entonces &PRODUCTNAME; usará las barras de desplazamiento si es necesario.
+Si usas esta opción sin <link linkend="commandline-h">-H</link> o <link linkend="commandline-w">-W</link>, entonces &PRODUCTNAME; automáticamente un área de dibujo para llenar completamente tu pantalla.
+</para>
+
+<para>
+<link linkend="command-fullscreen">PANTALLAGRAFICA</link>, <link linkend="command-splitscreen">PANTALLAPARTIDA</link> y <link linkend="command-textscreen">PANTALLATEXTO</link> no cambian las dimensiones del área de dibujo cuando se inicia &PRODUCTNAME; con la opción «-F».
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -F</synopsis>
+<synopsis>&LOGOEXE; -F -W 400 -H 200</synopsis>
+</section>
+
+
+
+<section id="commandline-p">
+<title>-P</title>
+
+<synopsis>-P</synopsis>
+
+<para>
+Habilita el modo <link linkend="command-perspective">PERSPECTIVA</link> como modo estándar.
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -P</synopsis>
+</section>
+
+
+<section id="commandline-e">
+<title>-E</title>
+
+<synopsis>-E</synopsis>
+
+<para>
+Habilita el modo «experto».
+</para>
+
+<para>
+En el modo «experto» ocurre lo siguiente:
+</para>
+
+<para>
+<link linkend="command-pos">POS</link> y <link linkend="command-posxyz">POS3D</link> no «redondean» los datos y se verían posiciones tal como [0 -1.0e-12].
+Es debido a errores «normals» de punto flotante.
+El redondeo de POS sólo sirve para hacer que las coordenadas devueltas parece bonitas.
+Pero en algunas aplicaciones este redondeo puede introducir error si guardas y restauras la posición.
+En otras palabras PONPOS POS no redondean en el modo «experto».
+</para>
+
+<para>
+&PRODUCTNAME; permite múltiples sesiones de editor.
+Múltiples sesiones pueden conducir a situaciones inesperadas si no entiendes cómo &PRODUCTNAME; maneja el área de trabajo.
+Si pierdes procedimientos o tienes un inesperado cambio entonces no debes usar el modo experto.
+</para>
+
+<para>
+En el modo experto, &PRODUCTNAME; guarda directamente el área de trabajo, lo que puede llevar a resultados inesperados si no entiendes cómo &PRODUCTNAME; maneja el área de trabajo.
+Si pierdes procedimientos o tienes un inesperado cambio entonces no debes usar el modo experto.
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -E</synopsis>
+</section>
+
+<section id="commandline-l">
+<title>-L</title>
+
+<synopsis>-L <replaceable>archivo1</replaceable> <replaceable>[archivo2]</replaceable></synopsis>
+
+<para>
+&PRODUCTNAME; puede <link linkend="command-load">CARGA</link> uno o más archivos desde la línea de comandos cuando cargas &PRODUCTNAME;.
+Se cargarán estos archivos antes de que el intérprete comience la lectura de las órdenes.
+Si cargas un archivo que procesa un programa que incluye la instrucción, &PRODUCTNAME; ejecuta ese programa y sale del entorno.
+Puedes escribir por eso programas en &PRODUCTNAME; y ejecutarlos desde sus propios iconos.
+Nota, el interruptor «-L» debe seguir a los demás interruptores.
+</para>
+
+<para>Ejemplo:</para>
+<synopsis>&LOGOEXE; -L miprograma.lgo</synopsis>
+</section>
+
+
+<section id="invoking-and-exiting-fmslogo">
+<title>Iniciar y salir &PRODUCTNAME;</title>
+
+<para>
+Para iniciar &PRODUCTNAME;, haz clic en el icono &PRODUCTNAME;.
+Para salir de &PRODUCTNAME;, entra la instrucción <link linkend="command-bye">ADIOS</link> o <link linkend="menu-file-exit">Archivo-Salir</link>.
+</para>
+
+<para>
+Si ejecutas un procedimiento que no es definido, &PRODUCTNAME; busca primero un archivo en el directorio de trabajo actual llamado <filename>procedimiento.lgo</filename> donde «procedimiento» es el nombre del procedimiento en letras minúsculas.
+Si un tal archivo existe, &PRODUCTNAME; carga ese archivo.
+Si el procedimiento aun no es definido o si no hay tal archivo, &PRODUCTNAME; busca un archivo llamado <filename>procedimiento</filename> (sin «.lgo») en el directorio de biblioteca y, si existe, lo carga.
+Si ninguno de los archivos contiene una definición para el procedimiento, entonces &PRODUCTNAME; lanza un error.
+</para>
+
+<para>
+Muchos procedimientos que son incorporados en &PRODUCTNAME; son incluido en el directorio de biblioteca.
+Entonces, si utilizas una biblioteca diferente, tal vez querrías incluir en esta algunos o todos los archivos de la biblioteca original.
+</para>
+</section>
+
+</chapter>
