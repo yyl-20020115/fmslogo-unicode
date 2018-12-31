@@ -42,7 +42,7 @@ public:
     void AutoComplete();
     bool IsTextSelected();
     wxString GetText() const;
-    //virtual wxString GetRange(long startPos, long endPos) const;
+    int GetTextLength() const;
     wxString GetRange(long startPos, long endPos) const;
     void
     Find(
