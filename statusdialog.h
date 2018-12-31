@@ -4,6 +4,7 @@
 
 class wxStaticText;
 
+
 class CStatusDialog : public wxDialog
 {
 public:

@@ -18,7 +18,7 @@
 
    #include "wrksp.h" // for g_CharactersSuccessfullyParsedInEditor
 #endif
-
+#include "Resource.h"
 // A helper class for printing
 class CLogoCodePrintout : public wxPrintout
 {
@@ -234,16 +234,66 @@ bool CLogoCodePrintout::HasPage(int pageNum)
     return m_NextPrintStartPosition < m_EditControl.GetTextLength();
 }
 
-int CLogoCodeCtrl::GetTextLength() const
+wxString CLogoCodeCtrl::GetText() const
 {
-	return GetWindowTextLength(GetHandle());
+    int textLength = GetTextLength();
+
+	wchar_t * buffer = new wchar_t[(textLength + 1)];
+#ifdef _WINDOWS
+    GetWindowText(GetHandle(), buffer, textLength + 1);
+#endif
+    wxString text(buffer, textLength);
+
+    delete [] buffer;
+
+    return text;
+}
+void CLogoCodeCtrl::SetSelBackground(bool useSetting, const wxColour &back)
+{
 }
 
-wxString CLogoCodeCtrl::GetTextRange(int startPos, int endPos)
+void CLogoCodeCtrl::SetSelForeground(bool useSetting, const wxColour &fore)
 {
-	return GetRange(startPos, endPos);
+}
+void CLogoCodeCtrl::SetUseHorizontalScrollBar(bool visible)
+{
 }
 
+void CLogoCodeCtrl::HideSelection(bool hide)
+{
+#ifdef _WINDOWS
+    SendMessage(GetHandle(), EM_HIDESELECTION, hide ? 1 : 0, 0);
+#endif
+}
+
+bool CLogoCodeCtrl::AutoCompActive()
+{
+    return false;
+}
+
+// Returns the current line of the caret (zero-indexed).
+// This is only used to determine if pressing up in the commander
+// input should give focus to the commander history.
+int CLogoCodeCtrl::GetCurrentLine()
+{
+    int position = GetInsertionPoint();
+
+    int lineNumber = 0;
+
+    // Count the number of newlines before the current position
+    wxString textBeforePosition(GetRange(0, position));
+    for (wxString::const_iterator i = textBeforePosition.begin();
+         i != textBeforePosition.end();
+         ++i)
+    {
+        if (*i == '\n')
+        {
+            lineNumber++;
+        }
+    }
+
+    return lineNumber;
+}
 wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 {
 	wxString entireBuffer(GetText());
@@ -259,7 +309,94 @@ wxString CLogoCodeCtrl::GetRange(long startPos, long endPos) const
 	}
 
 }
+// wxTextCtrl::SetValue() doesn't set the value correctly when text contains
+// double-byte characters, so we override it.
+void CLogoCodeCtrl::SetValue(const wxString &text)
+{
+#ifdef _WINDOWS
+    SetWindowText(GetHandle(), /*WXSTRING_TO_STRING*/(text));
+#endif
+    DiscardEdits(); // mark not dirty
+}
 
+void CLogoCodeCtrl::SetText(const wxString &text)
+{
+    SetValue(text);
+}
+
+int CLogoCodeCtrl::FormatRange(
+    bool    doDraw,
+    int     startPos,
+    int     endPos,
+    wxDC *  draw,
+    wxDC *  target,
+    wxRect  renderRect,
+    wxRect  pageRect 
+    )
+{
+    wxCoord pageX      = renderRect.GetLeft();
+    wxCoord nextY      = renderRect.GetTop();
+    wxCoord pageYLimit = renderRect.GetBottom();
+
+    // Draw the requested range, line by line.
+    wxString remainingText(GetText());
+    while (!remainingText.IsEmpty())
+    {
+        // Extract the next line from remainingText.
+        wxString line;
+        int lineEnd = remainingText.First(L'\n');
+        if (lineEnd != wxNOT_FOUND)
+        {
+            line          = remainingText.Left(lineEnd + 1);
+            remainingText = remainingText.Mid(lineEnd + 1);
+        }
+        else
+        {
+            line          = remainingText;
+            remainingText = wxEmptyString;
+        }
+
+        // Determine how much vertical space this line take up.
+        // Anything beyond the page extent is clipped (no line wrapping).
+        wxCoord lineWidth;
+        wxCoord lineHeight;
+        draw->GetTextExtent(line, &lineWidth, &lineHeight);
+
+        if (pageYLimit <= nextY + lineHeight)
+        {
+            // We have reached the end of the page before
+            // printing all of the text.  Return how much
+            // progress we made to the caller.
+            return startPos;
+        }
+
+        // Determine the number of characters in the line, since
+        // some wxWidgets functions do not correctly handle multibyte
+        // character sets.
+		int lineLength = line.length();
+
+        if (doDraw)
+        {
+#ifdef _WINDOWS
+            TextOutW(draw->GetHDC(), pageX, nextY, (const wchar_t*)line, lineLength);
+#endif
+        }
+
+        // Advance the Y to below the line.
+        nextY += lineHeight;
+
+        // Advance the start position to include the characters
+        // which were drawn above.  wxString.Len() assumes that all
+        // ANSI strings have single-byte characters, so to get the
+        // correct position, we must use the length determined in characters.
+        startPos += lineLength;
+    }
+
+    // We reached the end of the text.  Return the end of the requested
+    // range, instead of the calculated startPos.  This compensates for a
+    // problem that GetWindowTextLength returns bytes, instead of characters.
+    return endPos;
+}
 // Prints the contents of the editor.
 void CLogoCodeCtrl::Print()
 {
@@ -313,7 +450,13 @@ void CLogoCodeCtrl::Print()
     // printing preferences here.
     //printData = printer.GetPrintDialogData().GetPrintData();
 }
-
+wxString CLogoCodeCtrl::GetSelectedText()
+{
+    // For compatibility with wxStyledTextCtrl, turn newlines to be CRLF.
+    wxString selection(GetStringSelection());
+    selection.Replace(wxString(L"\n"), wxString(L"\r\n"));
+    return selection;
+}
 #ifndef USE_RICHTEXT_CODE_EDITOR
 
 #include "scintilla/SciLexer.h"
@@ -887,12 +1030,12 @@ CLogoCodeCtrl::DoSearchOperation(
     {
         // Notify the user that we were unable to find it.
         const wxString & notFoundMessage = wxString::Format(
-			wxString(LOCALIZED_STRINGTABLE_CANNOTFINDSTRING),
+			GetResourceString(L"LOCALIZED_STRINGTABLE_CANNOTFINDSTRING"),
             StringToFind);
 
         ::wxMessageBox(
             notFoundMessage,
-			wxString(LOCALIZED_GENERAL_PRODUCTNAME),
+			GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
             wxICON_WARNING | wxOK,
             this);
     }
@@ -980,16 +1123,16 @@ void CLogoCodeCtrl::ReopenAfterError()
 void CLogoCodeCtrl::OnContextMenu(wxContextMenuEvent& Event)
 {
     static const MENUITEM contextMenuItems[] = {
-        {LOCALIZED_POPUP_UNDO,      wxID_UNDO},
-        {LOCALIZED_POPUP_REDO,      wxID_REDO},
-        {0},
-        {LOCALIZED_POPUP_CUT,       wxID_CUT},
-        {LOCALIZED_POPUP_COPY,      wxID_COPY},
-        {LOCALIZED_POPUP_PASTE,     wxID_PASTE},
-        {LOCALIZED_POPUP_DELETE,    wxID_DELETE},
-        {LOCALIZED_POPUP_SELECTALL, wxID_SELECTALL},
-        {0},
-        {LOCALIZED_POPUP_HELP,      wxID_HELP_INDEX},
+        {GetResourceString(L"LOCALIZED_POPUP_UNDO"),      wxID_UNDO},
+        {GetResourceString(L"LOCALIZED_POPUP_REDO"),      wxID_REDO},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_POPUP_CUT"),       wxID_CUT},
+        {GetResourceString(L"LOCALIZED_POPUP_COPY"),      wxID_COPY},
+        {GetResourceString(L"LOCALIZED_POPUP_PASTE"),     wxID_PASTE},
+        {GetResourceString(L"LOCALIZED_POPUP_DELETE"),    wxID_DELETE},
+        {GetResourceString(L"LOCALIZED_POPUP_SELECTALL"), wxID_SELECTALL},
+        {L"",0},
+        {GetResourceString(L"LOCALIZED_POPUP_HELP"),      wxID_HELP_INDEX},
     };
 
     wxMenu menu;
@@ -1078,7 +1221,7 @@ void CLogoCodeCtrl::ClearAll()
 
 void CLogoCodeCtrl::EmptyUndoBuffer()
 {
-	SendMessage(GetHandle(), EM_EMPTYUNDOBUFFER, 0, 0);
+	//SendMessage(GetHandle(), EM_EMPTYUNDOBUFFER, 0, 0);
 }
 
 int CLogoCodeCtrl::TextHeight(int line)
@@ -1092,6 +1235,10 @@ int CLogoCodeCtrl::TextHeight(int line)
 void CLogoCodeCtrl::SetCurrentPos(int caret)
 {
 	SetInsertionPoint(caret);
+}
+void CLogoCodeCtrl::GotoPos(int caret)
+{
+    SetInsertionPoint(caret);
 }
 
 BEGIN_EVENT_TABLE(CLogoCodeCtrl, wxStyledTextCtrl)

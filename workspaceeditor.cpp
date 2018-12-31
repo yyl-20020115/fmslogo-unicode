@@ -339,13 +339,13 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
         // No file name was given.
         return false;
     }
-
+#ifdef _WINDOWS
     m_LogoCodeControl->ClearAll();
     m_LogoCodeControl->EmptyUndoBuffer();
     m_LogoCodeControl->SetSavePoint();
     m_LogoCodeControl->Cancel();
     m_LogoCodeControl->SetUndoCollection(0);
-
+#endif
     bool success = false;
 
 	CFileTextStream* cfts = CFileTextStream::OpenForRead(fileName, true);
@@ -362,13 +362,13 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 #endif
 		delete cfts;
 	}
-	
+	m_LogoCodeControl->SetFocus();
+#ifdef _WINDOWS
     m_LogoCodeControl->SetUndoCollection(true);
-    m_LogoCodeControl->SetFocus();
     m_LogoCodeControl->EmptyUndoBuffer();
     m_LogoCodeControl->SetSavePoint();
     m_LogoCodeControl->GotoPos(0);
-
+#endif
     if (!success)
     {
         // Something when wrong when trying to open the file.
@@ -431,7 +431,9 @@ CWorkspaceEditor::Write(
 	}
     if (success)
     {
+#ifdef _WINDOWS
         m_LogoCodeControl->SetSavePoint();
+#endif
     }
 
     return success;

@@ -31,7 +31,7 @@
    #include "logomath.h"
    #include "wrksp.h"
    #include "mem.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #include <wx/string.h>
 #endif
 

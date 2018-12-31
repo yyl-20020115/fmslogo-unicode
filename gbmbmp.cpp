@@ -20,7 +20,7 @@ word,dword is read individually.
    #include <malloc.h>
    #include "gbm.h"
    #include "gbmhelp.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 #ifndef min

@@ -26,7 +26,7 @@
    #include "utils.h"
    #include "logodata.h"
    #include "init.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 // Active area dimensions

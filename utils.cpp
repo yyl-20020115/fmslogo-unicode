@@ -37,7 +37,7 @@
     #include "stringadapter.h"
 
     #include "localizedstrings.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 
 #endif
 

@@ -36,7 +36,7 @@
    #include "graphwin.h"
    #include "cursor.h"
    #include "FMSLogo.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #ifdef max // MS compilers #define max in windows.h
       #undef max

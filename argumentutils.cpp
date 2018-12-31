@@ -23,7 +23,7 @@
 #include "logodata.h"
   #include "logocore.h"
   #include "print.h"
-  #include "debugheap.h"
+//  #include "debugheap.h"
 #include<wx/string.h>
 #include "CStringTextStream.h"
 #endif

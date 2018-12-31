@@ -11,7 +11,7 @@ git submodule update
 
 mkdir buildgtk
 cd buildgtk
-../configure --with-gtk=3 --enable-unicode --disable-shared
+../configure --with-gtk=3 --enable-unicode --enable-debug --disable-shared
 make
 sudo make install
 sudo ldconfig

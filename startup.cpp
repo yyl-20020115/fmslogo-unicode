@@ -41,7 +41,7 @@
     #include "utils.h"
     #include "FMSLogo.h"
     #include "stringadapter.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 
     #include "localizedstrings.h"
 #endif

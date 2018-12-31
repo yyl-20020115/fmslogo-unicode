@@ -41,11 +41,10 @@ public:
     void SelectMatchingParen();
     void AutoComplete();
     bool IsTextSelected();
-	wxString GetText() const;
-	int GetTextLength() const;
-	wxString GetTextRange(int startPos, int endPos);
-	virtual wxString GetRange(long startPos, long endPos) const;
-	void
+    wxString GetText() const;
+    //virtual wxString GetRange(long startPos, long endPos) const;
+    wxString GetRange(long startPos, long endPos) const;
+    void
     Find(
         wxFindReplaceFlags WxSearchFlags,
         const wxString &   StringToFind

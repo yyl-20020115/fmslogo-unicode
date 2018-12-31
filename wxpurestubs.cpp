@@ -10,18 +10,18 @@
     #include "mainwind.h"
 #endif
 
-//void init_timers()
-//{
-//}
+void init_timers()
+{
+}
 
-//void uninitialize_timers()
-//{
-//}
-//
-//void halt_all_timers()
-//{
-//}
-//
-//void uninitialize_dlls()
-//{
-//}
+void uninitialize_timers()
+{
+}
+
+void halt_all_timers()
+{
+}
+
+void uninitialize_dlls()
+{
+}

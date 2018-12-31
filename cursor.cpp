@@ -27,7 +27,7 @@
    #include "init.h"
    #include "screenwindow.h"
    #include "logocore.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 

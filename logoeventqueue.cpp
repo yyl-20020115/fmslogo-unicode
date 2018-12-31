@@ -30,7 +30,7 @@
    #include "init.h"
    #include "netwind.h"
    #include "devwind.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #include <wx/string.h>
 #endif
 

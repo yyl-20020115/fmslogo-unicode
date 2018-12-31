@@ -46,7 +46,7 @@
 #include "graphics.h"
 #include "screenwindow.h"
 #include "localizedstrings.h"
-#include "debugheap.h"
+//#include "debugheap.h"
 #include "files.h"
 #include "files.h"
 #include "files.h"

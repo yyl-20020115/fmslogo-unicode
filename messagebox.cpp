@@ -25,7 +25,7 @@
    #include "screenwindow.h"
    #include "error.h"
    #include "stringadapter.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #endif

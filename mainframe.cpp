@@ -83,7 +83,7 @@
     #include "cursor.h" // lsetcursorarrow
     #include "files.h" // silent_load
     #include "stringadapter.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 extern wxString NormalizeCaseForDisplay(wxString text);

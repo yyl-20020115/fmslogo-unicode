@@ -46,7 +46,7 @@
    #include "startup.h"
    #include "screenwindow.h"
    #include "cursor.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #endif

@@ -24,6 +24,8 @@
     #include <stdlib.h>
     #include <string.h>
 
+    #include <wx/wx.h>
+
     #include <wx/arrstr.h>
     #include <wx/dir.h>
     #include <wx/filename.h>
@@ -53,7 +55,7 @@
     #include "cursor.h"
     #include "graphwin.h"
     #include "screenwindow.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 bool bExpert    = false;               // Expert mode

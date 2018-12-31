@@ -1,6 +1,9 @@
 #include "logocodectrl.h"
 
 class CCommander;
+#ifdef _WINDOWS
+#define USE_RICHTEXT_CODE_EDITOR
+#endif
 
 class CCommanderInput : public CLogoCodeCtrl
 {

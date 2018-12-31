@@ -31,7 +31,7 @@
     #include "logomath.h"
     #include "appendablelist.h"
     #include "logocore.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 NODE *the_generation;

@@ -17,7 +17,7 @@
    #include <wx/brush.h>
    #include <wx/pen.h>
    #include <wx/window.h>
-
+#include <wx/brush.h>
    #ifdef WX_PURE
      #define GetRValue(rgb) (((rgb) >> 0)  & 0xFF)
      #define GetGValue(rgb) (((rgb) >> 8)  & 0xFF)
@@ -32,7 +32,7 @@
   #include "ibmterm.h"
   #include "unix.h"
   #include "screenwindow.h"
-  #include "debugheap.h"
+//  #include "debugheap.h"
 
   #include "localizedstrings.h"
 #endif

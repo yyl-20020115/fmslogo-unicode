@@ -46,7 +46,7 @@
    #include "files.h"
    #include "appendablelist.h"
    #include "avltree.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #include <wx/string.h>

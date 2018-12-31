@@ -4,62 +4,34 @@
 # anyone else without modification.
 # =========================================================================
 
-EXEEXT =
-
 TOOLKIT = GTK
 
 WXCONFIG = wx-config
 
-ifeq "$(DEBUG)" "1"
-LDFLAGS  = $(shell $(WXCONFIG) --debug=yes --libs base,core,stc,richtext,html)
-TOOLCHAIN_FULLNAME = /usr/local/include/wx-$(shell $(WXCONFIG) --release)
-else
-LDFLAGS  = $(shell $(WXCONFIG) --debug=no --libs base,core,stc,richtext,html)
-TOOLCHAIN_FULLNAME = /usr/local/include/wx-$(shell $(WXCONFIG) --release)
-endif
+PREFIX =  $(shell $(WXCONFIG) --prefix)
+
+LDFLAGS  =  $(shell $(WXCONFIG) --debug=yes --libs base,core,stc,richtext,html,xml)
+
 
 CPPFLAGS += $(shell $(WXCONFIG) --cppflags) -DWX_PURE -DUNIX
-CXXFLAGS += -pthread -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-function -Wno-unused-but-set-variable
-LDFLAGS  += -pthread
+CXXFLAGS += -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-function -Wno-unused-but-set-variable
+
 
 SCINTILLA_INCLUDES = scintilla/include
+TOOLCHAIN_FULLNAME = $(shell $(WXCONFIG) --release)
 
-ifeq "$(DEBUG)" "1"
-CPPFLAGS += -D__WXDEBUG__ -DMEM_DEBUG -DDEBUG
+
+CPPFLAGS += -DDEBUG
 CXXFLAGS += -O0 -g -ggdb
-else
-CPPFLAGS += -DNDEBUG -DwxDEBUG_LEVEL=0
-CXXFLAGS += -O2
 
-ifneq "$(PROFILE)"  "1"
-ifneq "$(COVERAGE)" "1"
-# On retail builds, strip symbols unless we need them for profiling.
-# CONSIDER: using a separate variable for offical releases to strip. 
-LDFLAGS  += -s
-endif
-endif
 
-endif
+INCLUDES =. $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
 
-# Setup the build for profiling, if requested.
-ifeq "$(PROFILE)" "1"
-CFLAGS   += -pg -g
-CXXFLAGS += -pg -g
-LDFLAGS  += -pg -g
-endif
-
-# Setup the build for code coverage, if requested.
-ifeq "$(COVERAGE)" "1"
-CFLAGS   += --coverage
-CXXFLAGS += --coverage
-LDFLAGS  += --coverage
-endif
-
+CPPFLAGS += $(addprefix -I, $(INCLUDES))
 CXXFLAGS += -Wall -fno-strict-aliasing
 CXXFLAGS += -DFMSLOGO_WXWIDGETS
 
-LIBS = -lm
-LIBDIRNAME = /usr/local/lib
+LIBDIRNAME = /usr/local/lib/
 CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
@@ -85,7 +57,6 @@ CStringTextStream.o \
 CTextStream.o \
 CUnicodeFileTextStream.o \
 cursor.o \
-debugheap.o \
 devwind.o \
 dynamicbuffer.o \
 editproceduredialog.o \
@@ -115,6 +86,7 @@ logodata.o \
 logodialogboxes.o \
 logoeventqueue.o \
 logomath.o \
+logocodectrl.o \
 mainframe.o \
 mainwind.o \
 mem.o \
@@ -136,6 +108,7 @@ sort.o \
 startup.o \
 statusdialog.o \
 stringprintednode.o \
+screen.o \
 term.o \
 threed.o \
 unix.o \
@@ -145,10 +118,11 @@ workspaceeditor.o \
 wrksp.o \
 wxpurestubs.o \
 
-#logocodectrl.o \
+
 #mmwind.o \
 #netwind.o \
 #screen.o \
+#debugheap.o \
 
 OBJECTS = $(WX_OBJECTS)
 
@@ -159,7 +133,7 @@ default : fmslogo
 
 	
 fmslogo: $(OBJECTS)
-	$(CXX) -o fmslogo $(LDFLAGS) -L$(LIBDIRNAME) $(LIBS) $(EXTRALIBS) $(OBJECTS)
+	$(CXX) -o fmslogo $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
 
 clean: 
 	$(RM) -rf $(OBJECTS)

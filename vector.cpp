@@ -4,7 +4,7 @@
     #include <stddef.h>
 
     #include "vector.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 // Magnitude of a vector

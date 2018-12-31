@@ -23,7 +23,7 @@ gbmhelp.c - Helpers for GBM file I/O stuff
    #include <sys/stat.h>
    #include "gbm.h"
    #include "gbmhelp.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #include <wx/string.h>
 #endif
 

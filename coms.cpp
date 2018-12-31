@@ -40,7 +40,7 @@
   #include "graphics.h"
   #include "stringprintednode.h"
   #include "stringadapter.h"
-  #include "debugheap.h"
+//  #include "debugheap.h"
 #endif
 
 // ift_iff_flag: flag for if TEST has been called within the scope

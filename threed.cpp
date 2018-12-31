@@ -30,7 +30,7 @@
     #include "graphics.h"
     #include "graphwin.h"
     #include "const.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 
     #ifdef max // MS compilers #define max in windows.h
         #undef max

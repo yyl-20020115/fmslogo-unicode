@@ -46,7 +46,7 @@
    #include "error.h"
    #include "screenwindow.h"
    #include "messagebox.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 // global variables

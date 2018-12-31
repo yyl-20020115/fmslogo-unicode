@@ -21,7 +21,7 @@
    #include <string.h>
    #include <ctype.h>
 
-   #include "debugheap.h"
+//   #include "debugheap.h"
    #include "logocore.h"
    #include "graphwin.h"
    #include "print.h"

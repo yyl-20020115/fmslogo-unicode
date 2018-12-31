@@ -55,7 +55,7 @@
    #include "messagebox.h"
    #include "screenwindow.h"
    #include "localizedstrings.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 #ifdef _WINDOWS
 #include <Windows.h>

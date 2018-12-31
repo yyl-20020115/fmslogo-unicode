@@ -33,7 +33,7 @@
     #include "logomath.h"
     #include "parse.h"
     #include "screenwindow.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
     #include "localizedstrings.h"
 #endif
 

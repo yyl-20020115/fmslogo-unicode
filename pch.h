@@ -7,4 +7,6 @@
 #include<crtdbg.h>
 #endif
 #endif
+
+#include <wx/setup.h>
 #endif

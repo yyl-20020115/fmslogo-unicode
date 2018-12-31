@@ -68,7 +68,7 @@
    #include "const.h"
    #include "screenwindow.h"
    #include "startup.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "graphwin.h"
    #include "status.h"
@@ -645,9 +645,9 @@ void line_to(FLONUM x, FLONUM y)
         toPoint.x = x;
         toPoint.y = y;
 
-        HPEN           pen;
-        const LOGPEN * logicalPen;
-        int            rasterMode;
+        HPEN           pen = 0;
+        const LOGPEN * logicalPen = 0;
+        int            rasterMode = 0;
 #ifndef WX_PURE
         if (GetPenStateForSelectedTurtle().IsErasing)
         {
@@ -693,9 +693,9 @@ void line_to_3d(const Point & ToPoint)
         vector_count++;
         update_status_vectors();
 
-        HPEN           pen;
-        const LOGPEN * logicalPen;
-        int            rasterMode;
+        HPEN           pen = 0;
+        const LOGPEN * logicalPen =0;
+        int            rasterMode = 0;
 
 #ifndef WX_PURE
         if (GetPenStateForSelectedTurtle().IsErasing)

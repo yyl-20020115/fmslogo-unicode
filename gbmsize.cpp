@@ -4,9 +4,9 @@
    #include <stdio.h>
    #include <stdlib.h>
    #include <fcntl.h>
-#include <wx/string.h>
+   #include <wx/string.h>
    #include "gbm.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 #ifdef WX_PURE

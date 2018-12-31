@@ -52,7 +52,7 @@
    #include "graphwin.h"
    #include "dlgwind.h"
    #include "cursor.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #endif

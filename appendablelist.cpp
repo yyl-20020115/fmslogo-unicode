@@ -20,7 +20,7 @@
 
    #include "appendablelist.h"
    #include "logodata.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 CAppendableList::CAppendableList()

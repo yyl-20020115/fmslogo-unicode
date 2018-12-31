@@ -30,7 +30,7 @@
    #include "logodata.h"
    #include "logomath.h"
    #include "init.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 #ifndef _WINDOWS
 #include <wchar.h>

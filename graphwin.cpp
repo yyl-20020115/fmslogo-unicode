@@ -93,7 +93,7 @@
    #include "screenwindow.h"
    #include "startup.h" // g_HelpFileName
    #include "stringadapter.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #endif

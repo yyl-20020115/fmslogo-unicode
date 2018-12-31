@@ -21,7 +21,7 @@
     #include "logocore.h"
     #include "print.h"
     #include "init.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #include <stdlib.h>
 #endif
 

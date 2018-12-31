@@ -28,7 +28,7 @@
     #include "commander.h"
     #include "init.h"
     #include "logodata.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 NODE *lcleartext(NODE *)

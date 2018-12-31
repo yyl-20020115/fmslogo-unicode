@@ -53,7 +53,7 @@
    #include "startup.h"
    #include "stringadapter.h"
    #include "screenwindow.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 inline

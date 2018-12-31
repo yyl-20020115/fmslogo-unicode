@@ -1,7 +1,5 @@
-﻿//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ 生成的包含文件。
-// 供 FMSLogo.rc 使用
-//
+//{{NO_DEPENDENCIES}}
+
 #define wxUSE_NO_MANIFEST               0
 #define SW_HIDE                         0
 #define HIDE_WINDOW                     0

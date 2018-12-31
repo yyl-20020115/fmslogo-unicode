@@ -6,6 +6,7 @@
     #include <wx/stattext.h>
     #include <wx/button.h>
     #include <wx/statbox.h>
+    #include <wx/string.h>
 
     #include "commander.h"
     #include "FMSLogo.h"
@@ -21,7 +22,7 @@
     #include "mem.h"
     #include "stringadapter.h"
     #include "screenwindow.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 #endif
 
 bool status_flag = false;   // Flag to signal status box is popped up
@@ -254,7 +255,7 @@ void CStatusDialog::PopulateAllFields()
 
 void CStatusDialog::SetPenContact(bool PenIsUp)
 {
-    const wchar_t * text;
+    wxString text;
 
     if (PenIsUp)
     {
@@ -265,13 +266,12 @@ void CStatusDialog::SetPenContact(bool PenIsUp)
         text = GetResourceString(L"LOCALIZED_STATUS_PENDOWN");
     }
 
-    m_PenContact->SetLabel(wxString(text));
+    m_PenContact->SetLabel(text);
 }
 
 void CStatusDialog::SetPenWidth(int PenWidth)
 {
-    wxString penWidthString;
-    penWidthString.Printf(wxString(L"%d"), PenWidth);
+    wxString penWidthString =wxString::Format(L"%d", PenWidth);
 
     m_PenWidth->SetLabel(penWidthString);
 }
@@ -284,8 +284,7 @@ void CStatusDialog::SetPenStyle(const wchar_t * PenStyle)
 
 void CStatusDialog::SetTurtleHeading(double Heading)
 {
-    wxString headingString;
-    headingString.Printf(wxString(L"%1.2f"), Heading);
+    wxString headingString = wxString::Format(L"%1.2f", Heading);
 
     m_TurtleHeading->SetLabel(headingString);
 }
@@ -293,39 +292,35 @@ void CStatusDialog::SetTurtleHeading(double Heading)
 
 void CStatusDialog::SetTurtlePitch(double Pitch)
 {
-    wxString pitchString;
-    pitchString.Printf(wxString(L"%1.2f"), Pitch);
+    wxString pitchString =wxString::Format(L"%1.2f", Pitch);
 
     m_TurtlePitch->SetLabel(pitchString);
 }
 
 void CStatusDialog::SetTurtleRoll(double Roll)
 {
-    wxString rollString;
-    rollString.Printf(wxString(L"%1.2f"), Roll);
+    wxString rollString = wxString::Format(L"%1.2f", Roll);
 
     m_TurtleRoll->SetLabel(rollString);
 }
 
 void CStatusDialog::SetTurtlePosition(double X, double Y, double Z)
 {
-    wxString positionString;
-    positionString.Printf(wxString(L"%1.0f,%1.0f,%1.0f"), X, Y, Z);
+    wxString positionString = wxString::Format(L"%1.0f,%1.0f,%1.0f", X, Y, Z);
 
     m_TurtlePosition->SetLabel(positionString);
 }
 
 void CStatusDialog::SetTurtleId(int TurtleId)
 {
-    wxString turtleIdString;
-    turtleIdString.Printf(wxString(L"%d"), TurtleId);
+    wxString turtleIdString=wxString::Format(L"%d", TurtleId);
 
     m_TurtleId->SetLabel(turtleIdString);
 }
 
 void CStatusDialog::SetTurtleVisibility(bool IsShown)
 {
-    const wchar_t * text;
+    wxString text;
 
     if (IsShown)
     {
@@ -336,29 +331,26 @@ void CStatusDialog::SetTurtleVisibility(bool IsShown)
         text = GetResourceString(L"LOCALIZED_STATUS_PENHIDDEN");
     }
 
-    m_TurtleVisibility->SetLabel(wxString(text));
+    m_TurtleVisibility->SetLabel(text);
 }
 
 void CStatusDialog::SetPenColor(int Red, int Green, int Blue)
 {
-    wxString colorString;
-    colorString.Printf(L"%d,%d,%d", Red, Green, Blue);
+    wxString colorString = wxString::Format(L"%d,%d,%d", Red, Green, Blue);
 
     m_PenColor->SetLabel(colorString);
 }
 
 void CStatusDialog::SetScreenColor(int Red, int Green, int Blue)
 {
-    wxString colorString;
-    colorString.Printf(L"%d,%d,%d", Red, Green, Blue);
+    wxString colorString=wxString::Format(L"%d,%d,%d", Red, Green, Blue);
 
     m_ScreenColor->SetLabel(colorString);
 }
 
 void CStatusDialog::SetFloodColor(int Red, int Green, int Blue)
 {
-    wxString colorString;
-    colorString.Printf(wxString(L"%d,%d,%d"), Red, Green, Blue);
+    wxString colorString = wxString::Format(wxString(L"%d,%d,%d"), Red, Green, Blue);
 
     m_FloodColor->SetLabel(colorString);
 }
@@ -369,16 +361,14 @@ void CStatusDialog::SetCalls(long long TotalCalls)
     // "long long", as the C runtime on Windows XP does not support
     // the ANSI C99 "%lld" format sequence and would treat TotalCalls
     // as a 32-bit number.
-    wxString totalCallsString;
-    totalCallsString << TotalCalls;
+    wxString totalCallsString=wxString::Format(L"%lld",TotalCalls);
 
     m_TotalCalls->SetLabel(totalCallsString);
 }
 
 void CStatusDialog::SetPeakMemory(int TotalNodes)
 {
-    wxString peakMemoryString;
-    peakMemoryString.Printf(wxString(L"%d ")+ GetResourceString(L"LOCALIZED_STATUS_NODES"), TotalNodes);
+    wxString peakMemoryString = wxString::Format(L"%d "+ GetResourceString(L"LOCALIZED_STATUS_NODES"), TotalNodes);
 
     m_PeakMemory->SetLabel(peakMemoryString);
 }
@@ -392,7 +382,7 @@ void CStatusDialog::SetVectors(int TotalVectors)
     }
     else
     {
-        totalVectorsString.Printf(L"%d", TotalVectors);
+        totalVectorsString = wxString::Format(L"%d", TotalVectors);
     }
 
     m_TotalVectors->SetLabel(totalVectorsString);
@@ -408,7 +398,7 @@ void CStatusDialog::SetPolygons(int TotalPolygons)
     }
     else
     {
-        totalPolygonsString.Printf(L"%d", TotalPolygons);
+        totalPolygonsString=wxString::Format(L"%d", TotalPolygons);
     }
 
     m_TotalPolygons->SetLabel(totalPolygonsString);

@@ -22,7 +22,7 @@
    #include "mem.h"
    #include "logodata.h"
    #include "appendablelist.h"
-   #include "debugheap.h"
+ //  #include "debugheap.h"
 #endif
 
 // There isn't enough space to hold a single AVL node in a NODE*,

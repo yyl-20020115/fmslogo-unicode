@@ -64,7 +64,7 @@
    #include "questionbox.h"
    #include "selectbox.h"
    #include "stringadapter.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 enum WINDOWTYPE 
@@ -876,9 +876,9 @@ public:
    CLogoWidget(WINDOWTYPE Type, const wxString& Name)
        : m_Next(NULL),
          m_Prev(NULL),
-         m_Parent(),
-         m_Type(Type),
 	     m_Key(Name),
+	     m_Parent(),
+         m_Type(Type),
          Dialog(NULL)
     {
 

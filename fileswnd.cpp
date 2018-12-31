@@ -29,7 +29,7 @@
    #include "parse.h"
    #include "screenwindow.h"
    #include "cursor.h"
-   #include "debugheap.h"
+//  #include "debugheap.h"
 
    #include "localizedstrings.h"
 #include <wx/string.h>

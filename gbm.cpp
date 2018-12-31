@@ -26,7 +26,7 @@ gbm.c - Generalised Bitmap Module
 
    #include "gbmbmp.h"
    #include "gbmgif.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 #ifndef _WINDOWS
 #include <wchar.h>

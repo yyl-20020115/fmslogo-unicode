@@ -26,7 +26,7 @@
    #include "logodata.h"
    #include "graphwin.h"
    #include "logoeventqueue.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 
    #include "localizedstrings.h"
 #endif

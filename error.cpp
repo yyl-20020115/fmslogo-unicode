@@ -43,7 +43,7 @@
    #include "ibmterm.h"
    #include "logoeventqueue.h"
    #include "mmwind.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #include "files.h"
 #include "CStringTextStream.h"
 #endif

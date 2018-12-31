@@ -35,7 +35,7 @@
     #include "init.h"
     #include "eval.h"
     #include "files.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
 
     #include "localizedstrings.h"
 #include <wx/string.h>

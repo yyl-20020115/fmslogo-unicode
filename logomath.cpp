@@ -38,7 +38,7 @@
    #include "error.h"
    #include "ibmterm.h"
    #include "const.h"
-   #include "debugheap.h"
+//   #include "debugheap.h"
 #endif
 
 #ifdef __GNUC__

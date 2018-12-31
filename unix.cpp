@@ -44,7 +44,7 @@
     #include "dynamicbuffer.h"
     #include "appendablelist.h"
     #include "sort.h"
-    #include "debugheap.h"
+//    #include "debugheap.h"
     #include "localizedstrings.h"
 #endif
 

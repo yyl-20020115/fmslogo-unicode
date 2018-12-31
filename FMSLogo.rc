@@ -2,7 +2,6 @@
 //
 #include "resource.h"
 /////////////////////////////////////////////////////////////////////////////
-// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
@@ -182,7 +181,7 @@ LOCALIZED_STRINGS_FILE_RU LOCALIZED_STRINGS_FILE  "localizedstrings-ru-ucs2le.h"
 
 LOCALIZED_STRINGS_FILE_ZH_CN LOCALIZED_STRINGS_FILE  "localizedstrings-zh-cn-ucs2le.h"
 
-#endif    // 中文(简体，中国) resources
+#endif    //resources
 /////////////////////////////////////////////////////////////////////////////
 
 
