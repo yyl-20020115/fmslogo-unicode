@@ -15,8 +15,8 @@ class CFileTextStream :
 {
 public:
 
-	static CFileTextStream* OpenForRead(const wxString& path, bool check_bom = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	static CFileTextStream* OpenForWrite(const wxString& path, bool use_unicode = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* OpenForRead(const wxString& path, bool check_bom = true, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* OpenForWrite(const wxString& path, bool use_unicode = false, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateForType(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateForType(bool unicode, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);

@@ -2,13 +2,16 @@
 #include "CUnicodeFileTextStream.h"
 #include "CMbcsFileTextStream.h"
 
-CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, const wxString & newline)
+CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, bool binary, const wxString & newline)
 {
 	CFileTextStream* ts = 0;
 	bool has_bom = false;
-
+	wxString mode(L"r");
+	if (binary) {
+		mode += L'b';
+	}
 	CUnicodeFileTextStream* cufts = new CUnicodeFileTextStream(newline);
-	if (cufts->Open(path, L"r", true)) {
+	if (cufts->Open(path, mode, true)) {
 		has_bom = cufts->GetFileBOM() != 0;
 	}
 	if (has_bom) {
@@ -17,7 +20,7 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	else {
 		delete cufts;
 		CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-		if (cmfts->Open(path,L"r")) {
+		if (cmfts->Open(path, mode)) {
 			ts = cmfts;
 		}
 		else {
@@ -27,12 +30,16 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	return ts;
 }
 
-CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_unicode, const wxString& newline)
+CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_unicode, bool binary, const wxString& newline)
 {
 	CFileTextStream *ts = 0;
+	wxString mode(L"w");
+	if (binary) {
+		mode += L'b';
+	}
 	if (use_unicode) {
 		CUnicodeFileTextStream* cufts = new CUnicodeFileTextStream(newline);
-		if (cufts->Open(path, "w", false)) {
+		if (cufts->Open(path, mode, false)) {
 			ts = cufts;
 		}
 		else {
@@ -41,7 +48,7 @@ CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_
 	}
 	else {
 		CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-		if (cmfts->Open(path, L"w")) {
+		if (cmfts->Open(path, mode)) {
 			ts = cmfts;
 		}
 		else {

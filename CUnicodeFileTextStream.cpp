@@ -75,7 +75,7 @@ wchar_t CUnicodeFileTextStream::ReadChar()
 	wchar_t ch = WEOF;
 	if (this->IsValid()) {
 		ch = getwc(this->file);
-		ch = this->EnsureEndian(ch);
+		//ch = this->EnsureEndian(ch);
 	}
 	return ch;
 }
@@ -92,7 +92,6 @@ wchar_t CUnicodeFileTextStream::PeekChar()
 	if (this->IsValid()) {
 		ch = getwc(this->file);
 		ungetwc(ch, this->file);
-		ch = this->EnsureEndian(ch);
 	}
 	return ch;
 }
@@ -119,7 +118,7 @@ bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
 {
 	wchar_t ret = WEOF;
 	if (this->IsValid()) {
-		ret = putwc(this->EnsureEndian(ch), this->file);
+		ret = putwc(ch, this->file);
 	}
 	return ret != (signed)WEOF;
 }

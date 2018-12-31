@@ -945,7 +945,7 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
         return;
     }
 
-    CreateWorkspaceEditor(
+    this->CreateWorkspaceEditor(
 		TempPathName, // use the temp file, in case the user saves changes
         NIL,
         true,  // check for errors

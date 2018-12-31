@@ -1567,7 +1567,7 @@ bool endedit(void)
             realsave = true;
             while (!GetLoadStream()->IsEOF() && NOT_THROWING)
             {
-                g_CharactersSuccessfullyParsedInEditor = (GetLoadStream()->GetPosition());
+                g_CharactersSuccessfullyParsedInEditor = (GetLoadStream()->GetPosition()) ;
                 assign(current_line, reader(GetLoadStream(), L""));
 
                 NODE * exec_list = parser(current_line, true);
