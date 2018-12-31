@@ -37,13 +37,13 @@ Name "FMSLogo"
 ; The file to write
 OutFile "${FMSLOGO_OUTPUT_FILE}"
 
-!define FMSLOGO_EXE_PATH "src\Release\"
+!define FMSLOGO_EXE_PATH "Release\"
 
 ; Modern UI Options
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP   "fmslogo-header-icon.bmp"
 !define MUI_HEADERIMAGE_UNBITMAP "fmslogo-header-uninstall-icon.bmp"
-!define MUI_ICON                 "..\src\fmslogo.ico"
+!define MUI_ICON                 "..\fmslogo.ico"
 !define MUI_UNICON               "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
 !define MUI_CUSTOMFUNCTION_GUIINIT   PreInstallSteps
 !define MUI_CUSTOMFUNCTION_UNGUIINIT un.PreInstallSteps
@@ -76,7 +76,7 @@ Var StartMenuFolder
 
 ; Pages
 
-!insertmacro MUI_PAGE_LICENSE "..\src\License.txt"
+!insertmacro MUI_PAGE_LICENSE "..\License.txt"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 
@@ -159,9 +159,9 @@ LangString CannotFindInstallationMessage ${LANG_SIMPCHINESE} "FMSLogoÒÑÉ¾³ý»òÕßÄ
 ;
 ; Example Usage:
 ;  
-;    !insertmacro InstallLanguageFile ..\src\ startup .logoscript
+;    !insertmacro InstallLanguageFile ..\ startup .logoscript
 ;
-; This packs ..\src\startup-1031.logoscript, ..\src\startup-1033.logoscript, etc.
+; This packs ..\startup-1031.logoscript, ..\startup-1033.logoscript, etc.
 ; into the installer, and unpacks the correct file as startup.logoscript.
 ;
 !macro InstallLanguageFile.PerLanguage language_id build_path filename_stem filename_extension
@@ -197,15 +197,15 @@ Section "FMSLogo" FMSLogoSectionId
   ;
   ; Put files there
   ;
-  !insertmacro InstallLanguageFile ..\src\                 startup   .logoscript
+  !insertmacro InstallLanguageFile ..\                 startup   .logoscript
   !insertmacro InstallLanguageFile ..\${FMSLOGO_EXE_PATH}\ fmslogo   .exe
   !insertmacro InstallLanguageFile ..\manual\              logohelp  .chm
 
-  File "..\src\README.TXT"
-  File "..\src\LICENSE.TXT"
-  File "..\src\turtle.bmp"
-  File /r "..\src\logolib"
-  File /r "..\src\examples"
+  File "..\README.TXT"
+  File "..\LICENSE.TXT"
+  File "..\turtle.bmp"
+  File /r "..\logolib"
+  File /r "..\examples"
 
   ;
   ; Write the uninstall keys for Windows
