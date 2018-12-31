@@ -50,61 +50,6 @@ enum
     ID_NEXT_WINDOW,
 };
 
-BEGIN_EVENT_TABLE(CWorkspaceEditor, wxFrame)
-
-    EVT_MENU(wxID_EXIT,              CWorkspaceEditor::OnExit)
-    EVT_MENU(ID_FILESAVEANDEXIT,     CWorkspaceEditor::OnSaveAndExit)
-    EVT_MENU(ID_FILESAVETOWORKSPACE, CWorkspaceEditor::OnSaveToWorkspace)
-    EVT_MENU(wxID_PRINT,             CWorkspaceEditor::OnPrint)
-
-    EVT_MENU(wxID_UNDO,              CWorkspaceEditor::OnUndo)
-    EVT_UPDATE_UI(wxID_UNDO,         CWorkspaceEditor::OnUpdateUndo)
-    EVT_MENU(wxID_REDO,              CWorkspaceEditor::OnRedo)
-    EVT_UPDATE_UI(wxID_REDO,         CWorkspaceEditor::OnUpdateRedo)
-    EVT_MENU(wxID_CUT,               CWorkspaceEditor::OnCut)
-    EVT_UPDATE_UI(wxID_CUT,          CWorkspaceEditor::OnUpdateCut)
-    EVT_MENU(wxID_COPY,              CWorkspaceEditor::OnCopy)
-    EVT_UPDATE_UI(wxID_COPY,         CWorkspaceEditor::OnUpdateCopy)
-    EVT_MENU(wxID_PASTE,             CWorkspaceEditor::OnPaste)
-    EVT_UPDATE_UI(wxID_PASTE,        CWorkspaceEditor::OnUpdatePaste)
-    EVT_MENU(wxID_DELETE,            CWorkspaceEditor::OnDelete)
-    EVT_UPDATE_UI(wxID_DELETE,       CWorkspaceEditor::OnUpdateDelete)
-    EVT_MENU(wxID_CLEAR,             CWorkspaceEditor::OnClear)
-    EVT_UPDATE_UI(wxID_CLEAR,        CWorkspaceEditor::OnUpdateClear)
-    EVT_MENU(wxID_SELECTALL,         CWorkspaceEditor::OnSelectAll)
-    EVT_UPDATE_UI(wxID_SELECTALL,    CWorkspaceEditor::OnUpdateSelectAll)
-
-    EVT_MENU(wxID_FIND,              CWorkspaceEditor::OnFind)
-    EVT_UPDATE_UI(wxID_FIND,         CWorkspaceEditor::OnUpdateFind)
-    EVT_MENU(wxID_REPLACE,           CWorkspaceEditor::OnReplace)
-    EVT_UPDATE_UI(wxID_REPLACE,      CWorkspaceEditor::OnUpdateReplace)
-    EVT_MENU(ID_SEARCHFINDNEXT,      CWorkspaceEditor::OnFindNext)
-    EVT_UPDATE_UI(ID_SEARCHFINDNEXT, CWorkspaceEditor::OnUpdateFindNext)
-
-    EVT_MENU(ID_EDITSETFONT,         CWorkspaceEditor::OnSetFont)
-
-    EVT_MENU(ID_TESTRUNSELECTION,      CWorkspaceEditor::OnRunSelection)
-    EVT_UPDATE_UI(ID_TESTRUNSELECTION, CWorkspaceEditor::OnUpdateRunSelection)
-
-    EVT_MENU(ID_HELP,                CWorkspaceEditor::OnHelp)
-    EVT_MENU(ID_HELPEDIT,            CWorkspaceEditor::OnHelpEditor)
-    EVT_MENU(wxID_HELP_INDEX,        CWorkspaceEditor::OnHelpTopicSearch)
-
-    EVT_MENU(ID_FINDMATCHINGPAREN,   CWorkspaceEditor::OnFindMatchingParen)
-    EVT_MENU(ID_SELECTMATCHINGPAREN, CWorkspaceEditor::OnSelectMatchingParen)
-    EVT_MENU(ID_AUTOCOMPLETE,        CWorkspaceEditor::OnAutoComplete)
-    EVT_CLOSE(CWorkspaceEditor::OnClose)
-
-    EVT_FIND(wxID_ANY,             CWorkspaceEditor::OnFindDialog)
-    EVT_FIND_NEXT(wxID_ANY,        CWorkspaceEditor::OnFindDialog)
-    EVT_FIND_REPLACE(wxID_ANY,     CWorkspaceEditor::OnFindDialogReplace)
-    EVT_FIND_REPLACE_ALL(wxID_ANY, CWorkspaceEditor::OnFindDialogReplaceAll)
-    EVT_FIND_CLOSE(wxID_ANY,       CWorkspaceEditor::OnFindDialogClose)
-
-    EVT_MENU(ID_NEXT_WINDOW, CWorkspaceEditor::OnNavigateNextWindow)
-END_EVENT_TABLE()
-
-
 // The workspace frame's constructor
 CWorkspaceEditor::CWorkspaceEditor(
     wxWindow       * Parent,
@@ -402,11 +347,12 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
     m_LogoCodeControl->SetUndoCollection(0);
 
     bool success = false;
+
 	CFileTextStream* cfts = CFileTextStream::OpenForRead(fileName, true);
-	if (cfts != 0) 
+	if (cfts != 0)
 	{
 		success = true;
-		
+
 		wxString text = cfts->ReadAll();
 
 #ifdef _WINDOWS
@@ -416,7 +362,7 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 #endif
 		delete cfts;
 	}
-
+	
     m_LogoCodeControl->SetUndoCollection(true);
     m_LogoCodeControl->SetFocus();
     m_LogoCodeControl->EmptyUndoBuffer();
@@ -460,14 +406,15 @@ CWorkspaceEditor::Write(
 	if (cfts != 0)
 	{
 		wxString text = m_LogoCodeControl->GetText();
-		if (text.length() > 0 && cfts->GetStreamType()== FileTextStreamType::Unicode && cfts->GetPosition() == 0) {
-		//NOTICE: don' know when we have to write bom on our own:
+		if (text.length() > 0 && cfts->GetStreamType() == FileTextStreamType::Unicode && cfts->GetPosition() == 0) {
+			//NOTICE: don' know when we have to write bom on our own:
 			((CUnicodeFileTextStream*)cfts)->WriteBOM();
 		}
 		success = (cfts->Write(text)) == text.length();
 		delete cfts;
 	}
-	else
+
+	if(!success)
 	{
 		success = false;
 		// Something when wrong when trying to open the file.
@@ -974,6 +921,7 @@ void CWorkspaceEditor::OnClose(wxCloseEvent& Event)
 
             // Delete the temporary file which held the workspace
             // while we were re-reading it.
+
 #ifdef _WINDOWS
         _wunlink(TempPathName);
 #else
@@ -1016,3 +964,58 @@ void CWorkspaceEditor::OnNavigateNextWindow(wxCommandEvent& Event)
         this,
         wxNavigationKeyEvent::IsForward);
 }
+
+BEGIN_EVENT_TABLE(CWorkspaceEditor, wxFrame)
+
+EVT_MENU(wxID_EXIT, CWorkspaceEditor::OnExit)
+EVT_MENU(ID_FILESAVEANDEXIT, CWorkspaceEditor::OnSaveAndExit)
+EVT_MENU(ID_FILESAVETOWORKSPACE, CWorkspaceEditor::OnSaveToWorkspace)
+EVT_MENU(wxID_PRINT, CWorkspaceEditor::OnPrint)
+
+EVT_MENU(wxID_UNDO, CWorkspaceEditor::OnUndo)
+EVT_UPDATE_UI(wxID_UNDO, CWorkspaceEditor::OnUpdateUndo)
+EVT_MENU(wxID_REDO, CWorkspaceEditor::OnRedo)
+EVT_UPDATE_UI(wxID_REDO, CWorkspaceEditor::OnUpdateRedo)
+EVT_MENU(wxID_CUT, CWorkspaceEditor::OnCut)
+EVT_UPDATE_UI(wxID_CUT, CWorkspaceEditor::OnUpdateCut)
+EVT_MENU(wxID_COPY, CWorkspaceEditor::OnCopy)
+EVT_UPDATE_UI(wxID_COPY, CWorkspaceEditor::OnUpdateCopy)
+EVT_MENU(wxID_PASTE, CWorkspaceEditor::OnPaste)
+EVT_UPDATE_UI(wxID_PASTE, CWorkspaceEditor::OnUpdatePaste)
+EVT_MENU(wxID_DELETE, CWorkspaceEditor::OnDelete)
+EVT_UPDATE_UI(wxID_DELETE, CWorkspaceEditor::OnUpdateDelete)
+EVT_MENU(wxID_CLEAR, CWorkspaceEditor::OnClear)
+EVT_UPDATE_UI(wxID_CLEAR, CWorkspaceEditor::OnUpdateClear)
+EVT_MENU(wxID_SELECTALL, CWorkspaceEditor::OnSelectAll)
+EVT_UPDATE_UI(wxID_SELECTALL, CWorkspaceEditor::OnUpdateSelectAll)
+
+EVT_MENU(wxID_FIND, CWorkspaceEditor::OnFind)
+EVT_UPDATE_UI(wxID_FIND, CWorkspaceEditor::OnUpdateFind)
+EVT_MENU(wxID_REPLACE, CWorkspaceEditor::OnReplace)
+EVT_UPDATE_UI(wxID_REPLACE, CWorkspaceEditor::OnUpdateReplace)
+EVT_MENU(ID_SEARCHFINDNEXT, CWorkspaceEditor::OnFindNext)
+EVT_UPDATE_UI(ID_SEARCHFINDNEXT, CWorkspaceEditor::OnUpdateFindNext)
+
+EVT_MENU(ID_EDITSETFONT, CWorkspaceEditor::OnSetFont)
+
+EVT_MENU(ID_TESTRUNSELECTION, CWorkspaceEditor::OnRunSelection)
+EVT_UPDATE_UI(ID_TESTRUNSELECTION, CWorkspaceEditor::OnUpdateRunSelection)
+
+EVT_MENU(ID_HELP, CWorkspaceEditor::OnHelp)
+EVT_MENU(ID_HELPEDIT, CWorkspaceEditor::OnHelpEditor)
+EVT_MENU(wxID_HELP_INDEX, CWorkspaceEditor::OnHelpTopicSearch)
+
+EVT_MENU(ID_FINDMATCHINGPAREN, CWorkspaceEditor::OnFindMatchingParen)
+EVT_MENU(ID_SELECTMATCHINGPAREN, CWorkspaceEditor::OnSelectMatchingParen)
+EVT_MENU(ID_AUTOCOMPLETE, CWorkspaceEditor::OnAutoComplete)
+EVT_CLOSE(CWorkspaceEditor::OnClose)
+
+EVT_FIND(wxID_ANY, CWorkspaceEditor::OnFindDialog)
+EVT_FIND_NEXT(wxID_ANY, CWorkspaceEditor::OnFindDialog)
+EVT_FIND_REPLACE(wxID_ANY, CWorkspaceEditor::OnFindDialogReplace)
+EVT_FIND_REPLACE_ALL(wxID_ANY, CWorkspaceEditor::OnFindDialogReplaceAll)
+EVT_FIND_CLOSE(wxID_ANY, CWorkspaceEditor::OnFindDialogClose)
+
+EVT_MENU(ID_NEXT_WINDOW, CWorkspaceEditor::OnNavigateNextWindow)
+END_EVENT_TABLE()
+

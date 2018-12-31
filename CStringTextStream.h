@@ -28,7 +28,11 @@ public:
 	virtual int SetPosition(off64_t offset, int origin);
 
 	virtual void Close();
-
+public:
+	virtual void Clear();
+	virtual void Reset();
+	wxString& Append(const wxString& text);
+	virtual off64_t GetLength();
 public:
 
 	wxString& GetContent();

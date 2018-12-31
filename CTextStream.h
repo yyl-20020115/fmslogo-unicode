@@ -58,6 +58,8 @@ public:
 
 	virtual void Close();
 
+	virtual void Reset();
+
 	virtual wxString& NewLine();
 
 	virtual operator FILE*();

@@ -151,6 +151,11 @@ void CTextStream::Close()
 {
 }
 
+void CTextStream::Reset()
+{
+	this->SetPosition(0LL, SEEK_SET);
+}
+
 wxString & CTextStream::NewLine()
 {
 	return this->newline;

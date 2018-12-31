@@ -137,7 +137,29 @@ int CStringTextStream::SetPosition(off64_t offset, int origin)
 
 void CStringTextStream::Close()
 {
-	this->content.clear();
+	this->content.Clear();
+}
+
+void CStringTextStream::Clear()
+{
+	this->Reset();
+	this->content.Clear();
+}
+
+void CStringTextStream::Reset()
+{
+	this->pos = 0LL;
+}
+
+wxString & CStringTextStream::Append(const wxString & text)
+{
+	this->content.Append(text);
+	return this->content;
+}
+
+off64_t CStringTextStream::GetLength()
+{
+	return this->content.length();
 }
 
 wxString & CStringTextStream::GetContent()

@@ -658,7 +658,6 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 #ifdef _WINDOWS
 #ifdef _DEBUG
 	OutputDebugString(lineBuffer.GetString());
-	
 	OutputDebugString(L"\n");
 #endif
 #endif

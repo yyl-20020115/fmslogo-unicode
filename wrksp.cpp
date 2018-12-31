@@ -1473,7 +1473,7 @@ NODE *ledit(NODE *args)
             return Unbound;
         }
     }
-
+	bool success = false;
     bool save_yield_flag = yield_flag;
     yield_flag = false;
     lsetcursorwait(NIL);
@@ -1495,8 +1495,10 @@ NODE *ledit(NODE *args)
 			SetOutputStream(savedWriterStream);
 
 			delete fileStream;
+			success = true;
         }
-        else
+
+        if(!success)
         {
             err_logo(
                 FILE_ERROR,
@@ -1544,7 +1546,7 @@ bool endedit(void)
 
     if (!IsTimeToExit)
     {
-        CTextStream* holdstrm = GetLoadStream();
+
         NODE * tmp_line = vref(current_line);
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -1552,6 +1554,7 @@ bool endedit(void)
 
         start_execution();
 
+        CTextStream* holdstrm = GetLoadStream();
 		CTextStream* filestream = CFileTextStream::OpenForRead(TempPathName,true);
 
         if (filestream != NULL)
