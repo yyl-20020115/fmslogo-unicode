@@ -56,9 +56,7 @@ NODE *deepend_proc_name = NIL;
 NODE *g_ToLine = NIL;
 
 INPUTMODE input_mode = INPUTMODE_None;
-
 static CDynamicBuffer g_ReadBuffer;
-
 
 bool& GetInputBlocking()
 {
@@ -167,7 +165,6 @@ wchar_t* CStringNodeBuffer::GetStringLengthPtr()
 {
 	return (wchar_t*)this->m_Buffer;
 }
-
 void CStringNodeBuffer::TakeOwnershipOfBuffer()
 {
 	ASSERT_STRINGNODE_INVARIANT;
@@ -193,7 +190,6 @@ void CStringNodeBuffer::TakeOwnershipOfBuffer()
 	// set a flag that we don't own m_Buffer.
 	m_IsOwner = false;
 }
-
 wchar_t * CStringNodeBuffer::GetString()
 {
 	ASSERT_STRINGNODE_INVARIANT;
@@ -266,14 +262,14 @@ void CStringNodeBuffer::AppendChar(wchar_t ToAppend)
 // loading from the editor.  If this is not done, any unused
 // portion will hang around and be silently used the next time
 // TO is run.
-void rd_clearbuffer(CFileTextStream *strm)
+void rd_clearbuffer(CTextStream *strm)
 {
 	if (input_mode == INPUTMODE_To && strm->GetFile() == stdin)
 	{
 		g_ReadBuffer.Empty();
 	}
 }
-wchar_t rd_fgetwc(CFileTextStream *stream)
+wchar_t rd_fgetwc(CTextStream *stream)
 {
 	wchar_t c = 0;
 
@@ -355,7 +351,7 @@ wchar_t rd_fgetwc(CFileTextStream *stream)
 //{
 //	//ndprintf(stdout,"%t",str);
 //}
-static bool IsDribbling(CFileTextStream* fileStream) {
+static bool IsDribbling(CTextStream* fileStream) {
 	return (GetDribbleStream() != NULL && *fileStream == stdin);
 
 }
@@ -372,7 +368,7 @@ static bool IsDribbling(CFileTextStream* fileStream) {
 //              the characters "(", ")", "{", "}", "[", "]", and ';'
 //              have no special meaning.
 //
-NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
+NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 {
 	int paren = 0;
 	int bracket = 0;
@@ -659,14 +655,17 @@ NODE *reader(CFileTextStream *fileStream, const wchar_t * Prompt)
 		lineBuffer.GetStringLengthPtr(),
 		lineBuffer.GetStringLength(),
 		this_type);
-	//OutputDebugString(lineBuffer.GetString());
-	//OutputDebugString(L"\n");
-
+#ifdef _WINDOWS
+#ifdef _DEBUG
+	OutputDebugString(lineBuffer.GetString());
+	
+	OutputDebugString(L"\n");
+#endif
+#endif
 	return line;
 }
 
-static
-NODE *list_to_array(NODE *list)
+static NODE *list_to_array(NODE *list)
 {
 	int len = list_length(list);
 
@@ -699,9 +698,7 @@ NODE *list_to_array(NODE *list)
 //
 // if "ignore_comments" is true then comments should be stripped out of the parsed stream.
 //
-static
-NODE *
-parser_iterate(
+static NODE * parser_iterate(
 	const wchar_t **inln,
 	const wchar_t *inlimit,
 	bool        ignore_comments,
@@ -720,7 +717,7 @@ parser_iterate(
 
 	CAppendableList return_list;
 
-	wchar_t ch;
+	wchar_t ch = L'\0';
 	do
 	{
 		/* get the current character and increase pointer */
@@ -984,8 +981,7 @@ NODE *lparse(NODE *args)
 	return val;
 }
 
-static
-NODE *runparse_node(NODE *nd, NODE **ndsptr)
+static NODE *runparse_node(NODE *nd, NODE **ndsptr)
 {
 	if (nd == Minus_Tight)
 	{
@@ -1252,6 +1248,5 @@ void uninitialize_parser()
 {
 	deref(deepend_proc_name);
 	deepend_proc_name = NIL;
-
 	g_ReadBuffer.Dispose();
 }

@@ -35,7 +35,7 @@
 #include <wx/string.h>
 #endif
 
-void filesave(const wchar_t *FileName)
+void filesave(const wxString& FileName, bool Unicode)
 {
     if (IsEditorOpen())
     {
@@ -50,13 +50,12 @@ void filesave(const wchar_t *FileName)
 #endif
     }
 
-    FILE* fp = 0;
-#ifdef _WINDOWS
-    fp = _wfopen(FileName, L"w+");
-#else
-    fp = fopen(wxString(FileName),"w+");
-#endif
-    PrintWorkspaceToFileStream(fp);
+	CFileTextStream * stream = CFileTextStream::OpenForWrite(FileName,Unicode);
+	if (stream != 0) {
+
+		PrintWorkspaceToStream(stream);
+		delete stream;
+	}
 }
 
 
@@ -65,23 +64,27 @@ void filesave(const wchar_t *FileName)
 // Returns true if the file could be opened for reading,
 // even if there was error while evaluating the contents.
 // Returns false if the file couldn't be opened for reading.
-bool fileload(const wchar_t *Filename)
+bool fileload(const wxString& Filename, bool CheckBOM, bool* IsUnicode)
 {
     bool isOk = false;
 	//NOTICE: we check BOM to determine whether to use unicode encoding or use mbcs encoding
-	CFileTextStream* filestream = CFileTextStream::OpenForRead(Filename);// _wfopen(Filename, L"r");
+	CFileTextStream* filestream = CFileTextStream::OpenForRead(Filename, CheckBOM);// _wfopen(Filename, L"r");
     if (filestream != NULL)
     {
+		if (IsUnicode != 0) 
+		{
+			*IsUnicode = filestream->GetStreamType() == FileTextStreamType::Unicode;
+		}
         // save all global state that may be modified
         NODE *previous_startup = Startup.GetValue();
 
         FIXNUM savedValueStatus = g_ValueStatus;
         bool   savedIsDirty     = IsDirty;
         bool   savedYieldFlag   = yield_flag;
-        CFileTextStream* savedLoadStream  = GetLoadStream();
+        CTextStream* savedLoadStream  = GetLoadStream();
         NODE * savedCurrentLine = vref(current_line);
 
-		GetLoadStream() = filestream;
+		SetLoadStream(filestream);
 
         yield_flag = false;
         lsetcursorwait(NIL);
@@ -104,7 +107,7 @@ bool fileload(const wchar_t *Filename)
 
         // Restore loadstream so that we don't confuse to_helper
         // into reading more data from the current (closed) file stream.
-		GetLoadStream() = savedLoadStream;
+		SetLoadStream(savedLoadStream);
 
 		delete filestream;
         // Run the any startup instruction list that may have been defined

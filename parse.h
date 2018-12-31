@@ -34,9 +34,9 @@ enum INPUTMODE
 };
 
 // function variables
-extern wchar_t rd_fgetwc(CFileTextStream *strm);
-extern void rd_clearbuffer(CFileTextStream *strm);
-extern NODE *reader(CFileTextStream *strm, const wchar_t *prompt);
+extern wchar_t rd_fgetwc(CTextStream *strm);
+extern void rd_clearbuffer(CTextStream *strm);
+extern NODE *reader(CTextStream *strm, const wchar_t *prompt);
 extern NODE *parser(NODE *nd, bool semi);
 extern NODE *lparse(NODE *args);
 extern NODE *lparse(NODE *args);

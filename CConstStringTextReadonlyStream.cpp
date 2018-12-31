@@ -9,7 +9,7 @@ CConstStringTextReadonlyStream::CConstStringTextReadonlyStream(const wchar_t* co
 	, pos()
 {
 	if (length > 0) {
-		wchar_t first = *content;
+		wchar_t first = this->SwapByteOrder(*content);
 		switch (first)
 		{
 		case UTF16LE_BOM:

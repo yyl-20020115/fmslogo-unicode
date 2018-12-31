@@ -148,7 +148,16 @@ wxString & CTextStream::NewLine()
 
 CTextStream::operator FILE*()
 {
+	return this->GetFile();
+}
+
+FILE * CTextStream::GetFile()
+{
 	return 0;
+}
+
+void CTextStream::SetFile(FILE * file)
+{
 }
 
 bool CTextStream::IsLittleEndian()
@@ -161,13 +170,8 @@ bool CTextStream::IsLittleEndian()
 wchar_t CTextStream::EnsureEndian(wchar_t ch)
 {
 	if (this->mem_bol != this->file_bol) {
-		if (sizeof(wchar_t) == sizeof(unsigned short)) {
-			ch = this->SwapByteOrder((unsigned short)ch);
-		}
-		else if (sizeof(wchar_t) == sizeof(unsigned int))
-		{
-			ch = this->SwapByteOrder((unsigned int)ch);
-		}
+
+		ch = this->SwapByteOrder(ch);
 	}
 
 	return ch;
@@ -182,15 +186,28 @@ wxString & CTextStream::EnsureEndian(wxString & text)
 	}
 	return text;
 }
+wchar_t CTextStream::SwapByteOrder(wchar_t c)
+{
+	wchar_t ch = c;
+	if (sizeof(wchar_t) == sizeof(unsigned short)) {
+		ch = this->SwapByteOrderShort((unsigned short)ch);
+	}
+	else if (sizeof(wchar_t) == sizeof(unsigned int))
+	{
+		ch = this->SwapByteOrderLong((unsigned int)ch);
+	}
+	return ch;
 
-unsigned short CTextStream::SwapByteOrder(unsigned short s)
+}
+
+unsigned short CTextStream::SwapByteOrderShort(unsigned short s)
 {
 	return ((s & 0xff) << 8 | (s & 0xff00) >> 8);
 }
 
-unsigned int CTextStream::SwapByteOrder(unsigned int i)
+unsigned int CTextStream::SwapByteOrderLong(unsigned int i)
 {
-	return (SwapByteOrder(i & 0xffff) << 16) | (SwapByteOrder(i & 0xffff0000) >> 16);
+	return (SwapByteOrderShort(i & 0xffff) << 16) | (SwapByteOrderShort(i & 0xffff0000) >> 16);
 }
 
 wchar_t CTextStream::GetMachineBOM()
@@ -203,7 +220,7 @@ CTextStream::CTextStream(const wxString& newline)
 	,file_bol(0)
 	,newline(newline)
 {
-	this->mem_bol = this->IsLittleEndian() ? CTS_LITTLE_ENDIAN : CTS_BIG_ENDIAN;
+	this->file_bol = this->mem_bol = this->IsLittleEndian() ? CTS_LITTLE_ENDIAN : CTS_BIG_ENDIAN;
 }
 
 CTextStream::~CTextStream()

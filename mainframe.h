@@ -125,7 +125,8 @@ private:
     void OnFileLoad(wxCommandEvent& Event);
     void OnFileOpen(wxCommandEvent& Event);
     void OnFileSave(wxCommandEvent& Event);
-    void OnFileSaveAs(wxCommandEvent& Event);
+	void OnFileSaveAs(wxCommandEvent& Event);
+	void OnFileSaveAsUnicode(wxCommandEvent& Event);
     void OnFileSetAsScreenSaver(wxCommandEvent& Event);
     void OnUpdateFileSetAsScreenSaver(wxUpdateUIEvent& Event);
     void OnEditProcedure(wxCommandEvent& Event);
@@ -193,9 +194,9 @@ private:
         );
 
     bool WarnIfSavingEmptyWorkspace();
-    bool FileSave();
-    bool SaveFile();
-    bool SaveFileAs();
+    bool FileSave(bool Unicode);
+    bool SaveFile(bool Unicode);
+    bool SaveFileAs(bool Unicode);
     bool CanClose();
 
     void SaveBitmap();
@@ -238,6 +239,7 @@ private:
 
     // REVISIT: should this be std::set?
     std::map<CWorkspaceEditor*,CWorkspaceEditor*> m_Editors;
+	bool Unicode;
 
     DECLARE_EVENT_TABLE();
     DECLARE_NO_COPY_CLASS(CMainFrame);

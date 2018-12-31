@@ -50,6 +50,7 @@
 
    #include "localizedstrings.h"
 #endif
+#include "CStringTextStream.h"
 
 class CFileListNode
 {
@@ -69,13 +70,13 @@ private:
 NODE *current_line = NIL;       // current line to be parsed
 CFileListNode * g_OpenFiles = 0;
 
-CFileTextStream *stdinstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
-CFileTextStream *stdoutstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *stdinstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *stdoutstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
 
-CFileTextStream *loadstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
-CFileTextStream *inputstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
-CFileTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
-CFileTextStream *dribblestream = NULL;
+CTextStream *loadstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *inputstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
+CTextStream *dribblestream = NULL;
 
 void OpenDribble(NODE * arg)
 {
@@ -262,24 +263,44 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
     return tstrm;
 }
 
-CFileTextStream*&GetInputStream()
+CTextStream* GetInputStream()
 {
 	return inputstream;
 }
 
-CFileTextStream*& GetOutputStream()
+CTextStream* GetOutputStream()
 {
 	return outputstream;
 }
 
-CFileTextStream *& GetLoadStream()
+CTextStream * GetLoadStream()
 {
 	return loadstream;
 }
 
-CFileTextStream *& GetDribbleStream()
+CTextStream * GetDribbleStream()
 {
 	return dribblestream;
+}
+
+void SetInputStream(CTextStream * stream)
+{
+	inputstream = stream;
+}
+
+void SetOutputStream(CTextStream * stream)
+{
+	outputstream = stream;
+}
+
+void SetLoadStream(CTextStream * stream)
+{
+	loadstream = stream;
+}
+
+void SetDribbleStream(CTextStream * stream)
+{
+	dribblestream = stream;
 }
 
 NODE *ldribble(NODE *arg)
@@ -480,10 +501,10 @@ NODE *lclose(NODE *arg)
     // close the file stream
     fclose(filePtr);
 
-	wchar_t * fnstr = (wchar_t *) malloc(((size_t) getstrlen(filename) + 1)*sizeof(wchar_t));
-    strnzcpy(fnstr, getstrptr(filename), getstrlen(filename));
 
 #ifndef WX_PURE
+	wchar_t * fnstr = (wchar_t *) malloc(((size_t) getstrlen(filename) + 1)*sizeof(wchar_t));
+    strnzcpy(fnstr, getstrptr(filename), getstrlen(filename));
     if (_wcsicmp(fnstr, L"clipboard") == 0)
     {
         ::OpenClipboard(GetMainWindow());
@@ -512,9 +533,9 @@ NODE *lclose(NODE *arg)
 
         _wremove(TempClipName);
     }
+    free(fnstr);
 #endif // WX_PURE
 
-    free(fnstr);
 
     // If we closed the active reader or write stream,
     // then we should reset the stream to the default
@@ -534,7 +555,7 @@ NODE *lclose(NODE *arg)
 }
 
 CFileStream::CFileStream(
-	CFileTextStream * DefaultFileStream
+	CTextStream * DefaultFileStream
     ) :
     m_Name(NIL),
     m_Stream(DefaultFileStream),
@@ -568,7 +589,7 @@ CFileStream::SetStreamToOpenFile(
     }
     else if ((filePtr = FindFile(FileName, &filePtrIsBinaryStream)) != NULL)
     {
-        m_Stream->GetFile()        = filePtr;
+        m_Stream->SetFile(filePtr);
         m_StreamIsBinary = filePtrIsBinaryStream;
         assign(m_Name, FileName);
     }
@@ -659,17 +680,13 @@ NODE *lerasefile(NODE *arg)
 }
 
 
-void
-PrintWorkspaceToFileStream(
-    FILE * FileStream
-    )
+void PrintWorkspaceToStream(CTextStream *stream)
 {
-    if (FileStream != NULL)
+    if (stream != NULL)
     {
-        // HACK: change g_Writer to use the new stream
-        FILE * savedWriterStream = GetOutputStream()->GetFile();
+		CTextStream* savedWriterStream = GetOutputStream();
         
-		GetOutputStream()->GetFile() = FileStream;
+		SetOutputStream(stream);;
 
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -678,7 +695,7 @@ PrintWorkspaceToFileStream(
         NODE * entire_workspace = vref(cons_list(lcontents(NIL)));
         lpo(entire_workspace);
         deref(entire_workspace);
-
+		GetOutputStream()->Flush();
         GetOutputStream()->Close();
         IsDirty = false;
 
@@ -686,7 +703,7 @@ PrintWorkspaceToFileStream(
         yield_flag = save_yield_flag;
 
         // restore g_Writer
-		GetOutputStream()->GetFile() = savedWriterStream;
+		SetOutputStream(savedWriterStream);
     }
     else
     {
@@ -713,8 +730,9 @@ NODE *lsave(NODE *arg)
     }
 
     lprint(arg);
-
-    PrintWorkspaceToFileStream(OpenFile(car(arg), L"w+"));
+	CFileTextStream* stream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w+"), FileTextStreamType::Unicode);
+    PrintWorkspaceToStream(stream);
+	delete stream;
 
     return Unbound;
 }
@@ -847,12 +865,12 @@ NODE *lload(NODE *arg)
     FIXNUM saved_value_status = g_ValueStatus;
 
     bool isDirtySave = IsDirty;
-    CFileTextStream* temporarystream = GetLoadStream();
+    CTextStream* temporarystream = GetLoadStream();
     NODE * tmp_line = vref(current_line);
 	CFileTextStream* filestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"r"), DefaultFileTextStreamType);
     if (filestream != NULL)
     {
-		GetLoadStream() = filestream;
+		SetLoadStream(filestream);
 
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -884,7 +902,7 @@ NODE *lload(NODE *arg)
             make_static_strnode(GetResourceString(L"LOCALIZED_ERROR_FILESYSTEM_CANTOPEN")));
     }
 
-	GetLoadStream() = temporarystream;
+	SetLoadStream(temporarystream);
 
 	delete filestream;
 

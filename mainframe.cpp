@@ -303,8 +303,9 @@ enum MainFrameMenuIds
     ID_FILELOAD,
     ID_FILEOPEN,
     ID_FILESAVE,
-    ID_FILESAVEAS,
-    ID_FILESETASSCREENSAVER,
+	ID_FILESAVEAS,
+	ID_FILESAVEASUNICODE,
+	ID_FILESETASSCREENSAVER,
     ID_FILEEDIT,
     ID_FILEERASE,
 
@@ -341,50 +342,6 @@ enum MainFrameMenuIds
     ID_HELPABOUTMS,
 };
 
-BEGIN_EVENT_TABLE(CMainFrame, wxFrame)
-    EVT_MENU(ID_FILENEW,                   CMainFrame::OnFileNew)
-    EVT_MENU(ID_FILELOAD,                  CMainFrame::OnFileLoad)
-    EVT_MENU(ID_FILEOPEN,                  CMainFrame::OnFileOpen)
-    EVT_MENU(ID_FILESAVE,                  CMainFrame::OnFileSave)
-    EVT_MENU(ID_FILESAVEAS,                CMainFrame::OnFileSaveAs)
-    EVT_MENU(ID_FILESETASSCREENSAVER,      CMainFrame::OnFileSetAsScreenSaver)
-    EVT_UPDATE_UI(ID_FILESETASSCREENSAVER, CMainFrame::OnUpdateFileSetAsScreenSaver)
-    EVT_MENU(ID_FILEEDIT,                  CMainFrame::OnEditProcedure)
-    EVT_MENU(ID_FILEERASE,                 CMainFrame::OnEraseProcedure)
-    EVT_MENU(wxID_EXIT,                    CMainFrame::OnExit)
-    EVT_MENU(ID_BITMAPNEW,                 CMainFrame::OnBitmapNew)
-    EVT_MENU(ID_BITMAPOPEN,                CMainFrame::OnBitmapOpen)
-    EVT_MENU(ID_BITMAPSAVE,                CMainFrame::OnBitmapSave)
-    EVT_MENU(ID_BITMAPSAVEAS,              CMainFrame::OnBitmapSaveAs)
-    EVT_MENU(ID_BITMAPPRINT,               CMainFrame::OnBitmapPrint)
-    EVT_MENU(ID_BITMAPPRINTERSETUP,        CMainFrame::OnBitmapPrinterSetup)
-    EVT_MENU(ID_BITMAPPRINTERAREA,         CMainFrame::OnSetActiveArea)
-    EVT_MENU(ID_SETPENSIZE,                CMainFrame::OnSetPenSize)
-    EVT_MENU(ID_SETLABELFONT,              CMainFrame::OnSetLabelFont)
-    EVT_MENU(ID_SETCOMMANDERFONT,          CMainFrame::OnSetCommanderFont)
-    EVT_MENU(ID_SETPENCOLOR,               CMainFrame::OnSetPenColor)
-    EVT_MENU(ID_SETSCREENCOLOR,            CMainFrame::OnSetScreenColor)
-    EVT_MENU(ID_SETFLOODCOLOR,             CMainFrame::OnSetFloodColor)
-    EVT_MENU(wxID_HELP_INDEX,              CMainFrame::OnHelp)
-#if MANUAL_HAS_TRANSLATION_TABLES
-    // options for translating to/from English
-    EVT_MENU(ID_HELPLANGTOENGLISH,         CMainFrame::OnHelpLanguageToEnglish)
-    EVT_MENU(ID_HELPENGLISHTOLANG,         CMainFrame::OnHelpEnglishToLanguage)
-#endif
-    EVT_MENU(ID_HELPTUTORIAL,              CMainFrame::OnHelpTutorial)
-    EVT_MENU(ID_HELPDEMO,                  CMainFrame::OnHelpDemo)
-    EVT_MENU(ID_HELPEXAMPLES,              CMainFrame::OnHelpExamples)
-    EVT_MENU(ID_HELPRELEASENOTES,          CMainFrame::OnHelpReleaseNotes)
-    EVT_MENU(wxID_ABOUT,                   CMainFrame::OnAboutFmsLogo)
-    EVT_MENU(ID_HELPABOUTMS,               CMainFrame::OnAboutMultipleSclerosis)
-    EVT_MENU(wxID_ZOOM_IN,                 CMainFrame::OnZoomIn)
-    EVT_MENU(wxID_ZOOM_OUT,                CMainFrame::OnZoomOut)
-    EVT_MENU(wxID_ZOOM_100,                CMainFrame::OnZoomNormal)
-    EVT_SIZE(CMainFrame::OnResize)
-    EVT_CLOSE(CMainFrame::OnClose)
-    EVT_SET_CURSOR(CMainFrame::OnSetCursor)
-END_EVENT_TABLE()
-
 // ScreenWidth    - the size of the screen window.
 // ScreenHeight   - the size of the screen window.
 // Position       - where the frame window should be placed.
@@ -420,8 +377,11 @@ CMainFrame::CMainFrame(
       m_IsNewBitmap(true),
       m_SetPenColorDialog(NULL),
       m_SetFloodColorDialog(NULL),
-      m_SetScreenColorDialog(NULL)
+      m_SetScreenColorDialog(NULL),
+		Unicode(false)
+
 {
+	wxString UnicodeSuffix(L"\t(Unicode)");
     //
     // Construct the main menu
     //
@@ -430,8 +390,9 @@ CMainFrame::CMainFrame(
         {GetResourceString(L"LOCALIZED_FILE_LOAD"),             ID_FILELOAD},
         {GetResourceString(L"LOCALIZED_FILE_OPEN"),             ID_FILEOPEN},
         {GetResourceString(L"LOCALIZED_FILE_SAVE"),             ID_FILESAVE},
-        {GetResourceString(L"LOCALIZED_FILE_SAVEAS"),           ID_FILESAVEAS},
-        {GetResourceString(L"LOCALIZED_FILE_SETASSCREENSAVER"), ID_FILESETASSCREENSAVER},
+		{GetResourceString(L"LOCALIZED_FILE_SAVEAS"),           ID_FILESAVEAS},
+		{GetResourceString(L"LOCALIZED_FILE_SAVEAS") + UnicodeSuffix, ID_FILESAVEASUNICODE},
+		{GetResourceString(L"LOCALIZED_FILE_SETASSCREENSAVER"), ID_FILESETASSCREENSAVER},
         {L"",0},
         {GetResourceString(L"LOCALIZED_FILE_EDIT"),             ID_FILEEDIT},
         {GetResourceString(L"LOCALIZED_FILE_ERASE"),            ID_FILEERASE},
@@ -911,7 +872,7 @@ CMainFrame::PopupEditor(
     bool             OpenToError
     )
 {
-    CreateWorkspaceEditor(
+    this->CreateWorkspaceEditor(
         FileName,
         EditArguments,
         CheckForErrors,
@@ -998,31 +959,18 @@ CreateTemplateLogoFileForEditor(
     NODE           * EditArguments
     )
 {
-    // TODO: Use wxWidgets class for File I/O
-    FILE* logoFile = 0;
-#ifdef _WINDOWS
-    logoFile =_wfopen(FileName, L"w");
-#else
-    logoFile = fopen((const char*)FileName,"w");
-#endif
-    if (logoFile != NULL)
-    {
-        if (EditArguments != NIL)
-        {
-            // Arguments were given to EDIT and the workspace was empty.
-            // So show a "TO" and "END" to help guide the user to their
-            // next action.
-            fwprintf(logoFile, L"%s\n", To.GetName());
-            fwprintf(logoFile, L"%s\n", End.GetName());
-        }
-        else
-        {
-            // No arguments were passed to EDIT, so we opened
-            // an empty workspace.
-            fwprintf(logoFile, L"\n");
-        }
-		fclose(logoFile);
-    }
+	CFileTextStream* cfts = CFileTextStream::OpenForWrite(FileName, true);
+	if (cfts != 0) {
+		if (EditArguments != NIL) {
+			cfts->WriteLine(To.GetName());
+			cfts->WriteLine(End.GetName());
+		}
+		else 
+		{
+			cfts->WriteLine(wxString());
+		}
+		delete cfts;
+	}
 }
 
 
@@ -1279,7 +1227,7 @@ void CMainFrame::OnClose(wxCloseEvent& Event)
 
                 IsTimeToExit = false;
                 IsTimeToHalt = false;
-                bool isOk = FileSave();
+                bool isOk = FileSave(this->Unicode);
                 if (!isOk)
                 {
                     // Something went wrong (most likely, the user 
@@ -1461,6 +1409,7 @@ void CMainFrame::OnFileNew(wxCommandEvent& WXUNUSED(Event))
 
     // else start with a clean plate
     m_IsNewFile = true;
+	this->Unicode = false;
     EraseContentsOfWorkspace();
 }
 
@@ -1507,7 +1456,7 @@ void CMainFrame::OnFileLoad(wxCommandEvent& WXUNUSED(Event))
 
         start_execution();
 
-        bool isOk = fileload(/*WXSTRING_TO_STRING*/(fileToLoad));
+        bool isOk = fileload(fileToLoad,&this->Unicode);
         if (!isOk)
         {
             err_logo(
@@ -1569,7 +1518,7 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
 
         start_execution();
 
-        bool isOk = fileload(/*WXSTRING_TO_STRING*/(fileToLoad));
+        bool isOk = fileload(fileToLoad, &this->Unicode);
         if (!isOk)
         {
             err_logo(
@@ -1618,7 +1567,7 @@ bool CMainFrame::WarnIfSavingEmptyWorkspace()
 // Returns "true" if the user saves the file.
 // Returns "false" if the user cancels the save or if the 
 // file couldn't be saved for other reasons.
-bool CMainFrame::SaveFileAs()
+bool CMainFrame::SaveFileAs(bool Unicode)
 {
     // if new, then nulify File name
     if (m_IsNewFile)
@@ -1627,7 +1576,7 @@ bool CMainFrame::SaveFileAs()
     }
 
     // Get file name from user and then save the file
-    bool isOk;
+    bool isOk = false;
     const wxString fileToSave = wxFileSelector(
 		GetResourceString(L"LOCALIZED_FILE_SAVE_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
@@ -1641,7 +1590,8 @@ bool CMainFrame::SaveFileAs()
         // The user made a selection.
         // Save it for seeding a default in future dialog boxes.
         m_LastLoadedLogoFile.Assign(fileToSave);
-
+		//alsol keep the unicode choice of this operation
+		this->Unicode = Unicode;
         // For compatibility with MSWLogo, we adopt the same logic that
         // exists within the win32 API, which is to change the current
         // working directory to whatever directory the file is in.
@@ -1650,7 +1600,7 @@ bool CMainFrame::SaveFileAs()
         wxSetWorkingDirectory(m_LastLoadedLogoFile.GetPath());
 
         m_IsNewFile = false;
-        isOk = SaveFile();
+        isOk = SaveFile(Unicode);
     }
     else
     {
@@ -1660,9 +1610,9 @@ bool CMainFrame::SaveFileAs()
     return isOk;
 }
 
-bool CMainFrame::SaveFile()
+bool CMainFrame::SaveFile(bool Unicode)
 {
-    filesave(m_LastLoadedLogoFile.GetFullPath());
+    filesave(m_LastLoadedLogoFile.GetFullPath(),Unicode);
 
     // handle any error that may have occured
     process_special_conditions();
@@ -1672,21 +1622,21 @@ bool CMainFrame::SaveFile()
 }
 
 
-bool CMainFrame::FileSave()
+bool CMainFrame::FileSave(bool Unicode)
 {
-    bool isOk;
+    bool isOk = false;
 
     if (m_IsNewFile)
     {
         // The file has never been saved, so we don't know
         // what file we should save it to.
         // Ask the user with a "Save As" dialog.
-        isOk = SaveFileAs();
+        isOk = SaveFileAs(Unicode);
     }
     else
     {
         // Save the file
-        isOk = SaveFile();
+        isOk = SaveFile(Unicode);
     }
 
     return isOk;
@@ -1699,7 +1649,7 @@ void CMainFrame::OnFileSave(wxCommandEvent& WXUNUSED(Event))
         return;
     }
 
-    FileSave();
+    FileSave(this->Unicode);
 }
 
 void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
@@ -1708,8 +1658,18 @@ void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
     {
         return;
     }
+	//use unicode if it is oringinally set as unicode
+    SaveFileAs(this->Unicode);
+}
 
-    SaveFileAs();
+void CMainFrame::OnFileSaveAsUnicode(wxCommandEvent & Event)
+{
+	if (!WarnIfSavingEmptyWorkspace())
+	{
+		return;
+	}
+	//force unicode this time
+	SaveFileAs(true);
 }
 
 #ifndef WX_PURE
@@ -1815,21 +1775,17 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
         &itemIdList);
     if (SUCCEEDED(hr))
     {
-		wchar_t screenSaverProgramName[MAX_PATH] = { 0 };
+		wchar_t screenSaverProgramBuffer[MAX_PATH + 1] = { 0 };
 
         // Get a handle to a folder where we can store personal documents.
         BOOL isOk = SHGetPathFromIDList(
             itemIdList,
-            screenSaverProgramName);
+			screenSaverProgramBuffer);
         if (isOk)
         {
-            // Append "screesaver.lgo" to the path
-            size_t screenSaverProgramNameLength = wcslen(screenSaverProgramName);
+			wxString screenSaverProgramName = screenSaverProgramBuffer;
 
-			//TODO: FIXME
-			wcscpy(
-                &screenSaverProgramName[screenSaverProgramNameLength],
-                L"\\screensaver.lgo");
+			screenSaverProgramName += L"\\screensaver.lgo";
 
             filesave(screenSaverProgramName);
 
@@ -2473,3 +2429,48 @@ CMainFrame::MSWWindowProc(
 }
 
 #endif // WX_PURE
+
+BEGIN_EVENT_TABLE(CMainFrame, wxFrame)
+EVT_MENU(ID_FILENEW, CMainFrame::OnFileNew)
+EVT_MENU(ID_FILELOAD, CMainFrame::OnFileLoad)
+EVT_MENU(ID_FILEOPEN, CMainFrame::OnFileOpen)
+EVT_MENU(ID_FILESAVE, CMainFrame::OnFileSave)
+EVT_MENU(ID_FILESAVEAS, CMainFrame::OnFileSaveAs)
+EVT_MENU(ID_FILESAVEASUNICODE, CMainFrame::OnFileSaveAsUnicode)
+EVT_MENU(ID_FILESETASSCREENSAVER, CMainFrame::OnFileSetAsScreenSaver)
+EVT_UPDATE_UI(ID_FILESETASSCREENSAVER, CMainFrame::OnUpdateFileSetAsScreenSaver)
+EVT_MENU(ID_FILEEDIT, CMainFrame::OnEditProcedure)
+EVT_MENU(ID_FILEERASE, CMainFrame::OnEraseProcedure)
+EVT_MENU(wxID_EXIT, CMainFrame::OnExit)
+EVT_MENU(ID_BITMAPNEW, CMainFrame::OnBitmapNew)
+EVT_MENU(ID_BITMAPOPEN, CMainFrame::OnBitmapOpen)
+EVT_MENU(ID_BITMAPSAVE, CMainFrame::OnBitmapSave)
+EVT_MENU(ID_BITMAPSAVEAS, CMainFrame::OnBitmapSaveAs)
+EVT_MENU(ID_BITMAPPRINT, CMainFrame::OnBitmapPrint)
+EVT_MENU(ID_BITMAPPRINTERSETUP, CMainFrame::OnBitmapPrinterSetup)
+EVT_MENU(ID_BITMAPPRINTERAREA, CMainFrame::OnSetActiveArea)
+EVT_MENU(ID_SETPENSIZE, CMainFrame::OnSetPenSize)
+EVT_MENU(ID_SETLABELFONT, CMainFrame::OnSetLabelFont)
+EVT_MENU(ID_SETCOMMANDERFONT, CMainFrame::OnSetCommanderFont)
+EVT_MENU(ID_SETPENCOLOR, CMainFrame::OnSetPenColor)
+EVT_MENU(ID_SETSCREENCOLOR, CMainFrame::OnSetScreenColor)
+EVT_MENU(ID_SETFLOODCOLOR, CMainFrame::OnSetFloodColor)
+EVT_MENU(wxID_HELP_INDEX, CMainFrame::OnHelp)
+#if MANUAL_HAS_TRANSLATION_TABLES
+// options for translating to/from English
+EVT_MENU(ID_HELPLANGTOENGLISH, CMainFrame::OnHelpLanguageToEnglish)
+EVT_MENU(ID_HELPENGLISHTOLANG, CMainFrame::OnHelpEnglishToLanguage)
+#endif
+EVT_MENU(ID_HELPTUTORIAL, CMainFrame::OnHelpTutorial)
+EVT_MENU(ID_HELPDEMO, CMainFrame::OnHelpDemo)
+EVT_MENU(ID_HELPEXAMPLES, CMainFrame::OnHelpExamples)
+EVT_MENU(ID_HELPRELEASENOTES, CMainFrame::OnHelpReleaseNotes)
+EVT_MENU(wxID_ABOUT, CMainFrame::OnAboutFmsLogo)
+EVT_MENU(ID_HELPABOUTMS, CMainFrame::OnAboutMultipleSclerosis)
+EVT_MENU(wxID_ZOOM_IN, CMainFrame::OnZoomIn)
+EVT_MENU(wxID_ZOOM_OUT, CMainFrame::OnZoomOut)
+EVT_MENU(wxID_ZOOM_100, CMainFrame::OnZoomNormal)
+EVT_SIZE(CMainFrame::OnResize)
+EVT_CLOSE(CMainFrame::OnClose)
+EVT_SET_CURSOR(CMainFrame::OnSetCursor)
+END_EVENT_TABLE()

@@ -81,7 +81,7 @@ bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
 
 wchar_t CMbcsFileTextStream::ReadChar()
 {
-	return this->IsEOF() ? WEOF : this->ComposeChar();
+	return this->ComposeChar();
 }
 
 int CMbcsFileTextStream::ReadByte()

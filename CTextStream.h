@@ -9,13 +9,17 @@ typedef long long off64_t;
 #ifndef TEXTSTREAM_DEFUALT_NEWLINE
 #define TEXTSTREAM_DEFUALT_NEWLINE L"\r\n"
 #endif
-
+//LE: ff fe
 #ifndef UTF16LE_BOM
-#define UTF16LE_BOM 0xfeff
+#define UTF16LE_BOM 0xfffe
+#define UTF16LE_BOM_0 0xff
+#define UTF16LE_BOM_1 0xfe
 #endif
-
+//BE: fe ff
 #ifndef UTF16BE_BOM
-#define UTF16BE_BOM 0xfffe
+#define UTF16BE_BOM 0xfeff
+#define UTF16BE_BOM_0 0xfe
+#define UTF16BE_BOM_1 0xff
 #endif
 
 class CTextStream
@@ -23,6 +27,7 @@ class CTextStream
 public:
     const int CTS_LITTLE_ENDIAN = -1;
     const int CTS_BIG_ENDIAN = 1;
+	static bool IsLittleEndian();
 
 public:
 	CTextStream(const wxString& newline= TEXTSTREAM_DEFUALT_NEWLINE);
@@ -55,12 +60,15 @@ public:
 
 	virtual operator FILE*();
 
+	virtual FILE* GetFile();
+	virtual void SetFile(FILE* file);
+
 protected:
-	virtual bool IsLittleEndian();
 	virtual wchar_t EnsureEndian(wchar_t ch);
 	virtual wxString& EnsureEndian(wxString& text);
-	virtual unsigned short SwapByteOrder(unsigned short s);
-	virtual unsigned int SwapByteOrder(unsigned int i);
+	virtual wchar_t SwapByteOrder(wchar_t c);
+	virtual unsigned short SwapByteOrderShort(unsigned short s);
+	virtual unsigned int SwapByteOrderLong(unsigned int i);
 	virtual wchar_t GetMachineBOM();
 protected:
 	int mem_bol;

@@ -1485,18 +1485,18 @@ NODE *ledit(NODE *args)
     // Write the requested contents to a file
     if (args != NIL)
     {
-		CFileTextStream * fileStream = CFileTextStream::OpenForWrite(
-			TempPathName, TEXTSTREAM_DEFUALT_NEWLINE, GetSaveAsUnicode());// _wfopen(TempPathName, L"w");
+		CTextStream * fileStream = CFileTextStream::OpenForWrite(
+			TempPathName, GetSaveAsUnicode());// _wfopen(TempPathName, L"w");
         if (fileStream != NULL)
         {
             // HACK: change g_Writer to use the new stream
-			CFileTextStream * savedWriterStream = GetOutputStream();
-			GetOutputStream() = (fileStream);
+			CTextStream * savedWriterStream = GetOutputStream();
+			SetOutputStream(fileStream);
 
             po_helper(args, -1);
 
             // restore g_Writer
-			GetOutputStream() = (savedWriterStream);
+			SetOutputStream(savedWriterStream);
 
 			delete fileStream;
         }
@@ -1548,7 +1548,7 @@ bool endedit(void)
 
     if (!IsTimeToExit)
     {
-        CFileTextStream* holdstrm = GetLoadStream();
+        CTextStream* holdstrm = GetLoadStream();
         NODE * tmp_line = vref(current_line);
         bool save_yield_flag = yield_flag;
         yield_flag = false;
@@ -1556,11 +1556,11 @@ bool endedit(void)
 
         start_execution();
 
-		CFileTextStream* filestream = CFileTextStream::OpenForRead(TempPathName);
+		CTextStream* filestream = CFileTextStream::OpenForRead(TempPathName);
 
         if (filestream != NULL)
         {
-			GetLoadStream() = filestream;
+			SetLoadStream(filestream);
 			
 			FIXNUM saved_value_status = g_ValueStatus;
 
@@ -1578,11 +1578,8 @@ bool endedit(void)
             (GetLoadStream()->Close());
             g_ValueStatus = saved_value_status;
 
-			stop_execution();
 
-			lsetcursorarrow(NIL);
-			yield_flag = save_yield_flag;
-			GetLoadStream() = holdstrm;
+			SetLoadStream(holdstrm);
 
 			delete filestream;
 
@@ -1594,6 +1591,11 @@ bool endedit(void)
 			//    FILE_ERROR,
 			//    make_static_strnode(LOCALIZED_ERROR_FILESYSTEM_CANTREADEDITOR));
 		}
+
+		stop_execution();
+
+		lsetcursorarrow(NIL);
+		yield_flag = save_yield_flag;
     }
 
     return realsave;

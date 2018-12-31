@@ -24,7 +24,6 @@ public:
 
 	virtual bool WriteChar(wchar_t ch);
 	virtual bool WriteByte(char ch);
-	virtual bool WriteBOM();
 
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();

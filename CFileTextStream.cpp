@@ -2,7 +2,7 @@
 #include "CUnicodeFileTextStream.h"
 #include "CMbcsFileTextStream.h"
 
-CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, const wxString & newline, bool check_bom)
+CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, const wxString & newline)
 {
 	CFileTextStream* ts = 0;
 	bool has_bom = false;
@@ -27,7 +27,7 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, const wxSt
 	return ts;
 }
 
-CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, const wxString& newline, bool use_unicode)
+CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_unicode, const wxString& newline)
 {
 	CFileTextStream *ts = 0;
 	if (use_unicode) {
@@ -64,6 +64,10 @@ CFileTextStream * CFileTextStream::CreateForType(FileTextStreamType type, const 
 		return new CMbcsFileTextStream(newline);
 	}
 }
+CFileTextStream * CFileTextStream::CreateForType(bool unicode, const wxString & newline)
+{
+	return CreateForType((unicode ? FileTextStreamType::Unicode : FileTextStreamType::Mbcs),newline);
+}
 CFileTextStream* CFileTextStream::CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit,const wxString& newline)
 {
 	switch (type) {
@@ -76,6 +80,10 @@ CFileTextStream* CFileTextStream::CreateWrapper(FILE* file, FileTextStreamType t
 	default:
 		return new CMbcsFileTextStream(file, close_on_exit,newline);
 	}
+}
+CFileTextStream * CFileTextStream::CreateWrapper(FILE * file, bool unicode, bool close_on_exit, const wxString & newline)
+{
+	return CreateWrapper(file,(unicode ? FileTextStreamType::Unicode : FileTextStreamType::Mbcs),close_on_exit,newline);
 }
 CFileTextStream* CFileTextStream::CreateStdInWarpper(FileTextStreamType type, const wxString& newline)
 {
@@ -147,9 +155,14 @@ bool& CFileTextStream::CloseOnExit() {
 	return this->close_on_exit;
 }
 
-FILE*& CFileTextStream::GetFile()
+FILE* CFileTextStream::GetFile()
 {
 	return this->file;
+}
+
+void CFileTextStream::SetFile(FILE * file)
+{
+	this->file = file;
 }
 
 CFileTextStream::operator FILE*()

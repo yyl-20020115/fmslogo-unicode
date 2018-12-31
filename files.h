@@ -28,7 +28,7 @@ struct NODE;
 class CFileStream
 {
 public:
-    CFileStream(CFileTextStream * DefaultStream);
+    CFileStream(CTextStream * DefaultStream);
 
     void   SetStreamToOpenFile(NODE * FileName);
     void   ResetToDefaultStream();
@@ -38,13 +38,13 @@ public:
     NODE * GetPosition() const;
     void   SetPosition(NODE * Arguments);
 
-	CFileTextStream *& GetStream()
+	CTextStream * GetStream()
     {
         assert(m_Stream != NULL);
         return m_Stream;
     }
 
-    void SetStream(CFileTextStream * Stream)
+    void SetStream(CTextStream * Stream)
     {
         assert(m_Stream != NULL);
         m_Stream = Stream;
@@ -53,18 +53,18 @@ public:
 
 private:
     NODE *  m_Name;
-	CFileTextStream *  m_Stream;
-	CFileTextStream *  m_DefaultStream;
+	CTextStream *  m_Stream;
+	CTextStream *  m_DefaultStream;
     bool    m_StreamIsBinary;
 };
 
 // global variables
 extern NODE *current_line;
-extern CFileTextStream *stdinstream;
-extern CFileTextStream *stdoutstream;
+extern CTextStream *stdinstream;
+extern CTextStream *stdoutstream;
 
 // function declarations
-extern void PrintWorkspaceToFileStream(FILE * FileStream);
+extern void PrintWorkspaceToStream(CTextStream *stream);
 extern NODE *ldribble(NODE *arg);
 extern NODE *lnodribble(NODE *arg);
 extern NODE *lopenread(NODE *arg);
@@ -100,11 +100,19 @@ extern FILE *OpenFile(NODE *arg, const wchar_t *access);
 // global variables
 extern FileTextStreamType& GetDefaultFileTextStreamType();
 
-extern CFileTextStream*& GetInputStream();
-extern CFileTextStream*& GetOutputStream();
+extern CTextStream* GetInputStream();
+extern CTextStream* GetOutputStream();
 
-extern CFileTextStream *& GetLoadStream();
-extern CFileTextStream *& GetDribbleStream();
+extern CTextStream * GetLoadStream();
+extern CTextStream * GetDribbleStream();
+
+extern void SetInputStream(CTextStream* stream);
+extern void SetOutputStream(CTextStream* stream);
+
+extern void SetLoadStream(CTextStream* stream);
+extern void SetDribbleStream(CTextStream* stream);
+
+
 extern void OpenDribble(NODE * arg);
 extern void CloseDribble();
 extern void DribbleWriteChar(wchar_t ch);

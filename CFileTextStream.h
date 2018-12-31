@@ -15,10 +15,12 @@ class CFileTextStream :
 {
 public:
 
-	static CFileTextStream* OpenForRead(const wxString& path, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE, bool check_bom = true);
-	static CFileTextStream* OpenForWrite(const wxString& path, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE, bool use_unicode = false);
+	static CFileTextStream* OpenForRead(const wxString& path, bool check_bom = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* OpenForWrite(const wxString& path, bool use_unicode = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateForType(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* CreateForType(bool unicode, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* CreateWrapper(FILE* file, bool unicode, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateStdInWarpper(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateStdOutWrapper(FileTextStreamType type,const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateStdErrWrapper(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
@@ -42,7 +44,8 @@ public:
 	virtual FileTextStreamType GetStreamType();
 
 	virtual bool& CloseOnExit();
-	virtual FILE*& GetFile();
+	virtual FILE* GetFile();
+	virtual void SetFile(FILE* file);
 
 	virtual operator FILE*();
 protected:
