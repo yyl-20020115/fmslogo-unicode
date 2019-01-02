@@ -6,7 +6,7 @@ class CConstStringTextReadonlyStream :
 	public CTextStream
 {
 public:
-	CConstStringTextReadonlyStream(const wchar_t* content, size_t length, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	CConstStringTextReadonlyStream(const uchar* content, size_t length, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	virtual ~CConstStringTextReadonlyStream();
 
 public:
@@ -25,11 +25,15 @@ public:
 	virtual int SetPosition(off64_t offset, int origin);
 
 protected:
-	const wchar_t* content;
+	const uchar* content;
 	size_t length;
 	off64_t pos;
 };
 
+extern const uchar* wcsnstr(const uchar* dest, const uchar* src, size_t dest_length, size_t src_length);
+
+
 #endif
+
 
 
