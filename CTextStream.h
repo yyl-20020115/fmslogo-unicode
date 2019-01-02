@@ -31,8 +31,8 @@ typedef unsigned short uchar;
 class CTextStream
 {
 public:
-    const int CTS_LITTLE_ENDIAN = -1;
-    const int CTS_BIG_ENDIAN = 1;
+    static const int CTS_LITTLE_ENDIAN = -1;
+    static const int CTS_BIG_ENDIAN = 1;
 	static bool IsLittleEndian();
 
 public:
