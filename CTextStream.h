@@ -22,6 +22,12 @@ typedef long long off64_t;
 #define UTF16BE_BOM_1 0xff
 #endif
 
+#ifdef _WINDOWS
+typedef wchar_t uchar;
+#else
+typedef unsigned short uchar;
+#endif
+
 class CTextStream
 {
 public:

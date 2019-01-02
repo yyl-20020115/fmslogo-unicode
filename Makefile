@@ -25,6 +25,7 @@ CPPFLAGS += -DDEBUG
 CXXFLAGS += -O0 -g -ggdb
 
 
+
 INCLUDES =. $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
 
 CPPFLAGS += $(addprefix -I, $(INCLUDES))
@@ -116,25 +117,76 @@ utils.o \
 vector.o \
 workspaceeditor.o \
 wrksp.o \
-wxpurestubs.o \
-
-
+wxpurestubs.o
 #mmwind.o \
 #netwind.o \
 #screen.o \
-#debugheap.o \
+#debugheap.o 
 
-OBJECTS = $(WX_OBJECTS)
+
+LS_OBJECTS = localizedstrings-de-ucs2le.o \
+localizedstrings-en-ucs2le.o \
+localizedstrings-es-ucs2le.o \
+localizedstrings-fr-ucs2le.o \
+localizedstrings-gr-ucs2le.o \
+localizedstrings-hr-ucs2le.o \
+localizedstrings-it-ucs2le.o \
+localizedstrings-pl-ucs2le.o \
+localizedstrings-pt-ucs2le.o \
+localizedstrings-ru-ucs2le.o \
+localizedstrings-zh-cn-ucs2le.o
+#localizedstrings-ps-ucs2le.o #ps is not real language
+
+
+
+
+OBJECTS = $(WX_OBJECTS) 
+OBJECTS += $(LS_OBJECTS)
 
 ### Targets: ###
 
 default : fmslogo 
 
-
 	
 fmslogo: $(OBJECTS)
 	$(CXX) -o fmslogo $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
 
+
+
+localizedstrings-de-ucs2le.o: localizedstrings-de-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-de-ucs2le.h localizedstrings-de-ucs2le.o
+
+localizedstrings-en-ucs2le.o: localizedstrings-en-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-en-ucs2le.h localizedstrings-en-ucs2le.o
+
+localizedstrings-es-ucs2le.o: localizedstrings-es-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-es-ucs2le.h localizedstrings-es-ucs2le.o
+
+localizedstrings-fr-ucs2le.o: localizedstrings-fr-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-fr-ucs2le.h localizedstrings-fr-ucs2le.o
+
+localizedstrings-gr-ucs2le.o: localizedstrings-gr-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-gr-ucs2le.h localizedstrings-gr-ucs2le.o
+
+localizedstrings-hr-ucs2le.o: localizedstrings-hr-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-hr-ucs2le.h localizedstrings-hr-ucs2le.o
+
+localizedstrings-it-ucs2le.o: localizedstrings-it-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-it-ucs2le.h localizedstrings-it-ucs2le.o
+
+localizedstrings-pl-ucs2le.o: localizedstrings-pl-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-pl-ucs2le.h localizedstrings-pl-ucs2le.o
+
+localizedstrings-pt-ucs2le.o: localizedstrings-pt-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-pt-ucs2le.h localizedstrings-pt-ucs2le.o
+
+localizedstrings-ru-ucs2le.o: localizedstrings-ru-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-ru-ucs2le.h localizedstrings-ru-ucs2le.o
+
+localizedstrings-zh-cn-ucs2le.o: localizedstrings-zh-cn-ucs2le.h
+	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-zh-cn-ucs2le.h localizedstrings-zh-cn-ucs2le.o
+
+	
 clean: 
 	$(RM) -rf $(OBJECTS)
 

@@ -291,13 +291,23 @@ LanguagePair Pairs[] = {
 	{N_LC_RU,N_LOCALIZED_STRINGS_FILE_RU},
 	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS}, //this is Pseudoloc (faked)
 };
+extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_start;
+extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_end;
+extern char _binary_localizedstrings_zh_cn_ucs2le_h_size;
+
 void CFmsLogo::LoadLocalizedStringFile()
 {
+    unsigned short* pt1 = &_binary_localizedstrings_zh_cn_ucs2le_h_start;
+    
+    unsigned short* pt2 = & _binary_localizedstrings_zh_cn_ucs2le_h_end;
+    unsigned long pt3 = (unsigned long)&_binary_localizedstrings_zh_cn_ucs2le_h_size;
+    unsigned long dpt = pt2-pt1;
+    
 	wxString name;
-	//localizedstrings-de-ucs2le
+
 	//USE SYSTEM LOCALE (for mbtowc)
 	wxString lc = setlocale(LC_ALL, "");
-	//MessageBox(0, lc, L"LOCALE", MB_OK);
+
 
 	if (lc.length()> 0) {
 		for(int i = 0;i<(signed)ARRAYSIZE(Pairs);i++)
