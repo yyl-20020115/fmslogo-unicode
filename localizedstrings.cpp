@@ -165,7 +165,7 @@ void LoadLocalizedStringsFromResource(const class wxString& name, const class wx
 			wchar_t* p = (wchar_t*)LockResource(hgsrc);
 			if (p != 0)
 			{
-                CConstStringTextReadonlyStream cstrs(p, length)
+				CConstStringTextReadonlyStream cstrs(p, length);
 				LoadLocalizedStringsFromStream(&cstrs);
 			}
 		}

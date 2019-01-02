@@ -4,6 +4,8 @@
 #include <wx/string.h>
 #ifdef _WINDOWS
 typedef long long off64_t;
+#elif defined( __APPLE__ && __MACH__)
+typedef off_t off64_t;
 #endif
 
 #ifndef TEXTSTREAM_DEFUALT_NEWLINE
