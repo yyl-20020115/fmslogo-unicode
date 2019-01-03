@@ -52,6 +52,10 @@ private:
 
     DECLARE_NO_COPY_CLASS(CFmsLogo)
     DECLARE_EVENT_TABLE();
+    
+private:
+    bool hasLoadedFileToLoad;
+    bool hasRunStartup;
 };
 
 #endif // FMSLOGO_WXWIDGETS

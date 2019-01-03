@@ -137,11 +137,22 @@ bool CFileTextStream::IsEOF()
 	}
 	return true;
 }
-
+bool CFileTextStream::ForWriting()
+{
+    return this->for_writing;
+}
+bool CFileTextStream::ForReading()
+{
+    return this->for_reading;
+}
 void CFileTextStream::Flush()
 {
-	if (this->IsValid()) {
+	if (this->IsValid() && this->ForWriting()) {
+#ifdef _WINDOWS
+        //NOTICE: fflush corrupts the stack on Ubuntu, for unsure reason,
+        //so we just don't use it.
 		fflush(this->file);
+#endif
 	}
 }
 
@@ -184,7 +195,7 @@ off64_t CFileTextStream::GetPosition()
 #ifdef _WINDOWS
 		p = _ftelli64(this->file);
 #else
-		//TODO: unix
+		p = ftello(this->file);
 #endif
 	}
 
@@ -199,7 +210,7 @@ int CFileTextStream::SetPosition(off64_t offset, int origin)
 #ifdef _WINDOWS
 		ret = _fseeki64(this->file, offset, origin);
 #else
-		//TODO: unix
+        ret = fseeko(this->file, offset, origin);
 #endif
 
 	}

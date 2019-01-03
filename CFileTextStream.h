@@ -43,6 +43,8 @@ public:
 
 	virtual FileTextStreamType GetStreamType();
 
+    virtual bool ForWriting();
+    virtual bool ForReading();
 	virtual bool& CloseOnExit();
 	virtual FILE* GetFile();
 	virtual void SetFile(FILE* file);
@@ -51,6 +53,8 @@ public:
 protected:
 	FILE* file;
 	bool close_on_exit;
+    bool for_writing;
+    bool for_reading;
 };
 
 #endif

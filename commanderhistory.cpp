@@ -237,8 +237,8 @@ void CCommanderHistory::OnRemoveSelectedLines(wxCommandEvent& Event)
 	wxString e1 = GetRange(end - 1, end);
 	wxString e2 = GetRange(end, end + 1);
 	if (start != 0 &&                            // not the start of the buffer
-        s1.length()>0 && s1[0] != L'\n' && // not on the start of a line
-        s2.length()>0 && s2[0] == L'\n')   // on the end of a line
+        (s1.length()>0 && s1[0] != L'\n') && // not on the start of a line
+        (s2.length()>0 && s2[0] == L'\n'))   // on the end of a line
     {
         // The selection is not at the start of a line, but
         // it includes the newline from the previous line.
@@ -253,8 +253,8 @@ void CCommanderHistory::OnRemoveSelectedLines(wxCommandEvent& Event)
         start++;
     }
 
-    if (e1.length()>0 && e1[0] != L'\n' && // not immediately after a newline
-        e2.length()>0 && e2[0] == L'\n')   // at a newline
+    if ((e1.length()>0 && e1[0] != L'\n') && // not immediately after a newline
+        (e2.length()>0 && e2[0] == L'\n'))   // at a newline
     {
         // The selection does not continue through the
         // end of the line, but it ends at a line.
@@ -291,8 +291,8 @@ void CCommanderHistory::OnUpdateRemoveSelectedLines(wxUpdateUIEvent& Event)
         // Check if the selection's start is at the start of the line
         bool selectionStartIsAtStartOfLine;
         if (start == 0                            || // the start of the buffer
-            s1.length()>0 && s1[0] == L'\n' || // the start of a line
-            s2.length()>0 && s2[0] == L'\n')   // at the end of a line
+            (s1.length()>0 && s1[0] == L'\n') || // the start of a line
+            (s2.length()>0 && s2[0] == L'\n'))   // at the end of a line
         {
             selectionStartIsAtStartOfLine = true;
         }
@@ -303,8 +303,8 @@ void CCommanderHistory::OnUpdateRemoveSelectedLines(wxUpdateUIEvent& Event)
 
         // Check if the selection's end is at the end of the line
         bool selectionEndIsAtEndOfLine;
-        if (e1.length()>0 && e1[0] == L'\n' || // just after a newline
-            e2.length()>0 && e2[0] == L'\n')   // at a newline
+        if ((e1.length()>0 && e1[0] == L'\n') || // just after a newline
+            (e2.length()>0 && e2[0] == L'\n'))   // at a newline
         {
             selectionEndIsAtEndOfLine = true;
         }
