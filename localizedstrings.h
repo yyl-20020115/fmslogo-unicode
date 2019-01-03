@@ -119,7 +119,7 @@
 #define N_LOCALIZED_STRINGS_FILE_PS		L"ps"
 #define N_LOCALIZED_STRINGS_FILE_PT		L"pt"
 #define N_LOCALIZED_STRINGS_FILE_RU		L"ru"
-#define N_LOCALIZED_STRINGS_FILE_ZH_CN	L"zh-cn"
+#define N_LOCALIZED_STRINGS_FILE_ZH_CN	L"zh_cn"
 
 
 #define N_LC_DE		L"German"

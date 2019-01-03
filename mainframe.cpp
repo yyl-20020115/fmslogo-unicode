@@ -635,8 +635,9 @@ void CMainFrame::DockCommanderWindow()
         }
 
         m_RealCommander->Reparent(m_Splitter);
-
+#ifdef __WXMSW__
         m_Splitter->SplitHorizontally(m_Screen, m_RealCommander, -commanderWindowHeight);
+#endif
 
         if (bFixed)
         {

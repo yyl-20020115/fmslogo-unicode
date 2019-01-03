@@ -37,14 +37,17 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 #endif
         ) != 0;
 	if (done) {
+        this->for_reading = md.Contains("r");
+        this->for_writing = md.Contains(L"w") || md.Contains(L"a");
 		this->file_bol = 0;
-		if (md.Contains("w") || md.Contains("w+")) {
-
+		if (md.Contains(L"w") || md.Contains(L"w+")) {
+            this->for_writing = true;
 			this->file_bol = this->mem_bol; //file_bol defaults to mem_bol
 			this->file_bom = IsLittleEndian() ? UTF16LE_BOM : UTF16BE_BOM;
 		}
+
 		//file_bol is determined by read if bom found
-		if (check_bom && (md.Contains("r") || md.Contains("a"))) {
+		if (check_bom && (md.Contains(L"r") || md.Contains(L"a"))) {
 			off64_t sp = this->GetPosition();
 			this->SetPosition(0LL, SEEK_SET);
 

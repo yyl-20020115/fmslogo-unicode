@@ -92,6 +92,8 @@ static HMODULE         g_User32              = NULL;
 IMPLEMENT_APP(CFmsLogo)
 
 CFmsLogo::CFmsLogo()
+    : hasLoadedFileToLoad(false)
+    , hasRunStartup(false)
 {
 }
 
@@ -301,9 +303,12 @@ void CFmsLogo::LoadLocalizedStringFile()
 
 
 	if (lc.length()> 0) {
+       
+        lc.MakeLower();
+        
 		for(int i = 0;i<(signed)ARRAYSIZE(Pairs);i++)
 		{
-			if (lc.Contains(Pairs[i].Language)) {
+			if (lc.Contains(Pairs[i].Language)||lc.Contains(Pairs[i].ShortName)) {
 				name = Pairs[i].ShortName;
 				break;
 			}
@@ -313,14 +318,18 @@ void CFmsLogo::LoadLocalizedStringFile()
 			name = N_LOCALIZED_STRINGS_FILE_EN;
 		}
 	}
+    wxString dash=name;
+    
+    dash.Replace(L'_',L'-');
 
-	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
+#if 0    
+	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
 	if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
+#endif
 	{
-		name.Replace(L"-", "_");
 		name.MakeUpper();
 
 		LoadLocalizedStringsFromResource(N_LOCALIZED_STRINGS_FILE_TYPE L"_" + name, N_LOCALIZED_STRINGS_FILE_TYPE);
@@ -519,8 +528,8 @@ bool CFmsLogo::OnInit()
         GetConfigurationQuadruple(L"Screen", &x, &y, &w, &h);
 
         // the smallest reasonable size is 400 x 400.
-        h = std::max(h, 400);
-        w = std::max(w, 400);
+        h = std::max(h, 480);
+        w = std::max(w, 640);
 
         // sanitize against screen size
         checkwindow(&x, &y, &w, &h);
@@ -611,30 +620,32 @@ CMainFrame * CFmsLogo::GetMainFrame()
 
 void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
 {
+    size_t guard = 0;
+
+
     // If -P was specified on the command line, enter perspective mode.
     if (g_EnterPerspectiveMode)
     {
         g_EnterPerspectiveMode = false;
         lperspective(NIL);
     }
+  
 
     // run the script that localizes FMSLogo
-    static bool hasRunStartup = false;
-    if (!hasRunStartup)
+    if (!this->hasRunStartup)
     {
-        hasRunStartup = true;
-
-        silent_load(NIL, g_FmslogoBaseDirectory + L"startup.logoscript");
+        this->hasRunStartup = true;
+        wxString stsc =  g_FmslogoBaseDirectory + L"startup.logoscript";
+        silent_load(NIL,stsc);
     }
 
     // If a file to load was given on the command line, then execute it.
-    static bool hasLoadedFileToLoad = false;
-    if (!hasLoadedFileToLoad && g_FileToLoad.length()>0)
+    if (!this->hasLoadedFileToLoad && g_FileToLoad.length()>0)
     {
         // Set that we have loaded the file before we actually do
         // in case loading the file causes and idle event to be sent
         // and re-executes this function.
-        hasLoadedFileToLoad = true;
+        this->hasLoadedFileToLoad = true;
         silent_load(NIL, g_FileToLoad);
     }
 
@@ -643,6 +654,7 @@ void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
 
     // Continue with the default processing
     IdleEvent.Skip();
+    
 }
 
 void single_step_box(NODE * the_line)

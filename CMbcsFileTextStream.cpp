@@ -69,7 +69,7 @@ void CMbcsFileTextStream::Close()
 
 bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
 {
-	return (this->IsValid()) ? false :
+	bool done =  (this->IsValid()) ? false :
 		(this->file =
 #ifdef _WINDOWS
         _wfopen(path,mode)
@@ -77,6 +77,12 @@ bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
 		fopen((const char*)path, (const char*)mode)
 #endif
         ) != 0;
+    if(done)
+    {
+        this->for_reading = mode.Contains("r");
+        this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
+    }
+    return done;
 }
 
 wchar_t CMbcsFileTextStream::ReadChar()

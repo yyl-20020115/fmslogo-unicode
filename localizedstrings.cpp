@@ -83,62 +83,65 @@ void LoadLocalizedStringsFromFile(const wxString & path)
 #ifndef _WINDOWS
 
 
-bool TranslateLocalizedStringResourcePointer(const class wxString& name, uchar*& ptr, size_t& length)
+bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, size_t& length)
 {
     ptr = 0;
     length = 0;
+    wxString n = name;
     
-    if(name.Contains(N_LOCALIZED_STRINGS_FILE_DE))
+    n.MakeLower();
+    
+    if(n.Contains(N_LOCALIZED_STRINGS_FILE_DE))
     {
         ptr=&_binary_localizedstrings_de_ucs2le_h_start;
         length = &_binary_localizedstrings_de_ucs2le_h_end - &_binary_localizedstrings_de_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_EN))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_EN))
     {
         ptr=&_binary_localizedstrings_en_ucs2le_h_start;
         length = &_binary_localizedstrings_en_ucs2le_h_end - &_binary_localizedstrings_en_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_ES))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_ES))
     {
         ptr=&_binary_localizedstrings_es_ucs2le_h_start;
         length = &_binary_localizedstrings_es_ucs2le_h_end - &_binary_localizedstrings_es_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_FR))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_FR))
     {
         ptr=&_binary_localizedstrings_fr_ucs2le_h_start;
         length = &_binary_localizedstrings_fr_ucs2le_h_end - &_binary_localizedstrings_fr_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_GR))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_GR))
     {
         ptr=&_binary_localizedstrings_gr_ucs2le_h_start;
         length = &_binary_localizedstrings_gr_ucs2le_h_end - &_binary_localizedstrings_gr_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_HR))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_HR))
     {
         ptr=&_binary_localizedstrings_hr_ucs2le_h_start;
         length = &_binary_localizedstrings_hr_ucs2le_h_end - &_binary_localizedstrings_hr_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_IT))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_IT))
     {
         ptr=&_binary_localizedstrings_it_ucs2le_h_start;
         length = &_binary_localizedstrings_it_ucs2le_h_end - &_binary_localizedstrings_it_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_PL))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_PL))
     {
         ptr=&_binary_localizedstrings_pl_ucs2le_h_start;
         length = &_binary_localizedstrings_pl_ucs2le_h_end - &_binary_localizedstrings_pl_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_PT))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_PT))
     {
         ptr=&_binary_localizedstrings_pt_ucs2le_h_start;
         length = &_binary_localizedstrings_pt_ucs2le_h_end - &_binary_localizedstrings_pt_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_RU))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_RU))
     {
         ptr=&_binary_localizedstrings_ru_ucs2le_h_start;
         length = &_binary_localizedstrings_ru_ucs2le_h_end - &_binary_localizedstrings_ru_ucs2le_h_start;
     }
-    else if(name.Contains(N_LOCALIZED_STRINGS_FILE_ZH_CN))
+    else if(n.Contains(N_LOCALIZED_STRINGS_FILE_ZH_CN))
     {
         ptr=&_binary_localizedstrings_zh_cn_ucs2le_h_start;
         length = &_binary_localizedstrings_zh_cn_ucs2le_h_end - &_binary_localizedstrings_zh_cn_ucs2le_h_start;
