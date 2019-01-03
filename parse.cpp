@@ -48,9 +48,10 @@
 #include "localizedstrings.h"
 //#include "debugheap.h"
 #include "files.h"
-#include "files.h"
-#include "files.h"
 #endif
+
+#include "CNodePrinter.h"
+
 bool input_blocking = false;
 NODE *deepend_proc_name = NIL;
 NODE *g_ToLine = NIL;
@@ -724,9 +725,9 @@ static NODE *list_to_array(NODE *list)
 	return result;
 }
 
-#define parens(ch)      (ch == '(' || ch == ')' || ch == ';')
-#define infixs(ch)      (ch == '*' || ch == '/' || ch == '+' || ch == '-' || ch == '=' || ch == '<' || ch == '>')
-#define white_space(ch) (ch == ' ' || ch == '\t' || ch == '\n')
+#define parens(ch)      (ch == L'(' || ch == L')' || ch == L';')
+#define infixs(ch)      (ch == L'*' || ch == L'/' || ch == L'+' || ch == L'-' || ch == L'=' || ch == L'<' || ch == L'>')
+#define white_space(ch) (ch == L' ' || ch == L'\t' || ch == L'\n')
 
 // Parses the text from "*inln" to "inlimit", or until the first "endchar" is found.
 // If endchar==-1, then the only limit is inlimit, which is interpreted as the EOF.
@@ -1075,7 +1076,7 @@ static NODE *runparse_node(NODE *nd, NODE **ndsptr)
 			}
 			tnode = make_quote(intern(strnode));
 		}
-		else if (*wptr == ':')
+		else if (*wptr == L':')
 		{
 			int tcnt = 0;
 			const wchar_t * tptr = ++wptr;

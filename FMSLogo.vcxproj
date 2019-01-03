@@ -193,6 +193,7 @@
     <ClInclude Include="CFileTextStream.h" />
     <ClInclude Include="CLocalizedStringProvider.h" />
     <ClInclude Include="CMbcsFileTextStream.h" />
+    <ClInclude Include="CNodePrinter.h" />
     <ClInclude Include="commander.h" />
     <ClInclude Include="commanderbutton.h" />
     <ClInclude Include="commanderhistory.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="CFileTextStream.cpp" />
     <ClCompile Include="CLocalizedStringProvider.cpp" />
     <ClCompile Include="CMbcsFileTextStream.cpp" />
+    <ClCompile Include="CNodePrinter.cpp" />
     <ClCompile Include="commander.cpp" />
     <ClCompile Include="commanderbutton.cpp" />
     <ClCompile Include="commanderhistory.cpp" />

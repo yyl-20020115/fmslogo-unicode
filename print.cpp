@@ -356,7 +356,7 @@ real_print_node(
                     print_char(strm, type, *cp++);
                     totalCharsToPrint--;
                 }
-                print_char(strm, type, '|');
+                print_char(strm, type, L'|');
                 for (i = 0; i < totalCharsToPrint; i++)
                 {
 					wchar_t ch = ecma_clear(*cp++);
