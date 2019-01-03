@@ -92,7 +92,7 @@ CFileTextStream * CFileTextStream::CreateWrapper(FILE * file, bool unicode, bool
 {
 	return CreateWrapper(file,(unicode ? FileTextStreamType::Unicode : FileTextStreamType::Mbcs),close_on_exit,newline);
 }
-CFileTextStream* CFileTextStream::CreateStdInWarpper(FileTextStreamType type, const wxString& newline)
+CFileTextStream* CFileTextStream::CreateStdInWrapper(FileTextStreamType type, const wxString& newline)
 {
 	return CreateWrapper(stdin, type, false, newline);
 }

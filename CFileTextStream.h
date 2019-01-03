@@ -21,7 +21,7 @@ public:
 	static CFileTextStream* CreateForType(bool unicode, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateWrapper(FILE* file, bool unicode, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	static CFileTextStream* CreateStdInWarpper(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* CreateStdInWrapper(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateStdOutWrapper(FileTextStreamType type,const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateStdErrWrapper(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 

@@ -76,7 +76,7 @@ NODE *last_call = NIL;           // the last proc called
 NODE *didnt_output_name = NIL;   // the name of the proc that didn't OP
 NODE *didnt_get_output = NIL;    // the name of the proc that wanted the OP
 NODE *output_node = NIL;         // the output of the current function
-FIXNUM repcountup;               // up count for repeat
+FIXNUM repcountup = 0;               // up count for repeat
 
 CTRLTYPE stopping_flag = RUN;
 FIXNUM tailcall;    // 0 in sequence, 1 for tail, -1 for arg

@@ -888,24 +888,24 @@ void CMainFrame::PopupEditorToError(const wchar_t *FileName)
     {
         FILE * srcfile = 0;
 #ifdef _WINDOWS
-        srcfile= _wfopen(FileName, L"r");
+        srcfile= _wfopen(FileName, L"rb");
 #else
-        srcfile = fopen((const char*)FileName,"r");
+        srcfile = fopen((const char*)FileName,"rb");
 #endif
         if (srcfile != NULL)
         {
             FILE * dstfile = 0;
 #ifdef _WINDOWS
-            dstfile = _wfopen(TempPathName, L"w");
+            dstfile = _wfopen(TempPathName, L"wb");
 #else
-            dstfile = fopen((const char*)TempPathName,"w");
+            dstfile = fopen((const char*)TempPathName,"wb");
 #endif
             if (dstfile != NULL)
             {
                 int ch = 0;
-                while ((ch = fgetwc(srcfile)) != EOF && ch!=(signed)WEOF)
+                while ((ch = fgetc(srcfile)) != EOF)
                 {
-                    putwc(ch, dstfile); //do not use fputwc!
+                    fputc(ch, dstfile); //do not use fputwc!
                 }
                 fclose(dstfile);
             }

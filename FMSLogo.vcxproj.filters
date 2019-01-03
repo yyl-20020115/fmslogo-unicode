@@ -500,9 +500,6 @@
     <ClCompile Include="paren.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="parse.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="print.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -591,6 +588,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="CFileTextStream.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="parse.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

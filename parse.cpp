@@ -77,7 +77,9 @@ void SetErrorToLine(NODE * line)
 {
 	assign(g_ToLine, line);
 }
-
+#if 0
+//this class is commented out because it's a bit of buggy
+//
 // A class for allocating and manipulating a buffer that
 // is suitable for use with make_strnode_from_allocated_buffer().
 // The intent of this class is to eliminate the need to copy
@@ -257,6 +259,43 @@ void CStringNodeBuffer::AppendChar(wchar_t ToAppend)
 	*m_StringLimit = ToAppend;
 	m_StringLimit++;
 }
+#else
+class CStringNodeBuffer
+{
+public:
+
+	CStringNodeBuffer() :buffer(){
+
+	}
+	~CStringNodeBuffer() {
+
+	}
+public:
+	void AppendChar(wchar_t ch) {
+		this->buffer.Append(ch);
+	}
+	void AppendString(const wchar_t* text) {
+		this->buffer.Append(text);
+	}
+	size_t GetContentLength() { return this->buffer.length(); }
+	const wxString& GetContent() { return this->buffer; }
+	void Clear() { this->buffer.Clear(); }
+	void* TakeContent()
+	{
+		size_t length = this->buffer.length();
+
+		void* ptr = malloc((length+1) * sizeof(wchar_t) + sizeof(unsigned short));
+		if (ptr != 0) {
+			wcsncpy((wchar_t*)((char*)ptr + sizeof(unsigned short)), (const wchar_t*)this->buffer, length + 1);
+		}
+
+		return ptr;
+	}
+protected:
+	wxString buffer;
+};
+
+#endif
 
 // This is a hack to purge the "INPUTMODE_TO" buffer when
 // loading from the editor.  If this is not done, any unused
@@ -608,11 +647,11 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 					// append the linear whitespace that we skipped (if any)
 					if (whitespace.GetBufferLength() != 0)
 					{
-						const wchar_t * whitespaceString = whitespace.GetBuffer();
-						lineBuffer.AppendString(whitespaceString);
+						const wchar_t * ws = whitespace.GetBuffer();
+						lineBuffer.AppendString(ws);
 						if (dribbling)
 						{
-							DribbleWriteText(whitespaceString);
+							DribbleWriteText(ws);
 						}
 					}
 				}
@@ -648,16 +687,18 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 		DribbleWriteChar(L'\n');
 	}
 
-	lineBuffer.TakeOwnershipOfBuffer();
+	size_t l = lineBuffer.GetContentLength();
+
+	void* p = lineBuffer.TakeContent();
 
 	NODE * line = make_strnode_no_copy(
-		lineBuffer.GetString(),
-		lineBuffer.GetStringLengthPtr(),
-		lineBuffer.GetStringLength(),
+		(const wchar_t*)((char*)p+sizeof(unsigned short)),
+		(wchar_t*)p,
+		l,
 		this_type);
 #ifdef _WINDOWS
 #ifdef _DEBUG
-	OutputDebugString(lineBuffer.GetString());
+	OutputDebugString(lineBuffer.GetContent());
 	OutputDebugString(L"\n");
 #endif
 #endif
@@ -959,7 +1000,7 @@ NODE *parser(NODE *nd, bool ignore_comments)
 	NODE * string_node = cnv_node_to_strnode(nd);
 	ref(string_node);
 
-	int          slen = getstrlen(string_node);
+	int slen = getstrlen(string_node);
 	const wchar_t * lnsav = getstrptr(string_node);
 	NODE * rtn = parser_iterate(&lnsav, lnsav + slen, ignore_comments, -1);
 

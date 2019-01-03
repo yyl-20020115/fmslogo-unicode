@@ -70,24 +70,24 @@ private:
 NODE *current_line = NIL;       // current line to be parsed
 CFileListNode * g_OpenFiles = 0;
 
-CTextStream *stdinstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
-CTextStream *stdoutstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *stdinstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
+CTextStream *stdoutstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
 
-CTextStream *loadstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
-CTextStream *inputstream = CFileTextStream::CreateStdInWarpper(FileTextStreamType::Unicode);
+CTextStream *loadstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
+CTextStream *inputstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
 CTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
-CTextStream *dribblestream = NULL;
+CTextStream *dribblestream = 0;
 
 void OpenDribble(NODE * arg)
 {
-	if (dribblestream != NULL)
+	if (dribblestream != 0)
 	{
 		err_logo(ALREADY_DRIBBLING, NIL);
 	}
 	else
 	{
 		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"), FileTextStreamType::Unicode);
-		if (dribblestream == NULL)
+		if (dribblestream == 0)
 		{
 			err_logo(FILE_ERROR, NIL);
 		}
@@ -96,30 +96,30 @@ void OpenDribble(NODE * arg)
 
 void CloseDribble()
 {
-	if (dribblestream != NULL)
+	if (dribblestream != 0)
 	{
 		delete dribblestream;
-		dribblestream = NULL;
+		dribblestream = 0;
 	}
 }
 
 void DribbleWriteChar(wchar_t ch)
 {
-	if (dribblestream != NULL) {
+	if (dribblestream != 0) {
 		dribblestream->WriteChar(ch);
 	}
 }
 
 void DribbleWriteText(const wchar_t * text)
 {
-	if (dribblestream != NULL) {
+	if (dribblestream != 0) {
 		dribblestream->Write(text != 0 ? text : L"");
 	}
 }
 
 void DribbleWriteLine(const wchar_t * text)
 {
-	if (dribblestream != NULL) {
+	if (dribblestream != 0) {
 		dribblestream->WriteLine(text != 0 ? text : L"");
 	}
 }
