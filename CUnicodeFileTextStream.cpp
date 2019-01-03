@@ -26,7 +26,7 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 #ifdef _WINDOWS
 	md += L",ccs=UNICODE";
 #else
-	//TODO: how to set unicode file in unix?
+	//ccs is determined by first operation in linux,which is actually getwc or putwc.
 #endif
 	bool done = (this->IsValid()) ? false :
 		(this->file = 
