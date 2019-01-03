@@ -336,6 +336,9 @@
     <ClInclude Include="CFileTextStream.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="CNodePrinter.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -591,6 +594,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="parse.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CNodePrinter.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

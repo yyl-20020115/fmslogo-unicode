@@ -438,11 +438,11 @@ NODE *to_helper(NODE *args, bool is_macro)
 	GetInputMode() = INPUTMODE_To;
 
     NODE *formals = NIL;
-
-    int minimum = 0;
-    int deflt = 0;
-    int maximum = 0;
-    int old_default = -1;
+	//FIXED: all changed to unsigned
+    unsigned int minimum = 0;
+	unsigned int deflt = 0;
+	unsigned int maximum = 0;
+	unsigned int old_default = UINT_MAX;
 
     NODE * proc_name = car(args);
 
@@ -473,19 +473,11 @@ NODE *to_helper(NODE *args, bool is_macro)
 
         args = cdr(args);
 
-		wxString text;
-		if (args != 0)
-		{
-			text = ToString(args);
-			if (text.IsSameAs(L":map.template [:template.lists] 2")) {
-				text.clear();
-			}
-		}
         while (args != NIL)
         {
             NODE * arg = car(args);
             args = cdr(args);
-            if (nodetype(arg) == CONS && maximum != -1)
+            if (nodetype(arg) == CONS && maximum != UINT_MAX)
             {
                 // this is either an input with a default value or a "rest" input
                 make_runparse(arg);
@@ -501,7 +493,7 @@ NODE *to_helper(NODE *args, bool is_macro)
 				if (cdr(arg) == NIL)
                 {
                     // this is a "rest" input
-                    maximum = -1;
+                    maximum = UINT_MAX;
                 }
                 else
                 {
@@ -518,7 +510,10 @@ NODE *to_helper(NODE *args, bool is_macro)
                 deflt++;
             }
             else if (nodetype(arg) == INTEGER &&
-                     getint(arg) <= /*(unsigned) */maximum &&
+				//FIXED: we should not use (unsigned)maximum (when maximum is signed -1)
+				//because g++ would treat it as a warning, and if we remove (unsigned),
+				//it will break the default parameter logic!
+                     (getint(arg) <= maximum) &&
                      getint(arg) >= minimum)
             {
                 // this is a number that specifies the number of default inputs
