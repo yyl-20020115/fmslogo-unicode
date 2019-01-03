@@ -470,7 +470,17 @@ NODE *to_helper(NODE *args, bool is_macro)
         // read the formal parameters
         //
         NODE *formals_lastnode = NIL;
+
         args = cdr(args);
+
+		wxString text;
+		if (args != 0)
+		{
+			text = ToString(args);
+			if (text.IsSameAs(L":map.template [:template.lists] 2")) {
+				text.clear();
+			}
+		}
         while (args != NIL)
         {
             NODE * arg = car(args);
@@ -480,7 +490,7 @@ NODE *to_helper(NODE *args, bool is_macro)
                 // this is either an input with a default value or a "rest" input
                 make_runparse(arg);
                 arg = parsed__runparse(arg);
-                if (nodetype(car(arg)) != COLON)
+				if (nodetype(car(arg)) != COLON)
                 {
                     // input names must begin with a colon
                     err_logo(BAD_DATA_UNREC, arg);
@@ -488,7 +498,7 @@ NODE *to_helper(NODE *args, bool is_macro)
                 }
 
                 setcar(arg, node__colon(car(arg)));
-                if (cdr(arg) == NIL)
+				if (cdr(arg) == NIL)
                 {
                     // this is a "rest" input
                     maximum = -1;

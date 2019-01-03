@@ -377,7 +377,7 @@ bool CFmsLogo::OnInit()
     if (GetLastError() == ERROR_ALREADY_EXISTS)
     {
         // A copy of Logo is already running.
-        if (g_FileToLoad[0] == L'\0')
+        if (g_FileToLoad.length()==0)
         {
             // No logo scripts were specified on the command-line.
             // We should re-use the existing window instead of creating a new 

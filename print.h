@@ -50,6 +50,8 @@ InitializeStringPrintInformation(
 
 extern size_t FinalizeStringPrintInformation();
 
+extern wxString ToString(const NODE* Node);
+
 extern
 size_t
 PrintNodeToString(

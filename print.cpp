@@ -40,7 +40,7 @@
     #include "localizedstrings.h"
 #include <wx/string.h>
 #endif
-
+#include "CStringTextStream.h"
 //// structures
 //struct STRING_PRINT_INFORMATION
 //{
@@ -552,3 +552,10 @@ PrintNodeToString(
     return PrintNodeToString(Node, buffer, -1, -1);
 }
 
+wxString ToString(const NODE* Node)
+{
+	CStringTextStream csts;
+	PrintNodeToString(Node, &csts);
+
+	return csts.GetContent();
+}
