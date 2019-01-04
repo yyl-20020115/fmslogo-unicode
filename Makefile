@@ -26,7 +26,7 @@ CXXFLAGS += -O0 -g -ggdb
 
 
 
-INCLUDES =. $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
+INCLUDES =. ${SCINTILLA_INCLUDES} $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
 
 CPPFLAGS += $(addprefix -I, $(INCLUDES))
 CXXFLAGS += -Wall -fno-strict-aliasing
@@ -118,7 +118,8 @@ utils.o \
 vector.o \
 workspaceeditor.o \
 wrksp.o \
-wxpurestubs.o
+wxpurestubs.o \
+scintilla/LexFmsLogo.o
 #mmwind.o \
 #netwind.o \
 #screen.o \
@@ -152,7 +153,8 @@ default : fmslogo
 fmslogo: $(OBJECTS)
 	$(CXX) -o fmslogo $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
 
-
+scintilla/LexFmsLogo.o : scintilla/LexFmsLogo.cxx
+	$(CXX) -c $(CXXFLAGS) scintilla/LexFmsLogo.cxx  -o scintilla/LexFmsLogo.o 
 
 localizedstrings-de-ucs2le.o: localizedstrings-de-ucs2le.h
 	objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-de-ucs2le.h localizedstrings-de-ucs2le.o

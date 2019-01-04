@@ -281,7 +281,7 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 				name = sn;
 				break;
 			}
-		}
+		} 
 		if (name.length() == 0) {
 			//default is en
 			name = N_LOCALIZED_STRINGS_FILE_EN;
