@@ -140,6 +140,7 @@
 		E10D031B21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030F21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h */; };
 		E10D031C21DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */; };
 		E10D031D21DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */; };
+		E10D032121E02771008F7B8C /* LexFmsLogo.cxx in Sources */ = {isa = PBXBuildFile; fileRef = E10D032021E02771008F7B8C /* LexFmsLogo.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -396,6 +397,17 @@
 		E10D030F21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl-ucs2le.h"; sourceTree = "<group>"; };
 		E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt-ucs2le.h"; sourceTree = "<group>"; };
 		E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru-ucs2le.h"; sourceTree = "<group>"; };
+		E10D032021E02771008F7B8C /* LexFmsLogo.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexFmsLogo.cxx; path = scintilla/LexFmsLogo.cxx; sourceTree = "<group>"; };
+		E10D032221E02875008F7B8C /* SciLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SciLexer.h; path = scintilla/SciLexer.h; sourceTree = "<group>"; };
+		E10D032321E0288B008F7B8C /* Accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Accessor.h; path = scintilla/include/Accessor.h; sourceTree = "<group>"; };
+		E10D032421E0288B008F7B8C /* Scintilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scintilla.h; path = scintilla/include/Scintilla.h; sourceTree = "<group>"; };
+		E10D032521E0288B008F7B8C /* Catalogue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Catalogue.h; path = scintilla/include/Catalogue.h; sourceTree = "<group>"; };
+		E10D032621E0288B008F7B8C /* StyleContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleContext.h; path = scintilla/include/StyleContext.h; sourceTree = "<group>"; };
+		E10D032721E0288B008F7B8C /* WordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordList.h; path = scintilla/include/WordList.h; sourceTree = "<group>"; };
+		E10D032821E0288B008F7B8C /* ILexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILexer.h; path = scintilla/include/ILexer.h; sourceTree = "<group>"; };
+		E10D032921E0288C008F7B8C /* LexAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexAccessor.h; path = scintilla/include/LexAccessor.h; sourceTree = "<group>"; };
+		E10D032A21E0288C008F7B8C /* LexerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerModule.h; path = scintilla/include/LexerModule.h; sourceTree = "<group>"; };
+		E10D032B21E0288C008F7B8C /* CharacterSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterSet.h; path = scintilla/include/CharacterSet.h; sourceTree = "<group>"; };
 		E1A4BAEE21DECB65006097DD /* fmslogo-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fmslogo-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -500,6 +512,17 @@
 		E1A4BAE521DECB65006097DD = {
 			isa = PBXGroup;
 			children = (
+				E10D032321E0288B008F7B8C /* Accessor.h */,
+				E10D032521E0288B008F7B8C /* Catalogue.h */,
+				E10D032B21E0288C008F7B8C /* CharacterSet.h */,
+				E10D032821E0288B008F7B8C /* ILexer.h */,
+				E10D032921E0288C008F7B8C /* LexAccessor.h */,
+				E10D032A21E0288C008F7B8C /* LexerModule.h */,
+				E10D032421E0288B008F7B8C /* Scintilla.h */,
+				E10D032621E0288B008F7B8C /* StyleContext.h */,
+				E10D032721E0288B008F7B8C /* WordList.h */,
+				E10D032221E02875008F7B8C /* SciLexer.h */,
+				E10D032021E02771008F7B8C /* LexFmsLogo.cxx */,
 				E10D030921DEEBEC008F7B8C /* localizedstrings-de-ucs2le.h */,
 				E10D030E21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h */,
 				E10D030721DEEBEC008F7B8C /* localizedstrings-es-ucs2le.h */,
@@ -765,6 +788,7 @@
 				E10D029A21DECF37008F7B8C /* startup.cpp in Sources */,
 				E10D019D21DECDA3008F7B8C /* CFileTextStream.cpp in Sources */,
 				E10D01C821DECDD5008F7B8C /* cursor.cpp in Sources */,
+				E10D032121E02771008F7B8C /* LexFmsLogo.cxx in Sources */,
 				E10D027F21DECEF9008F7B8C /* selectbox.cpp in Sources */,
 				E10D01E021DECDFF008F7B8C /* error.cpp in Sources */,
 				E10D01B621DECDC0008F7B8C /* commanderinput.cpp in Sources */,
@@ -899,6 +923,8 @@
 				HEADER_SEARCH_PATHS = (
 					"/usr/local/include/wx-3.1",
 					"/usr/local/lib/wx/include/gtk3-unicode-static-3.1",
+					./scintilla,
+					./scintilla/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
@@ -965,6 +991,8 @@
 				HEADER_SEARCH_PATHS = (
 					"/usr/local/include/wx-3.1",
 					"/usr/local/lib/wx/include/gtk3-unicode-static-3.1",
+					./scintilla,
+					./scintilla/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
