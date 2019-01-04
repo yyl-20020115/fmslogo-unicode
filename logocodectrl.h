@@ -15,9 +15,9 @@
 #include <wx/print.h>
 #include <stddef.h>
 
-#include <ILexer.h>
-#include <LexerModule.h>
-#include <Catalogue.h>
+#include "ILexer.h"
+#include "LexerModule.h"
+#include "Catalogue.h"
 extern LexerModule lmFmsLogo;
 
 class CLogoCodeCtrl : public wxStyledTextCtrl
