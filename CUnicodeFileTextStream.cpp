@@ -47,6 +47,8 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 
 		//file_bol is determined by read if bom found
 		if (check_bom && (md.Contains(L"r") || md.Contains(L"a"))) {
+			off64_t p = this->GetPosition();
+			this->SetPosition(0LL, SEEK_SET);
 			wchar_t first = this->PeekChar();
 
 			switch (first) {
@@ -62,6 +64,7 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 				this->file_bol = this->mem_bol;
 				break;
 			}
+			this->SetPosition(p, SEEK_SET);
 		}
 	}
 	return done;

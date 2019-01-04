@@ -986,7 +986,7 @@ CMainFrame::PopupEditorForFile(
 
 	if (!NeedToCreate) {
 		CFileTextStream* cfts = CFileTextStream::OpenForRead(FileName, false, true);
-		if (cfts != 0) {
+		if (cfts != 0) {			
 			NeedToCreate = cfts->GetLength() == 0;
 			delete cfts;
 		}
