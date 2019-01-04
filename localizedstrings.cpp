@@ -72,14 +72,14 @@ extern size_t         _binary_localizedstrings_ru_ucs2le_h_size;
 
 
 CLocalizedStringProvider Provider;
- 
+
 void LoadLocalizedStringsFromFile(const wxString & path)
 {
-	CUnicodeFileTextStream cfts;
-	if (cfts.Open(path, L"rb")) {
-		cfts.SkipBOM();
-		LoadLocalizedStringsFromStream(&cfts);
-	}
+    CUnicodeFileTextStream cfts;
+    if (cfts.Open(path, L"rb")) {
+        cfts.SkipBOM();
+        LoadLocalizedStringsFromStream(&cfts);
+    }
 }
 #ifdef LINUX
 
@@ -89,9 +89,9 @@ bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, 
     ptr = 0;
     length = 0;
     wxString n = name;
-    
+
     n.MakeLower();
-    
+
     if(n.Contains(N_LOCALIZED_STRINGS_FILE_DE))
     {
         ptr=&_binary_localizedstrings_de_ucs2le_h_start;
@@ -158,22 +158,22 @@ bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, 
 void LoadLocalizedStringsFromResource(const class wxString& name, const class wxString& type)
 {
 #ifdef _WINDOWS
-	HMODULE hm = GetModuleHandle(NULL);
-	HRSRC hrsrc = FindResource(hm, name, type);
-	DWORD e = GetLastError();
-	if (hrsrc != INVALID_HANDLE_VALUE) {
-		DWORD length = SizeofResource(hm, hrsrc)/sizeof(wchar_t);
+    HMODULE hm = GetModuleHandle(NULL);
+    HRSRC hrsrc = FindResource(hm, name, type);
+    DWORD e = GetLastError();
+    if (hrsrc != INVALID_HANDLE_VALUE) {
+        DWORD length = SizeofResource(hm, hrsrc)/sizeof(wchar_t);
 
-		HGLOBAL hgsrc = LoadResource(hm, hrsrc);
-		if (hgsrc != INVALID_HANDLE_VALUE) {
-			wchar_t* p = (wchar_t*)LockResource(hgsrc);
-			if (p != 0)
-			{
-				CConstStringTextReadonlyStream cstrs(p, length);
-				LoadLocalizedStringsFromStream(&cstrs);
-			}
-		}
-	}
+        HGLOBAL hgsrc = LoadResource(hm, hrsrc);
+        if (hgsrc != INVALID_HANDLE_VALUE) {
+            wchar_t* p = (wchar_t*)LockResource(hgsrc);
+            if (p != 0)
+            {
+                CConstStringTextReadonlyStream cstrs(p, length);
+                LoadLocalizedStringsFromStream(&cstrs);
+            }
+        }
+    }
 #elif defined(LINUX)
     uchar* p = 0;
     size_t length = 0;
@@ -183,30 +183,26 @@ void LoadLocalizedStringsFromResource(const class wxString& name, const class wx
         LoadLocalizedStringsFromStream(&cstrs);
     }
 
-    
-	//use objcpy to embeded localized strings file inside of the executable
+
+    //use objcpy to embeded localized strings file inside of the executable
 #endif
 }
 
 void LoadLocalizedStringsFromStream(class CTextStream * stream)
 {
-	if (stream != 0) {
+    if (stream != 0) {
 
-		Provider.Assign(L"LOCALIZED_GENERAL_PRODUCTNAME", LOCALIZED_GENERAL_PRODUCTNAME);
+        Provider.Assign(L"LOCALIZED_GENERAL_PRODUCTNAME", LOCALIZED_GENERAL_PRODUCTNAME);
 
-		Provider.Load(stream);
-	}
+        Provider.Load(stream);
+    }
 }
+wxString SpaceHolder(L"____");
 
-wxString GetResourceString(const wxString& Name)
+const wxString& GetResourceString(const wchar_t* Name)
 {
-	//last step,not found,return the name itself!
-	wxString result = (Name.length()>0) ? Provider.Find(Name) : CLocalizedStringProvider::EmptyString;
+    //last step,not found,return the name itself!
+    const wxString& result = (Name!=0) ? Provider.Find(Name) : CLocalizedStringProvider::EmptyString;
 
-	if (result.length() == 0) 
-	{
-        //must have something to return 
-		result = Name;
-	}
-	return result;
+    return result.length() == 0 ? SpaceHolder :result;
 }
