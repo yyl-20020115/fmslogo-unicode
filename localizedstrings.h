@@ -142,5 +142,5 @@ void LoadLocalizedStringsFromFile(const class wxString& path);
 void LoadLocalizedStringsFromResource(const class wxString& name,const class wxString& type);
 void LoadLocalizedStringsFromStream(class CTextStream* stream);
 
-extern class wxString GetResourceString(const wxString& Name);
+extern const class wxString& GetResourceString(const wchar_t* Name);
 #endif //  _LOCALIZEDSTRINGS_H_
