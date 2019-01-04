@@ -264,7 +264,7 @@ LanguagePair Pairs[] = {
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
-	wxString lc = setlocale(LC_ALL, lang);
+	wxString lc = setlocale(LC_ALL, (const char*)lang);
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 	if (lc.length()> 0) {
        
@@ -288,7 +288,10 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 
   
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-	if (wxFileExists(path)) {
+    path =L"/Users/yilin/localized_files/";
+    path += N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
+
+    if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
