@@ -208,6 +208,7 @@ wxString GetConfigurationString(
     const wxString&        DefaultValue
     )
 {
+    bool useDefaultValue = true;
 	wxString              Value;
 
 #ifdef WX_PURE    
@@ -215,43 +216,52 @@ wxString GetConfigurationString(
     Value = config.Read(Name, (DefaultValue));
 
 #else
-    bool useDefaultValue = true;
 
     HKEY fmslogoKey = OpenFmsLogoKeyForGettingValue();
     if (fmslogoKey != NULL)
     {
-		size_t nc = 4096;
-		BYTE* valuePtr = (BYTE*)malloc(sizeof(wchar_t) * (nc+1));
-		memset(valuePtr, 0, sizeof(wchar_t)*(nc + 1));
-   		DWORD valueSize = sizeof(wchar_t)* nc;  // leave room for NUL
+		DWORD valueSize = 0;
         DWORD valueType = 0;
         LONG result = RegQueryValueEx(
             fmslogoKey,
-            Name,
+            (const wchar_t*)Name,
             0,   // reserved
             &valueType,
-            valuePtr,
+            0,//request size
             &valueSize);
-        if (result == ERROR_SUCCESS && 
-            valueType == REG_SZ)
-        {
-			*(wchar_t*)(valuePtr + valueSize) = L'\0';
-			Value = (wchar_t*)valuePtr;
-            // we successfully read the value as a string
-            useDefaultValue  = false;
-        }
 
+        if (result == ERROR_SUCCESS && valueType == REG_SZ)
+        {
+			BYTE* valuePtr = (BYTE*)malloc(valueSize + sizeof(wchar_t));
+			memset(valuePtr, 0, valueSize + sizeof(wchar_t));
+
+			result = RegQueryValueEx(
+				fmslogoKey,
+				Name,
+				0,   // reserved
+				&valueType,
+				valuePtr,
+				&valueSize);
+			if (result == ERROR_SUCCESS && valueType == REG_SZ)
+			{
+				*(wchar_t*)(valuePtr + valueSize) = L'\0';
+				Value = (wchar_t*)valuePtr;
+				// we successfully read the value as a string
+				useDefaultValue = false;
+			}
+
+			if (valuePtr != 0) {
+				free(valuePtr);
+			}
+        }
         RegCloseKey(fmslogoKey);
-		if (valuePtr != 0) {
-			free(valuePtr);
-		}
 	}
 
-    if (useDefaultValue)
-    {
+#endif // WX_PURE
+	if (useDefaultValue)
+	{
 		Value = DefaultValue;
 	}
-#endif // WX_PURE
 	return Value;
 }
 
