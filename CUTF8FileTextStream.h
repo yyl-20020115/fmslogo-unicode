@@ -2,22 +2,29 @@
 #define __CUTF8FILETEXTSTREAM__
 #include "CFileTextStream.h"
 
+#ifndef UTF8_BOM
+#define UTF8_BOM
+#define UTF8_BOM_C0 0xEF
+#define UTF8_BOM_C1 0xBB
+#define UTF8_BOM_C2 0xBF
+#endif
+
 class CUTF8FileTextStream :
 	public CFileTextStream
 {
 public:
-	static off64_t WriteAll(const wxString& path, CTextStream* source, bool append = false);
-	static off64_t ReadAll(const wxString& path, CTextStream* dest);
+	static off64_t WriteAll(const wxString& path, CTextStream* source, bool append = false,bool write_bom = true);
+	static off64_t ReadAll(const wxString& path, CTextStream* dest, bool check_bom =true);
 
 public:
-	CUTF8FileTextStream(const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	CUTF8FileTextStream(FILE* file, bool close_on_exit, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+    CUTF8FileTextStream(const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	CUTF8FileTextStream(FILE* file, bool close_on_exit, const wxString& newline);
 	virtual ~CUTF8FileTextStream();
 
 	virtual void Close();
 public:
 
-	virtual bool Open(const wxString& path, const wxString& mode);
+	virtual bool Open(const wxString& path, const wxString& mode, bool check_bom);
 
 public:
 

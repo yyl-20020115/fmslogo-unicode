@@ -208,9 +208,6 @@ wxString GetConfigurationString(
     const wxString&        DefaultValue
     )
 {
-#ifdef DEBUG
-    memset(Value, 0xDD, ValueLength);
-#endif
 	wxString              Value;
 
 #ifdef WX_PURE    

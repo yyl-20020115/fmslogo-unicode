@@ -2181,7 +2181,7 @@ void CMainFrame::OnSetActiveArea(wxCommandEvent& WXUNUSED(Event))
                 {
                     g_PrinterAreaPixels = 1;
                 }
-
+ 
                 // Persist the new settings
                 SetConfigurationInt(L"Printer.XLow",   g_PrinterAreaXLow);
                 SetConfigurationInt(L"Printer.XHigh",  g_PrinterAreaXHigh);

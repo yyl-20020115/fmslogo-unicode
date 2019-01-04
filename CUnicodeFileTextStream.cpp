@@ -47,12 +47,9 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 
 		//file_bol is determined by read if bom found
 		if (check_bom && (md.Contains(L"r") || md.Contains(L"a"))) {
-			off64_t sp = this->GetPosition();
-			this->SetPosition(0LL, SEEK_SET);
+			wchar_t first = this->PeekChar();
 
-			wchar_t first = (this->ReadChar());
-
-			switch (this->SwapByteOrder(first)) {
+			switch (first) {
 			case UTF16BE_BOM:
 				this->file_bol = CTS_BIG_ENDIAN;
 				this->file_bom = first;
@@ -65,8 +62,6 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 				this->file_bol = this->mem_bol;
 				break;
 			}
-
-			this->SetPosition(sp, SEEK_SET);
 		}
 	}
 	return done;
@@ -76,37 +71,67 @@ wchar_t CUnicodeFileTextStream::ReadChar()
 {
 	wchar_t ch = WEOF;
 	if (this->IsValid()) {
+#ifdef _WINDOWS
 		ch = getwc(this->file);
-		//ch = this->EnsureEndian(ch);
+#else
+        int c0 = getc(this->file);
+        int c1 = getc(this->file);
+        if(c0!=EOF && c1!=EOF){
+            if(this->file_bol== CTS_BIG_ENDIAN)
+            {
+                ch = (c0<<8)|c1;
+            }
+            else //little endian
+            {
+                ch = (c1<<8)|c0;
+            }
+        }
+#endif
 	}
 	return ch;
 }
 
 int CUnicodeFileTextStream::ReadByte()
 {
+#ifdef _WINDOWS
 	wchar_t ch = this->ReadChar();
 	return ch == (signed)WEOF ? EOF : ch;
+#else
+    return this->IsValid()? getc(this->file) : EOF;
+#endif
 }
 
 wchar_t CUnicodeFileTextStream::PeekChar()
 {
 	wchar_t ch = WEOF;
 	if (this->IsValid()) {
-		ch = getwc(this->file);
-		ungetwc(ch, this->file);
+        off64_t sp= this->GetPosition();
+        ch = this->ReadChar();
+	    this->SetPosition(sp, SEEK_SET);
 	}
 	return ch;
 }
 
 int CUnicodeFileTextStream::PeekByte()
 {
+#ifdef _WINDOWS
 	wchar_t ch = this->PeekChar();
 	return ch==(signed)WEOF ? EOF : ch;
+#else
+    int c = EOF;
+    if(this->IsValid())
+    {
+        c = getc(this->file);
+        ungetc(c,this->file);
+    }
+    return c;
+#endif
 }
 
 wchar_t CUnicodeFileTextStream::SkipBOM()
 {
-	wchar_t ch = this->SwapByteOrder(this->PeekChar());
+	wchar_t ch = this->PeekChar();
+
 	if (ch == UTF16LE_BOM || ch == UTF16BE_BOM) {
 		this->ReadChar();
 	}
@@ -118,7 +143,10 @@ wchar_t CUnicodeFileTextStream::SkipBOM()
 
 wchar_t CUnicodeFileTextStream::WriteBOM()
 {
-	this->WriteChar(this->SwapByteOrder(this->file_bom));
+    wchar_t bom = this->file_bom;
+
+	this->WriteChar(bom);
+    
 	return this->file_bom;
 }
 
@@ -126,14 +154,41 @@ bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
 {
 	wchar_t ret = WEOF;
 	if (this->IsValid()) {
-		ret = putwc(ch, this->file);
+#ifdef _WINDOWS
+        ret = putwc(ch, this->file);
+#else
+        int c0 = 0;
+        int c1 = 0;
+        if(this->file_bol== CTS_BIG_ENDIAN)
+        {
+            c0 = (ch&0xff00)>>8;
+            c1 = (ch&0xff);
+        }
+        else //little endian
+        {
+            c0 = (ch&0xff);
+            c1 = (ch&0xff00)>>8;
+        }
+        return (putc(c0,this->file)!=EOF)
+            && (putc(c1,this->file)!=EOF);
+#endif
 	}
 	return ret != (signed)WEOF;
 }
 
 bool CUnicodeFileTextStream::WriteByte(char ch)
 {
-	return this->WriteChar(ch);
+#ifdef _WINDOWS
+    if(this->IsValid()){
+        return this->WriteChar(ch);
+    }
+#else
+    if(this->IsValid()){
+        return putc(ch,this->file)!=EOF;
+    }
+
+#endif
+    return false;
 }
 
 wchar_t CUnicodeFileTextStream::GetFileBOM()

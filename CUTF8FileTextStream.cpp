@@ -1,14 +1,20 @@
 #include "CUTF8FileTextStream.h"
 
-off64_t CUTF8FileTextStream::WriteAll(const wxString& path, CTextStream * source, bool append)
+off64_t CUTF8FileTextStream::WriteAll(const wxString& path, CTextStream * source, bool append,bool write_bom)
 {
 	off64_t c = 0;
 	if (source != 0) {
 		CUTF8FileTextStream cmfts;
-		if (cmfts.Open(path, (append ? L"w+" : L"w")))
+		if (cmfts.Open(path, (append ? L"w+" : L"w"),false))
 		{
 			off64_t sp = cmfts.GetPosition();
 			wchar_t ch = WEOF;
+            if(write_bom)
+            {
+                cmfts.WriteByte(UTF8_BOM_C0);
+                cmfts.WriteByte(UTF8_BOM_C1);
+                cmfts.WriteByte(UTF8_BOM_C2);
+            }
 			while ((ch = source->ReadChar()) != (signed)WEOF)
 			{
 				cmfts.WriteChar(ch);
@@ -20,12 +26,12 @@ off64_t CUTF8FileTextStream::WriteAll(const wxString& path, CTextStream * source
 
 	return c;
 }
-off64_t CUTF8FileTextStream::ReadAll(const wxString & path, CTextStream * dest)
+off64_t CUTF8FileTextStream::ReadAll(const wxString & path, CTextStream * dest, bool check_bom )
 {
 	size_t c = 0;
 	if (dest != 0) {
 		CUTF8FileTextStream cmfts;
-		if (cmfts.Open(path, L"r"))
+		if (cmfts.Open(path, L"r",check_bom))
 		{
 			off64_t sp = cmfts.GetPosition();
 			wchar_t ch = WEOF;
@@ -41,23 +47,23 @@ off64_t CUTF8FileTextStream::ReadAll(const wxString & path, CTextStream * dest)
 }
 CUTF8FileTextStream::CUTF8FileTextStream(const wxString& newline)
 	: CFileTextStream(newline)
-	, cbuffer()
-	, cbufferlength()
 	, wbuffer(0)
 	, wbufferfull(false)
-	, ucs4(false)
+	, cbuffer()
+	, cbufferlength()
 	, badfileposition(-1LL)
+	, ucs4(false)
 
 {
 }
 CUTF8FileTextStream::CUTF8FileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
 	: CFileTextStream(file, close_on_exit, newline)
-	, cbuffer()
-	, cbufferlength()
 	, wbuffer(0)
 	, wbufferfull(false)
+	, cbuffer()
+	, cbufferlength()
+	, badfileposition(-1LL)
 	, ucs4(false)
-	, badfileposition(-1LL) 
 {
 }
 
@@ -71,7 +77,7 @@ void CUTF8FileTextStream::Close()
 	CFileTextStream::Close();
 }
 
-bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode)
+bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode, bool check_bom)
 {
 	bool done = (this->IsValid()) ? false :
 		(this->file =
@@ -81,12 +87,37 @@ bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode)
 			fopen((const char*)path, (const char*)mode)
 #endif
 			) != 0;
-if (done)
-{
-	this->for_reading = mode.Contains(L"r");
-	this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
-}
-return done;
+    if (done)
+    {
+        this->for_reading = mode.Contains(L"r");
+        this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
+		this->file_bol = 0;
+		if (mode.Contains(L"w") || mode.Contains(L"w+")) {
+			this->file_bol = this->mem_bol; //file_bol defaults to mem_bol
+		}
+
+		//file_bol is determined by read if bom found
+		if (check_bom && (mode.Contains(L"r") || mode.Contains(L"a"))) {
+			off64_t sp = this->GetPosition();
+            
+			wchar_t first = this->PeekChar();
+
+			switch (first) {
+			case UTF16BE_BOM:
+				this->file_bol = CTS_BIG_ENDIAN;
+			
+				break;
+			case UTF16LE_BOM:
+				this->file_bol = CTS_LITTLE_ENDIAN;
+				break;
+			default:
+				this->file_bol = this->mem_bol;
+				break;
+			}
+		}
+        
+    }
+    return done;
 }
 
 wchar_t CUTF8FileTextStream::ReadChar()
@@ -105,8 +136,26 @@ int CUTF8FileTextStream::ReadByte()
 
 wchar_t CUTF8FileTextStream::PeekChar()
 {
-	int ch = this->PeekByte();
-	return ch == EOF ? WEOF : (wchar_t)ch;
+    wchar_t wc = this->wbuffer;
+    bool wb = this->wbufferfull;
+    
+    char cbuffer[sizeof(this->cbuffer)] = {0};
+    size_t cbl = this->cbufferlength;
+    memcpy(cbuffer,this->cbuffer,sizeof(cbuffer));
+    this->ClearBuffers();
+    
+    off64_t p = this->GetPosition();
+    
+    wchar_t ch = this->ReadChar();
+	
+    this->SetPosition(p,SEEK_SET);
+    
+    memcpy(this->cbuffer,cbuffer,sizeof(cbuffer));
+    this->cbufferlength = cbl;
+    this->wbufferfull = wb;
+    this->wbuffer = wc;
+	
+    return ch == EOF ? WEOF : (wchar_t)ch;
 }
 
 int CUTF8FileTextStream::PeekByte()
@@ -122,7 +171,7 @@ int CUTF8FileTextStream::PeekByte()
 
 bool CUTF8FileTextStream::WriteChar(wchar_t ch)
 {
-	char buffer[8] = { 0 };
+	char buffer[sizeof(this->cbuffer)] = { 0 };
 	size_t c = this->CharToBytes(ch, buffer,sizeof(buffer));
 	for (size_t i = 0; i < c; i++) {
 		this->WriteByte(buffer[i]);
@@ -147,7 +196,7 @@ size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferl
 {
 	size_t n = 0;
 
-	if (buffer != 0 && bufferlength >=8) {
+	if (buffer != 0 && bufferlength >=sizeof(this->cbuffer)) {
 
 		if (sizeof(wchar_t) == sizeof(unsigned short) || (ch>=0 && ch<=0xFFFF)) 
 		{
@@ -214,7 +263,7 @@ size_t CUTF8FileTextStream::CharToBytes(unsigned short cs, char * buffer, size_t
 {
 	size_t n = 0;
 
-	if (buffer != 0 && bufferlength >= 4) 
+	if (buffer != 0 && bufferlength >= sizeof(this->cbuffer)) 
 	{
 		if (cs>=0 && cs<=0x7F)
 		{
