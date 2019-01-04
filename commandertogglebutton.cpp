@@ -9,8 +9,8 @@
 CCommanderToggleButton::CCommanderToggleButton(
     CCommander *    Parent, 
     wxWindowID      Id,
-    const wchar_t *    DownLabel,
-    const wchar_t *    UpLabel
+    const wxString&    DownLabel,
+    const wxString&    UpLabel
     ) :
     wxToggleButton(
         Parent,

@@ -57,6 +57,7 @@ coms.o \
 CStringTextStream.o \
 CTextStream.o \
 CUnicodeFileTextStream.o \
+CUTF8FileTextStream.o \
 cursor.o \
 devwind.o \
 dynamicbuffer.o \

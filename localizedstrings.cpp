@@ -198,15 +198,15 @@ void LoadLocalizedStringsFromStream(class CTextStream * stream)
 	}
 }
 
-const wxString& GetResourceString(const wchar_t * Name)
+wxString GetResourceString(const wxString& Name)
 {
-	static int i = 0;
 	//last step,not found,return the name itself!
-	const wxString& result = (Name != 0) ? Provider.Find(Name) : CLocalizedStringProvider::EmptyString;
+	wxString result = (Name.length()>0) ? Provider.Find(Name) : CLocalizedStringProvider::EmptyString;
 
 	if (result.length() == 0) 
 	{
-		i++;
+        //must have something to return 
+		result = Name;
 	}
 	return result;
 }

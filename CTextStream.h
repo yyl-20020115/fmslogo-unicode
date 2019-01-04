@@ -12,16 +12,29 @@ typedef off_t off64_t;
 #define TEXTSTREAM_DEFUALT_NEWLINE L"\r\n"
 #endif
 //LE: ff fe
+#ifdef _WINDOWS
+#ifndef UTF16LE_BOM
+#define UTF16LE_BOM 0xfeff
+#endif
+#ifndef UTF16BE_BOM
+#define UTF16BE_BOM 0xfffe
+#endif
+#else
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#ifndef UTF16LE_BOM
+#define UTF16LE_BOM 0xfeff
+#endif
+#ifndef UTF16BE_BOM
+#define UTF16BE_BOM 0xfffe
+#endif
+#else
 #ifndef UTF16LE_BOM
 #define UTF16LE_BOM 0xfffe
-#define UTF16LE_BOM_0 0xff
-#define UTF16LE_BOM_1 0xfe
 #endif
-//BE: fe ff
 #ifndef UTF16BE_BOM
 #define UTF16BE_BOM 0xfeff
-#define UTF16BE_BOM_0 0xfe
-#define UTF16BE_BOM_1 0xff
+#endif
+#endif
 #endif
 
 #ifdef _WINDOWS
