@@ -274,7 +274,10 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 		{
 			wxString ln = Pairs[i].Language;
 			wxString sn = Pairs[i].ShortName;
-			if (lc.Contains(ln)||lc.Contains(sn)) {
+            wxString un = sn;
+            un.Replace(L'-',L'_');
+            
+			if (lc.Contains(ln)||lc.Contains(sn) || lc.Contains(un)) {
 				name = sn;
 				break;
 			}
