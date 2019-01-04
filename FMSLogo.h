@@ -47,8 +47,8 @@ public:
     void OnIdle(wxIdleEvent & Event);
 
 private:
-    void ProcessCommandLine();
-	void LoadLocalizedStringFile();
+	wxString ProcessCommandLine(wxString lang);
+	void LoadLocalizedStringFile(const wxString& lang);
 
     DECLARE_NO_COPY_CLASS(CFmsLogo)
     DECLARE_EVENT_TABLE();

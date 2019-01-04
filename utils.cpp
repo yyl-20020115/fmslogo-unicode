@@ -57,11 +57,9 @@ const wchar_t FONTPROPERTY_ClipPrecision[]  = L"ClipPrecision";
 const wchar_t FONTPROPERTY_Quality[]        = L"Quality";
 const wchar_t FONTPROPERTY_PitchAndFamily[] = L"PitchAndFamily";
 
-static
-HKEY
-OpenFmsLogoKeyForSettingValue()
+static HKEY OpenFmsLogoKeyForSettingValue()
 {
-    HKEY fmslogoKey;
+    HKEY fmslogoKey = 0;
 
     // Use RegCreateKeyEx() instead of RegOpenKeyEx() because
     // the key may not already exist.  For example, if FMSlogo 
@@ -86,11 +84,9 @@ OpenFmsLogoKeyForSettingValue()
     return fmslogoKey;
 }
 
-static
-HKEY
-OpenFmsLogoKeyForGettingValue()
+static HKEY OpenFmsLogoKeyForGettingValue()
 {
-    HKEY fmslogoKey;
+    HKEY fmslogoKey = 0;
 
     LONG result = RegOpenKeyEx(
         HKEY_CURRENT_USER,
@@ -109,15 +105,14 @@ OpenFmsLogoKeyForGettingValue()
 
 #endif // !define WX_PURE
 
-void
-SetConfigurationInt(
-    const wchar_t *        Name,
-    int                 Value
+void SetConfigurationInt(
+    const wxString&  Name,
+    int              Value
     )
 {
 #ifdef WX_PURE
     wxConfig config("fmslogo");
-    config.Write((Name), Value);
+    config.Write(Name, Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
@@ -138,9 +133,8 @@ SetConfigurationInt(
 #endif // WX_PURE    
 }
 
-int
-GetConfigurationInt(
-    const wchar_t *        Name,
+int GetConfigurationInt(
+    const wxString&     Name,
     int                 DefaultValue
     )
 {
@@ -154,8 +148,8 @@ GetConfigurationInt(
     HKEY fmslogoKey = OpenFmsLogoKeyForGettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD value;
-        DWORD valueSize = sizeof value;
+        DWORD value = 0;
+        DWORD valueSize = sizeof(value);
         BYTE *valuePtr  = reinterpret_cast<BYTE*>(&value);
         DWORD type      = REG_DWORD;
 
@@ -181,10 +175,9 @@ GetConfigurationInt(
 #endif // WX_PURE    
 }
 
-void
-SetConfigurationString(
-    const wchar_t *        Name,
-    const wchar_t *        Value
+void SetConfigurationString(
+    const wxString&        Name,
+    const wxString&        Value
     )
 {
 #ifdef WX_PURE
@@ -194,8 +187,8 @@ SetConfigurationString(
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD valueLength    = (wcslen(Value) + 1) * sizeof(wchar_t);   // include NUL
-        const BYTE *valuePtr = reinterpret_cast<const BYTE*>(Value);
+        DWORD valueLength    = (Value.length() + 1) * sizeof(wchar_t);   // include NUL
+        const BYTE *valuePtr = reinterpret_cast<const BYTE*>((const wchar_t*)Value);
 
         RegSetValueEx(
             fmslogoKey,
@@ -210,36 +203,31 @@ SetConfigurationString(
 #endif // WX_PURE    
 }
 
-void
-GetConfigurationString(
-    const wchar_t *        Name,
-	wchar_t *              Value,
-    size_t              ValueLength,
-    const wchar_t *        DefaultValue
+wxString GetConfigurationString(
+    const wxString&        Name,
+    const wxString&        DefaultValue
     )
 {
 #ifdef DEBUG
     memset(Value, 0xDD, ValueLength);
 #endif
+	wxString              Value;
 
 #ifdef WX_PURE    
     wxConfig config("fmslogo");
-    wxString value = config.Read((Name), (DefaultValue));
+    Value = config.Read(Name, (DefaultValue));
 
-    // Copy the configuration into the Value buffer
-    size_t lengthToCopy = std::min(ValueLength - 1, value.Len());
-    memcpy(Value, (value), lengthToCopy);
-    Value[lengthToCopy] = '\0';
 #else
     bool useDefaultValue = true;
 
     HKEY fmslogoKey = OpenFmsLogoKeyForGettingValue();
     if (fmslogoKey != NULL)
     {
-        DWORD valueSize = (ValueLength - 1)*sizeof(wchar_t);  // leave room for NUL
-        BYTE *valuePtr  = reinterpret_cast<BYTE*>(Value);
+		size_t nc = 4096;
+		BYTE* valuePtr = (BYTE*)malloc(sizeof(wchar_t) * (nc+1));
+		memset(valuePtr, 0, sizeof(wchar_t)*(nc + 1));
+   		DWORD valueSize = sizeof(wchar_t)* nc;  // leave room for NUL
         DWORD valueType = 0;
-		memset(valuePtr, 0, valueSize);
         LONG result = RegQueryValueEx(
             fmslogoKey,
             Name,
@@ -248,28 +236,31 @@ GetConfigurationString(
             valuePtr,
             &valueSize);
         if (result == ERROR_SUCCESS && 
-            valueType == REG_SZ     &&
-            valueSize < ValueLength - sizeof(wchar_t))
+            valueType == REG_SZ)
         {
+			*(wchar_t*)(valuePtr + valueSize) = L'\0';
+			Value = (wchar_t*)valuePtr;
             // we successfully read the value as a string
-			//Value[valueSize] = L'\0';
             useDefaultValue  = false;
         }
 
         RegCloseKey(fmslogoKey);
-    }
+		if (valuePtr != 0) {
+			free(valuePtr);
+		}
+	}
 
-    if (useDefaultValue &&Value!=0 && DefaultValue!=0)
+    if (useDefaultValue)
     {
-		//TODO: FIXME
-		wcscpy(Value, DefaultValue);
+		Value = DefaultValue;
 	}
 #endif // WX_PURE
+	return Value;
 }
 
 void
 GetConfigurationQuadruple(
-    const wchar_t *        Name,
+    const wxString&      Name,
     int *               Value1,
     int *               Value2,
     int *               Value3,
@@ -283,17 +274,14 @@ GetConfigurationQuadruple(
         *Value3,
         *Value4);
 
-	wchar_t outputString[4096] = { 0 };
-
+	
     // Get the quadruple from the configuration settings
-    GetConfigurationString(
+    wxString outputString = GetConfigurationString(
         Name,
-        outputString,
-        sizeof(outputString)/sizeof(wchar_t),
         defaultString);
 
     // Decode the quadruple string into numbers
-    wchar_t * cp = outputString;
+    wchar_t * cp = const_cast<wchar_t*>((const wchar_t*)outputString);
 
     *Value1 = (int)wcstol(cp, &cp, 10);
     cp++;
@@ -310,7 +298,7 @@ GetConfigurationQuadruple(
 
 void
 SetConfigurationQuadruple(
-    const wchar_t *        Name,
+    const wxString&        Name,
     int                 Value1,
     int                 Value2,
     int                 Value3,
@@ -324,44 +312,27 @@ SetConfigurationQuadruple(
         Value4);
 
     // Set the quadruple in the configuration.
-    SetConfigurationString(
-        Name,
-        quadruple);
+    SetConfigurationString(Name, quadruple);
 }
 
 #ifndef WX_PURE
-
-static
-wxString 
-GetRelativeFontPropertyPointer(
-	const wchar_t *  FullyQualifiedName
-    )
-{
- //   // find where the relative property name should start
-	//wxString  relativeName = wcschr(FullyQualifiedName, L'\0');
-
- //   // add a '.' to distigush the relative part from the absolute part.
-	//relativeName.Append(L'.');
-
-	return FullyQualifiedName + L'.';
-}
-
-void
-GetConfigurationFont(
-    const wchar_t * Name,
+void GetConfigurationFont(
+    const wxString& Name,
     LOGFONT  &   LogFont
     )
 {
     memset(&LogFont, 0, sizeof(LogFont));
 
     // find the end of the fullyQualifiedName
-	wxString relativeName = GetRelativeFontPropertyPointer(Name);
+	wxString relativeName = Name + L'.';
    
-    GetConfigurationString(
+    wxString ret = GetConfigurationString(
         relativeName + FONTPROPERTY_FaceName,
-        LogFont.lfFaceName,
-        LF_FACESIZE,
         GetResourceString(L"LOCALIZED_DEFAULT_FONT_FACE"));
+
+	if (ret.length() > 0) {
+		wcsncpy(LogFont.lfFaceName, (const wchar_t*)ret, LF_FACESIZE);
+	}
 
     LogFont.lfHeight = GetConfigurationInt(relativeName + FONTPROPERTY_Height, -13);
 
@@ -382,19 +353,18 @@ GetConfigurationFont(
 
 void
 SetConfigurationFont(
-    const wchar_t *       Name,
+    const wxString&    Name,
     const LOGFONT  &   LogFont
     )
 {
-	wxString fullyQualifiedName = Name;
     // find where the relative property name should start
-	wxString relativeName= GetRelativeFontPropertyPointer(fullyQualifiedName);
+	wxString relativeName = Name + L'.';
 
     SetConfigurationString(relativeName + FONTPROPERTY_FaceName, LogFont.lfFaceName);
 
     const struct PROPERTY {
         const wchar_t * Name;
-        int          Value;
+        int Value;
     } properties[] = {
         {FONTPROPERTY_Height,          LogFont.lfHeight},
         {FONTPROPERTY_Weight,          LogFont.lfWeight},

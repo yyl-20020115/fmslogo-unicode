@@ -21,45 +21,37 @@
 
 #ifndef __UTILS_H
 #define __UTILS_H
-
-void
-SetConfigurationInt(
-    const wchar_t *        Name,
+#include <wx/string.h>
+void SetConfigurationInt(
+    const wxString&     Name,
     int                 Value
     );
 
-int
-GetConfigurationInt(
-    const wchar_t *        Name,
+int GetConfigurationInt(
+    const wxString&     Name,
     int                 DefaultValue
     );
 
-void
-SetConfigurationString(
-    const wchar_t *        Name,
-    const wchar_t *        Value
+void SetConfigurationString(
+    const wxString&        Name,
+    const wxString&        Value
     );
 
-void
-GetConfigurationString(
-    const wchar_t *        Name,
-	wchar_t *              Value,
-    size_t              ValueLength,
-    const wchar_t *        DefaultValue
+wxString GetConfigurationString(
+    const wxString&        Name,
+    const wxString&        DefaultValue
     );
 
-void
-GetConfigurationQuadruple(
-    const wchar_t *        Name,
+void GetConfigurationQuadruple(
+    const wxString&     Name,
     int *               Value1,
     int *               Value2,
     int *               Value3,
     int *               Value4
     );
 
-void
-SetConfigurationQuadruple(
-    const wchar_t *        Name,
+void SetConfigurationQuadruple(
+    const wxString&     Name,
     int                 Value1,
     int                 Value2,
     int                 Value3,
@@ -67,15 +59,13 @@ SetConfigurationQuadruple(
     );
 
 #ifdef _WINDOWS
-void
-GetConfigurationFont(
-    const wchar_t *            Name,
-    LOGFONT  &   LogFont
+void GetConfigurationFont(
+    const wxString&   Name,
+    LOGFONT&   LogFont
     );
 
-void
-SetConfigurationFont(
-    const wchar_t *                 Name,
+void SetConfigurationFont(
+    const wxString&   Name,
     const LOGFONT &   LogFont
     );
 #endif

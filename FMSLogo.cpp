@@ -106,30 +106,29 @@ CFmsLogo::CFmsLogo()
 // NextArgument    - A reference to an pointer in varg.
 //                   This is incremented to the next argument if
 //                   the switch is given in the form "-W 500".
-static
-int
-ReadIntArgument(
-    wxChar *    CurrentArgument,
-    wxChar ** & NextArgument
+
+static int ReadIntArgument(
+    const wxString&    CurrentArgument,
+	const wxString&    NextArgument
     )
 {
-    int numericValue;
+	wchar_t* endptr = 0;
 
-    if (*CurrentArgument != L'\0')
+    int numericValue = 0;
+
+    if (CurrentArgument.length() >2)
     {
         // The command-line was given as "-w500".
-        numericValue = wcstoul(CurrentArgument, &CurrentArgument, 10);
+        numericValue = wcstoul((const wchar_t*)CurrentArgument, &endptr, 10);
     }
     else
     {
         // The -w isn't immediately followed by a number.
         // Try to get the next argument, as in "-w 500".
-        wxChar * nextArgument = NextArgument[1];
-        if (nextArgument != NULL)
+        if (NextArgument.length()>0)
         {
             // There was an argument following the -W.
-            numericValue = wcstoul(nextArgument, NULL, 10);
-            NextArgument++;
+            numericValue = wcstoul(NextArgument, NULL, 10);
         }
         else
         {
@@ -140,7 +139,7 @@ ReadIntArgument(
             // Since this results in an unusable workspace, we
             // now warn user of their mistake.
             wxMessageBox(
-                *NextArgument,
+				CurrentArgument,
 				GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
                 wxOK | wxICON_INFORMATION);
 
@@ -151,129 +150,96 @@ ReadIntArgument(
     return numericValue;
 }
 
-void CFmsLogo::ProcessCommandLine()
+wxString CFmsLogo::ProcessCommandLine(wxString lang)
 {
-    // parse the command-line parameters
+	// parse the command-line parameters
     bExpert        = false;
     g_CustomWidth  = false;
     g_CustomHeight = false;
     bFixed         = false;
 	
-	//TODO: FIXME
     // For processing the -L parameter
     bool   copyRemaingArgsAsFilename = false;
     size_t fileToLoadIndex           = 0;
 
-    // On wxWidgets 3.X, argv is no longer a wxChar**, but a wxCmdLineArgsArray.
-    // This mostly emulates a real argv, but does not ensure that argv[argc]==0.
-    // This breaks the code below in a way that would disruptive to rewrite.
-    // Instead, this code creates a local variable that shadows argv and
-    // initializes it how it was in wxWidgets 2.8.
-    // I opened http://trac.wxwidgets.org/ticket/17531 to track this in hopes that
-    // it would be accepted as a bug fixed before a Unicode FMSLogo is ever released.
     const wxArrayString & realArgv = argv.GetArguments();
     size_t argvSize = realArgv.GetCount();
-    wxChar ** argv = new wxChar* [argvSize + 1];
-    for (size_t i = 0; i < argvSize; i++)
-    {
-        // copy from realArgv[i] to argv[i]
-        argv[i] = new wxChar[realArgv[i].Len() + 1];
-        for (size_t j = 0; j < realArgv[i].Len(); j++)
-        {
-            argv[i][j] = realArgv[i][j];
-        }
-        argv[i][realArgv[i].Len()] = L'\0';
-    }
-    argv[argvSize] = NULL;
+	
+	//skip self path
+	for (size_t i = 1; i < argvSize; i++) {
+		const wxString& a = realArgv[i];
+		const wxString& next = i < argvSize - 1 ? realArgv[i + 1] : wxString();
+		if (!copyRemaingArgsAsFilename) {
+			if (a.length() > 0) {
+				if (a[0] == L'-' && a.length() > 1) {
+					switch ((wchar_t)a[1]) {
+					case L'c':
+					case L'C':
+						if (a.length() > 2)
+						{
+							lang = a.substr(2);
+						}
+						else if (next.length() > 0) {
+							lang = next;
+						}
+						break;
+					case L'p':
+					case L'P':
+						g_EnterPerspectiveMode = true;
+						break;
 
-    for (wxChar ** nextArgument = argv + 1;
-         *nextArgument != NULL; 
-         nextArgument++)
-    {
-        wxChar * argument = *nextArgument;
+					case L'e':
+					case L'E':
+						bExpert = true;
+						break;
 
-        if (!copyRemaingArgsAsFilename)
-        {
-            if (*argument == L'-')
-            {
-                argument++; // advance beyond the -
+					case L'f':
+					case L'F':
+						bFixed = true;
+						break;
 
-                switch (*argument++)
-                {
-                case L'p':
-                case L'P':
-                    g_EnterPerspectiveMode = true;
-                    break;
+					case L'h':
+					case L'H':
+						BitMapHeight = ReadIntArgument(a, next);
+						g_CustomHeight = true;
+						break;
 
-                case L'e':
-                case L'E':
-                    bExpert = true;
-                    break;
+					case L'w':
+					case L'W':
+						BitMapWidth = ReadIntArgument(a, next);
+						g_CustomWidth = true;
+						break;
 
-                case L'f':
-                case L'F':
-                    bFixed = true;
-                    break;
+					case L'l':
+					case L'L':
+						// the rest of the arguments should be taken as part of a filename
+						copyRemaingArgsAsFilename = true;
+						break;
 
-                case L'h':
-                case L'H':
-                    BitMapHeight   = ReadIntArgument(argument, nextArgument);
-                    g_CustomHeight = true;
-                    break;
+					default:
+						// invalid command line: unrecognized switch
+						wxMessageBox(
+							a,
+							GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
+							wxOK | wxICON_INFORMATION);
 
-                case L'w':
-                case L'W':
-                    BitMapWidth   = ReadIntArgument(argument, nextArgument);
-                    g_CustomWidth = true;
-                    break;
-
-                case L'l':
-                case L'L':
-                    // the rest of the arguments should be taken as part of a filename
-                    copyRemaingArgsAsFilename = true;
-                    break;
-
-                default:
-                    // invalid command line: unrecognized switch
-                    wxMessageBox(
-                        argument - 2,
-						GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
-                        wxOK | wxICON_INFORMATION);
-                    break;
-                }
-            }
-            else
-            {
-                // This was not a '-', so treat it as part of a filename
-                copyRemaingArgsAsFilename = true;
-            }
-        }
-
-        if (copyRemaingArgsAsFilename)
-        {
-            // Copy the rest of the line into the g_FileToLoad buffer
-
-            // BUG: This is not backward compatible with MSWLogo.
-            // This should tolerate multiple spaces, instead of assuming
-            // that there's exactly one space between arguments.
-            if (fileToLoadIndex != 0)
-            {
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (fileToLoadIndex != 0)
+			{
 				g_FileToLoad += L' ';
-            }
-			wxString agx = wxString(argument);
+			}
+			g_FileToLoad += a;
 
-			g_FileToLoad += agx;
-
-			fileToLoadIndex += agx.length();
-        }
-    }
-
-
-    for (wxChar ** nextArgument = argv; *nextArgument != NULL; nextArgument++)
-    {
-        delete [] *nextArgument;
-    }
-    delete [] argv;
+			fileToLoadIndex += a.length();
+		}
+	}
+	return lang;
 }
 
 struct LanguagePair {
@@ -295,14 +261,11 @@ LanguagePair Pairs[] = {
 	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS}, //this is Pseudoloc (faked)
 };
 
-void CFmsLogo::LoadLocalizedStringFile()
+void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
-
-	//USE SYSTEM LOCALE (for mbtowc)
-	wxString lc = setlocale(LC_ALL, "");
-
-
+	wxString lc = setlocale(LC_ALL, lang);
+	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 	if (lc.length()> 0) {
        
         lc.MakeLower();
@@ -372,9 +335,10 @@ bool CFmsLogo::OnInit()
 	
 	g_FmslogoBaseDirectory = fmslogoPath;
 
-	this->LoadLocalizedStringFile();
-
-    ProcessCommandLine();
+	this->LoadLocalizedStringFile(
+		this->ProcessCommandLine(
+			GetConfigurationString(L"locale",L"")
+		));
 
 #ifndef WX_PURE
 
