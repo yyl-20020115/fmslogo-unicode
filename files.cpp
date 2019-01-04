@@ -766,9 +766,7 @@ wxString noparitylow_strnzcpy(const wchar_t *src, int len)
 	return dest;
 }
 void silent_load(NODE *arg, const wchar_t *prefix)
-{
-    size_t guard[512]={0};
-    
+{    
     /* This procedure is called three ways:
      *    silent_load(NIL,*argv)    loads *argv
      *    silent_load(proc,logolib) loads logolib/proc
