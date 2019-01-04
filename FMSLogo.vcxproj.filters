@@ -16,6 +16,15 @@
     <Filter Include="Packages">
       <UniqueIdentifier>{d91d082f-db9f-428b-8317-ced54e488728}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\scintilla">
+      <UniqueIdentifier>{b78f1e49-9a81-4ff4-a2c2-fc94a00ac550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\scintilla">
+      <UniqueIdentifier>{f750be09-cd71-4808-a4b8-ababc212edb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\scintilla\include">
+      <UniqueIdentifier>{49e9be8c-e657-45f4-90f4-5e003c80d83b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -342,6 +351,36 @@
     <ClInclude Include="CUTF8FileTextStream.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="scintilla\SciLexer.h">
+      <Filter>Headers\scintilla</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\Accessor.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\Catalogue.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\CharacterSet.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\ILexer.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\LexAccessor.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\LexerModule.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\Scintilla.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\StyleContext.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="scintilla\include\WordList.h">
+      <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -604,6 +643,12 @@
     </ClCompile>
     <ClCompile Include="CUTF8FileTextStream.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla\LexFmsLogo.cxx">
+      <Filter>Sources\scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla\LexFmsLogoRegisterer.cxx">
+      <Filter>Sources\scintilla</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
