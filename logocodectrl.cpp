@@ -25,6 +25,7 @@
 #else
 #include "../src/stc/scintilla/include/Scintilla.h"
 #endif
+LexerModule* CLogoCodeCtrl::TheLanguageModule = 0;
 // A helper class for printing
 class CLogoCodePrintout : public wxPrintout
 {
@@ -296,7 +297,6 @@ void CLogoCodeCtrl::Print()
 	//printData = printer.GetPrintDialogData().GetPrintData();
 }
 
-
 CLogoCodeCtrl::CLogoCodeCtrl(
 	wxWindow *      Parent,
 	wxWindowID      Id
@@ -310,6 +310,10 @@ CLogoCodeCtrl::CLogoCodeCtrl(
 
 	// Switch to the FMSLogo style
 	StyleClearAll();
+	if (TheLanguageModule == 0)
+	{
+		Catalogue::AddLexerModule(TheLanguageModule = &lmFmsLogo);
+	}
 	SetLexer(SCLEX_FMSLOGO);
 	Colourise(0, -1);
 
@@ -342,14 +346,14 @@ CLogoCodeCtrl::SetFont(const wxFont & Font)
 	// Apply the font
 	StyleClearAll();
 
-	const wxColor black(0, 0, 0);
-	const wxColor white(0XFF, 0XFF, 0XFF);
-	const wxColor darkgreen(0, 0x80, 0);
-	const wxColor darkred(0x80, 0, 0);
-	const wxColor red(0xFF, 0, 0);
-	const wxColor lightgrey(0xCC, 0xCC, 0xCC);
-	const wxColor lightblue(200, 242, 255);
-	const wxColor darkblue(0, 0, 0x80);
+	static wxColor black(0, 0, 0);
+	static wxColor white(0XFF, 0XFF, 0XFF);
+	static wxColor darkgreen(0, 0x80, 0);
+	static wxColor darkred(0x80, 0, 0);
+	static wxColor red(0xFF, 0, 0);
+	static wxColor lightgrey(0xCC, 0xCC, 0xCC);
+	static wxColor lightblue(200, 242, 255);
+	static wxColor darkblue(0, 0, 0x80);
 
 	StyleSetForeground(SCE_FMS_COMMENT, darkgreen);
 	StyleSetForeground(SCE_FMS_COMMENTBACKSLASH, darkgreen);
@@ -570,7 +574,7 @@ void CLogoCodeCtrl::AutoComplete()
 	// then token will be ":".  In this case, we want to complete as variables,
 	// but not include the ":" in our search, so we clear the token and handle
 	// it the same as if the caret were after a colon in ":var".
-	if (token.IsSameAs(L':'))
+	if (token.IsSameAs(':'))
 	{
 		token.Clear();
 	}
@@ -581,7 +585,7 @@ void CLogoCodeCtrl::AutoComplete()
 	if (tokenLength == 0)
 	{
 		if (caretPosition != 0 &&
-			GetTextRange(caretPosition - 1, caretPosition).IsSameAs(L':'))
+			GetTextRange(caretPosition - 1, caretPosition).IsSameAs(':'))
 		{
 			// For ":var", when the caret is immediately after a ":" token is
 			// empty.  We would auto-complete as procedure if we interrogated the
@@ -687,7 +691,7 @@ void CLogoCodeCtrl::AutoComplete()
 		}
 
 		// Append this name to the list of completions.
-		completions += caseCorrectCompletion + L" ";
+		completions += caseCorrectCompletion + " ";
 	}
 	gcref(allNames);
 

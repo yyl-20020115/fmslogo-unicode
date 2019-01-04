@@ -13,9 +13,17 @@
 #include <wx/stc/stc.h>
 #include <wx/fdrepdlg.h>
 #include <wx/print.h>
+#include <stddef.h>
+
+#include <ILexer.h>
+#include <LexerModule.h>
+#include <Catalogue.h>
+extern LexerModule lmFmsLogo;
 
 class CLogoCodeCtrl : public wxStyledTextCtrl
 {
+protected:
+	static LexerModule* TheLanguageModule;
 public:
 	CLogoCodeCtrl(
 		wxWindow       * Parent,
