@@ -264,7 +264,7 @@ LanguagePair Pairs[] = {
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
-	wxString lc = setlocale(LC_ALL, (const char*)lang);
+	wxString lc = wxSetlocale(LC_ALL, (const char*)lang);
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 	if (lc.length()> 0) {
        
