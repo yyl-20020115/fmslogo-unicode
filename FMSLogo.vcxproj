@@ -205,6 +205,7 @@
     <ClInclude Include="CTextStream.h" />
     <ClInclude Include="CUnicodeFileTextStream.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="CUTF8FileTextStream.h" />
     <ClInclude Include="devwind.h" />
     <ClInclude Include="dib.h" />
     <ClInclude Include="dlgwind.h" />
@@ -313,6 +314,7 @@
     <ClCompile Include="CTextStream.cpp" />
     <ClCompile Include="CUnicodeFileTextStream.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="CUTF8FileTextStream.cpp" />
     <ClCompile Include="devwind.cpp" />
     <ClCompile Include="dib.cpp" />
     <ClCompile Include="dllwind.cpp" />

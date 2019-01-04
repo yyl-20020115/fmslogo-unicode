@@ -79,7 +79,7 @@ bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
         ) != 0;
     if(done)
     {
-        this->for_reading = mode.Contains("r");
+		this->for_reading = mode.Contains(L"r");
         this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
     }
     return done;
@@ -190,7 +190,12 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 			for (int i = 0; i < (int)sizeof(cbuffer) - 1; i++) {
 				cbuffer[i] = (i + n) < sizeof(cbuffer) ? cbuffer[i + n] : 0;
 			}
-			cbufferlength -= n;
+			if (cbufferlength >= n) {
+				cbufferlength -= n;
+			}
+			else {
+				cbufferlength = 0;
+			}
 		}
 	}
 	return c;
