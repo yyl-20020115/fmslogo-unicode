@@ -513,8 +513,8 @@ NODE *to_helper(NODE *args, bool is_macro)
 				//FIXED: we should not use (unsigned)maximum (when maximum is signed -1)
 				//because g++ would treat it as a warning, and if we remove (unsigned),
 				//it will break the default parameter logic!
-                     (getint(arg) <= maximum) &&
-                     getint(arg) >= minimum)
+				((unsigned)getint(arg) <= maximum) &&
+				((unsigned)getint(arg) >= minimum))
             {
                 // this is a number that specifies the number of default inputs
                 deflt = getint(arg);
