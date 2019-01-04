@@ -128,17 +128,42 @@
 		E10D030121DEE209008F7B8C /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D030021DEE209008F7B8C /* libiconv.2.4.0.tbd */; };
 		E10D030321DEE247008F7B8C /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D030221DEE247008F7B8C /* libxml2.tbd */; };
 		E10D030521DEE2B5008F7B8C /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D030421DEE2B5008F7B8C /* libexpat.tbd */; };
+		E10D031221DEEBED008F7B8C /* localizedstrings-zh-cn-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030621DEEBEC008F7B8C /* localizedstrings-zh-cn-ucs2le.h */; };
+		E10D031321DEEBED008F7B8C /* localizedstrings-es-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030721DEEBEC008F7B8C /* localizedstrings-es-ucs2le.h */; };
+		E10D031421DEEBED008F7B8C /* localizedstrings-it-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030821DEEBEC008F7B8C /* localizedstrings-it-ucs2le.h */; };
+		E10D031521DEEBED008F7B8C /* localizedstrings-de-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030921DEEBEC008F7B8C /* localizedstrings-de-ucs2le.h */; };
+		E10D031621DEEBED008F7B8C /* localizedstrings-gr-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030A21DEEBEC008F7B8C /* localizedstrings-gr-ucs2le.h */; };
+		E10D031721DEEBED008F7B8C /* localizedstrings-fr-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030B21DEEBEC008F7B8C /* localizedstrings-fr-ucs2le.h */; };
+		E10D031821DEEBED008F7B8C /* localizedstrings-ps-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030C21DEEBEC008F7B8C /* localizedstrings-ps-ucs2le.h */; };
+		E10D031921DEEBED008F7B8C /* localizedstrings-hr-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030D21DEEBED008F7B8C /* localizedstrings-hr-ucs2le.h */; };
+		E10D031A21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030E21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h */; };
+		E10D031B21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D030F21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h */; };
+		E10D031C21DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */; };
+		E10D031D21DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E1A4BAEC21DECB65006097DD /* CopyFiles */ = {
+		E1A4BAEC21DECB65006097DD /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			buildActionMask = 12;
+			dstPath = /Users/yilin/localized_files;
 			dstSubfolderSpec = 0;
 			files = (
+				E10D031221DEEBED008F7B8C /* localizedstrings-zh-cn-ucs2le.h in Copy Files */,
+				E10D031321DEEBED008F7B8C /* localizedstrings-es-ucs2le.h in Copy Files */,
+				E10D031421DEEBED008F7B8C /* localizedstrings-it-ucs2le.h in Copy Files */,
+				E10D031521DEEBED008F7B8C /* localizedstrings-de-ucs2le.h in Copy Files */,
+				E10D031621DEEBED008F7B8C /* localizedstrings-gr-ucs2le.h in Copy Files */,
+				E10D031721DEEBED008F7B8C /* localizedstrings-fr-ucs2le.h in Copy Files */,
+				E10D031821DEEBED008F7B8C /* localizedstrings-ps-ucs2le.h in Copy Files */,
+				E10D031921DEEBED008F7B8C /* localizedstrings-hr-ucs2le.h in Copy Files */,
+				E10D031A21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h in Copy Files */,
+				E10D031B21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h in Copy Files */,
+				E10D031C21DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h in Copy Files */,
+				E10D031D21DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h in Copy Files */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -231,45 +256,21 @@
 		E10D020B21DECE50008F7B8C /* init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = init.cpp; sourceTree = "<group>"; };
 		E10D020C21DECE51008F7B8C /* ibmterm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibmterm.h; sourceTree = "<group>"; };
 		E10D021121DECE6E008F7B8C /* logocodectrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logocodectrl.cpp; sourceTree = "<group>"; };
-		E10D021221DECE6E008F7B8C /* localizedstrings-gr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr.h"; sourceTree = "<group>"; };
-		E10D021321DECE6F008F7B8C /* localizedstrings-pl-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl-ucs2le.h"; sourceTree = "<group>"; };
 		E10D021421DECE6F008F7B8C /* logocodectrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logocodectrl.h; sourceTree = "<group>"; };
 		E10D021521DECE6F008F7B8C /* logodata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logodata.cpp; sourceTree = "<group>"; };
-		E10D021621DECE6F008F7B8C /* localizedstrings-ps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps.h"; sourceTree = "<group>"; };
-		E10D021721DECE6F008F7B8C /* localizedstrings-ru-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru-ucs2le.h"; sourceTree = "<group>"; };
 		E10D021821DECE6F008F7B8C /* logodata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logodata.h; sourceTree = "<group>"; };
 		E10D021921DECE6F008F7B8C /* logoeventqueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logoeventqueue.h; sourceTree = "<group>"; };
-		E10D021A21DECE6F008F7B8C /* localizedstrings-en-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en-ucs2le.h"; sourceTree = "<group>"; };
-		E10D021B21DECE70008F7B8C /* localizedstrings-de.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de.h"; sourceTree = "<group>"; };
-		E10D021C21DECE70008F7B8C /* localizedstrings-de-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de-ucs2le.h"; sourceTree = "<group>"; };
-		E10D021D21DECE70008F7B8C /* localizedstrings-fr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr-ucs2le.h"; sourceTree = "<group>"; };
-		E10D021E21DECE70008F7B8C /* localizedstrings-zh-cn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn.h"; sourceTree = "<group>"; };
 		E10D021F21DECE70008F7B8C /* logoeventqueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logoeventqueue.cpp; sourceTree = "<group>"; };
-		E10D022021DECE70008F7B8C /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
-		E10D022121DECE70008F7B8C /* localizedstrings-pt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt.h"; sourceTree = "<group>"; };
 		E10D022221DECE70008F7B8C /* lists.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lists.cpp; sourceTree = "<group>"; };
 		E10D022321DECE70008F7B8C /* lists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lists.h; sourceTree = "<group>"; };
-		E10D022421DECE71008F7B8C /* localizedstrings-fr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr.h"; sourceTree = "<group>"; };
-		E10D022521DECE71008F7B8C /* localizedstrings-hr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr.h"; sourceTree = "<group>"; };
-		E10D022621DECE71008F7B8C /* localizedstrings-hr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr-ucs2le.h"; sourceTree = "<group>"; };
 		E10D022721DECE71008F7B8C /* intern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = intern.h; sourceTree = "<group>"; };
-		E10D022821DECE71008F7B8C /* localizedstrings-es.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es.h"; sourceTree = "<group>"; };
-		E10D022921DECE71008F7B8C /* localizedstrings-ru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru.h"; sourceTree = "<group>"; };
 		E10D022A21DECE71008F7B8C /* localizedstrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localizedstrings.h; sourceTree = "<group>"; };
-		E10D022B21DECE71008F7B8C /* localizedstrings-pt-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt-ucs2le.h"; sourceTree = "<group>"; };
 		E10D022C21DECE72008F7B8C /* logodialogboxes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logodialogboxes.cpp; sourceTree = "<group>"; };
 		E10D022D21DECE72008F7B8C /* localizednode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localizednode.h; sourceTree = "<group>"; };
-		E10D022E21DECE72008F7B8C /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
-		E10D022F21DECE72008F7B8C /* localizedstrings-pl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl.h"; sourceTree = "<group>"; };
 		E10D023021DECE72008F7B8C /* intern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intern.cpp; sourceTree = "<group>"; };
-		E10D023121DECE72008F7B8C /* localizedstrings-it-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it-ucs2le.h"; sourceTree = "<group>"; };
 		E10D023221DECE72008F7B8C /* logocore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logocore.h; sourceTree = "<group>"; };
-		E10D023321DECE72008F7B8C /* localizedstrings-it.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it.h"; sourceTree = "<group>"; };
 		E10D023421DECE73008F7B8C /* localizedstrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localizedstrings.cpp; sourceTree = "<group>"; };
 		E10D023521DECE73008F7B8C /* localizednode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localizednode.cpp; sourceTree = "<group>"; };
-		E10D023621DECE73008F7B8C /* localizedstrings-gr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr-ucs2le.h"; sourceTree = "<group>"; };
-		E10D023721DECE73008F7B8C /* localizedstrings-es-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es-ucs2le.h"; sourceTree = "<group>"; };
-		E10D023821DECE73008F7B8C /* localizedstrings-en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en.h"; sourceTree = "<group>"; };
 		E10D024121DECE85008F7B8C /* mainwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainwind.h; sourceTree = "<group>"; };
 		E10D024221DECE86008F7B8C /* logomath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logomath.cpp; sourceTree = "<group>"; };
 		E10D024321DECE86008F7B8C /* mainframe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainframe.cpp; sourceTree = "<group>"; };
@@ -383,6 +384,18 @@
 		E10D030021DEE209008F7B8C /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		E10D030221DEE247008F7B8C /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E10D030421DEE2B5008F7B8C /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
+		E10D030621DEEBEC008F7B8C /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030721DEEBEC008F7B8C /* localizedstrings-es-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030821DEEBEC008F7B8C /* localizedstrings-it-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030921DEEBEC008F7B8C /* localizedstrings-de-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030A21DEEBEC008F7B8C /* localizedstrings-gr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030B21DEEBEC008F7B8C /* localizedstrings-fr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030C21DEEBEC008F7B8C /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030D21DEEBED008F7B8C /* localizedstrings-hr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030E21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en-ucs2le.h"; sourceTree = "<group>"; };
+		E10D030F21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl-ucs2le.h"; sourceTree = "<group>"; };
+		E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt-ucs2le.h"; sourceTree = "<group>"; };
+		E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru-ucs2le.h"; sourceTree = "<group>"; };
 		E1A4BAEE21DECB65006097DD /* fmslogo-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fmslogo-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -487,6 +500,18 @@
 		E1A4BAE521DECB65006097DD = {
 			isa = PBXGroup;
 			children = (
+				E10D030921DEEBEC008F7B8C /* localizedstrings-de-ucs2le.h */,
+				E10D030E21DEEBED008F7B8C /* localizedstrings-en-ucs2le.h */,
+				E10D030721DEEBEC008F7B8C /* localizedstrings-es-ucs2le.h */,
+				E10D030B21DEEBEC008F7B8C /* localizedstrings-fr-ucs2le.h */,
+				E10D030A21DEEBEC008F7B8C /* localizedstrings-gr-ucs2le.h */,
+				E10D030D21DEEBED008F7B8C /* localizedstrings-hr-ucs2le.h */,
+				E10D030821DEEBEC008F7B8C /* localizedstrings-it-ucs2le.h */,
+				E10D030F21DEEBED008F7B8C /* localizedstrings-pl-ucs2le.h */,
+				E10D030C21DEEBEC008F7B8C /* localizedstrings-ps-ucs2le.h */,
+				E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */,
+				E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */,
+				E10D030621DEEBEC008F7B8C /* localizedstrings-zh-cn-ucs2le.h */,
 				E10D029F21DECF54008F7B8C /* threed.cpp */,
 				E10D02A221DECF55008F7B8C /* threed.h */,
 				E10D02A921DECF56008F7B8C /* turtle.bmp */,
@@ -565,30 +590,6 @@
 				E10D022321DECE70008F7B8C /* lists.h */,
 				E10D023521DECE73008F7B8C /* localizednode.cpp */,
 				E10D022D21DECE72008F7B8C /* localizednode.h */,
-				E10D021C21DECE70008F7B8C /* localizedstrings-de-ucs2le.h */,
-				E10D021B21DECE70008F7B8C /* localizedstrings-de.h */,
-				E10D021A21DECE6F008F7B8C /* localizedstrings-en-ucs2le.h */,
-				E10D023821DECE73008F7B8C /* localizedstrings-en.h */,
-				E10D023721DECE73008F7B8C /* localizedstrings-es-ucs2le.h */,
-				E10D022821DECE71008F7B8C /* localizedstrings-es.h */,
-				E10D021D21DECE70008F7B8C /* localizedstrings-fr-ucs2le.h */,
-				E10D022421DECE71008F7B8C /* localizedstrings-fr.h */,
-				E10D023621DECE73008F7B8C /* localizedstrings-gr-ucs2le.h */,
-				E10D021221DECE6E008F7B8C /* localizedstrings-gr.h */,
-				E10D022621DECE71008F7B8C /* localizedstrings-hr-ucs2le.h */,
-				E10D022521DECE71008F7B8C /* localizedstrings-hr.h */,
-				E10D023121DECE72008F7B8C /* localizedstrings-it-ucs2le.h */,
-				E10D023321DECE72008F7B8C /* localizedstrings-it.h */,
-				E10D021321DECE6F008F7B8C /* localizedstrings-pl-ucs2le.h */,
-				E10D022F21DECE72008F7B8C /* localizedstrings-pl.h */,
-				E10D022021DECE70008F7B8C /* localizedstrings-ps-ucs2le.h */,
-				E10D021621DECE6F008F7B8C /* localizedstrings-ps.h */,
-				E10D022B21DECE71008F7B8C /* localizedstrings-pt-ucs2le.h */,
-				E10D022121DECE70008F7B8C /* localizedstrings-pt.h */,
-				E10D021721DECE6F008F7B8C /* localizedstrings-ru-ucs2le.h */,
-				E10D022921DECE71008F7B8C /* localizedstrings-ru.h */,
-				E10D022E21DECE72008F7B8C /* localizedstrings-zh-cn-ucs2le.h */,
-				E10D021E21DECE70008F7B8C /* localizedstrings-zh-cn.h */,
 				E10D023421DECE73008F7B8C /* localizedstrings.cpp */,
 				E10D022A21DECE71008F7B8C /* localizedstrings.h */,
 				E10D021121DECE6E008F7B8C /* logocodectrl.cpp */,
@@ -708,7 +709,7 @@
 			buildPhases = (
 				E1A4BAEA21DECB65006097DD /* Sources */,
 				E1A4BAEB21DECB65006097DD /* Frameworks */,
-				E1A4BAEC21DECB65006097DD /* CopyFiles */,
+				E1A4BAEC21DECB65006097DD /* Copy Files */,
 			);
 			buildRules = (
 			);
