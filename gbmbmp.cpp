@@ -17,7 +17,7 @@ word,dword is read individually.
    #include <stdlib.h>
    #include <string.h>
    #include <memory.h>
-   #include <malloc.h>
+   //#include <malloc.h>
    #include "gbm.h"
    #include "gbmhelp.h"
 //   #include "debugheap.h"

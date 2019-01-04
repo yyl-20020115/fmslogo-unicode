@@ -30,7 +30,7 @@ wxString promptuser(const wchar_t *prompt);
 
 #ifdef FMSLOGO_WXWIDGETS
 
-#include "wx/app.h"
+#include <wx/app.h>
 
 ///////////////////////////////////////////////////////////////
 // Classes

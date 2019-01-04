@@ -46,6 +46,7 @@
    #include "commander.h"
 #include "Resource.h"
 #endif
+#include <locale.h>
 
 // global variables declared in main.h
 wxString edit_editexit;     // editor callback instruction list 

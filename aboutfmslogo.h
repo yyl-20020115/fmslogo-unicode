@@ -1,6 +1,6 @@
 // -*- c++ -*-
-#ifndef __ABOUTFMSLOGO_H_
-#define __ABOUTFMSLOGO_H
+#ifndef __ABOUTFMSLOGO_H__
+#define __ABOUTFMSLOGO_H__
 
 #include <wx/dialog.h>
 

@@ -13,7 +13,7 @@ PREFIX =  $(shell $(WXCONFIG) --prefix)
 LDFLAGS  =  $(shell $(WXCONFIG) --debug=yes --libs base,core,stc,richtext,html,xml)
 
 
-CPPFLAGS += $(shell $(WXCONFIG) --cppflags) -DWX_PURE -DUNIX
+CPPFLAGS += $(shell $(WXCONFIG) --cppflags) -DWX_PURE -DLINUX
 CXXFLAGS += -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-function -Wno-unused-but-set-variable
 
 
