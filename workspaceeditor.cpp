@@ -353,9 +353,7 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 	{
 		success = true;
 
-		wxString text = cfts->ReadAll();
-
-		m_LogoCodeControl->AppendTextRaw((const char*)text.ToUTF8());
+		m_LogoCodeControl->AppendText(cfts->ReadAll());
 
 		delete cfts;
 	}
