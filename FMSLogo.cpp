@@ -272,8 +272,10 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
         
 		for(int i = 0;i<(signed)ARRAYSIZE(Pairs);i++)
 		{
-			if (lc.Contains(Pairs[i].Language)||lc.Contains(Pairs[i].ShortName)) {
-				name = Pairs[i].ShortName;
+			wxString ln = Pairs[i].Language;
+			wxString sn = Pairs[i].ShortName;
+			if (lc.Contains(ln)||lc.Contains(sn)) {
+				name = sn;
 				break;
 			}
 		}
@@ -284,20 +286,18 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 	}
     wxString dash=name;
     
-    dash.Replace(L'_',L'-');
-
-  
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-    path =L"/Users/yilin/localized_files/";
+#ifdef __APPLE__
+	path =L"/Users/yilin/localized_files/";
     path += N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-
+#endif
     if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
 	{
 		name.MakeUpper();
-
+		name.Replace(L'-', L'_');
 		LoadLocalizedStringsFromResource(N_LOCALIZED_STRINGS_FILE_TYPE L"_" + name, N_LOCALIZED_STRINGS_FILE_TYPE);
 	}
 }
