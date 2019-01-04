@@ -755,7 +755,7 @@ parsed__runparse(
 #define unparsed__line(l)       getobject(l)
 #define generation__line(l)     (generation__tree(unparsed__line(l)))
 
-#if defined( _WIN64) || defined(UNIX)
+#if defined( _WIN64) || defined(LINUX) || (defined(__APPLE__) && defined(TARGET_OS_MAC))
 typedef long long cont_cast_type;
 #else
 typedef int cont_cast_type;

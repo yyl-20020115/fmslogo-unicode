@@ -4,7 +4,7 @@
 
 #ifdef _WINDOWS
 #include <Windows.h>
-#else
+#elif defined(LINUX)
 
 extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_start;
 extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_end;
@@ -50,8 +50,8 @@ extern size_t         _binary_localizedstrings_pt_ucs2le_h_size;
 extern unsigned short _binary_localizedstrings_ru_ucs2le_h_start;
 extern unsigned short _binary_localizedstrings_ru_ucs2le_h_end;
 extern size_t         _binary_localizedstrings_ru_ucs2le_h_size;
-
 #endif
+
 #include "CUnicodeFileTextStream.h"
 #include "CConstStringTextReadonlyStream.h"
 
@@ -80,7 +80,7 @@ void LoadLocalizedStringsFromFile(const wxString & path)
 		LoadLocalizedStringsFromStream(&cfts);
 	}
 }
-#ifndef _WINDOWS
+#ifdef LINUX
 
 
 bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, size_t& length)
@@ -173,7 +173,7 @@ void LoadLocalizedStringsFromResource(const class wxString& name, const class wx
 			}
 		}
 	}
-#else
+#elif defined(LINUX)
     uchar* p = 0;
     size_t length = 0;
     if (TranslateLocalizedStringResourcePointer(name,p,length))

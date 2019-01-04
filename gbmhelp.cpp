@@ -12,7 +12,7 @@ gbmhelp.c - Helpers for GBM file I/O stuff
    #include <stdlib.h>
    #include <string.h>
    #include <memory.h>
-   #include <malloc.h>
+   //#include <malloc.h>
    #ifdef __GNUC__
       #include <unistd.h>
    #else

@@ -1009,7 +1009,7 @@ po_helper_print_plist(
         GetOutputStream(), 
         MESSAGETYPE_Normal,
         L"%t %s %s %s\n",
-		GetResourceString(L"LOCALIZED_ALTERNATE_PPROP"),
+		(const wchar_t*)GetResourceString(L"LOCALIZED_ALTERNATE_PPROP"),
         quoted_plist_name,
         quoted_property_name,
         quoted_property_value);
@@ -1194,7 +1194,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s %s\n",
-				GetResourceString(L"LOCALIZED_ALTERNATE_MAKE"),
+				(const wchar_t*)GetResourceString(L"LOCALIZED_ALTERNATE_MAKE"),
                 quoted_variable_name,
                 quoted_value);
 
@@ -1225,7 +1225,7 @@ void po_helper(NODE *arg, int just_titles)  /* >0 for POT, 0 for PO, <0 for EDIT
                 GetOutputStream(),
                 MESSAGETYPE_Normal,
                 L"%t %s = %s\n",
-				GetResourceString(L"LOCALIZED_ALTERNATE_PLIST"),
+				(const wchar_t*)GetResourceString(L"LOCALIZED_ALTERNATE_PLIST"),
                 quoted_plist_name, 
                 flat_plist);
 
