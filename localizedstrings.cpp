@@ -76,7 +76,8 @@ CLocalizedStringProvider Provider;
 void LoadLocalizedStringsFromFile(const wxString & path)
 {
 	CUnicodeFileTextStream cfts;
-	if (cfts.Open(path, L"r")) {
+	if (cfts.Open(path, L"rb")) {
+		cfts.SkipBOM();
 		LoadLocalizedStringsFromStream(&cfts);
 	}
 }

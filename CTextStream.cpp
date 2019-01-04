@@ -34,12 +34,10 @@ wxString CTextStream::ReadLine()
 	if (this->IsValid()) {
 		wchar_t ch = WEOF;
 		while ((ch = this->ReadChar()) !=(signed) WEOF) {
+			line += ch; 
 			if (line.EndsWith(this->newline)) {
 				line.RemoveLast(this->newline.length());
 				break;
-			}
-			else {
-				line += ch;
 			}
 		}
 	}

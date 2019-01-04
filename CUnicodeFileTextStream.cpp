@@ -37,11 +37,10 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 #endif
         ) != 0;
 	if (done) {
-        this->for_reading = md.Contains("r");
+        this->for_reading = md.Contains(L"r");
         this->for_writing = md.Contains(L"w") || md.Contains(L"a");
 		this->file_bol = 0;
 		if (md.Contains(L"w") || md.Contains(L"w+")) {
-            this->for_writing = true;
 			this->file_bol = this->mem_bol; //file_bol defaults to mem_bol
 			this->file_bom = IsLittleEndian() ? UTF16LE_BOM : UTF16BE_BOM;
 		}
@@ -51,9 +50,9 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 			off64_t sp = this->GetPosition();
 			this->SetPosition(0LL, SEEK_SET);
 
-			wchar_t first = this->ReadChar();
+			wchar_t first = (this->ReadChar());
 
-			switch (first) {
+			switch (this->SwapByteOrder(first)) {
 			case UTF16BE_BOM:
 				this->file_bol = CTS_BIG_ENDIAN;
 				this->file_bom = first;
@@ -107,7 +106,7 @@ int CUnicodeFileTextStream::PeekByte()
 
 wchar_t CUnicodeFileTextStream::SkipBOM()
 {
-	wchar_t ch = this->PeekChar();
+	wchar_t ch = this->SwapByteOrder(this->PeekChar());
 	if (ch == UTF16LE_BOM || ch == UTF16BE_BOM) {
 		this->ReadChar();
 	}

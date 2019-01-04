@@ -323,13 +323,12 @@ void CFmsLogo::LoadLocalizedStringFile()
     
     dash.Replace(L'_',L'-');
 
-#if 0    
+  
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
 	if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
-#endif
 	{
 		name.MakeUpper();
 
