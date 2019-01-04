@@ -11,9 +11,9 @@ off64_t CUTF8FileTextStream::WriteAll(const wxString& path, CTextStream * source
 			wchar_t ch = WEOF;
             if(write_bom)
             {
-                cmfts.WriteByte(UTF8_BOM_C0);
-                cmfts.WriteByte(UTF8_BOM_C1);
-                cmfts.WriteByte(UTF8_BOM_C2);
+                cmfts.WriteByte((char)UTF8_BOM_C0);
+                cmfts.WriteByte((char)UTF8_BOM_C1);
+                cmfts.WriteByte((char)UTF8_BOM_C2);
             }
 			while ((ch = source->ReadChar()) != (signed)WEOF)
 			{
