@@ -53,7 +53,7 @@ commandertogglebutton.o \
 coms.o \
 CStringTextStream.o \
 CTextStream.o \
-CUnicodeFileTextStream.o \
+CUTF16FileTextStream.o \
 CUTF8FileTextStream.o \
 cursor.o \
 devwind.o \
