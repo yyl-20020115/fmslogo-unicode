@@ -7,7 +7,7 @@ class CCommander;
 class CCommanderButton : public wxButton
 {
 public:
-    CCommanderButton(CCommander* Parent, wxWindowID Id, const wchar_t * Label);
+    CCommanderButton(CCommander* Parent, wxWindowID Id, const wxString& Label);
 
 private:
     // Event Handlers

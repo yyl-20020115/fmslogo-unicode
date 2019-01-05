@@ -45,9 +45,9 @@ bool g_IsOkayToUseCommanderWindow = true;
 static CDynamicBuffer g_HistoryBuffer;
 
 // Menu IDs
-enum
+enum FMSLogoMenuIDs
 {
-   ID_COMMANDER_HALT = wxID_HIGHEST,
+   ID_COMMANDER_HALT = wxID_HIGHEST+32,
    ID_COMMANDER_TRACE,
    ID_COMMANDER_PAUSE,
    ID_COMMANDER_STATUS,

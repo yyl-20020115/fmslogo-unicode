@@ -9,12 +9,12 @@
 CCommanderButton::CCommanderButton(
     CCommander *    Parent, 
     wxWindowID      Id, 
-    const wchar_t *    Label
+    const wxString&     Label
     ) :
     wxButton(
         Parent,
         Id,
-		wxString(Label),
+		(Label),
         wxDefaultPosition,
         wxDefaultSize,
         wxWANTS_CHARS)
