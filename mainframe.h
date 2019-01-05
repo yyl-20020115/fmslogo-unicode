@@ -44,7 +44,6 @@ public:
 #endif
 #endif
 	wxString ModifyMenuTextForUnicode(wxString text, wxString suffix);
-    wxString ModifyMenuTextForNonWindows(wxString text);
 
     void ShowStatus();
     void HideStatus();
