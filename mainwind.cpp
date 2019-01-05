@@ -587,6 +587,8 @@ PaintToScreen(
     // Use a back buffer if we are drawing sprite turtles
     // (turtles with rotating bitmaps).
     bool useBackBuffer = false;
+#ifdef _WINDOWS
+    useBackBuffer = false;
     for (int j = 0; j <= g_MaxTurtle; j++)
     {
         if (g_Turtles[j].IsShown && g_Turtles[j].IsSprite)
@@ -595,6 +597,9 @@ PaintToScreen(
             break;
         }
     }
+#else
+    useBackBuffer = true;
+#endif
 
     wxDC * sourceDeviceContext;
     if (useBackBuffer)

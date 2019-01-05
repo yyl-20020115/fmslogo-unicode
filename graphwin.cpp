@@ -2993,11 +2993,11 @@ void paste_all_turtles(wxDC & DeviceContext, FLONUM zoom)
             }
             else
             {
-#ifndef __WXGTK__
+//#ifndef __WXGTK__
                 // wxINVERT seems to be broken in wxWidgets 3.0.2 for GTK.
                 // If this were called, then nothing would be drawn.
-                DeviceContext.SetLogicalFunction(wxINVERT);
-#endif
+                //DeviceContext.SetLogicalFunction(wxINVERT);
+//#endif
                 for (int i = 0; i < 4; i++)
                 {
                     if (g_Turtles[j].Points[i].bValid)
