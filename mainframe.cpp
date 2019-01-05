@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
 
@@ -356,7 +356,20 @@ wxString CMainFrame::ModifyMenuTextForUnicode(wxString text, wxString suffix)
 	}
 	return text;
 }
-
+wxString CMainFrame::ModifyMenuTextForNonWindows(wxString text)
+{
+#ifndef _WINDOWS
+    if(text.length()>0)
+    {
+        int i = text.Find(L'\t');
+        if(i>=0){
+            text[i] = L' ';    
+            text.insert(i,L"     ");
+        }
+    }
+#endif
+    return text;
+}
 // ScreenWidth    - the size of the screen window.
 // ScreenHeight   - the size of the screen window.
 // Position       - where the frame window should be placed.
@@ -402,9 +415,9 @@ CMainFrame::CMainFrame(
     // Construct the main menu
     //
     static const MENUITEM fileMenuItems[] = {
-        {GetResourceString(L"LOCALIZED_FILE_NEW"),              ID_FILENEW},
-        {GetResourceString(L"LOCALIZED_FILE_LOAD"),             ID_FILELOAD},
-        {GetResourceString(L"LOCALIZED_FILE_OPEN"),             ID_FILEOPEN},
+        {ModifyMenuTextForNonWindows(GetResourceString(L"LOCALIZED_FILE_NEW")),              ID_FILENEW},
+        {ModifyMenuTextForNonWindows(GetResourceString(L"LOCALIZED_FILE_LOAD")),             ID_FILELOAD},
+        {ModifyMenuTextForNonWindows(GetResourceString(L"LOCALIZED_FILE_OPEN")),             ID_FILEOPEN},
         {GetResourceString(L"LOCALIZED_FILE_SAVE"),             ID_FILESAVE},
 		{SaveAsText,           ID_FILESAVEAS},
 		{this->ModifyMenuTextForUnicode(SaveAsText,L"-UTF&8"), ID_FILESAVEAS_UTF8},
