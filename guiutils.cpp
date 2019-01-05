@@ -63,7 +63,19 @@ SetFmsLogoIcon(
     TopLevelWindow.SetIcons(icons);
 }
 
-
+wxString ModifyMenuTextForNonWindows(wxString text)
+{
+#ifndef _WINDOWS
+    if(text.length()>0)
+    {
+        int i = text.Find(L'\t');
+        if(i>=0){
+            text[i] = L'\0';
+        }
+    }
+#endif
+    return text;
+}
 void
 FillMenu(
     wxMenu *          Menu,
@@ -77,7 +89,7 @@ FillMenu(
         {
             Menu->Append(
                 MenuItems[i].MenuId,
-				(MenuItems[i].MenuText));
+				ModifyMenuTextForNonWindows(MenuItems[i].MenuText));
         }
         else
         {
@@ -98,7 +110,7 @@ AppendChildMenu(
 	wxMenu * childMenu = new wxMenu();// wxMenuBase::New();
 
     // append the child menu to the main menu
-    MainMenu->Append(childMenu, ChildMenuText);
+    MainMenu->Append(childMenu, ModifyMenuTextForNonWindows(ChildMenuText));
 
     // fill the child menu with its items
     FillMenu(childMenu, ChildMenuItems, ChildMenuItemsLength);
