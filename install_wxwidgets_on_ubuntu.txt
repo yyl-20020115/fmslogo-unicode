@@ -11,7 +11,16 @@ git submodule update
 
 mkdir buildgtk
 cd buildgtk
+
+## debug 
+
 ../configure --with-gtk=3 --enable-unicode --enable-debug --disable-shared
+
+
+## release (much smaller)
+
+../configure --with-gtk=3 --enable-unicode --disable-debug --disable-shared
+
 make
 sudo make install
 
