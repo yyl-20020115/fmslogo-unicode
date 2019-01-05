@@ -65,15 +65,19 @@ SetFmsLogoIcon(
 
 wxString ModifyMenuTextForNonWindows(wxString text)
 {
-#ifndef _WINDOWS
     if(text.length()>0)
     {
         int i = text.Find(L'\t');
         if(i>=0){
+#if defined(__WXGTK__)
             text[i] = L'\0';
+#elif defined(__WXMSW__)
+            //do nothing
+#else
+            text[i] = L' ';
+#endif
         }
     }
-#endif
     return text;
 }
 void
