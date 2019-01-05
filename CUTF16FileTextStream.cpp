@@ -1,33 +1,32 @@
-#include "CUnicodeFileTextStream.h"
+#include "CUTF16FileTextStream.h"
 
 
 
-CUnicodeFileTextStream::CUnicodeFileTextStream(const wxString& newline)
+CUTF16FileTextStream::CUTF16FileTextStream(const wxString& newline)
 	: CFileTextStream(newline)
 	, file_bom()
 {
 }
-CUnicodeFileTextStream::CUnicodeFileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
+CUTF16FileTextStream::CUTF16FileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
 	: CFileTextStream(file, close_on_exit, newline)
 	, file_bom()
 {
 }
 
 
-CUnicodeFileTextStream::~CUnicodeFileTextStream()
+CUTF16FileTextStream::~CUTF16FileTextStream()
 {
 	this->Flush();
 	this->Close();
 }
 
-bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, bool check_bom)
+bool CUTF16FileTextStream::Open(const wxString & path, const wxString & mode, bool check_bom)
 {
 	wxString md = mode;
-#ifdef _WINDOWS
-	md += L",ccs=UNICODE";
-#else
-	//ccs is determined by first operation in linux,which is actually getwc or putwc.
-#endif
+	if (!md.Contains(L'b'))
+	{
+		md += L'b';//NOTICE: must have 'b'
+	}
 	bool done = (this->IsValid()) ? false :
 		(this->file = 
 #ifdef _WINDOWS
@@ -70,13 +69,10 @@ bool CUnicodeFileTextStream::Open(const wxString & path, const wxString & mode, 
 	return done;
 }
 
-wchar_t CUnicodeFileTextStream::ReadChar()
+wchar_t CUTF16FileTextStream::ReadChar()
 {
 	wchar_t ch = WEOF;
 	if (this->IsValid()) {
-#ifdef _WINDOWS
-		ch = getwc(this->file);
-#else
         int c0 = getc(this->file);
         int c1 = getc(this->file);
         if(c0!=EOF && c1!=EOF){
@@ -89,22 +85,16 @@ wchar_t CUnicodeFileTextStream::ReadChar()
                 ch = (c1<<8)|c0;
             }
         }
-#endif
 	}
 	return ch;
 }
 
-int CUnicodeFileTextStream::ReadByte()
+int CUTF16FileTextStream::ReadByte()
 {
-#ifdef _WINDOWS
-	wchar_t ch = this->ReadChar();
-	return ch == (signed)WEOF ? EOF : ch;
-#else
     return this->IsValid()? getc(this->file) : EOF;
-#endif
 }
 
-wchar_t CUnicodeFileTextStream::PeekChar()
+wchar_t CUTF16FileTextStream::PeekChar()
 {
 	wchar_t ch = WEOF;
 	if (this->IsValid()) {
@@ -115,12 +105,8 @@ wchar_t CUnicodeFileTextStream::PeekChar()
 	return ch;
 }
 
-int CUnicodeFileTextStream::PeekByte()
+int CUTF16FileTextStream::PeekByte()
 {
-#ifdef _WINDOWS
-	wchar_t ch = this->PeekChar();
-	return ch==(signed)WEOF ? EOF : ch;
-#else
     int c = EOF;
     if(this->IsValid())
     {
@@ -128,10 +114,9 @@ int CUnicodeFileTextStream::PeekByte()
         ungetc(c,this->file);
     }
     return c;
-#endif
 }
 
-wchar_t CUnicodeFileTextStream::SkipBOM()
+wchar_t CUTF16FileTextStream::SkipBOM()
 {
 	wchar_t ch = this->PeekChar();
 
@@ -144,7 +129,7 @@ wchar_t CUnicodeFileTextStream::SkipBOM()
 	return ch;
 }
 
-wchar_t CUnicodeFileTextStream::WriteBOM()
+wchar_t CUTF16FileTextStream::WriteBOM()
 {
     wchar_t bom = this->file_bom;
 
@@ -153,13 +138,10 @@ wchar_t CUnicodeFileTextStream::WriteBOM()
 	return this->file_bom;
 }
 
-bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
+bool CUTF16FileTextStream::WriteChar(wchar_t ch)
 {
 	wchar_t ret = WEOF;
 	if (this->IsValid()) {
-#ifdef _WINDOWS
-        ret = putwc(ch, this->file);
-#else
         int c0 = 0;
         int c1 = 0;
         if(this->file_bol== CTS_BIG_ENDIAN)
@@ -174,33 +156,25 @@ bool CUnicodeFileTextStream::WriteChar(wchar_t ch)
         }
         return (putc(c0,this->file)!=EOF)
             && (putc(c1,this->file)!=EOF);
-#endif
 	}
 	return ret != (signed)WEOF;
 }
 
-bool CUnicodeFileTextStream::WriteByte(char ch)
+bool CUTF16FileTextStream::WriteByte(char ch)
 {
-#ifdef _WINDOWS
-    if(this->IsValid()){
-        return this->WriteChar(ch);
-    }
-#else
     if(this->IsValid()){
         return putc(ch,this->file)!=EOF;
     }
-
-#endif
     return false;
 }
 
-wchar_t CUnicodeFileTextStream::GetFileBOM()
+wchar_t CUTF16FileTextStream::GetFileBOM()
 {
 	return this->file_bom;
 }
 
-FileTextStreamType CUnicodeFileTextStream::GetStreamType()
+FileTextStreamType CUTF16FileTextStream::GetStreamType()
 {
-	return FileTextStreamType::Unicode;
+	return FileTextStreamType::UTF16;
 }
 

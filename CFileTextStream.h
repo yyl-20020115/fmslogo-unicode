@@ -5,9 +5,9 @@
 typedef enum _FileTextStreamType
 {
 	DONTKNOW,
-	Mbcs,
-	Unicode,
-	Utf8
+	MBCS,
+	UTF16,
+	UTF8
 }FileTextStreamType;
 
 class CFileTextStream :
@@ -16,7 +16,7 @@ class CFileTextStream :
 public:
 
 	static CFileTextStream* OpenForRead(const wxString& path, bool check_bom = true, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	static CFileTextStream* OpenForWrite(const wxString& path, bool use_unicode = false, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	static CFileTextStream* OpenForWrite(const wxString& path, FileTextStreamType ftt = FileTextStreamType::MBCS, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateForType(FileTextStreamType type, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateForType(bool unicode, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit = true, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
@@ -48,8 +48,10 @@ public:
 	virtual bool& CloseOnExit();
 	virtual FILE* GetFile();
 	virtual void SetFile(FILE* file);
-
 	virtual operator FILE*();
+	virtual wchar_t WriteBOM();
+	virtual wchar_t SkipBOM();
+	virtual wchar_t GetFileBOM();
 protected:
 	FILE* file;
 	bool close_on_exit;

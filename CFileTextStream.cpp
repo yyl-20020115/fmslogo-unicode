@@ -1,6 +1,7 @@
 #include "CFileTextStream.h"
-#include "CUnicodeFileTextStream.h"
 #include "CMbcsFileTextStream.h"
+#include "CUTF8FileTextStream.h"
+#include "CUTF16FileTextStream.h"
 
 CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, bool binary, const wxString & newline)
 {
@@ -10,7 +11,7 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	if (binary) {
 		mode += L'b';
 	}
-	CUnicodeFileTextStream* cufts = new CUnicodeFileTextStream(newline);
+	CUTF16FileTextStream* cufts = new CUTF16FileTextStream(newline);
 	if (cufts->Open(path, mode, true)) {
 		has_bom = cufts->GetFileBOM() != 0;
 	}
@@ -19,26 +20,45 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	}
 	else {
 		delete cufts;
-		CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-		if (cmfts->Open(path, mode)) {
-			ts = cmfts;
+
+		//if (CUTF8FileTextStream::IsUTF8File(path, &has_bom))
+		//{
+		//}
+
+		CUTF8FileTextStream * cu8ts = new CUTF8FileTextStream(newline);
+		if (cu8ts->Open(path, mode, true)) {
+			has_bom = cu8ts->GetFileBOM() != 0;
+		}
+		if (has_bom) {
+			ts = cu8ts;
 		}
 		else {
-			delete cmfts;
+			delete cu8ts;
+
+			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
+			if (cmfts->Open(path, mode)) {
+				ts = cmfts;
+			}
+			else {
+				delete cmfts;
+			}
 		}
+	}
+	if (ts != 0) {
+		ts->SkipBOM();
 	}
 	return ts;
 }
 
-CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_unicode, bool binary, const wxString& newline)
+CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, FileTextStreamType ftt, bool binary, const wxString& newline)
 {
 	CFileTextStream *ts = 0;
 	wxString mode(L"w");
 	if (binary) {
 		mode += L'b';
 	}
-	if (use_unicode) {
-		CUnicodeFileTextStream* cufts = new CUnicodeFileTextStream(newline);
+	if (ftt == FileTextStreamType::UTF16) {
+		CUTF16FileTextStream* cufts = new CUTF16FileTextStream(newline);
 		if (cufts->Open(path, mode, false)) {
 			ts = cufts;
 		}
@@ -46,7 +66,18 @@ CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_
 			delete cufts;
 		}
 	}
-	else {
+	else if (ftt == FileTextStreamType::UTF8)
+	{
+		CUTF8FileTextStream * cu8ts = new CUTF8FileTextStream(newline);
+		if (cu8ts->Open(path, mode, false)) {
+			ts = cu8ts;
+		}
+		else {
+			delete cu8ts;
+		}
+	}
+	else if(ftt == FileTextStreamType::MBCS)
+	{
 		CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
 		if (cmfts->Open(path, mode)) {
 			ts = cmfts;
@@ -55,17 +86,20 @@ CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, bool use_
 			delete cmfts;
 		}
 	}
+	if (ts != 0) {
+		ts->WriteBOM();
+	}
 	return ts;
 }
 
 CFileTextStream * CFileTextStream::CreateForType(FileTextStreamType type, const wxString & newline)
 {
 	switch (type) {
-	case FileTextStreamType::Mbcs:
+	case FileTextStreamType::MBCS:
 		return new CMbcsFileTextStream(newline);
-	case FileTextStreamType::Unicode:
-		return new CUnicodeFileTextStream(newline);
-	case FileTextStreamType::Utf8:
+	case FileTextStreamType::UTF16:
+		return new CUTF16FileTextStream(newline);
+	case FileTextStreamType::UTF8:
 		return 0; //TODO:
 	default:
 		return new CMbcsFileTextStream(newline);
@@ -73,16 +107,16 @@ CFileTextStream * CFileTextStream::CreateForType(FileTextStreamType type, const 
 }
 CFileTextStream * CFileTextStream::CreateForType(bool unicode, const wxString & newline)
 {
-	return CreateForType((unicode ? FileTextStreamType::Unicode : FileTextStreamType::Mbcs),newline);
+	return CreateForType((unicode ? FileTextStreamType::UTF16 : FileTextStreamType::MBCS),newline);
 }
 CFileTextStream* CFileTextStream::CreateWrapper(FILE* file, FileTextStreamType type, bool close_on_exit,const wxString& newline)
 {
 	switch (type) {
-	case FileTextStreamType::Mbcs:
+	case FileTextStreamType::MBCS:
 		return new CMbcsFileTextStream(file, close_on_exit,newline);
-	case FileTextStreamType::Unicode:
-		return new CUnicodeFileTextStream(file, close_on_exit, newline);
-	case FileTextStreamType::Utf8:
+	case FileTextStreamType::UTF16:
+		return new CUTF16FileTextStream(file, close_on_exit, newline);
+	case FileTextStreamType::UTF8:
 		return 0; //TODO:
 	default:
 		return new CMbcsFileTextStream(file, close_on_exit,newline);
@@ -90,7 +124,7 @@ CFileTextStream* CFileTextStream::CreateWrapper(FILE* file, FileTextStreamType t
 }
 CFileTextStream * CFileTextStream::CreateWrapper(FILE * file, bool unicode, bool close_on_exit, const wxString & newline)
 {
-	return CreateWrapper(file,(unicode ? FileTextStreamType::Unicode : FileTextStreamType::Mbcs),close_on_exit,newline);
+	return CreateWrapper(file,(unicode ? FileTextStreamType::UTF16 : FileTextStreamType::MBCS),close_on_exit,newline);
 }
 CFileTextStream* CFileTextStream::CreateStdInWrapper(FileTextStreamType type, const wxString& newline)
 {
@@ -183,9 +217,24 @@ void CFileTextStream::SetFile(FILE * file)
 	this->file = file;
 }
 
+wchar_t CFileTextStream::GetFileBOM()
+{
+	return L'\0';
+}
+
 CFileTextStream::operator FILE*()
 {
 	return this->GetFile();
+}
+
+wchar_t CFileTextStream::WriteBOM()
+{
+	return L'\0';
+}
+
+wchar_t CFileTextStream::SkipBOM()
+{
+	return L'\0';
 }
 
 off64_t CFileTextStream::GetPosition()

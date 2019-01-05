@@ -70,12 +70,12 @@ private:
 NODE *current_line = NIL;       // current line to be parsed
 CFileListNode * g_OpenFiles = 0;
 
-CTextStream *stdinstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
-CTextStream *stdoutstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
+CTextStream *stdinstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::UTF16);
+CTextStream *stdoutstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::UTF16);
 
-CTextStream *loadstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
-CTextStream *inputstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::Unicode);
-CTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::Unicode);
+CTextStream *loadstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::UTF16);
+CTextStream *inputstream = CFileTextStream::CreateStdInWrapper(FileTextStreamType::UTF16);
+CTextStream *outputstream = CFileTextStream::CreateStdOutWrapper(FileTextStreamType::UTF16);
 CTextStream *dribblestream = 0;
 
 void OpenDribble(NODE * arg)
@@ -86,7 +86,7 @@ void OpenDribble(NODE * arg)
 	}
 	else
 	{
-		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"), FileTextStreamType::Unicode);
+		dribblestream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w"), FileTextStreamType::UTF16);
 		if (dribblestream == 0)
 		{
 			err_logo(FILE_ERROR, NIL);
@@ -730,7 +730,7 @@ NODE *lsave(NODE *arg)
     }
 
     lprint(arg);
-	CFileTextStream* stream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w+"), FileTextStreamType::Unicode);
+	CFileTextStream* stream = CFileTextStream::CreateWrapper(OpenFile(car(arg), L"w+"), FileTextStreamType::UTF16);
     PrintWorkspaceToStream(stream);
 	delete stream;
 
@@ -822,7 +822,7 @@ void silent_load(NODE *arg, const wchar_t *prefix)
         gcref(arg);
     }
 
-    bool isOk = fileload(filename);
+    bool isOk = fileload(filename,true,0);
     if (isOk)
     {
         if (stopping_flag == THROWING)
@@ -848,7 +848,7 @@ void silent_load(NODE *arg, const wchar_t *prefix)
     }
 }
 
-FileTextStreamType DefaultFileTextStreamType = FileTextStreamType::Mbcs;
+FileTextStreamType DefaultFileTextStreamType = FileTextStreamType::MBCS;
 
 FileTextStreamType& GetDefaultFileTextStreamType()
 {

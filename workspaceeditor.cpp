@@ -24,7 +24,6 @@
     #include "helputils.h"    // for ContextHelp
     #include "stringadapter.h"
 #endif
-#include "CUnicodeFileTextStream.h"
 
 enum
 {
@@ -73,7 +72,8 @@ CWorkspaceEditor::CWorkspaceEditor(
     m_FileName(FileName),
     m_EditArguments(EditArguments),
     m_CheckForErrors(CheckForErrors),
-    m_ErrorDetected(false)
+    m_ErrorDetected(false),
+	FTT(FileTextStreamType::MBCS)
 {
     SetFmsLogoIcon(*this);
 
@@ -351,6 +351,8 @@ bool CWorkspaceEditor::Read(const wxString & FileName)
 	CFileTextStream* cfts = CFileTextStream::OpenForRead(fileName, true);
 	if (cfts != 0)
 	{
+		this->FTT = cfts->GetStreamType();
+
 		success = true;
 
 		m_LogoCodeControl->AppendText(cfts->ReadAll());
@@ -396,17 +398,21 @@ CWorkspaceEditor::Write(
         return false;
     }
 	bool success = true;
-
-	CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, false, true);
-	if (cfts != 0)
-	{
-		wxString text = m_LogoCodeControl->GetText();
-		if (text.length() > 0 && cfts->GetStreamType() == FileTextStreamType::Unicode && cfts->GetPosition() == 0) {
-			//NOTICE: don' know when we have to write bom on our own:
-			((CUnicodeFileTextStream*)cfts)->WriteBOM();
+	wxString text = m_LogoCodeControl->GetText();
+	if (text.length() > 0) {
+		CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, this->FTT, true);
+		if (cfts != 0)
+		{
+			success = (cfts->Write(text)) == text.length();
+			delete cfts;
 		}
-		success = (cfts->Write(text)) == text.length();
-		delete cfts;
+	}
+	else {
+		//make an empty file (mbcs has no bom)
+		CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, FileTextStreamType::MBCS, true);
+		if (cfts != 0) {
+			delete cfts;
+		}
 	}
 
 	if(!success)

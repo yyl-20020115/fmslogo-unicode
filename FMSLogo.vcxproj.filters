@@ -333,9 +333,6 @@
     <ClInclude Include="CStringTextStream.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="CUnicodeFileTextStream.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="CMbcsFileTextStream.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -380,6 +377,9 @@
     </ClInclude>
     <ClInclude Include="scintilla\include\WordList.h">
       <Filter>Headers\scintilla\include</Filter>
+    </ClInclude>
+    <ClInclude Include="CUTF16FileTextStream.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -623,9 +623,6 @@
     <ClCompile Include="CStringTextStream.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="CUnicodeFileTextStream.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="CMbcsFileTextStream.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -649,6 +646,9 @@
     </ClCompile>
     <ClCompile Include="scintilla\LexFmsLogoRegisterer.cxx">
       <Filter>Sources\scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="CUTF16FileTextStream.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

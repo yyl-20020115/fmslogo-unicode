@@ -45,6 +45,27 @@ off64_t CUTF8FileTextStream::ReadAll(const wxString & path, CTextStream * dest, 
 	}
 	return c;
 }
+bool CUTF8FileTextStream::IsUTF8File(const wxString & path, bool * has_bom)
+{
+	bool uf = false;
+
+	CUTF8FileTextStream cmfts;
+	if (cmfts.Open(path, L"r", true))
+	{
+		if (cmfts.GetFileBOM() != 0) {
+			uf = true;
+			if (has_bom) {
+				*has_bom = true;
+			}
+		}
+		else {
+			off64_t lf = cmfts.GetLength();
+			while (cmfts.ReadChar() != (signed)WEOF);
+			uf = (lf == cmfts.GetPosition() + 1);
+		}
+	}
+	return uf;
+}
 CUTF8FileTextStream::CUTF8FileTextStream(const wxString& newline)
 	: CFileTextStream(newline)
 	, wbuffer(0)
@@ -53,7 +74,7 @@ CUTF8FileTextStream::CUTF8FileTextStream(const wxString& newline)
 	, cbufferlength()
 	, badfileposition(-1LL)
 	, ucs4(false)
-
+	, file_bom(0)
 {
 }
 CUTF8FileTextStream::CUTF8FileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
@@ -64,6 +85,7 @@ CUTF8FileTextStream::CUTF8FileTextStream(FILE* file, bool close_on_exit, const w
 	, cbufferlength()
 	, badfileposition(-1LL)
 	, ucs4(false)
+	, file_bom(0)
 {
 }
 
@@ -79,25 +101,31 @@ void CUTF8FileTextStream::Close()
 
 bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode, bool check_bom)
 {
+	wxString md = mode;
+	if (!md.Contains(L'b'))
+	{
+		md += L'b';//NOTICE: must have 'b'
+	}
 	bool done = (this->IsValid()) ? false :
 		(this->file =
 #ifdef _WINDOWS
-			_wfopen(path, mode)
+			_wfopen(path, md)
 #else
 			fopen((const char*)path, (const char*)mode)
 #endif
 			) != 0;
     if (done)
     {
-        this->for_reading = mode.Contains(L"r");
-        this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
+        this->for_reading = md.Contains(L"r");
+        this->for_writing = md.Contains(L"w") || md.Contains(L"a");
 		this->file_bol = 0;
-		if (mode.Contains(L"w") || mode.Contains(L"w+")) {
+		if (md.Contains(L"w") || md.Contains(L"w+")) {
 			this->file_bol = this->mem_bol; //file_bol defaults to mem_bol
+			this->file_bom = IsLittleEndian() ? UTF16LE_BOM : UTF16BE_BOM;
 		}
 
 		//file_bol is determined by read if bom found
-		if (check_bom && (mode.Contains(L"r") || mode.Contains(L"a"))) {
+		if (check_bom && (md.Contains(L"r") || md.Contains(L"a"))) {
 			off64_t sp = this->GetPosition();
             
 			wchar_t first = this->PeekChar();
@@ -105,10 +133,11 @@ bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode, boo
 			switch (first) {
 			case UTF16BE_BOM:
 				this->file_bol = CTS_BIG_ENDIAN;
-			
+				this->file_bom = first;
 				break;
 			case UTF16LE_BOM:
 				this->file_bol = CTS_LITTLE_ENDIAN;
+				this->file_bom = first;
 				break;
 			default:
 				this->file_bol = this->mem_bol;
@@ -189,7 +218,39 @@ bool CUTF8FileTextStream::WriteByte(char ch)
 }
 FileTextStreamType CUTF8FileTextStream::GetStreamType()
 {
-	return FileTextStreamType::Utf8;
+	return FileTextStreamType::UTF8;
+}
+
+wchar_t CUTF8FileTextStream::WriteBOM()
+{
+	wchar_t bom = this->file_bom;
+
+	this->WriteChar(bom);
+
+	return this->file_bom;
+}
+
+wchar_t CUTF8FileTextStream::SkipBOM()
+{
+	wchar_t ch = this->PeekChar();
+
+	if (ch == UTF16LE_BOM || ch == UTF16BE_BOM) {
+		this->ReadChar();
+	}
+	else {
+		ch = 0;
+	}
+	return ch;
+}
+
+wchar_t CUTF8FileTextStream::GetFileBOM()
+{
+	return this->file_bom;
+}
+
+bool CUTF8FileTextStream::IsEOF()
+{
+	return CFileTextStream::IsEOF() && this->cbufferlength == 0;
 }
 
 size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferlength)
@@ -313,7 +374,7 @@ wchar_t CUTF8FileTextStream::ComposeChar()
 				int c5 = cbuffer[5];
 
 				size_t n = 0;
-				if ((c0 & 0x7f) == 0)
+				if ((c0 & 0x7f) == c0)
 				{
 					cx = c0;
 					n = 1;

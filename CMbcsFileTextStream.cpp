@@ -136,7 +136,12 @@ bool CMbcsFileTextStream::WriteByte(char ch)
 }
 FileTextStreamType CMbcsFileTextStream::GetStreamType()
 {
-	return FileTextStreamType::Mbcs;
+	return FileTextStreamType::MBCS;
+}
+
+bool CMbcsFileTextStream::IsEOF()
+{
+	return CFileTextStream::IsEOF() && this->cbufferlength == 0;
 }
 
 int CMbcsFileTextStream::CharToBytes(wchar_t ch, char * buffer)

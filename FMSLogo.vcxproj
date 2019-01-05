@@ -203,7 +203,7 @@
     <ClInclude Include="const.h" />
     <ClInclude Include="CStringTextStream.h" />
     <ClInclude Include="CTextStream.h" />
-    <ClInclude Include="CUnicodeFileTextStream.h" />
+    <ClInclude Include="CUTF16FileTextStream.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="CUTF8FileTextStream.h" />
     <ClInclude Include="devwind.h" />
@@ -322,7 +322,7 @@
     <ClCompile Include="coms.cpp" />
     <ClCompile Include="CStringTextStream.cpp" />
     <ClCompile Include="CTextStream.cpp" />
-    <ClCompile Include="CUnicodeFileTextStream.cpp" />
+    <ClCompile Include="CUTF16FileTextStream.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="CUTF8FileTextStream.cpp" />
     <ClCompile Include="devwind.cpp" />
