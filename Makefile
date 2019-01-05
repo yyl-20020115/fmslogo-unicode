@@ -1,7 +1,5 @@
 # =========================================================================
-# NOTE: this makefile is a stop-gap solution for me (david costanzo) to
-# to build the FMSlogo on my machines.  I don't expect this to work for
-# anyone else without modification.
+# NOTE: Linux (Ubuntu) Makefile of the KDE4 Makefile Project
 # =========================================================================
 
 TOOLKIT = GTK
@@ -10,7 +8,7 @@ WXCONFIG = wx-config
 
 PREFIX =  $(shell $(WXCONFIG) --prefix)
 
-LDFLAGS  =  $(shell $(WXCONFIG) --debug=yes --libs base,core,stc,richtext,html,xml)
+LDFLAGS  =  $(shell $(WXCONFIG)  --libs base,core,stc,richtext,html,xml)
 
 
 CPPFLAGS += $(shell $(WXCONFIG) --cppflags) -DWX_PURE -DLINUX
@@ -23,7 +21,6 @@ TOOLCHAIN_FULLNAME = $(shell $(WXCONFIG) --release)
 
 CPPFLAGS += -DDEBUG
 CXXFLAGS += -O0 -g -ggdb
-
 
 
 INCLUDES =. ${SCINTILLA_INCLUDES} $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
@@ -120,10 +117,6 @@ workspaceeditor.o \
 wrksp.o \
 wxpurestubs.o \
 scintilla/LexFmsLogo.o
-#mmwind.o \
-#netwind.o \
-#screen.o \
-#debugheap.o 
 
 
 LS_OBJECTS = localizedstrings-de-ucs2le.o \
@@ -138,8 +131,6 @@ localizedstrings-pt-ucs2le.o \
 localizedstrings-ru-ucs2le.o \
 localizedstrings-zh-cn-ucs2le.o
 #localizedstrings-ps-ucs2le.o #ps is not real language
-
-
 
 
 OBJECTS = $(WX_OBJECTS) 
