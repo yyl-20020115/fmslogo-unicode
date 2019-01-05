@@ -287,6 +287,7 @@ public:
 
 		void* ptr = malloc((length+1) * sizeof(wchar_t) + sizeof(unsigned short));
 		if (ptr != 0) {
+			*(unsigned short*)ptr = 0;
 			wcsncpy((wchar_t*)((char*)ptr + sizeof(unsigned short)), (const wchar_t*)this->buffer, length + 1);
 		}
 
