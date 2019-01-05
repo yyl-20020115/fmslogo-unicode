@@ -299,12 +299,13 @@ CMainFrame::CLogoPicturePrintout::HasPage(int Page)
 
 enum MainFrameMenuIds
 {
-    ID_FILENEW = wxID_HIGHEST,
+    ID_FILENEW = wxID_HIGHEST + 256,
     ID_FILELOAD,
     ID_FILEOPEN,
     ID_FILESAVE,
 	ID_FILESAVEAS,
-	ID_FILESAVEASUNICODE,
+	ID_FILESAVEAS_UTF8,
+	ID_FILESAVEAS_UTF16,
 	ID_FILESETASSCREENSAVER,
     ID_FILEEDIT,
     ID_FILEERASE,
@@ -341,6 +342,20 @@ enum MainFrameMenuIds
 
     ID_HELPABOUTMS,
 };
+wxString CMainFrame::ModifyMenuTextForUnicode(wxString text, wxString suffix)
+{
+	if (suffix.length() > 0) {
+		int i = text.Find(L'('), t = text.Find(L')');
+		if (i >= 0 && t > i) {
+			text.Remove(i, t - i + 1);
+			text.insert(i, suffix);
+		}
+		else {
+			text += suffix;
+		}
+	}
+	return text;
+}
 
 // ScreenWidth    - the size of the screen window.
 // ScreenHeight   - the size of the screen window.
@@ -381,8 +396,9 @@ CMainFrame::CMainFrame(
 		Unicode(false)
 
 {
-	wxString UnicodeSuffix(L"\t(Unicode)");
-    //
+	wxString SaveAsText = GetResourceString(L"LOCALIZED_FILE_SAVEAS");
+
+	//
     // Construct the main menu
     //
     static const MENUITEM fileMenuItems[] = {
@@ -390,8 +406,9 @@ CMainFrame::CMainFrame(
         {GetResourceString(L"LOCALIZED_FILE_LOAD"),             ID_FILELOAD},
         {GetResourceString(L"LOCALIZED_FILE_OPEN"),             ID_FILEOPEN},
         {GetResourceString(L"LOCALIZED_FILE_SAVE"),             ID_FILESAVE},
-		{GetResourceString(L"LOCALIZED_FILE_SAVEAS"),           ID_FILESAVEAS},
-		{GetResourceString(L"LOCALIZED_FILE_SAVEAS") + UnicodeSuffix, ID_FILESAVEASUNICODE},
+		{SaveAsText,           ID_FILESAVEAS},
+		{this->ModifyMenuTextForUnicode(SaveAsText,L"-UTF&8"), ID_FILESAVEAS_UTF8},
+		{this->ModifyMenuTextForUnicode(SaveAsText,L"-&UTF16"), ID_FILESAVEAS_UTF16},
 		{GetResourceString(L"LOCALIZED_FILE_SETASSCREENSAVER"), ID_FILESETASSCREENSAVER},
         {L"",0},
         {GetResourceString(L"LOCALIZED_FILE_EDIT"),             ID_FILEEDIT},
@@ -1655,7 +1672,12 @@ void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
     SaveFileAs(this->Unicode);
 }
 
-void CMainFrame::OnFileSaveAsUnicode(wxCommandEvent & Event)
+void CMainFrame::OnFileSaveAsUTF8(wxCommandEvent & Event)
+{
+	//TODO:
+}
+
+void CMainFrame::OnFileSaveAsUTF16(wxCommandEvent & Event)
 {
 	if (!WarnIfSavingEmptyWorkspace())
 	{
@@ -2429,7 +2451,8 @@ EVT_MENU(ID_FILELOAD, CMainFrame::OnFileLoad)
 EVT_MENU(ID_FILEOPEN, CMainFrame::OnFileOpen)
 EVT_MENU(ID_FILESAVE, CMainFrame::OnFileSave)
 EVT_MENU(ID_FILESAVEAS, CMainFrame::OnFileSaveAs)
-EVT_MENU(ID_FILESAVEASUNICODE, CMainFrame::OnFileSaveAsUnicode)
+EVT_MENU(ID_FILESAVEAS_UTF8, CMainFrame::OnFileSaveAsUTF8)
+EVT_MENU(ID_FILESAVEAS_UTF16, CMainFrame::OnFileSaveAsUTF16)
 EVT_MENU(ID_FILESETASSCREENSAVER, CMainFrame::OnFileSetAsScreenSaver)
 EVT_UPDATE_UI(ID_FILESETASSCREENSAVER, CMainFrame::OnUpdateFileSetAsScreenSaver)
 EVT_MENU(ID_FILEEDIT, CMainFrame::OnEditProcedure)

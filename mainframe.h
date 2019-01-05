@@ -43,6 +43,7 @@ public:
     bool TranslateKeyboardShortcut(struct tagMSG & Message);
 #endif
 #endif
+	wxString ModifyMenuTextForUnicode(wxString text, wxString suffix);
 
     void ShowStatus();
     void HideStatus();
@@ -126,8 +127,9 @@ private:
     void OnFileOpen(wxCommandEvent& Event);
     void OnFileSave(wxCommandEvent& Event);
 	void OnFileSaveAs(wxCommandEvent& Event);
-	void OnFileSaveAsUnicode(wxCommandEvent& Event);
-    void OnFileSetAsScreenSaver(wxCommandEvent& Event);
+	void OnFileSaveAsUTF8(wxCommandEvent& Event);
+	void OnFileSaveAsUTF16(wxCommandEvent& Event);
+	void OnFileSetAsScreenSaver(wxCommandEvent& Event);
     void OnUpdateFileSetAsScreenSaver(wxUpdateUIEvent& Event);
     void OnEditProcedure(wxCommandEvent& Event);
     void OnEraseProcedure(wxCommandEvent& Event);
