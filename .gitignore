@@ -6,6 +6,7 @@ fmslogo
 *.user
 *.userosscache
 *.sln.docstates
+*.deb
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
