@@ -28,7 +28,6 @@
 		E10D01C721DECDD5008F7B8C /* CStringTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01BE21DECDD4008F7B8C /* CStringTextStream.cpp */; };
 		E10D01C821DECDD5008F7B8C /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01C021DECDD4008F7B8C /* cursor.cpp */; };
 		E10D01C921DECDD5008F7B8C /* CTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01C221DECDD4008F7B8C /* CTextStream.cpp */; };
-		E10D01CA21DECDD5008F7B8C /* CUnicodeFileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01C521DECDD4008F7B8C /* CUnicodeFileTextStream.cpp */; };
 		E10D01DE21DECDFF008F7B8C /* dynamicbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01D521DECDFE008F7B8C /* dynamicbuffer.cpp */; };
 		E10D01DF21DECDFF008F7B8C /* devwind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01D721DECDFE008F7B8C /* devwind.cpp */; };
 		E10D01E021DECDFF008F7B8C /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D01D821DECDFE008F7B8C /* error.cpp */; };
@@ -141,6 +140,8 @@
 		E10D031C21DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031021DEEBED008F7B8C /* localizedstrings-pt-ucs2le.h */; };
 		E10D031D21DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D031121DEEBED008F7B8C /* localizedstrings-ru-ucs2le.h */; };
 		E10D032121E02771008F7B8C /* LexFmsLogo.cxx in Sources */ = {isa = PBXBuildFile; fileRef = E10D032021E02771008F7B8C /* LexFmsLogo.cxx */; };
+		E10D033021E11147008F7B8C /* CUTF16FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */; };
+		E10D033121E11147008F7B8C /* CUTF8FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -208,11 +209,9 @@
 		E10D01BE21DECDD4008F7B8C /* CStringTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CStringTextStream.cpp; sourceTree = "<group>"; };
 		E10D01BF21DECDD4008F7B8C /* cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cursor.h; sourceTree = "<group>"; };
 		E10D01C021DECDD4008F7B8C /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
-		E10D01C121DECDD4008F7B8C /* CUnicodeFileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUnicodeFileTextStream.h; sourceTree = "<group>"; };
 		E10D01C221DECDD4008F7B8C /* CTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextStream.cpp; sourceTree = "<group>"; };
 		E10D01C321DECDD4008F7B8C /* const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = const.h; sourceTree = "<group>"; };
 		E10D01C421DECDD4008F7B8C /* CTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTextStream.h; sourceTree = "<group>"; };
-		E10D01C521DECDD4008F7B8C /* CUnicodeFileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUnicodeFileTextStream.cpp; sourceTree = "<group>"; };
 		E10D01C621DECDD4008F7B8C /* CStringTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CStringTextStream.h; sourceTree = "<group>"; };
 		E10D01CB21DECDFD008F7B8C /* eval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eval.h; sourceTree = "<group>"; };
 		E10D01CC21DECDFD008F7B8C /* editproceduredialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editproceduredialog.h; sourceTree = "<group>"; };
@@ -408,6 +407,10 @@
 		E10D032921E0288C008F7B8C /* LexAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexAccessor.h; path = scintilla/include/LexAccessor.h; sourceTree = "<group>"; };
 		E10D032A21E0288C008F7B8C /* LexerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerModule.h; path = scintilla/include/LexerModule.h; sourceTree = "<group>"; };
 		E10D032B21E0288C008F7B8C /* CharacterSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterSet.h; path = scintilla/include/CharacterSet.h; sourceTree = "<group>"; };
+		E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUTF16FileTextStream.cpp; sourceTree = "<group>"; };
+		E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF8FileTextStream.h; sourceTree = "<group>"; };
+		E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUTF8FileTextStream.cpp; sourceTree = "<group>"; };
+		E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF16FileTextStream.h; sourceTree = "<group>"; };
 		E1A4BAEE21DECB65006097DD /* fmslogo-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fmslogo-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -512,6 +515,10 @@
 		E1A4BAE521DECB65006097DD = {
 			isa = PBXGroup;
 			children = (
+				E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */,
+				E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */,
+				E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */,
+				E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */,
 				E10D018821DECD44008F7B8C /* 3dsolid.cpp */,
 				E10D018A21DECD58008F7B8C /* 3dsolid.h */,
 				E10D019721DECDA3008F7B8C /* aboutfmslogo.cpp */,
@@ -556,8 +563,6 @@
 				E10D01C621DECDD4008F7B8C /* CStringTextStream.h */,
 				E10D01C221DECDD4008F7B8C /* CTextStream.cpp */,
 				E10D01C421DECDD4008F7B8C /* CTextStream.h */,
-				E10D01C521DECDD4008F7B8C /* CUnicodeFileTextStream.cpp */,
-				E10D01C121DECDD4008F7B8C /* CUnicodeFileTextStream.h */,
 				E10D01C021DECDD4008F7B8C /* cursor.cpp */,
 				E10D01BF21DECDD4008F7B8C /* cursor.h */,
 				E10D01D721DECDFE008F7B8C /* devwind.cpp */,
@@ -784,7 +789,6 @@
 				E10D02AC21DECF56008F7B8C /* unix.cpp in Sources */,
 				E10D01DF21DECDFF008F7B8C /* devwind.cpp in Sources */,
 				E10D028321DECEF9008F7B8C /* selectstartupinstruction.cpp in Sources */,
-				E10D01CA21DECDD5008F7B8C /* CUnicodeFileTextStream.cpp in Sources */,
 				E10D029A21DECF37008F7B8C /* startup.cpp in Sources */,
 				E10D019D21DECDA3008F7B8C /* CFileTextStream.cpp in Sources */,
 				E10D01C821DECDD5008F7B8C /* cursor.cpp in Sources */,
@@ -811,6 +815,7 @@
 				E10D028921DECF0F008F7B8C /* sort.cpp in Sources */,
 				E10D026A21DECEB9008F7B8C /* questionbox.cpp in Sources */,
 				E10D028021DECEF9008F7B8C /* setactivearea.cpp in Sources */,
+				E10D033021E11147008F7B8C /* CUTF16FileTextStream.cpp in Sources */,
 				E10D020521DECE39008F7B8C /* graphwin.cpp in Sources */,
 				E10D029921DECF37008F7B8C /* term.cpp in Sources */,
 				E10D020421DECE39008F7B8C /* gbmsize.cpp in Sources */,
@@ -834,6 +839,7 @@
 				E10D023F21DECE73008F7B8C /* localizedstrings.cpp in Sources */,
 				E10D01BB21DECDC0008F7B8C /* CLocalizedStringProvider.cpp in Sources */,
 				E10D02B221DECF56008F7B8C /* utils.cpp in Sources */,
+				E10D033121E11147008F7B8C /* CUTF8FileTextStream.cpp in Sources */,
 				E10D028121DECEF9008F7B8C /* selectproceduredialog.cpp in Sources */,
 				E10D025D21DECE9E008F7B8C /* mem.cpp in Sources */,
 				E10D01EC21DECE22008F7B8C /* FMSLogo.cpp in Sources */,
