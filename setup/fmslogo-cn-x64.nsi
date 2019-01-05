@@ -206,7 +206,7 @@ Section "FMSLogo" FMSLogoSectionId
   File "..\README.TXT"
   File "..\LICENSE.TXT"
   File "..\turtle.bmp"
-  File /r "..\logolib"
+  File /r "..\${FMSLOGO_EXE_PATH}\logolib"
   File /r "..\examples"
 
   ;
