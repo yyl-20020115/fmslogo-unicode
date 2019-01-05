@@ -27,7 +27,7 @@ public:
 	virtual bool WriteChar(wchar_t ch);
 	virtual bool WriteByte(char ch);
 	virtual FileTextStreamType GetStreamType();
-
+	virtual bool IsEOF();
 protected:
 	
 	virtual int CharToBytes(wchar_t ch, char* buffer);

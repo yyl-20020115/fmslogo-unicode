@@ -18,8 +18,10 @@
 #ifndef __FILESWND_H_
 #define __FILESWND_H_
 #include <wx/string.h>
+#include "CFileTextStream.h"
 // function declarations
-extern void filesave(const wxString&  Filename, bool Unicode = false);
-extern bool fileload(const wxString&  Filename, bool CheckBOM = true,bool* IsUnicode = 0);
+
+extern void filesave(const wxString&  Filename, FileTextStreamType Ftt);
+extern bool fileload(const wxString&  Filename, bool CheckBOM, FileTextStreamType* Ftt);
 
 #endif // __FILESWND_H_

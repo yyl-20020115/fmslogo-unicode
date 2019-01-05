@@ -35,7 +35,7 @@
 #include <wx/string.h>
 #endif
 
-void filesave(const wxString& FileName, bool Unicode)
+void filesave(const wxString& FileName, FileTextStreamType Ftt)
 {
     if (IsEditorOpen())
     {
@@ -50,9 +50,9 @@ void filesave(const wxString& FileName, bool Unicode)
 #endif
     }
 
-	CFileTextStream * stream = CFileTextStream::OpenForWrite(FileName,Unicode);
-	if (stream != 0) {
-
+	CFileTextStream * stream = CFileTextStream::OpenForWrite(FileName, Ftt);
+	if (stream != 0) 
+	{
 		PrintWorkspaceToStream(stream);
 		delete stream;
 	}
@@ -64,16 +64,16 @@ void filesave(const wxString& FileName, bool Unicode)
 // Returns true if the file could be opened for reading,
 // even if there was error while evaluating the contents.
 // Returns false if the file couldn't be opened for reading.
-bool fileload(const wxString& Filename, bool CheckBOM, bool* IsUnicode)
+bool fileload(const wxString& Filename, bool CheckBOM, FileTextStreamType* Ftt)
 {
     bool isOk = false;
 	//NOTICE: we check BOM to determine whether to use unicode encoding or use mbcs encoding
 	CFileTextStream* filestream = CFileTextStream::OpenForRead(Filename, CheckBOM);// _wfopen(Filename, L"r");
     if (filestream != NULL)
     {
-		if (IsUnicode != 0) 
+		if (Ftt != 0)
 		{
-			*IsUnicode = filestream->GetStreamType() == FileTextStreamType::Unicode;
+			*Ftt = filestream->GetStreamType();
 		}
         // save all global state that may be modified
         NODE *previous_startup = Startup.GetValue();

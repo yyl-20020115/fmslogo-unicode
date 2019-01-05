@@ -1488,7 +1488,7 @@ NODE *ledit(NODE *args)
     // Write the requested contents to a file
     if (args != NIL)
     {
-		CTextStream * fileStream = CFileTextStream::OpenForWrite(TempPathName, true);
+		CTextStream * fileStream = CFileTextStream::OpenForWrite(TempPathName,FileTextStreamType::MBCS, true);
         if (fileStream != NULL)
         {
             // HACK: change g_Writer to use the new stream

@@ -393,7 +393,7 @@ CMainFrame::CMainFrame(
       m_SetPenColorDialog(NULL),
       m_SetFloodColorDialog(NULL),
       m_SetScreenColorDialog(NULL),
-		Unicode(false)
+	  FTT(FileTextStreamType::MBCS)
 
 {
 	wxString SaveAsText = GetResourceString(L"LOCALIZED_FILE_SAVEAS");
@@ -977,7 +977,7 @@ CreateTemplateLogoFileForEditor(
     NODE           * EditArguments
     )
 {
-	CFileTextStream* cfts = CFileTextStream::OpenForWrite(FileName, true);
+	CFileTextStream* cfts = CFileTextStream::OpenForWrite(FileName, FileTextStreamType::MBCS);
 	if (cfts != 0) {
 		if (EditArguments != NIL) {
 			cfts->WriteLine(To.GetName());
@@ -1237,7 +1237,7 @@ void CMainFrame::OnClose(wxCloseEvent& Event)
 
                 IsTimeToExit = false;
                 IsTimeToHalt = false;
-                bool isOk = FileSave(this->Unicode);
+                bool isOk = DoFileSave(this->FTT);
                 if (!isOk)
                 {
                     // Something went wrong (most likely, the user 
@@ -1390,7 +1390,7 @@ static void EraseContentsOfWorkspace()
     wxSetWorkingDirectory(g_FmslogoBaseDirectory);
 
     // Load the startup script.
-    fileload(g_FmslogoBaseDirectory + L"startup.logoscript");
+    fileload(g_FmslogoBaseDirectory + L"startup.logoscript",true,0);
 
     // Restore the previous working directory.
     wxSetWorkingDirectory(savedWorkingDirectory);
@@ -1419,7 +1419,7 @@ void CMainFrame::OnFileNew(wxCommandEvent& WXUNUSED(Event))
 
     // else start with a clean plate
     m_IsNewFile = true;
-	this->Unicode = false;
+	this->FTT = FileTextStreamType::MBCS;
     EraseContentsOfWorkspace();
 }
 
@@ -1466,7 +1466,7 @@ void CMainFrame::OnFileLoad(wxCommandEvent& WXUNUSED(Event))
 
         start_execution();
 
-        bool isOk = fileload(fileToLoad,&this->Unicode);
+        bool isOk = fileload(fileToLoad,true,&this->FTT);
         if (!isOk)
         {
             err_logo(
@@ -1528,7 +1528,7 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
 
         start_execution();
 
-        bool isOk = fileload(fileToLoad, &this->Unicode);
+        bool isOk = fileload(fileToLoad,true, &this->FTT);
         if (!isOk)
         {
             err_logo(
@@ -1577,7 +1577,7 @@ bool CMainFrame::WarnIfSavingEmptyWorkspace()
 // Returns "true" if the user saves the file.
 // Returns "false" if the user cancels the save or if the 
 // file couldn't be saved for other reasons.
-bool CMainFrame::SaveFileAs(bool Unicode)
+bool CMainFrame::DoFileSaveAs(FileTextStreamType FTT)
 {
     // if new, then nulify File name
     if (m_IsNewFile)
@@ -1601,7 +1601,7 @@ bool CMainFrame::SaveFileAs(bool Unicode)
         // Save it for seeding a default in future dialog boxes.
         m_LastLoadedLogoFile.Assign(fileToSave);
 		//alsol keep the unicode choice of this operation
-		this->Unicode = Unicode;
+		this->FTT = FTT;
         // For compatibility with MSWLogo, we adopt the same logic that
         // exists within the win32 API, which is to change the current
         // working directory to whatever directory the file is in.
@@ -1610,7 +1610,7 @@ bool CMainFrame::SaveFileAs(bool Unicode)
         wxSetWorkingDirectory(m_LastLoadedLogoFile.GetPath());
 
         m_IsNewFile = false;
-        isOk = SaveFile(Unicode);
+        isOk = SaveFile(FTT);
     }
     else
     {
@@ -1620,9 +1620,9 @@ bool CMainFrame::SaveFileAs(bool Unicode)
     return isOk;
 }
 
-bool CMainFrame::SaveFile(bool Unicode)
+bool CMainFrame::SaveFile(FileTextStreamType FTT)
 {
-    filesave(m_LastLoadedLogoFile.GetFullPath(),Unicode);
+    filesave(m_LastLoadedLogoFile.GetFullPath(), FTT);
 
     // handle any error that may have occured
     process_special_conditions();
@@ -1632,7 +1632,7 @@ bool CMainFrame::SaveFile(bool Unicode)
 }
 
 
-bool CMainFrame::FileSave(bool Unicode)
+bool CMainFrame::DoFileSave(FileTextStreamType FTT)
 {
     bool isOk = false;
 
@@ -1641,12 +1641,12 @@ bool CMainFrame::FileSave(bool Unicode)
         // The file has never been saved, so we don't know
         // what file we should save it to.
         // Ask the user with a "Save As" dialog.
-        isOk = SaveFileAs(Unicode);
+        isOk = DoFileSaveAs(FTT);
     }
     else
     {
         // Save the file
-        isOk = SaveFile(Unicode);
+        isOk = SaveFile(FTT);
     }
 
     return isOk;
@@ -1659,7 +1659,7 @@ void CMainFrame::OnFileSave(wxCommandEvent& WXUNUSED(Event))
         return;
     }
 
-    FileSave(this->Unicode);
+    DoFileSave(this->FTT);
 }
 
 void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
@@ -1669,12 +1669,17 @@ void CMainFrame::OnFileSaveAs(wxCommandEvent& WXUNUSED(Event))
         return;
     }
 	//use unicode if it is oringinally set as unicode
-    SaveFileAs(this->Unicode);
+    DoFileSaveAs(this->FTT);
 }
 
 void CMainFrame::OnFileSaveAsUTF8(wxCommandEvent & Event)
 {
-	//TODO:
+	if (!WarnIfSavingEmptyWorkspace())
+	{
+		return;
+	}
+	//force unicode this time
+	DoFileSaveAs(FileTextStreamType::UTF8);
 }
 
 void CMainFrame::OnFileSaveAsUTF16(wxCommandEvent & Event)
@@ -1684,7 +1689,7 @@ void CMainFrame::OnFileSaveAsUTF16(wxCommandEvent & Event)
 		return;
 	}
 	//force unicode this time
-	SaveFileAs(true);
+	DoFileSaveAs(FileTextStreamType::UTF16);
 }
 
 #ifndef WX_PURE
@@ -1802,7 +1807,7 @@ void CMainFrame::OnFileSetAsScreenSaver(wxCommandEvent& WXUNUSED(Event))
 
 			screenSaverProgramName += L"\\screensaver.lgo";
 
-            filesave(screenSaverProgramName);
+            filesave(screenSaverProgramName,FileTextStreamType::MBCS);
 
             // handle any error that may have occured
             process_special_conditions();

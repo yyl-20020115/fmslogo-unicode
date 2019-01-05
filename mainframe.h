@@ -1,4 +1,5 @@
-// -*- c++ -*-
+#ifndef __MAINFRAME_H__
+#define __MAINFRAME_H__
 #include <map>
 
 #include <wx/defs.h>
@@ -7,7 +8,7 @@
 #include <wx/filename.h>
 
 #include "localizedstrings.h" // for MANUAL_HAS_TRANSLATION_TABLES
-
+#include "CFileTextStream.h"
 
 class wxSplitterWindow;
 class wxCommandEvent;
@@ -196,9 +197,9 @@ private:
         );
 
     bool WarnIfSavingEmptyWorkspace();
-    bool FileSave(bool Unicode);
-    bool SaveFile(bool Unicode);
-    bool SaveFileAs(bool Unicode);
+    bool DoFileSave(FileTextStreamType FTT);
+    bool SaveFile(FileTextStreamType FTT);
+    bool DoFileSaveAs(FileTextStreamType FTT);
     bool CanClose();
 
     void SaveBitmap();
@@ -241,8 +242,9 @@ private:
 
     // REVISIT: should this be std::set?
     std::map<CWorkspaceEditor*,CWorkspaceEditor*> m_Editors;
-	bool Unicode;
+	FileTextStreamType FTT;
 
     DECLARE_EVENT_TABLE();
     DECLARE_NO_COPY_CLASS(CMainFrame);
 };
+#endif

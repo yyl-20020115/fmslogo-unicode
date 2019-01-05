@@ -52,7 +52,7 @@ extern unsigned short _binary_localizedstrings_ru_ucs2le_h_end;
 extern size_t         _binary_localizedstrings_ru_ucs2le_h_size;
 #endif
 
-#include "CUnicodeFileTextStream.h"
+#include "CUTF16FileTextStream.h"
 #include "CConstStringTextReadonlyStream.h"
 
 // objcopy -I binary -O elf64-x86-64 -B i386 localizedstrings-zh-cn-ucs2le.h localizedstrings-zh-cn-ucs2le.o
@@ -75,7 +75,7 @@ CLocalizedStringProvider Provider;
 
 void LoadLocalizedStringsFromFile(const wxString & path)
 {
-    CUnicodeFileTextStream cfts;
+    CUTF16FileTextStream cfts;
     if (cfts.Open(path, L"rb")) {
         cfts.SkipBOM();
         LoadLocalizedStringsFromStream(&cfts);

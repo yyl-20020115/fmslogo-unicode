@@ -1,7 +1,9 @@
-// -*- c++ -*-
+#ifndef __CWORKSPACEEDITOR_H__
+#define __CWORKSPACEEDITOR_H__
 
 #include <wx/frame.h>
 #include <wx/fdrepdlg.h>
+#include "CFileTextStream.h"
 
 class  CLogoCodeCtrl;
 struct NODE;
@@ -109,6 +111,9 @@ private:
     // If an error was detected when evaluating the workspace.
     bool m_ErrorDetected;
 
+	FileTextStreamType FTT;
     DECLARE_EVENT_TABLE();
     DECLARE_NO_COPY_CLASS(CWorkspaceEditor);
 };
+
+#endif

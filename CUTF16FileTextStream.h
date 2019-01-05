@@ -1,16 +1,16 @@
-#ifndef __CUNICODEFILETEXTSTREAM_H__
-#define __CUNICODEFILETEXTSTREAM_H__
+#ifndef __CUTF16FILETEXTSTREAM_H__
+#define __CUTF16FILETEXTSTREAM_H__
 
 #include "CFileTextStream.h"
 
-class CUnicodeFileTextStream :
+class CUTF16FileTextStream :
 	public CFileTextStream
 {
 
 public:
-	CUnicodeFileTextStream(const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	CUnicodeFileTextStream(FILE* file, bool close_on_exit, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
-	virtual ~CUnicodeFileTextStream();
+	CUTF16FileTextStream(const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	CUTF16FileTextStream(FILE* file, bool close_on_exit, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
+	virtual ~CUTF16FileTextStream();
 public:
 
 	virtual bool Open(const wxString& path, const wxString& mode, bool check_bom = true);
@@ -22,11 +22,11 @@ public:
 	virtual int ReadByte();
 	virtual int PeekByte();
 
-	virtual wchar_t WriteBOM();
+
 	virtual bool WriteChar(wchar_t ch);
 	virtual bool WriteByte(char ch);
 
-
+	virtual wchar_t WriteBOM();
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
 
