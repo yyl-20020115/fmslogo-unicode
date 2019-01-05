@@ -11,7 +11,7 @@ git submodule update
 mkdir buildcocoa
 cd buildcocoa
 
-../configure --with-cocoa --with-macosx-version-min=10.14 --with-macosx-sdk=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk CXXFLAGS=-stdlib=libc++ -std=c++11 OBJCXXFLAGS=-stdlib=libc++ -std=c++11 CPPFLAGS=-stdlib=libc++ LDFLAGS=-stdlib=libc++ CXX=clang++ CXXCPP=clang++ -E CC=clang CPP=clang -E --enable-debug --enable-unicode --disable-shared
+../configure --with-cocoa --with-macosx-version-min=10.14 --with-macosx-sdk=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk CXXFLAGS="-stdlib=libc++ -std=c++11" OBJCXXFLAGS="-stdlib=libc++ -std=c++11" CPPFLAGS="-stdlib=libc++" LDFLAGS="-stdlib=libc++" CXX=clang++ CXXCPP="clang++ -E" CC=clang CPP="clang -E" --enable-debug --enable-unicode --disable-shared
 
 make
 sudo make install
