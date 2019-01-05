@@ -250,7 +250,9 @@ wchar_t CUTF8FileTextStream::GetFileBOM()
 
 bool CUTF8FileTextStream::IsEOF()
 {
-	return CFileTextStream::IsEOF() && this->cbufferlength == 0;
+	return CFileTextStream::IsEOF() 
+		&& (this->cbufferlength == 0) 
+		&& (this->ucs4 ? (!this->wbufferfull) : true);
 }
 
 size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferlength)
@@ -352,9 +354,10 @@ wchar_t CUTF8FileTextStream::ComposeChar()
 
 	if (this->IsValid())
 	{
-		if (wbufferfull) {
+		if (this->wbufferfull) {
 			w = wbuffer;
-			wbufferfull = false;
+			this->wbufferfull = false;
+			this->wbuffer = 0;
 		}
 		else {
 			size_t count = 0;
