@@ -1,0 +1,6 @@
+package: fmslogo
+version: 7.3.0
+architecture: i386
+maintainer: yilin
+description: fmslogo unicode version 7.3.0
+

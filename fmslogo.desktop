@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=FMSLogo
+Comment=LOGO Development IDE
+Exec=/usr/bin/fmslogo/fmslogo
+Icon=/usr/share/icons/fmslogo.png
+Terminal=false
+Type=Application
+Categories=Application
+
