@@ -142,15 +142,17 @@
 		E10D032121E02771008F7B8C /* LexFmsLogo.cxx in Sources */ = {isa = PBXBuildFile; fileRef = E10D032021E02771008F7B8C /* LexFmsLogo.cxx */; };
 		E10D033021E11147008F7B8C /* CUTF16FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */; };
 		E10D033121E11147008F7B8C /* CUTF8FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */; };
+		E10D033321E187EF008F7B8C /* startup.logoscript in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D033221E187EF008F7B8C /* startup.logoscript */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E1A4BAEC21DECB65006097DD /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
-			dstPath = /Users/yilin/localized_files;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				E10D033321E187EF008F7B8C /* startup.logoscript in Copy Files */,
 				E10D031221DEEBED008F7B8C /* localizedstrings-zh-cn-ucs2le.h in Copy Files */,
 				E10D031321DEEBED008F7B8C /* localizedstrings-es-ucs2le.h in Copy Files */,
 				E10D031421DEEBED008F7B8C /* localizedstrings-it-ucs2le.h in Copy Files */,
@@ -411,6 +413,7 @@
 		E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF8FileTextStream.h; sourceTree = "<group>"; };
 		E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUTF8FileTextStream.cpp; sourceTree = "<group>"; };
 		E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF16FileTextStream.h; sourceTree = "<group>"; };
+		E10D033221E187EF008F7B8C /* startup.logoscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = startup.logoscript; sourceTree = "<group>"; };
 		E1A4BAEE21DECB65006097DD /* fmslogo-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fmslogo-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -515,6 +518,7 @@
 		E1A4BAE521DECB65006097DD = {
 			isa = PBXGroup;
 			children = (
+				E10D033221E187EF008F7B8C /* startup.logoscript */,
 				E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */,
 				E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */,
 				E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */,
@@ -941,6 +945,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = "~/projects/fmslogo-build/debug";
 			};
 			name = Debug;
 		};
@@ -1008,6 +1013,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				SYMROOT = "~/projects/fmslogo-build/release";
 			};
 			name = Release;
 		};
