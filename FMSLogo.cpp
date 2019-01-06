@@ -290,10 +290,7 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
     wxString dash=name;
     
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-#ifdef __APPLE__
-	path =L"/Users/yilin/localized_files/";
-    path += N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-#endif
+
     if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
