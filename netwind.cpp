@@ -406,7 +406,7 @@ CNetworkConnection::AsyncReceive(
     const wchar_t *         ErrorMessage
     )
 {
-    char buffer[MAX_PACKET_SIZE];
+	char buffer[MAX_PACKET_SIZE+1] = { 0 };
     memset(buffer, 0, MAX_PACKET_SIZE);
 
     // read the data from the buffer
