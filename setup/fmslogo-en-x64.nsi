@@ -26,18 +26,20 @@
 !include MUI2.nsh
 !include LogicLib.nsh
 !include x64.nsh
+!include "Library.nsh"
+!define LIBRARY_X64
 
 ; Compiler Flags
 SetCompressor /SOLID lzma
 
 ; The name of the installer
 Name "FMSLogo"
-!define FMSLOGO_OUTPUT_FILE "FMSLogoInstaller.exe"
+!define FMSLOGO_OUTPUT_FILE "FMSLogoX64Installer.exe"
 
 ; The file to write
 OutFile "${FMSLOGO_OUTPUT_FILE}"
 
-!define FMSLOGO_EXE_PATH "Release\"
+!define FMSLOGO_EXE_PATH "x64\Release\"
 
 ; Modern UI Options
 !define MUI_HEADERIMAGE
@@ -204,7 +206,7 @@ Section "FMSLogo" FMSLogoSectionId
   File "..\README.TXT"
   File "..\LICENSE.TXT"
   File "..\turtle.bmp"
-  File /r "..\logolib"
+  File /r "..\${FMSLOGO_EXE_PATH}\logolib"
   File /r "..\examples"
 
   ;
@@ -258,9 +260,18 @@ Section /o $(ScreenSaver) ScreenSaverSectionId
   !insertmacro InstallLanguageFile ..\screensaver\ fmslogo .scr
 SectionEnd
 
+!macro TIP_WHEN_AMD64_INSTALLER_RUNAT_X86
+ !ifdef LIBRARY_X64
+  ${If} ${RunningX64}
+  ${else}
+     MessageBox MB_OK|MB_ICONINFORMATION "Please Run the installer program on 64-Bit Windows Systme!"
+   Abort
+  ${EndIf}
+ !endif
+!macroend
 
 Function .onInit
-
+ !insertmacro TIP_WHEN_AMD64_INSTALLER_RUNAT_X86
   ; First, read the language from the command-line
   ;${GetParameters} $R0
   ;ClearErrors
