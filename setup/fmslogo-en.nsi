@@ -26,20 +26,18 @@
 !include MUI2.nsh
 !include LogicLib.nsh
 !include x64.nsh
-!include "Library.nsh"
-!define LIBRARY_X64
 
 ; Compiler Flags
 SetCompressor /SOLID lzma
 
 ; The name of the installer
 Name "FMSLogo"
-!define FMSLOGO_OUTPUT_FILE "FMSLogo-64Î»ÖÐÎÄ°æ°²×°³ÌÐò.exe"
+!define FMSLOGO_OUTPUT_FILE "FMSLogoInstaller.exe"
 
 ; The file to write
 OutFile "${FMSLOGO_OUTPUT_FILE}"
 
-!define FMSLOGO_EXE_PATH "x64\Release\"
+!define FMSLOGO_EXE_PATH "Release\"
 
 ; Modern UI Options
 !define MUI_HEADERIMAGE
@@ -99,46 +97,46 @@ Var StartMenuFolder
 var previousinstalldir ; full path to the uninstaller
 
 ; Languages
-;!insertmacro MUI_LANGUAGE "English"  ; the default language
-!insertmacro MUI_LANGUAGE "SimpChinese"
+!insertmacro MUI_LANGUAGE "English"  ; the default language
+;!insertmacro MUI_LANGUAGE "SimpChinese"
 !define MUI_LANGDLL_ALLLANGUAGES ; don't filter language to system code page
 
 ; The description of the main installation component
-;LangString FMSLogoDescription ${LANG_ENGLISH}     "Install the FMSLogo programming environment."
-LangString FMSLogoDescription ${LANG_SIMPCHINESE} "°²×°FMSLogo±à³Ì»·¾³." 
+LangString FMSLogoDescription ${LANG_ENGLISH}     "Install the FMSLogo programming environment."
+;LangString FMSLogoDescription ${LANG_SIMPCHINESE} "°²×°FMSLogo±à³Ì»·¾³." 
 
 ; The label for the "desktop shortcut" checkbox.
-;LangString DesktopShortcut ${LANG_ENGLISH}     "Desktop Shortcut"
-LangString DesktopShortcut ${LANG_SIMPCHINESE} "×ÀÃæ¿ì½Ý·½Ê½"
+LangString DesktopShortcut ${LANG_ENGLISH}     "Desktop Shortcut"
+;LangString DesktopShortcut ${LANG_SIMPCHINESE} "×ÀÃæ¿ì½Ý·½Ê½"
 
 ; The description of the desktop shortcut to FMSLogo
-;LangString DesktopShortcutDescription ${LANG_ENGLISH}     "Put a shortcut to FMSLogo on the desktop."
-LangString DesktopShortcutDescription ${LANG_SIMPCHINESE} "ÔÚ×ÀÃæ·ÅÖÃFMSLogo¿ì½Ý·½Ê½." 
+LangString DesktopShortcutDescription ${LANG_ENGLISH}     "Put a shortcut to FMSLogo on the desktop."
+;LangString DesktopShortcutDescription ${LANG_SIMPCHINESE} "ÔÚ×ÀÃæ·ÅÖÃFMSLogo¿ì½Ý·½Ê½." 
 
 ; The label for the "screen saver" checkbox.
-;LangString ScreenSaver ${LANG_ENGLISH}     "Screen Saver"
-LangString ScreenSaver ${LANG_SIMPCHINESE} "ÆÁ±£" 
+LangString ScreenSaver ${LANG_ENGLISH}     "Screen Saver"
+;LangString ScreenSaver ${LANG_SIMPCHINESE} "ÆÁ±£" 
 
 ; The description of the screensaver component.
-;LangString ScreenSaverDescription ${LANG_ENGLISH}     "Install a screensaver that can run FMSLogo programs.$\n$\nYou must be an administrator to do this."
-LangString ScreenSaverDescription ${LANG_SIMPCHINESE} "Äú±ØÐëÓµÓÐAdministratorÈ¨ÏÞ$\n$\n²ÅÄÜ°²×°ÄÜÔËÐÐFMSLogo³ÌÐòµÄÆÁ±£."
+LangString ScreenSaverDescription ${LANG_ENGLISH}     "Install a screensaver that can run FMSLogo programs.$\n$\nYou must be an administrator to do this."
+;LangString ScreenSaverDescription ${LANG_SIMPCHINESE} "Äú±ØÐëÓµÓÐAdministratorÈ¨ÏÞ$\n$\n²ÅÄÜ°²×°ÄÜÔËÐÐFMSLogo³ÌÐòµÄÆÁ±£."
 
 ; An error message to show when attempting to install FMSLogo when it is already running.
-;LangString AlreadyRunningCannotInstallMessage ${LANG_ENGLISH}     "Either the installer or FMSLogo is currently running.$\nThis installation cannot continue."
-LangString AlreadyRunningCannotInstallMessage ${LANG_SIMPCHINESE} "±¾°²×°³ÌÐò»òÕßFMSLogoÕýÔÚÔËÐÐ.$\n°²×°³ÌÐò²»ÄÜ¼ÌÐø." 
+LangString AlreadyRunningCannotInstallMessage ${LANG_ENGLISH}     "Either the installer or FMSLogo is currently running.$\nThis installation cannot continue."
+;LangString AlreadyRunningCannotInstallMessage ${LANG_SIMPCHINESE} "±¾°²×°³ÌÐò»òÕßFMSLogoÕýÔÚÔËÐÐ.$\n°²×°³ÌÐò²»ÄÜ¼ÌÐø." 
 
 ; A notification message when installing FMSLogo when another version is already installed.
 ; This tells the user that the old installation will be uninstalled.
-;LangString MustUninstallBeforeInstallingMessage ${LANG_ENGLISH}     "The existing copy of FMSLogo must be uninstalled to continue.$\nDo you want to uninstall it?$\n$\n(Selecting $\"No$\" will abort the installation)"
-LangString MustUninstallBeforeInstallingMessage ${LANG_SIMPCHINESE} "ÒÑÓÐFMSLogo±ØÐëÏÈÉ¾³ý.$\nÄúÈ·¶¨ÒªÉ¾³ýÂð?$\n$\n(Ñ¡ÔñNoÖÕÖ¹°²×°)"
+LangString MustUninstallBeforeInstallingMessage ${LANG_ENGLISH}     "The existing copy of FMSLogo must be uninstalled to continue.$\nDo you want to uninstall it?$\n$\n(Selecting $\"No$\" will abort the installation)"
+;LangString MustUninstallBeforeInstallingMessage ${LANG_SIMPCHINESE} "ÒÑÓÐFMSLogo±ØÐëÏÈÉ¾³ý.$\nÄúÈ·¶¨ÒªÉ¾³ýÂð?$\n$\n(Ñ¡ÔñNoÖÕÖ¹°²×°)"
 
 ; An error message to show when attempting to *uninstall* FMSLogo when it is running.
-;LangString AlreadyRunningCannotUninstallMessage ${LANG_ENGLISH}     "Either the installer or FMSLogo is currently running.$\nThis uninstallation cannot continue."
-LangString AlreadyRunningCannotUninstallMessage ${LANG_SIMPCHINESE} "±¾°²×°³ÌÐò»òÕßFMSLogoÕýÔÚÔËÐÐ.$\nÐ¶ÔØ³ÌÐò²»ÄÜ¼ÌÐø."
+LangString AlreadyRunningCannotUninstallMessage ${LANG_ENGLISH}     "Either the installer or FMSLogo is currently running.$\nThis uninstallation cannot continue."
+;LangString AlreadyRunningCannotUninstallMessage ${LANG_SIMPCHINESE} "±¾°²×°³ÌÐò»òÕßFMSLogoÕýÔÚÔËÐÐ.$\nÐ¶ÔØ³ÌÐò²»ÄÜ¼ÌÐø."
 
 ; An error message to show when the uninstaller cannot find the installation.
-;LangString CannotFindInstallationMessage ${LANG_ENGLISH}     "Either FMSLogo has already been deleted or you do not have permission to uninstall it.$\nEither way, this uninstallation cannot continue."
-LangString CannotFindInstallationMessage ${LANG_SIMPCHINESE} "FMSLogoÒÑÉ¾³ý»òÕßÄú²»¾ß±¸É¾³ýÈ¨ÏÞ.$\nÉ¾³ý²»ÄÜ¼ÌÐø." 
+LangString CannotFindInstallationMessage ${LANG_ENGLISH}     "Either FMSLogo has already been deleted or you do not have permission to uninstall it.$\nEither way, this uninstallation cannot continue."
+;LangString CannotFindInstallationMessage ${LANG_SIMPCHINESE} "FMSLogoÒÑÉ¾³ý»òÕßÄú²»¾ß±¸É¾³ýÈ¨ÏÞ.$\nÉ¾³ý²»ÄÜ¼ÌÐø." 
 
 
 !include FileFunc.nsh
@@ -172,8 +170,8 @@ LangString CannotFindInstallationMessage ${LANG_SIMPCHINESE} "FMSLogoÒÑÉ¾³ý»òÕßÄ
 !macroend
 
 !macro InstallLanguageFile build_path filename_stem filename_extension
-;  !insertmacro InstallLanguageFile.PerLanguage ${LANG_ENGLISH}     ${build_path} ${filename_stem} ${filename_extension}
-  !insertmacro InstallLanguageFile.PerLanguage ${LANG_SIMPCHINESE} ${build_path} ${filename_stem} ${filename_extension}
+  !insertmacro InstallLanguageFile.PerLanguage ${LANG_ENGLISH}     ${build_path} ${filename_stem} ${filename_extension}
+;  !insertmacro InstallLanguageFile.PerLanguage ${LANG_SIMPCHINESE} ${build_path} ${filename_stem} ${filename_extension}
 !macroend
 
 
@@ -200,7 +198,7 @@ Section "FMSLogo" FMSLogoSectionId
   ; Put files there
   ;
   !insertmacro InstallLanguageFile ..\                 startup   .logoscript
-  !insertmacro InstallLanguageFile ..\${FMSLOGO_EXE_PATH}\  fmslogo   .exe
+  !insertmacro InstallLanguageFile ..\${FMSLOGO_EXE_PATH}\ fmslogo   .exe
   !insertmacro InstallLanguageFile ..\manual\              logohelp  .chm
 
   File "..\README.TXT"
@@ -260,18 +258,9 @@ Section /o $(ScreenSaver) ScreenSaverSectionId
   !insertmacro InstallLanguageFile ..\screensaver\ fmslogo .scr
 SectionEnd
 
-!macro TIP_WHEN_AMD64_INSTALLER_RUNAT_X86
- !ifdef LIBRARY_X64
-  ${If} ${RunningX64}
-  ${else}
-     MessageBox MB_OK|MB_ICONINFORMATION "ÇëÔÚ64Î»²Ù×÷ÏµÍ³ÏÂÔËÐÐ£¡"
-   Abort
-  ${EndIf}
- !endif
-!macroend
 
 Function .onInit
- !insertmacro TIP_WHEN_AMD64_INSTALLER_RUNAT_X86
+
   ; First, read the language from the command-line
   ;${GetParameters} $R0
   ;ClearErrors
