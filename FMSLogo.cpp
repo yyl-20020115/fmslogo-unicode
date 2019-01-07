@@ -246,8 +246,8 @@ wxString CFmsLogo::ProcessCommandLine(wxString lang)
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
-	wxString lc = wxSetlocale(LC_CTYPE, (const char*)lang);
-
+	//has to be LC_ALL to make it work on windows
+	wxString lc = wxSetlocale(LC_ALL, (const char*)lang);
 
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 
