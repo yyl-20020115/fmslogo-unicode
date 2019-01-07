@@ -27,7 +27,7 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	}
 	if(result == 0)
 	{
-#ifdef _WINDOWS
+
 		bool all_ascii = false;
 		bool is_utf8 = CUTF8FileTextStream::IsUTF8File(path, &has_bom, &all_ascii);
 
@@ -41,14 +41,15 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 			{
 				result = cu8ts;
 			}
-			else {
+			else
+            {
 				delete cu8ts;
 			}
 		}
 		else 
 		{
 			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-			if (cmfts->Open(path, mode))
+			if (cmfts->Open(path, mode, false))
 			{
 				result = cmfts;
 			}
@@ -57,19 +58,6 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 				delete cmfts;
 			}
 		}
-#else
-			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-			if (cmfts->Open(path, mode,true))
-			{
-                has_bom = cmfts->GetFileBOM() != 0;
-                        
-				result = cmfts;
-			}
-			else 
-			{
-				delete cmfts;
-			}
-#endif
 	}
 	if (result != 0 && has_bom) {
 		result->SkipBOM();

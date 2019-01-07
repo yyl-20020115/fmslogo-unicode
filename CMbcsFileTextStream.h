@@ -15,7 +15,7 @@ public:
 	virtual void Close();
 public:
 
-	virtual bool Open(const wxString& path, const wxString& mode, bool check_utf8_bom = true);
+	virtual bool Open(const wxString& path, const wxString& mode, bool check_utf8_bom = false);
 
 public:
 
