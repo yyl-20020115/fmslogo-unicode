@@ -231,6 +231,7 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 			if (ret <= 0) {
 				//bad input, we treat the first char as value
 				c = cbuffer[0];
+				c &= 0xff; //NOTICE: maybe wrong , but we have to make it in the range of char!
 				n = 1;
 			}
 			for (int i = 0; i < (int)sizeof(cbuffer) - 1; i++) {
@@ -278,5 +279,11 @@ wchar_t CMbcsFileTextStream::SkipBOM()
 wchar_t CMbcsFileTextStream::GetFileBOM()
 {
     return this->utf8_bom;
+}
+
+void CMbcsFileTextStream::Reset()
+{
+	CTextStream::Reset();
+	this->ClearCBuffer();
 }
     

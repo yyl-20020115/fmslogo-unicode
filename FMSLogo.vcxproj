@@ -190,6 +190,8 @@
     <ClInclude Include="argumentutils.h" />
     <ClInclude Include="avltree.h" />
     <ClInclude Include="CConstStringTextReadonlyStream.h" />
+    <ClInclude Include="CEncodingConverter.h" />
+    <ClInclude Include="CEncodingFileTextStream.h" />
     <ClInclude Include="CFileTextStream.h" />
     <ClInclude Include="CLocalizedStringProvider.h" />
     <ClInclude Include="CMbcsFileTextStream.h" />
@@ -310,6 +312,8 @@
     <ClCompile Include="argumentutils.cpp" />
     <ClCompile Include="avltree.cpp" />
     <ClCompile Include="CConstStringTextReadonlyStream.cpp" />
+    <ClCompile Include="CEncodingConverter.cpp" />
+    <ClCompile Include="CEncodingFileTextStream.cpp" />
     <ClCompile Include="CFileTextStream.cpp" />
     <ClCompile Include="CLocalizedStringProvider.cpp" />
     <ClCompile Include="CMbcsFileTextStream.cpp" />

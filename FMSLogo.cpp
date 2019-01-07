@@ -243,25 +243,6 @@ wxString CFmsLogo::ProcessCommandLine(wxString lang)
 	return lang;
 }
 
-struct LanguagePair {
-	const wchar_t* Language;
-	const wchar_t* ShortName;
-};
-LanguagePair Pairs[] = {
-	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN},
-	{N_LC_EN,N_LOCALIZED_STRINGS_FILE_EN},
-	{N_LC_DE,N_LOCALIZED_STRINGS_FILE_DE},
-	{N_LC_ES,N_LOCALIZED_STRINGS_FILE_ES},
-	{N_LC_FR,N_LOCALIZED_STRINGS_FILE_FR},
-	{N_LC_GR,N_LOCALIZED_STRINGS_FILE_GR},
-	{N_LC_HR,N_LOCALIZED_STRINGS_FILE_HR},
-	{N_LC_IT,N_LOCALIZED_STRINGS_FILE_IT},
-	{N_LC_PL,N_LOCALIZED_STRINGS_FILE_PL},
-	{N_LC_PT,N_LOCALIZED_STRINGS_FILE_PT},
-	{N_LC_RU,N_LOCALIZED_STRINGS_FILE_RU},
-	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS}, //this is Pseudoloc (faked)
-};
-
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
@@ -273,10 +254,10 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 
 		lc.MakeLower();
 
-		for (int i = 0; i < (signed)ARRAYSIZE(Pairs); i++)
+		for (int i = 0; i < (signed)(sizeof(KnownLanguages)/sizeof(KnownLanguages[0])); i++)
 		{
-			wxString ln = Pairs[i].Language;
-			wxString sn = Pairs[i].ShortName;
+			wxString ln = KnownLanguages[i].Language;
+			wxString sn = KnownLanguages[i].ShortName;
 			wxString un = sn;
 			un.Replace(L'-', L'_');
 
