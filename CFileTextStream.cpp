@@ -3,9 +3,11 @@
 #include "CUTF8FileTextStream.h"
 #include "CUTF16FileTextStream.h"
 
+//file checking logic:
+//windows:utf16->utf8(bom,all_ascii)->mbcs(local)
 CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, bool binary, const wxString & newline)
 {
-	CFileTextStream* ts = 0;
+	CFileTextStream* result = 0;
 	bool has_bom = false;
 	wxString mode(L"r");
 	if (binary) {
@@ -15,39 +17,55 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	if (cufts->Open(path, mode, true)) {
 		has_bom = cufts->GetFileBOM() != 0;
 	}
-	if (has_bom) {
-		ts = cufts;
+	if (has_bom) 
+	{
+		result = cufts;
 	}
-	else {
+	else
+	{
 		delete cufts;
+	}
+	if(result == 0)
+	{
+		bool all_ascii = false;
+		bool is_utf8 = CUTF8FileTextStream::IsUTF8File(path, &has_bom, &all_ascii);
 
-		//if (CUTF8FileTextStream::IsUTF8File(path, &has_bom))
-		//{
-		//}
+		bool use_utf8 = is_utf8 &&(has_bom 
+//only windows requires all_ascii,
+//because linux and macosx are all utf-8 systems by default
+#ifdef _WINDOWS			
+			|| !all_ascii
+#endif
+			);
 
-		CUTF8FileTextStream * cu8ts = new CUTF8FileTextStream(newline);
-		if (cu8ts->Open(path, mode, true)) {
-			has_bom = cu8ts->GetFileBOM() != 0;
-		}
-		if (has_bom) {
-			ts = cu8ts;
-		}
-		else {
-			delete cu8ts;
-
-			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-			if (cmfts->Open(path, mode)) {
-				ts = cmfts;
+		if (use_utf8) 
+		{
+			CUTF8FileTextStream * cu8ts = new CUTF8FileTextStream(newline);
+			if (cu8ts->Open(path, mode, true)) 
+			{
+				result = cu8ts;
 			}
 			else {
+				delete cu8ts;
+			}
+		}
+		else 
+		{
+			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
+			if (cmfts->Open(path, mode))
+			{
+				result = cmfts;
+			}
+			else 
+			{
 				delete cmfts;
 			}
 		}
 	}
-	if (ts != 0) {
-		ts->SkipBOM();
+	if (result != 0) {
+		result->SkipBOM();
 	}
-	return ts;
+	return result;
 }
 
 CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, FileTextStreamType ftt, bool binary, const wxString& newline)

@@ -45,7 +45,7 @@ off64_t CUTF8FileTextStream::ReadAll(const wxString & path, CTextStream * dest, 
 	}
 	return c;
 }
-bool CUTF8FileTextStream::IsUTF8File(const wxString & path, bool * has_bom)
+bool CUTF8FileTextStream::IsUTF8File(const wxString & path, bool * has_bom,bool *all_ascii)
 {
 	bool uf = false;
 
@@ -59,9 +59,23 @@ bool CUTF8FileTextStream::IsUTF8File(const wxString & path, bool * has_bom)
 			}
 		}
 		else {
+			if (all_ascii != 0) {
+				*all_ascii = true;
+			}
 			off64_t lf = cmfts.GetLength();
-			while (cmfts.ReadChar() != (signed)WEOF);
+			wchar_t c = 0;
+			while ((c=cmfts.ReadChar()) != (signed)WEOF)
+			{
+				if (all_ascii != 0) {
+					if (c >= 0x80) {
+						*all_ascii = false;
+					}
+				}
+			}
 			uf = (lf == cmfts.GetPosition() + 1);
+			if (all_ascii != 0 && !uf ) {
+				all_ascii = false;
+			}
 		}
 	}
 	return uf;
