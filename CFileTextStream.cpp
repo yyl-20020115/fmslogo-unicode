@@ -2,7 +2,9 @@
 #include "CMbcsFileTextStream.h"
 #include "CUTF8FileTextStream.h"
 #include "CUTF16FileTextStream.h"
+#include "CEncodingFileTextStream.h"
 
+ wxString CFileTextStream::SystemEncoding;
 //file checking logic:
 //windows:utf16->utf8(bom,all_ascii)->mbcs(local)
 CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check_bom, bool binary, const wxString & newline)
@@ -27,7 +29,6 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	}
 	if(result == 0)
 	{
-
 		bool all_ascii = false;
 		bool is_utf8 = CUTF8FileTextStream::IsUTF8File(path, &has_bom, &all_ascii);
 
@@ -48,6 +49,7 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 		}
 		else 
 		{
+#ifdef _WINDOWS
 			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
 			if (cmfts->Open(path, mode, false))
 			{
@@ -57,6 +59,17 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 			{
 				delete cmfts;
 			}
+#else
+            CEncodingFileTextStream* cefts = new CEncodingFileTextStream (newline);
+			if (cefts->Open(path, mode, SystemEncoding))
+			{
+				result = cefts;
+			}
+			else 
+			{
+				delete cefts;
+			}
+#endif
 		}
 	}
 	if (result != 0 && has_bom) {
@@ -91,16 +104,33 @@ CFileTextStream * CFileTextStream::OpenForWrite(const wxString & path, FileTextS
 			delete cu8ts;
 		}
 	}
-	else if(ftt == FileTextStreamType::MBCS)
-	{
-		CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
-		if (cmfts->Open(path, mode)) {
-			ts = cmfts;
-		}
-		else {
-			delete cmfts;
-		}
-	}
+
+	else 
+    {
+#ifdef _WINDOWS
+        if(ftt == FileTextStreamType::MBCS)
+        {
+            CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
+            if (cmfts->Open(path, mode)) {
+                ts = cmfts;
+            }
+            else {
+                delete cmfts;
+            }
+        }
+#else
+        CEncodingFileTextStream* cefts = new CEncodingFileTextStream (newline);
+        if (cefts->Open(path, mode, SystemEncoding))
+        {
+            ts = cefts;
+        }
+        else 
+        {
+            delete cefts;
+        }
+#endif
+        
+    }
 	if (ts != 0) {
 		ts->WriteBOM();
 	}

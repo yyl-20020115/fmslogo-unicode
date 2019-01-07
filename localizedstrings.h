@@ -149,6 +149,7 @@ extern void LoadLocalizedStringsFromFile(const wxString& path);
 extern void LoadLocalizedStringsFromResource(const wxString& name,const class wxString& type);
 extern void LoadLocalizedStringsFromStream(class CTextStream* stream);
 
+extern wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default = N_LOCALIZED_STRINGS_FILE_EN);
 extern wxString GetEncodingForLanguage(const wxString& name);
 
 extern const wxString& GetResourceString(const wchar_t* Name);

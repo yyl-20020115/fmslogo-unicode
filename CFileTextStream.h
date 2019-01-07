@@ -15,6 +15,8 @@ class CFileTextStream :
 	public CTextStream
 {
 public:
+    static wxString SystemEncoding;
+public:
 
 	static CFileTextStream* OpenForRead(const wxString& path, bool check_bom = true, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	static CFileTextStream* OpenForWrite(const wxString& path, FileTextStreamType ftt = FileTextStreamType::MBCS, bool binary = false, const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);

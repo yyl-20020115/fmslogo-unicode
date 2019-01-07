@@ -36,9 +36,12 @@ public:
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
 	virtual void Reset();
+    
+    virtual const wxString& GetEncoding();
+    
 protected:
 
-	virtual int CharToBytes(wchar_t ch, char* buffer);
+	virtual int CharToBytes(wchar_t ch, char* buffer, size_t bufferlength);
 	virtual wchar_t ComposeChar();
 	virtual void ClearCBuffer();
 

@@ -3,7 +3,7 @@
 #include "CMbcsFileTextStream.h"
 
 LanguageInfo KnownLanguages[11] = {
-	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN,2052,936,0},
+	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN,2052,936,L"GBK"},
 	{N_LC_EN,N_LOCALIZED_STRINGS_FILE_EN,1033,1252,0},
 	{N_LC_DE,N_LOCALIZED_STRINGS_FILE_DE,1031,1252,0},
 	{N_LC_ES,N_LOCALIZED_STRINGS_FILE_ES,1034,1252,0},
@@ -215,6 +215,24 @@ void LoadLocalizedStringsFromStream(class CTextStream * stream)
 
         Provider.Load(stream);
     }
+}
+wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default){
+    
+    wxString name =  N_LOCALIZED_STRINGS_FILE_EN;
+    for (int i = 0; i < (signed)(sizeof(KnownLanguages)/sizeof(KnownLanguages[0])); i++)
+    {
+        wxString ln = KnownLanguages[i].Language;
+        wxString sn = KnownLanguages[i].ShortName;
+        wxString un = sn;
+        un.Replace(L'-', L'_');
+
+        if (lc.Contains(ln) || lc.Contains(sn) || lc.Contains(un)) {
+            name = sn;
+            break;
+        }
+    }
+
+    return name.length()>0 ?name : _default;
 }
 wxString GetEncodingForLanguage(const wxString & name)
 {
