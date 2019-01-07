@@ -132,7 +132,7 @@ int CEncodingFileTextStream::PeekByte()
 bool CEncodingFileTextStream::WriteChar(wchar_t ch)
 {
 	char buffer[MB_LEN_MAX + 1] = { 0 };
-	int c = this->CharToBytes(ch, buffer);
+	int c = this->CharToBytes(ch, buffer,sizeof(buffer));
 	for (int i = 0; i < c; i++) {
 		this->WriteByte(buffer[i]);
 	}
@@ -156,30 +156,30 @@ bool CEncodingFileTextStream::IsEOF()
 {
 	return CFileTextStream::IsEOF() && this->cbufferlength == 0;
 }
+const wxString& CEncodingFileTextStream::GetEncoding()
+{
+    return this->converter!=0 ? this->converter->GetOtherEncoding():CEncodingConverter::FixedEncoding;
+}
 
-int CEncodingFileTextStream::CharToBytes(wchar_t ch, char * buffer)
+int CEncodingFileTextStream::CharToBytes(wchar_t ch, char * buffer, size_t bufferlength)
 {
 	int c = 0;
 	if (this->converter != 0) {
-		const size_t invalid_size = sizeof(size_t) == 8 ? (size_t)-1LL : (size_t)-1L;
+        memset(buffer,0,bufferlength);
+	
 		wchar_t chbuffer[2] = { ch,0 };
 		wchar_t* pch = chbuffer;
 		char* pret = buffer;
 		size_t pch_length = sizeof(chbuffer);
-		size_t pret_length = sizeof(this->cbuffer);
+		size_t pret_length = bufferlength;
 		size_t pret_backup = pret_length;
 		size_t converted = this->converter->Convert(&pch, &pch_length, &pret, &pret_length);
-		if (converted == 1) //this is good, just convert one wchar_t
+		if (converted != CEncodingConverter::invalid_size) //this is good, just convert one wchar_t
 		{
-			return pret_backup - pret_length;
-		}
-		else if (converted == invalid_size) {
-			c = 0; //should not happen
+			return strlen(buffer);
 		}
 		else {
-			//treat as ansi, as we don't know how to convert
-			*buffer = (char)(ch & 0xff);
-			c = 1;
+			c = 0; //should not happen
 		}
 	}
 	return c;
@@ -200,29 +200,30 @@ wchar_t CEncodingFileTextStream::ComposeChar()
 		if (cbufferlength > 0)
 		{
 			char* pcb = this->cbuffer;
-			wchar_t tbuffer[1] = { 0 };
+			wchar_t tbuffer[2] = { 0 };
 			wchar_t* ptb = 0;
 			size_t ptl = sizeof(tbuffer);
-			size_t ptl_backup = ptl;
-			size_t converted = 0;
 			size_t n = 1;
-
+            size_t ret = 0;
 			for (size_t pcl = 1; pcl < this->cbufferlength; pcl++) {
+                size_t pcl_backup = pcl;
 				pcb = this->cbuffer;				
 				ptb = tbuffer;
 				ptl = sizeof(tbuffer);
-				converted = this->converter->Convert(&pcb, &pcl, &ptb, &ptl);
-				if (converted == 1) {
-					n = ptl_backup - ptl;
+                tbuffer[0] = 0;
+                tbuffer[1] = 0;
+                ret = this->converter->Convert(&pcb, &pcl, &ptb, &ptl);
+				if (ret != invalid_size) {
+					n = pcl_backup - pcl;
 					c = tbuffer[0];
 					break;
 				}
-				else if (converted == invalid_size) {
-					n = 1;
-					c = (unsigned)cbuffer[0];
-					break;
-				}
 			}
+			if(ret == invalid_size)
+            {
+                n = 1;
+                c = (unsigned)cbuffer[0];
+            }
 			
 			for (int i = 0; i < (int)sizeof(cbuffer) - 1; i++) {
 				cbuffer[i] = (i + (unsigned)n) < sizeof(cbuffer) ? cbuffer[i + n] : 0;

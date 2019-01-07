@@ -250,29 +250,13 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 
 
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
-	if (lc.length() > 0) {
 
-		lc.MakeLower();
+    lc.MakeLower();
 
-		for (int i = 0; i < (signed)(sizeof(KnownLanguages)/sizeof(KnownLanguages[0])); i++)
-		{
-			wxString ln = KnownLanguages[i].Language;
-			wxString sn = KnownLanguages[i].ShortName;
-			wxString un = sn;
-			un.Replace(L'-', L'_');
-
-			if (lc.Contains(ln) || lc.Contains(sn) || lc.Contains(un)) {
-				name = sn;
-				break;
-			}
-		}
-
-	}
-	if (name.length() == 0) {
-		//default is en
-		name = N_LOCALIZED_STRINGS_FILE_EN;
-	}
-	
+	name = GetShortNameForLanguage(lc,N_LOCALIZED_STRINGS_FILE_EN);
+    
+    CFileTextStream::SystemEncoding = GetEncodingForLanguage(name);
+    
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
 
 	if (wxFileExists(path)) {

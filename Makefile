@@ -33,7 +33,7 @@ LIBDIRNAME = /usr/local/lib/
 CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
-
+LDFLAGS += -lcharset -liconv
 WX_OBJECTS = 3dsolid.o \
 aboutfmslogo.o \
 aboutmultiplesclerosis.o \
@@ -116,6 +116,8 @@ vector.o \
 workspaceeditor.o \
 wrksp.o \
 wxpurestubs.o \
+CEncodingConverter.o \
+CEncodingFileTextStream.o \
 scintilla/LexFmsLogo.o
 
 
