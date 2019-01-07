@@ -27,17 +27,13 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 	}
 	if(result == 0)
 	{
+#ifdef _WINDOWS
 		bool all_ascii = false;
 		bool is_utf8 = CUTF8FileTextStream::IsUTF8File(path, &has_bom, &all_ascii);
 
-		bool use_utf8 = is_utf8 &&(has_bom 
-//only windows requires all_ascii,
-//because linux and macosx are all utf-8 systems by default
-#ifdef _WINDOWS			
-			|| !all_ascii
-#endif
-			);
-
+		bool use_utf8 = is_utf8 &&(has_bom || !all_ascii);
+        //only windows requires all_ascii,
+        //because linux and macosx are all utf-8 systems by default
 		if (use_utf8) 
 		{
 			CUTF8FileTextStream * cu8ts = new CUTF8FileTextStream(newline);
@@ -61,8 +57,21 @@ CFileTextStream * CFileTextStream::OpenForRead(const wxString & path, bool check
 				delete cmfts;
 			}
 		}
+#else
+			CMbcsFileTextStream* cmfts = new CMbcsFileTextStream(newline);
+			if (cmfts->Open(path, mode,true))
+			{
+                has_bom = cmfts->GetFileBOM() != 0;
+                        
+				result = cmfts;
+			}
+			else 
+			{
+				delete cmfts;
+			}
+#endif
 	}
-	if (result != 0) {
+	if (result != 0 && has_bom) {
 		result->SkipBOM();
 	}
 	return result;
@@ -118,7 +127,7 @@ CFileTextStream * CFileTextStream::CreateForType(FileTextStreamType type, const 
 	case FileTextStreamType::UTF16:
 		return new CUTF16FileTextStream(newline);
 	case FileTextStreamType::UTF8:
-		return 0; //TODO:
+		return new CUTF8FileTextStream(newline);
 	default:
 		return new CMbcsFileTextStream(newline);
 	}
@@ -135,7 +144,7 @@ CFileTextStream* CFileTextStream::CreateWrapper(FILE* file, FileTextStreamType t
 	case FileTextStreamType::UTF16:
 		return new CUTF16FileTextStream(file, close_on_exit, newline);
 	case FileTextStreamType::UTF8:
-		return 0; //TODO:
+		return new CUTF8FileTextStream(file, close_on_exit,newline);
 	default:
 		return new CMbcsFileTextStream(file, close_on_exit,newline);
 	}

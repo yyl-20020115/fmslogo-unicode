@@ -688,15 +688,18 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 	{
 		DribbleWriteChar(L'\n');
 	}
-	//line end fix is existing "\r"
-	//this would happen in linux/macosx reading windows files
-	wxString& cb = lineBuffer.GetContent();
-    if(cb.EndsWith(L'\r'))
-    {
-        cb = cb.Remove(cb.length()-1);
-    }
-	size_t l = lineBuffer.GetContentLength();
 
+	size_t l = lineBuffer.GetContentLength();
+	if(l>0)
+    {
+        //line end fix is existing "\r"
+        //this would happen in linux/macosx reading windows files
+        wxString& cb = lineBuffer.GetContent();
+        if(cb.EndsWith(L'\r'))
+        {
+            cb = cb.Remove(cb.length()-1);
+        }
+    }
 	void* p = lineBuffer.TakeContent();
 
 	NODE * line = make_strnode_no_copy(
