@@ -400,6 +400,8 @@ CWorkspaceEditor::Write(
 	bool success = true;
 	wxString text = m_LogoCodeControl->GetText();
 	//on windows, the sytled text control's line end is \r\n
+    //on linux, the styled text controls' line end is \n and the natural saving encoding is native (actually utf-8 is mbcs here)
+    //  the natural way of file line end is \n as well, and it will be a one line string if opened by notepad on windows
 	if (text.length() > 0) {
 		CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, this->FTT, true);
 		if (cfts != 0)
