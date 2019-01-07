@@ -1,4 +1,8 @@
 #include "CMbcsFileTextStream.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <wchar.h>
 
 #ifdef _WINDOWS
 #include <mbstring.h>
@@ -213,12 +217,14 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 		}
 		if (cbufferlength > 0)
 		{
+            int n = 0;
 #ifdef _WINDOWS
-			size_t n = _mbclen((unsigned char*)cbuffer);
+            n = _mbclen((unsigned char*)cbuffer);
 #else
-			size_t n = mblen(cbuffer,MB_CUR_MAX);
+			n = mblen(cbuffer,MB_CUR_MAX);
 #endif
-			n = (n == 1 || n == 2) ? n : 1;
+
+			n = (n>=1) ? n : 1;
 			int ret = mbtowc(&c, cbuffer, n);
 			if (ret <= 0) {
 				//bad input, we treat the first char as value
@@ -226,9 +232,9 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 				n = 1;
 			}
 			for (int i = 0; i < (int)sizeof(cbuffer) - 1; i++) {
-				cbuffer[i] = (i + n) < sizeof(cbuffer) ? cbuffer[i + n] : 0;
+				cbuffer[i] = (i + (unsigned)n) < sizeof(cbuffer) ? cbuffer[i + n] : 0;
 			}
-			if (cbufferlength >= n) {
+			if (cbufferlength >= (unsigned)n) {
 				cbufferlength -= n;
 			}
 			else {

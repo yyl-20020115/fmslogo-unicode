@@ -393,7 +393,11 @@ CMainFrame::CMainFrame(
       m_SetPenColorDialog(NULL),
       m_SetFloodColorDialog(NULL),
       m_SetScreenColorDialog(NULL),
+#ifdef _WINDOWS
 	  FTT(FileTextStreamType::MBCS)
+#else
+	  FTT(FileTextStreamType::UTF8)      
+#endif
 
 {
 	wxString SaveAsText = GetResourceString(L"LOCALIZED_FILE_SAVEAS");
