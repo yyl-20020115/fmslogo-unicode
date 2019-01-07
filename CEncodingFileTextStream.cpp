@@ -167,7 +167,7 @@ int CEncodingFileTextStream::CharToBytes(wchar_t ch, char * buffer, size_t buffe
 	if (this->converter != 0) {
         memset(buffer,0,bufferlength);
 	
-		wchar_t chbuffer[2] = { ch,0 };
+		wchar_t chbuffer[1] = { ch };
 		wchar_t* pch = chbuffer;
 		char* pret = buffer;
 		size_t pch_length = sizeof(chbuffer);
@@ -200,7 +200,7 @@ wchar_t CEncodingFileTextStream::ComposeChar()
 		if (cbufferlength > 0)
 		{
 			char* pcb = this->cbuffer;
-			wchar_t tbuffer[2] = { 0 };
+			wchar_t tbuffer[1] = { 0 };
 			wchar_t* ptb = 0;
 			size_t ptl = sizeof(tbuffer);
 			size_t n = 1;
@@ -211,7 +211,6 @@ wchar_t CEncodingFileTextStream::ComposeChar()
 				ptb = tbuffer;
 				ptl = sizeof(tbuffer);
                 tbuffer[0] = 0;
-                tbuffer[1] = 0;
                 ret = this->converter->Convert(&pcb, &pcl, &ptb, &ptl);
 				if (ret != invalid_size) {
 					n = pcl_backup - pcl;
