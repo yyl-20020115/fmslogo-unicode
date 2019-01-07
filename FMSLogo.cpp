@@ -1,49 +1,49 @@
 #include "pch.h"
 
 #ifndef USE_PRECOMPILED_HEADER
-   #include "FMSLogo.h"
+#include "FMSLogo.h"
 
-   #include <algorithm>
+#include <algorithm>
 
-   #include <wx/msgdlg.h>
-   #include <wx/filename.h>
-   #include <wx/string.h>
-   #include <wx/dcclient.h>
-   #include <wx/dcmemory.h>
-   #include <wx/clipbrd.h>
-   #include <wx/gdicmn.h> 
-   #include <wx/settings.h>
-   #include <wx/stdpaths.h>
+#include <wx/msgdlg.h>
+#include <wx/filename.h>
+#include <wx/string.h>
+#include <wx/dcclient.h>
+#include <wx/dcmemory.h>
+#include <wx/clipbrd.h>
+#include <wx/gdicmn.h> 
+#include <wx/settings.h>
+#include <wx/stdpaths.h>
 
-   #ifdef __WXMSW__
-      #include "wx/msw/private.h"
-   #endif
+#ifdef __WXMSW__
+#include "wx/msw/private.h"
+#endif
 
-   #include "init.h"
-   #include "localizedstrings.h"
-   #include "logocore.h" // for ARRAYSIZE
-   #include "mainframe.h"
-   #include "graphwin.h"
-   #include "error.h"
-   #include "wrksp.h"
-   #include "startup.h"
-   #include "utils.h"
-   #include "mmwind.h"
-   #include "files.h"
-   #include "mainwind.h"
-   #include "cursor.h"
-   #include "logoeventqueue.h"
-   #include "eval.h"
-   #include "print.h"
-   #include "screenwindow.h"
-   #include "workspaceeditor.h"
-   #include "minieditor.h"
-   #include "dynamicbuffer.h"
-   #include "stringprintednode.h"
-   #include "stringadapter.h"
+#include "init.h"
+#include "localizedstrings.h"
+#include "logocore.h" // for ARRAYSIZE
+#include "mainframe.h"
+#include "graphwin.h"
+#include "error.h"
+#include "wrksp.h"
+#include "startup.h"
+#include "utils.h"
+#include "mmwind.h"
+#include "files.h"
+#include "mainwind.h"
+#include "cursor.h"
+#include "logoeventqueue.h"
+#include "eval.h"
+#include "print.h"
+#include "screenwindow.h"
+#include "workspaceeditor.h"
+#include "minieditor.h"
+#include "dynamicbuffer.h"
+#include "stringprintednode.h"
+#include "stringadapter.h"
 
-   #include "screen.h"
-   #include "commander.h"
+#include "screen.h"
+#include "commander.h"
 #include "Resource.h"
 #endif
 #include <locale.h>
@@ -52,9 +52,9 @@
 // global variables declared in main.h
 wxString edit_editexit;     // editor callback instruction list 
 
-int  BitMapWidth  = 1000;
+int  BitMapWidth = 1000;
 int  BitMapHeight = 1000;
-bool bFixed       = false;
+bool bFixed = false;
 
 #ifndef WX_PURE
 static HANDLE g_SingleInstanceMutex = NULL;
@@ -65,28 +65,28 @@ static HANDLE g_SingleInstanceMutex = NULL;
 //#endif
 static wxString g_FileToLoad; // routine to exec on start
 static bool g_EnterPerspectiveMode = false;
-static bool g_CustomWidth          = false;
-static bool g_CustomHeight         = false;
+static bool g_CustomWidth = false;
+static bool g_CustomHeight = false;
 
 #ifdef MEM_DEBUG
 #ifdef __WXMSW__
-typedef DWORD (WINAPI *GETGUIRESOURCES)(HANDLE, DWORD);
+typedef DWORD(WINAPI *GETGUIRESOURCES)(HANDLE, DWORD);
 
-static GETGUIRESOURCES g_GetGuiResources     = NULL;
-static DWORD           g_OriginalGuiObjects  = 0;
+static GETGUIRESOURCES g_GetGuiResources = NULL;
+static DWORD           g_OriginalGuiObjects = 0;
 static DWORD           g_OriginalUserObjects = 0;
-static HANDLE          g_Fmslogo             = NULL;
-static HMODULE         g_User32              = NULL;
+static HANDLE          g_Fmslogo = NULL;
+static HMODULE         g_User32 = NULL;
 #endif // __WXMSW__
 #endif // MEM_DEBUG
 
 
 #ifdef WX_PURE
-  #if wxUSE_UNICODE
-    // Use the wchar_t variants of the ANSI C string functions
-    #define strtoul wcstoul
-    #define strlen  wcslen
-  #endif
+#if wxUSE_UNICODE
+// Use the wchar_t variants of the ANSI C string functions
+#define strtoul wcstoul
+#define strlen  wcslen
+#endif
 #endif
 
 ////////////////////////////////////////////////////////////////////
@@ -94,8 +94,8 @@ static HMODULE         g_User32              = NULL;
 IMPLEMENT_APP(CFmsLogo)
 
 CFmsLogo::CFmsLogo()
-    : hasLoadedFileToLoad(false)
-    , hasRunStartup(false)
+	: hasLoadedFileToLoad(false)
+	, hasRunStartup(false)
 {
 }
 
@@ -109,63 +109,63 @@ CFmsLogo::CFmsLogo()
 //                   the switch is given in the form "-W 500".
 
 static int ReadIntArgument(
-    const wxString&    CurrentArgument,
+	const wxString&    CurrentArgument,
 	const wxString&    NextArgument
-    )
+)
 {
 	wchar_t* endptr = 0;
 
-    int numericValue = 0;
+	int numericValue = 0;
 
-    if (CurrentArgument.length() >2)
-    {
-        // The command-line was given as "-w500".
-        numericValue = wcstoul((const wchar_t*)CurrentArgument, &endptr, 10);
-    }
-    else
-    {
-        // The -w isn't immediately followed by a number.
-        // Try to get the next argument, as in "-w 500".
-        if (NextArgument.length()>0)
-        {
-            // There was an argument following the -W.
-            numericValue = wcstoul(NextArgument, NULL, 10);
-        }
-        else
-        {
-            // The command-line ends in something like "-w".
-            // In MSWLogo, the width would have silently been 
-            // taken to be 0.
+	if (CurrentArgument.length() > 2)
+	{
+		// The command-line was given as "-w500".
+		numericValue = wcstoul((const wchar_t*)CurrentArgument, &endptr, 10);
+	}
+	else
+	{
+		// The -w isn't immediately followed by a number.
+		// Try to get the next argument, as in "-w 500".
+		if (NextArgument.length() > 0)
+		{
+			// There was an argument following the -W.
+			numericValue = wcstoul(NextArgument, NULL, 10);
+		}
+		else
+		{
+			// The command-line ends in something like "-w".
+			// In MSWLogo, the width would have silently been 
+			// taken to be 0.
 
-            // Since this results in an unusable workspace, we
-            // now warn user of their mistake.
-            wxMessageBox(
+			// Since this results in an unusable workspace, we
+			// now warn user of their mistake.
+			wxMessageBox(
 				CurrentArgument,
 				GetResourceString(L"LOCALIZED_ERROR_BADCOMMANDLINE"),
-                wxOK | wxICON_INFORMATION);
+				wxOK | wxICON_INFORMATION);
 
-            numericValue = 0;
-        }
-    }
+			numericValue = 0;
+		}
+	}
 
-    return numericValue;
+	return numericValue;
 }
 
 wxString CFmsLogo::ProcessCommandLine(wxString lang)
 {
 	// parse the command-line parameters
-    bExpert        = false;
-    g_CustomWidth  = false;
-    g_CustomHeight = false;
-    bFixed         = false;
-	
-    // For processing the -L parameter
-    bool   copyRemaingArgsAsFilename = false;
-    size_t fileToLoadIndex           = 0;
+	bExpert = false;
+	g_CustomWidth = false;
+	g_CustomHeight = false;
+	bFixed = false;
 
-    const wxArrayString & realArgv = argv.GetArguments();
-    size_t argvSize = realArgv.GetCount();
-	
+	// For processing the -L parameter
+	bool   copyRemaingArgsAsFilename = false;
+	size_t fileToLoadIndex = 0;
+
+	const wxArrayString & realArgv = argv.GetArguments();
+	size_t argvSize = realArgv.GetCount();
+
 	//skip self path
 	for (size_t i = 1; i < argvSize; i++) {
 		const wxString& a = realArgv[i];
@@ -266,44 +266,41 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
 	wxString lc = wxSetlocale(LC_ALL, (const char*)lang);
-    
- 
+
+
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
-	if (lc.length()> 0) {
-       
-        lc.MakeLower();
-        
-		for(int i = 0;i<(signed)ARRAYSIZE(Pairs);i++)
+	if (lc.length() > 0) {
+
+		lc.MakeLower();
+
+		for (int i = 0; i < (signed)ARRAYSIZE(Pairs); i++)
 		{
 			wxString ln = Pairs[i].Language;
 			wxString sn = Pairs[i].ShortName;
-            wxString un = sn;
-            un.Replace(L'-',L'_');
-            
-			if (lc.Contains(ln)||lc.Contains(sn) || lc.Contains(un)) {
+			wxString un = sn;
+			un.Replace(L'-', L'_');
+
+			if (lc.Contains(ln) || lc.Contains(sn) || lc.Contains(un)) {
 				name = sn;
 				break;
 			}
-		} 
+		}
 	}
-  if (name.length() == 0) {
-    //default is en
-    name = N_LOCALIZED_STRINGS_FILE_EN;
-  }
+	if (name.length() == 0) {
+		//default is en
+		name = N_LOCALIZED_STRINGS_FILE_EN;
+	}
 
-    wxString dash=name;
+	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
 
-    
-	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
-
-    if (wxFileExists(path)) {
+	if (wxFileExists(path)) {
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
 	{
 		name.MakeUpper();
-  
-        wxString lsname = wxString(N_LOCALIZED_STRINGS_FILE_TYPE) +wxString(L"_") + name;
+
+		wxString lsname = wxString(N_LOCALIZED_STRINGS_FILE_TYPE) + wxString(L"_") + name;
 
 		LoadLocalizedStringsFromResource(lsname, N_LOCALIZED_STRINGS_FILE_TYPE);
 	}
@@ -315,320 +312,320 @@ bool CFmsLogo::OnInit()
 
 #ifdef MEM_DEBUG
 #ifdef __WXMSW__
-    g_Fmslogo = NULL;
-    g_User32  = GetModuleHandle("user32.dll");
-    if (g_User32 != NULL)
-    {
-        g_GetGuiResources = (GETGUIRESOURCES) GetProcAddress(g_User32, "GetGuiResources");
-        if (g_GetGuiResources != NULL)
-        {
-            g_Fmslogo = OpenProcess(
-                PROCESS_QUERY_INFORMATION, 
-                FALSE, 
-                GetCurrentProcessId());
-            if (g_Fmslogo != NULL)
-            {
-                g_OriginalGuiObjects  = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
-                g_OriginalUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
-            }
-        }
-    }
+	g_Fmslogo = NULL;
+	g_User32 = GetModuleHandle("user32.dll");
+	if (g_User32 != NULL)
+	{
+		g_GetGuiResources = (GETGUIRESOURCES)GetProcAddress(g_User32, "GetGuiResources");
+		if (g_GetGuiResources != NULL)
+		{
+			g_Fmslogo = OpenProcess(
+				PROCESS_QUERY_INFORMATION,
+				FALSE,
+				GetCurrentProcessId());
+			if (g_Fmslogo != NULL)
+			{
+				g_OriginalGuiObjects = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
+				g_OriginalUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
+			}
+		}
+	}
 #endif // __WXMSW__
 #endif // MEM_DEBUG
 
-    // Figure out the path that contains fmslogo.exe, which we
-    // assume also holds Logolib.
-    const wxFileName fmslogoExecutable(
-        wxStandardPaths::Get().GetExecutablePath());
-    const wxString & fmslogoPath = fmslogoExecutable.GetPath(
-        wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
-	
+	// Figure out the path that contains fmslogo.exe, which we
+	// assume also holds Logolib.
+	const wxFileName fmslogoExecutable(
+		wxStandardPaths::Get().GetExecutablePath());
+	const wxString & fmslogoPath = fmslogoExecutable.GetPath(
+		wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+
 	g_FmslogoBaseDirectory = fmslogoPath;
 
 	this->LoadLocalizedStringFile(
 		this->ProcessCommandLine(
-			GetConfigurationString(L"locale",L"")
+			GetConfigurationString(L"locale", L"")
 		));
 
 #ifndef WX_PURE
 
-    // Grab the single instance lock.
-    g_SingleInstanceMutex = CreateMutex(
-        NULL,  // default security attributes
-        FALSE, // no initial owner
-        L"LogoForWindowsMutex");
-    if (GetLastError() == ERROR_ALREADY_EXISTS)
-    {
-        // A copy of Logo is already running.
-        if (g_FileToLoad.length()==0)
-        {
-            // No logo scripts were specified on the command-line.
-            // We should re-use the existing window instead of creating a new 
-            // instance of logo, since this was probably just an accident.
+	// Grab the single instance lock.
+	g_SingleInstanceMutex = CreateMutex(
+		NULL,  // default security attributes
+		FALSE, // no initial owner
+		L"LogoForWindowsMutex");
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		// A copy of Logo is already running.
+		if (g_FileToLoad.length() == 0)
+		{
+			// No logo scripts were specified on the command-line.
+			// We should re-use the existing window instead of creating a new 
+			// instance of logo, since this was probably just an accident.
 
-            // Find that running copy of Logo and make it visible.
-            HWND runningInstance = FindWindow(NULL, GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"));
-            if (runningInstance != NULL)
-            {
-                // bring running instance to the the foreground
-                ::SetForegroundWindow(runningInstance);
-                if ( ::IsIconic(runningInstance) ||
-                     !::IsWindowVisible(runningInstance))
-                {
-                    // the running instance is not visible, so restore it
-                    ::ShowWindow(runningInstance, SW_SHOWDEFAULT);
-                }
+			// Find that running copy of Logo and make it visible.
+			HWND runningInstance = FindWindow(NULL, GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"));
+			if (runningInstance != NULL)
+			{
+				// bring running instance to the the foreground
+				::SetForegroundWindow(runningInstance);
+				if (::IsIconic(runningInstance) ||
+					!::IsWindowVisible(runningInstance))
+				{
+					// the running instance is not visible, so restore it
+					::ShowWindow(runningInstance, SW_SHOWDEFAULT);
+				}
 
-                CloseHandle(g_SingleInstanceMutex);
-                return false;
-            }
+				CloseHandle(g_SingleInstanceMutex);
+				return false;
+			}
 
-            // We can't find the window, so we'll start up another instance.
-            // The feature of not running two instances is supposed to make
-            // things simpler.  If the other copy of Logo failed to exit
-            // cleanly, or if some other application created the mutex,
-            // it would more confusing if this Logo didn't start up.
-        }
-        else
-        {
-            // a Logo script was specified on the command-line.
-            // This means that we should open up a new instance
-            // of Logo, even if one is already running.
-        }
-    }
+			// We can't find the window, so we'll start up another instance.
+			// The feature of not running two instances is supposed to make
+			// things simpler.  If the other copy of Logo failed to exit
+			// cleanly, or if some other application created the mutex,
+			// it would more confusing if this Logo didn't start up.
+		}
+		else
+		{
+			// a Logo script was specified on the command-line.
+			// This means that we should open up a new instance
+			// of Logo, even if one is already running.
+		}
+	}
 #endif // WX_PURE
 
-    // Get video mode parameters
-    init_videomode();
+	// Get video mode parameters
+	init_videomode();
 
-    srand(time(NULL));
+	srand(time(NULL));
 
-    // init the timer callback array
-    init_timers();
+	// init the timer callback array
+	init_timers();
 
-    // alloc and init the bitmap cut array
-    init_bitmaps();
+	// alloc and init the bitmap cut array
+	init_bitmaps();
 
-    // alloc and init the turtles array
-    init_turtles();
+	// alloc and init the turtles array
+	init_turtles();
 
-    // init global pen state
-    init_penstate();
+	// init global pen state
+	init_penstate();
 
-    // init logo kernel
-    init();
+	// init logo kernel
+	init();
 
-    // initialize the hourglass and arrow cursors
-    init_cursors();
+	// initialize the hourglass and arrow cursors
+	init_cursors();
 
-    // determine how big a window we would like
-    int x = 0;
-    int y = 0;
-    int w = BitMapWidth;
-    int h = BitMapHeight;
+	// determine how big a window we would like
+	int x = 0;
+	int y = 0;
+	int w = BitMapWidth;
+	int h = BitMapHeight;
 
-    // The main window should not exceed the size of the working area
-    int maxWidth;
-    int maxHeight;
-    wxClientDisplayRect(NULL, NULL, &maxWidth, &maxHeight);
+	// The main window should not exceed the size of the working area
+	int maxWidth;
+	int maxHeight;
+	wxClientDisplayRect(NULL, NULL, &maxWidth, &maxHeight);
 
-    // if fixed mode
-    bool startMaximized;
-    if (bFixed)
-    {
-        // FMSLogo was started with -F on the command-line.  In this case,
-        // CMainFrame ignores the window size parameter (width and height)
-        // and instead resizes itself to ensure that there is enough space
-        // for the bitmap's width/height.  Therefore, this code block only
-        // computes correct values for BitMapWidth and BitMapHeight, not
-        // w and h.
+	// if fixed mode
+	bool startMaximized;
+	if (bFixed)
+	{
+		// FMSLogo was started with -F on the command-line.  In this case,
+		// CMainFrame ignores the window size parameter (width and height)
+		// and instead resizes itself to ensure that there is enough space
+		// for the bitmap's width/height.  Therefore, this code block only
+		// computes correct values for BitMapWidth and BitMapHeight, not
+		// w and h.
 
-        // If "-F" is given without "-W" or "-H", then FMSLogo should
-        // start maximized.  This ensures the FMSLogo uses the most
-        // amount of space available to it.
-        startMaximized = !g_CustomHeight && !g_CustomWidth;
+		// If "-F" is given without "-W" or "-H", then FMSLogo should
+		// start maximized.  This ensures the FMSLogo uses the most
+		// amount of space available to it.
+		startMaximized = !g_CustomHeight && !g_CustomWidth;
 
-        // Reduce the maximum width available to the virtual service
-        // that is taken up by the 3D border between the frame and the
-        // screen.
-        int borderWidth = wxSystemSettings::GetMetric(wxSYS_EDGE_X);
-        if (borderWidth != -1)
-        {
-            maxWidth -= 2 * borderWidth;
-        }
+		// Reduce the maximum width available to the virtual service
+		// that is taken up by the 3D border between the frame and the
+		// screen.
+		int borderWidth = wxSystemSettings::GetMetric(wxSYS_EDGE_X);
+		if (borderWidth != -1)
+		{
+			maxWidth -= 2 * borderWidth;
+		}
 
-        // When an application is not maximized, it has a frame that reduces
-        // the amount of space available to the window.
-        // CMainFrame uses wxDEFAULT_FRAME_STYLE, which includes
-        // wxRESIZE_BORDER.  In wx/toplevel.h, this is #define'd to be the
-        // same as wxTHICK_FRAME, which is what wxSYS_FRAMESIZE_X returns.
-        if (!startMaximized)
-        {
-            int frameWidth  = wxSystemSettings::GetMetric(wxSYS_FRAMESIZE_X);
-            if (frameWidth != -1)
-            {
-                maxWidth -= 2 * frameWidth;
-            }
-        }
+		// When an application is not maximized, it has a frame that reduces
+		// the amount of space available to the window.
+		// CMainFrame uses wxDEFAULT_FRAME_STYLE, which includes
+		// wxRESIZE_BORDER.  In wx/toplevel.h, this is #define'd to be the
+		// same as wxTHICK_FRAME, which is what wxSYS_FRAMESIZE_X returns.
+		if (!startMaximized)
+		{
+			int frameWidth = wxSystemSettings::GetMetric(wxSYS_FRAMESIZE_X);
+			if (frameWidth != -1)
+			{
+				maxWidth -= 2 * frameWidth;
+			}
+		}
 
-        if (g_CustomHeight)
-        {
-            // if height specified sanitize it against screen height
-            BitMapHeight = std::min(h, maxHeight);
-        }
-        else
-        {
-            // Go "full screen", leaving space for the commander.
-            BitMapHeight = (int) (maxHeight * ScreenSz);
-        }
+		if (g_CustomHeight)
+		{
+			// if height specified sanitize it against screen height
+			BitMapHeight = std::min(h, maxHeight);
+		}
+		else
+		{
+			// Go "full screen", leaving space for the commander.
+			BitMapHeight = (int)(maxHeight * ScreenSz);
+		}
 
-        if (g_CustomWidth)
-        {
-            // if width specified sanitize it against screen width
-            BitMapWidth = std::min(w, maxWidth);
-        }
-        else
-        {
-            // Use the full width available to a window with a frame.
-            BitMapWidth = maxWidth;
-        }
-    }
-    else
-    {
-        // sanitize window size we would like against screen size
-        w = std::min(w, maxWidth);
-        h = std::min(h, (int) (maxHeight * ScreenSz));
+		if (g_CustomWidth)
+		{
+			// if width specified sanitize it against screen width
+			BitMapWidth = std::min(w, maxWidth);
+		}
+		else
+		{
+			// Use the full width available to a window with a frame.
+			BitMapWidth = maxWidth;
+		}
+	}
+	else
+	{
+		// sanitize window size we would like against screen size
+		w = std::min(w, maxWidth);
+		h = std::min(h, (int)(maxHeight * ScreenSz));
 
-        GetConfigurationQuadruple(L"Screen", &x, &y, &w, &h);
+		GetConfigurationQuadruple(L"Screen", &x, &y, &w, &h);
 
-        // the smallest reasonable size is 400 x 400.
-        h = std::max(h, 480);
-        w = std::max(w, 640);
+		// the smallest reasonable size is 400 x 400.
+		h = std::max(h, 480);
+		w = std::max(w, 640);
 
-        // sanitize against screen size
-        checkwindow(&x, &y, &w, &h);
+		// sanitize against screen size
+		checkwindow(&x, &y, &w, &h);
 
-        // Don't normally start maximized.
-        startMaximized = false;
-    }
+		// Don't normally start maximized.
+		startMaximized = false;
+	}
 
-    // initialize the values for some of the graphics-related
-    // global variables.
-    init_graphics();
+	// initialize the values for some of the graphics-related
+	// global variables.
+	init_graphics();
 
-    // create and show the main frame
-    CMainFrame * frame = new CMainFrame(
-        BitMapWidth,
-        BitMapHeight,
-        wxPoint(x, y),
-        wxSize(w, h),
-        startMaximized);
+	// create and show the main frame
+	CMainFrame * frame = new CMainFrame(
+		BitMapWidth,
+		BitMapHeight,
+		wxPoint(x, y),
+		wxSize(w, h),
+		startMaximized);
 
-    frame->Show();
+	frame->Show();
 
-    return rval;
+	return rval;
 }
 
 int CFmsLogo::OnExit()
 {
-    // cleanup all subsystems
-    uninit();
+	// cleanup all subsystems
+	uninit();
 
-    uninit_bitmaps();
+	uninit_bitmaps();
 
-    uninit_turtles();
+	uninit_turtles();
 
-    uninit_graphics();
+	uninit_graphics();
 
-    // release the Help subsystem
-    HtmlHelpUninitialize();
+	// release the Help subsystem
+	HtmlHelpUninitialize();
 
 #ifndef WX_PURE
-    CloseHandle(g_SingleInstanceMutex);
-    g_SingleInstanceMutex = NULL;
+	CloseHandle(g_SingleInstanceMutex);
+	g_SingleInstanceMutex = NULL;
 #endif // WX_PURE
 
 #ifdef MEM_DEBUG
 #ifdef __WXMSW__
-    if (g_Fmslogo != NULL)
-    {
-        // Check if any GUI objects were leaked
-        DWORD currentGuiObjects = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
-        if (g_OriginalGuiObjects < currentGuiObjects)
-        {
-            TraceOutput(
-                "%d GUI objects were leaked.\n",
-                currentGuiObjects - g_OriginalUserObjects);
-        }
+	if (g_Fmslogo != NULL)
+	{
+		// Check if any GUI objects were leaked
+		DWORD currentGuiObjects = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
+		if (g_OriginalGuiObjects < currentGuiObjects)
+		{
+			TraceOutput(
+				"%d GUI objects were leaked.\n",
+				currentGuiObjects - g_OriginalUserObjects);
+		}
 
-        // Check if any USER objects were leaked
-        DWORD currentUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
-        if (g_OriginalUserObjects < currentUserObjects)
-        {
-            TraceOutput(
-                "%d USER objects were leaked.\n",
-                currentUserObjects - g_OriginalUserObjects);
-        }
+		// Check if any USER objects were leaked
+		DWORD currentUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
+		if (g_OriginalUserObjects < currentUserObjects)
+		{
+			TraceOutput(
+				"%d USER objects were leaked.\n",
+				currentUserObjects - g_OriginalUserObjects);
+		}
 
-        CloseHandle(g_Fmslogo);
-    }
+		CloseHandle(g_Fmslogo);
+	}
 #endif // __WXMSW__
 #endif // MEM_DEBUG
 
 #if wxUSE_CLIPBOARD
-    // wxWidgets clears the clipboard when it exits, presumably to save memory.
-    // To me, this behavior is unintuitative and confusing, as it's something
-    // that Windows applications typically don't do.  To avoid this, we "flush"
-    // the clipboard, which means only that if the clipboard's data came from
-    // FMSLogo, it will continue to be available after FMSLogo exits.
-    wxClipboard::Get()->Flush();
+	// wxWidgets clears the clipboard when it exits, presumably to save memory.
+	// To me, this behavior is unintuitative and confusing, as it's something
+	// that Windows applications typically don't do.  To avoid this, we "flush"
+	// the clipboard, which means only that if the clipboard's data came from
+	// FMSLogo, it will continue to be available after FMSLogo exits.
+	wxClipboard::Get()->Flush();
 #endif
 
-    return wxApp::OnExit();
+	return wxApp::OnExit();
 }
 
 CMainFrame * CFmsLogo::GetMainFrame()
 {
-    return static_cast<CMainFrame*>(wxTheApp->GetTopWindow());
+	return static_cast<CMainFrame*>(wxTheApp->GetTopWindow());
 }
 
 void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
 {
-    size_t guard = 0;
+	size_t guard = 0;
 
 
-    // If -P was specified on the command line, enter perspective mode.
-    if (g_EnterPerspectiveMode)
-    {
-        g_EnterPerspectiveMode = false;
-        lperspective(NIL);
-    }
-  
+	// If -P was specified on the command line, enter perspective mode.
+	if (g_EnterPerspectiveMode)
+	{
+		g_EnterPerspectiveMode = false;
+		lperspective(NIL);
+	}
 
-    // run the script that localizes FMSLogo
-    if (!this->hasRunStartup)
-    {
-        this->hasRunStartup = true;
-        wxString stsc =  g_FmslogoBaseDirectory + L"startup.logoscript";
-        silent_load(NIL,stsc);
-    }
 
-    // If a file to load was given on the command line, then execute it.
-    if (!this->hasLoadedFileToLoad && g_FileToLoad.length()>0)
-    {
-        // Set that we have loaded the file before we actually do
-        // in case loading the file causes and idle event to be sent
-        // and re-executes this function.
-        this->hasLoadedFileToLoad = true;
-        silent_load(NIL, g_FileToLoad);
-    }
+	// run the script that localizes FMSLogo
+	if (!this->hasRunStartup)
+	{
+		this->hasRunStartup = true;
+		wxString stsc = g_FmslogoBaseDirectory + L"startup.logoscript";
+		silent_load(NIL, stsc);
+	}
 
-    // Process logo events
-    checkqueue();
+	// If a file to load was given on the command line, then execute it.
+	if (!this->hasLoadedFileToLoad && g_FileToLoad.length() > 0)
+	{
+		// Set that we have loaded the file before we actually do
+		// in case loading the file causes and idle event to be sent
+		// and re-executes this function.
+		this->hasLoadedFileToLoad = true;
+		silent_load(NIL, g_FileToLoad);
+	}
 
-    // Continue with the default processing
-    IdleEvent.Skip();
-    
+	// Process logo events
+	checkqueue();
+
+	// Continue with the default processing
+	IdleEvent.Skip();
+
 }
 
 void single_step_box(NODE * the_line)
@@ -656,230 +653,230 @@ void single_step_box(NODE * the_line)
 
 wxString promptuser(const wchar_t *prompt)
 {
-    return CFmsLogo::GetMainFrame()->PromptUserForInput(prompt);
+	return CFmsLogo::GetMainFrame()->PromptUserForInput(prompt);
 }
 
 wxWindow * GetParentWindowForDialog()
 {
-    return CFmsLogo::GetMainFrame()->GetCommander();
+	return CFmsLogo::GetMainFrame()->GetCommander();
 }
 
 #ifndef WX_PURE
 HWND GetScreenWindow()
 {
-    CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
-    assert(mainFrame != NULL);
-    return reinterpret_cast<HWND>(mainFrame->GetScreen()->GetHandle());
+	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
+	assert(mainFrame != NULL);
+	return reinterpret_cast<HWND>(mainFrame->GetScreen()->GetHandle());
 }
 
 HWND GetMainWindow()
 {
-    CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
-    assert(mainFrame != NULL);
-    return static_cast<HWND>(mainFrame->GetHandle());
+	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
+	assert(mainFrame != NULL);
+	return static_cast<HWND>(mainFrame->GetHandle());
 }
 
 HWND GetCommanderWindow()
 {
-    CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
-    assert(mainFrame != NULL);
-    return reinterpret_cast<HWND>(mainFrame->GetTopLevelWindowForCommander()->GetHandle());
+	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
+	assert(mainFrame != NULL);
+	return reinterpret_cast<HWND>(mainFrame->GetTopLevelWindowForCommander()->GetHandle());
 }
 #endif // WX_PURE
 
 wxWindow * GetMainWxWindow() {
-    return CFmsLogo::GetMainFrame();
+	return CFmsLogo::GetMainFrame();
 }
 
 wxWindow * GetScreenWxWindow() {
-    return CFmsLogo::GetMainFrame()->GetScreen();
+	return CFmsLogo::GetMainFrame()->GetScreen();
 }
 
 wxWindow * GetEditorWxWindow()
 {
-    return CFmsLogo::GetMainFrame()->GetWorkspaceEditor();
+	return CFmsLogo::GetMainFrame()->GetWorkspaceEditor();
 }
 
 int GetScreenHorizontalScrollPosition()
 {
-    return CFmsLogo::GetMainFrame()->GetScreen()->GetScrollPos(wxHORIZONTAL);
+	return CFmsLogo::GetMainFrame()->GetScreen()->GetScrollPos(wxHORIZONTAL);
 }
 
 int GetScreenVerticalScrollPosition()
 {
-    return CFmsLogo::GetMainFrame()->GetScreen()->GetScrollPos(wxVERTICAL);
+	return CFmsLogo::GetMainFrame()->GetScreen()->GetScrollPos(wxVERTICAL);
 }
 
 void SetScreenScrollPosition(int X, int Y)
 {
-    CFmsLogo::GetMainFrame()->GetScreen()->Scroll(X, Y);
+	CFmsLogo::GetMainFrame()->GetScreen()->Scroll(X, Y);
 }
 
 bool IsEditorOpen()
 {
-    CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
+	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
 
-    if (mainFrame == NULL)
-    {
-        return false;
-    }
+	if (mainFrame == NULL)
+	{
+		return false;
+	}
 
-    return mainFrame->IsEditorOpen();
+	return mainFrame->IsEditorOpen();
 }
 
 void OpenEditorToLocationOfFirstError(const wchar_t *FileName)
 {
-    CFmsLogo::GetMainFrame()->PopupEditorToError(FileName);
+	CFmsLogo::GetMainFrame()->PopupEditorToError(FileName);
 }
 
 #ifndef WX_PURE
 HDC GetScreenDeviceContext()
 {
-    CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
-    return static_cast<HDC>(mainFrame->GetScreen()->GetScreenDeviceContext().GetHDC());
+	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
+	return static_cast<HDC>(mainFrame->GetScreen()->GetScreenDeviceContext().GetHDC());
 }
 
 HDC GetMemoryDeviceContext()
 {
-    return static_cast<HDC>(GetWxMemoryDeviceContext()->GetHDC());
+	return static_cast<HDC>(GetWxMemoryDeviceContext()->GetHDC());
 }
 
 #endif // WX_PURE
 
 wxDC * GetWxMemoryDeviceContext()
 {
-    return &CFmsLogo::GetMainFrame()->GetScreen()->GetMemoryDeviceContext();
+	return &CFmsLogo::GetMainFrame()->GetScreen()->GetMemoryDeviceContext();
 }
 
 wxDC * GetWxScreenDeviceContext()
 {
-    return &CFmsLogo::GetMainFrame()->GetScreen()->GetScreenDeviceContext();
+	return &CFmsLogo::GetMainFrame()->GetScreen()->GetScreenDeviceContext();
 }
 
 wxDC * GetBackBufferDeviceContext()
 {
-    return &CFmsLogo::GetMainFrame()->GetScreen()->GetBackBufferDeviceContext();
+	return &CFmsLogo::GetMainFrame()->GetScreen()->GetBackBufferDeviceContext();
 }
 
 void OpenStatusWindow()
 {
-    CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
-    mainFrame->ShowStatus();
-    mainFrame->GetCommander()->UpdateStatusButtonState();
+	CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
+	mainFrame->ShowStatus();
+	mainFrame->GetCommander()->UpdateStatusButtonState();
 }
 
 void UpdateUiExecutionState()
 {
-    // Enable/Disable the Halt/Pause buttons according to the execution state.
-    CFmsLogo::GetMainFrame()->GetCommander()->UpdateHaltButtonState();
-    CFmsLogo::GetMainFrame()->GetCommander()->UpdatePauseButtonState();
+	// Enable/Disable the Halt/Pause buttons according to the execution state.
+	CFmsLogo::GetMainFrame()->GetCommander()->UpdateHaltButtonState();
+	CFmsLogo::GetMainFrame()->GetCommander()->UpdatePauseButtonState();
 }
 
 CStatusDialog * GetStatusDialog()
 {
-    CStatusDialog * statusDialog = CFmsLogo::GetMainFrame()->GetStatusDialog();
-    assert(statusDialog != NULL);
-    return statusDialog;
+	CStatusDialog * statusDialog = CFmsLogo::GetMainFrame()->GetStatusDialog();
+	assert(statusDialog != NULL);
+	return statusDialog;
 }
 
 void CloseStatusWindow()
 {
-    CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
-    mainFrame->HideStatus();
-    mainFrame->GetCommander()->UpdateStatusButtonState();
+	CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
+	mainFrame->HideStatus();
+	mainFrame->GetCommander()->UpdateStatusButtonState();
 }
 
 void AdjustScrollPositionToZoomFactor(FLONUM NewZoomFactor)
 {
-    CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
-    mainFrame->GetScreen()->AdjustScrollPositionToZoomFactor(NewZoomFactor);
+	CMainFrame * mainFrame = CFmsLogo::GetMainFrame();
+	mainFrame->GetScreen()->AdjustScrollPositionToZoomFactor(NewZoomFactor);
 }
 
 void UndockCommanderWindow()
 {
-    CFmsLogo::GetMainFrame()->UndockCommanderWindow();
+	CFmsLogo::GetMainFrame()->UndockCommanderWindow();
 }
 
 void DockCommanderWindow()
 {
-    CFmsLogo::GetMainFrame()->DockCommanderWindow();
+	CFmsLogo::GetMainFrame()->DockCommanderWindow();
 }
 
 #ifndef WX_PURE
 #ifdef __WXMSW__
 bool TranslateKeyboardShortcut(MSG & Message)
 {
-    return CFmsLogo::GetMainFrame()->TranslateKeyboardShortcut(Message);
+	return CFmsLogo::GetMainFrame()->TranslateKeyboardShortcut(Message);
 }
 #endif
 #endif
 
 int ShowEditorForFile(const wchar_t *FileName, NODE * EditArguments)
 {
-    return CMainFrame::PopupEditorForFile(FileName, EditArguments);
+	return CMainFrame::PopupEditorForFile(FileName, EditArguments);
 }
 
-void 
+void
 ShowProcedureMiniEditor(
-    const wxString&    ToLine,
-    CDynamicBuffer & ReadBuffer
-    )
+	const wxString&    ToLine,
+	CDynamicBuffer & ReadBuffer
+)
 {
-    CMiniEditor miniEditor(CFmsLogo::GetMainFrame(), ToLine);
+	CMiniEditor miniEditor(CFmsLogo::GetMainFrame(), ToLine);
 
-    if (wxID_OK != miniEditor.ShowModal())
-    {
-        // The user cancelled the definition
-        err_logo(STOP_ERROR, NIL);
-    }
-    else
-    {
-        // copy the new definition into the read buffer.
-        bool haveCarriageReturn = false;
-        const wxString & body = miniEditor.GetProcedureBody();
-        for (wxString::const_iterator i = body.begin(); i != body.end(); ++i)
-        {
-            if (haveCarriageReturn && *i != '\n')
-            {
-                // The carriage return was not followed by a newline,
-                // so it was not part of an EOL sequence.
-                ReadBuffer.AppendChar('\r');
-            }
-            if (*i == '\r')
-            {
-                // Delay writing the CR in case the next character is an LF.
-                // This will map the CRLF into the UNIX EOL sequence.
-                haveCarriageReturn = true;
-                continue;
-            }
+	if (wxID_OK != miniEditor.ShowModal())
+	{
+		// The user cancelled the definition
+		err_logo(STOP_ERROR, NIL);
+	}
+	else
+	{
+		// copy the new definition into the read buffer.
+		bool haveCarriageReturn = false;
+		const wxString & body = miniEditor.GetProcedureBody();
+		for (wxString::const_iterator i = body.begin(); i != body.end(); ++i)
+		{
+			if (haveCarriageReturn && *i != '\n')
+			{
+				// The carriage return was not followed by a newline,
+				// so it was not part of an EOL sequence.
+				ReadBuffer.AppendChar('\r');
+			}
+			if (*i == '\r')
+			{
+				// Delay writing the CR in case the next character is an LF.
+				// This will map the CRLF into the UNIX EOL sequence.
+				haveCarriageReturn = true;
+				continue;
+			}
 
-            // BUG: On Unicode builds, this has data loss because it
-            // converts a wchar_t to a char.
-            ReadBuffer.AppendChar(*i);
-            haveCarriageReturn = false;
-        }
+			// BUG: On Unicode builds, this has data loss because it
+			// converts a wchar_t to a char.
+			ReadBuffer.AppendChar(*i);
+			haveCarriageReturn = false;
+		}
 
-        ReadBuffer.AppendChar(L'\n');
-        ReadBuffer.AppendString(End.GetName());
-    }
+		ReadBuffer.AppendChar(L'\n');
+		ReadBuffer.AppendString(End.GetName());
+	}
 }
 
 void
 TraceOutput(
-    const wchar_t * FormatString,
-    ...
-    )
+	const wchar_t * FormatString,
+	...
+)
 {
 	wxString message;
-    // Format and print the message to stderr
-    va_list args;
-    va_start(args, FormatString);
+	// Format and print the message to stderr
+	va_list args;
+	va_start(args, FormatString);
 	message = wxString::FormatV(FormatString, args);
-    //vfwprintf(stderr, FormatString, args);
-    va_end(args);
+	//vfwprintf(stderr, FormatString, args);
+	va_end(args);
 
 #ifdef __WXMSW__
-    OutputDebugString(message);
+	OutputDebugString(message);
 #endif
 }
 

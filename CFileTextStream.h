@@ -52,11 +52,14 @@ public:
 	virtual wchar_t WriteBOM();
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
+	virtual off64_t GetLastBadPosition();
+
 protected:
 	FILE* file;
 	bool close_on_exit;
     bool for_writing;
     bool for_reading;
+	off64_t badposition;
 };
 
 #endif

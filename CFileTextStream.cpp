@@ -158,12 +158,14 @@ CFileTextStream::CFileTextStream(const wxString& newline)
 	:CTextStream(newline)
     ,file(0)
 	,close_on_exit(true)
+	,badposition(-1LL)
 {
 }
 CFileTextStream::CFileTextStream(FILE* file, bool close_on_exit, const wxString& newline)
 	: CTextStream(newline)
     , file(file)
 	, close_on_exit(close_on_exit)
+	, badposition(-1LL)
 {
 }
 
@@ -235,6 +237,11 @@ void CFileTextStream::SetFile(FILE * file)
 wchar_t CFileTextStream::GetFileBOM()
 {
 	return L'\0';
+}
+
+off64_t CFileTextStream::GetLastBadPosition()
+{
+	return this->badposition;
 }
 
 CFileTextStream::operator FILE*()

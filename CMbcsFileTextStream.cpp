@@ -223,7 +223,9 @@ wchar_t CMbcsFileTextStream::ComposeChar()
 #else
 			n = mblen(cbuffer,MB_CUR_MAX);
 #endif
-
+			if (n <= 0) {
+				this->badposition = this->GetPosition() - sizeof(cbuffer);
+			}
 			n = (n>=1) ? n : 1;
 			int ret = mbtowc(&c, cbuffer, n);
 			if (ret <= 0) {
