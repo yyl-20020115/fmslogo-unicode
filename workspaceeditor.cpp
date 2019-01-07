@@ -399,6 +399,7 @@ CWorkspaceEditor::Write(
     }
 	bool success = true;
 	wxString text = m_LogoCodeControl->GetText();
+	//on windows, the sytled text control's line end is \r\n
 	if (text.length() > 0) {
 		CFileTextStream* cfts = CFileTextStream::OpenForWrite(fileName, this->FTT, true);
 		if (cfts != 0)

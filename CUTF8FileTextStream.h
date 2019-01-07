@@ -15,7 +15,7 @@ class CUTF8FileTextStream :
 public:
 	static off64_t WriteAll(const wxString& path, CTextStream* source, bool append = false,bool write_bom = true);
 	static off64_t ReadAll(const wxString& path, CTextStream* dest, bool check_bom =true);
-	static bool IsUTF8File(const wxString& path, bool* has_bom=0);
+	static bool IsUTF8File(const wxString& path, bool* has_bom=0, bool *all_ascii=0);
 public:
     CUTF8FileTextStream(const wxString& newline = TEXTSTREAM_DEFUALT_NEWLINE);
 	CUTF8FileTextStream(FILE* file, bool close_on_exit, const wxString& newline);
