@@ -173,15 +173,13 @@ bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, 
 void LoadLocalizedStringsFromResource(const wxString& name, const class wxString& type)
 {
 #ifdef _WINDOWS
-    wxString n = name;
+	wxString n = wxString(N_LOCALIZED_STRINGS_FILE_TYPE) + wxString(L"_") + name.Upper();
     n.Replace(L'-', L'_');
-    
     HMODULE hm = GetModuleHandle(NULL);
     HRSRC hrsrc = FindResource(hm, n, type);
     DWORD e = GetLastError();
     if (hrsrc != INVALID_HANDLE_VALUE) {
         DWORD length = SizeofResource(hm, hrsrc)/sizeof(wchar_t);
-
         HGLOBAL hgsrc = LoadResource(hm, hrsrc);
         if (hgsrc != INVALID_HANDLE_VALUE) {
             wchar_t* p = (wchar_t*)LockResource(hgsrc);
@@ -219,6 +217,8 @@ void LoadLocalizedStringsFromStream(class CTextStream * stream)
 wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default){
     
     wxString name =  N_LOCALIZED_STRINGS_FILE_EN;
+	wxString ll = lc.Lower();
+
     for (int i = 0; i < (signed)(sizeof(KnownLanguages)/sizeof(KnownLanguages[0])); i++)
     {
         wxString ln = KnownLanguages[i].Language;
@@ -226,7 +226,7 @@ wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default){
         wxString un = sn;
         un.Replace(L'-', L'_');
 
-        if (lc.Contains(ln) || lc.Contains(sn) || lc.Contains(un)) {
+        if (ll.Contains(ln) || ll.Contains(sn) || ll.Contains(un)) {
             name = sn;
             break;
         }

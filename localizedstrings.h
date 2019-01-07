@@ -146,7 +146,7 @@ struct LanguageInfo {
 extern LanguageInfo KnownLanguages[11];
 
 extern void LoadLocalizedStringsFromFile(const wxString& path);
-extern void LoadLocalizedStringsFromResource(const wxString& name,const class wxString& type);
+extern void LoadLocalizedStringsFromResource(const wxString& name,const class wxString& type = N_LOCALIZED_STRINGS_FILE_TYPE);
 extern void LoadLocalizedStringsFromStream(class CTextStream* stream);
 
 extern wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default = N_LOCALIZED_STRINGS_FILE_EN);
