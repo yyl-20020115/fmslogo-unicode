@@ -38,7 +38,6 @@ public:
 	virtual FileTextStreamType GetStreamType();
 
 	virtual bool& EnableUCS4() { return this->ucs4; }
-	virtual off64_t GetBadFilePostion() { return this->badfileposition; }
 	virtual wchar_t WriteBOM();
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
@@ -54,7 +53,6 @@ protected:
 	bool wbufferfull;
 	char cbuffer[8];
 	size_t cbufferlength;
-	off64_t badfileposition;
 	bool ucs4;
 	wchar_t file_bom;
 

@@ -86,7 +86,6 @@ CUTF8FileTextStream::CUTF8FileTextStream(const wxString& newline)
 	, wbufferfull(false)
 	, cbuffer()
 	, cbufferlength()
-	, badfileposition(-1LL)
 	, ucs4(false)
 	, file_bom(0)
 {
@@ -97,7 +96,6 @@ CUTF8FileTextStream::CUTF8FileTextStream(FILE* file, bool close_on_exit, const w
 	, wbufferfull(false)
 	, cbuffer()
 	, cbufferlength()
-	, badfileposition(-1LL)
 	, ucs4(false)
 	, file_bom(0)
 {
@@ -309,7 +307,7 @@ size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferl
 				else {
 					//should not be here!
 					//as we don't need negative number to represent unicode
-					this->badfileposition = this->GetPosition();
+					this->badposition = this->GetPosition();
 				}
 			}
 			else 
@@ -325,7 +323,7 @@ size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferl
 
 				}
 				else {
-					this->badfileposition = this->GetPosition();
+					this->badposition = this->GetPosition();
 				}
 			}
 		}
@@ -458,7 +456,7 @@ wchar_t CUTF8FileTextStream::ComposeChar()
 					}
 				}
 				else {
-					this->badfileposition = this->GetPosition() - this->cbufferlength;
+					this->badposition = this->GetPosition() - sizeof(cbuffer);
 				}
 				if (cbufferlength >= n) {
 					cbufferlength -= n;

@@ -42,6 +42,5 @@ protected:
 	char cbuffer[MB_LEN_MAX+1];
 	size_t cbufferlength;
     wchar_t utf8_bom;
-
 };
 
