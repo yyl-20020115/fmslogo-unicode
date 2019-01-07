@@ -47,6 +47,7 @@
 #include "Resource.h"
 #endif
 #include <locale.h>
+#include "CMbcsFileTextStream.h"
 
 // global variables declared in main.h
 wxString edit_editexit;     // editor callback instruction list 
@@ -265,6 +266,8 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
 	wxString lc = wxSetlocale(LC_ALL, (const char*)lang);
+    
+ 
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 	if (lc.length()> 0) {
        
@@ -288,7 +291,8 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
     name = N_LOCALIZED_STRINGS_FILE_EN;
   }
 
-  wxString dash=name;
+    wxString dash=name;
+
     
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
 
@@ -298,8 +302,10 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 	else
 	{
 		name.MakeUpper();
-		name.Replace(L'-', L'_');
-		LoadLocalizedStringsFromResource(N_LOCALIZED_STRINGS_FILE_TYPE L"_" + name, N_LOCALIZED_STRINGS_FILE_TYPE);
+  
+        wxString lsname = wxString(N_LOCALIZED_STRINGS_FILE_TYPE) +wxString(L"_") + name;
+
+		LoadLocalizedStringsFromResource(lsname, N_LOCALIZED_STRINGS_FILE_TYPE);
 	}
 }
 
