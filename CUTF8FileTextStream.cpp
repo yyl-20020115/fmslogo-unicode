@@ -74,7 +74,7 @@ bool CUTF8FileTextStream::IsUTF8File(const wxString & path, bool * has_bom,bool 
 			}
 			uf = (lf == cmfts.GetPosition() + 1);
 			if (all_ascii != 0 && !uf ) {
-				all_ascii = false;
+				*all_ascii = false;
 			}
 		}
 	}
