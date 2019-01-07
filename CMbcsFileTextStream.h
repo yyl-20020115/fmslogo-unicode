@@ -15,7 +15,7 @@ public:
 	virtual void Close();
 public:
 
-	virtual bool Open(const wxString& path, const wxString& mode);
+	virtual bool Open(const wxString& path, const wxString& mode, bool check_utf8_bom = true);
 
 public:
 
@@ -28,6 +28,11 @@ public:
 	virtual bool WriteByte(char ch);
 	virtual FileTextStreamType GetStreamType();
 	virtual bool IsEOF();
+    
+    virtual wchar_t WriteBOM();
+	virtual wchar_t SkipBOM();
+	virtual wchar_t GetFileBOM();
+    
 protected:
 	
 	virtual int CharToBytes(wchar_t ch, char* buffer);
@@ -36,6 +41,7 @@ protected:
 
 	char cbuffer[MB_LEN_MAX+1];
 	size_t cbufferlength;
+    wchar_t utf8_bom;
 
 };
 

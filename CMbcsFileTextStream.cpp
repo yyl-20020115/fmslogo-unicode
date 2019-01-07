@@ -46,13 +46,14 @@ CMbcsFileTextStream::CMbcsFileTextStream(const wxString& newline)
 	: CFileTextStream(newline)
     , cbuffer()
 	, cbufferlength()
-	
+	, utf8_bom(0)
 {
 }
 CMbcsFileTextStream::CMbcsFileTextStream(FILE* file, bool close_on_exit,const wxString& newline)
 	: CFileTextStream(file, close_on_exit,newline)
     , cbuffer()
 	, cbufferlength()
+	, utf8_bom(0)
 {
 }
 
@@ -67,7 +68,7 @@ void CMbcsFileTextStream::Close()
 	CFileTextStream::Close();
 }
 
-bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
+bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode, bool check_utf8_bom)
 {
 	bool done =  (this->IsValid()) ? false :
 		(this->file =
@@ -81,6 +82,24 @@ bool CMbcsFileTextStream::Open(const wxString & path, const wxString & mode)
     {
 		this->for_reading = mode.Contains(L"r");
         this->for_writing = mode.Contains(L"w") || mode.Contains(L"a");
+        
+
+		//file_bol is determined by read if bom found
+		if (check_utf8_bom && (mode.Contains(L"r") || mode.Contains(L"a"))) {
+
+			wchar_t first = this->PeekChar();
+
+			switch (first) {
+			case UTF16BE_BOM:
+				this->utf8_bom = first;
+				break;
+			case UTF16LE_BOM:
+				this->utf8_bom = first;
+				break;
+			default:
+				break;
+			}
+		}
     }
     return done;
 }
@@ -101,8 +120,22 @@ int CMbcsFileTextStream::ReadByte()
 
 wchar_t CMbcsFileTextStream::PeekChar()
 {
-	int ch = this->PeekByte();
-	return ch == EOF ? WEOF : (wchar_t)ch;
+    
+    char cbuffer[sizeof(this->cbuffer)] = {0};
+    size_t cbl = this->cbufferlength;
+    memcpy(cbuffer,this->cbuffer,sizeof(cbuffer));
+    this->ClearCBuffer();
+    
+    off64_t p = this->GetPosition();
+    
+    wchar_t ch = this->ReadChar();
+	
+    this->SetPosition(p,SEEK_SET);
+    
+    memcpy(this->cbuffer,cbuffer,sizeof(cbuffer));
+    this->cbufferlength = cbl;
+   
+    return ch == EOF ? WEOF : (wchar_t)ch;
 }
 
 int CMbcsFileTextStream::PeekByte()
@@ -211,3 +244,30 @@ void CMbcsFileTextStream::ClearCBuffer()
 	this->cbufferlength = 0;
 	memset(this->cbuffer, 0, sizeof(this->cbuffer));
 }
+
+    
+wchar_t CMbcsFileTextStream::WriteBOM()
+{
+    wchar_t bom = this->utf8_bom;
+
+	this->WriteChar(bom);
+
+	return this->utf8_bom;
+}
+wchar_t CMbcsFileTextStream::SkipBOM()
+{
+    wchar_t ch = this->PeekChar();
+
+	if (ch == UTF16LE_BOM || ch == UTF16BE_BOM) {
+		this->ReadChar();
+	}
+	else {
+		ch = 0;
+	}
+	return ch;
+}
+wchar_t CMbcsFileTextStream::GetFileBOM()
+{
+    return this->utf8_bom;
+}
+    

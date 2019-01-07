@@ -409,7 +409,9 @@ CMainFrame::CMainFrame(
 		{SaveAsText,           ID_FILESAVEAS},
 		{this->ModifyMenuTextForUnicode(SaveAsText,L"-UTF&8+BOM"), ID_FILESAVEAS_UTF8},
 		{this->ModifyMenuTextForUnicode(SaveAsText,L"-&UTF16+BOM"), ID_FILESAVEAS_UTF16},
+#ifdef _WINDOWS
 		{GetResourceString(L"LOCALIZED_FILE_SETASSCREENSAVER"), ID_FILESETASSCREENSAVER},
+#endif
         {L"",0},
         {GetResourceString(L"LOCALIZED_FILE_EDIT"),             ID_FILEEDIT},
         {GetResourceString(L"LOCALIZED_FILE_ERASE"),            ID_FILEERASE},
