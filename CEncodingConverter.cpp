@@ -4,7 +4,13 @@
 #include <iconv.h>
 #endif
 
-const wxString CEncodingConverter::FixedEncoding = L"UCS-2LE";
+const wxString CEncodingConverter::FixedEncoding = 
+#ifdef _WINDOWS
+    L"UCS-2LE"
+#else
+    L"UCS-4LE"
+#endif
+;
 const void* CEncodingConverter::invalid_hanlder = sizeof(void*) == 8 ? (void*)-1LL : (void*)-1;
 const size_t CEncodingConverter::invalid_size = sizeof(size_t) == 8 ? (size_t)-1LL : (size_t)-1;
 
