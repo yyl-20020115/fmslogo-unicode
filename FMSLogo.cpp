@@ -265,7 +265,7 @@ LanguagePair Pairs[] = {
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
-	wxString lc = wxSetlocale(LC_ALL, (const char*)lang);
+	wxString lc = wxSetlocale(LC_CTYPE, (const char*)lang);
 
 
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
@@ -285,12 +285,13 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 				break;
 			}
 		}
+
 	}
 	if (name.length() == 0) {
 		//default is en
 		name = N_LOCALIZED_STRINGS_FILE_EN;
 	}
-
+	
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
 
 	if (wxFileExists(path)) {
