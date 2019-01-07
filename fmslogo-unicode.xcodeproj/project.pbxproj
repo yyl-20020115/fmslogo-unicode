@@ -142,6 +142,8 @@
 		E10D033021E11147008F7B8C /* CUTF16FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */; };
 		E10D033121E11147008F7B8C /* CUTF8FileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */; };
 		E10D033321E187EF008F7B8C /* startup.logoscript in Copy Files */ = {isa = PBXBuildFile; fileRef = E10D033221E187EF008F7B8C /* startup.logoscript */; };
+		E1EC3D0D21E3C7B200CD3533 /* CEncodingFileTextStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC3D0921E3C7B100CD3533 /* CEncodingFileTextStream.cpp */; };
+		E1EC3D0E21E3C7B200CD3533 /* CEncodingConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC3D0C21E3C7B200CD3533 /* CEncodingConverter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -414,6 +416,10 @@
 		E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF16FileTextStream.h; sourceTree = "<group>"; };
 		E10D033221E187EF008F7B8C /* startup.logoscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = startup.logoscript; sourceTree = "<group>"; };
 		E1A4BAEE21DECB65006097DD /* fmslogo-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fmslogo-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EC3D0921E3C7B100CD3533 /* CEncodingFileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEncodingFileTextStream.cpp; sourceTree = "<group>"; };
+		E1EC3D0A21E3C7B100CD3533 /* CEncodingConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEncodingConverter.h; sourceTree = "<group>"; };
+		E1EC3D0B21E3C7B100CD3533 /* CEncodingFileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEncodingFileTextStream.h; sourceTree = "<group>"; };
+		E1EC3D0C21E3C7B200CD3533 /* CEncodingConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEncodingConverter.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,11 +522,6 @@
 		E1A4BAE521DECB65006097DD = {
 			isa = PBXGroup;
 			children = (
-				E10D033221E187EF008F7B8C /* startup.logoscript */,
-				E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */,
-				E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */,
-				E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */,
-				E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */,
 				E10D018821DECD44008F7B8C /* 3dsolid.cpp */,
 				E10D018A21DECD58008F7B8C /* 3dsolid.h */,
 				E10D019721DECDA3008F7B8C /* aboutfmslogo.cpp */,
@@ -539,6 +540,10 @@
 				E10D032521E0288B008F7B8C /* Catalogue.h */,
 				E10D018C21DECDA2008F7B8C /* CConstStringTextReadonlyStream.cpp */,
 				E10D019321DECDA3008F7B8C /* CConstStringTextReadonlyStream.h */,
+				E1EC3D0C21E3C7B200CD3533 /* CEncodingConverter.cpp */,
+				E1EC3D0A21E3C7B100CD3533 /* CEncodingConverter.h */,
+				E1EC3D0921E3C7B100CD3533 /* CEncodingFileTextStream.cpp */,
+				E1EC3D0B21E3C7B100CD3533 /* CEncodingFileTextStream.h */,
 				E10D019221DECDA3008F7B8C /* CFileTextStream.cpp */,
 				E10D019121DECDA2008F7B8C /* CFileTextStream.h */,
 				E10D032B21E0288C008F7B8C /* CharacterSet.h */,
@@ -567,6 +572,10 @@
 				E10D01C421DECDD4008F7B8C /* CTextStream.h */,
 				E10D01C021DECDD4008F7B8C /* cursor.cpp */,
 				E10D01BF21DECDD4008F7B8C /* cursor.h */,
+				E10D032E21E11147008F7B8C /* CUTF8FileTextStream.cpp */,
+				E10D032D21E11146008F7B8C /* CUTF8FileTextStream.h */,
+				E10D032C21E11146008F7B8C /* CUTF16FileTextStream.cpp */,
+				E10D032F21E11147008F7B8C /* CUTF16FileTextStream.h */,
 				E10D01D721DECDFE008F7B8C /* devwind.cpp */,
 				E10D01D421DECDFE008F7B8C /* devwind.h */,
 				E10D01D221DECDFD008F7B8C /* dlgwind.h */,
@@ -693,6 +702,7 @@
 				E10D028521DECF0F008F7B8C /* sort.h */,
 				E10D028F21DECF36008F7B8C /* startup.cpp */,
 				E10D029221DECF36008F7B8C /* startup.h */,
+				E10D033221E187EF008F7B8C /* startup.logoscript */,
 				E10D028E21DECF36008F7B8C /* startup.logoscript */,
 				E10D029321DECF36008F7B8C /* status.h */,
 				E10D029521DECF37008F7B8C /* statusdialog.cpp */,
@@ -808,6 +818,7 @@
 				E10D02AE21DECF56008F7B8C /* threed.cpp in Sources */,
 				E10D023E21DECE73008F7B8C /* intern.cpp in Sources */,
 				E10D02AD21DECF56008F7B8C /* vector.cpp in Sources */,
+				E1EC3D0D21E3C7B200CD3533 /* CEncodingFileTextStream.cpp in Sources */,
 				E10D026321DECE9E008F7B8C /* paren.cpp in Sources */,
 				E10D01B921DECDC0008F7B8C /* commandertogglebutton.cpp in Sources */,
 				E10D025E21DECE9E008F7B8C /* parse.cpp in Sources */,
@@ -842,6 +853,7 @@
 				E10D01BB21DECDC0008F7B8C /* CLocalizedStringProvider.cpp in Sources */,
 				E10D02B221DECF56008F7B8C /* utils.cpp in Sources */,
 				E10D033121E11147008F7B8C /* CUTF8FileTextStream.cpp in Sources */,
+				E1EC3D0E21E3C7B200CD3533 /* CEncodingConverter.cpp in Sources */,
 				E10D028121DECEF9008F7B8C /* selectproceduredialog.cpp in Sources */,
 				E10D025D21DECE9E008F7B8C /* mem.cpp in Sources */,
 				E10D01EC21DECE22008F7B8C /* FMSLogo.cpp in Sources */,
