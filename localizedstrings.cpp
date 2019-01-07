@@ -1,6 +1,7 @@
 #include <wx/string.h>
 #include "localizedstrings.h"
 #include "CLocalizedStringProvider.h"
+#include "CMbcsFileTextStream.h"
 
 #ifdef _WINDOWS
 #include <Windows.h>
@@ -81,7 +82,7 @@ void LoadLocalizedStringsFromFile(const wxString & path)
         LoadLocalizedStringsFromStream(&cfts);
     }
 }
-#ifdef LINUX
+#if defined(LINUX)
 
 
 bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, size_t& length)
@@ -158,8 +159,11 @@ bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, 
 void LoadLocalizedStringsFromResource(const class wxString& name, const class wxString& type)
 {
 #ifdef _WINDOWS
+    wxString n = name;
+    n.Replace(L'-', L'_');
+    
     HMODULE hm = GetModuleHandle(NULL);
-    HRSRC hrsrc = FindResource(hm, name, type);
+    HRSRC hrsrc = FindResource(hm, n, type);
     DWORD e = GetLastError();
     if (hrsrc != INVALID_HANDLE_VALUE) {
         DWORD length = SizeofResource(hm, hrsrc)/sizeof(wchar_t);
@@ -177,6 +181,7 @@ void LoadLocalizedStringsFromResource(const class wxString& name, const class wx
 #elif defined(LINUX)
     uchar* p = 0;
     size_t length = 0;
+    
     if (TranslateLocalizedStringResourcePointer(name,p,length))
     {
         CConstStringTextReadonlyStream cstrs(p, length);
