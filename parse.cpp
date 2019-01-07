@@ -279,7 +279,7 @@ public:
 		this->buffer.Append(text);
 	}
 	size_t GetContentLength() { return this->buffer.length(); }
-	const wxString& GetContent() { return this->buffer; }
+	wxString& GetContent() { return this->buffer; }
 	void Clear() { this->buffer.Clear(); }
 	void* TakeContent()
 	{
@@ -688,7 +688,13 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
 	{
 		DribbleWriteChar(L'\n');
 	}
-
+	//line end fix is existing "\r"
+	//this would happen in linux/macosx reading windows files
+	wxString& cb = lineBuffer.GetContent();
+    if(cb.EndsWith(L'\r'))
+    {
+        cb = cb.Remove(cb.length()-1);
+    }
 	size_t l = lineBuffer.GetContentLength();
 
 	void* p = lineBuffer.TakeContent();
