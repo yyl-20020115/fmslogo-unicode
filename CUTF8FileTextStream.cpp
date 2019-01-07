@@ -265,6 +265,12 @@ bool CUTF8FileTextStream::IsEOF()
 		&& (this->ucs4 ? (!this->wbufferfull) : true);
 }
 
+void CUTF8FileTextStream::Reset()
+{
+	CTextStream::Reset();
+	this->ClearBuffers();
+}
+
 size_t CUTF8FileTextStream::CharToBytes(wchar_t ch, char * buffer,size_t bufferlength)
 {
 	size_t n = 0;

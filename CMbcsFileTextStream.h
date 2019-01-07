@@ -32,7 +32,8 @@ public:
     virtual wchar_t WriteBOM();
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
-    
+	virtual void Reset();
+
 protected:
 	
 	virtual int CharToBytes(wchar_t ch, char* buffer);

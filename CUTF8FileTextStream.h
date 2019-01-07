@@ -42,6 +42,8 @@ public:
 	virtual wchar_t SkipBOM();
 	virtual wchar_t GetFileBOM();
 	virtual bool IsEOF();
+	virtual void Reset();
+
 protected:
 
 	virtual size_t CharToBytes(wchar_t ch, char* buffer, size_t bufferlength);

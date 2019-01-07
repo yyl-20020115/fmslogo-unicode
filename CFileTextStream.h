@@ -7,7 +7,8 @@ typedef enum _FileTextStreamType
 	DONTKNOW,
 	MBCS,
 	UTF16,
-	UTF8
+	UTF8,
+	OTHER
 }FileTextStreamType;
 
 class CFileTextStream :

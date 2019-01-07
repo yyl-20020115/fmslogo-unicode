@@ -1,7 +1,21 @@
-#include <wx/string.h>
 #include "localizedstrings.h"
 #include "CLocalizedStringProvider.h"
 #include "CMbcsFileTextStream.h"
+
+LanguageInfo KnownLanguages[11] = {
+	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN,2052,936,0},
+	{N_LC_EN,N_LOCALIZED_STRINGS_FILE_EN,1033,1252,0},
+	{N_LC_DE,N_LOCALIZED_STRINGS_FILE_DE,1031,1252,0},
+	{N_LC_ES,N_LOCALIZED_STRINGS_FILE_ES,1034,1252,0},
+	{N_LC_FR,N_LOCALIZED_STRINGS_FILE_FR,1036,1252,0},
+	{N_LC_GR,N_LOCALIZED_STRINGS_FILE_GR,1032,1253,0},
+	{N_LC_HR,N_LOCALIZED_STRINGS_FILE_HR,1050,1250,0},
+	{N_LC_IT,N_LOCALIZED_STRINGS_FILE_IT,1040,1252,0},
+	{N_LC_PL,N_LOCALIZED_STRINGS_FILE_PL,1045,1250,0},
+	{N_LC_PT,N_LOCALIZED_STRINGS_FILE_PT,2070,1252,0},
+	{N_LC_RU,N_LOCALIZED_STRINGS_FILE_RU,1049,1251,0},
+	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS,0,0,0}, //this is Pseudoloc (faked)
+};
 
 #ifdef _WINDOWS
 #include <Windows.h>
@@ -156,7 +170,7 @@ bool TranslateLocalizedStringResourcePointer(const wxString& name, uchar*& ptr, 
     return ptr!=0;
 }
 #endif
-void LoadLocalizedStringsFromResource(const class wxString& name, const class wxString& type)
+void LoadLocalizedStringsFromResource(const wxString& name, const class wxString& type)
 {
 #ifdef _WINDOWS
     wxString n = name;
@@ -202,7 +216,30 @@ void LoadLocalizedStringsFromStream(class CTextStream * stream)
         Provider.Load(stream);
     }
 }
-wxString SpaceHolder(L"____");
+wxString GetEncodingForLanguage(const wxString & name)
+{
+	wxString encoding;
+
+	for (int i = 0; i < (signed)(sizeof(KnownLanguages) / sizeof(KnownLanguages[0])); i++)
+	{
+		wxString ln = KnownLanguages[i].Language;
+		wxString sn = KnownLanguages[i].ShortName;
+		wxString un = sn;
+		un.Replace(L'-', L'_');
+
+		if (name.Contains(ln) || name.Contains(sn) || name.Contains(un)) {
+			if (KnownLanguages[i].Encoding != 0) {
+				encoding = KnownLanguages[i].Encoding;
+			}
+			else if (KnownLanguages[i].CharsetID != 0) {
+				encoding = wxString::Format(L"CP%d", KnownLanguages[i].CharsetID);
+			}
+			break;
+		}
+	}
+	return encoding;
+}
+static wxString SpaceHolder(L"____");
 
 const wxString& GetResourceString(const wchar_t* Name)
 {

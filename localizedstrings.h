@@ -2,6 +2,7 @@
 #define _LOCALIZEDSTRINGS_H_ 
 
 #include "version.h"
+#include <wx/string.h>
 #ifdef USE_LOCALIZEDSTRINGS_HEADER_FILES
 //
 // LOCALE -
@@ -135,12 +136,20 @@
 #define N_LC_RU		L"Russian"
 #define N_LC_ZH_CN	L"936"
 
+struct LanguageInfo {
+	const wchar_t* Language;
+	const wchar_t* ShortName;
+	int LocaleID;
+	int CharsetID; //this is known as codepage
+	const wchar_t* Encoding; //encoding for the language
+};
+extern LanguageInfo KnownLanguages[11];
 
+extern void LoadLocalizedStringsFromFile(const wxString& path);
+extern void LoadLocalizedStringsFromResource(const wxString& name,const class wxString& type);
+extern void LoadLocalizedStringsFromStream(class CTextStream* stream);
 
+extern wxString GetEncodingForLanguage(const wxString& name);
 
-void LoadLocalizedStringsFromFile(const class wxString& path);
-void LoadLocalizedStringsFromResource(const class wxString& name,const class wxString& type);
-void LoadLocalizedStringsFromStream(class CTextStream* stream);
-
-extern const class wxString& GetResourceString(const wchar_t* Name);
+extern const wxString& GetResourceString(const wchar_t* Name);
 #endif //  _LOCALIZEDSTRINGS_H_
