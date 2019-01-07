@@ -256,9 +256,6 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
         , (const char*)lang);
 
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
-
-    lc.MakeLower();
-
 	name = GetShortNameForLanguage(lc,N_LOCALIZED_STRINGS_FILE_EN);
     
     CFileTextStream::SystemEncoding = GetEncodingForLanguage(name);
@@ -272,11 +269,7 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 	}
 	else
 	{
-		name.MakeUpper();
-
-		wxString lsname = wxString(N_LOCALIZED_STRINGS_FILE_TYPE) + wxString(L"_") + name;
-
-		LoadLocalizedStringsFromResource(lsname, N_LOCALIZED_STRINGS_FILE_TYPE);
+		LoadLocalizedStringsFromResource(name);
 	}
 }
 
