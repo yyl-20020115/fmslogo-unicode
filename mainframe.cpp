@@ -1499,7 +1499,7 @@ void CMainFrame::OnFileOpen(wxCommandEvent& WXUNUSED(Event))
     }
 
     // show the user a file-picker dialog
-    const wxString fileToLoad = wxFileSelector(
+    wxString fileToLoad = wxFileSelector(
 		GetResourceString(L"LOCALIZED_FILE_OPEN_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
         m_LastLoadedLogoFile.GetFullName(),         // default file name
@@ -1585,18 +1585,29 @@ bool CMainFrame::DoFileSaveAs(FileTextStreamType FTT)
         m_LastLoadedLogoFile.Clear();
     }
 
+    const wxString& ext =GetResourceString(L"LOCALIZED_LOGO_FILE_EXTENSION");
+    wxString dotext = ext;
+    if(!dotext.StartsWith(L"."))
+    {
+        dotext = L"." + dotext;
+    }
+
     // Get file name from user and then save the file
     bool isOk = false;
-    const wxString fileToSave = wxFileSelector(
+    wxString fileToSave = wxFileSelector(
 		GetResourceString(L"LOCALIZED_FILE_SAVE_DIALOG_TITLE"), // title/message
         m_LastLoadedLogoFile.GetPath(),             // default path
         m_LastLoadedLogoFile.GetFullName(),         // default file name
-		GetResourceString(L"LOCALIZED_LOGO_FILE_EXTENSION"),    // default file extension
+		ext,    // default file extension
 		GetResourceString(L"LOCALIZED_FILEFILTER_LOGO"),        // file filters
         wxFD_SAVE | wxFD_OVERWRITE_PROMPT,          // flags
         this);                                      // parent window
     if (!fileToSave.empty())
     {
+        //check ext if not present
+        if(!fileToSave.Lower().EndsWith(dotext.Lower())){
+            fileToSave+=dotext;
+        }
         // The user made a selection.
         // Save it for seeding a default in future dialog boxes.
         m_LastLoadedLogoFile.Assign(fileToSave);
@@ -1631,7 +1642,7 @@ bool CMainFrame::SaveFile(FileTextStreamType FTT)
     return true;
 }
 
-
+;
 bool CMainFrame::DoFileSave(FileTextStreamType FTT)
 {
     bool isOk = false;
