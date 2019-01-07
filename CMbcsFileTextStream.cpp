@@ -249,9 +249,10 @@ void CMbcsFileTextStream::ClearCBuffer()
 wchar_t CMbcsFileTextStream::WriteBOM()
 {
     wchar_t bom = this->utf8_bom;
-
-	this->WriteChar(bom);
-
+    if(bom == UTF16LE_BOM || bom == UTF16BE_BOM)
+    {
+        this->WriteChar(bom);
+    }
 	return this->utf8_bom;
 }
 wchar_t CMbcsFileTextStream::SkipBOM()
