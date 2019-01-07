@@ -259,7 +259,9 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
     
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
 
-	if (wxFileExists(path)) {
+	if (wxFileExists(path)) 
+    {
+        //Try load file first
 		LoadLocalizedStringsFromFile(path);
 	}
 	else
