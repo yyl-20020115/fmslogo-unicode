@@ -282,12 +282,13 @@ void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 				break;
 			}
 		} 
-		if (name.length() == 0) {
-			//default is en
-			name = N_LOCALIZED_STRINGS_FILE_EN;
-		}
 	}
-    wxString dash=name;
+  if (name.length() == 0) {
+    //default is en
+    name = N_LOCALIZED_STRINGS_FILE_EN;
+  }
+
+  wxString dash=name;
     
 	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + dash + N_LOCALIZED_STRINGS_FILE_END;
 

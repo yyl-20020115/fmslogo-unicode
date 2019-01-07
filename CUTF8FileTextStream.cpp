@@ -140,7 +140,7 @@ bool CUTF8FileTextStream::Open(const wxString & path, const wxString & mode, boo
 
 		//file_bol is determined by read if bom found
 		if (check_bom && (md.Contains(L"r") || md.Contains(L"a"))) {
-			off64_t sp = this->GetPosition();
+			//off64_t sp = this->GetPosition();
             
 			wchar_t first = this->PeekChar();
 

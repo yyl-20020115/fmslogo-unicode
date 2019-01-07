@@ -96,7 +96,6 @@
 		E10D02CE21DED98A008F7B8C /* libwxscintilla-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02B921DED989008F7B8C /* libwxscintilla-3.1.a */; };
 		E10D02CF21DED98A008F7B8C /* libwx_osx_cocoau_stc-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BA21DED989008F7B8C /* libwx_osx_cocoau_stc-3.1.a */; };
 		E10D02D021DED98A008F7B8C /* libwx_osx_cocoau_xrc-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BB21DED989008F7B8C /* libwx_osx_cocoau_xrc-3.1.a */; };
-		E10D02D121DED98A008F7B8C /* libwxtiff-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BC21DED989008F7B8C /* libwxtiff-3.1.a */; };
 		E10D02D221DED98A008F7B8C /* libwx_osx_cocoau_gl-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BD21DED98A008F7B8C /* libwx_osx_cocoau_gl-3.1.a */; };
 		E10D02D321DED98A008F7B8C /* libwx_osx_cocoau_propgrid-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BE21DED98A008F7B8C /* libwx_osx_cocoau_propgrid-3.1.a */; };
 		E10D02D421DED98A008F7B8C /* libwx_osx_cocoau_qa-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D02BF21DED98A008F7B8C /* libwx_osx_cocoau_qa-3.1.a */; };
@@ -448,7 +447,6 @@
 				E10D02CE21DED98A008F7B8C /* libwxscintilla-3.1.a in Frameworks */,
 				E10D02CF21DED98A008F7B8C /* libwx_osx_cocoau_stc-3.1.a in Frameworks */,
 				E10D02D021DED98A008F7B8C /* libwx_osx_cocoau_xrc-3.1.a in Frameworks */,
-				E10D02D121DED98A008F7B8C /* libwxtiff-3.1.a in Frameworks */,
 				E10D02D221DED98A008F7B8C /* libwx_osx_cocoau_gl-3.1.a in Frameworks */,
 				E10D02D321DED98A008F7B8C /* libwx_osx_cocoau_propgrid-3.1.a in Frameworks */,
 				E10D02D421DED98A008F7B8C /* libwx_osx_cocoau_qa-3.1.a in Frameworks */,
@@ -945,7 +943,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SYMROOT = "~/projects/fmslogo-build/debug";
+				SYMROOT = Debug;
 			};
 			name = Debug;
 		};
@@ -1013,7 +1011,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
-				SYMROOT = "~/projects/fmslogo-build/release";
+				SYMROOT = Release;
 			};
 			name = Release;
 		};
