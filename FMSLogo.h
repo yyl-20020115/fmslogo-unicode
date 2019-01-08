@@ -28,7 +28,7 @@ extern class wxString edit_editexit; // editor callback instruction list
 void single_step_box(NODE * the_line);
 wxString promptuser(const wchar_t *prompt);
 
-#ifdef FMSLOGO_WXWIDGETS
+//#ifdef FMSLOGO_WXWIDGETS
 
 #include <wx/app.h>
 
@@ -58,6 +58,6 @@ private:
     bool hasRunStartup;
 };
 
-#endif // FMSLOGO_WXWIDGETS
+//#endif // FMSLOGO_WXWIDGETS
 
 #endif // __FMSLOGO_H_
