@@ -142,6 +142,7 @@ struct LanguageInfo {
 	int LocaleID;
 	int CharsetID; //this is known as codepage
 	const wchar_t* Encoding; //encoding for the language
+    const wchar_t* MacOSXLanguage;
 };
 extern LanguageInfo KnownLanguages[11];
 

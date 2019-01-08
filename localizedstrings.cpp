@@ -3,7 +3,7 @@
 #include "CMbcsFileTextStream.h"
 
 LanguageInfo KnownLanguages[11] = {
-	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN,2052,936,L"GBK"},
+	{N_LC_ZH_CN,N_LOCALIZED_STRINGS_FILE_ZH_CN,2052,936,L"GBK",L"zh-Hans-CN"},
 	{N_LC_EN,N_LOCALIZED_STRINGS_FILE_EN,1033,1252,0},
 	{N_LC_DE,N_LOCALIZED_STRINGS_FILE_DE,1031,1252,0},
 	{N_LC_ES,N_LOCALIZED_STRINGS_FILE_ES,1034,1252,0},
@@ -224,9 +224,11 @@ wxString GetShortNameForLanguage(const wxString& lc, const wxString& _default){
         wxString ln = KnownLanguages[i].Language;
         wxString sn = KnownLanguages[i].ShortName;
         wxString un = sn;
+        wxString mc = KnownLanguages[i].MacOSXLanguage!=0 ? KnownLanguages[i].MacOSXLanguage : L"";
+        mc.MakeLower();
         un.Replace(L'-', L'_');
 
-        if (ll.Contains(ln) || ll.Contains(sn) || ll.Contains(un)) {
+        if (ll.Contains(ln) || ll.Contains(sn) || ll.Contains(un) ||ll.Contains(mc)) {
             name = sn;
             break;
         }
@@ -243,6 +245,7 @@ wxString GetEncodingForLanguage(const wxString & name)
 		wxString ln = KnownLanguages[i].Language;
 		wxString sn = KnownLanguages[i].ShortName;
 		wxString un = sn;
+  
 		un.Replace(L'-', L'_');
 
 		if (name.Contains(ln) || name.Contains(sn) || name.Contains(un)) {
