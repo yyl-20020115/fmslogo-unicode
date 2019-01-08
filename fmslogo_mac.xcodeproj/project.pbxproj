@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */; };
+		E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */; };
+		E19F5E3821E45F7A009A5F00 /* localizedstrings-hr-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */; };
+		E19F5E3921E45F7A009A5F00 /* localizedstrings-en-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2D21E45F78009A5F00 /* localizedstrings-en-ucs2le.h */; };
+		E19F5E3A21E45F7A009A5F00 /* localizedstrings-es-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2E21E45F78009A5F00 /* localizedstrings-es-ucs2le.h */; };
+		E19F5E3B21E45F7A009A5F00 /* localizedstrings-de-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2F21E45F78009A5F00 /* localizedstrings-de-ucs2le.h */; };
+		E19F5E3C21E45F7A009A5F00 /* localizedstrings-gr-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3021E45F78009A5F00 /* localizedstrings-gr-ucs2le.h */; };
+		E19F5E3D21E45F7A009A5F00 /* localizedstrings-pt-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3121E45F79009A5F00 /* localizedstrings-pt-ucs2le.h */; };
+		E19F5E3E21E45F7A009A5F00 /* localizedstrings-ru-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3221E45F79009A5F00 /* localizedstrings-ru-ucs2le.h */; };
+		E19F5E3F21E45F7A009A5F00 /* localizedstrings-it-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3321E45F79009A5F00 /* localizedstrings-it-ucs2le.h */; };
+		E19F5E4021E45F7A009A5F00 /* localizedstrings-fr-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3421E45F79009A5F00 /* localizedstrings-fr-ucs2le.h */; };
+		E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */; };
+		E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E4221E463C5009A5F00 /* startup.logoscript */; };
+		E19F5E4521E4760C009A5F00 /* GetLocale.mm in Sources */ = {isa = PBXBuildFile; fileRef = E19F5E4421E4760C009A5F00 /* GetLocale.mm */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
 		E1EC41E321E425FE00CD3533 /* coms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410B21E425D800CD3533 /* coms.cpp */; };
@@ -125,6 +139,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E2D21E45F78009A5F00 /* localizedstrings-en-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E2E21E45F78009A5F00 /* localizedstrings-es-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E2F21E45F78009A5F00 /* localizedstrings-de-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3021E45F78009A5F00 /* localizedstrings-gr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3121E45F79009A5F00 /* localizedstrings-pt-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3221E45F79009A5F00 /* localizedstrings-ru-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3321E45F79009A5F00 /* localizedstrings-it-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3421E45F79009A5F00 /* localizedstrings-fr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl-ucs2le.h"; sourceTree = "<group>"; };
+		E19F5E4221E463C5009A5F00 /* startup.logoscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = startup.logoscript; sourceTree = "<group>"; };
+		E19F5E4421E4760C009A5F00 /* GetLocale.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetLocale.mm; sourceTree = "<group>"; };
+		E19F5E4621E476A8009A5F00 /* GetLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetLocale.h; sourceTree = "<group>"; };
 		E1EC3FBE21E41FDD00CD3533 /* fmslogo_mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fmslogo_mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EC410821E425D700CD3533 /* FMSLogo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FMSLogo.cpp; sourceTree = "<group>"; };
 		E1EC410A21E425D800CD3533 /* files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = files.cpp; sourceTree = "<group>"; };
@@ -136,20 +165,15 @@
 		E1EC411021E425D800CD3533 /* stringprintednode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stringprintednode.cpp; sourceTree = "<group>"; };
 		E1EC411121E425D800CD3533 /* setpensize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = setpensize.cpp; sourceTree = "<group>"; };
 		E1EC411221E425D800CD3533 /* workspaceeditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = workspaceeditor.cpp; sourceTree = "<group>"; };
-		E1EC411321E425D900CD3533 /* localizedstrings-gr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC411421E425D900CD3533 /* logorc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logorc.h; sourceTree = "<group>"; };
 		E1EC411521E425D900CD3533 /* wxpurestubs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxpurestubs.cpp; sourceTree = "<group>"; };
 		E1EC411721E425D900CD3533 /* stringprintednode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringprintednode.h; sourceTree = "<group>"; };
 		E1EC411821E425D900CD3533 /* init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = init.cpp; sourceTree = "<group>"; };
-		E1EC411921E425D900CD3533 /* localizedstrings-ru-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC411A21E425D900CD3533 /* savebeforeexitdialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = savebeforeexitdialog.cpp; sourceTree = "<group>"; };
 		E1EC411B21E425D900CD3533 /* setactivearea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = setactivearea.cpp; sourceTree = "<group>"; };
 		E1EC411C21E425D900CD3533 /* CEncodingConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEncodingConverter.cpp; sourceTree = "<group>"; };
 		E1EC411D21E425DA00CD3533 /* parse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse.cpp; sourceTree = "<group>"; };
 		E1EC411E21E425DA00CD3533 /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
-		E1EC411F21E425DA00CD3533 /* localizedstrings-en-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en-ucs2le.h"; sourceTree = "<group>"; };
-		E1EC412021E425DA00CD3533 /* localizedstrings-hr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr-ucs2le.h"; sourceTree = "<group>"; };
-		E1EC412121E425DA00CD3533 /* localizedstrings-de-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC412221E425DA00CD3533 /* coms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coms.h; sourceTree = "<group>"; };
 		E1EC412321E425DA00CD3533 /* fontutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontutils.h; sourceTree = "<group>"; };
 		E1EC412421E425DB00CD3533 /* minieditortextctrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minieditortextctrl.h; sourceTree = "<group>"; };
@@ -171,7 +195,6 @@
 		E1EC413621E425DD00CD3533 /* guiutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiutils.cpp; sourceTree = "<group>"; };
 		E1EC413721E425DE00CD3533 /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
 		E1EC413821E425DE00CD3533 /* commander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commander.h; sourceTree = "<group>"; };
-		E1EC413921E425DE00CD3533 /* localizedstrings-hr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr.h"; sourceTree = "<group>"; };
 		E1EC413A21E425DE00CD3533 /* localizednode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localizednode.h; sourceTree = "<group>"; };
 		E1EC413B21E425DE00CD3533 /* logocodectrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logocodectrl.h; sourceTree = "<group>"; };
 		E1EC413C21E425DE00CD3533 /* gbmsize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbmsize.cpp; sourceTree = "<group>"; };
@@ -182,7 +205,6 @@
 		E1EC414121E425DF00CD3533 /* localizedstrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localizedstrings.cpp; sourceTree = "<group>"; };
 		E1EC414221E425DF00CD3533 /* FMSLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMSLogo.h; sourceTree = "<group>"; };
 		E1EC414321E425DF00CD3533 /* logodialogboxes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logodialogboxes.cpp; sourceTree = "<group>"; };
-		E1EC414421E425E000CD3533 /* localizedstrings-es.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es.h"; sourceTree = "<group>"; };
 		E1EC414521E425E000CD3533 /* init.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = init.h; sourceTree = "<group>"; };
 		E1EC414721E425E000CD3533 /* CNodePrinter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CNodePrinter.cpp; sourceTree = "<group>"; };
 		E1EC414821E425E000CD3533 /* selectproceduredialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = selectproceduredialog.cpp; sourceTree = "<group>"; };
@@ -199,7 +221,6 @@
 		E1EC415421E425E300CD3533 /* workspaceeditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workspaceeditor.h; sourceTree = "<group>"; };
 		E1EC415521E425E300CD3533 /* term.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = term.cpp; sourceTree = "<group>"; };
 		E1EC415621E425E300CD3533 /* CNodePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNodePrinter.h; sourceTree = "<group>"; };
-		E1EC415721E425E300CD3533 /* localizedstrings-pl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl.h"; sourceTree = "<group>"; };
 		E1EC415821E425E300CD3533 /* aboutfmslogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutfmslogo.h; sourceTree = "<group>"; };
 		E1EC415921E425E300CD3533 /* commanderhistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commanderhistory.h; sourceTree = "<group>"; };
 		E1EC415A21E425E400CD3533 /* threed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = threed.cpp; sourceTree = "<group>"; };
@@ -207,16 +228,13 @@
 		E1EC415C21E425E400CD3533 /* selectbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selectbox.h; sourceTree = "<group>"; };
 		E1EC415D21E425E400CD3533 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		E1EC415E21E425E400CD3533 /* avltree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avltree.h; sourceTree = "<group>"; };
-		E1EC415F21E425E400CD3533 /* localizedstrings-pt-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC416021E425E500CD3533 /* localizedstrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localizedstrings.h; sourceTree = "<group>"; };
 		E1EC416221E425E500CD3533 /* logocore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logocore.h; sourceTree = "<group>"; };
 		E1EC416321E425E500CD3533 /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		E1EC416421E425E500CD3533 /* screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen.cpp; sourceTree = "<group>"; };
-		E1EC416521E425E600CD3533 /* localizedstrings-en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-en.h"; sourceTree = "<group>"; };
 		E1EC416621E425E600CD3533 /* logoeventqueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logoeventqueue.h; sourceTree = "<group>"; };
 		E1EC416721E425E600CD3533 /* startup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = startup.cpp; sourceTree = "<group>"; };
 		E1EC416821E425E600CD3533 /* commander.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commander.cpp; sourceTree = "<group>"; };
-		E1EC416921E425E600CD3533 /* localizedstrings-fr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr.h"; sourceTree = "<group>"; };
 		E1EC416A21E425E600CD3533 /* eraseproceduredialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eraseproceduredialog.h; sourceTree = "<group>"; };
 		E1EC416B21E425E700CD3533 /* gbmbmp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbmbmp.cpp; sourceTree = "<group>"; };
 		E1EC416C21E425E700CD3533 /* screenwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = screenwindow.h; sourceTree = "<group>"; };
@@ -244,7 +262,6 @@
 		E1EC418221E425EB00CD3533 /* setactivearea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setactivearea.h; sourceTree = "<group>"; };
 		E1EC418321E425EB00CD3533 /* mainframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainframe.h; sourceTree = "<group>"; };
 		E1EC418421E425EC00CD3533 /* argumentutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = argumentutils.cpp; sourceTree = "<group>"; };
-		E1EC418521E425EC00CD3533 /* localizedstrings-pl-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pl-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC418621E425EC00CD3533 /* selectstartupinstruction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = selectstartupinstruction.cpp; sourceTree = "<group>"; };
 		E1EC418721E425EC00CD3533 /* gbmhelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gbmhelp.h; sourceTree = "<group>"; };
 		E1EC418821E425EC00CD3533 /* CUTF16FileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTF16FileTextStream.h; sourceTree = "<group>"; };
@@ -254,11 +271,8 @@
 		E1EC418C21E425ED00CD3533 /* commanderinput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commanderinput.cpp; sourceTree = "<group>"; };
 		E1EC418D21E425ED00CD3533 /* minieditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minieditor.cpp; sourceTree = "<group>"; };
 		E1EC418E21E425EE00CD3533 /* helputils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helputils.h; sourceTree = "<group>"; };
-		E1EC418F21E425EE00CD3533 /* localizedstrings-it-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC419021E425EE00CD3533 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		E1EC419121E425EE00CD3533 /* wrksp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wrksp.cpp; sourceTree = "<group>"; };
-		E1EC419221E425EF00CD3533 /* localizedstrings-es-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-es-ucs2le.h"; sourceTree = "<group>"; };
-		E1EC419321E425EF00CD3533 /* localizedstrings-pt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-pt.h"; sourceTree = "<group>"; };
 		E1EC419521E425EF00CD3533 /* gbm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbm.cpp; sourceTree = "<group>"; };
 		E1EC419721E425F000CD3533 /* graphwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphwin.cpp; sourceTree = "<group>"; };
 		E1EC419821E425F000CD3533 /* logomath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logomath.cpp; sourceTree = "<group>"; };
@@ -290,18 +304,14 @@
 		E1EC41B521E425F600CD3533 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
 		E1EC41B621E425F600CD3533 /* messagebox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = messagebox.cpp; sourceTree = "<group>"; };
 		E1EC41B721E425F600CD3533 /* CMbcsFileTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMbcsFileTextStream.h; sourceTree = "<group>"; };
-		E1EC41B821E425F700CD3533 /* localizedstrings-zh-cn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn.h"; sourceTree = "<group>"; };
 		E1EC41B921E425F700CD3533 /* statusdialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = statusdialog.cpp; sourceTree = "<group>"; };
 		E1EC41BB21E425F700CD3533 /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
-		E1EC41BC21E425F700CD3533 /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC41BD21E425F800CD3533 /* graphwin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphwin.h; sourceTree = "<group>"; };
 		E1EC41BE21E425F800CD3533 /* CUTF8FileTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUTF8FileTextStream.cpp; sourceTree = "<group>"; };
-		E1EC41BF21E425F800CD3533 /* localizedstrings-ru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ru.h"; sourceTree = "<group>"; };
 		E1EC41C021E425F800CD3533 /* dynamicbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicbuffer.h; sourceTree = "<group>"; };
 		E1EC41C121E425F800CD3533 /* commanderbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commanderbutton.h; sourceTree = "<group>"; };
 		E1EC41C221E425F900CD3533 /* argumentutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = argumentutils.h; sourceTree = "<group>"; };
 		E1EC41C321E425F900CD3533 /* 3dsolid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 3dsolid.cpp; sourceTree = "<group>"; };
-		E1EC41C421E425F900CD3533 /* localizedstrings-fr-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-fr-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC41C521E425F900CD3533 /* parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parse.h; sourceTree = "<group>"; };
 		E1EC41C621E425F900CD3533 /* guiutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = guiutils.h; sourceTree = "<group>"; };
 		E1EC41C721E425F900CD3533 /* gbm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gbm.h; sourceTree = "<group>"; };
@@ -309,20 +319,15 @@
 		E1EC41C921E425FA00CD3533 /* CStringTextStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CStringTextStream.h; sourceTree = "<group>"; };
 		E1EC41CA21E425FA00CD3533 /* gbmhelp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbmhelp.cpp; sourceTree = "<group>"; };
 		E1EC41CB21E425FA00CD3533 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		E1EC41CC21E425FA00CD3533 /* localizedstrings-de.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-de.h"; sourceTree = "<group>"; };
 		E1EC41CD21E425FB00CD3533 /* gbmgif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbmgif.cpp; sourceTree = "<group>"; };
 		E1EC41CE21E425FB00CD3533 /* fontutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fontutils.cpp; sourceTree = "<group>"; };
 		E1EC41CF21E425FB00CD3533 /* localizednode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localizednode.cpp; sourceTree = "<group>"; };
 		E1EC41D021E425FB00CD3533 /* paren.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paren.h; sourceTree = "<group>"; };
-		E1EC41D121E425FB00CD3533 /* localizedstrings-gr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-gr.h"; sourceTree = "<group>"; };
-		E1EC41D221E425FC00CD3533 /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
 		E1EC41D321E425FC00CD3533 /* activearea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = activearea.cpp; sourceTree = "<group>"; };
 		E1EC41D421E425FC00CD3533 /* appendablelist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appendablelist.cpp; sourceTree = "<group>"; };
 		E1EC41D521E425FC00CD3533 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
 		E1EC41D621E425FC00CD3533 /* fileswnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileswnd.h; sourceTree = "<group>"; };
 		E1EC41D721E425FD00CD3533 /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
-		E1EC41D821E425FD00CD3533 /* localizedstrings-it.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-it.h"; sourceTree = "<group>"; };
-		E1EC41D921E425FD00CD3533 /* localizedstrings-ps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps.h"; sourceTree = "<group>"; };
 		E1EC41DA21E425FD00CD3533 /* devwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = devwind.cpp; sourceTree = "<group>"; };
 		E1EC41DB21E425FD00CD3533 /* CStringTextStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CStringTextStream.cpp; sourceTree = "<group>"; };
 		E1EC41DC21E425FE00CD3533 /* sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sort.cpp; sourceTree = "<group>"; };
@@ -404,6 +409,21 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
+				E19F5E4621E476A8009A5F00 /* GetLocale.h */,
+				E19F5E4421E4760C009A5F00 /* GetLocale.mm */,
+				E19F5E4221E463C5009A5F00 /* startup.logoscript */,
+				E19F5E2F21E45F78009A5F00 /* localizedstrings-de-ucs2le.h */,
+				E19F5E2D21E45F78009A5F00 /* localizedstrings-en-ucs2le.h */,
+				E19F5E2E21E45F78009A5F00 /* localizedstrings-es-ucs2le.h */,
+				E19F5E3421E45F79009A5F00 /* localizedstrings-fr-ucs2le.h */,
+				E19F5E3021E45F78009A5F00 /* localizedstrings-gr-ucs2le.h */,
+				E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */,
+				E19F5E3321E45F79009A5F00 /* localizedstrings-it-ucs2le.h */,
+				E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */,
+				E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */,
+				E19F5E3121E45F79009A5F00 /* localizedstrings-pt-ucs2le.h */,
+				E19F5E3221E45F79009A5F00 /* localizedstrings-ru-ucs2le.h */,
+				E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */,
 				E1EC427821E42B4F00CD3533 /* LexFmsLogo.cxx */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
@@ -504,30 +524,6 @@
 				E1EC415121E425E200CD3533 /* lists.h */,
 				E1EC41CF21E425FB00CD3533 /* localizednode.cpp */,
 				E1EC413A21E425DE00CD3533 /* localizednode.h */,
-				E1EC412121E425DA00CD3533 /* localizedstrings-de-ucs2le.h */,
-				E1EC41CC21E425FA00CD3533 /* localizedstrings-de.h */,
-				E1EC411F21E425DA00CD3533 /* localizedstrings-en-ucs2le.h */,
-				E1EC416521E425E600CD3533 /* localizedstrings-en.h */,
-				E1EC419221E425EF00CD3533 /* localizedstrings-es-ucs2le.h */,
-				E1EC414421E425E000CD3533 /* localizedstrings-es.h */,
-				E1EC41C421E425F900CD3533 /* localizedstrings-fr-ucs2le.h */,
-				E1EC416921E425E600CD3533 /* localizedstrings-fr.h */,
-				E1EC411321E425D900CD3533 /* localizedstrings-gr-ucs2le.h */,
-				E1EC41D121E425FB00CD3533 /* localizedstrings-gr.h */,
-				E1EC412021E425DA00CD3533 /* localizedstrings-hr-ucs2le.h */,
-				E1EC413921E425DE00CD3533 /* localizedstrings-hr.h */,
-				E1EC418F21E425EE00CD3533 /* localizedstrings-it-ucs2le.h */,
-				E1EC41D821E425FD00CD3533 /* localizedstrings-it.h */,
-				E1EC418521E425EC00CD3533 /* localizedstrings-pl-ucs2le.h */,
-				E1EC415721E425E300CD3533 /* localizedstrings-pl.h */,
-				E1EC41D221E425FC00CD3533 /* localizedstrings-ps-ucs2le.h */,
-				E1EC41D921E425FD00CD3533 /* localizedstrings-ps.h */,
-				E1EC415F21E425E400CD3533 /* localizedstrings-pt-ucs2le.h */,
-				E1EC419321E425EF00CD3533 /* localizedstrings-pt.h */,
-				E1EC411921E425D900CD3533 /* localizedstrings-ru-ucs2le.h */,
-				E1EC41BF21E425F800CD3533 /* localizedstrings-ru.h */,
-				E1EC41BC21E425F700CD3533 /* localizedstrings-zh-cn-ucs2le.h */,
-				E1EC41B821E425F700CD3533 /* localizedstrings-zh-cn.h */,
 				E1EC414121E425DF00CD3533 /* localizedstrings.cpp */,
 				E1EC416021E425E500CD3533 /* localizedstrings.h */,
 				E1EC418921E425ED00CD3533 /* logocodectrl.cpp */,
@@ -714,6 +710,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */,
+				E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */,
+				E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */,
+				E19F5E3821E45F7A009A5F00 /* localizedstrings-hr-ucs2le.h in Resources */,
+				E19F5E3921E45F7A009A5F00 /* localizedstrings-en-ucs2le.h in Resources */,
+				E19F5E3A21E45F7A009A5F00 /* localizedstrings-es-ucs2le.h in Resources */,
+				E19F5E3B21E45F7A009A5F00 /* localizedstrings-de-ucs2le.h in Resources */,
+				E19F5E3C21E45F7A009A5F00 /* localizedstrings-gr-ucs2le.h in Resources */,
+				E19F5E3D21E45F7A009A5F00 /* localizedstrings-pt-ucs2le.h in Resources */,
+				E19F5E3E21E45F7A009A5F00 /* localizedstrings-ru-ucs2le.h in Resources */,
+				E19F5E3F21E45F7A009A5F00 /* localizedstrings-it-ucs2le.h in Resources */,
+				E19F5E4021E45F7A009A5F00 /* localizedstrings-fr-ucs2le.h in Resources */,
+				E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +758,7 @@
 				E1EC41F321E425FE00CD3533 /* CEncodingFileTextStream.cpp in Sources */,
 				E1EC421621E425FF00CD3533 /* minieditor.cpp in Sources */,
 				E1EC420B21E425FE00CD3533 /* lists.cpp in Sources */,
+				E19F5E4521E4760C009A5F00 /* GetLocale.mm in Sources */,
 				E1EC420021E425FE00CD3533 /* minieditortextctrl.cpp in Sources */,
 				E1EC420C21E425FE00CD3533 /* fileswnd.cpp in Sources */,
 				E1EC421921E425FF00CD3533 /* gbm.cpp in Sources */,

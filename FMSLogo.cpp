@@ -49,6 +49,10 @@
 #include <locale.h>
 #include "CMbcsFileTextStream.h"
 
+#ifdef __APPLE__
+#include "GetLocale.h"
+#endif
+
 // global variables declared in main.h
 wxString edit_editexit;     // editor callback instruction list 
 
@@ -246,21 +250,29 @@ wxString CFmsLogo::ProcessCommandLine(wxString lang)
 void CFmsLogo::LoadLocalizedStringFile(const wxString& lang)
 {
 	wxString name;
+    wxString lc;
+#ifdef __APPLE__
+    lc = GetMacOSXLocale();
+#else
 	//has to be LC_ALL to make it work on windows
-	wxString lc = wxSetlocale(
+	lc = wxSetlocale(
 #ifdef _WINDOWS
         LC_ALL
 #else
         LC_CTYPE
 #endif
         , (const char*)lang);
-
+#endif
 	//lang = "":USE SYSTEM LOCALE (for mbtowc)
 	name = GetShortNameForLanguage(lc,N_LOCALIZED_STRINGS_FILE_EN);
     
     CFileTextStream::SystemEncoding = GetEncodingForLanguage(name);
     
-	wxString path = g_FmslogoBaseDirectory + N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
+	wxString path = g_FmslogoBaseDirectory +
+#ifdef __APPLE__
+    L"../Resources/" +
+#endif
+    N_LOCALIZED_STRINGS_FILE_START + name + N_LOCALIZED_STRINGS_FILE_END;
 
 	if (wxFileExists(path)) 
     {
@@ -573,7 +585,11 @@ void CFmsLogo::OnIdle(wxIdleEvent & IdleEvent)
 	if (!this->hasRunStartup)
 	{
 		this->hasRunStartup = true;
-		wxString stsc = g_FmslogoBaseDirectory + L"startup.logoscript";
+		wxString stsc = g_FmslogoBaseDirectory +
+#ifdef __APPLE__
+        L"../Resources/" +
+#endif
+        L"startup.logoscript";
 		silent_load(NIL, stsc);
 	}
 
