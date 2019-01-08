@@ -12,7 +12,7 @@ void RunLogoInstructionFromGui(const wchar_t * LogoInstruction);
 ////////////////////////////////////////////////////////////////////////
 // Classes
 
-#ifdef FMSLOGO_WXWIDGETS
+//#ifdef FMSLOGO_WXWIDGETS
 
 #include <wx/panel.h>
 #include <wx/dialog.h>
@@ -115,5 +115,5 @@ private:
     DECLARE_EVENT_TABLE();
 };
 
-#endif // FMSLOGO_WXWIDGETS
+//#endif // FMSLOGO_WXWIDGETS
 
