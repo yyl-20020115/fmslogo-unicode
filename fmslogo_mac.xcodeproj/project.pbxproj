@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E106E6CC21E4C20F00881E0E /* fmslogo.icns in Resources */ = {isa = PBXBuildFile; fileRef = E106E6CB21E4C20F00881E0E /* fmslogo.icns */; };
 		E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */; };
 		E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */; };
 		E19F5E3821E45F7A009A5F00 /* localizedstrings-hr-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */; };
@@ -139,6 +140,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E106E6CB21E4C20F00881E0E /* fmslogo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = fmslogo.icns; sourceTree = "<group>"; };
 		E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
 		E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
 		E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-hr-ucs2le.h"; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
+				E106E6CB21E4C20F00881E0E /* fmslogo.icns */,
 				E19F5E4621E476A8009A5F00 /* GetLocale.h */,
 				E19F5E4421E4760C009A5F00 /* GetLocale.mm */,
 				E19F5E4221E463C5009A5F00 /* startup.logoscript */,
@@ -710,6 +713,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E106E6CC21E4C20F00881E0E /* fmslogo.icns in Resources */,
 				E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */,
 				E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */,
 				E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */,
