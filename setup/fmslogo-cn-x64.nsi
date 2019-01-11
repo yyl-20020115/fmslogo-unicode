@@ -34,7 +34,7 @@ SetCompressor /SOLID lzma
 
 ; The name of the installer
 Name "FMSLogo"
-!define FMSLOGO_OUTPUT_FILE "FMSLogo-64位中文版安装程序.exe"
+!define FMSLOGO_OUTPUT_FILE "FMSLogoUnicode-64位中文版安装程序.exe"
 
 ; The file to write
 OutFile "${FMSLOGO_OUTPUT_FILE}"
@@ -55,14 +55,14 @@ RequestExecutionLevel highest
 
 
 ; The default installation directory
-InstallDir "$PROGRAMFILES\FMSLogo"
+InstallDir "$PROGRAMFILES\FMSLogoUnicode"
 
 ; Registry key to check for directory 
 ; (so if you install again, it will overwrite the old one automatically)
-InstallDirRegKey HKLM "Software\FMSLogo" "Install_Dir"
+InstallDirRegKey HKLM "Software\FMSLogoUnicode" "Install_Dir"
 
 !define /date COPYRIGHT_YEAR "%Y"
-VIAddVersionKey "ProductName"     "FMSLogo"
+VIAddVersionKey "ProductName"     "FMSLogoUnicode"
 VIAddVersionKey "ProductVersion"  "${FMSLOGO_VERSION}"
 VIAddVersionKey "FileDescription" "FMSLogo installer"
 VIAddVersionKey "LegalCopyright"  "Copyright (C) ${COPYRIGHT_YEAR} by David Costanzo"
@@ -82,9 +82,9 @@ Var StartMenuFolder
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER      "FMSLogo"          ; default start menu folder
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER      "FMSLogoUnicode"          ; default start menu folder
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT      SHELL_CONTEXT      ; where to store the custom start menu folder
-!define MUI_STARTMENUPAGE_REGISTRY_KEY       "Software\FMSLogo"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY       "Software\FMSLogoUnicode"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "StartMenuFolder"
 !insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
 
@@ -200,7 +200,7 @@ Section "FMSLogo" FMSLogoSectionId
   ; Put files there
   ;
   !insertmacro InstallLanguageFile ..\                 startup   .logoscript
-  !insertmacro InstallLanguageFile ..\${FMSLOGO_EXE_PATH}\  fmslogo   .exe
+  !insertmacro InstallLanguageFile ..\${FMSLOGO_EXE_PATH}\  FMSLogoUnicode   .exe
   !insertmacro InstallLanguageFile ..\manual\              logohelp  .chm
 
   File "..\README.TXT"
@@ -214,23 +214,22 @@ Section "FMSLogo" FMSLogoSectionId
   ;
 
   ; Write the installation path into the registry
-  WriteRegStr SHELL_CONTEXT "Software\FMSLogo" "Install_Dir" "$INSTDIR"
+  WriteRegStr SHELL_CONTEXT "Software\FMSLogoUnicode" "Install_Dir" "$INSTDIR"
 
-  WriteRegStr   SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "DisplayName" "FMSLogo"
-  WriteRegStr   SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "UninstallString" '"$INSTDIR\uninstall.exe"'
-  WriteRegDWORD SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "NoModify" 1
-  WriteRegDWORD SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "NoRepair" 1
-
+  WriteRegStr   SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "DisplayName" "FMSLogoUnicode"
+  WriteRegStr   SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "UninstallString" '"$INSTDIR\uninstall.exe"'
+  WriteRegDWORD SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "NoModify" 1
+  WriteRegDWORD SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "NoRepair" 1
+  
   WriteUninstaller "uninstall.exe"
-
   ;
   ; create a file association for .lgo
   ;
   WriteRegStr SHELL_CONTEXT "software\classes\.lgo"  ""             "Logo program"
   WriteRegStr SHELL_CONTEXT "software\classes\.lgo"  "Logo program" "Logo program"
   WriteRegStr SHELL_CONTEXT "software\classes\Logo program\shell"              ""  "open"
-  WriteRegStr SHELL_CONTEXT "software\classes\Logo program\DefaultIcon"        "" '$INSTDIR\fmslogo.exe,0'
-  WriteRegStr SHELL_CONTEXT "software\classes\Logo program\shell\open\command" "" '$INSTDIR\fmslogo.exe -L%1'
+  WriteRegStr SHELL_CONTEXT "software\classes\Logo program\DefaultIcon"        "" '$INSTDIR\fmslogounicode.exe,0'
+  WriteRegStr SHELL_CONTEXT "software\classes\Logo program\shell\open\command" "" '$INSTDIR\fmslogounicode.exe -L%1'
 
   ;
   ; Create Start Menu shortcuts (if requested)
@@ -238,7 +237,7 @@ Section "FMSLogo" FMSLogoSectionId
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"        "$INSTDIR\uninstall.exe"       "" "$INSTDIR\uninstall.exe" 0
-    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\FMSLogo.lnk"          "$INSTDIR\fmslogo.exe"         "" "$INSTDIR\fmslogo.exe" 0
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\FMSLogoUnicode.lnk"          "$INSTDIR\fmslogounicode.exe"         "" "$INSTDIR\fmslogounicode.exe" 0
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Examples.lnk"         "$INSTDIR\examples"            "" "$INSTDIR\examples" 0
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Examples (index).lnk" "$INSTDIR\examples\index.html" "" "$INSTDIR\examples\index.html" 0
   !insertmacro MUI_STARTMENU_WRITE_END
@@ -247,7 +246,7 @@ SectionEnd
 
 
 Section $(DesktopShortcut) DesktopShortcutSectionId
-  CreateShortCut "$DESKTOP\FMSLogo.lnk" "$INSTDIR\fmslogo.exe" "" "$INSTDIR\fmslogo.exe" 0 
+  CreateShortCut "$DESKTOP\FMSLogoUnicode.lnk" "$INSTDIR\fmslogounicode.exe" "" "$INSTDIR\fmslogounicode.exe" 0 
 SectionEnd
 
 
@@ -292,8 +291,8 @@ Function .onInit
 SetupUser:
   ; Assume non-privileged user until we know they are an administrator
   SetShellVarContext current
-  StrLen $2 "$PROFILE\FMSLogo"
-  StrCpy $INSTDIR "$PROFILE\FMSLogo" $2 0
+  StrLen $2 "$PROFILE\FMSLogoUnicode"
+  StrCpy $INSTDIR "$PROFILE\FMSLogoUnicode" $2 0
 
   ClearErrors
   UserInfo::GetName
@@ -308,8 +307,8 @@ SetupUser:
 SetupUser.Win9x:
       ; This user can install software as an administrator
       SetShellVarContext all
-      StrLen $2       "$PROGRAMFILES\FMSLogo"
-      StrCpy $INSTDIR "$PROGRAMFILES\FMSLogo" $2 0
+      StrLen $2       "$PROGRAMFILES\FMSLogoUnicode"
+      StrCpy $INSTDIR "$PROGRAMFILES\FMSLogoUnicode" $2 0
 
       ; We can write to the system directory, so enable the screen saver
       SectionGetFlags ${ScreenSaverSectionId} $3
@@ -330,7 +329,7 @@ Function PreInstallSteps
   ;
   ; Abort if another instance of the installer is running
   ; 
-  System::Call 'kernel32::CreateMutexA(i 0, i 0, t "LogoForWindowsMutex") i .r1 ?e'
+  System::Call 'kernel32::CreateMutexA(i 0, i 0, t "LogoUnicodeForWindowsMutex") i .r1 ?e'
   Pop $R0 
   StrCmp $R0 0 checkifinstalled
 
@@ -352,7 +351,7 @@ checkifinstalled:
   IfSilent uninstall
 
   ; Infer the path of any previous FMSLogo installation by looking for its uninstaller
-  ReadRegStr $0 SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "UninstallString"
+  ReadRegStr $0 SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "UninstallString"
 
   ; If no uninstaller was found, then we're done
   StrCmp $0 "" end 0
@@ -378,10 +377,10 @@ uninstall:
   ; Remove registry keys
   ; Note that we retain the registry key that has the preferences so that upgrading
   ; to a newer version doesn't cause any data loss.
-  DeleteRegKey SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo"
+  DeleteRegKey SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode"
 
   ; Remove files and uninstaller
-  Delete $previousinstalldir\fmslogo.exe
+  Delete $previousinstalldir\FMSLogoUnicode.exe
   ;Delete $previousinstalldir\fmslogo-${LANG_ENGLISH}.exe
   ;Delete $previousinstalldir\fmslogo-${LANG_SIMPCHINESE}.exe
 
@@ -432,7 +431,7 @@ uninstall:
   ; start menu shortcuts.
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
   RMDir  /r "$SMPROGRAMS\$StartMenuFolder"
-  Delete    "$DESKTOP\FMSLogo.lnk"
+  Delete    "$DESKTOP\FMSLogoUnicode.lnk"
 
   ; Remove directories used
   RMDir /r "$previousinstalldir\logolib"
@@ -476,7 +475,7 @@ FunctionEnd
 
 Function un.PreInstallSteps
 
-  System::Call 'kernel32::CreateMutexA(i 0, i 0, t "LogoForWindowsMutex") i .r1 ?e'
+  System::Call 'kernel32::CreateMutexA(i 0, i 0, t "LogoUnicodeForWindowsMutex") i .r1 ?e'
   Pop $R0
   StrCmp $R0 0 CheckIfInstallExists
 
@@ -486,7 +485,7 @@ Function un.PreInstallSteps
 
 CheckIfInstallExists:
 
-  ReadRegStr $1 SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo" "UninstallString"
+  ReadRegStr $1 SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode" "UninstallString"
   StrCpy $INSTDIR $1 -15 1 ; hack: assumes the string is quoted and ends in `\uninstall.exe"'.
 
   ; Confirm that FMSLogo exists where we think it does
@@ -505,7 +504,7 @@ FunctionEnd
 
 Section "Uninstall"
   ; Remove files and uninstaller
-  Delete $INSTDIR\fmslogo.exe
+  Delete $INSTDIR\FMSLogoUnicode.exe
   Delete $INSTDIR\startup.logoscript
   Delete $INSTDIR\logohelp.chm
   Delete $SYSDIR\fmslogo.scr
@@ -519,7 +518,7 @@ Section "Uninstall"
   ; Remove shortcuts, if any
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
   RMDir  /r "$SMPROGRAMS\$StartMenuFolder"
-  Delete    "$DESKTOP\FMSLogo.lnk"
+  Delete    "$DESKTOP\FMSLogoUnicode.lnk"
 
   ; Remove directories used
   RMDir /r "$INSTDIR\logolib"
@@ -531,8 +530,8 @@ Section "Uninstall"
   DeleteRegKey   SHELL_CONTEXT "software\classes\Logo program"
 
   ; Remove registry keys
-  DeleteRegKey SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogo"
-  DeleteRegKey SHELL_CONTEXT "Software\FMSLogo"
+  DeleteRegKey SHELL_CONTEXT "Software\Microsoft\Windows\CurrentVersion\Uninstall\FMSLogoUnicode"
+  DeleteRegKey SHELL_CONTEXT "Software\FMSLogoUnicode"
 
 SectionEnd
 

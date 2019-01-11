@@ -332,7 +332,9 @@ bool CFmsLogo::OnInit()
 	g_SingleInstanceMutex = CreateMutex(
 		NULL,  // default security attributes
 		FALSE, // no initial owner
-		L"LogoForWindowsMutex");
+		L"LogoUnicodeForWindowsMutex");
+	//NOTICE: we change the mutex lock to append Unicode
+	//this will make unicode and ansi version work at same time.
 	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		// A copy of Logo is already running.
