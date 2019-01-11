@@ -19,7 +19,7 @@
 #define _DYNAMICBUFFER_H_
 
 #include <stddef.h>
-
+#include <wx/string.h>
 class CDynamicBuffer
 {
 public:
@@ -34,17 +34,13 @@ public:
     void AppendString(const wchar_t * ToAppend);
     void AppendChar(wchar_t ToAppend);
 
-	wchar_t * GetBuffer();
+	const wxString& GetBuffer();
     size_t GetBufferLength() const;
     int    PopChar();
 
 private:
-    void GrowBy(size_t ExtraLength);
 
-	wchar_t * m_Buffer;        // the contents of the dynamic buffer
-    size_t m_BufferSize;    // size of the buffer
-    size_t m_BufferStart;   // offset of first byte of readable data in m_Buffer
-    size_t m_BufferLimit;   // offset of next byte of writable data in m_Buffer
+	wxString text;
 };
 
 #endif // _DYNAMICBUFFER_H_
