@@ -298,7 +298,7 @@ GrowBitmapsArray(int NewSize)
     // assert that the array needs to grow
     assert(NewSize > g_BitmapsLimit);
 
-    if (NewSize > (signed)((size_t)-1 / sizeof(*g_Bitmaps)))
+    if ((unsigned)NewSize > /*(signed)*/((size_t)-1 / sizeof(*g_Bitmaps)))
     {
         // this allocation would result in an integer overflow
         err_logo(OUT_OF_MEM, NIL);
