@@ -776,12 +776,13 @@ NODE *cnv_node_to_numnode(NODE *ndi)
         }
 
         // Convert the string to a number node.
-        NODE *val;
+        NODE *val = 0;
         if (dr - 1 || getstrlen(ndi) > 9)
         {
-            float f =0.0f;
-            swscanf(s,L"%f",&f);
-            val = make_floatnode(f);
+			double lf = 0.0;
+            swscanf(s,L"%lf",&lf);
+			//NOTICE: float here is actually double!
+			val = make_floatnode(lf);
         }
         else
         {
