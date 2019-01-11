@@ -63,22 +63,22 @@ mputcombobox(
     // Append the string to the buffer
     g_ComboBuffer.AppendString(str);
 
-    // process lines
-	wchar_t * rawBuffer    = g_ComboBuffer.GetBuffer();
-    size_t rawBufferLength = g_ComboBuffer.GetBufferLength();
+	wxString rawBuffer = g_ComboBuffer.GetBuffer();
 
-	wchar_t * next_line = rawBuffer;
-    for (size_t i = 0; i < rawBufferLength; i++)
-    {
-        if (rawBuffer[i] == L'\n')
-        {
-            // if <lf> pump it out
-            rawBuffer[i] = L'\0';
-            putcombobox(next_line, MESSAGETYPE_Normal);
-            rawBuffer[i] = L'\n';
-            next_line = &rawBuffer[i + 1];
-        }
-    }
+	wxString next_line;
+
+    // process lines
+	for (size_t i = 0; i < rawBuffer.length(); i++)
+	{
+		if (rawBuffer[i] == L'\n')
+		{
+			// if <lf> pump it out
+			next_line = rawBuffer.substr(0, i);
+			rawBuffer = rawBuffer.substr(i + 1);
+			putcombobox(next_line, MESSAGETYPE_Normal);
+		}
+	}
+
 
     // flush the last line (which doesn't end in \n)
     if (next_line[0] != L'\0')

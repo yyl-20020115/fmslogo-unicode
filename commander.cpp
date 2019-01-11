@@ -670,19 +670,18 @@ CCommander::AppendToCommanderHistory(
     g_HistoryBuffer.AppendString(String);
 
     // process lines
-    wchar_t * rawBuffer       = g_HistoryBuffer.GetBuffer();
-    size_t rawBufferLength = g_HistoryBuffer.GetBufferLength();
+    wxString rawBuffer = g_HistoryBuffer.GetBuffer();
 
-	wchar_t * next_line = rawBuffer;
-    for (size_t i = 0; i < rawBufferLength; i++)
+	wxString next_line;
+
+    for (size_t i = 0; i < rawBuffer.length(); i++)
     {
         if (rawBuffer[i] == L'\n')
         {
             // if <lf> pump it out
-            rawBuffer[i] = L'\0';
+			next_line = rawBuffer.substr(0, i);
+			rawBuffer = rawBuffer.substr(i + 1);
             putcombobox(next_line, MESSAGETYPE_Normal);
-            rawBuffer[i] = L'\n';
-            next_line = &rawBuffer[i + 1];
         }
     }
 
