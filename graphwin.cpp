@@ -2407,7 +2407,7 @@ NODE *lsetturtle(NODE *args)
             // The physical array is smaller than the requested turtle
             // index, so we must grow the turtle array.
 
-            if (turtleId + 1 >(signed)( (size_t)-1 / sizeof(*g_Turtles)))
+            if ((unsigned)(turtleId + 1) >( (size_t)-1 / sizeof(*g_Turtles)))
             {
                 // this allocation would result in an integer overflow
                 err_logo(OUT_OF_MEM, NIL);
