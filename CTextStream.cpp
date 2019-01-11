@@ -220,7 +220,7 @@ unsigned short CTextStream::SwapByteOrderShort(unsigned short s)
 
 unsigned int CTextStream::SwapByteOrderLong(unsigned int i)
 {
-	return (SwapByteOrderShort(i & 0xffff) << 16) | (SwapByteOrderShort(i & 0xffff0000) >> 16);
+	return (SwapByteOrderShort(i & 0xffff) << 16) | (SwapByteOrderShort((i & 0xffff0000) >> 16));
 }
 
 wchar_t CTextStream::GetMachineBOM()
