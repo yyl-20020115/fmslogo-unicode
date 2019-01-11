@@ -1,4 +1,4 @@
-package: fmslogo
+package: fmslogo-unicode
 version: 7.3.0
 architecture: i386
 maintainer: yilin

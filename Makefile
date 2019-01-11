@@ -144,7 +144,7 @@ default : fmslogo
 
 	
 fmslogo: $(OBJECTS)
-	$(CXX) -o fmslogo $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
+	$(CXX) -o fmslogo-unicode $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
 
 scintilla/LexFmsLogo.o : scintilla/LexFmsLogo.cxx
 	$(CXX) -c $(CXXFLAGS) scintilla/LexFmsLogo.cxx  -o scintilla/LexFmsLogo.o 

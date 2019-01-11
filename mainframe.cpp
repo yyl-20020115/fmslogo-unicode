@@ -374,7 +374,7 @@ CMainFrame::CMainFrame(
     ) : wxFrame(
         NULL, 
         wxID_ANY, 
-		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"),
+		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME") + wxString(L" - Unicode"),
         Position,
         Size,
         wxDEFAULT_FRAME_STYLE | wxNO_FULL_REPAINT_ON_RESIZE |
