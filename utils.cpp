@@ -43,8 +43,9 @@
 
 #ifndef WX_PURE
 
+//NOTICE: registry entry changed to make unicode version a different product.
 // the name of the FMSLogo registry key under HKCU
-const wchar_t FMSLOGO_REGISTRY_KEY_NAME[] = L"Software\\FMSLogo";
+const wchar_t FMSLOGO_REGISTRY_KEY_NAME[] = L"Software\\FMSLogoUnicode";
 
 // manifest constants to help protect against typos
 const wchar_t FONTPROPERTY_FaceName[]       = L"FaceName";

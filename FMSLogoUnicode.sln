@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMSLogo", "FMSLogo.vcxproj", "{7E7EC7EA-E827-444A-A911-78A299F2FD31}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMSLogoUnicode", "FMSLogo.vcxproj", "{7E7EC7EA-E827-444A-A911-78A299F2FD31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
