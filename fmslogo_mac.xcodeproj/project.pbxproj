@@ -156,7 +156,7 @@
 		E19F5E4221E463C5009A5F00 /* startup.logoscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = startup.logoscript; sourceTree = "<group>"; };
 		E19F5E4421E4760C009A5F00 /* GetLocale.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetLocale.mm; sourceTree = "<group>"; };
 		E19F5E4621E476A8009A5F00 /* GetLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetLocale.h; sourceTree = "<group>"; };
-		E1EC3FBE21E41FDD00CD3533 /* fmslogo_mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fmslogo_mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EC3FBE21E41FDD00CD3533 /* fmslogo-unicode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fmslogo-unicode.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EC410821E425D700CD3533 /* FMSLogo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FMSLogo.cpp; sourceTree = "<group>"; };
 		E1EC410A21E425D800CD3533 /* files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = files.cpp; sourceTree = "<group>"; };
 		E1EC410B21E425D800CD3533 /* coms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = coms.cpp; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 		E1EC3FBF21E41FDD00CD3533 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E1EC3FBE21E41FDD00CD3533 /* fmslogo_mac.app */,
+				E1EC3FBE21E41FDD00CD3533 /* fmslogo-unicode.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -673,7 +673,7 @@
 			);
 			name = fmslogo_mac;
 			productName = fmslogo_mac;
-			productReference = E1EC3FBE21E41FDD00CD3533 /* fmslogo_mac.app */;
+			productReference = E1EC3FBE21E41FDD00CD3533 /* fmslogo-unicode.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -974,8 +974,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "noc.fmslogo-mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "noc.fmslogo-unicode";
+				PRODUCT_NAME = "fmslogo-unicode";
 				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include/;
 			};
 			name = Debug;
@@ -1005,8 +1005,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "noc.fmslogo-mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "noc.fmslogo-unicode";
+				PRODUCT_NAME = "fmslogo-unicode";
 				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include/;
 			};
 			name = Release;
