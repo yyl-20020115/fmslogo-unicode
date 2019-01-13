@@ -7,6 +7,7 @@ mkdir -p ~/fmslogo-deb/usr
 mkdir -p ~/fmslogo-deb/usr/bin
 mkdir -p ~/fmslogo-deb/usr/bin/fmslogo-unicode
 cp fmslogo-unicode ~/fmslogo-deb/usr/bin/fmslogo-unicode
+cp fmslogo-unicode.ini ~/fmslogo-deb/usr/bin/fmslogo-unicode
 cp startup.logoscript ~/fmslogo-deb/usr/bin/fmslogo-unicode
 cp -r logolib ~/fmslogo-deb/usr/bin/fmslogo-unicode
 cp -r Examples ~/fmslogo-deb/usr/bin/fmslogo-unicode
