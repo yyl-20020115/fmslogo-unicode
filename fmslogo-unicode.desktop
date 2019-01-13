@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=FMSLogo-Unicode
+Comment=LOGO Development IDE Unicode Edition
+Exec=/usr/bin/fmslogo-unicode/fmslogo-unicode
+Icon=/usr/share/icons/fmslogo.png
+Terminal=false
+Type=Application
+Categories=Application
+

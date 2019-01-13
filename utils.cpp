@@ -112,7 +112,7 @@ void SetConfigurationInt(
     )
 {
 #ifdef WX_PURE
-    wxConfig config("fmslogo");
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
     config.Write(Name, Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
@@ -140,8 +140,8 @@ int GetConfigurationInt(
     )
 {
 #ifdef WX_PURE
-    wxConfig config("fmslogo");
-    long longValue = config.ReadLong((Name), DefaultValue);
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    long longValue = config.ReadLong(Name, DefaultValue);
     return longValue;
 #else    
     int returnValue = DefaultValue;
@@ -182,8 +182,8 @@ void SetConfigurationString(
     )
 {
 #ifdef WX_PURE
-    wxConfig config("fmslogo");
-    config.Write((Name), (Value));
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    config.Write(Name, Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
     if (fmslogoKey != NULL)
@@ -213,9 +213,8 @@ wxString GetConfigurationString(
 	wxString              Value;
 
 #ifdef WX_PURE    
-    wxConfig config("fmslogo");
-    Value = config.Read(Name, (DefaultValue));
-
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    Value = config.Read(Name, DefaultValue);
 #else
 
     HKEY fmslogoKey = OpenFmsLogoKeyForGettingValue();
@@ -257,12 +256,12 @@ wxString GetConfigurationString(
         }
         RegCloseKey(fmslogoKey);
 	}
-
-#endif // WX_PURE
 	if (useDefaultValue)
 	{
 		Value = DefaultValue;
 	}
+#endif // WX_PURE
+
 	return Value;
 }
 
@@ -287,6 +286,7 @@ GetConfigurationQuadruple(
     wxString outputString = GetConfigurationString(
         Name,
         defaultString);
+    
 
     // Decode the quadruple string into numbers
     wchar_t * cp = const_cast<wchar_t*>((const wchar_t*)outputString);
