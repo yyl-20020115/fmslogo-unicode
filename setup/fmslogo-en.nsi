@@ -236,7 +236,7 @@ Section "FMSLogo" FMSLogoSectionId
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"        "$INSTDIR\uninstall.exe"       "" "$INSTDIR\uninstall.exe" 0
-    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\FMSLogoUnicode.lnk"          "$INSTDIR\fmslogounicode.exe"         "" "$INSTDIR\fmslogounicode.exe" 0
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\FMSLogo Unicode.lnk"          "$INSTDIR\fmslogounicode.exe"         "" "$INSTDIR\fmslogounicode.exe" 0
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Examples.lnk"         "$INSTDIR\examples"            "" "$INSTDIR\examples" 0
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Examples (index).lnk" "$INSTDIR\examples\index.html" "" "$INSTDIR\examples\index.html" 0
   !insertmacro MUI_STARTMENU_WRITE_END
@@ -245,8 +245,9 @@ SectionEnd
 
 
 Section $(DesktopShortcut) DesktopShortcutSectionId
-  CreateShortCut "$DESKTOP\FMSLogoUnicode.lnk" "$INSTDIR\fmslogounicode.exe" "" "$INSTDIR\fmslogounicode.exe" 0 
+  CreateShortCut "$DESKTOP\FMSLogo Unicode.lnk" "$INSTDIR\fmslogounicode.exe" "" "$INSTDIR\fmslogounicode.exe" 0 
 SectionEnd
+
 
 
 Section /o $(ScreenSaver) ScreenSaverSectionId
@@ -421,7 +422,7 @@ uninstall:
   ; start menu shortcuts.
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
   RMDir  /r "$SMPROGRAMS\$StartMenuFolder"
-  Delete    "$DESKTOP\FMSLogoUnicode.lnk"
+  Delete    "$DESKTOP\FMSLogo Unicode.lnk"
 
   ; Remove directories used
   RMDir /r "$previousinstalldir\logolib"
@@ -508,7 +509,7 @@ Section "Uninstall"
   ; Remove shortcuts, if any
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
   RMDir  /r "$SMPROGRAMS\$StartMenuFolder"
-  Delete    "$DESKTOP\FMSLogoUnicode.lnk"
+  Delete    "$DESKTOP\FMSLogo Unicode.lnk"
 
   ; Remove directories used
   RMDir /r "$INSTDIR\logolib"

@@ -348,6 +348,9 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
+	//call halt first to stop program
+	//this->Halt();
+
 	//NOTICE: for requirement to reset almost everythong about drawing,
 	//we added reset command (not standard command) into logolib
 	//and we call it here
