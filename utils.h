@@ -44,10 +44,10 @@ wxString GetConfigurationString(
 
 void GetConfigurationQuadruple(
     const wxString&     Name,
-    int *               Value1,
-    int *               Value2,
-    int *               Value3,
-    int *               Value4
+    int &               Value1,
+    int &               Value2,
+    int &               Value3,
+    int &               Value4
     );
 
 void SetConfigurationQuadruple(

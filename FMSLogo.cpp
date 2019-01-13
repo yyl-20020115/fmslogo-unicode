@@ -477,7 +477,7 @@ bool CFmsLogo::OnInit()
 		w = std::min(w, maxWidth);
 		h = std::min(h, (int)(maxHeight * ScreenSz));
 
-		GetConfigurationQuadruple(L"Screen", &x, &y, &w, &h);
+		GetConfigurationQuadruple(L"Screen", x, y, w, h);
 
 		// the smallest reasonable size is 400 x 400.
 		h = std::max(h, 480);

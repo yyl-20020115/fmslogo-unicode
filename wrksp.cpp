@@ -281,8 +281,8 @@ static
 NODE *define_helper(NODE *args, int macro_flag)
 {
     /* macro_flag is -1 for anonymous function */
-    NODE *name;
-    NODE *val;
+    NODE *name = 0;
+    NODE *val = 0;
     int minimum = 0;
     int deflt = 0;
     int maximum = 0;

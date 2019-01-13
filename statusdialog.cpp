@@ -69,7 +69,7 @@ CStatusDialog::CStatusDialog(wxWindow * Parent)
     int h = 0;
 
     // Get last location and size of command window from configuration settings.
-    GetConfigurationQuadruple(L"Status", &x, &y, &w, &h); 
+    GetConfigurationQuadruple(L"Status", x, y, w, h);
     checkwindow(&x, &y, &w, &h);
 
     // now set position
