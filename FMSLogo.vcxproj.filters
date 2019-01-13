@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Packages">
-      <UniqueIdentifier>{d91d082f-db9f-428b-8317-ced54e488728}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\scintilla">
       <UniqueIdentifier>{b78f1e49-9a81-4ff4-a2c2-fc94a00ac550}</UniqueIdentifier>
     </Filter>

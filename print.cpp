@@ -273,10 +273,11 @@ real_print_node(
     }
     else if (ndty == FLOATINGPOINT)
     {
-		//FIXED
+		//FIXED: do not use %0.15g, this would result in .000000000x which is bad
+		//for reading.
 		//wchar_t buffer[MAX_NUMBER] = { 0 };
-  //      wsprintf(buffer, L"%0.15g", getfloat(nd));
-		wxString buffer = wxString::Format(L"%0.15g", getfloat(nd));
+	    //wsprintf(buffer, L"%0.15g", getfloat(nd));
+		wxString buffer = wxString::Format(L"%g", getfloat(nd));
         // REVISIT: is it okay to ignore the width parameter?
         for (size_t i = 0;i<buffer.length();i++)
         {
