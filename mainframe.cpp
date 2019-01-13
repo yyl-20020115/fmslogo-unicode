@@ -580,7 +580,7 @@ void CMainFrame::UndockCommanderWindow()
             int y      = currentRect.GetY();
             int width  = currentRect.GetWidth();
             int height = currentRect.GetHeight();
-            GetConfigurationQuadruple(L"CommanderWindow", &x, &y, &width, &height);
+            GetConfigurationQuadruple(L"CommanderWindow", x, y, width, height);
             checkwindow(&x, &y, &width, &height);
             newCommander->SetSize(x, y, width, height);
         }
@@ -844,7 +844,7 @@ CMainFrame::CreateWorkspaceEditor(
     int h = (int) (maxHeight * ScreenSz * 0.75);
 
     // If the user has some coordinates saved, use them, instead.
-    GetConfigurationQuadruple(L"Editor", &x, &y, &w, &h); 
+    GetConfigurationQuadruple(L"Editor", x, y, w, h); 
     checkwindow(&x, &y, &w, &h);
 
     // Determine the title

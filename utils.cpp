@@ -106,13 +106,23 @@ static HKEY OpenFmsLogoKeyForGettingValue()
 
 #endif // !define WX_PURE
 
+extern wxString g_FmslogoBaseDirectory;
+
+wxString GetIniPath(){
+    wxString inipath = g_FmslogoBaseDirectory +
+#ifdef __APPLE__
+    L"../Resources/" +
+#endif
+    L"fmslogo-unicode.ini";
+    return inipath;
+}
 void SetConfigurationInt(
     const wxString&  Name,
     int              Value
     )
 {
 #ifdef WX_PURE
-    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,GetIniPath());
     config.Write(Name, Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
@@ -140,7 +150,7 @@ int GetConfigurationInt(
     )
 {
 #ifdef WX_PURE
-    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,GetIniPath());
     long longValue = config.ReadLong(Name, DefaultValue);
     return longValue;
 #else    
@@ -182,7 +192,8 @@ void SetConfigurationString(
     )
 {
 #ifdef WX_PURE
-    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,GetIniPath());
+
     config.Write(Name, Value);
 #else
     HKEY fmslogoKey = OpenFmsLogoKeyForSettingValue();
@@ -213,7 +224,8 @@ wxString GetConfigurationString(
 	wxString              Value;
 
 #ifdef WX_PURE    
-    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,L"fmslogo-unicode.ini",wxEmptyString,wxCONFIG_USE_RELATIVE_PATH);
+    wxFileConfig config(L"fmslogo-unicode",wxEmptyString,GetIniPath());
+
     Value = config.Read(Name, DefaultValue);
 #else
 
@@ -268,18 +280,18 @@ wxString GetConfigurationString(
 void
 GetConfigurationQuadruple(
     const wxString&      Name,
-    int *               Value1,
-    int *               Value2,
-    int *               Value3,
-    int *               Value4
+    int &               Value1,
+    int &               Value2,
+    int &               Value3,
+    int &               Value4
     )
 {
 	wxString defaultString=wxString::Format(
         L"%d,%d,%d,%d",
-        *Value1,
-        *Value2,
-        *Value3,
-        *Value4);
+        Value1,
+        Value2,
+        Value3,
+        Value4);
 
 	
     // Get the quadruple from the configuration settings
@@ -291,16 +303,16 @@ GetConfigurationQuadruple(
     // Decode the quadruple string into numbers
     wchar_t * cp = const_cast<wchar_t*>((const wchar_t*)outputString);
 
-    *Value1 = (int)wcstol(cp, &cp, 10);
+    Value1 = (int)wcstol(cp, &cp, 10);
     cp++;
 
-    *Value2 = (int)wcstol(cp, &cp, 10);
+    Value2 = (int)wcstol(cp, &cp, 10);
     cp++;
 
-    *Value3 = (int)wcstol(cp, &cp, 10);
+    Value3 = (int)wcstol(cp, &cp, 10);
     cp++;
 
-    *Value4 = (int)wcstol(cp, &cp, 10);
+    Value4 = (int)wcstol(cp, &cp, 10);
 }
 
 
