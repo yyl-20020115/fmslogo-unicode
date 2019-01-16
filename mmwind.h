@@ -34,6 +34,7 @@ extern NODE *lsound(NODE *arg);
 extern NODE *lplaywave(NODE *args);
 extern NODE *lsettimer(NODE *arg);
 extern NODE *lcleartimer(NODE *arg);
+extern bool IsAnyTimerActive();
 extern void init_timers();
 extern void halt_all_timers();
 extern void uninitialize_timers();

@@ -299,6 +299,9 @@ void CCommander::Halt()
 void CCommander::OnHaltButton(wxCommandEvent& WXUNUSED(Event))
 {
     Halt();
+	this->UpdateHaltButtonState();
+	this->UpdateStepButtonState();
+	this->UpdatePauseButtonState();
 }
 
 void CCommander::OnTraceButton(wxCommandEvent& WXUNUSED(Event))

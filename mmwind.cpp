@@ -51,6 +51,14 @@ wxString mci_callback;    // MCI callback code
 wxString timer_callback[MAX_TIMERS];      // timer cb malloc'd as needed
 
 static HMIDIOUT hMidiOut = 0;
+bool IsAnyTimerActive() {
+	for (size_t i = 0; i < MAX_TIMERS; i++) {
+		if (timer_callback[i].length() > 0) {
+			return true;
+		}
+	}
+	return false;
+}
 
 NODE *lsound(NODE *arg)
 {
@@ -343,7 +351,7 @@ NODE *lsettimer(NODE *args)
         {
             err_logo(OUT_OF_MEM, NIL);
             return Unbound;
-        }
+		}
     }
 
     return Unbound;
@@ -364,24 +372,28 @@ NODE *lcleartimer(NODE *args)
         err_logo(TIMER_NOT_FOUND, NIL);
         return Unbound;
     }
-
+	else {
+		timer_callback[id].clear();
+	}
     return Unbound;
 }
 
 void init_timers()
 {
-    //for (size_t i = 0; i < MAX_TIMERS; i++)
-    //{
-    //    timer_callback[i].clear();
-    //}
+    for (size_t i = 0; i < MAX_TIMERS; i++)
+    {
+        timer_callback[i].clear();
+    }
 }
 
 void halt_all_timers()
 {
-    for (int i = 1; i < MAX_TIMERS; i++)
-    {
-        ::KillTimer(GetMainWindow(), i);
-    }
+	//NOTICE: i was from 1
+	for (size_t id = 0; id < MAX_TIMERS; id++)
+	{
+		::KillTimer(GetMainWindow(), id);
+		timer_callback[id].clear();
+	}
 }
 
 void uninitialize_timers()
@@ -391,9 +403,7 @@ void uninitialize_timers()
         if (timer_callback[id].length()>0)
         {
             KillTimer(GetMainWindow(), id);
-
-            //free(timer_callback[id]);
-            //timer_callback[id] = NULL;
+			timer_callback[id].clear();
         }
     }
 }
