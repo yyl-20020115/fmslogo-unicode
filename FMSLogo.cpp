@@ -48,7 +48,7 @@
 #endif
 #include <locale.h>
 #include "CMbcsFileTextStream.h"
-
+#include "ibmterm.h"
 #ifdef __APPLE__
 #include "GetLocale.h"
 #endif
@@ -375,7 +375,7 @@ bool CFmsLogo::OnInit()
 		}
 	}
 #endif // WX_PURE
-
+	init_tone();
 	// Get video mode parameters
 	init_videomode();
 
@@ -517,6 +517,8 @@ int CFmsLogo::OnExit()
 	uninit_turtles();
 
 	uninit_graphics();
+
+	uninit_tone();
 
 	// release the Help subsystem
 	HtmlHelpUninitialize();

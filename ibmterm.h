@@ -31,6 +31,8 @@ extern NODE *get_node_pen_pattern(void);
 extern NODE *get_node_pen_mode(void);
 extern void erase_screen(void);
 extern bool button(void);
+extern void init_tone();
+extern void uninit_tone();
 extern void tone(FIXNUM pitch, FIXNUM duration);
 
 #endif // __IBMTERM_H_
