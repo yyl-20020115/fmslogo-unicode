@@ -30,7 +30,7 @@
 
    #include "localizedstrings.h"
 #endif
-#ifndef _WINDOWS
+#ifdef LINUX
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -163,7 +163,7 @@ bool button()
 {
     return false;
 }
-#ifndef _WINDOWS
+#ifdef LINUX
 int console_fd = -1;
 void init_tone()
 {
@@ -198,6 +198,7 @@ void tone(FIXNUM frequency, FIXNUM duration)
     // use the Win32 Beep
     Beep(frequency, duration);
 #else
+#ifdef LINUX
 	if (console_fd != -1) 
 	{
 		int magical_fairy_number = 1190000 / frequency;
@@ -206,5 +207,6 @@ void tone(FIXNUM frequency, FIXNUM duration)
 		usleep(1000 * duration);
 		ioctl(console_fd, KIOCSOUND, 0);
 	}
+#endif
 #endif
 }

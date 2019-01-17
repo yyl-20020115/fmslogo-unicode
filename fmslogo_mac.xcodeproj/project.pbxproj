@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E106E6CC21E4C20F00881E0E /* fmslogo.icns in Resources */ = {isa = PBXBuildFile; fileRef = E106E6CB21E4C20F00881E0E /* fmslogo.icns */; };
+		E14F7F7A21F006F300C07415 /* install_wxwidgets_on_macosx.txt in Resources */ = {isa = PBXBuildFile; fileRef = E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */; };
+		E14F7F7C21F006F300C07415 /* install_wxwidgets_on_ubuntu.txt in Resources */ = {isa = PBXBuildFile; fileRef = E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */; };
+		E14F7F7D21F006F300C07415 /* mmwind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E14F7F7921F006F300C07415 /* mmwind.cpp */; };
 		E18B2C7A21EB5EFE00E7B814 /* fmslogo-unicode.ini in Resources */ = {isa = PBXBuildFile; fileRef = E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */; };
 		E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */; };
 		E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */; };
@@ -142,6 +145,10 @@
 
 /* Begin PBXFileReference section */
 		E106E6CB21E4C20F00881E0E /* fmslogo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = fmslogo.icns; sourceTree = "<group>"; };
+		E14F7F7421F006AC00C07415 /* mmwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mmwind.h; sourceTree = "<group>"; };
+		E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_macosx.txt; sourceTree = "<group>"; };
+		E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_ubuntu.txt; sourceTree = "<group>"; };
+		E14F7F7921F006F300C07415 /* mmwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mmwind.cpp; sourceTree = "<group>"; };
 		E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fmslogo-unicode.ini"; sourceTree = "<group>"; };
 		E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
 		E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
@@ -413,24 +420,6 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
-				E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */,
-				E106E6CB21E4C20F00881E0E /* fmslogo.icns */,
-				E19F5E4621E476A8009A5F00 /* GetLocale.h */,
-				E19F5E4421E4760C009A5F00 /* GetLocale.mm */,
-				E19F5E4221E463C5009A5F00 /* startup.logoscript */,
-				E19F5E2F21E45F78009A5F00 /* localizedstrings-de-ucs2le.h */,
-				E19F5E2D21E45F78009A5F00 /* localizedstrings-en-ucs2le.h */,
-				E19F5E2E21E45F78009A5F00 /* localizedstrings-es-ucs2le.h */,
-				E19F5E3421E45F79009A5F00 /* localizedstrings-fr-ucs2le.h */,
-				E19F5E3021E45F78009A5F00 /* localizedstrings-gr-ucs2le.h */,
-				E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */,
-				E19F5E3321E45F79009A5F00 /* localizedstrings-it-ucs2le.h */,
-				E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */,
-				E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */,
-				E19F5E3121E45F79009A5F00 /* localizedstrings-pt-ucs2le.h */,
-				E19F5E3221E45F79009A5F00 /* localizedstrings-ru-ucs2le.h */,
-				E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */,
-				E1EC427821E42B4F00CD3533 /* LexFmsLogo.cxx */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
 				E1EC41A421E425F300CD3533 /* aboutfmslogo.cpp */,
@@ -499,10 +488,13 @@
 				E1EC41AF21E425F500CD3533 /* files.h */,
 				E1EC417321E425E800CD3533 /* fileswnd.cpp */,
 				E1EC41D621E425FC00CD3533 /* fileswnd.h */,
+				E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */,
 				E1EC410821E425D700CD3533 /* FMSLogo.cpp */,
 				E1EC414221E425DF00CD3533 /* FMSLogo.h */,
+				E106E6CB21E4C20F00881E0E /* fmslogo.icns */,
 				E1EC41CE21E425FB00CD3533 /* fontutils.cpp */,
 				E1EC412321E425DA00CD3533 /* fontutils.h */,
+				E1EC423C21E4284100CD3533 /* Frameworks */,
 				E1EC419521E425EF00CD3533 /* gbm.cpp */,
 				E1EC41C721E425F900CD3533 /* gbm.h */,
 				E1EC416B21E425E700CD3533 /* gbmbmp.cpp */,
@@ -512,6 +504,8 @@
 				E1EC41CA21E425FA00CD3533 /* gbmhelp.cpp */,
 				E1EC418721E425EC00CD3533 /* gbmhelp.h */,
 				E1EC413C21E425DE00CD3533 /* gbmsize.cpp */,
+				E19F5E4621E476A8009A5F00 /* GetLocale.h */,
+				E19F5E4421E4760C009A5F00 /* GetLocale.mm */,
 				E1EC413021E425DC00CD3533 /* graphics.cpp */,
 				E1EC416321E425E500CD3533 /* graphics.h */,
 				E1EC419721E425F000CD3533 /* graphwin.cpp */,
@@ -524,12 +518,27 @@
 				E1EC414F21E425E200CD3533 /* ibmterm.h */,
 				E1EC411821E425D900CD3533 /* init.cpp */,
 				E1EC414521E425E000CD3533 /* init.h */,
+				E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */,
+				E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */,
 				E1EC417621E425E900CD3533 /* intern.cpp */,
 				E1EC415B21E425E400CD3533 /* intern.h */,
+				E1EC427821E42B4F00CD3533 /* LexFmsLogo.cxx */,
 				E1EC417221E425E800CD3533 /* lists.cpp */,
 				E1EC415121E425E200CD3533 /* lists.h */,
 				E1EC41CF21E425FB00CD3533 /* localizednode.cpp */,
 				E1EC413A21E425DE00CD3533 /* localizednode.h */,
+				E19F5E2F21E45F78009A5F00 /* localizedstrings-de-ucs2le.h */,
+				E19F5E2D21E45F78009A5F00 /* localizedstrings-en-ucs2le.h */,
+				E19F5E2E21E45F78009A5F00 /* localizedstrings-es-ucs2le.h */,
+				E19F5E3421E45F79009A5F00 /* localizedstrings-fr-ucs2le.h */,
+				E19F5E3021E45F78009A5F00 /* localizedstrings-gr-ucs2le.h */,
+				E19F5E2C21E45F77009A5F00 /* localizedstrings-hr-ucs2le.h */,
+				E19F5E3321E45F79009A5F00 /* localizedstrings-it-ucs2le.h */,
+				E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */,
+				E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */,
+				E19F5E3121E45F79009A5F00 /* localizedstrings-pt-ucs2le.h */,
+				E19F5E3221E45F79009A5F00 /* localizedstrings-ru-ucs2le.h */,
+				E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */,
 				E1EC414121E425DF00CD3533 /* localizedstrings.cpp */,
 				E1EC416021E425E500CD3533 /* localizedstrings.h */,
 				E1EC418921E425ED00CD3533 /* logocodectrl.cpp */,
@@ -555,6 +564,8 @@
 				E1EC41A721E425F300CD3533 /* minieditor.h */,
 				E1EC414921E425E000CD3533 /* minieditortextctrl.cpp */,
 				E1EC412421E425DB00CD3533 /* minieditortextctrl.h */,
+				E14F7F7921F006F300C07415 /* mmwind.cpp */,
+				E14F7F7421F006AC00C07415 /* mmwind.h */,
 				E1EC413321E425DD00CD3533 /* paren.cpp */,
 				E1EC41D021E425FB00CD3533 /* paren.h */,
 				E1EC411D21E425DA00CD3533 /* parse.cpp */,
@@ -562,6 +573,7 @@
 				E1EC413721E425DE00CD3533 /* pch.h */,
 				E1EC417F21E425EB00CD3533 /* print.cpp */,
 				E1EC41B421E425F600CD3533 /* print.h */,
+				E1EC3FBF21E41FDD00CD3533 /* Products */,
 				E1EC419921E425F000CD3533 /* questionbox.cpp */,
 				E1EC418121E425EB00CD3533 /* questionbox.h */,
 				E1EC41B521E425F600CD3533 /* Resource.h */,
@@ -587,6 +599,7 @@
 				E1EC414C21E425E100CD3533 /* sort.h */,
 				E1EC416721E425E600CD3533 /* startup.cpp */,
 				E1EC41AE21E425F500CD3533 /* startup.h */,
+				E19F5E4221E463C5009A5F00 /* startup.logoscript */,
 				E1EC410F21E425D800CD3533 /* status.h */,
 				E1EC41B921E425F700CD3533 /* statusdialog.cpp */,
 				E1EC412721E425DB00CD3533 /* statusdialog.h */,
@@ -610,8 +623,6 @@
 				E1EC419121E425EE00CD3533 /* wrksp.cpp */,
 				E1EC415221E425E200CD3533 /* wrksp.h */,
 				E1EC411521E425D900CD3533 /* wxpurestubs.cpp */,
-				E1EC3FBF21E41FDD00CD3533 /* Products */,
-				E1EC423C21E4284100CD3533 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -730,7 +741,9 @@
 				E19F5E3E21E45F7A009A5F00 /* localizedstrings-ru-ucs2le.h in Resources */,
 				E19F5E3F21E45F7A009A5F00 /* localizedstrings-it-ucs2le.h in Resources */,
 				E19F5E4021E45F7A009A5F00 /* localizedstrings-fr-ucs2le.h in Resources */,
+				E14F7F7C21F006F300C07415 /* install_wxwidgets_on_ubuntu.txt in Resources */,
 				E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */,
+				E14F7F7A21F006F300C07415 /* install_wxwidgets_on_macosx.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +817,7 @@
 				E1EC41F521E425FE00CD3533 /* helputils.cpp in Sources */,
 				E1EC41F821E425FE00CD3533 /* guiutils.cpp in Sources */,
 				E1EC422521E425FF00CD3533 /* CUTF16FileTextStream.cpp in Sources */,
+				E14F7F7D21F006F300C07415 /* mmwind.cpp in Sources */,
 				E1EC41EF21E425FE00CD3533 /* cursor.cpp in Sources */,
 				E1EC41EA21E425FE00CD3533 /* init.cpp in Sources */,
 				E1EC41FE21E425FE00CD3533 /* CNodePrinter.cpp in Sources */,
