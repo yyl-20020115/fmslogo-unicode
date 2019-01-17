@@ -441,7 +441,7 @@ CNetworkConnection::AsyncReceive(
         size_t begin = 0;
         size_t end   = strlen(m_CarryOverData.m_Buffer);
 
-        while (end < m_CarryOverData.m_BytesOfData)
+        while ((int)end < m_CarryOverData.m_BytesOfData)
         {
             callthing * callevent = callthing::CreateNetworkReceiveReadyEvent(
                 this,

@@ -93,6 +93,7 @@ mmwind.o \
 messagebox.o \
 minieditor.o \
 minieditortextctrl.o \
+netwind.o \
 paren.o \
 parse.o \
 print.o \
