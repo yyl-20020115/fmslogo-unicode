@@ -9,7 +9,7 @@
 #ifndef USE_PRECOMPILED_HEADER
     #include "mainwind.h"
 #endif
-
+#if 0
 void init_timers()
 {
 }
@@ -22,6 +22,8 @@ void halt_all_timers()
 {
 }
 
+
+#endif
 void uninitialize_dlls()
 {
 }

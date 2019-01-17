@@ -45,13 +45,43 @@
 
     #include "localizedstrings.h"
 #endif
+#ifndef _WINDOWS
+#include <stdio.h>
+#include <signal.h>
+#include <sys/time.h>
+#endif
+
 
 // global variables
 wxString mci_callback;    // MCI callback code
 wxString timer_callback[MAX_TIMERS];      // timer cb malloc'd as needed
+int timer_intervals[MAX_TIMERS] = {0};
+int timer_currents[MAX_TIMERS] = {0};
 
+#ifndef _WINDOWS
+void SIGALRM_Handler(int signo)
+{
+    if(signo == SIGALRM)
+    {
+        for(int i = 0;i<MAX_TIMERS;i++){
+           
+            if(timer_currents[i] == 0){
+                //Call Timer's call back
+                timer_currents[i] = timer_intervals[i];
+            }else{
+                 timer_currents[i] --;
+            }
+        }
+    }
+}
+#endif
+
+#ifdef _WINDOWS
 static HMIDIOUT hMidiOut = 0;
-bool IsAnyTimerActive() {
+#endif
+
+bool IsAnyTimerActive() 
+{
 	for (size_t i = 0; i < MAX_TIMERS; i++) {
 		if (timer_callback[i].length() > 0) {
 			return true;
@@ -113,12 +143,13 @@ NODE *lsound(NODE *arg)
 static
 void
 ThrowGeneralMidiError(
-    UINT MidiError
+    unsigned int MidiError
     )
 {
-	wchar_t midiErrorBuffer[MAX_BUFFER_SIZE + 1] = { 0 };
+	wchar_t midiErrorBuffer[MAX_BUFFER_SIZE + 1] = L"MIDI ERROR";
+#ifdef _WINDOWS
     midiOutGetErrorText(MidiError, midiErrorBuffer, ARRAYSIZE(midiErrorBuffer)-1);
-
+#endif
     // report the error
     err_logo(MIDI_GENERAL, make_strnode(midiErrorBuffer));
 }
@@ -126,6 +157,7 @@ ThrowGeneralMidiError(
 
 NODE *lmidiopen(NODE *args)
 {
+#ifdef _WINDOWS
     if (hMidiOut != NULL)
     {
         // The device is already open.
@@ -168,10 +200,14 @@ NODE *lmidiopen(NODE *args)
     NODE * targ = make_strnode(moc.szPname);
     NODE * val = parser(targ, false);
     return val;
+#else
+    return Unbound;
+#endif
 }
 
 NODE *lmidiclose(NODE *  /*args*/)
 {
+#ifdef _WINDOWS
     if (hMidiOut == NULL)
     {
         // the MIDI device isn't open
@@ -188,12 +224,13 @@ NODE *lmidiclose(NODE *  /*args*/)
         ThrowGeneralMidiError(MidiError);
         return Unbound;
     }
-
+#endif
     return Unbound;
 }
 
 NODE *lmidimessage(NODE *arg)
 {
+#ifdef _WINDOWS    
     union
     {
         long mylong;
@@ -285,12 +322,13 @@ NODE *lmidimessage(NODE *arg)
         ThrowGeneralMidiError(MidiError);
         return Unbound;
     }
-
+#endif
     return Unbound;
 }
 
 NODE *lmci(NODE *args)
 {
+#ifdef _WINDOWS
     // get mci command string
     CStringPrintedNode command(car(args));
 
@@ -327,7 +365,7 @@ NODE *lmci(NODE *args)
             return val;
         }
     }
-
+#endif
     return Unbound;
 }
 
@@ -345,13 +383,18 @@ NODE *lsettimer(NODE *args)
     if (NOT_THROWING)
     {
 		timer_callback[id] = callback;
-
+#ifdef _WINDOWS
         // if not set sucessfully error
         if (!::SetTimer(GetMainWindow(), id, delay, NULL))
         {
             err_logo(OUT_OF_MEM, NIL);
             return Unbound;
 		}
+#else
+        //
+        timer_intervals[id] = delay;
+        timer_currents[id] = 0;
+#endif
     }
 
     return Unbound;
@@ -365,7 +408,7 @@ NODE *lcleartimer(NODE *args)
     {
         return Unbound;
     }
-
+#ifdef _WINDOWS
     // if timer was not set let user know
     if (!::KillTimer(GetMainWindow(), id))
     {
@@ -375,15 +418,30 @@ NODE *lcleartimer(NODE *args)
 	else {
 		timer_callback[id].clear();
 	}
+#else
+#endif
     return Unbound;
 }
 
 void init_timers()
 {
+    
     for (size_t i = 0; i < MAX_TIMERS; i++)
     {
+        timer_intervals[i] = 0;
+        timer_currents[i] = 0;
         timer_callback[i].clear();
     }
+#ifndef _WINDOWS
+    signal(SIGALRM, SIGALRM_Handler);
+ 
+    struct itimerval new_value, old_value;
+    new_value.it_value.tv_sec = 0;
+    new_value.it_value.tv_usec = 1;
+    new_value.it_interval.tv_sec = 0;
+    new_value.it_interval.tv_usec = 1000;
+    setitimer(ITIMER_REAL, &new_value, &old_value);
+#endif
 }
 
 void halt_all_timers()
@@ -391,7 +449,12 @@ void halt_all_timers()
 	//NOTICE: i was from 1
 	for (size_t id = 0; id < MAX_TIMERS; id++)
 	{
+#ifdef _WINDOWS
 		::KillTimer(GetMainWindow(), id);
+#else
+        timer_intervals[id] = 0;
+        timer_currents[id] = 0;
+#endif
 		timer_callback[id].clear();
 	}
 }
@@ -402,7 +465,12 @@ void uninitialize_timers()
     {
         if (timer_callback[id].length()>0)
         {
-            KillTimer(GetMainWindow(), id);
+#ifdef _WINDOWS
+            ::KillTimer(GetMainWindow(), id);
+#else
+            timer_intervals[id] = 0;
+            timer_currents[id] = 0;            
+#endif
 			timer_callback[id].clear();
         }
     }
@@ -414,6 +482,7 @@ NODE *lplaywave(NODE *args)
 
     int flag = getint(nonnegative_int_arg(args = cdr(args)));
 
+#ifdef _WINDOWS
     if (((const wxString&)fileName).length() == 0)
     {
         sndPlaySound(NULL, flag);
@@ -422,6 +491,8 @@ NODE *lplaywave(NODE *args)
     {
         sndPlaySound((const wxString&)fileName, flag);
     }
-
+#else
+    //
+#endif
     return Unbound;
 }

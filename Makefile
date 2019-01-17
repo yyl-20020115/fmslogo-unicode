@@ -89,6 +89,7 @@ logocodectrl.o \
 mainframe.o \
 mainwind.o \
 mem.o \
+mmwind.o \
 messagebox.o \
 minieditor.o \
 minieditortextctrl.o \
@@ -119,6 +120,7 @@ wxpurestubs.o \
 CEncodingConverter.o \
 CEncodingFileTextStream.o \
 scintilla/LexFmsLogo.o
+
 
 
 LS_OBJECTS = localizedstrings-de-ucs2le.o \
