@@ -1464,7 +1464,7 @@ NODE *evaluator(NODE *list, enum labels where)
     }
 
 eval_sequence: 
-	//FIXED: need do events in windows for message loop to avoid being freeszed
+	//FIXED: need do events in windows for message loop to avoid being frozen
 	DoEvents();
     // Evaluate each expression in "unev" in the sequence.
     // Stop as soon as val != Unbound, which is when we
