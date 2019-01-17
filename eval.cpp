@@ -56,6 +56,8 @@
 //   #include "debugheap.h"
 #endif
 
+extern void DoEvents();
+
 inline
 bool
 IsInMacro(
@@ -1461,7 +1463,9 @@ NODE *evaluator(NODE *list, enum labels where)
         g_ValueStatus = VALUE_STATUS_NotOk;
     }
 
- eval_sequence:
+eval_sequence: 
+	//FIXED: need do events in windows for message loop to avoid being freeszed
+	DoEvents();
     // Evaluate each expression in "unev" in the sequence.
     // Stop as soon as val != Unbound, which is when we
     // have a value to return.

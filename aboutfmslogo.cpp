@@ -21,7 +21,6 @@
 CAboutFmsLogo::CAboutFmsLogo(wxWindow * Parent)
     : wxDialog(Parent, wxID_ANY, GetResourceString(L"LOCALIZED_ABOUTFMS"))
 {
-
 	// The text in all of the static controls
 	static const wxString staticText[] = {
 		GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME") + 
@@ -37,22 +36,27 @@ CAboutFmsLogo::CAboutFmsLogo(wxWindow * Parent)
 		GetResourceString(L"LOCALIZED_ABOUTFMS_GPL")              ,
 		GetResourceString(L"LOCALIZED_ABOUTFMS_NEWSGROUP")        ,
 		GetResourceString(L"LOCALIZED_ABOUTFMS_MULTIMEDIALOGIC")  ,
+	    GetResourceString(L"LOCALIZED_ABOUTFMS_UNICODE_VERSION"),
 	};
 
     wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
 
     for (size_t i = 0; i < ARRAYSIZE(staticText); i++)
     {
-        wxStaticText *info = new wxStaticText(
-            this,
-            wxID_ANY,
-			wxString(L"  ") + (staticText[i]) + wxString(L"  ") ,
-            wxDefaultPosition,
-            wxDefaultSize, 
-            wxALIGN_CENTRE | wxSUNKEN_BORDER);
+		if (!staticText->IsSameAs(ResourceStringSpaceHolder)) {
+			wxStaticText *info = new wxStaticText(
+				this,
+				wxID_ANY,
+				wxString(L"  ") + (staticText[i]) + wxString(L"  "),
+				wxDefaultPosition,
+				wxDefaultSize,
+				wxALIGN_CENTRE | wxSUNKEN_BORDER);
 
-        sizerTop->Add(info, 0, wxALL | wxEXPAND, 5);
+			sizerTop->Add(info, 0, wxALL | wxEXPAND, 5);
+		}
     }
+
+
 
     wxButton *okButton = new wxButton(
         this,

@@ -145,6 +145,7 @@ struct LanguageInfo {
     const wchar_t* MacOSXLanguage;
 };
 extern LanguageInfo KnownLanguages[11];
+extern wxString ResourceStringSpaceHolder;
 
 extern void LoadLocalizedStringsFromFile(const wxString& path);
 extern void LoadLocalizedStringsFromResource(const wxString& name,const class wxString& type = N_LOCALIZED_STRINGS_FILE_TYPE);

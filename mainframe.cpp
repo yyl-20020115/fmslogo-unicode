@@ -87,7 +87,37 @@
 #endif
 
 extern wxString NormalizeCaseForDisplay(wxString text);
+#ifdef _WINDOWS
+void DoEvents()
+{
+	MSG msg = { 0 };
+	BOOL result = FALSE;
 
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
+	{
+		result = ::GetMessage(&msg, NULL, 0, 0);
+		if (result == 0) // WM_QUIT
+		{
+			::PostQuitMessage(msg.wParam);
+			break;
+		}
+		else if (result == -1)
+		{
+			// Handle errors/exit application, etc.
+		}
+		else
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+	}
+}
+#else
+void DoEvents() 
+{
+
+}
+#endif
 // ----------------------------------------------------------------------------
 // CMainFrame::CLogoPicturePrintout
 // ----------------------------------------------------------------------------

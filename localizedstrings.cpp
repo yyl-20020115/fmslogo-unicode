@@ -260,12 +260,13 @@ wxString GetEncodingForLanguage(const wxString & name)
 	}
 	return encoding;
 }
-static wxString SpaceHolder(L"____");
+
+wxString ResourceStringSpaceHolder(L"____");
 
 const wxString& GetResourceString(const wchar_t* Name)
 {
     //last step,not found,return the name itself!
     const wxString& result = (Name!=0) ? Provider.Find(Name) : CLocalizedStringProvider::EmptyString;
 
-    return result.length() == 0 ? SpaceHolder :result;
+    return result.length() == 0 ? ResourceStringSpaceHolder :result;
 }
