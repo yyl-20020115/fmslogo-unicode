@@ -19,10 +19,35 @@
 #ifndef __NETWND_H_
 #define __NETWND_H_
 
-#ifndef WX_PURE
-
+#ifdef _WINDOWS
 #include <windows.h>
 #include <winsock.h>
+#else
+#include <sys/socket.h>
+#include <netdb.h>
+#ifndef HWND
+#define HWND void*
+#endif
+#ifndef SOCKET
+#define SOCKET int
+#endif
+#ifndef LONG
+#define LONG long
+#endif
+#ifndef MAXGETHOSTSTRUCT
+#define MAXGETHOSTSTRUCT 1024
+#endif
+#ifndef HOSTENT
+#define HOSTENT hostent
+#endif
+#ifndef INVALID_SOCKET
+#define INVALID_SOCKET -1
+#endif
+#ifndef SOCKET_ERROR
+#define SOCKET_ERROR -1
+#endif
+
+#endif
 
 struct NODE;
 
@@ -171,7 +196,5 @@ extern NODE *lnetshutdown(NODE *arg);
 // global variables
 extern CClientNetworkConnection g_ClientConnection;
 extern CServerNetworkConnection g_ServerConnection;
-
-#endif // WX_PURE
 
 #endif // __NETWND_H_

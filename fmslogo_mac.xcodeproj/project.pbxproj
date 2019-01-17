@@ -11,6 +11,7 @@
 		E14F7F7A21F006F300C07415 /* install_wxwidgets_on_macosx.txt in Resources */ = {isa = PBXBuildFile; fileRef = E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */; };
 		E14F7F7C21F006F300C07415 /* install_wxwidgets_on_ubuntu.txt in Resources */ = {isa = PBXBuildFile; fileRef = E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */; };
 		E14F7F7D21F006F300C07415 /* mmwind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E14F7F7921F006F300C07415 /* mmwind.cpp */; };
+		E14F7F8221F05B7000C07415 /* netwind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E14F7F8121F05B6F00C07415 /* netwind.cpp */; };
 		E18B2C7A21EB5EFE00E7B814 /* fmslogo-unicode.ini in Resources */ = {isa = PBXBuildFile; fileRef = E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */; };
 		E19F5E3621E45F7A009A5F00 /* localizedstrings-ps-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */; };
 		E19F5E3721E45F7A009A5F00 /* localizedstrings-zh-cn-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */; };
@@ -149,6 +150,10 @@
 		E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_macosx.txt; sourceTree = "<group>"; };
 		E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_ubuntu.txt; sourceTree = "<group>"; };
 		E14F7F7921F006F300C07415 /* mmwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mmwind.cpp; sourceTree = "<group>"; };
+		E14F7F7E21F05B2000C07415 /* dib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dib.h; sourceTree = "<group>"; };
+		E14F7F7F21F05B3A00C07415 /* dllwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dllwind.h; sourceTree = "<group>"; };
+		E14F7F8021F05B6300C07415 /* netwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = netwind.h; sourceTree = "<group>"; };
+		E14F7F8121F05B6F00C07415 /* netwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = netwind.cpp; sourceTree = "<group>"; };
 		E18B2C7921EB5EFD00E7B814 /* fmslogo-unicode.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fmslogo-unicode.ini"; sourceTree = "<group>"; };
 		E19F5E2A21E45F77009A5F00 /* localizedstrings-ps-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-ps-ucs2le.h"; sourceTree = "<group>"; };
 		E19F5E2B21E45F77009A5F00 /* localizedstrings-zh-cn-ucs2le.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "localizedstrings-zh-cn-ucs2le.h"; sourceTree = "<group>"; };
@@ -420,6 +425,10 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
+				E14F7F8121F05B6F00C07415 /* netwind.cpp */,
+				E14F7F8021F05B6300C07415 /* netwind.h */,
+				E14F7F7F21F05B3A00C07415 /* dllwind.h */,
+				E14F7F7E21F05B2000C07415 /* dib.h */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
 				E1EC41A421E425F300CD3533 /* aboutfmslogo.cpp */,
@@ -756,6 +765,7 @@
 			files = (
 				E1EC423021E425FF00CD3533 /* gbmhelp.cpp in Sources */,
 				E1EC41E921E425FE00CD3533 /* wxpurestubs.cpp in Sources */,
+				E14F7F8221F05B7000C07415 /* netwind.cpp in Sources */,
 				E1EC41E221E425FE00CD3533 /* files.cpp in Sources */,
 				E1EC41E721E425FE00CD3533 /* setpensize.cpp in Sources */,
 				E1EC41FF21E425FE00CD3533 /* selectproceduredialog.cpp in Sources */,

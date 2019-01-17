@@ -36,7 +36,10 @@
 //    #include "debugheap.h"
     #include "localizedstrings.h"
 #endif
-
+#ifndef _WINDOWS
+#include <sys/errno.h>
+#include <unistd.h>
+#endif
 /////////////////////////////////////////////////////////////////////////////////////
 // Manifest Constants
 
@@ -67,11 +70,16 @@ wxString WSAGetLastErrorString(int error_arg)
     }
     else
     {
+#ifdef _WINDOWS
         error = WSAGetLastError();
+#else
+        error =errno;
+#endif
     }
 
     switch (error)
     {
+#ifdef _WINDOWS
     case WSAENAMETOOLONG:
         return GetResourceString(L"LOCALIZED_ERROR_NETWORKNAMETOOLONG");
          
@@ -209,7 +217,7 @@ wxString WSAGetLastErrorString(int error_arg)
 
     case WSAETOOMANYREFS:
         return GetResourceString(L"LOCALIZED_ERROR_NETWORKTOOMANYREFS");
-
+#endif
     default:
         {
 			//FIXED
@@ -218,24 +226,6 @@ wxString WSAGetLastErrorString(int error_arg)
     }
 }
 
-static
-void
-safe_free(
-    wchar_t * & buffer
-    )
-{
-    free(buffer);
-    buffer = NULL;
-}
-static
-void
-safe_free_buffer(
-	char * & buffer
-)
-{
-	free(buffer);
-	buffer = NULL;
-}
 /////////////////////////////////////////////////////////////////////////////////////
 // private class CNetworkConnection::CCarryOverBuffer
 
@@ -249,7 +239,8 @@ CNetworkConnection::CCarryOverBuffer::CCarryOverBuffer() :
 void
 CNetworkConnection::CCarryOverBuffer::ReleaseBuffer()
 {
-	safe_free_buffer(m_Buffer);
+    free(m_Buffer);
+    m_Buffer = 0;
 
     m_BytesOfData = 0;
     m_BufferSize  = 0;
@@ -346,8 +337,11 @@ CNetworkConnection::Disable()
         m_IsBusy       = false;
 
 		m_ReceiveValue.clear();
-
+#ifdef _WINDOWS
         closesocket(m_Socket);
+#else
+        close(m_Socket);
+#endif
         m_Socket = INVALID_SOCKET;
     }
 }
@@ -377,14 +371,18 @@ CNetworkConnection::SendValue(
     if (m_IsConnected && !m_IsBusy)
     {
         // send the data
-        int rval = send(m_Socket, Data, strlen(Data) + 1, 0);
+        long rval = send(m_Socket, Data, strlen(Data) + 1, 0);
         if (rval == SOCKET_ERROR)
         {
+#ifdef _WINDOWS
             if (WSAGetLastError() != WSAEWOULDBLOCK)
             {
                 ShowMessageAndStop(L"send(socket)", WSAGetLastErrorString(0));
                 return false;
             }
+#else
+            
+#endif
 
             // Don't send anymore until we receive confirmation
             // that the remote side received the data.
@@ -410,9 +408,10 @@ CNetworkConnection::AsyncReceive(
     memset(buffer, 0, MAX_PACKET_SIZE);
 
     // read the data from the buffer
-    int status = recv(m_Socket, buffer, sizeof(buffer) - 1, 0);
+    long status = recv(m_Socket, buffer, sizeof(buffer) - 1, 0);
     if (status == SOCKET_ERROR)
     {
+#ifdef _WINDOWS
         // if this would block, we just wait until we get called again
         if (WSAGetLastError() != WSAEWOULDBLOCK) 
         {
@@ -423,6 +422,9 @@ CNetworkConnection::AsyncReceive(
                 MB_OK);
             // err_logo(STOP_ERROR,NIL);
         }
+#else
+        
+#endif
     }
     else
     {
@@ -436,8 +438,8 @@ CNetworkConnection::AsyncReceive(
         m_CarryOverData.Append(buffer, status);
 
         // now queue up a separate message for each packet
-        int begin = 0;
-        int end   = strlen(m_CarryOverData.m_Buffer);
+        size_t begin = 0;
+        size_t end   = strlen(m_CarryOverData.m_Buffer);
 
         while (end < m_CarryOverData.m_BytesOfData)
         {
@@ -447,14 +449,17 @@ CNetworkConnection::AsyncReceive(
                 m_CarryOverData.m_Buffer + begin);
 
             calllists.insert(callevent);
+#ifdef _WINDOWS
             PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
-
+#else
+            
+#endif
             begin = end + 1;
             end   = begin + strlen(m_CarryOverData.m_Buffer + begin);
         }
 
         // shift the buffer such that it begins at "begin"
-        m_CarryOverData.ShiftLeft(begin);
+        m_CarryOverData.ShiftLeft((int)begin);
     }
 }
 
@@ -472,8 +477,10 @@ CNetworkConnection::AsyncClose(
             m_CarryOverData.m_Buffer);
 
         calllists.insert(callevent);
-
+#ifdef _WINDOWS
         PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
+#else
+#endif
     }
 
     m_CarryOverData.ReleaseBuffer();
@@ -500,7 +507,10 @@ CNetworkConnection::PostOnSendReadyEvent(
     callthing *callevent = callthing::CreateNoYieldFunctionEvent(m_OnSendReady);
 
     calllists.insert(callevent);
+#ifdef _WINDOWS
     PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
+#else
+#endif
 }
 
 CClientNetworkConnection::CClientNetworkConnection()
@@ -521,6 +531,7 @@ CClientNetworkConnection::Enable(
     {
         if (network_dns_sync == 1)
         {
+#ifdef _WINDOWS
             PHOSTENT hostEntry = gethostbyname(wxString(RemoteHostName));
             if (hostEntry == NULL)
             {
@@ -544,9 +555,11 @@ CClientNetworkConnection::Enable(
             // Set up the rest of the connection by invoking the logic that
             // should be invoked once m_HostEntry is filled in.
             SendMessage(GetMainWindow(), WM_NETWORK_CONNECTSENDFINISH, 0, 0);
+#endif
         }
         else
         {
+#ifdef _WINDOWS
             // get address of remote machine
             HANDLE getHostByNameHandle = WSAAsyncGetHostByName(
                 GetMainWindow(),
@@ -561,7 +574,7 @@ CClientNetworkConnection::Enable(
                     WSAGetLastErrorString(0));
                 return;
             }
-
+#endif
             m_RemotePort = RemotePort;
             m_IsEnabled  = true;
 
@@ -578,6 +591,7 @@ CClientNetworkConnection::OnConnectSendAck(
     LONG        LParam
     )
 {
+#ifdef _WINDOWS
     if (WSAGETASYNCERROR(LParam) != 0)
     {
         ::MessageBox(
@@ -621,6 +635,8 @@ CClientNetworkConnection::OnConnectSendAck(
 
     // we don't distinguish between all event types
     PostOnSendReadyEvent(WindowHandle);
+
+#endif
     return 0;
 }
 
@@ -635,6 +651,7 @@ CClientNetworkConnection::OnConnectSendFinish(
     LONG        LParam
     )
 {
+#ifdef _WINDOWS
     if (WSAGETASYNCERROR(LParam) != 0)
     {
         ::MessageBox(
@@ -645,9 +662,10 @@ CClientNetworkConnection::OnConnectSendFinish(
         // err_logo(STOP_ERROR,NIL);
         return 0;
     }
-
+#endif
     if (!IsEnabled())
     {
+#ifdef _WINDOWS
         // The client-side is not initialized.
         // This must be a delayed event coming in after shutdown.
         ::MessageBox(
@@ -655,9 +673,10 @@ CClientNetworkConnection::OnConnectSendFinish(
             GetResourceString(L"LOCALIZED_ERROR_NETWORKSHUTDOWN"),
             GetResourceString(L"LOCALIZED_ERROR_NETWORK"),
             MB_OK);
+#endif
         return 0;
     }
-
+#ifdef _WINDOWS
     SOCKADDR_IN send_dest_sin = {0};
     send_dest_sin.sin_family = AF_INET;
     memcpy(
@@ -699,7 +718,7 @@ CClientNetworkConnection::OnConnectSendFinish(
             return 0;
         }
     }
-
+#endif
     // fire event that connection is made
     PostOnSendReadyEvent(WindowHandle);
     return 0;
@@ -718,6 +737,7 @@ CServerNetworkConnection::Enable(
     CNetworkConnection::Enable(OnSendReady, OnReceiveReady);
     if (NOT_THROWING)
     {
+#ifdef _WINDOWS
         // Associate an address with the socket. (bind)
         SOCKADDR_IN socket_address = {0};
         socket_address.sin_family      = AF_INET;
@@ -759,6 +779,7 @@ CServerNetworkConnection::Enable(
 
         // queue this event
         PostOnSendReadyEvent(GetMainWindow());
+#endif
     }
 }
 
@@ -769,6 +790,7 @@ CServerNetworkConnection::OnListenReceiveAck(
     LONG        LParam
     )
 {
+#ifdef _WINDOWS
     if (WSAGETASYNCERROR(LParam) != 0)
     {
         ::MessageBox(
@@ -827,6 +849,7 @@ CServerNetworkConnection::OnListenReceiveAck(
 
     // all other events just queue the event
     PostOnSendReadyEvent(WindowHandle);
+#endif
     return 0;
 }
 
@@ -847,7 +870,7 @@ NODE *lnetstartup(NODE *args)
     {
         network_dns_sync = int_arg(args);
     }
-
+#ifdef _WINDOWS
     // tell winsock to wakeup
 	WSADATA WSAData = { 0 };
     if (WSAStartup(MAKEWORD(1,1), &WSAData) != 0)
@@ -855,7 +878,7 @@ NODE *lnetstartup(NODE *args)
         ShowMessageAndStop(L"WSAStartup()", WSAGetLastErrorString(0));
         return Unbound;
     }
-
+#endif
     network_is_started = true;
     return Unbound;
 }
@@ -881,7 +904,9 @@ NODE *lnetshutdown(NODE *)
         // statically allocates the memory and never frees it.
         // However, it could be a problem if g_ServerConnection and
         // g_ClientConnection were dynamically allocated.
+#ifdef _WINDOWS
         WSACleanup();
+#endif
         network_is_started = false;
     }
 
