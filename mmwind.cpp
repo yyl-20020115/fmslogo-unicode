@@ -419,6 +419,8 @@ NODE *lcleartimer(NODE *args)
 		timer_callback[id].clear();
 	}
 #else
+	timer_intervals[id] = 0;
+	timer_currents[id] = 0;
 #endif
     return Unbound;
 }
@@ -455,7 +457,7 @@ void halt_all_timers()
         timer_intervals[id] = 0;
         timer_currents[id] = 0;
 #endif
-		timer_callback[id].clear();
+		//timer_callback[id].clear();
 	}
 }
 

@@ -250,9 +250,7 @@ void init()
 		{L"clearpalette", 0, 0, 0, PREFIX_PRIORITY, lclearpalette, GetResourceString(L"LOCALIZED_ALTERNATE_CLEARPALETTE") },
 		{L"clearscreen", 0, 0, 0, PREFIX_PRIORITY, lclearscreen, GetResourceString(L"LOCALIZED_ALTERNATE_CLEARSCREEN") },
 		{L"cleartext", 0, 0, 0, PREFIX_PRIORITY, lcleartext, GetResourceString(L"LOCALIZED_ALTERNATE_CLEARTEXT") },
-	#if !defined WX_PURE
 		{L"cleartimer", 1, 1, 1, PREFIX_PRIORITY, lcleartimer, GetResourceString(L"LOCALIZED_ALTERNATE_CLEARTIMER") },
-	#endif
 		{L"close", 1, 1, 1, PREFIX_PRIORITY, lclose, GetResourceString(L"LOCALIZED_ALTERNATE_CLOSE") },
 		{L"closeall", 0, 0, 0, PREFIX_PRIORITY, lcloseall, GetResourceString(L"LOCALIZED_ALTERNATE_CLOSEALL") },
 		{L"co", OK_NO_ARG, 1, 1, PREFIX_PRIORITY, lcontinue, GetResourceString(L"LOCALIZED_ALTERNATE_CO") },
@@ -282,7 +280,7 @@ void init()
 		{L"dialogfilesave", 1, 1, 1, PREFIX_PRIORITY, ldialogfilesave, GetResourceString(L"LOCALIZED_ALTERNATE_DIALOGFILESAVE") },
 		{L"difference", 2, 2, 2, PREFIX_PRIORITY, lsub, GetResourceString(L"LOCALIZED_ALTERNATE_DIFFERENCE") },
 		{L"directories", 0, 0, 0, PREFIX_PRIORITY, ldirectories, GetResourceString(L"LOCALIZED_ALTERNATE_DIRECTORIES") },
-	#if !defined WX_PURE
+	#ifdef _WINDOWS
 		{L"dllcall", 1, 1, 2, PREFIX_PRIORITY, ldllcall, GetResourceString(L"LOCALIZED_ALTERNATE_DLLCALL") },
 		{L"dllfree", 0, 0, 1, PREFIX_PRIORITY, ldllfree, GetResourceString(L"LOCALIZED_ALTERNATE_DLLFREE") },
 		{L"dllload", 1, 1, 1, PREFIX_PRIORITY, ldllload, GetResourceString(L"LOCALIZED_ALTERNATE_DLLLOAD") },
@@ -391,14 +389,14 @@ void init()
 		{L"macrop", 1, 1, 1, PREFIX_PRIORITY, lmacrop, GetResourceString(L"LOCALIZED_ALTERNATE_MACROP") },
 		{L"macro?", 1, 1, 1, PREFIX_PRIORITY, lmacrop, GetResourceString(L"LOCALIZED_ALTERNATE_MACRO_") },
 		{L"make", 2, 2, 2, PREFIX_PRIORITY, lmake, GetResourceString(L"LOCALIZED_ALTERNATE_MAKE") },
-	#if !defined WX_PURE
+	#ifdef _WINDOWS
 		{L"mci", 1, 1, 2, PREFIX_PRIORITY, lmci, GetResourceString(L"LOCALIZED_ALTERNATE_MCI") },
 	#endif
 		{L"member", 2, 2, 2, PREFIX_PRIORITY, lmember, GetResourceString(L"LOCALIZED_ALTERNATE_MEMBER") },
 		{L"memberp", 2, 2, 2, PREFIX_PRIORITY, lmemberp, GetResourceString(L"LOCALIZED_ALTERNATE_MEMBERP") },
 		{L"member?", 2, 2, 2, PREFIX_PRIORITY, lmemberp, GetResourceString(L"LOCALIZED_ALTERNATE_MEMBER_") },
 		{L"messagebox", 2, 2, 2, PREFIX_PRIORITY, lmessagebox, GetResourceString(L"LOCALIZED_ALTERNATE_MESSAGEBOX") },
-	#if !defined WX_PURE
+	#ifdef _WINDOWS
 		{L"midiclose", 0, 0, 0, PREFIX_PRIORITY, lmidiclose, GetResourceString(L"LOCALIZED_ALTERNATE_MIDICLOSE") },
 		{L"midimessage", 1, 1, 1, PREFIX_PRIORITY, lmidimessage, GetResourceString(L"LOCALIZED_ALTERNATE_MIDIMESSAGE") },
 		{L"midiopen", 0, 0, 1, PREFIX_PRIORITY, lmidiopen, GetResourceString(L"LOCALIZED_ALTERNATE_MIDIOPEN") },
@@ -412,7 +410,7 @@ void init()
 		{L"namep", 1, 1, 1, PREFIX_PRIORITY, lnamep, GetResourceString(L"LOCALIZED_ALTERNATE_NAMEP") },
 		{L"name?", 1, 1, 1, PREFIX_PRIORITY, lnamep, GetResourceString(L"LOCALIZED_ALTERNATE_NAME_") },
 		{L"names", 0, 0, 0, PREFIX_PRIORITY, lnames, GetResourceString(L"LOCALIZED_ALTERNATE_NAMES") },
-	#if !defined WX_PURE
+	//#if !defined WX_PURE
 		{L"netacceptoff", 0, 0, 0, PREFIX_PRIORITY, lnetacceptoff, GetResourceString(L"LOCALIZED_ALTERNATE_NETACCEPTOFF") },
 		{L"netaccepton", 3, 3, 3, PREFIX_PRIORITY, lnetaccepton, GetResourceString(L"LOCALIZED_ALTERNATE_NETACCEPTON") },
 		{L"netacceptreceivevalue", 0, 0, 0, PREFIX_PRIORITY, lnetacceptreceivevalue, GetResourceString(L"LOCALIZED_ALTERNATE_NETACCEPTRECEIVEVALUE") },
@@ -423,7 +421,7 @@ void init()
 		{L"netconnectsendvalue", 1, 1, 1, PREFIX_PRIORITY, lnetconnectsendvalue, GetResourceString(L"LOCALIZED_ALTERNATE_NETCONNECTSENDVALUE") },
 		{L"netshutdown", 0, 0, 0, PREFIX_PRIORITY, lnetshutdown, GetResourceString(L"LOCALIZED_ALTERNATE_NETSHUTDOWN") },
 		{L"netstartup", 0, 0, 1, PREFIX_PRIORITY, lnetstartup, GetResourceString(L"LOCALIZED_ALTERNATE_NETSTARTUP") },
-	#endif // WX_PURE
+	//#endif // WX_PURE
 		{L"nobitmapturtle", 0, 0, 0, PREFIX_PRIORITY, lnobitmapturtle, GetResourceString(L"LOCALIZED_ALTERNATE_NOBITMAPTURTLE") },
 		{L"nodes", 0, 0, 0, PREFIX_PRIORITY, lnodes, GetResourceString(L"LOCALIZED_ALTERNATE_NODES") },
 		{L"nodribble", 0, 0, 0, PREFIX_PRIORITY, lnodribble, GetResourceString(L"LOCALIZED_ALTERNATE_NODRIBBLE") },
@@ -462,9 +460,9 @@ void init()
 		{L"perspective", 0, 0, 0, PREFIX_PRIORITY, lperspective, GetResourceString(L"LOCALIZED_ALTERNATE_PERSPECTIVE") },
 		{L"pitch", 0, 0, 0, PREFIX_PRIORITY, lpitch, GetResourceString(L"LOCALIZED_ALTERNATE_PITCH") },
 		{L"pixel", 0, 0, 0, PREFIX_PRIORITY, lpixel, GetResourceString(L"LOCALIZED_ALTERNATE_PIXEL") },
-	#if !defined WX_PURE
+	//#if !defined WX_PURE
 		{L"playwave", 2, 2, 2, PREFIX_PRIORITY, lplaywave, GetResourceString(L"LOCALIZED_ALTERNATE_PLAYWAVE") },
-	#endif
+	//#endif
 		{L"plist", 1, 1, 1, PREFIX_PRIORITY, lplist, GetResourceString(L"LOCALIZED_ALTERNATE_PLIST") },
 		{L"plists", 0, 0, 0, PREFIX_PRIORITY, lplists, GetResourceString(L"LOCALIZED_ALTERNATE_PLISTS") },
 		{L"po", 1, 1, 1, PREFIX_PRIORITY, lpo, GetResourceString(L"LOCALIZED_ALTERNATE_PO") },
@@ -582,9 +580,9 @@ void init()
 		{L"setsc", 1, 1, 1, PREFIX_PRIORITY, lsetscreencolor, GetResourceString(L"LOCALIZED_ALTERNATE_SETSC") },
 		{L"setscreencolor", 1, 1, 1, PREFIX_PRIORITY, lsetscreencolor, GetResourceString(L"LOCALIZED_ALTERNATE_SETSCREENCOLOR") },
 		{L"setscrunch", 2, 2, 2, PREFIX_PRIORITY, lsetscrunch, GetResourceString(L"LOCALIZED_ALTERNATE_SETSCRUNCH") },
-	#if !defined WX_PURE
+	//#if !defined WX_PURE
 		{L"settimer", 3, 3, 3, PREFIX_PRIORITY, lsettimer, GetResourceString(L"LOCALIZED_ALTERNATE_SETTIMER") },
-	#endif
+	//#endif
 		{L"setturtle", 1, 1, 2, PREFIX_PRIORITY, lsetturtle, GetResourceString(L"LOCALIZED_ALTERNATE_SETTURTLE") },
 		{L"setturtlemode", 1, 1, 1, PREFIX_PRIORITY, lsetturtlemode, GetResourceString(L"LOCALIZED_ALTERNATE_SETTURTLEMODE") },
 		{L"setwrite", 1, 1, 1, PREFIX_PRIORITY, lsetwrite, GetResourceString(L"LOCALIZED_ALTERNATE_SETWRITE") },
@@ -600,9 +598,9 @@ void init()
 		{L"shown?", 0, 0, 0, PREFIX_PRIORITY, lshownp, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWN_") },
 		{L"showturtle", 0, 0, 0, PREFIX_PRIORITY, lshowturtle, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWTURTLE") },
 		{L"sin", 1, 1, 1, PREFIX_PRIORITY, lsin, GetResourceString(L"LOCALIZED_ALTERNATE_SIN") },
-	#if !defined WX_PURE
+	//#if !defined WX_PURE
 		{L"sound", 1, 1, 1, PREFIX_PRIORITY, lsound, GetResourceString(L"LOCALIZED_ALTERNATE_SOUND") },
-	#endif
+	//#endif
 		{L"splitscreen", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SPLITSCREEN") },
 		{L"sqrt", 1, 1, 1, PREFIX_PRIORITY, lsqrt, GetResourceString(L"LOCALIZED_ALTERNATE_SQRT") },
 		{L"ss", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SS") },

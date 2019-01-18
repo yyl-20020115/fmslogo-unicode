@@ -114,11 +114,11 @@ mode_type current_mode = wrapmode;
 
 Turtle g_SpecialTurtles[TOTAL_SPECIAL_TURTLES];
 
-Turtle * g_Turtles;
-size_t   g_TurtlesLimit;
+Turtle * g_Turtles = 0;
+size_t   g_TurtlesLimit = 0;
 
-Turtle * g_SelectedTurtle;
-int      g_MaxTurtle;
+Turtle * g_SelectedTurtle = 0;
+int      g_MaxTurtle = 0;
 
 // a point where the turtle wants to go
 Point  g_Wanna = {0.0, 0.0, 0.0};

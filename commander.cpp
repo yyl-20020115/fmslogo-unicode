@@ -352,16 +352,12 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
 	//call halt first to stop program
-	//this->Halt();
+	this->Halt();
 
 	//NOTICE: for requirement to reset almost everythong about drawing,
-	//we added reset command (not standard command) into logolib
+	//we added draw command (like in PCLogo) into logolib
 	//and we call it here
-    // run 'CLEARSCREEN' and return focus
-    RunLogoInstructionFromGui(
-		L"reset"
-		//cap_strnzcpy(GetResourceString(L"LOCALIZED_ALTERNATE_CLEARSCREEN"))
-	);
+    RunLogoInstructionFromGui(L"draw");
 }
 
 void clearcombobox()
