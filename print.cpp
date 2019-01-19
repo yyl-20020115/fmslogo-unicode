@@ -41,6 +41,7 @@
 #include <wx/string.h>
 #endif
 #include "CStringTextStream.h"
+#include "CNodePrinter.h"
 //// structures
 //struct STRING_PRINT_INFORMATION
 //{
@@ -277,7 +278,10 @@ real_print_node(
 		//for reading.
 		//wchar_t buffer[MAX_NUMBER] = { 0 };
 	    //wsprintf(buffer, L"%0.15g", getfloat(nd));
-		wxString buffer = wxString::Format(L"%g", getfloat(nd));
+		FLONUM f=getfloat(nd);
+
+		wxString buffer = CNodePrinter::FormatDouble(f);
+		// wxString::Format(L"%g", (double)f);
         // REVISIT: is it okay to ignore the width parameter?
         for (size_t i = 0;i<buffer.length();i++)
         {

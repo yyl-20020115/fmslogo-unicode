@@ -1,6 +1,64 @@
 #include "CNodePrinter.h"
 
 
+wxString CNodePrinter::FormatDouble(double v, size_t cds)
+{
+start:
+
+	//pr ((53+7.6)*8.7/6-93.2)*4
+	wxString text = wxString::Format(L"%0.16g", v);
+	if (text.length() > 0) {
+		wxString fpart;
+		wxString epart;
+		size_t ple = text.find(L'e');
+		ple = ple == text.npos ? text.find(L'E') : ple;
+		if (ple != text.npos) {
+			//there is e or E
+			epart = text.substr(ple);
+			text = text.substr(0, ple);
+		}
+		size_t pld = text.find(L'.');
+		if (pld != text.npos) {
+			fpart = text.substr(0, pld+1);
+			text = text.substr(pld+1);
+			if (text.length() > 0) {
+				size_t plz = text.find_last_of(L'0');
+				if (plz != text.npos) {
+					size_t prz = text.find_last_not_of(L'0', plz);
+					if (prz!=text.npos && (plz - prz >= cds)) {
+						text = text.substr(0, prz+1);
+					}
+				}
+				else {
+					size_t pln = text.find_last_of(L'9');
+					if (pln != text.npos) {
+						size_t prn = text.find_last_not_of(L'9', pln);
+						if (prn != text.npos && (pln - prn) >= cds) {
+							if (pln < text.length() - 1) {
+								text = text.substr(0, pln);
+							}
+							wchar_t d = text[text.length() - 1];							
+							wchar_t m = (10 - (d - L'0'))+L'0';
+							wxString adder = L"0.";
+							for (size_t i = 0; i < pln; i++) {
+								adder += L'0';
+							}
+							adder += m;
+							double g = 0.0;
+							swscanf(adder, L"%lf", &g);
+							v += g;
+							goto start;
+
+						}
+					}
+				}
+			}
+
+		}
+		text = fpart + text + epart;
+	}
+	return text;
+}
 
 CNodePrinter::CNodePrinter()
 	:content()
@@ -190,7 +248,7 @@ void CNodePrinter::PrintNode(const NODE * nd)
 	}
 	else if (ndty == FLOATINGPOINT)
 	{
-		wxString buffer = wxString::Format(L"%0.15g", getfloat(nd));
+		wxString buffer = FormatDouble(getfloat(nd));
 		// REVISIT: is it okay to ignore the width parameter?
 		for (size_t i = 0; i < buffer.length(); i++)
 		{

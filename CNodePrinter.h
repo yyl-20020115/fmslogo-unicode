@@ -7,6 +7,9 @@
 class CNodePrinter
 {
 public:
+	static wxString FormatDouble(double v, size_t cds = 6);
+
+public:
 	CNodePrinter();
 	~CNodePrinter();
 public:
