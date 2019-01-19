@@ -757,12 +757,21 @@ NODE *lhalt(NODE *)
     // by a call to SETTIMER.
     halt_all_timers();
 
-    // Cancel any pending events that may execute more code.
-    emptyqueue();
+	if (CheckDoingEvents()) 
+	{
+		if (is_executing())
+		{
+			IsTimeToHalt = true;
+		}
+	}
+	else 
+	{
+		// Cancel any pending events that may execute more code.
+		emptyqueue();
 
-    // throw a Stop error to stop the current execution.
-    err_logo(STOP_ERROR, NIL);
-
+		// throw a Stop error to stop the current execution.
+		err_logo(STOP_ERROR, NIL);
+	}
     return Unbound;
 }
 

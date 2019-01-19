@@ -40,7 +40,7 @@ extern int BaseUnitsy;
 extern bool IsTimeToExit;
 extern bool IsTimeToPause;
 extern bool IsTimeToHalt;
-
+extern bool CheckDoingEvents();
 extern bool zoom_flag;
 
 extern FLONUM the_zoom;

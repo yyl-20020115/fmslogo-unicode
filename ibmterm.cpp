@@ -48,7 +48,10 @@ bool check_stop(bool scan_for_messages)
 
     if (IsTimeToHalt)
     {
-        IsTimeToHalt = false;
+		if (!CheckDoingEvents()) {
+			IsTimeToHalt = false;
+		}
+        
         emptyqueue();
         err_logo(STOP_ERROR, NIL);
         return true;

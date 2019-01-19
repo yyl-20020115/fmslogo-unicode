@@ -86,6 +86,24 @@
 //    #include "debugheap.h"
 #endif
 
+size_t DoingEventsStack = 0;
+
+void EnterDoingEvents()
+{
+	DoingEventsStack++;
+}
+void LeaveDoingEvents()
+{
+	if (DoingEventsStack > 0) {
+		DoingEventsStack--;
+	}
+}
+
+bool CheckDoingEvents()
+{
+	return DoingEventsStack > 0;
+}
+
 extern wxString NormalizeCaseForDisplay(wxString text);
 #ifdef _WINDOWS
 void DoEvents()
@@ -107,8 +125,10 @@ void DoEvents()
 		}
 		else
 		{
+			EnterDoingEvents();
 			::TranslateMessage(&msg);
 			::DispatchMessage(&msg);
+			LeaveDoingEvents();
 		}
 	}
 }

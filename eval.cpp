@@ -873,12 +873,14 @@ NODE *evaluator(NODE *list, enum labels where)
     // Jump to the label described by "where".
     goto goto_cont;
 
- begin_line:
+begin_line:
+
     assign(this_line, list);
     Stack.PushFrame(end_line);
     goto begin_seq;
 
- begin_seq:
+begin_seq:
+
     assign(val, Unbound);
 
     // Parenthesize the Logo list into something more like LISP
@@ -901,6 +903,9 @@ NODE *evaluator(NODE *list, enum labels where)
         deref(val);
     }
     val = NIL;
+
+
+
     goto fetch_cont;
 
 
@@ -912,6 +917,7 @@ NODE *evaluator(NODE *list, enum labels where)
     // Evaluates "exp", sets the result in "val", and returns to the
     // continuation point, possibly dispatching to the appropriate
     // label if the evaluation requires a procedure call.
+		
 
     switch (nodetype(exp))
     {
@@ -1466,6 +1472,8 @@ NODE *evaluator(NODE *list, enum labels where)
 eval_sequence: 
 	//FIXED: need do events in windows for message loop to avoid being frozen
 	DoEvents();
+	check_stop(true);
+
     // Evaluate each expression in "unev" in the sequence.
     // Stop as soon as val != Unbound, which is when we
     // have a value to return.

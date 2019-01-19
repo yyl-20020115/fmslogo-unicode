@@ -292,13 +292,13 @@ void CCommander::Halt()
     // instruction.
     if (is_executing())
     {
-        IsTimeToHalt = true;
+		IsTimeToHalt = true;
     }
 }
 
 void CCommander::OnHaltButton(wxCommandEvent& WXUNUSED(Event))
 {
-    Halt();
+	this->Halt();
 	this->UpdateHaltButtonState();
 	this->UpdateStepButtonState();
 	this->UpdatePauseButtonState();

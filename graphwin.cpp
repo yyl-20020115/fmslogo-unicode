@@ -144,6 +144,7 @@ int BaseUnitsy = 0;                    // Y Units Windows uses to for units in d
 bool IsTimeToExit = false;             // Flag to signal it's time to exit
 bool IsTimeToPause = false;            // UCBLOGO? pause flag
 bool IsTimeToHalt = false;             // UCBLOGO? halt flag
+bool IsTimeToHaltDeep = false;             // Deep version when inside of message loop
 bool zoom_flag = false;                // flag to signal in zoomed state
 FLONUM the_zoom = 1.0;                 // current zoom factor
 
