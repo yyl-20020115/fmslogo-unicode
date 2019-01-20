@@ -1,0 +1,20 @@
+LINUX:
+git clone alsa-lib
+./configure --enable-static --disable-shared
+make
+make install
+(will be installed into /usr/lib)
+
+git clone rtaudio
+
+./configure --enable-static --disable-shared --with-alsa
+make
+sudo make install
+(will be installed into /usr/local/lib)
+
+MacOSX
+git clone rtaudio
+./configure --enable-static --disable-shared --with-core
+make
+sudo make install
+
