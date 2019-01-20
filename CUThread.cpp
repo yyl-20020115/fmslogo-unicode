@@ -8,14 +8,14 @@ CUThread::~CUThread()
 {
     if(isRuning_)
     {
-        pthread_detach(tid_);//系统回收
+        pthread_detach(tid_);
     }
 }
 
-void *CUThread::runInThread (void *arg)//this指针
+void *CUThread::runInThread (void *arg)
 {
     CUThread *pt = static_cast<CUThread*>(arg);
-    pt->run(); //调用run函数
+    pt->run();
     return NULL;
 }
 

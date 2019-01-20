@@ -27,6 +27,7 @@
 		E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */; };
 		E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E4221E463C5009A5F00 /* startup.logoscript */; };
 		E19F5E4521E4760C009A5F00 /* GetLocale.mm in Sources */ = {isa = PBXBuildFile; fileRef = E19F5E4421E4760C009A5F00 /* GetLocale.mm */; };
+		E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFEA21F416F300F92A71 /* CUThread.cpp */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
 		E1EC41E321E425FE00CD3533 /* coms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410B21E425D800CD3533 /* coms.cpp */; };
@@ -170,6 +171,8 @@
 		E19F5E4221E463C5009A5F00 /* startup.logoscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = startup.logoscript; sourceTree = "<group>"; };
 		E19F5E4421E4760C009A5F00 /* GetLocale.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetLocale.mm; sourceTree = "<group>"; };
 		E19F5E4621E476A8009A5F00 /* GetLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetLocale.h; sourceTree = "<group>"; };
+		E1D7FFEA21F416F300F92A71 /* CUThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUThread.cpp; sourceTree = "<group>"; };
+		E1D7FFF021F416F400F92A71 /* CUThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUThread.h; sourceTree = "<group>"; };
 		E1EC3FBE21E41FDD00CD3533 /* fmslogo-unicode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fmslogo-unicode.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EC410821E425D700CD3533 /* FMSLogo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FMSLogo.cpp; sourceTree = "<group>"; };
 		E1EC410A21E425D800CD3533 /* files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = files.cpp; sourceTree = "<group>"; };
@@ -425,10 +428,6 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
-				E14F7F8121F05B6F00C07415 /* netwind.cpp */,
-				E14F7F8021F05B6300C07415 /* netwind.h */,
-				E14F7F7F21F05B3A00C07415 /* dllwind.h */,
-				E14F7F7E21F05B2000C07415 /* dib.h */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
 				E1EC41A421E425F300CD3533 /* aboutfmslogo.cpp */,
@@ -480,9 +479,13 @@
 				E1EC415021E425E200CD3533 /* CUTF8FileTextStream.h */,
 				E1EC41A521E425F300CD3533 /* CUTF16FileTextStream.cpp */,
 				E1EC418821E425EC00CD3533 /* CUTF16FileTextStream.h */,
+				E1D7FFEA21F416F300F92A71 /* CUThread.cpp */,
+				E1D7FFF021F416F400F92A71 /* CUThread.h */,
 				E1EC41DA21E425FD00CD3533 /* devwind.cpp */,
 				E1EC417B21E425EA00CD3533 /* devwind.h */,
+				E14F7F7E21F05B2000C07415 /* dib.h */,
 				E1EC417821E425E900CD3533 /* dlgwind.h */,
+				E14F7F7F21F05B3A00C07415 /* dllwind.h */,
 				E1EC413D21E425DF00CD3533 /* dynamicbuffer.cpp */,
 				E1EC41C021E425F800CD3533 /* dynamicbuffer.h */,
 				E1EC41A021E425F200CD3533 /* editproceduredialog.cpp */,
@@ -575,6 +578,8 @@
 				E1EC412421E425DB00CD3533 /* minieditortextctrl.h */,
 				E14F7F7921F006F300C07415 /* mmwind.cpp */,
 				E14F7F7421F006AC00C07415 /* mmwind.h */,
+				E14F7F8121F05B6F00C07415 /* netwind.cpp */,
+				E14F7F8021F05B6300C07415 /* netwind.h */,
 				E1EC413321E425DD00CD3533 /* paren.cpp */,
 				E1EC41D021E425FB00CD3533 /* paren.h */,
 				E1EC411D21E425DA00CD3533 /* parse.cpp */,
@@ -808,6 +813,7 @@
 				E1EC421221E425FE00CD3533 /* selectstartupinstruction.cpp in Sources */,
 				E1EC421C21E425FF00CD3533 /* questionbox.cpp in Sources */,
 				E1EC421121E425FE00CD3533 /* argumentutils.cpp in Sources */,
+				E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */,
 				E1EC421D21E425FF00CD3533 /* eraseproceduredialog.cpp in Sources */,
 				E1EC420121E425FE00CD3533 /* mem.cpp in Sources */,
 				E1EC422321E425FF00CD3533 /* logodata.cpp in Sources */,
