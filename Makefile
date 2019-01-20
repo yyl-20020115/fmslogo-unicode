@@ -29,11 +29,12 @@ CPPFLAGS += $(addprefix -I, $(INCLUDES))
 CXXFLAGS += -Wall -fno-strict-aliasing
 CXXFLAGS += -DFMSLOGO_WXWIDGETS
 
-LIBDIRNAME = /usr/local/lib/
+LIBDIRNAME = /usr/local/lib/ 
+LIBDIRNAME_EXT =/usr/lib
 CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
-LDFLAGS += -lcharset -liconv
+LDFLAGS += -lcharset -liconv -lasound
 WX_OBJECTS = 3dsolid.o \
 aboutfmslogo.o \
 aboutmultiplesclerosis.o \
@@ -118,6 +119,12 @@ vector.o \
 workspaceeditor.o \
 wrksp.o \
 wxpurestubs.o \
+sound.o \
+wav_parser.o \
+sndwav_common.o \
+CNodePrinter.o \
+CUThread.o \
+CSoundPlayerThread.o \
 CEncodingConverter.o \
 CEncodingFileTextStream.o \
 scintilla/LexFmsLogo.o
@@ -147,7 +154,7 @@ default : fmslogo
 
 	
 fmslogo: $(OBJECTS)
-	$(CXX) -o fmslogo-unicode $(OBJECTS) -L$(LIBDIRNAME) $(LDFLAGS)
+	$(CXX) -o fmslogo-unicode $(OBJECTS) -L$(LIBDIRNAME) -L$(LIBDIRNAME_EXT) $(LDFLAGS)
 
 scintilla/LexFmsLogo.o : scintilla/LexFmsLogo.cxx
 	$(CXX) -c $(CXXFLAGS) scintilla/LexFmsLogo.cxx  -o scintilla/LexFmsLogo.o 

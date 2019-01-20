@@ -37,7 +37,11 @@
     #include "init.h"
     #include "eval.h"
     #include "parse.h"
+#ifdef _WINDOWS
     #include "ibmterm.h"
+#else
+    #include "sound.h"
+#endif
     #include "screenwindow.h"
 //    #include "debugheap.h"
 
@@ -118,7 +122,6 @@ NODE *lsound(NODE *arg)
                 {
                     duration = int_arg(arg = cdr(arg));
                 }
-
                 /* play it */
                 tone(hertz, duration);
             }
@@ -484,7 +487,6 @@ NODE *lplaywave(NODE *args)
 
     int flag = getint(nonnegative_int_arg(args = cdr(args)));
 
-#ifdef _WINDOWS
     if (((const wxString&)fileName).length() == 0)
     {
         sndPlaySound(NULL, flag);
@@ -493,8 +495,5 @@ NODE *lplaywave(NODE *args)
     {
         sndPlaySound((const wxString&)fileName, flag);
     }
-#else
-    //
-#endif
     return Unbound;
 }

@@ -166,30 +166,13 @@ bool button()
 {
     return false;
 }
-#ifdef LINUX
-int console_fd = -1;
-void init_tone()
-{
-	if ((console_fd = open("/dev/console", O_WRONLY)) == -1)
-	{
-		//BAD_FD
-	}
-}
 
-void uninit_tone()
-{
-	if (console_fd != -1) {
-		close(console_fd);
-	}
-}
-#else
 void init_tone() {
 
 }
 void uninit_tone() {
 
 }
-#endif
 void tone(FIXNUM frequency, FIXNUM duration)
 {
     if (frequency < 37)
@@ -200,16 +183,6 @@ void tone(FIXNUM frequency, FIXNUM duration)
 #ifdef _WINDOWS
     // use the Win32 Beep
     Beep(frequency, duration);
-#else
-#ifdef LINUX
-	if (console_fd != -1) 
-	{
-		int magical_fairy_number = 1190000 / frequency;
 
-		ioctl(console_fd, KIOCSOUND, magical_fairy_number);
-		usleep(1000 * duration);
-		ioctl(console_fd, KIOCSOUND, 0);
-	}
-#endif
 #endif
 }
