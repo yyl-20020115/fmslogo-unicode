@@ -34,7 +34,7 @@ LIBDIRNAME_EXT =/usr/lib
 CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
-LDFLAGS += -lcharset -liconv -lasound
+LDFLAGS += -lcharset -liconv -lasound -lrtaudio 
 WX_OBJECTS = 3dsolid.o \
 aboutfmslogo.o \
 aboutmultiplesclerosis.o \
