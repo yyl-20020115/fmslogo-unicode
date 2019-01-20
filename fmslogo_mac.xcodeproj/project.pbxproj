@@ -27,7 +27,11 @@
 		E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E3521E45F79009A5F00 /* localizedstrings-pl-ucs2le.h */; };
 		E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */ = {isa = PBXBuildFile; fileRef = E19F5E4221E463C5009A5F00 /* startup.logoscript */; };
 		E19F5E4521E4760C009A5F00 /* GetLocale.mm in Sources */ = {isa = PBXBuildFile; fileRef = E19F5E4421E4760C009A5F00 /* GetLocale.mm */; };
+		E1D7000021F45AC800F92A71 /* wav_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFFC21F45AC700F92A71 /* wav_parser.cpp */; };
+		E1D7000121F45AC800F92A71 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFFD21F45AC700F92A71 /* sound.cpp */; };
+		E1D7000221F45AC800F92A71 /* CSoundPlayerThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFFE21F45AC700F92A71 /* CSoundPlayerThread.cpp */; };
 		E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFEA21F416F300F92A71 /* CUThread.cpp */; };
+		E1D7FFFF21F45AC800F92A71 /* sndwav_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFFB21F45AC700F92A71 /* sndwav_common.cpp */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
 		E1EC41E321E425FE00CD3533 /* coms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410B21E425D800CD3533 /* coms.cpp */; };
@@ -173,6 +177,14 @@
 		E19F5E4621E476A8009A5F00 /* GetLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetLocale.h; sourceTree = "<group>"; };
 		E1D7FFEA21F416F300F92A71 /* CUThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUThread.cpp; sourceTree = "<group>"; };
 		E1D7FFF021F416F400F92A71 /* CUThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUThread.h; sourceTree = "<group>"; };
+		E1D7FFF721F45A6200F92A71 /* CSoundPlayerThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSoundPlayerThread.h; sourceTree = "<group>"; };
+		E1D7FFF821F45A7600F92A71 /* wav_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav_parser.h; sourceTree = "<group>"; };
+		E1D7FFF921F45A8800F92A71 /* sndwav_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sndwav_common.h; sourceTree = "<group>"; };
+		E1D7FFFA21F45A9900F92A71 /* sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
+		E1D7FFFB21F45AC700F92A71 /* sndwav_common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sndwav_common.cpp; sourceTree = "<group>"; };
+		E1D7FFFC21F45AC700F92A71 /* wav_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wav_parser.cpp; sourceTree = "<group>"; };
+		E1D7FFFD21F45AC700F92A71 /* sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound.cpp; sourceTree = "<group>"; };
+		E1D7FFFE21F45AC700F92A71 /* CSoundPlayerThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSoundPlayerThread.cpp; sourceTree = "<group>"; };
 		E1EC3FBE21E41FDD00CD3533 /* fmslogo-unicode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fmslogo-unicode.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EC410821E425D700CD3533 /* FMSLogo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FMSLogo.cpp; sourceTree = "<group>"; };
 		E1EC410A21E425D800CD3533 /* files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = files.cpp; sourceTree = "<group>"; };
@@ -469,6 +481,8 @@
 				E1EC410B21E425D800CD3533 /* coms.cpp */,
 				E1EC412221E425DA00CD3533 /* coms.h */,
 				E1EC418B21E425ED00CD3533 /* const.h */,
+				E1D7FFFE21F45AC700F92A71 /* CSoundPlayerThread.cpp */,
+				E1D7FFF721F45A6200F92A71 /* CSoundPlayerThread.h */,
 				E1EC41DB21E425FD00CD3533 /* CStringTextStream.cpp */,
 				E1EC41C921E425FA00CD3533 /* CStringTextStream.h */,
 				E1EC41DD21E425FE00CD3533 /* CTextStream.cpp */,
@@ -609,8 +623,12 @@
 				E1EC411121E425D800CD3533 /* setpensize.cpp */,
 				E1EC412F21E425DC00CD3533 /* setpensize.h */,
 				E1EC414D21E425E100CD3533 /* smartnode.h */,
+				E1D7FFFB21F45AC700F92A71 /* sndwav_common.cpp */,
+				E1D7FFF921F45A8800F92A71 /* sndwav_common.h */,
 				E1EC41DC21E425FE00CD3533 /* sort.cpp */,
 				E1EC414C21E425E100CD3533 /* sort.h */,
+				E1D7FFFD21F45AC700F92A71 /* sound.cpp */,
+				E1D7FFFA21F45A9900F92A71 /* sound.h */,
 				E1EC416721E425E600CD3533 /* startup.cpp */,
 				E1EC41AE21E425F500CD3533 /* startup.h */,
 				E19F5E4221E463C5009A5F00 /* startup.logoscript */,
@@ -632,6 +650,8 @@
 				E1EC41D721E425FD00CD3533 /* vector.cpp */,
 				E1EC416D21E425E700CD3533 /* vector.h */,
 				E1EC417C21E425EA00CD3533 /* version.h */,
+				E1D7FFFC21F45AC700F92A71 /* wav_parser.cpp */,
+				E1D7FFF821F45A7600F92A71 /* wav_parser.h */,
 				E1EC411221E425D800CD3533 /* workspaceeditor.cpp */,
 				E1EC415421E425E300CD3533 /* workspaceeditor.h */,
 				E1EC419121E425EE00CD3533 /* wrksp.cpp */,
@@ -782,6 +802,7 @@
 				E1EC422C21E425FF00CD3533 /* messagebox.cpp in Sources */,
 				E1EC422E21E425FF00CD3533 /* CUTF8FileTextStream.cpp in Sources */,
 				E1EC420A21E425FE00CD3533 /* setcolor.cpp in Sources */,
+				E1D7000221F45AC800F92A71 /* CSoundPlayerThread.cpp in Sources */,
 				E1EC420921E425FE00CD3533 /* logoeventqueue.cpp in Sources */,
 				E1EC421721E425FF00CD3533 /* wrksp.cpp in Sources */,
 				E1EC422B21E425FF00CD3533 /* avltree.cpp in Sources */,
@@ -817,6 +838,7 @@
 				E1EC421D21E425FF00CD3533 /* eraseproceduredialog.cpp in Sources */,
 				E1EC420121E425FE00CD3533 /* mem.cpp in Sources */,
 				E1EC422321E425FF00CD3533 /* logodata.cpp in Sources */,
+				E1D7000121F45AC800F92A71 /* sound.cpp in Sources */,
 				E1EC41F021E425FE00CD3533 /* aboutmultiplesclerosis.cpp in Sources */,
 				E1EC41E321E425FE00CD3533 /* coms.cpp in Sources */,
 				E1EC421B21E425FF00CD3533 /* logomath.cpp in Sources */,
@@ -836,6 +858,7 @@
 				E14F7F7D21F006F300C07415 /* mmwind.cpp in Sources */,
 				E1EC41EF21E425FE00CD3533 /* cursor.cpp in Sources */,
 				E1EC41EA21E425FE00CD3533 /* init.cpp in Sources */,
+				E1D7FFFF21F45AC800F92A71 /* sndwav_common.cpp in Sources */,
 				E1EC41FE21E425FE00CD3533 /* CNodePrinter.cpp in Sources */,
 				E1EC41E421E425FE00CD3533 /* mainwind.cpp in Sources */,
 				E1EC41EB21E425FE00CD3533 /* savebeforeexitdialog.cpp in Sources */,
@@ -852,6 +875,7 @@
 				E1EC422721E425FF00CD3533 /* eval.cpp in Sources */,
 				E1EC421421E425FF00CD3533 /* CLocalizedStringProvider.cpp in Sources */,
 				E1EC422121E425FF00CD3533 /* commanderbutton.cpp in Sources */,
+				E1D7000021F45AC800F92A71 /* wav_parser.cpp in Sources */,
 				E1EC423921E425FF00CD3533 /* sort.cpp in Sources */,
 				E1EC41F421E425FE00CD3533 /* graphics.cpp in Sources */,
 				E1EC422821E425FF00CD3533 /* CFileTextStream.cpp in Sources */,
