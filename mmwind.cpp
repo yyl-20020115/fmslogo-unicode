@@ -40,7 +40,11 @@
 #ifdef _WINDOWS
     #include "ibmterm.h"
 #else
+#ifdef LINUX
     #include "sound.h"
+#else
+
+#endif
 #endif
     #include "screenwindow.h"
 //    #include "debugheap.h"
@@ -96,6 +100,7 @@ bool IsAnyTimerActive()
 
 NODE *lsound(NODE *arg)
 {
+#ifndef __APPLE__
     /* open sound and get arg list */
     NODE *args = car(arg);
 
@@ -140,6 +145,7 @@ NODE *lsound(NODE *arg)
             GetResourceString(L"LOCALIZED_ERROR_BADINPUT"));
     }
 
+#endif
     return Unbound;
 }
 
@@ -483,6 +489,7 @@ void uninitialize_timers()
 
 NODE *lplaywave(NODE *args)
 {
+#ifndef __APPLE__
     CStringPrintedNode fileName(car(args));
 
     int flag = getint(nonnegative_int_arg(args = cdr(args)));
@@ -495,5 +502,6 @@ NODE *lplaywave(NODE *args)
     {
         sndPlaySound((const wxString&)fileName, flag);
     }
+#endif
     return Unbound;
 }
