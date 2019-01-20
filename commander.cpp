@@ -273,12 +273,12 @@ void CCommander::UpdateStatusButtonState()
 
 void CCommander::UpdateHaltButtonState()
 {
-    m_HaltButton->Enable(is_executing());
+    m_HaltButton->Enable(is_executing() || IsAnyTimerActive());
 }
 
 void CCommander::UpdatePauseButtonState()
 {
-    m_PauseButton->Enable(is_executing());
+    m_PauseButton->Enable(is_executing() || IsAnyTimerActive());
 }
 
 void CCommander::Halt()
@@ -290,7 +290,7 @@ void CCommander::Halt()
     // Set a flag so that the Logo engine will halt
     // when it has finished processing the current
     // instruction.
-    if (is_executing())
+    if (is_executing() || IsAnyTimerActive())
     {
 		IsTimeToHalt = true;
     }
@@ -314,7 +314,7 @@ void CCommander::OnTraceButton(wxCommandEvent& WXUNUSED(Event))
 void CCommander::OnPauseButton(wxCommandEvent& WXUNUSED(Event))
 {
     // If it's ok to halt then it's ok to pause.
-    if (is_executing())
+    if (is_executing()||IsAnyTimerActive())
     {
         IsTimeToPause = true;
     }
@@ -351,6 +351,8 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
+	clear_all_timers();
+
 	//call halt first to stop program
 	this->Halt();
 

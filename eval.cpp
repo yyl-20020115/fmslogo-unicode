@@ -2525,11 +2525,10 @@ void stop_execution()
     }
 }
 
-extern bool IsAnyTimerActive();
 bool is_executing()
 {
     assert(0 <= halt_flag);
-    return halt_flag != 0 || IsAnyTimerActive();
+    return halt_flag != 0;
 }
 
 void do_execution(const wchar_t * cmd)

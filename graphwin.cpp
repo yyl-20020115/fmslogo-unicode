@@ -1578,6 +1578,13 @@ NODE *lbitblock(NODE *arg)
             wxColor fillColor(fcolor);
             wxBrush fillBrush(fillColor);
             wxDC * memoryDeviceContext = GetWxMemoryDeviceContext();
+
+			wxRasterOperationMode mode = memoryDeviceContext->GetLogicalFunction();
+
+			//FIXED: need to be wxCopy, don't know why we should set it again
+			//to make it work
+			memoryDeviceContext->SetLogicalFunction(wxCOPY);
+
             const wxBrush oldBrush(memoryDeviceContext->GetBrush());
             memoryDeviceContext->SetBrush(fillBrush);
 
@@ -1593,11 +1600,12 @@ NODE *lbitblock(NODE *arg)
                 cutHeight);                                   // height
 
             memoryDeviceContext->DrawRectangle(memoryRect);
-
+			
             // Restore the brush/pen
             memoryDeviceContext->SetBrush(oldBrush);
             memoryDeviceContext->SetPen(oldPen);
 
+			memoryDeviceContext->SetLogicalFunction(mode);
             //screen
             if (zoom_flag)
             {

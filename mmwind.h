@@ -37,6 +37,7 @@ extern NODE *lcleartimer(NODE *arg);
 extern bool IsAnyTimerActive();
 extern void init_timers();
 extern void halt_all_timers();
+extern void clear_all_timers();
 extern void uninitialize_timers();
 
 #endif // __MULTIMEDIA_WINDOW_H_

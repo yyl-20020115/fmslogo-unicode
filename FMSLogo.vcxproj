@@ -96,7 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -105,7 +105,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies);dsound.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -115,7 +115,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -124,7 +124,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31ud_xml.lib;wxbase31ud.lib;wxexpatd.lib;wxjpegd.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_propgrid.lib;wxmsw31ud_qa.lib;wxmsw31ud_ribbon.lib;wxmsw31ud_richtext.lib;wxmsw31ud_stc.lib;wxmsw31ud_webview.lib;wxmsw31ud_xrc.lib;wxpngd.lib;wxregexud.lib;wxscintillad.lib;wxtiffd.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies);dsound.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
@@ -137,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -149,7 +149,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxbase31u_xml.lib;wxbase31u.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u_xml.lib;wxbase31u.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies);dsound.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions> /SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
@@ -163,7 +163,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;wxUSE_ACTIVEX;wxUSE_WINRT;wxUSE_CRASHREPORT;wxUSE_DBGHELP;wxUSE_DC_CACHEING;wxUSE_INICONF;wxUSE_OLE;wxUSE_OLE_AUTOMATION;wxUSE_TASKBARICON_BALLOONS;wxUSE_TASKBARBUTTON;wxUSE_UXTHEME;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -175,7 +175,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxbase31u_xml.lib;wxbase31u.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u_xml.lib;wxbase31u.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;comctl32.lib;rpcrt4.lib;wxzlibd.lib;odbc32.lib;wsock32.lib;Winmm.lib;%(AdditionalDependencies);dsound.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud\wx\msw;C:\wxWidgets-3.1.2\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions> /SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
@@ -267,6 +267,7 @@
     <ClInclude Include="print.h" />
     <ClInclude Include="questionbox.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RtAudio.h" />
     <ClInclude Include="savebeforeexitdialog.h" />
     <ClInclude Include="scintilla\include\Accessor.h" />
     <ClInclude Include="scintilla\include\Catalogue.h" />
@@ -374,6 +375,7 @@
     <ClCompile Include="parse.cpp" />
     <ClCompile Include="print.cpp" />
     <ClCompile Include="questionbox.cpp" />
+    <ClCompile Include="RtAudio.cpp" />
     <ClCompile Include="savebeforeexitdialog.cpp" />
     <ClCompile Include="scintilla\LexFmsLogo.cxx" />
     <ClCompile Include="scintilla\LexFmsLogoRegisterer.cxx" />

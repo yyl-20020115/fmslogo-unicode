@@ -1213,6 +1213,10 @@ void CMainFrame::OnClose(wxCloseEvent& Event)
 {
     if (Event.CanVeto())
     {
+		if (IsAnyTimerActive())
+		{
+			clear_all_timers();
+		}
         if (is_executing())
         {
             // The logo evaluation engine is still executing instructions.

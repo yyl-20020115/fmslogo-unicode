@@ -469,22 +469,24 @@ void halt_all_timers()
 		//timer_callback[id].clear();
 	}
 }
-
+void clear_all_timers()
+{
+	//NOTICE: i was from 1
+	for (size_t id = 0; id < MAX_TIMERS; id++)
+	{
+#ifdef _WINDOWS
+		//GetMainWindow() would return 0 during uninitializing.
+		//::KillTimer(GetMainWindow(), id);
+#else
+		timer_intervals[id] = 0;
+		timer_currents[id] = 0;
+#endif
+		timer_callback[id].clear();
+	}
+}
 void uninitialize_timers()
 {
-    for (int id = 0; id < MAX_TIMERS; id++)
-    {
-        if (timer_callback[id].length()>0)
-        {
-#ifdef _WINDOWS
-            ::KillTimer(GetMainWindow(), id);
-#else
-            timer_intervals[id] = 0;
-            timer_currents[id] = 0;            
-#endif
-			timer_callback[id].clear();
-        }
-    }
+	clear_all_timers();
 }
 
 NODE *lplaywave(NODE *args)

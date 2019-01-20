@@ -384,6 +384,9 @@
     <ClInclude Include="CEncodingConverter.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="RtAudio.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -657,6 +660,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="CEncodingConverter.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RtAudio.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
