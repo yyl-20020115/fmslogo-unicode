@@ -120,35 +120,45 @@ int numberp(NODE *snd)
     int pcnt = 0; // index of the "current" character
     if (pcnt < plen && *p == L'-')
     {
-        p++, pcnt++;
+        p++;
+        pcnt++;
     }
 
     while (pcnt < plen && IsDigit(*p))
     {
-        p++, pcnt++, dl++;
+        p++;
+        pcnt++;
+        dl++;
     }
 
     if (pcnt < plen && *p == L'.')
     {
-        p++, pcnt++;
+        p++;
+        pcnt++;
         while (pcnt < plen && IsDigit(*p))
         {
-            p++, pcnt++, dr++;
+            p++;
+            pcnt++;
+            dr++;
         }
     }
 
     if (pcnt < plen && (dl || dr) && (*p == L'E' || *p == L'e'))
     {
-        p++, pcnt++;
+        p++;
+        pcnt++;
 
         if (pcnt < plen && (*p == L'+' || *p == L'-'))
         {
-            p++, pcnt++;
+            p++;
+            pcnt++;
         }
 
         while (pcnt < plen && IsDigit(*p))
         {
-            p++, pcnt++, dr++;
+            p++;
+            pcnt++;
+            dr++;
         }
     }
 

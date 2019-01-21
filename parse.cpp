@@ -1071,7 +1071,9 @@ static NODE *runparse_node(NODE *nd, NODE **ndsptr)
 				{
 					wtyp = PUNBOUND; // flag for "\( case
 				}
-				wptr++, wcnt++, tcnt++;
+                wptr++;
+                wcnt++;
+                tcnt++;
 			}
 
 			NODE * strnode;
@@ -1093,7 +1095,9 @@ static NODE *runparse_node(NODE *nd, NODE **ndsptr)
 			wcnt++;
 			while (wcnt < wlen && !parens(*wptr) && !infixs(*wptr))
 			{
-				wptr++, wcnt++, tcnt++;
+                wptr++;
+                wcnt++;
+                tcnt++;
 			}
 			tnode = make_colon(intern(make_strnode(tptr, tcnt, wtyp, strnzcpy)));
 		}
@@ -1117,13 +1121,15 @@ static NODE *runparse_node(NODE *nd, NODE **ndsptr)
 			{
 				// This is a two character infix operator: "<=" or ">=" or "<>"
 				tnode = intern(make_strnode(wptr, 2, STRING, strnzcpy));
-				wptr++, wcnt++;
+                wptr++;
+                wcnt++;
 			}
 			else
 			{
 				tnode = intern(make_strnode(wptr, 1, STRING, strnzcpy));
 			}
-			wptr++, wcnt++;
+            wptr++;
+            wcnt++;
 		}
 		else
 		{

@@ -749,6 +749,8 @@ int CServerNetworkConnection::OnInputOutput(wxEvtHandler& handler, wxSocketEvent
 				this->AsyncClose();
 				break;
 			}
+            default:
+                break;
 		}
 	}
 	return 0;
