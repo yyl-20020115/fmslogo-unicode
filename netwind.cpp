@@ -548,6 +548,9 @@ void CClientNetworkConnection::Enable(
 		{
 
 		}
+        this->m_Socket->SetEventHandler(*wxTheApp->GetTopWindow(), EVT_SOCKET_CLIENT);
+        this->m_Socket->SetNotify(wxSOCKET_CONNECTION_FLAG | wxSOCKET_OUTPUT_FLAG | wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+        this->m_Socket->Notify(true);
 
 		if (!((wxSocketClient*)this->m_Socket)->Connect(addr, false))
 		{
@@ -671,7 +674,7 @@ void CServerNetworkConnection::Enable(
 
 		this->m_ServerPort = ServerPort;
 		this->m_Socket->SetEventHandler(*wxTheApp->GetTopWindow(), EVT_SOCKET_SERVER_ACCEPT);
-		this->m_Socket->SetNotify(wxSOCKET_CONNECTION_FLAG);
+		this->m_Socket->SetNotify(wxSOCKET_CONNECTION_FLAG | wxSOCKET_INPUT_FLAG |wxSOCKET_OUTPUT_FLAG| wxSOCKET_LOST_FLAG);
 		this->m_Socket->Notify(true);
 
         // watch for when connect happens
@@ -708,7 +711,7 @@ int CServerNetworkConnection::OnAccept(wxEvtHandler& handler, wxSocketEvent & ev
 			return 0;
 		}
 		sock->SetEventHandler(handler, EVT_SOCKET_SERVER_INPUT);
-		sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+		sock->SetNotify(wxSOCKET_INPUT_FLAG |wxSOCKET_OUTPUT_FLAG| wxSOCKET_LOST_FLAG);
 		sock->Notify(true);
 
 		if (this->m_Worker != 0) {

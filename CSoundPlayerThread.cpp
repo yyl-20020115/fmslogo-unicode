@@ -25,7 +25,6 @@ CSoundPlayerThread::CSoundPlayerThread()
     ,isStopping(false)
     ,fd(0)
     ,written(0)
-    ,c(0)
     ,count(0)
     ,sampleByes(1)
 {
@@ -71,6 +70,7 @@ int CSoundPlayerThread::OnCallback(void* outputBuffer, void* inputBuffer, unsign
     { 
         size_t total = this->sampleByes*nFrames;
         size_t ret = fread(outputBuffer,1,total,this->fd);
+        written += nFrames;
         if(ret == total)
         {
             return 0;
@@ -166,7 +166,6 @@ int CSoundPlayerThread::play()
         fseek(fd,sizeof(WAVContainer_t),SEEK_SET);
 
         this->written = 0; 
-        this->c = 0; 
         this->count = LE_INT(wav.chunk.length); 
 
         if(rt.isStreamOpen()){

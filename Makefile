@@ -121,7 +121,7 @@ wrksp.o \
 wxpurestubs.o \
 sound.o \
 wav_parser.o \
-sndwav_common.o \
+RtAudio.o \
 CNodePrinter.o \
 CUThread.o \
 CSoundPlayerThread.o \

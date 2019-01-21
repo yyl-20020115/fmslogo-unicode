@@ -5,6 +5,7 @@
 #include "wav_parser.h" 
 #include "RtAudio.h"
 
+
 class CSoundPlayerThread : public CUThread
 {
 protected:
@@ -46,9 +47,8 @@ protected:
     
     FILE* fd;
     
-    off64_t written; 
-    off64_t c; 
-    off64_t count; 
+    off_t written; 
+    off_t count; 
     
     unsigned int sampleByes;
     
