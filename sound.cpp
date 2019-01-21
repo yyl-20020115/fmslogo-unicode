@@ -1,24 +1,21 @@
 #include "sound.h"
 
 #include <stdio.h> 
-#include <unistd.h> 
 #include <stdlib.h> 
 #include <string.h> 
-#include <getopt.h> 
 #include <fcntl.h> 
 #include <ctype.h> 
 #include <errno.h> 
 #include <limits.h> 
 #include <time.h> 
 #include <locale.h> 
-#include <sys/unistd.h> 
 #include <sys/stat.h> 
 #include <sys/types.h> 
 #include <assert.h> 
 #include <math.h>
 #include <wx/utils.h>
-#include "CSoundPlayerThread.h"
 #include "RtAudio.h"
+
 
 #ifndef PI
 #define PI 3.141592653589793
@@ -86,6 +83,8 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 
     return 0;
 }
+#ifndef _WINDOWS
+#include "CSoundPlayerThread.h"
 
 CSoundPlayerThread Player;
 
@@ -124,4 +123,5 @@ int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound)
 
 }
 
+#endif
 

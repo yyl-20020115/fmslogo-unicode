@@ -387,6 +387,7 @@
     <ClCompile Include="setcolor.cpp" />
     <ClCompile Include="setpensize.cpp" />
     <ClCompile Include="sort.cpp" />
+    <ClCompile Include="sound.cpp" />
     <ClCompile Include="startup.cpp" />
     <ClCompile Include="statusdialog.cpp" />
     <ClCompile Include="stdafx.cpp">

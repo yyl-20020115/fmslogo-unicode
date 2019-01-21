@@ -12,8 +12,8 @@
 #define SND_LOOP        0x0008
 #define SND_NOSTOP      0x0010
 
-bool tone(int frequency,int duration, unsigned int sampleRate = 44100, double volumeRate = 0.5);
-
-int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound);
-
+extern bool tone(int frequency,int duration, unsigned int sampleRate = 44100, double volumeRate = 0.5);
+#ifndef _WINDOWS
+extern int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound);
+#endif
 #endif

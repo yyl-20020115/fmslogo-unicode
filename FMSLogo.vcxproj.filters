@@ -665,6 +665,9 @@
     <ClCompile Include="RtAudio.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FMSLogo.rc">
