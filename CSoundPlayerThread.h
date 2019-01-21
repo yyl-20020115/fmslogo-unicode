@@ -3,9 +3,16 @@
 #include "CUThread.h"
 #include "wx/string.h"
 #include "wav_parser.h" 
-#include "sndwav_common.h" 
+#include "RtAudio.h"
+
 class CSoundPlayerThread : public CUThread
 {
+protected:
+    static int PlayerCallback( void *outputBuffer, void *inputBuffer,
+                                unsigned int nFrames,
+                                double streamTime,
+                                RtAudioStreamStatus status,
+                                void *userData );
 public:
     CSoundPlayerThread();
     ~CSoundPlayerThread();
@@ -24,15 +31,27 @@ public:
     bool getIsPlaying();
     
 protected:
-    
-    ssize_t SNDWAV_P_SaveRead(int fd, void *buf, size_t count) ;
-    int SNDWAV_Play(SNDPCMContainer_t *sndpcm, WAVContainer_t *wav, int fd);
+
+    virtual int OnCallback( void *outputBuffer, void *inputBuffer,
+                                unsigned int nFrames,
+                                double streamTime,
+                                RtAudioStreamStatus status);
+
 protected:
     
     wxString filename;
     bool loop;    
     bool isPlaying;
     bool isStopping;
+    
+    FILE* fd;
+    
+    off64_t written; 
+    off64_t c; 
+    off64_t count; 
+    
+    unsigned int sampleByes;
+    
 };
 
 #endif

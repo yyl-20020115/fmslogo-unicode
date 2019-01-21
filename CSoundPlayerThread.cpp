@@ -1,4 +1,21 @@
 #include "CSoundPlayerThread.h"
+#include <stdio.h>
+#include <wx/utils.h>
+#include "RtAudio.h"
+
+int CSoundPlayerThread::CSoundPlayerThread::PlayerCallback(
+    void* outputBuffer, void* inputBuffer, unsigned int nFrames, double streamTime, RtAudioStreamStatus status, void* userData)
+{
+    if(userData!=0)
+    {
+        CSoundPlayerThread* player = static_cast<CSoundPlayerThread*>(userData);
+        return player->OnCallback(outputBuffer,inputBuffer,nFrames,streamTime,status);
+    }
+    else
+    {
+        return 0;
+    }
+}
 
 
 CSoundPlayerThread::CSoundPlayerThread()
@@ -6,6 +23,11 @@ CSoundPlayerThread::CSoundPlayerThread()
     ,loop()
     ,isPlaying(false)
     ,isStopping(false)
+    ,fd(0)
+    ,written(0)
+    ,c(0)
+    ,count(0)
+    ,sampleByes(1)
 {
 }
 CSoundPlayerThread::~CSoundPlayerThread()
@@ -42,122 +64,126 @@ void CSoundPlayerThread::stopAsync(){
     }
 }
 
-ssize_t CSoundPlayerThread::SNDWAV_P_SaveRead(int fd, void *buf, size_t count) 
-{ 
-    ssize_t result = 0, res=0; 
- 
-    while (count > 0) { 
-        if ((res = read(fd, buf, count)) == 0) 
-            break; 
-        if (res < 0) 
-            return result > 0 ? result : res; 
-        count -= res; 
-        result += res; 
-        buf = (char *)buf + res; 
+
+int CSoundPlayerThread::OnCallback(void* outputBuffer, void* inputBuffer, unsigned int nFrames, double streamTime, RtAudioStreamStatus status)
+{
+    if (outputBuffer!=0 && written < count && !isStopping) 
+    { 
+        size_t total = this->sampleByes*nFrames;
+        size_t ret = fread(outputBuffer,1,total,this->fd);
+        if(ret == total)
+        {
+            return 0;
+        }
+        else{
+            return 1;
+        }
     } 
-    return result; 
-} 
- 
-int CSoundPlayerThread::SNDWAV_Play(SNDPCMContainer_t *sndpcm, WAVContainer_t *wav, int fd) 
-{ 
-restart:
-    
-    int load = 0, ret= 0; 
-    off64_t written = 0; 
-    off64_t c = 0; 
-    off64_t count = LE_INT(wav->chunk.length);  
-    load = 0; 
-    while (written < count && !isStopping) { 
-        /* Must read [chunk_bytes] bytes data enough. */ 
-        do { 
-            c = count - written; 
-            if ((unsigned)c > sndpcm->chunk_bytes) 
-                c = sndpcm->chunk_bytes; 
-            c -= load; 
- 
-            if (c == 0) 
-                break; 
-            ret = SNDWAV_P_SaveRead(fd, sndpcm->data_buf + load, c); 
-            if (ret < 0) { 
-                //fprintf(stderr, "Error safe_read/n"); 
-                return ret; 
-            } 
-            if (ret == 0) 
-                break; 
-            load += ret; 
-        } while ((size_t)load < sndpcm->chunk_bytes); 
- 
-        /* Transfer to size frame */ 
-        load = load * 8 / sndpcm->bits_per_frame; 
-        ret = SNDWAV_WritePcm(sndpcm, load); 
-        if (ret != load) 
-            break; 
-         
-        ret = ret * sndpcm->bits_per_frame / 8; 
-        written += ret; 
-        load = 0; 
-    } 
-    if(loop && !isStopping)
-    {
-        lseek64(fd,0LL,SEEK_SET);
-        WAVContainer_t wav = {{0}}; 
-        WAV_ReadHeader(fd,&wav);
-            
-        goto restart;
-    }
-    isStopping = false;
-    return 0;
-} 
+
+    return 2;
+}
 
 
 int CSoundPlayerThread::play()
 {
     WAVContainer_t wav = {{0}}; 
-    SNDPCMContainer_t playback= {0};
 
-    int fd = open(filename, O_RDONLY); 
-    if (fd < 0) { 
+    FILE* fd = fopen(filename, "rb"); 
+    if (fd == 0) { 
         return FALSE; 
     }
-     
     if (WAV_ReadHeader(fd, &wav) < 0) { 
-        goto Err; 
-    } 
- 
-    if (snd_output_stdio_attach(&playback.log, stderr, 0) < 0) {
-        goto Err; 
-    } 
- 
-    if (snd_pcm_open(&playback.handle, "default", SND_PCM_STREAM_PLAYBACK, 0) < 0) { 
-        goto Err; 
-    } 
- 
-    if (SNDWAV_SetParams(&playback, &wav) < 0) { 
-        goto Err; 
+       return FALSE;
     } 
     
-    isPlaying = true;
+    if(wav.format.format == WAV_FMT_PCM || wav.format.format == WAV_FMT_IEEE_FLOAT)
+    {    
+        //OK, we can process this
+    }
+    else
+    {
+        return FALSE;
+    }
+    
+    RtAudioFormat rtf = 0;
+    
+    if(wav.format.format == WAV_FMT_IEEE_FLOAT)
+    {
+         switch(wav.format.sample_length)
+         {
+             case 32:
+                rtf = RTAUDIO_FLOAT32;
+                this->sampleByes = 4 * wav.format.channels;
+                break;
+             case 64:
+                rtf = RTAUDIO_FLOAT64;
+                this->sampleByes = 8 * wav.format.channels;
+                break;
+         }
+    }
+    else 
+    {
+        switch(wav.format.sample_length)
+        {
+            case 8:
+                rtf = RTAUDIO_SINT8;
+                this->sampleByes = 1*wav.format.channels;
+                break;
+            case 16:
+                rtf = RTAUDIO_SINT16;
+                this->sampleByes = 2*wav.format.channels;
+                break;
+            case 24:
+                rtf = RTAUDIO_SINT24;
+                this->sampleByes = 3*wav.format.channels;
+                break;
+            case 32:
+                rtf = RTAUDIO_SINT32;                
+                this->sampleByes = 4*wav.format.channels;
+                break;
+        }
+    }
+    
+    if(rtf == 0)
+    {
+        return FALSE;
+    }
+    
+    
+    RtAudio rt;
 
-    snd_pcm_dump(playback.handle, playback.log); 
- 
-    SNDWAV_Play(&playback, &wav, fd); 
- 
-    snd_pcm_drain(playback.handle);
+    RtAudio::StreamParameters sp;
+    sp.deviceId  = rt.getDefaultOutputDevice();
+    sp.firstChannel = 0;
+    sp.nChannels =wav.format.channels;
+  
+    unsigned int _sps = 0;
     
-    isPlaying = false;
- 
-    close(fd); 
-    free(playback.data_buf); 
-    snd_output_close(playback.log); 
-    snd_pcm_close(playback.handle); 
+    rt.openStream(&sp,0,rtf,wav.format.sample_rate,&_sps,PlayerCallback);
+
+    while(this->loop && !this->isStopping)
+    {    
+        fseek(fd,sizeof(WAVContainer_t),SEEK_SET);
+
+        this->written = 0; 
+        this->c = 0; 
+        this->count = LE_INT(wav.chunk.length); 
+
+        if(rt.isStreamOpen()){
+            rt.startStream();
+            this->isPlaying = true;
+            while(rt.isStreamRunning())
+            {
+                wxMicroSleep(1000);
+            }
+            this->isPlaying = false;
+        }
+    }
+    
+    rt.closeStream();
+
+    fclose(fd); 
+
     return TRUE; 
- 
-Err: 
-    close(fd); 
-    if (playback.data_buf) free(playback.data_buf); 
-    if (playback.log) snd_output_close(playback.log); 
-    if (playback.handle) snd_pcm_close(playback.handle); 
-
-    return FALSE;    
 }
 

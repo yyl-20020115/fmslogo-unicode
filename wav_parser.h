@@ -1,8 +1,7 @@
 #ifndef __WAV_PARSER_H 
 #define __WAV_PARSER_H 
+#include <stdio.h>
 
-#include <alsa/asoundlib.h>
-    
 typedef unsigned char  uint8_t; 
 typedef unsigned short uint16_t; 
 typedef unsigned int   uint32_t; 
@@ -78,8 +77,8 @@ typedef struct WAVContainer {
     WAVChunkHeader_t chunk; 
 } WAVContainer_t; 
     
-int WAV_ReadHeader(int fd, WAVContainer_t *container); 
+int WAV_ReadHeader(FILE* fd, WAVContainer_t *container); 
     
-int WAV_WriteHeader(int fd, WAVContainer_t *container); 
+int WAV_WriteHeader(FILE* fd, WAVContainer_t *container); 
     
 #endif /* #ifndef __WAV_PARSER_H */ 

@@ -1,6 +1,6 @@
 #ifndef __SOUND_H__
 #define __SOUND_H__
-#ifndef _WINDOWS
+
 #include <wx/string.h>
 
 #define SND_SYNC        0x0000
@@ -15,5 +15,5 @@
 bool tone(int frequency,int duration, unsigned int sampleRate = 44100, double volumeRate = 0.5);
 
 int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound);
-#endif
+
 #endif

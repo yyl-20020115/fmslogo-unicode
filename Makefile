@@ -8,7 +8,7 @@ WXCONFIG = wx-config
 
 PREFIX =  $(shell $(WXCONFIG) --prefix)
 
-LDFLAGS  =  $(shell $(WXCONFIG)  --libs base,core,stc,richtext,html,xml)
+LDFLAGS  =  $(shell $(WXCONFIG)  --libs base,core,stc,richtext,html,xml,net)
 
 
 CPPFLAGS += $(shell $(WXCONFIG) --cppflags) -DWX_PURE -DLINUX

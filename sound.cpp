@@ -1,7 +1,6 @@
 #include "sound.h"
 
 #include <stdio.h> 
-#include <malloc.h> 
 #include <unistd.h> 
 #include <stdlib.h> 
 #include <string.h> 
@@ -15,110 +14,79 @@
 #include <sys/unistd.h> 
 #include <sys/stat.h> 
 #include <sys/types.h> 
-#include <alsa/asoundlib.h> 
 #include <assert.h> 
 #include <math.h>
+#include <wx/utils.h>
 #include "CSoundPlayerThread.h"
+#include "RtAudio.h"
 
 #ifndef PI
 #define PI 3.141592653589793
 #endif
 
+unsigned int _sps = 0;
+int _pt = 0;
+int _duration = 0;
+double _volumeRate = 0.5;
+double _angle = 0;
+double _delta_angle = 0.0;
+
+
+int tone_callback( void *outputBuffer, void *inputBuffer,
+                                unsigned int nFrames,
+                                double streamTime,
+                                RtAudioStreamStatus status,
+                                void *userData )
+{
+    
+    
+    if(_pt++<_duration){
+        for(unsigned int j = 0;j<nFrames;j++)
+        {
+            ((short*)outputBuffer)[j] = (short)((0x7fff * _volumeRate) * sin(_angle));
+            _angle += _delta_angle;
+        }
+        
+        return 0; //continue;
+    }
+    else
+    {
+        return 1; //stop
+    }
+    
+}
+
 bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 {
-    int err = 0;
-
-    if(sampleRate<8000)
-    {
-        sampleRate = 8000;
-    }
+    _pt = 0;
+    _duration = duration;
+    _volumeRate = volumeRate;
     
-    int sps = 0;
-    int dir = 0;
-    double angle = 0;
-    double all_angles_per_ms = 0.0;
-    double delta_angle = 0.0;
-    snd_pcm_t *playback_handle = 0;
-    snd_pcm_hw_params_t *hw_params = 0;
-    short* buffer = 0;
-
-
-    if ((err = snd_pcm_open (&playback_handle, "default", SND_PCM_STREAM_PLAYBACK, 0)) < 0) {
-        goto ExitMe;
-    }
-        
-    if ((err = snd_pcm_hw_params_malloc (&hw_params)) < 0) {
-        goto ExitMe;
-    }
-                
-    if ((err = snd_pcm_hw_params_any (playback_handle, hw_params)) < 0) {
-        goto ExitMe;
-    }
-
-    if ((err = snd_pcm_hw_params_set_access (playback_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED)) < 0) {
-        goto ExitMe;     
-    }
-
-    if ((err = snd_pcm_hw_params_set_format (playback_handle, hw_params, SND_PCM_FORMAT_S16_LE)) < 0) {
-        goto ExitMe;   
-    }
-
-    if ((err = snd_pcm_hw_params_set_rate_near (playback_handle, hw_params, &sampleRate,&dir)) < 0) {
-        goto ExitMe;     
-    }
+    RtAudio rt;
     
-    sps = (sampleRate/1000.0);
-    all_angles_per_ms = frequency * 2.0 * PI/1000.0;
-    delta_angle = all_angles_per_ms / sps;
+    RtAudio::StreamParameters sp;
+    sp.deviceId  = rt.getDefaultOutputDevice();
+    sp.firstChannel = 0;
+    sp.nChannels = 1;
+
+    _sps = (sampleRate/1000.0);
+
+    _delta_angle = frequency * 2.0 * PI/1000.0 / _sps;
     
-    buffer = (short*) malloc(sizeof(short)*sps);
-    
-    if(buffer == 0){
-        err = -1;
-        goto ExitMe;
-    }
-
-
-    if ((err = snd_pcm_hw_params_set_channels (playback_handle, hw_params, 1)) < 0) {
-        goto ExitMe; 
-    }
-
-    if ((err = snd_pcm_hw_params (playback_handle, hw_params)) < 0) {
-        goto ExitMe;   
-    }
-
-    snd_pcm_hw_params_free (hw_params);
-
-    if ((err = snd_pcm_prepare (playback_handle)) < 0) {
-        goto ExitMe; 
-    }
-
-  
-    for (int i = 0; i < duration; ++i) {
-        for(int j = 0;j<sps;j++)
+    rt.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
+    if(rt.isStreamOpen()){
+        rt.startStream();
+        while(rt.isStreamRunning())
         {
-            buffer[j] = (short)((0x7fff * volumeRate) * sin(angle));
-            angle += delta_angle;
+            wxMicroSleep(1000);
         }
-        
-        int cnt = 0;
-        if ((cnt = snd_pcm_writei (playback_handle, buffer, 128)) != sps) {
-            err = -1;
-            goto ExitMe;
-        }
+
+        rt.closeStream();
     }
 
-ExitMe:
-    if(playback_handle!=0){        
-        snd_pcm_close (playback_handle);
-        playback_handle = 0;
-    }
-    if(buffer!=0){
-        free(buffer);
-        buffer = 0;
-    }
-    return err == 0;
+    return 0;
 }
+
 CSoundPlayerThread Player;
 
 int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound)
