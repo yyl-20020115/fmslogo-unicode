@@ -324,7 +324,7 @@ NODE* CNetworkConnection::GetLastPacketReceived() const
     }
     else
     {
-        NODE* targ = make_strnode(wxString(m_ReceiveValue));
+        NODE* targ = make_strnode(m_ReceiveValue);
         NODE* val = parser(targ, false);
         return val;
     }
@@ -337,13 +337,13 @@ bool CNetworkConnection::IsEnabled() const
 
 void CNetworkConnection::Disable()
 {
-    if (IsEnabled())
+    if (this->IsEnabled())
     {
-        m_IsEnabled    = false;
-        m_IsConnected  = false;
-        m_IsBusy       = false;
+		this->m_IsEnabled    = false;
+		this->m_IsConnected  = false;
+		this->m_IsBusy       = false;
 
-		m_ReceiveValue.clear();
+		this->m_ReceiveValue.clear();
 		this->m_Socket->Close();
 		this->m_Socket->Destroy();
         this->m_Socket = 0;
@@ -389,6 +389,11 @@ bool CNetworkConnection::SendValue(const char * Data)
     return true;
 }
 
+bool CNetworkConnection::SendValue(const wxString & Data)
+{
+	return this->SendValue((const char*)(Data.ToUTF8()));
+}
+
 void CNetworkConnection::AsyncReceive()
 {
 	wxSocketBase* ws = this->GetWorkerSocket();
@@ -406,7 +411,7 @@ void CNetworkConnection::AsyncReceive()
 			{
 				wxMessageBox(
 					GetLastErrorString(status),
-					L"AsyncReceive",
+					L"recv(socket)",
 					wxOK);
 				// err_logo(STOP_ERROR,NIL);
 			}
@@ -431,7 +436,7 @@ void CNetworkConnection::AsyncReceive()
 				callthing * callevent = callthing::CreateNetworkReceiveReadyEvent(
 					this,
 					m_OnReceiveReady,
-					m_CarryOverData.m_Buffer + begin);
+				    wxString::FromUTF8(m_CarryOverData.m_Buffer + begin));
 
 				calllists.insert(callevent);
 
@@ -455,7 +460,7 @@ void CNetworkConnection::AsyncClose()
         callthing *callevent = callthing::CreateNetworkReceiveReadyEvent(
             this,
             m_OnReceiveReady,
-            m_CarryOverData.m_Buffer);
+            wxString::FromUTF8(m_CarryOverData.m_Buffer));
 
         calllists.insert(callevent);
 
@@ -527,16 +532,27 @@ void CClientNetworkConnection::Enable(
 			// get sockets
 			if (!this->m_Socket->Ok())
 			{
+				this->m_Socket->Destroy();
+				this->m_Socket = 0;
 				ShowMessageAndStop(L"socket()", GetLastErrorString(this->m_Socket->LastError()));
 				return;
 			}
 		}
 
 		wxIPV4address addr;
-		addr.Hostname(RemoteHostName);
-		addr.Service(RemotePort);
+		if (!addr.Hostname(RemoteHostName))
+		{
 
-		((wxSocketClient*)this->m_Socket)->Connect(addr, false);
+		}
+		if (!addr.Service(RemotePort))
+		{
+
+		}
+
+		if (!((wxSocketClient*)this->m_Socket)->Connect(addr, false))
+		{
+
+		}
 		wxSocketError status = this->m_Socket->LastError();
 
 		if (status != wxSOCKET_NOERROR)
@@ -552,8 +568,8 @@ void CClientNetworkConnection::Enable(
 				// err_logo(STOP_ERROR,NIL);
 			}
 		}
-		m_RemotePort = RemotePort;
-		m_IsEnabled = true;
+		this->m_RemotePort = RemotePort;
+		this->m_IsEnabled = true;
 
         if (network_dns_sync == 1)
         {
@@ -583,32 +599,32 @@ int CClientNetworkConnection::OnEvent(wxEvtHandler & handler, wxSocketEvent & ev
 	}
 
 	wxSocketBase * sock = event.GetSocket();
+	if (sock == this->GetWorkerSocket()) {
+		switch (event.GetSocketEvent())
+		{
+		case wxSOCKET_CONNECTION:
+		{
+			this->m_IsConnected = true;
 
-	switch (event.GetSocketEvent())
-	{
-	case wxSOCKET_CONNECTION:
-	{
-		this->m_IsConnected = true;
-		
-		break;
+			break;
+		}
+		case wxSOCKET_INPUT:
+		{
+			this->AsyncReceive();
+			break;
+		}
+		case wxSOCKET_LOST:
+		{
+			this->AsyncClose();
+			break;
+		}
+		case wxSOCKET_OUTPUT:
+			// allow another frame to go out.
+			this->m_IsBusy = false;
+			break;
+		}
 	}
-	case wxSOCKET_INPUT:
-	{
-		this->AsyncReceive();
-		break;
-	}
-	case wxSOCKET_LOST:
-	{
-
-		this->AsyncClose();
-		break;
-	}
-	case wxSOCKET_OUTPUT:
-		// allow another frame to go out.
-		this->m_IsBusy = false;
-		break;
-	}
-	PostOnSendReadyEvent();
+	this->PostOnSendReadyEvent();
 	return 0;
 }
 
@@ -636,24 +652,33 @@ void CServerNetworkConnection::Enable(
     )
 {
     CNetworkConnection::Enable(OnSendReady, OnReceiveReady);
-    if (NOT_THROWING)
-    {
+
+	if (NOT_THROWING)
+	{
 		wxIPV4address addr;
-		addr.Service(ServerPort);
+		if (!addr.Service(ServerPort))
+		{
+			//
+		}
 
 		this->m_Socket = new wxSocketServer(addr);
-		if (!this->m_Socket->Ok()) return;
+		if (!this->m_Socket->Ok())
+		{
+			this->m_Socket->Destroy();
+			this->m_Socket = 0;
+			return;
+		}
+
 		this->m_ServerPort = ServerPort;
 		this->m_Socket->SetEventHandler(*wxTheApp->GetTopWindow(), EVT_SOCKET_SERVER_ACCEPT);
 		this->m_Socket->SetNotify(wxSOCKET_CONNECTION_FLAG);
 		this->m_Socket->Notify(true);
 
-
         // watch for when connect happens
         this->m_IsEnabled = true;
 
         // queue this event
-        PostOnSendReadyEvent();
+		this->PostOnSendReadyEvent();
 
     }
 }
@@ -667,56 +692,60 @@ int CServerNetworkConnection::OnAccept(wxEvtHandler& handler, wxSocketEvent & ev
         // This must be a delayed event coming in after shutdown.
         return 0;
     }
+	if (this->m_Socket != 0) {
 
-	wxSocketBase * sock = ((wxSocketServer*)this->m_Socket)->Accept(false);
-	if (!sock->IsOk())
-	{
-		wxMessageBox(
-			GetLastErrorString(0),
-			L"accept(receivesock)",
-			wxOK);
-		sock->Destroy();
+		wxSocketBase * sock = ((wxSocketServer*)this->m_Socket)->Accept(false);
+		if (!sock->IsOk())
+		{
+			wxMessageBox(
+				GetLastErrorString(0),
+				L"accept(receivesock)",
+				wxOK);
+			sock->Destroy();
+			sock = 0;
 
-		// err_logo(STOP_ERROR,NIL);
-		return 0;
+			// err_logo(STOP_ERROR,NIL);
+			return 0;
+		}
+		sock->SetEventHandler(handler, EVT_SOCKET_SERVER_INPUT);
+		sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+		sock->Notify(true);
+
+		if (this->m_Worker != 0) {
+			this->m_Worker->Destroy();
+			this->m_Worker = 0;
+		}
+		this->m_Worker = sock;
+		this->m_IsConnected = true;
+
+		// all other events just queue the event
+		this->PostOnSendReadyEvent();
 	}
-	sock->SetEventHandler(handler, EVT_SOCKET_SERVER_INPUT);
-	sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
-	sock->Notify(true);
-
-	if (this->m_Worker != 0) {
-		this->m_Worker->Destroy();
-		this->m_Worker = 0;
-	}
-	this->m_Worker = sock;
-	this->m_IsConnected = true;
-
-    // all other events just queue the event
-    PostOnSendReadyEvent();
-
     return 0;
 }
 
 int CServerNetworkConnection::OnInputOutput(wxEvtHandler& handler, wxSocketEvent & event)
 {
 	wxSocketBase * sock = event.GetSocket();
-
-	switch (event.GetSocketEvent())
+	if (sock == this->GetWorkerSocket()) 
 	{
-		case wxSOCKET_INPUT:
+		switch (event.GetSocketEvent())
 		{
-			this->AsyncReceive();
-			break;
-		}
-		case wxSOCKET_OUTPUT:
-		{
-			this->m_IsBusy = false;
-			break;
-		}
-		case wxSOCKET_LOST:
-		{
-			this->AsyncClose();
-			break;
+			case wxSOCKET_INPUT:
+			{
+				this->AsyncReceive();
+				break;
+			}
+			case wxSOCKET_OUTPUT:
+			{
+				this->m_IsBusy = false;
+				break;
+			}
+			case wxSOCKET_LOST:
+			{
+				this->AsyncClose();
+				break;
+			}
 		}
 	}
 	return 0;
@@ -926,7 +955,7 @@ NODE *lnetconnectsendvalue(NODE *args)
     if (NOT_THROWING)
     {
         // try to send data
-        bool isOk = g_ClientConnection.SendValue(wxString(data));
+        bool isOk = g_ClientConnection.SendValue(data);
         return true_or_false(isOk);
     }
 
@@ -941,11 +970,9 @@ NODE *lnetacceptsendvalue(NODE *args)
     if (NOT_THROWING)
     {
         // try to send data
-        bool isOk = g_ServerConnection.SendValue(wxString(data));
+        bool isOk = g_ServerConnection.SendValue(data);
         return true_or_false(isOk);
     }
 
     return Unbound;
 }
-
-

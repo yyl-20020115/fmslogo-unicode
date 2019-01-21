@@ -74,7 +74,7 @@ public:
 
     void Shutdown();
 
-    bool SendValue(const char * Data );
+	bool SendValue(const wxString& Data);
 
 protected:
 	CNetworkConnection(); // enforce abstract class
@@ -95,6 +95,7 @@ protected:
     void PostOnSendReadyEvent();
 
 	virtual wxSocketBase* GetWorkerSocket();
+	bool SendValue(const char * Data);
 
     // private member variables
     wxSocketBase* m_Socket;       // socket for the connection
