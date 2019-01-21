@@ -352,9 +352,9 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
 	clear_all_timers();
-
+	lhalt(0);
 	//call halt first to stop program
-	this->Halt();
+	//this->Halt();
 
 	//NOTICE: for requirement to reset almost everythong about drawing,
 	//we added draw command (like in PCLogo) into logolib

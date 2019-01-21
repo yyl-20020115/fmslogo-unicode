@@ -6,7 +6,7 @@
 #include <wx/frame.h>
 #include <wx/print.h>
 #include <wx/filename.h>
-
+#include <wx/socket.h>
 #include "localizedstrings.h" // for MANUAL_HAS_TRANSLATION_TABLES
 #include "CFileTextStream.h"
 
@@ -166,6 +166,11 @@ private:
     void OnResize(wxSizeEvent& Event);
     void OnClose(wxCloseEvent& Event);
     void OnSetCursor(wxSetCursorEvent& Event);
+
+
+	void OnSocketServerAcceptEvent(wxSocketEvent& event);
+	void OnSocketServerInputOutputEvent(wxSocketEvent& event);
+	void OnSocketClientEvent(wxSocketEvent& event);
 
 #ifndef WX_PURE
     virtual WXLRESULT MSWWindowProc(

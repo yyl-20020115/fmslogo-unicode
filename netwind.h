@@ -18,7 +18,8 @@
 
 #ifndef __NETWND_H_
 #define __NETWND_H_
-
+#include <wx/socket.h>
+#include <wx/event.h>
 #ifdef _WINDOWS
 #include <windows.h>
 #include <winsock.h>
@@ -49,8 +50,18 @@
 
 #endif
 
+#define EVT_SOCKET_SERVER_ACCEPT	8192
+#define EVT_SOCKET_SERVER_INPUT		8193
+#define EVT_SOCKET_CLIENT			8194
+
 struct NODE;
 
+class CNetworkConnectionEvent :public wxEvent
+{
+public:
+	CNetworkConnectionEvent(int winid = 0, wxEventType commandType = wxEVT_NULL);
+	virtual wxEvent *Clone() const;
+};
 // Abstract base class for network connections
 class CNetworkConnection 
 {
@@ -63,39 +74,30 @@ public:
 
     void Shutdown();
 
-    bool
-    SendValue(
-        const char * Data
-        );
+    bool SendValue(const char * Data );
 
 protected:
-    CNetworkConnection(); // enforce abstract class
-
-    void
-    Enable(
+	CNetworkConnection(); // enforce abstract class
+	~CNetworkConnection(); // enforce abstract class
+	
+    void Enable(
         const wxString&    OnSendReady,
         const wxString&    OnReceiveReady
         );
 
     // private helper functions
-    void
-    AsyncReceive(
-        HWND                 WindowHandle,
-        const wchar_t *         ErrorMessage
-        );
+    void AsyncReceive();
 
-    void
-    AsyncClose(
-        HWND                 WindowHandle
-        );
+    void AsyncClose();
 
-    void
-    PostOnSendReadyEvent(
-        HWND                 WindowHandle
-        );
+	void PostCheckQueue();
+
+    void PostOnSendReadyEvent();
+
+	virtual wxSocketBase* GetWorkerSocket();
 
     // private member variables
-    SOCKET m_Socket;       // socket for the connection
+    wxSocketBase* m_Socket;       // socket for the connection
     bool   m_IsConnected;  // socket is connected
     bool   m_IsBusy;       // socket is too busy to send
     bool   m_IsEnabled;    // if message processing is enabled for this socket
@@ -130,16 +132,13 @@ protected:
 class CClientNetworkConnection : public CNetworkConnection
 {
 private:
-    union _union_host_entry_buffer
-    {
-        HOSTENT  Entry;                    // The host entry
-        char     Buffer[MAXGETHOSTSTRUCT]; // enough space for host entry
-    } m_RemoteHostEntry;
 
     unsigned int m_RemotePort;
+	wxString m_RemoteHostName;
 
 public:
     CClientNetworkConnection();
+	~CClientNetworkConnection();
 
     void
     Enable(
@@ -149,17 +148,8 @@ public:
         const wxString&    RemoteHostName
         );
 
-    int
-    OnConnectSendAck(
-        HWND        WindowHandle,
-        LONG        LParam
-        );
+    int OnEvent(wxEvtHandler& handler, wxSocketEvent & event);
 
-    int
-    OnConnectSendFinish(
-        HWND        WindowHandle,
-        LONG        LParam
-        );
 };
 
 
@@ -167,18 +157,25 @@ public:
 class CServerNetworkConnection : public CNetworkConnection
 {
 public:
-    void
-    Enable(
+	CServerNetworkConnection();
+	~CServerNetworkConnection();
+public:
+    void Enable(
         const wchar_t *    OnSendReady,
         const wchar_t *    OnReceiveReady,
         unsigned int    ServerPort
         );
+	
+    int OnAccept(wxEvtHandler& handler, wxSocketEvent & event);
+	int OnInputOutput(wxEvtHandler& handler, wxSocketEvent & event);
 
-    int
-    OnListenReceiveAck(
-        HWND        WindowHandle,
-        LONG        LParam
-        );
+protected:
+	virtual wxSocketBase* GetWorkerSocket();
+
+	wxSocketBase* m_Worker;
+
+	unsigned int m_ServerPort;
+
 };
 
 // function declarations

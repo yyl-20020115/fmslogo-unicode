@@ -18,7 +18,8 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
 #include <wx/string.h>
-    #include "netwind.h"
+#include <wx/msgdlg.h>
+#include "netwind.h"
     #include "logoeventqueue.h"
 
     #include "init.h"
@@ -40,6 +41,7 @@
 #include <sys/errno.h>
 #include <unistd.h>
 #endif
+#include "FMSLogo.h"
 /////////////////////////////////////////////////////////////////////////////////////
 // Manifest Constants
 
@@ -54,13 +56,20 @@ CServerNetworkConnection g_ServerConnection;
 static int network_dns_sync = 0;
 
 static bool network_is_started = false;
+CNetworkConnectionEvent::CNetworkConnectionEvent(int winid, wxEventType commandType)
+	:wxEvent(winid, commandType)
+{
+}
 
+wxEvent * CNetworkConnectionEvent::Clone() const
+{
+	return new CNetworkConnectionEvent(this->GetId());
+}
 /////////////////////////////////////////////////////////////////////////////////////
 // Helper Functions
 
 // converts winsock errorcode to string
-static
-wxString WSAGetLastErrorString(int error_arg)
+wxString GetLastErrorString(int error_arg)
 {
     int error;
 
@@ -236,18 +245,18 @@ CNetworkConnection::CCarryOverBuffer::CCarryOverBuffer() :
 {
 }
 
-void
-CNetworkConnection::CCarryOverBuffer::ReleaseBuffer()
+void CNetworkConnection::CCarryOverBuffer::ReleaseBuffer()
 {
-    free(m_Buffer);
-    m_Buffer = 0;
+	if (m_Buffer != 0) {
+		free(m_Buffer);
+		m_Buffer = 0;
 
-    m_BytesOfData = 0;
-    m_BufferSize  = 0;
+		m_BytesOfData = 0;
+		m_BufferSize = 0;
+	}
 }
 
-void
-CNetworkConnection::CCarryOverBuffer::Append(
+void CNetworkConnection::CCarryOverBuffer::Append(
     const char * AppendBuffer,
     int          AppendBufferLength
     )
@@ -269,10 +278,7 @@ CNetworkConnection::CCarryOverBuffer::Append(
     m_Buffer[m_BytesOfData] = '\0';
 }
 
-void
-CNetworkConnection::CCarryOverBuffer::ShiftLeft(
-    int ShiftAmount
-    )
+void CNetworkConnection::CCarryOverBuffer::ShiftLeft( int ShiftAmount)
 {
     assert(0 <= ShiftAmount);
     assert(ShiftAmount <= m_BytesOfData);
@@ -287,7 +293,7 @@ CNetworkConnection::CCarryOverBuffer::ShiftLeft(
 // class CNetworkConnection
 
 CNetworkConnection::CNetworkConnection() :
-    m_Socket(INVALID_SOCKET),
+    m_Socket(0),
     m_IsConnected(false),
     m_IsBusy(false),
     m_IsEnabled(false),
@@ -297,17 +303,20 @@ CNetworkConnection::CNetworkConnection() :
 {
 }
 
-void
-CNetworkConnection::SetLastPacketReceived(
-    const wxString& LastPacket
-    )
+CNetworkConnection::~CNetworkConnection()
 {
-    //free(m_ReceiveValue);
-    m_ReceiveValue = LastPacket;
+	if (this->m_Socket != 0) {
+		this->m_Socket->Destroy();
+		this->m_Socket = 0;
+	}
 }
 
-NODE*
-CNetworkConnection::GetLastPacketReceived() const
+void CNetworkConnection::SetLastPacketReceived(const wxString& LastPacket)
+{
+    this->m_ReceiveValue = LastPacket;
+}
+
+NODE* CNetworkConnection::GetLastPacketReceived() const
 {
     if (m_ReceiveValue.length()==0)
     {
@@ -321,14 +330,12 @@ CNetworkConnection::GetLastPacketReceived() const
     }
 }
 
-bool
-CNetworkConnection::IsEnabled() const
+bool CNetworkConnection::IsEnabled() const
 {
     return m_IsEnabled;
 }
 
-void
-CNetworkConnection::Disable()
+void CNetworkConnection::Disable()
 {
     if (IsEnabled())
     {
@@ -337,53 +344,37 @@ CNetworkConnection::Disable()
         m_IsBusy       = false;
 
 		m_ReceiveValue.clear();
-#ifdef _WINDOWS
-        closesocket(m_Socket);
-#else
-        close(m_Socket);
-#endif
-        m_Socket = INVALID_SOCKET;
+		this->m_Socket->Close();
+		this->m_Socket->Destroy();
+        this->m_Socket = 0;
     }
 }
 
-void
-CNetworkConnection::Enable(
+void CNetworkConnection::Enable(
     const wxString&    OnSendReady,
     const wxString&   OnReceiveReady
     )
 {
 	this->m_OnSendReady = OnSendReady;
 	this->m_OnReceiveReady = OnReceiveReady;
-
-    // get sockets
-    m_Socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (m_Socket == INVALID_SOCKET)
-    {
-        ShowMessageAndStop(L"socket()", WSAGetLastErrorString(0));
-    }
 }
 
-bool
-CNetworkConnection::SendValue(
-    const char * Data
-    )
+bool CNetworkConnection::SendValue(const char * Data)
 {
-    if (m_IsConnected && !m_IsBusy)
+	wxSocketBase* ws = this->GetWorkerSocket();
+
+    if (ws!=0 && m_IsConnected && !m_IsBusy)
     {
+		ws->Write(Data, strlen(Data) + 1);
         // send the data
-        long rval = send(m_Socket, Data, strlen(Data) + 1, 0);
-        if (rval == SOCKET_ERROR)
+		wxSocketError status = ws->LastError();
+		if (status != wxSOCKET_NOERROR)
         {
-#ifdef _WINDOWS
-            if (WSAGetLastError() != WSAEWOULDBLOCK)
+            if (status != wxSOCKET_WOULDBLOCK)
             {
-                ShowMessageAndStop(L"send(socket)", WSAGetLastErrorString(0));
+                ShowMessageAndStop(L"send(socket)", GetLastErrorString(ws->LastError()));
                 return false;
             }
-#else
-            
-#endif
-
             // Don't send anymore until we receive confirmation
             // that the remote side received the data.
             m_IsBusy = true;
@@ -398,75 +389,65 @@ CNetworkConnection::SendValue(
     return true;
 }
 
-void
-CNetworkConnection::AsyncReceive(
-    HWND                 WindowHandle,
-    const wchar_t *         ErrorMessage
-    )
+void CNetworkConnection::AsyncReceive()
 {
-	char buffer[MAX_PACKET_SIZE+1] = { 0 };
-    memset(buffer, 0, MAX_PACKET_SIZE);
+	wxSocketBase* ws = this->GetWorkerSocket();
 
-    // read the data from the buffer
-    long status = recv(m_Socket, buffer, sizeof(buffer) - 1, 0);
-    if (status == SOCKET_ERROR)
-    {
-#ifdef _WINDOWS
-        // if this would block, we just wait until we get called again
-        if (WSAGetLastError() != WSAEWOULDBLOCK) 
-        {
-            ::MessageBox(
-                WindowHandle,
-                WSAGetLastErrorString(0),
-                ErrorMessage,
-                MB_OK);
-            // err_logo(STOP_ERROR,NIL);
-        }
-#else
-        
-#endif
-    }
-    else
-    {
-        // we received some data.
+	if (ws != 0) {
+		char buffer[MAX_PACKET_SIZE + 1] = { 0 };
 
-        // We have some data left from the last time we were called.
-        // Append this buffer to the end of the network receive buffer. 
+		ws->Read(buffer, sizeof(buffer) - 1);
 
-        // TODO: Don't Append the data to the carry-over buffer if there is none.
-        //       We should be able to use buffer, instead.
-        m_CarryOverData.Append(buffer, status);
+		// read the data from the buffer
+		wxSocketError status = ws->LastError();
+		if (status != wxSOCKET_NOERROR)
+		{
+			if (status != wxSOCKET_WOULDBLOCK)
+			{
+				wxMessageBox(
+					GetLastErrorString(status),
+					L"AsyncReceive",
+					wxOK);
+				// err_logo(STOP_ERROR,NIL);
+			}
+		}
+		else
+		{
+			// we received some data.
 
-        // now queue up a separate message for each packet
-        size_t begin = 0;
-        size_t end   = strlen(m_CarryOverData.m_Buffer);
+			// We have some data left from the last time we were called.
+			// Append this buffer to the end of the network receive buffer. 
 
-        while ((int)end < m_CarryOverData.m_BytesOfData)
-        {
-            callthing * callevent = callthing::CreateNetworkReceiveReadyEvent(
-                this,
-                m_OnReceiveReady,
-                m_CarryOverData.m_Buffer + begin);
+			// TODO: Don't Append the data to the carry-over buffer if there is none.
+			//       We should be able to use buffer, instead.
+			m_CarryOverData.Append(buffer, status);
 
-            calllists.insert(callevent);
-#ifdef _WINDOWS
-            PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
-#else
-            
-#endif
-            begin = end + 1;
-            end   = begin + strlen(m_CarryOverData.m_Buffer + begin);
-        }
+			// now queue up a separate message for each packet
+			size_t begin = 0;
+			size_t end = strlen(m_CarryOverData.m_Buffer);
 
-        // shift the buffer such that it begins at "begin"
-        m_CarryOverData.ShiftLeft((int)begin);
-    }
+			while ((int)end < m_CarryOverData.m_BytesOfData)
+			{
+				callthing * callevent = callthing::CreateNetworkReceiveReadyEvent(
+					this,
+					m_OnReceiveReady,
+					m_CarryOverData.m_Buffer + begin);
+
+				calllists.insert(callevent);
+
+				this->PostCheckQueue();
+
+				begin = end + 1;
+				end = begin + strlen(m_CarryOverData.m_Buffer + begin);
+			}
+
+			// shift the buffer such that it begins at "begin"
+			m_CarryOverData.ShiftLeft((int)begin);
+		}
+	}
 }
 
-void
-CNetworkConnection::AsyncClose(
-    HWND             WindowHandle
-    )
+void CNetworkConnection::AsyncClose()
 {
     // send any data in the carry-over buffer upwards
     if (m_CarryOverData.m_BytesOfData != 0)
@@ -477,10 +458,9 @@ CNetworkConnection::AsyncClose(
             m_CarryOverData.m_Buffer);
 
         calllists.insert(callevent);
-#ifdef _WINDOWS
-        PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
-#else
-#endif
+
+		this->PostCheckQueue();
+
     }
 
     m_CarryOverData.ReleaseBuffer();
@@ -488,247 +468,168 @@ CNetworkConnection::AsyncClose(
     m_IsConnected = false;
 }
 
-void
-CNetworkConnection::Shutdown()
+void CNetworkConnection::PostCheckQueue()
 {
-    Disable();
-	this->m_OnSendReady.clear();
-	this->m_OnReceiveReady.clear();
-    SetLastPacketReceived(wxString());
-    m_CarryOverData.ReleaseBuffer();
+//#ifdef _WINDOWS
+//    PostMessage(GetMainWindow(), WM_CHECKQUEUE, 0, 0);
+//#endif
+	wxQueueEvent(wxTheApp->GetTopWindow(), new CNetworkConnectionEvent(WM_CHECKQUEUE));
 }
 
-void
-CNetworkConnection::PostOnSendReadyEvent(
-    HWND       WindowHandle
-    )
+void CNetworkConnection::Shutdown()
+{
+	this->Disable();
+	this->m_OnSendReady.clear();
+	this->m_OnReceiveReady.clear();
+	this->SetLastPacketReceived(wxString());
+	this->m_CarryOverData.ReleaseBuffer();
+}
+
+void CNetworkConnection::PostOnSendReadyEvent()
 {
     // we don't distinguish between all event types
     callthing *callevent = callthing::CreateNoYieldFunctionEvent(m_OnSendReady);
 
     calllists.insert(callevent);
-#ifdef _WINDOWS
-    PostMessage(WindowHandle, WM_CHECKQUEUE, 0, 0);
-#else
-#endif
+
+	this->PostCheckQueue();
+}
+
+wxSocketBase * CNetworkConnection::GetWorkerSocket()
+{
+	return this->m_Socket;
 }
 
 CClientNetworkConnection::CClientNetworkConnection()
+	: m_RemotePort(0)
+	, m_RemoteHostName()
 {
-    memset(m_RemoteHostEntry.Buffer, 0x00, sizeof(m_RemoteHostEntry.Buffer));
 }
 
-void
-CClientNetworkConnection::Enable(
-    const wxString&    OnSendReady,
-    const wxString&    OnReceiveReady,
-    unsigned int    RemotePort,
-    const wxString&    RemoteHostName
+CClientNetworkConnection::~CClientNetworkConnection()
+{
+}
+
+void CClientNetworkConnection::Enable(
+    const wxString& OnSendReady,
+    const wxString& OnReceiveReady,
+    unsigned int RemotePort,
+    const wxString& RemoteHostName
     )
 {
     CNetworkConnection::Enable(OnSendReady, OnReceiveReady);
     if (NOT_THROWING)
     {
+		this->m_Socket = new wxSocketClient();
+
+		if (this->m_Socket != 0) 
+		{
+			// get sockets
+			if (!this->m_Socket->Ok())
+			{
+				ShowMessageAndStop(L"socket()", GetLastErrorString(this->m_Socket->LastError()));
+				return;
+			}
+		}
+
+		wxIPV4address addr;
+		addr.Hostname(RemoteHostName);
+		addr.Service(RemotePort);
+
+		((wxSocketClient*)this->m_Socket)->Connect(addr, false);
+		wxSocketError status = this->m_Socket->LastError();
+
+		if (status != wxSOCKET_NOERROR)
+		{
+			if (status != wxSOCKET_WOULDBLOCK)
+			{
+				wxMessageBox(
+					GetLastErrorString(0),
+					L"connect(sendsock)",
+					wxOK);
+				return;
+
+				// err_logo(STOP_ERROR,NIL);
+			}
+		}
+		m_RemotePort = RemotePort;
+		m_IsEnabled = true;
+
         if (network_dns_sync == 1)
         {
-#ifdef _WINDOWS
-            PHOSTENT hostEntry = gethostbyname(wxString(RemoteHostName));
-            if (hostEntry == NULL)
-            {
-                ShowMessageAndStop(
-                    L"gethostbyname(host)",
-                    WSAGetLastErrorString(0));
-                return;
-            }
 
-            // This HOSTENTRY structure is owned by WinSock and
-            // could be changed.  Therefore, we copy the information
-            // that we need before any other WinSock calls can be made.
-            // Note that this may result in some dangling pointers, but
-            // this is okay, since the pointers will be valid long enough
-            // to initialize the SOCKADDR_IN struct, which is all we use
-            // it for.
-            m_RemoteHostEntry.Entry = *hostEntry;
-            m_RemotePort            = RemotePort;
-            m_IsEnabled             = true;
-
-            // Set up the rest of the connection by invoking the logic that
-            // should be invoked once m_HostEntry is filled in.
-            SendMessage(GetMainWindow(), WM_NETWORK_CONNECTSENDFINISH, 0, 0);
-#endif
         }
         else
         {
-#ifdef _WINDOWS
-            // get address of remote machine
-            HANDLE getHostByNameHandle = WSAAsyncGetHostByName(
-                GetMainWindow(),
-                WM_NETWORK_CONNECTSENDFINISH,
-                wxString(RemoteHostName),
-                m_RemoteHostEntry.Buffer,
-                sizeof(m_RemoteHostEntry.Buffer));
-            if (getHostByNameHandle == NULL)
-            {
-                ShowMessageAndStop(
-                    L"WSAAsyncGetHostByName()",
-                    WSAGetLastErrorString(0));
-                return;
-            }
-#endif
-            m_RemotePort = RemotePort;
-            m_IsEnabled  = true;
-
             // The rest of the connection will be set up when the GetHostByName
             // callback is invoked, after m_HostEntry is filled in.
         }
     }
 }
 
-// Call this to handle a WM_NETWORK_CONNECTSENDACK message.
-int
-CClientNetworkConnection::OnConnectSendAck(
-    HWND        WindowHandle,
-    LONG        LParam
-    )
+int CClientNetworkConnection::OnEvent(wxEvtHandler & handler, wxSocketEvent & event)
 {
-#ifdef _WINDOWS
-    if (WSAGETASYNCERROR(LParam) != 0)
-    {
-        ::MessageBox(
-            WindowHandle,
-            WSAGetLastErrorString(WSAGETASYNCERROR(LParam)),
-            L"WSAAsyncGetHostByNameCallBack()",
-            MB_OK);
-        // err_logo(STOP_ERROR,NIL);
-        return 0;
-    }
+	if (!IsEnabled())
+	{
+		// The network client side has been shut down.
+		// This message must have been delayed.
+				// This must be a delayed event coming in after shutdown.
+		wxMessageBox(
+			GetResourceString(L"LOCALIZED_ERROR_NETWORKSHUTDOWN"),
+			GetResourceString(L"LOCALIZED_ERROR_NETWORK"),
+			wxOK);
 
-    if (!IsEnabled())
-    {
-        // The network client side has been shut down.
-        // This message must have been delayed.
-        return 0;
-    }
+		return 0;
+	}
 
-    // update flags based on event type
-    switch (WSAGETSELECTEVENT(LParam))
-    {
-    case FD_READ:
-        AsyncReceive(WindowHandle, L"recv(sendsock)");
-        return 0;
+	wxSocketBase * sock = event.GetSocket();
 
-    case FD_WRITE:
-        // allow another frame to go out.
-        m_IsBusy = false;
-        break;
+	switch (event.GetSocketEvent())
+	{
+	case wxSOCKET_CONNECTION:
+	{
+		this->m_IsConnected = true;
+		
+		break;
+	}
+	case wxSOCKET_INPUT:
+	{
+		this->AsyncReceive();
+		break;
+	}
+	case wxSOCKET_LOST:
+	{
 
-    case FD_CONNECT:
-        // flag it's ok to start firing
-        m_IsConnected = true;
-        break;
-
-    case FD_CLOSE:
-        // done
-        AsyncClose(WindowHandle);
-        break;
-    }
-
-    // we don't distinguish between all event types
-    PostOnSendReadyEvent(WindowHandle);
-
-#endif
-    return 0;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////
-// CClientNetworkConnection class
-
-
-// Call this to handle a WM_NETWORK_CONNECTSENDFINISH message.
-int
-CClientNetworkConnection::OnConnectSendFinish(
-    HWND        WindowHandle,
-    LONG        LParam
-    )
-{
-#ifdef _WINDOWS
-    if (WSAGETASYNCERROR(LParam) != 0)
-    {
-        ::MessageBox(
-            WindowHandle,
-            WSAGetLastErrorString(WSAGETASYNCERROR(LParam)),
-            L"WSAAsyncGetHostByNameCallBack()",
-            MB_OK);
-        // err_logo(STOP_ERROR,NIL);
-        return 0;
-    }
-#endif
-    if (!IsEnabled())
-    {
-#ifdef _WINDOWS
-        // The client-side is not initialized.
-        // This must be a delayed event coming in after shutdown.
-        ::MessageBox(
-            WindowHandle,
-            GetResourceString(L"LOCALIZED_ERROR_NETWORKSHUTDOWN"),
-            GetResourceString(L"LOCALIZED_ERROR_NETWORK"),
-            MB_OK);
-#endif
-        return 0;
-    }
-#ifdef _WINDOWS
-    SOCKADDR_IN send_dest_sin = {0};
-    send_dest_sin.sin_family = AF_INET;
-    memcpy(
-        &send_dest_sin.sin_addr,
-        m_RemoteHostEntry.Entry.h_addr,
-        m_RemoteHostEntry.Entry.h_length);
-    send_dest_sin.sin_port = htons(m_RemotePort); // Convert to network ordering
-
-    // watch for connect
-    if (WSAAsyncSelect(
-            m_Socket,
-            WindowHandle,
-            WM_NETWORK_CONNECTSENDACK,
-            FD_CONNECT | FD_WRITE | FD_READ | FD_CLOSE) == SOCKET_ERROR)
-    {
-        ::MessageBox(
-            WindowHandle,
-            WSAGetLastErrorString(0),
-            L"WSAAsyncSelect(sendSock) FD_CONNECT",
-            MB_OK);
-        // err_logo(STOP_ERROR,NIL);
-    }
-
-    // let's try now
-    int rval = connect(
-        m_Socket,
-        (PSOCKADDR) &send_dest_sin,
-        sizeof send_dest_sin);
-    if (rval == SOCKET_ERROR)
-    {
-        if (WSAGetLastError() != WSAEWOULDBLOCK)
-        {
-            ::MessageBox(
-                WindowHandle,
-                WSAGetLastErrorString(0),
-                L"connect(sendsock)",
-                MB_OK);
-            // err_logo(STOP_ERROR,NIL);
-            return 0;
-        }
-    }
-#endif
-    // fire event that connection is made
-    PostOnSendReadyEvent(WindowHandle);
-    return 0;
+		this->AsyncClose();
+		break;
+	}
+	case wxSOCKET_OUTPUT:
+		// allow another frame to go out.
+		this->m_IsBusy = false;
+		break;
+	}
+	PostOnSendReadyEvent();
+	return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
 // CServerNetworkConnection class
 
-void
-CServerNetworkConnection::Enable(
+CServerNetworkConnection::CServerNetworkConnection()
+	: m_Worker(0)
+	, m_ServerPort(0)
+{
+}
+
+CServerNetworkConnection::~CServerNetworkConnection()
+{
+	if (this->m_Worker != 0) {
+		this->m_Worker->Destroy();
+		this->m_Worker = 0;
+	}
+}
+
+void CServerNetworkConnection::Enable(
     const wchar_t *    OnSendReady,
     const wchar_t *    OnReceiveReady,
     unsigned int    ServerPort
@@ -737,71 +638,29 @@ CServerNetworkConnection::Enable(
     CNetworkConnection::Enable(OnSendReady, OnReceiveReady);
     if (NOT_THROWING)
     {
-#ifdef _WINDOWS
-        // Associate an address with the socket. (bind)
-        SOCKADDR_IN socket_address = {0};
-        socket_address.sin_family      = AF_INET;
-        socket_address.sin_addr.s_addr = INADDR_ANY;
-        socket_address.sin_port        = htons(ServerPort);
+		wxIPV4address addr;
+		addr.Service(ServerPort);
 
-        int rval = bind(
-            m_Socket,
-            (struct sockaddr *) &socket_address,
-            sizeof socket_address);
-        if (rval == SOCKET_ERROR)
-        {
-            ShowMessageAndStop(L"bind(receivesock)", WSAGetLastErrorString(0));
-            return;
-        }
+		this->m_Socket = new wxSocketServer(addr);
+		if (!this->m_Socket->Ok()) return;
+		this->m_ServerPort = ServerPort;
+		this->m_Socket->SetEventHandler(*wxTheApp->GetTopWindow(), EVT_SOCKET_SERVER_ACCEPT);
+		this->m_Socket->SetNotify(wxSOCKET_CONNECTION_FLAG);
+		this->m_Socket->Notify(true);
 
-        // listen for connect
-        if (listen(m_Socket, MAX_PENDING_CONNECTS) == SOCKET_ERROR)
-        {
-            ShowMessageAndStop(L"listen(receivesock)", WSAGetLastErrorString(0));
-            return;
-        }
 
         // watch for when connect happens
-        m_IsEnabled = true;
-
-        rval = WSAAsyncSelect(
-            m_Socket,
-            GetMainWindow(),
-            WM_NETWORK_LISTENRECEIVEACK,
-            FD_ACCEPT | FD_READ | FD_WRITE | FD_CLOSE);
-        if (rval == SOCKET_ERROR)
-        {
-            ShowMessageAndStop(
-                L"WSAAsyncSelect(receivesock) FD_ACCEPT",
-                WSAGetLastErrorString(0));
-            return;
-        }
+        this->m_IsEnabled = true;
 
         // queue this event
-        PostOnSendReadyEvent(GetMainWindow());
-#endif
+        PostOnSendReadyEvent();
+
     }
 }
 
 // Call this to handle a WM_NETWORK_LISTENRECEIVEACK message.
-int
-CServerNetworkConnection::OnListenReceiveAck(
-    HWND        WindowHandle,
-    LONG        LParam
-    )
+int CServerNetworkConnection::OnAccept(wxEvtHandler& handler, wxSocketEvent & event)
 {
-#ifdef _WINDOWS
-    if (WSAGETASYNCERROR(LParam) != 0)
-    {
-        ::MessageBox(
-            WindowHandle,
-            WSAGetLastErrorString(WSAGETASYNCERROR(LParam)),
-            L"WSAAsyncGetHostByNameCallBack()",
-            MB_OK);
-        // err_logo(STOP_ERROR,NIL);
-        return 0;
-    }
-
     if (!IsEnabled())
     {
         // The server-side is not initialized.
@@ -809,50 +668,64 @@ CServerNetworkConnection::OnListenReceiveAck(
         return 0;
     }
 
+	wxSocketBase * sock = ((wxSocketServer*)this->m_Socket)->Accept(false);
+	if (!sock->IsOk())
+	{
+		wxMessageBox(
+			GetLastErrorString(0),
+			L"accept(receivesock)",
+			wxOK);
+		sock->Destroy();
 
-    // based on event do the right thing
-    switch (WSAGETSELECTEVENT(LParam))
-    {
-        SOCKADDR_IN acc_sin;       // Accept socket address - internet style
-        int         acc_sin_len;   // Accept socket address length
+		// err_logo(STOP_ERROR,NIL);
+		return 0;
+	}
+	sock->SetEventHandler(handler, EVT_SOCKET_SERVER_INPUT);
+	sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+	sock->Notify(true);
 
-    case FD_READ:
-        AsyncReceive(WindowHandle, L"recv(receivesock)");
-        return 0;
-
-    case FD_ACCEPT:
-        acc_sin_len = sizeof acc_sin;
-
-        m_Socket = accept(m_Socket, (struct sockaddr *) &acc_sin, &acc_sin_len);
-        if (m_Socket == INVALID_SOCKET)
-        {
-            ::MessageBox(
-                WindowHandle,
-                WSAGetLastErrorString(0),
-                L"accept(receivesock)",
-                MB_OK);
-            // err_logo(STOP_ERROR,NIL);
-            return 0;
-        }
-        m_IsConnected = true;
-        break;
-
-    case FD_CLOSE:
-        AsyncClose(WindowHandle);
-        break;
-
-    case FD_WRITE:
-        // allow another frame to go out.
-        m_IsBusy = false;
-        break;
-    }
+	if (this->m_Worker != 0) {
+		this->m_Worker->Destroy();
+		this->m_Worker = 0;
+	}
+	this->m_Worker = sock;
+	this->m_IsConnected = true;
 
     // all other events just queue the event
-    PostOnSendReadyEvent(WindowHandle);
-#endif
+    PostOnSendReadyEvent();
+
     return 0;
 }
 
+int CServerNetworkConnection::OnInputOutput(wxEvtHandler& handler, wxSocketEvent & event)
+{
+	wxSocketBase * sock = event.GetSocket();
+
+	switch (event.GetSocketEvent())
+	{
+		case wxSOCKET_INPUT:
+		{
+			this->AsyncReceive();
+			break;
+		}
+		case wxSOCKET_OUTPUT:
+		{
+			this->m_IsBusy = false;
+			break;
+		}
+		case wxSOCKET_LOST:
+		{
+			this->AsyncClose();
+			break;
+		}
+	}
+	return 0;
+}
+
+wxSocketBase * CServerNetworkConnection::GetWorkerSocket()
+{
+	return this->m_Worker;
+}
 
 // startup network
 NODE *lnetstartup(NODE *args)
@@ -870,15 +743,7 @@ NODE *lnetstartup(NODE *args)
     {
         network_dns_sync = int_arg(args);
     }
-#ifdef _WINDOWS
-    // tell winsock to wakeup
-	WSADATA WSAData = { 0 };
-    if (WSAStartup(MAKEWORD(1,1), &WSAData) != 0)
-    {
-        ShowMessageAndStop(L"WSAStartup()", WSAGetLastErrorString(0));
-        return Unbound;
-    }
-#endif
+
     network_is_started = true;
     return Unbound;
 }
@@ -904,9 +769,7 @@ NODE *lnetshutdown(NODE *)
         // statically allocates the memory and never frees it.
         // However, it could be a problem if g_ServerConnection and
         // g_ClientConnection were dynamically allocated.
-#ifdef _WINDOWS
-        WSACleanup();
-#endif
+
         network_is_started = false;
     }
 
@@ -1084,3 +947,5 @@ NODE *lnetacceptsendvalue(NODE *args)
 
     return Unbound;
 }
+
+

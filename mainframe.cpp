@@ -1399,6 +1399,21 @@ void CMainFrame::OnSetCursor(wxSetCursorEvent& Event)
     Event.Skip();
 }
 
+void CMainFrame::OnSocketServerAcceptEvent(wxSocketEvent & event)
+{
+	g_ServerConnection.OnAccept(*this,event);
+}
+
+void CMainFrame::OnSocketServerInputOutputEvent(wxSocketEvent & event)
+{
+	g_ServerConnection.OnInputOutput(*this, event);
+}
+
+void CMainFrame::OnSocketClientEvent(wxSocketEvent & event)
+{
+	g_ClientConnection.OnEvent(*this, event);
+}
+
 
 // menu command handlers
 void CMainFrame::OnExit(wxCommandEvent& WXUNUSED(Event))
@@ -2497,23 +2512,23 @@ CMainFrame::MSWWindowProc(
         }
         break;
 
-    case WM_NETWORK_CONNECTSENDACK:
-        g_ClientConnection.OnConnectSendAck(
-            static_cast<HWND>(GetHandle()),
-            LParam);
-        break;
+    //case WM_NETWORK_CONNECTSENDACK:
+    //    g_ClientConnection.OnConnectSendAck(
+    //        static_cast<HWND>(GetHandle()),
+    //        LParam);
+    //    break;
 
-    case WM_NETWORK_CONNECTSENDFINISH:
-        g_ClientConnection.OnConnectSendFinish(
-            static_cast<HWND>(GetHandle()),
-            LParam);
-        break;
+    //case WM_NETWORK_CONNECTSENDFINISH:
+    //    g_ClientConnection.OnConnectSendFinish(
+    //        static_cast<HWND>(GetHandle()),
+    //        LParam);
+    //    break;
 
-    case WM_NETWORK_LISTENRECEIVEACK:
-        g_ServerConnection.OnListenReceiveAck(
-            static_cast<HWND>(GetHandle()),
-            LParam);
-        break;
+    //case WM_NETWORK_LISTENRECEIVEACK:
+    //    g_ServerConnection.OnListenReceiveAck(
+    //        static_cast<HWND>(GetHandle()),
+    //        LParam);
+    //    break;
     }
 
     return wxFrame::MSWWindowProc(Message, WParam, LParam);
@@ -2522,6 +2537,9 @@ CMainFrame::MSWWindowProc(
 #endif // WX_PURE
 
 BEGIN_EVENT_TABLE(CMainFrame, wxFrame)
+EVT_SOCKET(EVT_SOCKET_SERVER_ACCEPT, CMainFrame::OnSocketServerAcceptEvent)
+EVT_SOCKET(EVT_SOCKET_SERVER_INPUT, CMainFrame::OnSocketServerInputOutputEvent)
+EVT_SOCKET(EVT_SOCKET_CLIENT, CMainFrame::OnSocketClientEvent)
 EVT_MENU(ID_FILENEW, CMainFrame::OnFileNew)
 EVT_MENU(ID_FILELOAD, CMainFrame::OnFileLoad)
 EVT_MENU(ID_FILEOPEN, CMainFrame::OnFileOpen)

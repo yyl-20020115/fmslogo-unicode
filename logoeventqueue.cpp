@@ -336,7 +336,7 @@ void checkqueue()
               do_execution(thing->func);
               break;
 
-#ifndef WX_PURE
+//#ifndef WX_PURE
           case EVENTTYPE_NetworkReceiveReady:
               // Network events must not yield while processing
               yield_flag = false;
@@ -346,7 +346,7 @@ void checkqueue()
               //thing->networkpacket = NULL;
 
               do_execution(thing->func);
-#endif
+//#endif
               break;
 
         default:
