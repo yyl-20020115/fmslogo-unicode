@@ -22,7 +22,7 @@
 #endif
 
 unsigned int _sps = 0;
-int invfactor = 10;
+int _invfactor = 10;
 int _pt = 0;
 int _duration = 0;
 double _volumeRate = 0.5;
@@ -39,7 +39,7 @@ int tone_callback( void *outputBuffer, void *inputBuffer,
     
     
     if(_pt<_duration){
-		_pt += invfactor;
+		_pt += _invfactor;
 		for(unsigned int j = 0;j<nFrames;j++)
         {
             ((short*)outputBuffer)[j] = (short)((0x7fff * _volumeRate) * sin(_angle));
@@ -68,9 +68,9 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
     sp.firstChannel = 0;
     sp.nChannels = 1;
 
-    _sps = (sampleRate/(1000.0/ invfactor));
+    _sps = (sampleRate/(1000.0/ _invfactor));
 
-    _delta_angle = frequency * 2.0 * PI/(1000.0 / invfactor)/ _sps;
+    _delta_angle = frequency * 2.0 * PI/(1000.0 / _invfactor)/ _sps;
     
     rt.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
     if(rt.isStreamOpen()){
