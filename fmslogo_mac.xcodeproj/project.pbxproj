@@ -32,6 +32,7 @@
 		E1D7000221F45AC800F92A71 /* CSoundPlayerThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFFE21F45AC700F92A71 /* CSoundPlayerThread.cpp */; };
 		E1D7000821F5A24100F92A71 /* librtaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D7000721F5A24100F92A71 /* librtaudio.a */; };
 		E1D7000A21F5A29A00F92A71 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D7000921F5A29A00F92A71 /* CoreAudio.framework */; };
+		E1D7000C21F6C5F400F92A71 /* logolib in Resources */ = {isa = PBXBuildFile; fileRef = E1D7000B21F6C5F400F92A71 /* logolib */; };
 		E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFEA21F416F300F92A71 /* CUThread.cpp */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
@@ -177,6 +178,7 @@
 		E19F5E4621E476A8009A5F00 /* GetLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetLocale.h; sourceTree = "<group>"; };
 		E1D7000721F5A24100F92A71 /* librtaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtaudio.a; path = ../../../../usr/local/lib/librtaudio.a; sourceTree = "<group>"; };
 		E1D7000921F5A29A00F92A71 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		E1D7000B21F6C5F400F92A71 /* logolib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logolib; sourceTree = "<group>"; };
 		E1D7FFEA21F416F300F92A71 /* CUThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUThread.cpp; sourceTree = "<group>"; };
 		E1D7FFF021F416F400F92A71 /* CUThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUThread.h; sourceTree = "<group>"; };
 		E1D7FFF721F45A6200F92A71 /* CSoundPlayerThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSoundPlayerThread.h; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
+				E1D7000B21F6C5F400F92A71 /* logolib */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
 				E1EC41A421E425F300CD3533 /* aboutfmslogo.cpp */,
@@ -761,6 +764,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D7000C21F6C5F400F92A71 /* logolib in Resources */,
 				E106E6CC21E4C20F00881E0E /* fmslogo.icns in Resources */,
 				E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */,
 				E18B2C7A21EB5EFE00E7B814 /* fmslogo-unicode.ini in Resources */,

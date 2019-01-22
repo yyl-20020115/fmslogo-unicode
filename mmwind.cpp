@@ -70,7 +70,8 @@ void SIGALRM_Handler(int signo)
             if(timer_currents[i] == 0){
                 //Call Timer's call back
                 timer_currents[i] = timer_intervals[i];
-            }else{
+            }
+            if(timer_currents[i]>0){
                  timer_currents[i] --;
             }
         }
@@ -395,8 +396,7 @@ NODE *lsettimer(NODE *args)
 		}
 #else
         //
-        timer_intervals[id] = delay;
-        timer_currents[id] = 0;
+        timer_currents[id] = timer_intervals[id] = delay;
 #endif
     }
 
