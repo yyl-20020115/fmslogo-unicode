@@ -98,14 +98,12 @@ bool IsAnyTimerActive()
 
 NODE *lsound(NODE *arg)
 {
-
 	/* open sound and get arg list */
 	NODE *args = car(arg);
 
 	/* must be a list that contains something */
 	if (is_list(args) && (args != NIL))
 	{
-
 		/* count items in list and check that they are pairs */
 		int total_args = list_length(args);
 		bool even_args = even_p(total_args);
@@ -142,7 +140,6 @@ NODE *lsound(NODE *arg)
 			GetResourceString(L"LOCALIZED_ERROR_SOUND"),
 			GetResourceString(L"LOCALIZED_ERROR_BADINPUT"));
 	}
-
 
 	return Unbound;
 }
@@ -210,7 +207,7 @@ NODE *lmidiopen(NODE *args)
 #else
 	return Unbound;
 #endif
-	}
+}
 
 NODE *lmidiclose(NODE *  /*args*/)
 {
@@ -396,13 +393,11 @@ NODE *lsettimer(NODE *args)
 		{
 			err_logo(OUT_OF_MEM, NIL);
 			return Unbound;
-	}
+		}
 #else
-		//
 		timer_currents[id] = timer_intervals[id] = delay;
 #endif
-}
-
+	}
 	return Unbound;
 }
 
@@ -461,8 +456,7 @@ void halt_all_timers()
 		timer_intervals[id] = 0;
 		timer_currents[id] = 0;
 #endif
-		//timer_callback[id].clear();
-}
+	}
 }
 void clear_all_timers()
 {
