@@ -41,7 +41,6 @@
 		E1EC41E621E425FE00CD3533 /* stringprintednode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411021E425D800CD3533 /* stringprintednode.cpp */; };
 		E1EC41E721E425FE00CD3533 /* setpensize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411121E425D800CD3533 /* setpensize.cpp */; };
 		E1EC41E821E425FE00CD3533 /* workspaceeditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411221E425D800CD3533 /* workspaceeditor.cpp */; };
-		E1EC41E921E425FE00CD3533 /* wxpurestubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411521E425D900CD3533 /* wxpurestubs.cpp */; };
 		E1EC41EA21E425FE00CD3533 /* init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411821E425D900CD3533 /* init.cpp */; };
 		E1EC41EB21E425FE00CD3533 /* savebeforeexitdialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411A21E425D900CD3533 /* savebeforeexitdialog.cpp */; };
 		E1EC41EC21E425FE00CD3533 /* setactivearea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC411B21E425D900CD3533 /* setactivearea.cpp */; };
@@ -198,7 +197,6 @@
 		E1EC411121E425D800CD3533 /* setpensize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = setpensize.cpp; sourceTree = "<group>"; };
 		E1EC411221E425D800CD3533 /* workspaceeditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = workspaceeditor.cpp; sourceTree = "<group>"; };
 		E1EC411421E425D900CD3533 /* logorc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logorc.h; sourceTree = "<group>"; };
-		E1EC411521E425D900CD3533 /* wxpurestubs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxpurestubs.cpp; sourceTree = "<group>"; };
 		E1EC411721E425D900CD3533 /* stringprintednode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringprintednode.h; sourceTree = "<group>"; };
 		E1EC411821E425D900CD3533 /* init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = init.cpp; sourceTree = "<group>"; };
 		E1EC411A21E425D900CD3533 /* savebeforeexitdialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = savebeforeexitdialog.cpp; sourceTree = "<group>"; };
@@ -657,7 +655,6 @@
 				E1EC415421E425E300CD3533 /* workspaceeditor.h */,
 				E1EC419121E425EE00CD3533 /* wrksp.cpp */,
 				E1EC415221E425E200CD3533 /* wrksp.h */,
-				E1EC411521E425D900CD3533 /* wxpurestubs.cpp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -792,7 +789,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1EC423021E425FF00CD3533 /* gbmhelp.cpp in Sources */,
-				E1EC41E921E425FE00CD3533 /* wxpurestubs.cpp in Sources */,
 				E14F7F8221F05B7000C07415 /* netwind.cpp in Sources */,
 				E1EC41E221E425FE00CD3533 /* files.cpp in Sources */,
 				E1EC41E721E425FE00CD3533 /* setpensize.cpp in Sources */,
