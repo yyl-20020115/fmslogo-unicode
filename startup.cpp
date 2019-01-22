@@ -24,7 +24,7 @@
         #include <windows.h>
 
         #ifdef max // MS compilers #define max in windows.h
-            #undef max
+            #undef max
         #endif
     #endif
 
@@ -181,12 +181,16 @@ void init_graphics()
     g_PrinterAreaPixels = std::max(BitMapWidth, BitMapHeight) / 8;
 
     // init paths to library and help files based on location of .EXE
-    wxString fmslogoDirectory =(g_FmslogoBaseDirectory);
+    wxString fmslogoDirectory = g_FmslogoBaseDirectory;
+    wxString fmslogoResourceDirectory = fmslogoDirectory;
+#ifdef __APPLE__
+    fmslogoResourceDirectory += wxString(L"../Resources/");
+#endif
 
-    const wxFileName libPathName(fmslogoDirectory + wxString(L"logolib/"));
+    const wxFileName libPathName(fmslogoResourceDirectory + wxString(L"logolib/"));
     g_LibPathName  = libPathName.GetPathWithSep();
 
-    const wxFileName helpFileName(fmslogoDirectory + wxString(L"logohelp.chm"));
+    const wxFileName helpFileName(fmslogoResourceDirectory + wxString(L"logohelp.chm"));
     g_HelpFileName = helpFileName.GetFullPath();
 	
 	wxString tp;
