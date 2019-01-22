@@ -38,7 +38,6 @@
     #include "eval.h"
     #include "parse.h"
     #include "sound.h"
-
 #endif
 
     #include "screenwindow.h"
