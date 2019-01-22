@@ -501,6 +501,3 @@ NODE *lplaywave(NODE *args)
 
     return Unbound;
 }
-void uninitialize_dlls()
-{
-}

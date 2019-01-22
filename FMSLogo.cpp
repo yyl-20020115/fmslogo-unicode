@@ -735,6 +735,13 @@ void DockCommanderWindow()
 {
 	CFmsLogo::GetMainFrame()->DockCommanderWindow();
 }
+#ifndef _WINDOWS
+
+void uninitialize_dlls()
+{
+}
+
+#endif
 
 #ifndef WX_PURE
 #ifdef __WXMSW__
