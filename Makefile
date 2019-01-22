@@ -26,7 +26,8 @@ CXXFLAGS += -O0 -g -ggdb
 INCLUDES =. ${SCINTILLA_INCLUDES} $(PREFIX)/include/wx-$(TOOLCHAIN_FULLNAME)/ $(PREFIX)/lib/wx/include/gtk3-unicode-static-$(TOOLCHAIN_FULLNAME)/
 
 CPPFLAGS += $(addprefix -I, $(INCLUDES))
-CXXFLAGS += -Wall -fno-strict-aliasing
+CXXFLAGS += -Wall 
+#-fno-strict-aliasing
 CXXFLAGS += -DFMSLOGO_WXWIDGETS
 
 LIBDIRNAME = /usr/local/lib/ 
@@ -34,6 +35,7 @@ LIBDIRNAME_EXT =/usr/lib
 CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
+LDFLAGS += -g
 LDFLAGS += -lcharset -liconv -lasound -lrtaudio 
 WX_OBJECTS = 3dsolid.o \
 aboutfmslogo.o \

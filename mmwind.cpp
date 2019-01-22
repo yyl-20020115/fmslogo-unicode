@@ -51,6 +51,8 @@
 #include <stdio.h>
 #include <signal.h>
 #include <sys/time.h>
+#include <wx/event.h>
+#include <wx/timer.h>
 #endif
 
 
@@ -68,6 +70,7 @@ void SIGALRM_Handler(int signo)
         for(int i = 0;i<MAX_TIMERS;i++){
            
             if(timer_currents[i] == 0){
+                //wxQueueEvent(wxTheApp->GetTopWindow(),new std::wxTimerEvent());
                 //Call Timer's call back
                 timer_currents[i] = timer_intervals[i];
             }

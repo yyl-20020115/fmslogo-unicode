@@ -85,13 +85,13 @@ static HMODULE         g_User32 = NULL;
 #endif // MEM_DEBUG
 
 
-#ifdef WX_PURE
-#if wxUSE_UNICODE
-// Use the wchar_t variants of the ANSI C string functions
-#define strtoul wcstoul
-#define strlen  wcslen
-#endif
-#endif
+// #ifdef WX_PURE
+// #if wxUSE_UNICODE
+// // Use the wchar_t variants of the ANSI C string functions
+// #define strtoul wcstoul
+// #define strlen  wcslen
+// #endif
+// #endif
 
 ////////////////////////////////////////////////////////////////////
 // CFmsLogo
@@ -303,55 +303,6 @@ bool CFmsLogo::OnInit()
 			GetConfigurationString(L"locale", L"")
 		));
 
-#ifdef _WINDOWS
-
-	// Grab the single instance lock.
-	g_SingleInstanceMutex = CreateMutex(
-		NULL,  // default security attributes
-		FALSE, // no initial owner
-		L"LogoUnicodeForWindowsMutex");
-	//NOTICE: we change the mutex lock to append Unicode
-	//this will make unicode and ansi version work at same time.
-	if (GetLastError() == ERROR_ALREADY_EXISTS)
-	{
-		// A copy of Logo is already running.
-		if (g_FileToLoad.length() == 0)
-		{
-			// No logo scripts were specified on the command-line.
-			// We should re-use the existing window instead of creating a new 
-			// instance of logo, since this was probably just an accident.
-
-			// Find that running copy of Logo and make it visible.
-			HWND runningInstance = FindWindow(NULL, GetResourceString(L"LOCALIZED_GENERAL_PRODUCTNAME"));
-			if (runningInstance != NULL)
-			{
-				// bring running instance to the the foreground
-				::SetForegroundWindow(runningInstance);
-				if (::IsIconic(runningInstance) ||
-					!::IsWindowVisible(runningInstance))
-				{
-					// the running instance is not visible, so restore it
-					::ShowWindow(runningInstance, SW_SHOWDEFAULT);
-				}
-
-				CloseHandle(g_SingleInstanceMutex);
-				return false;
-			}
-
-			// We can't find the window, so we'll start up another instance.
-			// The feature of not running two instances is supposed to make
-			// things simpler.  If the other copy of Logo failed to exit
-			// cleanly, or if some other application created the mutex,
-			// it would more confusing if this Logo didn't start up.
-		}
-		else
-		{
-			// a Logo script was specified on the command-line.
-			// This means that we should open up a new instance
-			// of Logo, even if one is already running.
-		}
-	}
-#endif
 
 	// Get video mode parameters
 	init_videomode();
