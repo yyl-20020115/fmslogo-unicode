@@ -27,7 +27,7 @@ enum KEYBOARDCAPTURE
 };
 
 // global variables
-extern class wxString keyboard_status;
+//extern class wxString keyboard_status;
 extern class wxString keyboard_keydown;
 extern class wxString keyboard_keyup;
 extern class wxString mouse_lbuttondown;
@@ -35,6 +35,8 @@ extern class wxString mouse_lbuttonup;
 extern class wxString mouse_rbuttondown;
 extern class wxString mouse_rbuttonup;
 extern class wxString mouse_mousemove;
+
+extern void UninstallKeyboardAndMouseEvents();
 
 extern enum KEYBOARDCAPTURE KeyboardCapture;
 extern int keyboard_value;

@@ -3,7 +3,7 @@
 #define __FMSLOGO_H_
 
 #include "logocore.h" // for MAX_BUFFER_SIZE
-
+#include "devwind.h"
 class CMainFrame;
 class wxFileName;
 struct NODE;

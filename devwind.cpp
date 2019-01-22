@@ -71,6 +71,18 @@ static HANDLE ComId;
 static bool   ComIsOpen = false;
 
 // function definitions
+void UninstallKeyboardAndMouseEvents()
+{
+	//keyboard_status.clear();
+	keyboard_keydown.clear();
+	keyboard_keyup.clear();
+	mouse_lbuttondown.clear();
+	mouse_lbuttonup.clear();
+	mouse_rbuttondown.clear();
+	mouse_rbuttonup.clear();
+	mouse_mousemove.clear();
+
+}
 
 NODE *lmouseon(NODE *args)
 {

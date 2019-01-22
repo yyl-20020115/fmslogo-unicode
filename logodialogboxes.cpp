@@ -64,7 +64,8 @@
    #include "questionbox.h"
    #include "selectbox.h"
    #include "stringadapter.h"
-//   #include "debugheap.h"
+#include "devwind.h"
+   //   #include "debugheap.h"
 #endif
 
 enum WINDOWTYPE 
@@ -2523,6 +2524,7 @@ NODE *lcheckboxset(NODE *args)
 
     return Unbound;
 }
+
 
 bool CheckOnScreenControls()
 {

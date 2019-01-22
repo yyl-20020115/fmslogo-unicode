@@ -351,6 +351,8 @@ void CCommander::OnStepButton(wxCommandEvent& WXUNUSED(Event))
 
 void CCommander::OnResetButton(wxCommandEvent& WXUNUSED(Event))
 {
+	UninstallKeyboardAndMouseEvents();
+
 	clear_all_timers();
 	lhalt(0);
 	//call halt first to stop program
