@@ -57,6 +57,11 @@ int tone_callback( void *outputBuffer, void *inputBuffer,
 
 bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 {
+    //NOTICE; like BEEP, no lower than 37Hz
+    if(frequency<37)
+    {
+        frequency = 37;
+    }
     _pt = 0;
     _duration = duration;
     _volumeRate = volumeRate;

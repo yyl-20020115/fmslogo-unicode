@@ -289,29 +289,6 @@ bool CFmsLogo::OnInit()
 {
 	bool rval = true;
 
-#ifdef MEM_DEBUG
-#ifdef __WXMSW__
-	g_Fmslogo = NULL;
-	g_User32 = GetModuleHandle("user32.dll");
-	if (g_User32 != NULL)
-	{
-		g_GetGuiResources = (GETGUIRESOURCES)GetProcAddress(g_User32, "GetGuiResources");
-		if (g_GetGuiResources != NULL)
-		{
-			g_Fmslogo = OpenProcess(
-				PROCESS_QUERY_INFORMATION,
-				FALSE,
-				GetCurrentProcessId());
-			if (g_Fmslogo != NULL)
-			{
-				g_OriginalGuiObjects = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
-				g_OriginalUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
-			}
-		}
-	}
-#endif // __WXMSW__
-#endif // MEM_DEBUG
-
 	// Figure out the path that contains fmslogo.exe, which we
 	// assume also holds Logolib.
 	const wxFileName fmslogoExecutable(
@@ -326,7 +303,7 @@ bool CFmsLogo::OnInit()
 			GetConfigurationString(L"locale", L"")
 		));
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 
 	// Grab the single instance lock.
 	g_SingleInstanceMutex = CreateMutex(
@@ -374,16 +351,15 @@ bool CFmsLogo::OnInit()
 			// of Logo, even if one is already running.
 		}
 	}
-#endif // WX_PURE
-	init_tone();
+#endif
+
 	// Get video mode parameters
 	init_videomode();
 
 	srand(time(NULL));
 
-	// init the timer callback array
-	init_timers();
-
+    init_timers();
+    
 	// alloc and init the bitmap cut array
 	init_bitmaps();
 
@@ -518,8 +494,6 @@ int CFmsLogo::OnExit()
 
 	uninit_graphics();
 
-	uninit_tone();
-
 	// release the Help subsystem
 	HtmlHelpUninitialize();
 
@@ -527,33 +501,6 @@ int CFmsLogo::OnExit()
 	CloseHandle(g_SingleInstanceMutex);
 	g_SingleInstanceMutex = NULL;
 #endif // WX_PURE
-
-#ifdef MEM_DEBUG
-#ifdef __WXMSW__
-	if (g_Fmslogo != NULL)
-	{
-		// Check if any GUI objects were leaked
-		DWORD currentGuiObjects = g_GetGuiResources(g_Fmslogo, GR_GDIOBJECTS);
-		if (g_OriginalGuiObjects < currentGuiObjects)
-		{
-			TraceOutput(
-				"%d GUI objects were leaked.\n",
-				currentGuiObjects - g_OriginalUserObjects);
-		}
-
-		// Check if any USER objects were leaked
-		DWORD currentUserObjects = g_GetGuiResources(g_Fmslogo, GR_USEROBJECTS);
-		if (g_OriginalUserObjects < currentUserObjects)
-		{
-			TraceOutput(
-				"%d USER objects were leaked.\n",
-				currentUserObjects - g_OriginalUserObjects);
-		}
-
-		CloseHandle(g_Fmslogo);
-	}
-#endif // __WXMSW__
-#endif // MEM_DEBUG
 
 #if wxUSE_CLIPBOARD
 	// wxWidgets clears the clipboard when it exits, presumably to save memory.

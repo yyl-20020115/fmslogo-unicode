@@ -167,12 +167,7 @@ bool button()
     return false;
 }
 
-void init_tone() {
 
-}
-void uninit_tone() {
-
-}
 void tone(FIXNUM frequency, FIXNUM duration)
 {
     if (frequency < 37)

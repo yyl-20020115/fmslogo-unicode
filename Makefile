@@ -19,7 +19,7 @@ SCINTILLA_INCLUDES = scintilla/include
 TOOLCHAIN_FULLNAME = $(shell $(WXCONFIG) --release)
 
 
-CPPFLAGS += -DDEBUG
+CPPFLAGS += -DDEBUG -D__LINUX_ALSA__
 CXXFLAGS += -O0 -g -ggdb
 
 
@@ -118,7 +118,6 @@ utils.o \
 vector.o \
 workspaceeditor.o \
 wrksp.o \
-wxpurestubs.o \
 sound.o \
 wav_parser.o \
 RtAudio.o \

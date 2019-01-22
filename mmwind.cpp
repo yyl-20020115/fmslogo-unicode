@@ -422,6 +422,7 @@ NODE *lcleartimer(NODE *args)
 		timer_callback[id].clear();
 	}
 #else
+    timer_callback[id].clear();
 	timer_intervals[id] = 0;
 	timer_currents[id] = 0;
 #endif
@@ -430,7 +431,6 @@ NODE *lcleartimer(NODE *args)
 
 void init_timers()
 {
-    
     for (size_t i = 0; i < MAX_TIMERS; i++)
     {
         timer_intervals[i] = 0;
@@ -500,4 +500,7 @@ NODE *lplaywave(NODE *args)
     }
 
     return Unbound;
+}
+void uninitialize_dlls()
+{
 }
