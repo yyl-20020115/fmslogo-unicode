@@ -2,6 +2,12 @@
 #define __SOUND_H__
 
 #include <wx/string.h>
+// 0:	Synchronous does not stop until completed.
+// 1:	Asynchronous returns immediately while sound is still playing.
+// 2:	Don't use the default sound if the specified one cannot be found.
+// 4:	In memory sound (not supported).
+// 8:	Continue to loop the sound until another PLAYWAVE instruction is run.
+//16:	Don't stop an already playing sound.
 
 #define SND_SYNC        0x0000
 #define SND_ASYNC       0x0001
