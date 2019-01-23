@@ -596,9 +596,9 @@ void init()
 		{L"shown?", 0, 0, 0, PREFIX_PRIORITY, lshownp, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWN_") },
 		{L"showturtle", 0, 0, 0, PREFIX_PRIORITY, lshowturtle, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWTURTLE") },
 		{L"sin", 1, 1, 1, PREFIX_PRIORITY, lsin, GetResourceString(L"LOCALIZED_ALTERNATE_SIN") },
-#ifdef _WINDOWS
+//#ifdef _WINDOWS
 		{L"sound", 1, 1, 1, PREFIX_PRIORITY, lsound, GetResourceString(L"LOCALIZED_ALTERNATE_SOUND") },
-#endif
+//#endif
 		{L"splitscreen", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SPLITSCREEN") },
 		{L"sqrt", 1, 1, 1, PREFIX_PRIORITY, lsqrt, GetResourceString(L"LOCALIZED_ALTERNATE_SQRT") },
 		{L"ss", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SS") },

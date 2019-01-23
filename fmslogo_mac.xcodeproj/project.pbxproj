@@ -33,6 +33,11 @@
 		E1D7000821F5A24100F92A71 /* librtaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D7000721F5A24100F92A71 /* librtaudio.a */; };
 		E1D7000A21F5A29A00F92A71 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D7000921F5A29A00F92A71 /* CoreAudio.framework */; };
 		E1D7000C21F6C5F400F92A71 /* logolib in Resources */ = {isa = PBXBuildFile; fileRef = E1D7000B21F6C5F400F92A71 /* logolib */; };
+		E1D7001021F842BC00F92A71 /* CCheckQueueEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7000F21F842BC00F92A71 /* CCheckQueueEvent.cpp */; };
+		E1D7001521F842ED00F92A71 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001121F842EC00F92A71 /* LICENSE.TXT */; };
+		E1D7001621F842ED00F92A71 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7001221F842ED00F92A71 /* RtAudio.cpp */; };
+		E1D7001721F842ED00F92A71 /* install-components.txt in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001321F842ED00F92A71 /* install-components.txt */; };
+		E1D7001821F842ED00F92A71 /* README.TXT in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001421F842ED00F92A71 /* README.TXT */; };
 		E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFEA21F416F300F92A71 /* CUThread.cpp */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
@@ -179,6 +184,13 @@
 		E1D7000721F5A24100F92A71 /* librtaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtaudio.a; path = ../../../../usr/local/lib/librtaudio.a; sourceTree = "<group>"; };
 		E1D7000921F5A29A00F92A71 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		E1D7000B21F6C5F400F92A71 /* logolib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logolib; sourceTree = "<group>"; };
+		E1D7000D21F842A200F92A71 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
+		E1D7000E21F842AD00F92A71 /* CCheckQueueEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCheckQueueEvent.h; sourceTree = "<group>"; };
+		E1D7000F21F842BC00F92A71 /* CCheckQueueEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCheckQueueEvent.cpp; sourceTree = "<group>"; };
+		E1D7001121F842EC00F92A71 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		E1D7001221F842ED00F92A71 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
+		E1D7001321F842ED00F92A71 /* install-components.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "install-components.txt"; sourceTree = "<group>"; };
+		E1D7001421F842ED00F92A71 /* README.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
 		E1D7FFEA21F416F300F92A71 /* CUThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUThread.cpp; sourceTree = "<group>"; };
 		E1D7FFF021F416F400F92A71 /* CUThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUThread.h; sourceTree = "<group>"; };
 		E1D7FFF721F45A6200F92A71 /* CSoundPlayerThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSoundPlayerThread.h; sourceTree = "<group>"; };
@@ -443,7 +455,6 @@
 		E1EC3FB521E41FDD00CD3533 = {
 			isa = PBXGroup;
 			children = (
-				E1D7000B21F6C5F400F92A71 /* logolib */,
 				E1EC41C321E425F900CD3533 /* 3dsolid.cpp */,
 				E1EC419D21E425F100CD3533 /* 3dsolid.h */,
 				E1EC41A421E425F300CD3533 /* aboutfmslogo.cpp */,
@@ -458,6 +469,8 @@
 				E1EC41C221E425F900CD3533 /* argumentutils.h */,
 				E1EC41B321E425F600CD3533 /* avltree.cpp */,
 				E1EC415E21E425E400CD3533 /* avltree.h */,
+				E1D7000F21F842BC00F92A71 /* CCheckQueueEvent.cpp */,
+				E1D7000E21F842AD00F92A71 /* CCheckQueueEvent.h */,
 				E1EC419C21E425F100CD3533 /* CConstStringTextReadonlyStream.cpp */,
 				E1EC417421E425E900CD3533 /* CConstStringTextReadonlyStream.h */,
 				E1EC411C21E425D900CD3533 /* CEncodingConverter.cpp */,
@@ -550,9 +563,11 @@
 				E1EC414521E425E000CD3533 /* init.h */,
 				E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */,
 				E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */,
+				E1D7001321F842ED00F92A71 /* install-components.txt */,
 				E1EC417621E425E900CD3533 /* intern.cpp */,
 				E1EC415B21E425E400CD3533 /* intern.h */,
 				E1EC427821E42B4F00CD3533 /* LexFmsLogo.cxx */,
+				E1D7001121F842EC00F92A71 /* LICENSE.TXT */,
 				E1EC417221E425E800CD3533 /* lists.cpp */,
 				E1EC415121E425E200CD3533 /* lists.h */,
 				E1EC41CF21E425FB00CD3533 /* localizednode.cpp */,
@@ -579,6 +594,7 @@
 				E1EC414321E425DF00CD3533 /* logodialogboxes.cpp */,
 				E1EC416E21E425E700CD3533 /* logoeventqueue.cpp */,
 				E1EC416621E425E600CD3533 /* logoeventqueue.h */,
+				E1D7000B21F6C5F400F92A71 /* logolib */,
 				E1EC419821E425F000CD3533 /* logomath.cpp */,
 				E1EC417E21E425EA00CD3533 /* logomath.h */,
 				E1EC411421E425D900CD3533 /* logorc.h */,
@@ -608,7 +624,10 @@
 				E1EC3FBF21E41FDD00CD3533 /* Products */,
 				E1EC419921E425F000CD3533 /* questionbox.cpp */,
 				E1EC418121E425EB00CD3533 /* questionbox.h */,
+				E1D7001421F842ED00F92A71 /* README.TXT */,
 				E1EC41B521E425F600CD3533 /* Resource.h */,
+				E1D7001221F842ED00F92A71 /* RtAudio.cpp */,
+				E1D7000D21F842A200F92A71 /* RtAudio.h */,
 				E1EC411A21E425D900CD3533 /* savebeforeexitdialog.cpp */,
 				E1EC41AC21E425F400CD3533 /* savebeforeexitdialog.h */,
 				E1EC416421E425E500CD3533 /* screen.cpp */,
@@ -765,6 +784,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D7000C21F6C5F400F92A71 /* logolib in Resources */,
+				E1D7001521F842ED00F92A71 /* LICENSE.TXT in Resources */,
 				E106E6CC21E4C20F00881E0E /* fmslogo.icns in Resources */,
 				E19F5E4321E463C6009A5F00 /* startup.logoscript in Resources */,
 				E18B2C7A21EB5EFE00E7B814 /* fmslogo-unicode.ini in Resources */,
@@ -781,6 +801,8 @@
 				E19F5E4021E45F7A009A5F00 /* localizedstrings-fr-ucs2le.h in Resources */,
 				E14F7F7C21F006F300C07415 /* install_wxwidgets_on_ubuntu.txt in Resources */,
 				E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */,
+				E1D7001821F842ED00F92A71 /* README.TXT in Resources */,
+				E1D7001721F842ED00F92A71 /* install-components.txt in Resources */,
 				E14F7F7A21F006F300C07415 /* install_wxwidgets_on_macosx.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -860,6 +882,7 @@
 				E1EC422521E425FF00CD3533 /* CUTF16FileTextStream.cpp in Sources */,
 				E14F7F7D21F006F300C07415 /* mmwind.cpp in Sources */,
 				E1EC41EF21E425FE00CD3533 /* cursor.cpp in Sources */,
+				E1D7001621F842ED00F92A71 /* RtAudio.cpp in Sources */,
 				E1EC41EA21E425FE00CD3533 /* init.cpp in Sources */,
 				E1EC41FE21E425FE00CD3533 /* CNodePrinter.cpp in Sources */,
 				E1EC41E421E425FE00CD3533 /* mainwind.cpp in Sources */,
@@ -871,6 +894,7 @@
 				E1EC41EC21E425FE00CD3533 /* setactivearea.cpp in Sources */,
 				E1EC41F121E425FE00CD3533 /* utils.cpp in Sources */,
 				E1EC423A21E425FF00CD3533 /* CTextStream.cpp in Sources */,
+				E1D7001021F842BC00F92A71 /* CCheckQueueEvent.cpp in Sources */,
 				E1EC41E521E425FE00CD3533 /* unix.cpp in Sources */,
 				E1EC420421E425FE00CD3533 /* error.cpp in Sources */,
 				E1EC41E621E425FE00CD3533 /* stringprintednode.cpp in Sources */,
