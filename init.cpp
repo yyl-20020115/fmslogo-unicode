@@ -460,9 +460,9 @@ void init()
 		{L"perspective", 0, 0, 0, PREFIX_PRIORITY, lperspective, GetResourceString(L"LOCALIZED_ALTERNATE_PERSPECTIVE") },
 		{L"pitch", 0, 0, 0, PREFIX_PRIORITY, lpitch, GetResourceString(L"LOCALIZED_ALTERNATE_PITCH") },
 		{L"pixel", 0, 0, 0, PREFIX_PRIORITY, lpixel, GetResourceString(L"LOCALIZED_ALTERNATE_PIXEL") },
-	//#if !defined WX_PURE
+	#ifdef _WINDOWS
 		{L"playwave", 2, 2, 2, PREFIX_PRIORITY, lplaywave, GetResourceString(L"LOCALIZED_ALTERNATE_PLAYWAVE") },
-	//#endif
+	#endif
 		{L"plist", 1, 1, 1, PREFIX_PRIORITY, lplist, GetResourceString(L"LOCALIZED_ALTERNATE_PLIST") },
 		{L"plists", 0, 0, 0, PREFIX_PRIORITY, lplists, GetResourceString(L"LOCALIZED_ALTERNATE_PLISTS") },
 		{L"po", 1, 1, 1, PREFIX_PRIORITY, lpo, GetResourceString(L"LOCALIZED_ALTERNATE_PO") },
@@ -580,9 +580,7 @@ void init()
 		{L"setsc", 1, 1, 1, PREFIX_PRIORITY, lsetscreencolor, GetResourceString(L"LOCALIZED_ALTERNATE_SETSC") },
 		{L"setscreencolor", 1, 1, 1, PREFIX_PRIORITY, lsetscreencolor, GetResourceString(L"LOCALIZED_ALTERNATE_SETSCREENCOLOR") },
 		{L"setscrunch", 2, 2, 2, PREFIX_PRIORITY, lsetscrunch, GetResourceString(L"LOCALIZED_ALTERNATE_SETSCRUNCH") },
-	//#if !defined WX_PURE
 		{L"settimer", 3, 3, 3, PREFIX_PRIORITY, lsettimer, GetResourceString(L"LOCALIZED_ALTERNATE_SETTIMER") },
-	//#endif
 		{L"setturtle", 1, 1, 2, PREFIX_PRIORITY, lsetturtle, GetResourceString(L"LOCALIZED_ALTERNATE_SETTURTLE") },
 		{L"setturtlemode", 1, 1, 1, PREFIX_PRIORITY, lsetturtlemode, GetResourceString(L"LOCALIZED_ALTERNATE_SETTURTLEMODE") },
 		{L"setwrite", 1, 1, 1, PREFIX_PRIORITY, lsetwrite, GetResourceString(L"LOCALIZED_ALTERNATE_SETWRITE") },
@@ -598,9 +596,9 @@ void init()
 		{L"shown?", 0, 0, 0, PREFIX_PRIORITY, lshownp, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWN_") },
 		{L"showturtle", 0, 0, 0, PREFIX_PRIORITY, lshowturtle, GetResourceString(L"LOCALIZED_ALTERNATE_SHOWTURTLE") },
 		{L"sin", 1, 1, 1, PREFIX_PRIORITY, lsin, GetResourceString(L"LOCALIZED_ALTERNATE_SIN") },
-	//#if !defined WX_PURE
+#ifdef _WINDOWS
 		{L"sound", 1, 1, 1, PREFIX_PRIORITY, lsound, GetResourceString(L"LOCALIZED_ALTERNATE_SOUND") },
-	//#endif
+#endif
 		{L"splitscreen", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SPLITSCREEN") },
 		{L"sqrt", 1, 1, 1, PREFIX_PRIORITY, lsqrt, GetResourceString(L"LOCALIZED_ALTERNATE_SQRT") },
 		{L"ss", 0, 0, 0, PREFIX_PRIORITY, lsplitscreen, GetResourceString(L"LOCALIZED_ALTERNATE_SS") },

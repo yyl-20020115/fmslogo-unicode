@@ -79,6 +79,4 @@ typedef struct WAVContainer {
     
 int WAV_ReadHeader(FILE* fd, WAVContainer_t *container); 
     
-int WAV_WriteHeader(FILE* fd, WAVContainer_t *container); 
-    
 #endif /* #ifndef __WAV_PARSER_H */ 

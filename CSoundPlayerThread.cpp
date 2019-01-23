@@ -66,11 +66,11 @@ void CSoundPlayerThread::stopAsync(){
 
 int CSoundPlayerThread::OnCallback(void* outputBuffer, void* inputBuffer, unsigned int nFrames, double streamTime, RtAudioStreamStatus status)
 {
-    if (outputBuffer!=0 && written < count && !isStopping) 
+    if (outputBuffer!=0 && !isStopping) 
     { 
         size_t total = this->sampleByes*nFrames;
         size_t ret = fread(outputBuffer,1,total,this->fd);
-        written += nFrames;
+
         if(ret == total)
         {
             return 0;

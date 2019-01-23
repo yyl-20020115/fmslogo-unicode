@@ -92,34 +92,24 @@ int WAV_ReadHeader(FILE* fd, WAVContainer_t *container)
 {
     assert((fd !=0) && container);
 
-    if (fread(&container->header,sizeof(container->header),1,fd)!=sizeof(container->header)
-            ||fread(&container->format,sizeof(container->format),1,fd)!=sizeof(container->format)
-            ||fread(&container->chunk,sizeof(container->chunk),1,fd)!=sizeof(container->chunk)) {
+    size_t ret = fread(&container->header,1, sizeof(container->header),fd);
+    
+    if (ret ==sizeof(container->header))
+    {
+        ret = fread(&container->format,1, sizeof(container->format),fd);
+        if(ret ==sizeof(container->format))
+        {
+            ret = fread(&container->chunk,1, sizeof(container->chunk),fd);
+            if(ret == sizeof(container->chunk))
+            {
+                if (WAV_P_CheckValid(container) >=0)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
 
         //fprintf(stderr, "Error WAV_ReadHeader/n");
-        return -1;
-    }
-
-    if (WAV_P_CheckValid(container) < 0)
-        return -1;
-
-
-    return 0;
-}
-
-int WAV_WriteHeader(FILE* fd, WAVContainer_t *container)
-{
-    assert((fd !=0) && container);
-
-    if (WAV_P_CheckValid(container) < 0)
-        return -1;
-
-    if (fwrite(&container->header,sizeof(container->header),1,fd)!=sizeof(container->header)
-            ||fwrite(&container->format,sizeof(container->format),1,fd)!=sizeof(container->format)
-            ||fwrite(&container->chunk,sizeof(container->chunk),1,fd)!=sizeof(container->chunk)) {
-        //fprintf(stderr, "Error WAV_WriteHeader/n");
-        return -1;
-    }
-
-    return 0;
+    return -1;
 }
