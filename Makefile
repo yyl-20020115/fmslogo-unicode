@@ -122,6 +122,7 @@ workspaceeditor.o \
 wrksp.o \
 sound.o \
 wav_parser.o \
+CCheckQueueEvent.o \
 RtAudio.o \
 CNodePrinter.o \
 CUThread.o \
