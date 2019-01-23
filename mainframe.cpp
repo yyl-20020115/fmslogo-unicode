@@ -2462,13 +2462,14 @@ void CMainFrame::OnAboutMultipleSclerosis(wxCommandEvent& WXUNUSED(Event))
 void
 CMainFrame::PostCheckQueueMessage()
 {
-#ifndef WX_PURE
-    PostMessage(
-        static_cast<HWND>(GetHandle()),
-        WM_CHECKQUEUE,
-        0,
-        0);
-#endif
+//#ifndef WX_PURE
+//    PostMessage(
+//        static_cast<HWND>(GetHandle()),
+//        WM_CHECKQUEUE,
+//        0,
+//        0);
+//#endif
+	wxQueueEvent(this, new CCheckQueueEvent(WM_CHECKQUEUE));
 }
 
 #ifndef WX_PURE
@@ -2483,20 +2484,20 @@ CMainFrame::MSWWindowProc(
     switch (Message)
     {
     case WM_TIMER:
-        if (WParam < 16)
-        {
-            // not safe to yield
-            callthing * callevent = callthing::CreateNoYieldFunctionEvent(timer_callback[WParam]);
-            calllists.insert(callevent);
-            PostCheckQueueMessage();
-        }
-        else if (WParam < 32)
-        {
-            // yieldable
-            callthing * callevent = callthing::CreateFunctionEvent(timer_callback[WParam]);
-            calllists.insert(callevent);
-            PostCheckQueueMessage();
-        }
+        //if (WParam < 16)
+        //{
+        //    // not safe to yield
+        //    callthing * callevent = callthing::CreateNoYieldFunctionEvent(timer_callback[WParam]);
+        //    calllists.insert(callevent);
+        //    PostCheckQueueMessage();
+        //}
+        //else if (WParam < 32)
+        //{
+        //    // yieldable
+        //    callthing * callevent = callthing::CreateFunctionEvent(timer_callback[WParam]);
+        //    calllists.insert(callevent);
+        //    PostCheckQueueMessage();
+        //}
         break;
 
     case WM_CHECKQUEUE:

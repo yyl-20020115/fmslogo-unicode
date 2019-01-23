@@ -308,8 +308,6 @@ bool CFmsLogo::OnInit()
 	init_videomode();
 
 	srand(time(NULL));
-
-    init_timers();
     
 	// alloc and init the bitmap cut array
 	init_bitmaps();
@@ -428,6 +426,7 @@ bool CFmsLogo::OnInit()
 		wxPoint(x, y),
 		wxSize(w, h),
 		startMaximized);
+	init_timers();
 
 	frame->Show();
 

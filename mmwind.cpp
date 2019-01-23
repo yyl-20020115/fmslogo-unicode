@@ -22,9 +22,6 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
 #include <wx/string.h>
-#ifdef _WINDOWS
-#include <windows.h>
-#endif
 #include "mmwind.h"
 #include "argumentutils.h"
 #include "stringprintednode.h"
@@ -46,41 +43,58 @@
 #include "devwind.h"
 
 #include "localizedstrings.h"
-
-#ifndef _WINDOWS
-#include <stdio.h>
-#include <signal.h>
-#include <sys/time.h>
-#include <wx/event.h>
 #include <wx/timer.h>
-#endif
+#include <wx/event.h>
+#include <wx/app.h>
+#include <wx/window.h>
+#include "CCheckQueueEvent.h"
+#include "logoeventqueue.h"
 
+class UCTimer : public wxTimer
+{
+public:
+	UCTimer():wxTimer(),callback(){}
+	~UCTimer() {
+		this->StopAndClear();
+	}
+	virtual void Notify() {
+		if (this->GetId() < 16)
+		{
+			// not safe to yield
+			callthing * callevent = callthing::CreateNoYieldFunctionEvent(this->GetCallBack());
+			calllists.insert(callevent);
+			this->PostCheckQueueMessage();
+		}
+		else if (this->GetId() < 32)
+		{
+			// yieldable
+			callthing * callevent = callthing::CreateFunctionEvent(this->GetCallBack());
+			calllists.insert(callevent);
+			this->PostCheckQueueMessage();
+		}
+	}
+	virtual void StopAndClear() {
+		this->Stop();
+		this->callback.clear();
+	}
+	virtual const wxString& GetCallBack() {
+		return this->callback;
+	}
+	virtual void SetCallBack(const wxString& callback) {
+		this->callback = callback;
+	}
+protected:
+	virtual void PostCheckQueueMessage() {
+		wxQueueEvent(this->GetOwner(), new CCheckQueueEvent(WM_CHECKQUEUE));
+	}
+protected:
+	wxString callback;
+};
 
 // global variables
 wxString mci_callback;    // MCI callback code
-wxString timer_callback[MAX_TIMERS];      // timer cb malloc'd as needed
-int timer_intervals[MAX_TIMERS] = { 0 };
-int timer_currents[MAX_TIMERS] = { 0 };
 
-#ifndef _WINDOWS
-void SIGALRM_Handler(int signo)
-{
-	if (signo == SIGALRM)
-	{
-		for (int i = 0; i < MAX_TIMERS; i++) {
-
-			if (timer_currents[i] == 0) {
-				//wxQueueEvent(wxTheApp->GetTopWindow(),new std::wxTimerEvent());
-				//Call Timer's call back
-				timer_currents[i] = timer_intervals[i];
-			}
-			if (timer_currents[i] > 0) {
-				timer_currents[i] --;
-			}
-		}
-	}
-}
-#endif
+UCTimer* timers[MAX_TIMERS] = { 0 };
 
 #ifdef _WINDOWS
 static HMIDIOUT hMidiOut = 0;
@@ -89,7 +103,7 @@ static HMIDIOUT hMidiOut = 0;
 bool IsAnyTimerActive()
 {
 	for (size_t i = 0; i < MAX_TIMERS; i++) {
-		if (timer_callback[i].length() > 0) {
+		if (timers[i]!= 0 && timers[i]->IsRunning()) {
 			return true;
 		}
 	}
@@ -144,9 +158,7 @@ NODE *lsound(NODE *arg)
 	return Unbound;
 }
 
-static
-void
-ThrowGeneralMidiError(
+static void ThrowGeneralMidiError(
 	unsigned int MidiError
 )
 {
@@ -386,17 +398,14 @@ NODE *lsettimer(NODE *args)
 
 	if (NOT_THROWING)
 	{
-		timer_callback[id] = callback;
-#ifdef _WINDOWS
+		timers[id]->SetCallBack(callback);
+
 		// if not set sucessfully error
-		if (!::SetTimer(GetMainWindow(), id, delay, NULL))
+		if (!timers[id]->Start(delay,false))
 		{
 			err_logo(OUT_OF_MEM, NIL);
 			return Unbound;
 		}
-#else
-		timer_currents[id] = timer_intervals[id] = delay;
-#endif
 	}
 	return Unbound;
 }
@@ -409,73 +418,69 @@ NODE *lcleartimer(NODE *args)
 	{
 		return Unbound;
 	}
-	timer_callback[id].clear();
-#ifdef _WINDOWS
 	// if timer was not set let user know
-	if (!::KillTimer(GetMainWindow(), id))
+	if (!timers[id]->IsRunning())
 	{
 		err_logo(TIMER_NOT_FOUND, NIL);
 		return Unbound;
 	}
+	else 
+	{
+		timers[id]->StopAndClear();
+	}
 
-#else
-	timer_intervals[id] = 0;
-	timer_currents[id] = 0;
-#endif
 	return Unbound;
 }
 
 void init_timers()
 {
-	for (size_t i = 0; i < MAX_TIMERS; i++)
+	for (int i = 0; i < MAX_TIMERS; i++)
 	{
-		timer_intervals[i] = 0;
-		timer_currents[i] = 0;
-		timer_callback[i].clear();
+		if (timers[i] != 0)
+		{
+			timers[i]->Stop();
+			delete timers[i];
+		}
+		timers[i] = new UCTimer();
+		if (timers[i] != 0) {
+			timers[i]->SetOwner(wxTheApp->GetTopWindow(), i);
+		}
 	}
-#ifndef _WINDOWS
-	signal(SIGALRM, SIGALRM_Handler);
-
-	struct itimerval new_value, old_value;
-	new_value.it_value.tv_sec = 0;
-	new_value.it_value.tv_usec = 1;
-	new_value.it_interval.tv_sec = 0;
-	new_value.it_interval.tv_usec = 1000;
-	setitimer(ITIMER_REAL, &new_value, &old_value);
-#endif
 }
 
 void halt_all_timers()
 {
 	//NOTICE: i was from 1
-	for (size_t id = 0; id < MAX_TIMERS; id++)
+	for (int i = 0; i < MAX_TIMERS; i++)
 	{
-#ifdef _WINDOWS
-		::KillTimer(GetMainWindow(), id);
-#else
-		timer_intervals[id] = 0;
-		timer_currents[id] = 0;
-#endif
+		if (timers[i] != 0)
+		{
+			timers[i]->Stop();
+		}
 	}
 }
 void clear_all_timers()
 {
 	//NOTICE: i was from 1
-	for (size_t id = 0; id < MAX_TIMERS; id++)
+	for (int i = 0; i < MAX_TIMERS; i++)
 	{
-#ifdef _WINDOWS
-		//GetMainWindow() would return 0 during uninitializing.
-		//::KillTimer(GetMainWindow(), id);
-#else
-		timer_intervals[id] = 0;
-		timer_currents[id] = 0;
-#endif
-		timer_callback[id].clear();
-}
+		if (timers[i] != 0) 
+		{
+			timers[i]->StopAndClear();
+		}
+	}
 }
 void uninitialize_timers()
 {
 	clear_all_timers();
+	for (int i = 0; i < MAX_TIMERS; i++)
+	{
+		if (timers[i] != 0)
+		{
+			delete timers[i];
+			timers[i] = 0;
+		}
+	}
 }
 
 NODE *lplaywave(NODE *args)

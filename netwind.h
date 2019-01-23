@@ -19,7 +19,7 @@
 #ifndef __NETWND_H_
 #define __NETWND_H_
 #include <wx/socket.h>
-#include <wx/event.h>
+
 #ifdef _WINDOWS
 #include <windows.h>
 #include <winsock.h>
@@ -50,18 +50,8 @@
 
 #endif
 
-#define EVT_SOCKET_SERVER_ACCEPT	8192
-#define EVT_SOCKET_SERVER_INPUT		8193
-#define EVT_SOCKET_CLIENT			8194
-
 struct NODE;
 
-class CNetworkConnectionEvent :public wxEvent
-{
-public:
-	CNetworkConnectionEvent(int winid = 0, wxEventType commandType = wxEVT_NULL);
-	virtual wxEvent *Clone() const;
-};
 // Abstract base class for network connections
 class CNetworkConnection 
 {

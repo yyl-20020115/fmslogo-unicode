@@ -4,6 +4,7 @@
 
 #include "logocore.h" // for MAX_BUFFER_SIZE
 #include "devwind.h"
+#include "CCheckQueueEvent.h"
 class CMainFrame;
 class wxFileName;
 struct NODE;

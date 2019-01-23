@@ -387,6 +387,9 @@
     <ClInclude Include="RtAudio.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="CCheckQueueEvent.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -666,6 +669,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="sound.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CCheckQueueEvent.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -56,15 +56,7 @@ CServerNetworkConnection g_ServerConnection;
 static int network_dns_sync = 0;
 
 static bool network_is_started = false;
-CNetworkConnectionEvent::CNetworkConnectionEvent(int winid, wxEventType commandType)
-	:wxEvent(winid, commandType)
-{
-}
 
-wxEvent * CNetworkConnectionEvent::Clone() const
-{
-	return new CNetworkConnectionEvent(this->GetId());
-}
 /////////////////////////////////////////////////////////////////////////////////////
 // Helper Functions
 
@@ -478,7 +470,7 @@ void CNetworkConnection::PostCheckQueue()
 //#ifdef _WINDOWS
 //    PostMessage(GetMainWindow(), WM_CHECKQUEUE, 0, 0);
 //#endif
-	wxQueueEvent(wxTheApp->GetTopWindow(), new CNetworkConnectionEvent(WM_CHECKQUEUE));
+	wxQueueEvent(wxTheApp->GetTopWindow(), new CCheckQueueEvent(WM_CHECKQUEUE));
 }
 
 void CNetworkConnection::Shutdown()

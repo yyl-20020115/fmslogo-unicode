@@ -298,6 +298,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="term.h" />
     <ClInclude Include="threed.h" />
+    <ClInclude Include="CCheckQueueEvent.h" />
     <ClInclude Include="unix.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector.h" />
@@ -399,6 +400,7 @@
     <ClCompile Include="stringprintednode.cpp" />
     <ClCompile Include="term.cpp" />
     <ClCompile Include="threed.cpp" />
+    <ClCompile Include="CCheckQueueEvent.cpp" />
     <ClCompile Include="unix.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vector.cpp" />
