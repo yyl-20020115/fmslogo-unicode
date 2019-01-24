@@ -460,9 +460,9 @@ void init()
 		{L"perspective", 0, 0, 0, PREFIX_PRIORITY, lperspective, GetResourceString(L"LOCALIZED_ALTERNATE_PERSPECTIVE") },
 		{L"pitch", 0, 0, 0, PREFIX_PRIORITY, lpitch, GetResourceString(L"LOCALIZED_ALTERNATE_PITCH") },
 		{L"pixel", 0, 0, 0, PREFIX_PRIORITY, lpixel, GetResourceString(L"LOCALIZED_ALTERNATE_PIXEL") },
-	#ifdef _WINDOWS
+	//#ifdef _WINDOWS
 		{L"playwave", 2, 2, 2, PREFIX_PRIORITY, lplaywave, GetResourceString(L"LOCALIZED_ALTERNATE_PLAYWAVE") },
-	#endif
+	//#endif
 		{L"plist", 1, 1, 1, PREFIX_PRIORITY, lplist, GetResourceString(L"LOCALIZED_ALTERNATE_PLIST") },
 		{L"plists", 0, 0, 0, PREFIX_PRIORITY, lplists, GetResourceString(L"LOCALIZED_ALTERNATE_PLISTS") },
 		{L"po", 1, 1, 1, PREFIX_PRIORITY, lpo, GetResourceString(L"LOCALIZED_ALTERNATE_PO") },

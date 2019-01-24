@@ -181,7 +181,7 @@ int CSoundPlayerThread::play()
         
         rt.closeStream();
     }
-    catch(RtAudio rte)
+    catch(RtAudioError rte)
     {
             //Exception occurred
         fclose(fd);
