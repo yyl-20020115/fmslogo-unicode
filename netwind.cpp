@@ -415,9 +415,7 @@ void CNetworkConnection::AsyncReceive()
 			// We have some data left from the last time we were called.
 			// Append this buffer to the end of the network receive buffer. 
 
-			// TODO: Don't Append the data to the carry-over buffer if there is none.
-			//       We should be able to use buffer, instead.
-			m_CarryOverData.Append(buffer, status);
+			m_CarryOverData.Append(buffer, ws->LastReadCount());
 
 			// now queue up a separate message for each packet
 			size_t begin = 0;
