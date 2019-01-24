@@ -90,10 +90,10 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
     }catch(RtAudioError rte)
     {
         //error occurred, maybe
-        return -1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 #ifndef _WINDOWS
 #include "CSoundPlayerThread.h"
