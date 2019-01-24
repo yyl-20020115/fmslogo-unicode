@@ -18,8 +18,9 @@ int CSoundPlayerThread::CSoundPlayerThread::PlayerCallback(
 }
 
 
-CSoundPlayerThread::CSoundPlayerThread()
-    :filename()
+CSoundPlayerThread::CSoundPlayerThread(RtAudio* device)
+    :device(device)
+    ,filename()
     ,loop()
     ,isPlaying(false)
     ,isStopping(false)
@@ -28,6 +29,8 @@ CSoundPlayerThread::CSoundPlayerThread()
     ,count(0)
     ,sampleByes(1)
 {
+    if(device == 0)
+        throw RtAudioError("null device pointer");
 }
 CSoundPlayerThread::~CSoundPlayerThread()
 {
@@ -87,6 +90,8 @@ int CSoundPlayerThread::OnCallback(void* outputBuffer, void* inputBuffer, unsign
 
 int CSoundPlayerThread::play()
 {
+    if(this->device == 0) return FALSE;
+    
     WAVContainer_t wav = {{0}}; 
 
     FILE* fd = fopen(filename, "rb"); 
@@ -150,16 +155,15 @@ int CSoundPlayerThread::play()
         return FALSE;
     }
     
-    RtAudio rt;
 
     RtAudio::StreamParameters sp;
-    sp.deviceId  = rt.getDefaultOutputDevice();
+    sp.deviceId  = this->device->getDefaultOutputDevice();
     sp.firstChannel = 0;
     sp.nChannels =wav.format.channels;
     try{
         unsigned int _sps = 0;
         
-        rt.openStream(&sp,0,rtf,wav.format.sample_rate,&_sps,PlayerCallback);
+        this->device->openStream(&sp,0,rtf,wav.format.sample_rate,&_sps,PlayerCallback);
 
         while(this->loop && !this->isStopping)
         {
@@ -168,10 +172,10 @@ int CSoundPlayerThread::play()
             this->written = 0;
             this->count = LE_INT(wav.chunk.length);
 
-            if(rt.isStreamOpen()){
-                rt.startStream();
+            if(this->device->isStreamOpen()){
+                this->device->startStream();
                 this->isPlaying = true;
-                while(rt.isStreamRunning())
+                while(this->device->isStreamRunning())
                 {
                     wxMicroSleep(1000);
                 }
@@ -179,7 +183,7 @@ int CSoundPlayerThread::play()
             }
         }
         
-        rt.closeStream();
+        this->device->closeStream();
     }
     catch(RtAudioError rte)
     {

@@ -97,7 +97,7 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 #ifndef _WINDOWS
 #include "CSoundPlayerThread.h"
 
-CSoundPlayerThread Player;
+CSoundPlayerThread Player(&RtAudioDevice);
 
 int sndPlaySound(const wchar_t* lpszSound, unsigned int fuSound)
 {

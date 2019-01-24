@@ -15,7 +15,7 @@ protected:
                                 RtAudioStreamStatus status,
                                 void *userData );
 public:
-    CSoundPlayerThread();
+    CSoundPlayerThread(RtAudio* device);
     ~CSoundPlayerThread();
     
 public:
@@ -31,6 +31,8 @@ public:
 public:
     bool getIsPlaying();
     
+    RtAudio* GetDevice(){return this->device;}
+    
 protected:
 
     virtual int OnCallback( void *outputBuffer, void *inputBuffer,
@@ -39,7 +41,7 @@ protected:
                                 RtAudioStreamStatus status);
 
 protected:
-    
+    RtAudio* device;
     wxString filename;
     bool loop;    
     bool isPlaying;
