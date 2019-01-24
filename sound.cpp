@@ -29,6 +29,7 @@ double _volumeRate = 0.5;
 double _angle = 0;
 double _delta_angle = 0.0;
 
+RtAudio RtAudioDevice;
 
 int tone_callback( void *outputBuffer, void *inputBuffer,
                                 unsigned int nFrames,
@@ -65,11 +66,9 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
     _pt = 0;
     _duration = duration;
     _volumeRate = volumeRate;
-    
-    RtAudio rt;
-    
+       
     RtAudio::StreamParameters sp;
-    sp.deviceId  = rt.getDefaultOutputDevice();
+    sp.deviceId  = RtAudioDevice.getDefaultOutputDevice();
     sp.firstChannel = 0;
     sp.nChannels = 1;
 
@@ -77,15 +76,15 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 
     _delta_angle = frequency * 2.0 * PI/(1000.0 / _invfactor)/ _sps;
     try{
-        rt.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
-        if(rt.isStreamOpen()){
-            rt.startStream();
-            while(rt.isStreamRunning())
+        RtAudioDevice.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
+        if(RtAudioDevice.isStreamOpen()){
+            RtAudioDevice.startStream();
+            while(RtAudioDevice.isStreamRunning())
             {
                 wxMicroSleep(1000);
             }
 
-            rt.closeStream();
+            RtAudioDevice.closeStream();
         }
     }catch(RtAudioError rte)
     {

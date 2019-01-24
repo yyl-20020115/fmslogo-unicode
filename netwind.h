@@ -57,7 +57,7 @@ class CNetworkConnection
 {
 public:
     bool IsEnabled() const;
-    void Disable();
+    virtual void Disable();
 
     NODE * GetLastPacketReceived() const;
     void SetLastPacketReceived(const wxString& LastPacket);
@@ -152,14 +152,15 @@ public:
 	~CServerNetworkConnection();
 public:
     void Enable(
-        const wchar_t *    OnSendReady,
-        const wchar_t *    OnReceiveReady,
+		const wxString&     OnSendReady,
+		const wxString&     OnReceiveReady,
         unsigned int    ServerPort
         );
-	
+	virtual void Disable();
+
     int OnAccept(wxEvtHandler& handler, wxSocketEvent & event);
 	int OnInputOutput(wxEvtHandler& handler, wxSocketEvent & event);
-
+	
 protected:
 	virtual wxSocketBase* GetWorkerSocket();
 

@@ -519,18 +519,6 @@ void CClientNetworkConnection::Enable(
     {
 		this->m_Socket = new wxSocketClient();
 
-		if (this->m_Socket != 0) 
-		{
-			// get sockets
-			if (!this->m_Socket->Ok())
-			{
-				this->m_Socket->Destroy();
-				this->m_Socket = 0;
-				ShowMessageAndStop(L"socket()", GetLastErrorString(this->m_Socket->LastError()));
-				return;
-			}
-		}
-
 		wxIPV4address addr;
 		if (!addr.Hostname(RemoteHostName))
 		{
@@ -641,8 +629,8 @@ CServerNetworkConnection::~CServerNetworkConnection()
 }
 
 void CServerNetworkConnection::Enable(
-    const wchar_t *    OnSendReady,
-    const wchar_t *    OnReceiveReady,
+	const wxString&     OnSendReady,
+	const wxString&     OnReceiveReady,
     unsigned int    ServerPort
     )
 {
@@ -676,6 +664,17 @@ void CServerNetworkConnection::Enable(
 		this->PostOnSendReadyEvent();
 
     }
+}
+
+void CServerNetworkConnection::Disable()
+{
+	if (this->IsEnabled()) {
+		if (this->m_Worker != 0) {
+			this->m_Worker->Destroy();
+			this->m_Worker = 0;
+		}
+	}
+	CNetworkConnection::Disable();
 }
 
 // Call this to handle a WM_NETWORK_LISTENRECEIVEACK message.
