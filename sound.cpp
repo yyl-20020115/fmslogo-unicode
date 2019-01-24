@@ -76,16 +76,21 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
     _sps = (sampleRate/(1000.0/ _invfactor));
 
     _delta_angle = frequency * 2.0 * PI/(1000.0 / _invfactor)/ _sps;
-    
-    rt.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
-    if(rt.isStreamOpen()){
-        rt.startStream();
-        while(rt.isStreamRunning())
-        {
-            wxMicroSleep(1000);
-        }
+    try{
+        rt.openStream(&sp,0,RTAUDIO_SINT16,sampleRate,&_sps,tone_callback);
+        if(rt.isStreamOpen()){
+            rt.startStream();
+            while(rt.isStreamRunning())
+            {
+                wxMicroSleep(1000);
+            }
 
-        rt.closeStream();
+            rt.closeStream();
+        }
+    }catch(RtAudioError rte)
+    {
+        //error occurred, maybe
+        return -1;
     }
 
     return 0;

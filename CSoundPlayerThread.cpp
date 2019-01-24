@@ -31,6 +31,7 @@ CSoundPlayerThread::CSoundPlayerThread()
 }
 CSoundPlayerThread::~CSoundPlayerThread()
 {
+    this->stopAsync();
 }
 
 void CSoundPlayerThread::Init(const wxString& filename, bool loop)
@@ -149,38 +150,43 @@ int CSoundPlayerThread::play()
         return FALSE;
     }
     
-    
     RtAudio rt;
 
     RtAudio::StreamParameters sp;
     sp.deviceId  = rt.getDefaultOutputDevice();
     sp.firstChannel = 0;
     sp.nChannels =wav.format.channels;
-  
-    unsigned int _sps = 0;
-    
-    rt.openStream(&sp,0,rtf,wav.format.sample_rate,&_sps,PlayerCallback);
+    try{
+        unsigned int _sps = 0;
+        
+        rt.openStream(&sp,0,rtf,wav.format.sample_rate,&_sps,PlayerCallback);
 
-    while(this->loop && !this->isStopping)
-    {    
-        fseek(fd,sizeof(WAVContainer_t),SEEK_SET);
+        while(this->loop && !this->isStopping)
+        {
+            fseek(fd,sizeof(WAVContainer_t),SEEK_SET);
 
-        this->written = 0; 
-        this->count = LE_INT(wav.chunk.length); 
+            this->written = 0;
+            this->count = LE_INT(wav.chunk.length);
 
-        if(rt.isStreamOpen()){
-            rt.startStream();
-            this->isPlaying = true;
-            while(rt.isStreamRunning())
-            {
-                wxMicroSleep(1000);
+            if(rt.isStreamOpen()){
+                rt.startStream();
+                this->isPlaying = true;
+                while(rt.isStreamRunning())
+                {
+                    wxMicroSleep(1000);
+                }
+                this->isPlaying = false;
             }
-            this->isPlaying = false;
         }
+        
+        rt.closeStream();
     }
-    
-    rt.closeStream();
-
+    catch(RtAudio rte)
+    {
+            //Exception occurred
+        fclose(fd);
+        return FALSE;
+    }
     fclose(fd); 
 
     return TRUE; 
