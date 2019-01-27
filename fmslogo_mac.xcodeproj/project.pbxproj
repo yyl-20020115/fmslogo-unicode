@@ -135,7 +135,6 @@
 		E1EC425B21E4284200CD3533 /* libwx_osx_cocoau_richtext-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424621E4284100CD3533 /* libwx_osx_cocoau_richtext-3.1.a */; };
 		E1EC425C21E4284200CD3533 /* libwx_osx_cocoau_stc-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424721E4284100CD3533 /* libwx_osx_cocoau_stc-3.1.a */; };
 		E1EC425D21E4284200CD3533 /* libwx_osx_cocoau_adv-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424821E4284100CD3533 /* libwx_osx_cocoau_adv-3.1.a */; };
-		E1EC425E21E4284200CD3533 /* libwxtiff-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424921E4284100CD3533 /* libwxtiff-3.1.a */; };
 		E1EC425F21E4284200CD3533 /* libwx_osx_cocoau_core-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424A21E4284200CD3533 /* libwx_osx_cocoau_core-3.1.a */; };
 		E1EC426021E4284200CD3533 /* libwx_osx_cocoau_media-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424B21E4284200CD3533 /* libwx_osx_cocoau_media-3.1.a */; };
 		E1EC426121E4284200CD3533 /* libwx_osx_cocoau_html-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EC424C21E4284200CD3533 /* libwx_osx_cocoau_html-3.1.a */; };
@@ -436,7 +435,6 @@
 				E1EC425B21E4284200CD3533 /* libwx_osx_cocoau_richtext-3.1.a in Frameworks */,
 				E1EC425C21E4284200CD3533 /* libwx_osx_cocoau_stc-3.1.a in Frameworks */,
 				E1EC425D21E4284200CD3533 /* libwx_osx_cocoau_adv-3.1.a in Frameworks */,
-				E1EC425E21E4284200CD3533 /* libwxtiff-3.1.a in Frameworks */,
 				E1EC425F21E4284200CD3533 /* libwx_osx_cocoau_core-3.1.a in Frameworks */,
 				E1EC426021E4284200CD3533 /* libwx_osx_cocoau_media-3.1.a in Frameworks */,
 				E1EC426121E4284200CD3533 /* libwx_osx_cocoau_html-3.1.a in Frameworks */,
