@@ -474,8 +474,10 @@ NODE *ltime(NODE *)
 /* LOGO time */
 NODE *ltimemilli(NODE *)
 {
-    FIXNUM timeInMilliseconds;
-#ifdef WX_PURE
+    FIXNUM timeInMilliseconds = 0;
+#ifdef _WINDOWS
+    timeInMilliseconds = GetTickCount();
+#else
     // TIMEMILLI is defined to output the number of milliseconds which
     // have elapsed since Windows started (that is, ::GetTickCount()).
     // This is difficult on a GNU/Linux system and not worth the
@@ -488,8 +490,6 @@ NODE *ltimemilli(NODE *)
     // similar to a wrap-around, assuming that the system started
     // at the last wrap-around.
     timeInMilliseconds = utcTimeMilliAtStartup.GetLo();
-#else
-    timeInMilliseconds = GetTickCount();
 #endif
     return make_intnode(timeInMilliseconds);
 }
@@ -525,29 +525,27 @@ NODE *lwait(NODE *args)
 
 NODE *lshell(NODE *args)
 {
-#ifdef WX_PURE
-    bool isOk = false;
-#else
-    CStringPrintedNode shellCommand(car(args));
+  bool isOk = false;
+#ifdef _WINDOWS
+  CStringPrintedNode shellCommand(car(args));
 
-    bool waitForChildProcess;
-    if (cdr(args) != NIL)
-    {
-        // a second input was given
-        waitForChildProcess = boolean_arg(cdr(args));
-    }
-    else
-    {
-        // no second input was given
-        waitForChildProcess = false;
-    }
+  bool waitForChildProcess=false;
+  if (cdr(args) != NIL)
+  {
+      // a second input was given
+      waitForChildProcess = boolean_arg(cdr(args));
+  }
+  else
+  {
+      // no second input was given
+      waitForChildProcess = false;
+  }
 
-    if (stopping_flag == THROWING)
-    {
-        // we were passed invalid arguments
-        return Unbound;
-    }
-	BOOL isOk = false;
+  if (stopping_flag == THROWING)
+  {
+      // we were passed invalid arguments
+      return Unbound;
+  }
 	STARTUPINFO         startupInfo = { 0 };
 	PROCESS_INFORMATION processInfo = { 0 };
 
@@ -555,10 +553,9 @@ NODE *lshell(NODE *args)
 
 	wchar_t* shellBuffer = (wchar_t*)malloc(sizeof(wchar_t)*(content.length() + 1));
 	if (shellBuffer != 0) {
-		wcsncpy(shellBuffer, content, content.length() + 1);
+    wcsncpy(shellBuffer, content, content.length() + 1);
 
-
-		 isOk = CreateProcess(
+    isOk = CreateProcess(
 			NULL,
 			shellBuffer,
 			NULL,  // process security attribute
@@ -568,7 +565,7 @@ NODE *lshell(NODE *args)
 			NULL,  // use FMSLogo's environment
 			NULL,  // use FMSLogo's current working directory
 			&startupInfo,
-			&processInfo);
+			&processInfo)!=0;
 		if (isOk)
 		{
 			if (waitForChildProcess)

@@ -22,6 +22,8 @@
 #ifndef USE_PRECOMPILED_HEADER
     #ifndef WX_PURE
       #include <windows.h>
+    #else
+      #include <sys/stat.h>
     #endif
 
     #include <stdio.h>
@@ -124,16 +126,13 @@ int printfx(const wxString& fmt, const wxString& str)
 NODE *lchdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
-
+    wxString dn = (const wxString&)directoryName;
     if (
-#ifdef _WINDOWS
-        _wchdir((const wxString&)directoryName)
-#else
-        chdir((const char*)(const wxString&)directoryName)
-#endif
-    )
+
+        chdir((const char*)dn)
+        )
     {
-        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), (const wxString&)directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), dn);
     }
     else
     {
@@ -145,7 +144,7 @@ NODE *lchdir(NODE *arg)
 		char newDirectoryName[MAX_BUFFER_SIZE + 1]={ 0 };
 		getcwd(newDirectoryName, sizeof(newDirectoryName) / sizeof(char));
 #endif
-        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), (const wxString&)(newDirectoryName));
+        printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRSUCCEEDED"), dn);
     }
 
     return Unbound;
@@ -173,20 +172,24 @@ NODE *lpopdir(NODE *)
 NODE *lmkdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
-
-#ifndef WX_PURE
-    if (_wmkdir((const wxString&)directoryName))
+    const wxString dn = (const wxString&)directoryName;
+    if (
+#ifdef _WINDOWS
+        mkdir((const char*)dn
+#else
+        mkdir((const char*)dn,0777)
+#endif
+        )
     {
         // mkdir returns -1 on error
-        printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRFAILED"), (const wxString&)directoryName);
+        printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRFAILED"), dn);
     }
     else
     {
         // mkdir returns 0 on success
-		_wchdir((const wxString&)directoryName);
-		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), (const wxString&)directoryName);
+		chdir((const char*)dn);
+		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), dn);
     }
-#endif
 
     return Unbound;
 }
@@ -194,15 +197,8 @@ NODE *lmkdir(NODE *arg)
 NODE *lrmdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
-
-    if (
-#ifdef _WINDOWS
-        _wrmdir((const wxString&)directoryName)
-#else
-        rmdir((const char*)(const wxString&)directoryName)
-#endif
-        
-    )
+    wxString dn = (const wxString&)directoryName;
+    if (rmdir((const char*)dn))
     {
         printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), (const wxString&)directoryName);
         if (errno == EEXIST)

@@ -478,13 +478,13 @@ void CCommander::OnEnter(wxCommandEvent & Event)
 {
     if (is_executing())
     {
-#ifndef WX_PURE
+#ifdef _WINDOWS
         // For compatibility with MSWLogo, simply beep if Logo is currently
         // running when the user presses Enter.  It might be preferable to
         // run the command anyway, but that was too significant a change for
         // a micro release.
         MessageBeep(MB_OK);
-#endif // WX_PURE
+#endif
     }
     else
     {

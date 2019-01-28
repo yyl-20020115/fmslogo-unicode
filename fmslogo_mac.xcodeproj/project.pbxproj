@@ -160,7 +160,6 @@
 		E14F7F7621F006F200C07415 /* install_wxwidgets_on_macosx.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_macosx.txt; sourceTree = "<group>"; };
 		E14F7F7821F006F300C07415 /* install_wxwidgets_on_ubuntu.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install_wxwidgets_on_ubuntu.txt; sourceTree = "<group>"; };
 		E14F7F7921F006F300C07415 /* mmwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mmwind.cpp; sourceTree = "<group>"; };
-		E14F7F7E21F05B2000C07415 /* dib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dib.h; sourceTree = "<group>"; };
 		E14F7F7F21F05B3A00C07415 /* dllwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dllwind.h; sourceTree = "<group>"; };
 		E14F7F8021F05B6300C07415 /* netwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = netwind.h; sourceTree = "<group>"; };
 		E14F7F8121F05B6F00C07415 /* netwind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = netwind.cpp; sourceTree = "<group>"; };
@@ -512,7 +511,6 @@
 				E1D7FFF021F416F400F92A71 /* CUThread.h */,
 				E1EC41DA21E425FD00CD3533 /* devwind.cpp */,
 				E1EC417B21E425EA00CD3533 /* devwind.h */,
-				E14F7F7E21F05B2000C07415 /* dib.h */,
 				E1EC417821E425E900CD3533 /* dlgwind.h */,
 				E14F7F7F21F05B3A00C07415 /* dllwind.h */,
 				E1EC413D21E425DF00CD3533 /* dynamicbuffer.cpp */,

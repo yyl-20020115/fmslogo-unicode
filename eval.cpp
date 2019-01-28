@@ -2449,7 +2449,7 @@ bool process_special_conditions()
         }
         else if (System.Equals(throw_node))
         {
-#ifndef WX_PURE
+#ifdef _WINDOWS
             PostQuitMessage(1); // set the exit code to 1
 #endif
             exit_program();

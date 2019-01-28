@@ -41,8 +41,8 @@ void filesave(const wxString& FileName, FileTextStreamType Ftt)
     {
         // Notify the user that they have an editor open
         // and that changes in the editor will not be saved.
-#ifndef WX_PURE
-        MessageBox(
+#ifdef _WINDOWS
+      ::MessageBox(
             GetCommanderWindow(),
 			GetResourceString(L"LOCALIZED_EDITORISOPEN"),
 			GetResourceString(L"LOCALIZED_INFORMATION"),

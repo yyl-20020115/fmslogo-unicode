@@ -18,7 +18,7 @@
    #include <wx/pen.h>
    #include <wx/window.h>
 #include <wx/brush.h>
-   #ifdef WX_PURE
+   #ifndef _WINDOWS
      #define GetRValue(rgb) (((rgb) >> 0)  & 0xFF)
      #define GetGValue(rgb) (((rgb) >> 8)  & 0xFF)
      #define GetBValue(rgb) (((rgb) >> 16) & 0xFF)

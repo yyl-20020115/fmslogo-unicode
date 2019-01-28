@@ -196,7 +196,7 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
     strnzcpy(fnstr, getstrptr(filenameNode), getstrlen(filenameNode));
 
     FILE *tstrm = NULL;
-#ifndef WX_PURE
+#ifdef _WINDOWS
     if (_wcsicmp(fnstr, L"clipboard") == 0)
     {
         if (_wcsicmp(access, L"r") == 0)
@@ -238,7 +238,7 @@ FILE *OpenFile(NODE *arg, const wchar_t *access)
         }
     }
     else
-#endif // WX_PURE
+#endif
     {
 #ifdef _WINDOWS
         tstrm = _wfopen(fnstr, access);
@@ -502,7 +502,7 @@ NODE *lclose(NODE *arg)
     fclose(filePtr);
 
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 	wchar_t * fnstr = (wchar_t *) malloc(((size_t) getstrlen(filename) + 1)*sizeof(wchar_t));
     strnzcpy(fnstr, getstrptr(filename), getstrlen(filename));
     if (_wcsicmp(fnstr, L"clipboard") == 0)
@@ -534,8 +534,8 @@ NODE *lclose(NODE *arg)
         _wremove(TempClipName);
     }
     free(fnstr);
-#endif // WX_PURE
-
+#endif
+  
 
     // If we closed the active reader or write stream,
     // then we should reset the stream to the default
@@ -720,13 +720,13 @@ NODE *lsave(NODE *arg)
     {
         // Notify the user that the editor is open and that 
         // the changes made in that editor won't be saved.
-#ifndef WX_PURE
+#ifdef _WINDOWS
         ::MessageBox(
             GetCommanderWindow(),
 			GetResourceString(L"LOCALIZED_EDITORISOPEN"),
 			GetResourceString(L"LOCALIZED_INFORMATION"),
             MB_OK | MB_ICONQUESTION);
-#endif // WX_PURE
+#endif
     }
 
     lprint(arg);

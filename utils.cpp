@@ -344,7 +344,7 @@ void GetConfigurationFont(
     memset(&LogFont, 0, sizeof(LogFont));
 
     // find the end of the fullyQualifiedName
-	wxString relativeName = Name + L'.';
+	  wxString relativeName = Name + L'.';
    
     wxString ret = GetConfigurationString(
         relativeName + FONTPROPERTY_FaceName,
@@ -378,7 +378,7 @@ SetConfigurationFont(
     )
 {
     // find where the relative property name should start
-	wxString relativeName = Name + L'.';
+	  wxString relativeName = Name + L'.';
 
     SetConfigurationString(relativeName + FONTPROPERTY_FaceName, LogFont.lfFaceName);
 

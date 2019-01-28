@@ -63,10 +63,7 @@ bool bFixed = false;
 #ifndef WX_PURE
 static HANDLE g_SingleInstanceMutex = NULL;
 #endif
-//
-//#ifdef WX_PURE
-//#define MAX_PATH (260)
-//#endif
+
 static wxString g_FileToLoad; // routine to exec on start
 static bool g_EnterPerspectiveMode = false;
 static bool g_CustomWidth = false;
@@ -84,14 +81,6 @@ static HMODULE         g_User32 = NULL;
 #endif // __WXMSW__
 #endif // MEM_DEBUG
 
-
-// #ifdef WX_PURE
-// #if wxUSE_UNICODE
-// // Use the wchar_t variants of the ANSI C string functions
-// #define strtoul wcstoul
-// #define strlen  wcslen
-// #endif
-// #endif
 
 ////////////////////////////////////////////////////////////////////
 // CFmsLogo
@@ -447,10 +436,10 @@ int CFmsLogo::OnExit()
 	// release the Help subsystem
 	HtmlHelpUninitialize();
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 	CloseHandle(g_SingleInstanceMutex);
 	g_SingleInstanceMutex = NULL;
-#endif // WX_PURE
+#endif
 
 #if wxUSE_CLIPBOARD
 	// wxWidgets clears the clipboard when it exits, presumably to save memory.
@@ -545,7 +534,7 @@ wxWindow * GetParentWindowForDialog()
 	return CFmsLogo::GetMainFrame()->GetCommander();
 }
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 HWND GetScreenWindow()
 {
 	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
@@ -566,7 +555,7 @@ HWND GetCommanderWindow()
 	assert(mainFrame != NULL);
 	return reinterpret_cast<HWND>(mainFrame->GetTopLevelWindowForCommander()->GetHandle());
 }
-#endif // WX_PURE
+#endif
 
 wxWindow * GetMainWxWindow() {
 	return CFmsLogo::GetMainFrame();
@@ -613,7 +602,7 @@ void OpenEditorToLocationOfFirstError(const wchar_t *FileName)
 	CFmsLogo::GetMainFrame()->PopupEditorToError(FileName);
 }
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 HDC GetScreenDeviceContext()
 {
 	CMainFrame* mainFrame = CFmsLogo::GetMainFrame();
@@ -625,7 +614,7 @@ HDC GetMemoryDeviceContext()
 	return static_cast<HDC>(GetWxMemoryDeviceContext()->GetHDC());
 }
 
-#endif // WX_PURE
+#endif
 
 wxDC * GetWxMemoryDeviceContext()
 {
@@ -693,7 +682,7 @@ void uninitialize_dlls()
 
 #endif
 
-#ifndef WX_PURE
+#ifdef _WINDOWS
 #ifdef __WXMSW__
 bool TranslateKeyboardShortcut(MSG & Message)
 {
