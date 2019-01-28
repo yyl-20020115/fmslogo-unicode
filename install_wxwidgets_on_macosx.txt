@@ -7,7 +7,7 @@ git clone https://github.com/wxWidgets/wxWidgets.git .
 
 git submodule init
 git submodule update
-
+fq
 mkdir buildcocoa
 cd buildcocoa
 
