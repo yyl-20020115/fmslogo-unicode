@@ -175,7 +175,7 @@ NODE *lmkdir(NODE *arg)
     const wxString dn = (const wxString&)directoryName;
     if (
 #ifdef _WINDOWS
-        mkdir((const char*)dn
+        mkdir((const char*)dn)
 #else
         mkdir((const char*)dn,0777)
 #endif
