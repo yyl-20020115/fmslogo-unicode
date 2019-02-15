@@ -1,0 +1,8 @@
+to DOT :R
+ CIRCLE :R
+ IF :R>2[
+   SETFC PENCOLOR
+   (FILL "TRUE)]
+end
+
+bury "DOT

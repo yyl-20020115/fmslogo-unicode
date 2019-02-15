@@ -1,0 +1,13 @@
+to DATE
+ MAKE "A0 [Jan Feb Mar Apr May Jun Jul Aug Sept Oct Nov Dec]
+ MAKE "A1 ITEM 3 TIME
+ MAKE "A2 ITEM 2 TIME
+ MAKE "A3 LAST TIME
+ MAKE "Y0 0
+ FOR[I 1 12][
+   IF :A2=(ITEM :I :A0)[MAKE "A22 :I]]
+ MAKE "DATE_ (SE :A1 :A22 :A3)
+ OP :DATE_
+end
+
+bury "DATE

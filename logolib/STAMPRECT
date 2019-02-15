@@ -1,0 +1,7 @@
+to STAMPRECT :X :Y
+  PU BK :Y/2 LT 90 FD :X/2 RT 90 PD
+  REPEAT 2[FD :Y RT 90 FD :X RT 90]
+  PU RT 90 FD :X/2 LT 90 FD :Y/2 PD
+end
+
+bury "STAMPRECT

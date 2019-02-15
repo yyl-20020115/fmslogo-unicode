@@ -1,0 +1,5 @@
+to GETXY
+  OP POS
+end
+
+bury "GETXY

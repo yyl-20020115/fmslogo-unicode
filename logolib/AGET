@@ -1,0 +1,5 @@
+to AGET :A :B 
+  OP ITEM :A :B
+end
+
+bury "AGET

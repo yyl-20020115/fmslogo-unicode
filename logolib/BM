@@ -1,0 +1,5 @@
+to BM :A1 :A2
+  OP remove :A1 :A2
+end
+
+bury "BM

@@ -1,0 +1,5 @@
+to STAMPOVAL :X :Y
+  ELLIPSE :X :Y
+end
+
+bury "STAMPOVAL

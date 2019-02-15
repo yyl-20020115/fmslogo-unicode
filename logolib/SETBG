@@ -1,0 +1,5 @@
+to SETBG :N
+  SETSC :N
+end
+
+bury "SETBG

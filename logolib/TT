@@ -1,0 +1,8 @@
+to TT :ZFC
+  MAKE "ZC_ HEADING
+  SETH 90
+  LABEL :ZFC
+  SETH :ZC_
+end
+
+bury "TT
