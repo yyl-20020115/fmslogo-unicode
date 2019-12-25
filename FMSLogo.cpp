@@ -108,7 +108,7 @@ static int ReadIntArgument(
 {
 	wchar_t* endptr = 0;
 
-	int numericValue = 0;
+    unsigned long numericValue = 0;
 
 	if (CurrentArgument.length() > 2)
 	{
@@ -141,7 +141,7 @@ static int ReadIntArgument(
 		}
 	}
 
-	return numericValue;
+	return (int)numericValue;
 }
 
 wxString CFmsLogo::ProcessCommandLine(wxString lang)
@@ -296,7 +296,7 @@ bool CFmsLogo::OnInit()
 	// Get video mode parameters
 	init_videomode();
 
-	srand(time(NULL));
+	srand((unsigned int)time(0));
     
 	// alloc and init the bitmap cut array
 	init_bitmaps();

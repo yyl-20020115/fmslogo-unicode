@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CLocalizedStringProvider.h"
 wxString CLocalizedStringProvider::DefineString(L"#define");
 wxString CLocalizedStringProvider::EmptyString(L"");

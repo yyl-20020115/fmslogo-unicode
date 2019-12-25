@@ -388,7 +388,6 @@
 		E1EC424621E4284100CD3533 /* libwx_osx_cocoau_richtext-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_richtext-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_richtext-3.1.a"; sourceTree = "<group>"; };
 		E1EC424721E4284100CD3533 /* libwx_osx_cocoau_stc-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_stc-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_stc-3.1.a"; sourceTree = "<group>"; };
 		E1EC424821E4284100CD3533 /* libwx_osx_cocoau_adv-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_adv-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_adv-3.1.a"; sourceTree = "<group>"; };
-		E1EC424921E4284100CD3533 /* libwxtiff-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxtiff-3.1.a"; path = "../../../../usr/local/lib/libwxtiff-3.1.a"; sourceTree = "<group>"; };
 		E1EC424A21E4284200CD3533 /* libwx_osx_cocoau_core-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_core-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_core-3.1.a"; sourceTree = "<group>"; };
 		E1EC424B21E4284200CD3533 /* libwx_osx_cocoau_media-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_media-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_media-3.1.a"; sourceTree = "<group>"; };
 		E1EC424C21E4284200CD3533 /* libwx_osx_cocoau_html-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau_html-3.1.a"; path = "../../../../usr/local/lib/libwx_osx_cocoau_html-3.1.a"; sourceTree = "<group>"; };
@@ -717,7 +716,6 @@
 				E1EC425121E4284200CD3533 /* libwxpng-3.1.a */,
 				E1EC424E21E4284200CD3533 /* libwxregexu-3.1.a */,
 				E1EC425021E4284200CD3533 /* libwxscintilla-3.1.a */,
-				E1EC424921E4284100CD3533 /* libwxtiff-3.1.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

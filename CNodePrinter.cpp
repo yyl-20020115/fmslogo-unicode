@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "CNodePrinter.h"
-
 
 wxString CNodePrinter::FormatDouble(double v, size_t cds)
 {

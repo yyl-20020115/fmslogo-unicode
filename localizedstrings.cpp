@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "localizedstrings.h"
 #include "CLocalizedStringProvider.h"
 #include "CMbcsFileTextStream.h"

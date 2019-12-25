@@ -468,6 +468,10 @@ void CNetworkConnection::PostCheckQueue()
 //#ifdef _WINDOWS
 //    PostMessage(GetMainWindow(), WM_CHECKQUEUE, 0, 0);
 //#endif
+    //((wxEvtHandler*)wxTheApp->GetTopWindow())->QueueEvent(new CCheckQueueEvent(WM_CHECKQUEUE));
+#if wxDEBUG
+#error "bad"
+#endif
 	wxQueueEvent(wxTheApp->GetTopWindow(), new CCheckQueueEvent(WM_CHECKQUEUE));
 }
 
