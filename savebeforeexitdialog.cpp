@@ -74,20 +74,17 @@ CSaveBeforeExitDialog::CSaveBeforeExitDialog(wxWindow *Parent)
 
 void CSaveBeforeExitDialog::OnExitWithoutSaving(wxCommandEvent& WXUNUSED(event))
 {
-    SetReturnCode(SAVEBEFOREEXIT_ExitWithoutSaving);
-    Destroy();
+    this->EndModal(SAVEBEFOREEXIT_ExitWithoutSaving);
 }
 
 void CSaveBeforeExitDialog::OnSaveBeforeExit(wxCommandEvent& WXUNUSED(event))
 {
-    SetReturnCode(SAVEBEFOREEXIT_SaveAndExit);
-    Destroy();
+    this->EndModal(SAVEBEFOREEXIT_SaveAndExit);
 }
 
 void CSaveBeforeExitDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
-    SetReturnCode(SAVEBEFOREEXIT_Cancel);
-    Destroy();
+    this->EndModal(SAVEBEFOREEXIT_Cancel);
 }
 
 BEGIN_EVENT_TABLE(CSaveBeforeExitDialog, wxDialog)

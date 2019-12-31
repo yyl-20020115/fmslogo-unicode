@@ -37,7 +37,6 @@
 		E1D7001521F842ED00F92A71 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001121F842EC00F92A71 /* LICENSE.TXT */; };
 		E1D7001621F842ED00F92A71 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7001221F842ED00F92A71 /* RtAudio.cpp */; };
 		E1D7001721F842ED00F92A71 /* install-components.txt in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001321F842ED00F92A71 /* install-components.txt */; };
-		E1D7001821F842ED00F92A71 /* README.TXT in Resources */ = {isa = PBXBuildFile; fileRef = E1D7001421F842ED00F92A71 /* README.TXT */; };
 		E1D7FFF221F416F400F92A71 /* CUThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1D7FFEA21F416F300F92A71 /* CUThread.cpp */; };
 		E1EC41E021E425FE00CD3533 /* FMSLogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410821E425D700CD3533 /* FMSLogo.cpp */; };
 		E1EC41E221E425FE00CD3533 /* files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1EC410A21E425D800CD3533 /* files.cpp */; };
@@ -188,7 +187,6 @@
 		E1D7001121F842EC00F92A71 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		E1D7001221F842ED00F92A71 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		E1D7001321F842ED00F92A71 /* install-components.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "install-components.txt"; sourceTree = "<group>"; };
-		E1D7001421F842ED00F92A71 /* README.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
 		E1D7FFEA21F416F300F92A71 /* CUThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CUThread.cpp; sourceTree = "<group>"; };
 		E1D7FFF021F416F400F92A71 /* CUThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUThread.h; sourceTree = "<group>"; };
 		E1D7FFF721F45A6200F92A71 /* CSoundPlayerThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSoundPlayerThread.h; sourceTree = "<group>"; };
@@ -619,7 +617,6 @@
 				E1EC3FBF21E41FDD00CD3533 /* Products */,
 				E1EC419921E425F000CD3533 /* questionbox.cpp */,
 				E1EC418121E425EB00CD3533 /* questionbox.h */,
-				E1D7001421F842ED00F92A71 /* README.TXT */,
 				E1EC41B521E425F600CD3533 /* Resource.h */,
 				E1D7001221F842ED00F92A71 /* RtAudio.cpp */,
 				E1D7000D21F842A200F92A71 /* RtAudio.h */,
@@ -795,7 +792,6 @@
 				E19F5E4021E45F7A009A5F00 /* localizedstrings-fr-ucs2le.h in Resources */,
 				E14F7F7C21F006F300C07415 /* install_wxwidgets_on_ubuntu.txt in Resources */,
 				E19F5E4121E45F7A009A5F00 /* localizedstrings-pl-ucs2le.h in Resources */,
-				E1D7001821F842ED00F92A71 /* README.TXT in Resources */,
 				E1D7001721F842ED00F92A71 /* install-components.txt in Resources */,
 				E14F7F7A21F006F300C07415 /* install_wxwidgets_on_macosx.txt in Resources */,
 			);
