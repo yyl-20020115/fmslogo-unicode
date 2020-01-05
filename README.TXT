@@ -1,3 +1,23 @@
+FMSLogo-Unicode for Windows / Linux / MacOSX
+
+The original FMSLogo is based on ANSI/MBCS encoding.
+And there are some serious issues when you code in local language, e.g. comments written in your own language
+which is not ANSI encoding could not be preserved during save/load cycles.
+
+The improvement seems minimal, however, it's huge work because you have to rewrite almost every
+corner of the program to ensure the encoding is correct.
+
+Besides, the port of the original Windows version to other platforms takes much effort,
+and not fully functional yet.
+
+Best Regars,
+Yilin
+
+Donation
+BTC address: 322FsesZvZiTtu3QPXktFjvS5fYYE4UXPk
+
+
+
 ----------------------------------------------------------------------
 FMSLogo Version 7.4.0 for Microsoft Windows
 ----------------------------------------------------------------------
