@@ -24,8 +24,6 @@
   #include <time.h>
   #include <string.h>
 
-  #include <wx/utils.h>
-  #include <wx/time.h>
 
   #include "coms.h"
   #include "logocore.h"
@@ -40,7 +38,10 @@
   #include "graphics.h"
   #include "stringprintednode.h"
   #include "stringadapter.h"
-//  #include "debugheap.h"
+
+  #include <wx/utils.h>
+  #include <wx/time.h>
+
 #endif
 
 // ift_iff_flag: flag for if TEST has been called within the scope
