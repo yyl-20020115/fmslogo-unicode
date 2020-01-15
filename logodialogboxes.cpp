@@ -2723,11 +2723,3 @@ void uninitialize_windows()
     g_LogoWidgets.clear();
 }
 
-wxString CLogoStaticText::WXGetVisibleLabel() const
-{
-    return wxString();
-}
-
-void CLogoStaticText::WXSetVisibleLabel(const wxString& str)
-{
-}

@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>CFFED5B3-1BF6-4BAF-84C6-6D2BC37AB583</key>
+		<key>4D75401E-EFA3-4DA1-B8F3-AEB346A63932</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>CFFED5B3-1BF6-4BAF-84C6-6D2BC37AB583.xcactivitylog</string>
+			<string>4D75401E-EFA3-4DA1-B8F3-AEB346A63932.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -26,13 +26,13 @@
 			<key>signature</key>
 			<string>fmslogo_mac-gywbewkabuspajcsakxgmgbvrnxg</string>
 			<key>timeStartedRecording</key>
-			<real>599503525.67274296</real>
+			<real>600775725.37200403</real>
 			<key>timeStoppedRecording</key>
-			<real>599503528.01269305</real>
+			<real>600775731.98083401</real>
 			<key>title</key>
 			<string>Build target fmslogo_mac</string>
 			<key>uniqueIdentifier</key>
-			<string>CFFED5B3-1BF6-4BAF-84C6-6D2BC37AB583</string>
+			<string>4D75401E-EFA3-4DA1-B8F3-AEB346A63932</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>
