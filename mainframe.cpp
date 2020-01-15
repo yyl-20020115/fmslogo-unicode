@@ -83,7 +83,6 @@
     #include "cursor.h" // lsetcursorarrow
     #include "files.h" // silent_load
     #include "stringadapter.h"
-//    #include "debugheap.h"
 #endif
 
 size_t DoingEventsStack = 0;
@@ -315,7 +314,7 @@ CMainFrame::CLogoPicturePrintout::OnPrintPage(
 
     delete [] bitsPtr;
 
-    delete bitmapInfo;
+    delete[] bitmapInfo;
     delete screenDeviceContext;
 
     return isOk;
@@ -529,6 +528,7 @@ CMainFrame::CMainFrame(
     AppendChildMenu(mainMenu, GetResourceString(L"LOCALIZED_HELP"),   helpMenuItems, sizeof(helpMenuItems) / sizeof(MENUITEM));
 
     SetMenuBar(mainMenu);
+    //this->AttachMenuBar(mainMenu);
 
     SetFmsLogoIcon(*this);
 
@@ -751,6 +751,11 @@ void CMainFrame::DockCommanderWindow()
         m_CommanderIsDocked = true;
     }
 }
+//
+//bool CMainFrame::TranslateKeyboardShortcut(tagMSG& Message)
+//{
+//    return false;
+//}
 
 void CMainFrame::SetSashPosition(int position)
 {
@@ -784,6 +789,11 @@ static bool IsDescendentOf(HWND PossibleDescendant, const wxWindow * Ancestor)
     }
          
     return false;
+}
+
+bool MainframeTranslateKeyboardShortcut(MSG& Message)
+{
+    return CFmsLogo::GetMainFrame()->TranslateKeyboardShortcut(Message);
 }
 
 bool CMainFrame::TranslateKeyboardShortcut(MSG & Message)
@@ -1704,6 +1714,11 @@ bool CMainFrame::DoFileSaveAs(FileTextStreamType FTT)
     }
 
     return isOk;
+}
+
+bool CMainFrame::CanClose()
+{
+    return false;
 }
 
 bool CMainFrame::SaveFile(FileTextStreamType FTT)

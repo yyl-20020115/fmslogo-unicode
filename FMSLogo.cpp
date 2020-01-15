@@ -682,14 +682,6 @@ void uninitialize_dlls()
 
 #endif
 
-#ifdef _WINDOWS
-#ifdef __WXMSW__
-bool TranslateKeyboardShortcut(MSG & Message)
-{
-	return CFmsLogo::GetMainFrame()->TranslateKeyboardShortcut(Message);
-}
-#endif
-#endif
 
 int ShowEditorForFile(const wchar_t *FileName, NODE * EditArguments)
 {

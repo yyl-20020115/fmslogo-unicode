@@ -1,4 +1,7 @@
 #include "pch.h"
+#ifdef _WINDOWS
+#include <Windows.h>
+#endif
 #include "localizedstrings.h"
 #include "CLocalizedStringProvider.h"
 #include "CMbcsFileTextStream.h"
@@ -18,9 +21,7 @@ LanguageInfo KnownLanguages[11] = {
 	//{N_LC_PS,N_LOCALIZED_STRINGS_FILE_PS,0,0,0}, //this is Pseudoloc (faked)
 };
 
-#ifdef _WINDOWS
-#include <Windows.h>
-#elif defined(LINUX)
+#if defined(LINUX)
 
 extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_start;
 extern unsigned short _binary_localizedstrings_zh_cn_ucs2le_h_end;

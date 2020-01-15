@@ -1,9 +1,9 @@
 #ifndef __MAINFRAME_H__
 #define __MAINFRAME_H__
-#include <map>
 
-#include <wx/defs.h>
+#include <map>
 #include <wx/frame.h>
+#include <wx/menu.h>
 #include <wx/print.h>
 #include <wx/filename.h>
 #include <wx/socket.h>
@@ -41,7 +41,7 @@ public:
     void DockCommanderWindow();
 #ifndef WX_PURE
 #ifdef __WXMSW__
-    bool TranslateKeyboardShortcut(struct tagMSG & Message);
+    bool TranslateKeyboardShortcut(MSG& Message);
 #endif
 #endif
 	wxString ModifyMenuTextForUnicode(wxString text, wxString suffix);

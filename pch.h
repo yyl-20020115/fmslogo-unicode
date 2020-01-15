@@ -3,16 +3,15 @@
 #ifndef wxDEBUG_LEVEL
 #define wxDEBUG_LEVEL 0
 #endif
-
 #ifdef _WINDOWS
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include<stdlib.h>
 #include<crtdbg.h>
 #endif
-#include <wx/setup.h>
 #else
-//not windows
+//NOTICE: NEVER include <wx/setup.h> in windows version!
 #endif
+
 #endif
 

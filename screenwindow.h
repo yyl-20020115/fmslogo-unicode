@@ -71,7 +71,7 @@ HDC GetMemoryDeviceContext();
 // Note that this routine exists because the Logo engine is executed from
 // the context of the message pump and we still want to be able to process
 // user input while it's running.
-bool TranslateKeyboardShortcut(MSG & Message);
+bool MainframeTranslateKeyboardShortcut(MSG & Message);
 
 #endif
 

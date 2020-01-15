@@ -503,6 +503,13 @@ public:
         SubclassWin(hwnd);
         AdoptAttributesFromHWND();
     }
+protected:
+    virtual wxString WXGetVisibleLabel() const;
+
+    // Sets the real label currently displayed inside the control, _without_
+    // invalidating the size. The text passed is always markup-free but may
+    // contain the mnemonic characters.
+    virtual void WXSetVisibleLabel(const wxString& str);
 
 private:
     DECLARE_NO_COPY_CLASS(CLogoStaticText);
@@ -2714,4 +2721,13 @@ NODE *lwindowfileedit(NODE *args)
 void uninitialize_windows()
 {
     g_LogoWidgets.clear();
+}
+
+wxString CLogoStaticText::WXGetVisibleLabel() const
+{
+    return wxString();
+}
+
+void CLogoStaticText::WXSetVisibleLabel(const wxString& str)
+{
 }

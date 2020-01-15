@@ -3759,7 +3759,7 @@ void MyMessageScan()
             // optimization.
             if (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN)
             {
-                if (TranslateKeyboardShortcut(msg))
+                if (MainframeTranslateKeyboardShortcut(msg))
                 {
                     // This message represents a keyboard shortcut and it
                     // has been and dispatched appropriately.
