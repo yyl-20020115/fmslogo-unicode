@@ -20,13 +20,13 @@ email:
 yyl_20050115@hotmail.com
 
 NOTICE on compiling on Windows:
-Both fmslogo-unicode and wxWidgets should be compiled with toolset 
-Visual Studio 2017 - Windows XP (v141_xp)
+Both fmslogo-unicode and wxWidgets can be compiled with toolset 
+Visual Studio 2017 - Windows XP (v141_xp) -- for old machines such as xp
 and the RuntimeLibrary mode should be set to MT (multi-threading) or MTd (for debug). 
 
 NOT MD (multi-threading DLL) or MDd (for debug).
 
-Put wxWidgets into C:\wxWidgets-3.1.2 if you don't want to change settings of the project.
+Put wxWidgets into D:\wxWidgets if you don't want to change settings of the project.
 If any error about WEBKIT, just simply disable by 
 #define wxUSE_WEBVIEW 0
 before #if 
