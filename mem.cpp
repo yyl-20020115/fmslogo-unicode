@@ -506,7 +506,7 @@ void gc(NODE *nd)
                 // The string was allocated on the heap 
                 // (it's not a string literal).
                 // Decrement the reference count and free it, if necessary.
-                unsigned short *temp = (unsigned short *) getstrhead(nd);
+                unsigned int *temp = getstrhead(nd);
 
                 assert(*temp != 0); // the string was already freed
                 if (decstrrefcnt(temp) == 0) 

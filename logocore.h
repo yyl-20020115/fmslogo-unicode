@@ -488,29 +488,29 @@ getobject(const NODE * node)
 #define setstrhead(node,headptr)    ((node)->nunion.nstring.head = (headptr))
 
 inline 
-unsigned short
-getstrrefcnt(const unsigned short * refcnt)
+unsigned int
+getstrrefcnt(const unsigned int * refcnt)
 {
     return *refcnt;
 }
 
 inline 
 void
-setstrrefcnt(unsigned short * refcnt, unsigned short value)
+setstrrefcnt(unsigned int * refcnt, unsigned int value)
 {
     *refcnt = value;
 }
 
 inline 
-unsigned short
-incstrrefcnt(unsigned short * refcnt)
+unsigned int
+incstrrefcnt(unsigned int * refcnt)
 {
     return (*refcnt)++;
 }
 
 inline 
-unsigned short
-decstrrefcnt(unsigned short * refcnt)
+unsigned int
+decstrrefcnt(unsigned int * refcnt)
 {
     return --(*refcnt);
 }

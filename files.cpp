@@ -1031,8 +1031,7 @@ NODE *lreadchars(NODE *args)
         strptr = (wchar_t*)((char*) strhead + sizeof(unsigned int));
 		//totalBytesRead = fread(strptr, 1, totalBytesRequested, g_Reader.GetStream());
 		totalCharsRead = g_Reader.GetStream()->Read(strptr, totalCharsRequested);
-		unsigned short * temp = (unsigned short *) strhead;
-        setstrrefcnt(temp, 0);
+        setstrrefcnt(strhead, 0);
     }
 
 	GetInputBlocking() = false;

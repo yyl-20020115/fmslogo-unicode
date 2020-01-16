@@ -521,8 +521,7 @@ make_strnode(
 	copy_routine(strptr, string, len);
 
     // set the reference count to 1.
-    unsigned short *header = (unsigned short *) strhead;
-    setstrrefcnt(header, 1);
+    setstrrefcnt(strhead, 1);
 
     NODE * strnode = newnode(typ);
     setstrlen(strnode, len);
@@ -571,8 +570,7 @@ make_strnode_from_wordlist(
 	word_strnzcpy(strptr, wordlist, len);
 
     // set the reference count to 1.
-    unsigned short *header = (unsigned short *) strhead;
-    setstrrefcnt(header, 1);
+    setstrrefcnt(strhead, 1);
 
     NODE * strnode = newnode(typ);
     setstrlen(strnode, len);
@@ -593,17 +591,16 @@ make_strnode_no_copy(
     )
 {
     // increment the reference count
-    unsigned short * header = (unsigned short *) strhead;
-    assert(header != NULL);       // string is in static memory
-    assert(*header != USHRT_MAX); // ref count would overflow
-    incstrrefcnt(header);
+    assert(strhead != NULL);       // string is in static memory
+    assert(*strhead != UINT_MAX); // ref count would overflow
+    incstrrefcnt(strhead);
 
     if (len == 0 && Null_Word != NIL)
     {
         // we will not take this reference, so we must free it.
-        if (decstrrefcnt(header) == 0) 
+        if (decstrrefcnt(strhead) == 0)
         {
-            free(header);
+            free(strhead);
         }
         return Null_Word;
     }
