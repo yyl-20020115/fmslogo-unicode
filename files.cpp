@@ -1028,7 +1028,7 @@ NODE *lreadchars(NODE *args)
             return Unbound;
         }
 		memset(strhead, 0, buff_size);
-        strptr = (wchar_t*)((char*) strhead + sizeof(unsigned short));
+        strptr = (wchar_t*)((char*) strhead + sizeof(unsigned int));
 		//totalBytesRead = fread(strptr, 1, totalBytesRequested, g_Reader.GetStream());
 		totalCharsRead = g_Reader.GetStream()->Read(strptr, totalCharsRequested);
 		unsigned short * temp = (unsigned short *) strhead;

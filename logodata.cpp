@@ -566,7 +566,7 @@ make_strnode_from_wordlist(
     memset(strhead, 0, sizeof(unsigned int) + (len+1)*sizeof(wchar_t));
     
     // set the "string pointer" to just after the header
-	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
+	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned int));
 	strptr[len] = L'\0';
 	word_strnzcpy(strptr, wordlist, len);
 

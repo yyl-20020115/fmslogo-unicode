@@ -134,7 +134,7 @@ public:
 	void AssertInvariant() const
 	{
 		assert(m_StringNodeBuffer.m_Buffer != NULL);
-		assert((wchar_t*)(m_StringNodeBuffer.m_Buffer + sizeof(unsigned short)) <= m_StringNodeBuffer.m_StringLimit);
+		assert((wchar_t*)(m_StringNodeBuffer.m_Buffer + sizeof(unsigned int)) <= m_StringNodeBuffer.m_StringLimit);
 		assert((char*)m_StringNodeBuffer.m_StringLimit - m_StringNodeBuffer.m_Buffer < (int)m_StringNodeBuffer.m_BufferLengthInBytes);
 	}
 
@@ -149,9 +149,9 @@ CStringNodeBuffer::CStringNodeBuffer()
 	const size_t DEFAULT_SIZE = 256;
 
 	// allocate enough for the header, the string, and the NUL terminator
-	this->m_BufferLengthInBytes = sizeof(unsigned short) + (DEFAULT_SIZE + 1) * sizeof(wchar_t);
+	this->m_BufferLengthInBytes = sizeof(unsigned int) + (DEFAULT_SIZE + 1) * sizeof(wchar_t);
 	this->m_Buffer = static_cast<char *>(malloc(m_BufferLengthInBytes));
-	this->m_StringLimit = this->m_StringStart = (wchar_t*)(m_Buffer + sizeof(unsigned short));
+	this->m_StringLimit = this->m_StringStart = (wchar_t*)(m_Buffer + sizeof(unsigned int));
 	*this->m_StringLimit = L'\0';
 	this->m_IsOwner = true;
 }
@@ -175,14 +175,14 @@ void CStringNodeBuffer::TakeOwnershipOfBuffer()
 	size_t StrLength = this->GetStringLength();
 
 	// Reduce the size of the buffer to only what is needed.
-	size_t newBufferLengthInBytes = (StrLength + 1) * sizeof(wchar_t) + sizeof(unsigned short);
+	size_t newBufferLengthInBytes = (StrLength + 1) * sizeof(wchar_t) + sizeof(unsigned int);
 	void * smallerBuffer = realloc(this->m_Buffer, newBufferLengthInBytes);
 	if (smallerBuffer != NULL)
 	{
 		// The reallocation should always succeed, but the C standard
 		// does not guarantee this.
 		this->m_Buffer = (char *)(smallerBuffer);
-		this->m_StringStart = (wchar_t*)(this->m_Buffer + sizeof(unsigned short));
+		this->m_StringStart = (wchar_t*)(this->m_Buffer + sizeof(unsigned int));
 		this->m_StringLimit = m_StringStart + StrLength;
 		*this->m_StringLimit = L'\0';
 	}
@@ -227,7 +227,7 @@ void CStringNodeBuffer::GrowBy(size_t ExtraLength)
 		char* pb = (char *)realloc(m_Buffer, newLengthInBytes);
 		assert(pb != NULL);
 		if ((this->m_Buffer = pb) != NULL) {
-			this->m_StringStart = (wchar_t*)(this->m_Buffer + sizeof(unsigned short));
+			this->m_StringStart = (wchar_t*)(this->m_Buffer + sizeof(unsigned int));
 			this->m_StringLimit = this->m_StringStart + usedPortion;
 			*this->m_StringLimit = L'\0';
 			this->m_BufferLengthInBytes = newLengthInBytes;
@@ -285,11 +285,11 @@ public:
 	{
 		size_t length = this->buffer.length();
 
-		void* ptr = malloc((length+1) * sizeof(wchar_t) + sizeof(unsigned short));
+		void* ptr = malloc((length+1) * sizeof(wchar_t) + sizeof(unsigned int));
 		if (ptr != 0) {
-            memset(ptr,0,(length+1) * sizeof(wchar_t) + sizeof(unsigned short));
-			//*(unsigned short*)ptr = 0;
-			wcsncpy((wchar_t*)((char*)ptr + sizeof(unsigned short)), (const wchar_t*)this->buffer, length + 1);
+            memset(ptr,0,(length+1) * sizeof(wchar_t) + sizeof(unsigned int));
+            
+			wcsncpy((wchar_t*)((char*)ptr + sizeof(unsigned int)), (const wchar_t*)this->buffer, length + 1);
 		}
 
 		return ptr;
