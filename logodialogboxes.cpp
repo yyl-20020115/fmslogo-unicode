@@ -504,12 +504,14 @@ public:
         AdoptAttributesFromHWND();
     }
 protected:
-    virtual wxString WXGetVisibleLabel() const;
+    virtual wxString WXGetVisibleLabel() const {
+        return wxString();
+    }
 
     // Sets the real label currently displayed inside the control, _without_
     // invalidating the size. The text passed is always markup-free but may
     // contain the mnemonic characters.
-    virtual void WXSetVisibleLabel(const wxString& str);
+    virtual void WXSetVisibleLabel(const wxString& str) {}
 
 private:
     DECLARE_NO_COPY_CLASS(CLogoStaticText);

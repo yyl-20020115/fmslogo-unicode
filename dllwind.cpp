@@ -404,7 +404,7 @@ make_buffer(
     )
 {
 	int fulllen = sizeof(unsigned short) + (length + 1) * sizeof(wchar_t);
-	wchar_t * strhead = (wchar_t *)malloc(fulllen);
+	unsigned int * strhead = (unsigned int*)malloc(fulllen);
 
 	if (strhead == NULL)
     {
@@ -417,8 +417,7 @@ make_buffer(
 	wchar_t * strptr = (wchar_t*)((char*)strhead + sizeof(unsigned short));
 
     // set the reference count to 1.
-    unsigned short *header = (unsigned short *) strhead;
-    setstrrefcnt(header, 1);
+    setstrrefcnt(strhead, 1);
 
     NODE * strnode = newnode(VBAR_STRING);
     setstrlen(strnode, length);
