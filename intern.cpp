@@ -309,7 +309,7 @@ void release_all_objects()
 				   if (nc->type == CASEOBJ) {
 					   NODE* dc = car(nc);
 					   if (dc->type == STRING && dc->nunion.nstring.head != 0) {
-						   */*(unsigned short*)*/dc->nunion.nstring.head = 0;
+						   *dc->nunion.nstring.head = 0;
 						   free(dc->nunion.nstring.head);
 						   dc->nunion.nstring.len = 0;
 						   dc->nunion.nstring.ptr = 0;
