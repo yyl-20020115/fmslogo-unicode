@@ -340,10 +340,10 @@ struct NODE
         struct
         {
             const wchar_t * ptr;
-            wchar_t       * head;
+            unsigned int  * head;
             int          len;
         }
-            nstring;
+        nstring;
         struct
         {
             logofunc fun;
@@ -483,9 +483,9 @@ getobject(const NODE * node)
 #define getstrptr(node)         ((node)->nunion.nstring.ptr)
 #define getstrlen(node)         ((node)->nunion.nstring.len)
 #define getstrhead(node)        ((node)->nunion.nstring.head)
-#define setstrptr(node,str)     ((node)->nunion.nstring.ptr = (str))
+#define setstrptr(node,strp)     ((node)->nunion.nstring.ptr = (strp))
 #define setstrlen(node,length)  ((node)->nunion.nstring.len = (length))
-#define setstrhead(node,ptr)    ((node)->nunion.nstring.head = (ptr))
+#define setstrhead(node,headptr)    ((node)->nunion.nstring.head = (headptr))
 
 inline 
 unsigned short

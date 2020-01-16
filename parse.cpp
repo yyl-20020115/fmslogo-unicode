@@ -287,7 +287,8 @@ public:
 
 		void* ptr = malloc((length+1) * sizeof(wchar_t) + sizeof(unsigned short));
 		if (ptr != 0) {
-			*(unsigned short*)ptr = 0;
+            memset(ptr,0,(length+1) * sizeof(wchar_t) + sizeof(unsigned short));
+			//*(unsigned short*)ptr = 0;
 			wcsncpy((wchar_t*)((char*)ptr + sizeof(unsigned short)), (const wchar_t*)this->buffer, length + 1);
 		}
 
@@ -700,11 +701,12 @@ NODE *reader(CTextStream *fileStream, const wchar_t * Prompt)
             cb = cb.Remove(cb.length()-1);
         }
     }
+
 	void* p = lineBuffer.TakeContent();
 
 	NODE * line = make_strnode_no_copy(
-		(const wchar_t*)((char*)p+sizeof(unsigned short)),
-		(wchar_t*)p,
+		(const wchar_t*)((char*)p+sizeof(unsigned int)),
+		(unsigned int*)p,
 		l,
 		this_type);
 //#ifdef _WINDOWS
@@ -946,7 +948,7 @@ static NODE * parser_iterate(
 				if (**inln == L'@')
 				{
 					// parse the origin as a decimal number
-					wchar_t * unparsedPortion;
+					wchar_t * unparsedPortion = 0;
 					long origin = wcstol((*inln) + 1, &unparsedPortion, 10);
 					*inln = unparsedPortion;
 
@@ -985,13 +987,13 @@ static NODE * parser_iterate(
 					copyRoutine = strnzcpy;
 				}
 
-				NODE * string_node = make_strnode(
+				NODE * sn = make_strnode(
 					word_start,
 					word_length,
 					this_type,
 					copyRoutine);
 
-				tnode = cons_list(string_node);
+				tnode = cons_list(sn);
 				this_type = STRING;
 				word_length = 0;
 				broken = false;

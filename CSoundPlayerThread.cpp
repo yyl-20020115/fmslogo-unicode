@@ -185,7 +185,7 @@ int CSoundPlayerThread::play()
         
         this->device->closeStream();
     }
-    catch(RtAudioError rte)
+    catch(RtAudioError& rte)
     {
             //Exception occurred
         fclose(fd);

@@ -177,6 +177,7 @@ int CEncodingFileTextStream::CharToBytes(wchar_t ch, char * buffer, size_t buffe
 		if (converted != CEncodingConverter::invalid_size) //this is good, just convert one wchar_t
 		{
 			return strlen(buffer);
+            
 		}
 		else {
 			c = 0; //should not happen

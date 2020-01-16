@@ -11,6 +11,9 @@
 #endif
 #else
 //NOTICE: NEVER include <wx/setup.h> in windows version!
+#ifdef LINUX
+#include <wx/setup.h>
+#endif
 #endif
 
 #endif

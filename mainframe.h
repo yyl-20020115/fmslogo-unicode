@@ -79,7 +79,7 @@ public:
 
     void
     PopupEditorToError(
-        const wchar_t *FileName
+        const wxString & FileName
         );
 
     static

@@ -963,7 +963,7 @@ CMainFrame::PopupEditor(
         OpenToError);
 }
 
-void CMainFrame::PopupEditorToError(const wchar_t *FileName)
+void CMainFrame::PopupEditorToError(const wxString &FileName)
 {
     bool fileNameIsTempPathName = TempPathName.IsSameAs(FileName);
  

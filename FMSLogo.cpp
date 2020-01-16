@@ -599,7 +599,7 @@ bool IsEditorOpen()
 
 void OpenEditorToLocationOfFirstError(const wchar_t *FileName)
 {
-	CFmsLogo::GetMainFrame()->PopupEditorToError(FileName);
+	CFmsLogo::GetMainFrame()->PopupEditorToError(wxString(FileName));
 }
 
 #ifdef _WINDOWS

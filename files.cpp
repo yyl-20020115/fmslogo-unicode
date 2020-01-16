@@ -1006,7 +1006,8 @@ NODE *lreadchars(NODE *args)
 
 	GetInputBlocking() = true;
 
-    wchar_t *strhead = 0, *strptr = 0;
+    unsigned int *strhead = 0;
+    wchar_t *strptr = 0;
     if (!setjmp(iblk_buf))
     {
         // TODO: Don't allocate more bytes than the file contains.
@@ -1017,10 +1018,10 @@ NODE *lreadchars(NODE *args)
 		g_Reader.GetStream()->SetPosition(cp, SEEK_SET);
 		
 		size_t left_size = (size_t)(dp - cp);
-		size_t full_size = sizeof(unsigned short) + (totalCharsRequested + 1) * sizeof(wchar_t);
+		size_t full_size = sizeof(unsigned int) + (totalCharsRequested + 1) * sizeof(wchar_t);
 		size_t buff_size = (full_size> left_size ? left_size:full_size);
 
-        strhead = (wchar_t *) malloc(buff_size);
+        strhead = (unsigned int *) malloc(buff_size);
         if (strhead == NULL)
         {
             err_logo(OUT_OF_MEM, NIL);

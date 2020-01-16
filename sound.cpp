@@ -86,7 +86,7 @@ bool tone(int frequency,int duration,unsigned int sampleRate, double volumeRate)
 
             RtAudioDevice.closeStream();
         }
-    }catch(RtAudioError rte)
+    }catch(RtAudioError& rte)
     {
         //error occurred, maybe
         return false;
