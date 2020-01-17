@@ -36,7 +36,7 @@ CXX = g++
 
 CXXFLAGS  += -D__WX$(TOOLKIT)__ $(CPPFLAGS)
 LDFLAGS += -g
-LDFLAGS += -lcharset -liconv -lasound -lrtaudio 
+LDFLAGS += -lcharset -liconv -lasound  
 WX_OBJECTS = 3dsolid.o \
 aboutfmslogo.o \
 aboutmultiplesclerosis.o \
