@@ -14,16 +14,18 @@
 #include <wx/fdrepdlg.h>
 #include <wx/print.h>
 #include <stddef.h>
-
-#include "ILexer.h"
+#define SCI_NAMESPACE
+//#include "ILexer.h"
+//using namespace Scintilla;
+//using namespace Lexilla;
+#include "../../scintilla/include/ILexer.h"
 #include "LexerModule.h"
-#include "Catalogue.h"
-extern LexerModule lmFmsLogo;
+extern Lexilla::LexerModule lmFmsLogo;
 
 class CLogoCodeCtrl : public wxStyledTextCtrl
 {
 protected:
-	static LexerModule* TheLanguageModule;
+	static Lexilla::LexerModule* TheLanguageModule;
 public:
 	CLogoCodeCtrl(
 		wxWindow       * Parent,

@@ -1,8 +1,5 @@
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
-#ifndef WX_PURE
-#include <windows.h>    // for MAKELCID and language functions
-#endif
 
 #include <wx/gdicmn.h>    // for wxPoint
 #include <wx/printdlg.h>
@@ -19,13 +16,24 @@
 #include "wrksp.h" // for g_CharactersSuccessfullyParsedInEditor
 #endif
 
-#include "scintilla/SciLexer.h"
-#ifdef WX_PURE
-#include "scintilla/include/Scintilla.h"
-#else
-#include "../src/stc/scintilla/include/Scintilla.h"
+//#include "scintilla/SciLexer.h"
+//#ifdef WX_PURE
+//#include "scintilla/include/Scintilla.h"
+//#else
+//#include "scintilla/include/Scintilla.h"
+//#endif
+#include <../../Scintilla.h>
+#include <../../scintilla/include/Scintilla.h>
+#include <CatalogueModules.h>
+#include <LexerModule.h>
+#ifndef WX_PURE
+#include <windows.h>    // for MAKELCID and language functions
 #endif
-LexerModule* CLogoCodeCtrl::TheLanguageModule = 0;
+extern void AddStaticLexerModule(Lexilla::LexerModule* plm);
+
+//extern Lexilla::CatalogueModules catalogueLexilla;
+
+Lexilla::LexerModule* CLogoCodeCtrl::TheLanguageModule = 0;
 // A helper class for printing
 class CLogoCodePrintout : public wxPrintout
 {
@@ -312,7 +320,7 @@ CLogoCodeCtrl::CLogoCodeCtrl(
 	StyleClearAll();
 	if (TheLanguageModule == 0)
 	{
-		Catalogue::AddLexerModule(TheLanguageModule = &lmFmsLogo);
+		AddStaticLexerModule(TheLanguageModule = &lmFmsLogo);
 	}
 	SetLexer(SCLEX_FMSLOGO);
 	Colourise(0, -1);

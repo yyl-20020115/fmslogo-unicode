@@ -1,21 +1,26 @@
 #include <stddef.h>
+#include <vector>
+#include <../../scintilla/include/Scintilla.h>
+#include "../../scintilla/include/ILexer.h"
+#include <LexerModule.h>
+#include <CatalogueModules.h>
 
-#include "ILexer.h"
-#include "LexerModule.h"
-#include "Catalogue.h"
+extern void AddStaticLexerModule(Lexilla::LexerModule* plm);
 
-extern LexerModule lmFmsLogo; // defined in LexFmsLogo.cxx
-
+extern Lexilla::LexerModule lmFmsLogo; // defined in LexFmsLogo.cxx
+//extern Lexilla::CatalogueModules catalogueLexilla;
+// 
 // A singleton class that registers the lexer that's implemented in
 // LexFmsLogo.cxx.  While this could be implemented within that file and, none
 // of the lexers that are defined within Scintilla register themselves, so for
 // symmetry, this is done externally.
+
 class CFmsLogoLexerRegisterer
 {
 private:
     CFmsLogoLexerRegisterer()
     {
-        Catalogue::AddLexerModule(&lmFmsLogo);
+        AddStaticLexerModule(&lmFmsLogo);
     }
 
     CFmsLogoLexerRegisterer(CFmsLogoLexerRegisterer & object);

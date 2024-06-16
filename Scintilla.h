@@ -1,8 +1,4 @@
-/* SciLexer features - not in standard Scintilla */
-
-#ifndef SCILEXER_H
-#define SCILEXER_H
-
+#pragma once
 #define SCLEX_CONTAINER 0
 #define SCLEX_NULL      1
 #define SCLEX_FMSLOGO   200 // beyond all of the built-in ones
@@ -26,4 +22,3 @@
 
 #define SCE_FMS_DEFAULT_BACKSLASH 11
 
-#endif // SCILEXER_H

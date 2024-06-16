@@ -6,9 +6,12 @@
 #include <wx/menu.h>
 #include <wx/print.h>
 #include <wx/filename.h>
-#include <wx/socket.h>
 #include "localizedstrings.h" // for MANUAL_HAS_TRANSLATION_TABLES
 #include "CFileTextStream.h"
+#ifndef wxUSE_SOCKETS
+#define wxUSE_SOCKETS 1
+#endif
+#include <wx/socket.h>
 
 class wxSplitterWindow;
 class wxCommandEvent;

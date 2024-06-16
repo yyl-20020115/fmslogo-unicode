@@ -5,6 +5,7 @@
 #include "logocore.h" // for MAX_BUFFER_SIZE
 #include "devwind.h"
 #include "CCheckQueueEvent.h"
+
 class CMainFrame;
 class wxFileName;
 struct NODE;
@@ -30,7 +31,9 @@ void single_step_box(NODE * the_line);
 wxString promptuser(const wchar_t *prompt);
 
 //#ifdef FMSLOGO_WXWIDGETS
-
+#ifdef wxUSE_SOCKETS
+#undef wxUSE_SOCKETS
+#endif
 #include <wx/app.h>
 
 ///////////////////////////////////////////////////////////////

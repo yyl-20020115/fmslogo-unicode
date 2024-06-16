@@ -1,26 +1,58 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include <string>
+#include <memory>
+#include <vector>
 #include <assert.h>
-#include <ctype.h>
-
-#include "ILexer.h"
-#include "SciLexer.h"
-
-#include "WordList.h"
-#include "LexAccessor.h"
-#include "Accessor.h"
-#include "StyleContext.h"
-#include "CharacterSet.h"
-#include "LexerModule.h"
+#include <stdexcept>
+#include <LexCharacterCategory.h>
+using namespace Lexilla;
+#include <../../Scintilla.h>
+#include <../../scintilla/include/Scintilla.h>
+#include <../../scintilla/include/ILoader.h>
+#include <../../scintilla/src/SplitVector.h>
+#include <../../scintilla/src/Position.h>
+#include <../../scintilla/include/ILexer.h>
+#include <../../scintilla/src/Partitioning.h>
+#include <../../scintilla/src/RunStyles.h>
+#include <../../scintilla/src/Decoration.h>
+#include <../../scintilla/src/CaseFolder.h>
+#include <../../scintilla/src/CellBuffer.h>
+#include <../../scintilla/src/CharClassify.h>
+#include <../../scintilla/src/Document.h>
+#include <LexAccessor.h>
+#include <StyleContext.h>
+#include <WordList.h>
+#include <Accessor.h>
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
 #endif
+#include <LexerModule.h>
+
+bool IsADigit(int ch) noexcept {
+    return (ch >= '0') && (ch <= '9');
+}
+bool IsAlphaNumeric(int ch) noexcept {
+    return
+        ((ch >= '0') && (ch <= '9')) ||
+        ((ch >= 'a') && (ch <= 'z')) ||
+        ((ch >= 'A') && (ch <= 'Z'));
+}
+bool isoperator(int ch) noexcept {
+    if (IsAlphaNumeric(ch))
+        return false;
+    if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
+        ch == '(' || ch == ')' || ch == '-' || ch == '+' ||
+        ch == '=' || ch == '|' || ch == '{' || ch == '}' ||
+        ch == '[' || ch == ']' || ch == ':' || ch == ';' ||
+        ch == '<' || ch == '>' || ch == ',' || ch == '/' ||
+        ch == '?' || ch == '!' || ch == '.' || ch == '~')
+        return true;
+    return false;
+}
+
+
 
 static inline bool IsAWordChar(const int ch) 
 {
@@ -57,10 +89,8 @@ static inline bool IsStateComment(const int state)
     return ((state == SCE_FMS_COMMENT) || (state == SCE_FMS_COMMENTBACKSLASH));
 }
 
-static
-void
-AdvanceWithinVbar(
-    StyleContext & Context
+static void AdvanceWithinVbar(
+    Lexilla::StyleContext & Context
     )
 {
     while (Context.ch != '|' && Context.More())
@@ -85,14 +115,10 @@ AdvanceWithinVbar(
 static
 void
 ColorizeFmsLogoDoc(
-    unsigned int   startPos,
-    int            length,
-    int            initStyle,
-    WordList    *  keywordlists[],
-    Accessor    &  styler
-    ) 
+    Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
+    WordList* keywordlists[], Accessor& styler)
 {
-    StyleContext sc(startPos, length, initStyle, styler);
+    Lexilla::StyleContext sc(startPos, lengthDoc, initStyle, styler);
     for (; sc.More(); sc.Forward()) 
     {
         // Handle line continuation generically.
@@ -263,8 +289,13 @@ ColorizeFmsLogoDoc(
 }
 
 
-static void FoldFmsLogoDoc(unsigned int, int, int, WordList *[], Accessor &)
+
+static void FoldFmsLogoDoc(
+    Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
+    WordList* keywordlists[], Accessor& styler
+)
 {
+
 }
 
 static const char * const g_FmsLogoWordLists[] = 
@@ -277,4 +308,9 @@ static const char * const g_FmsLogoWordLists[] =
     0,
 };
 
-LexerModule lmFmsLogo(SCLEX_FMSLOGO, ColorizeFmsLogoDoc, "FMSLogo", FoldFmsLogoDoc, g_FmsLogoWordLists);
+Lexilla::LexerModule lmFmsLogo(
+        SCLEX_FMSLOGO,
+        ColorizeFmsLogoDoc,
+        "FMSLogo",
+        FoldFmsLogoDoc,
+        g_FmsLogoWordLists);

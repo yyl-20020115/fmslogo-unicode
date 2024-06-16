@@ -20,11 +20,6 @@
 
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
-    #ifndef WX_PURE
-      #include <windows.h>
-    #else
-      #include <sys/stat.h>
-    #endif
 
     #include <stdio.h>
     #include <string.h>
@@ -48,6 +43,11 @@
     #include "sort.h"
 //    #include "debugheap.h"
     #include "localizedstrings.h"
+#ifndef WX_PURE
+#include <windows.h>
+#else
+#include <sys/stat.h>
+#endif
 #endif
 
 

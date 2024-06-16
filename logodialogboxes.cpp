@@ -19,13 +19,6 @@
 #ifndef USE_PRECOMPILED_HEADER
    #include "dlgwind.h"
 
-   #ifndef WX_PURE
-     #include <windows.h>
-     #include <windowsx.h> // for combobox macros
-     #include <commctrl.h> // for combobox style manifest constants
-   //#else
-   //  #define MAX_PATH (260)
-   #endif // WX_PURE
 
    #include <wx/app.h>
    #include <wx/button.h>
@@ -64,8 +57,17 @@
    #include "questionbox.h"
    #include "selectbox.h"
    #include "stringadapter.h"
-#include "devwind.h"
+    #include "devwind.h"
+
    //   #include "debugheap.h"
+#ifndef WX_PURE
+#include <windows.h>
+#include <windowsx.h> // for combobox macros
+#include <commctrl.h> // for combobox style manifest constants
+//#else
+//  #define MAX_PATH (260)
+#endif // WX_PURE
+
 #endif
 
 enum WINDOWTYPE 

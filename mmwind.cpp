@@ -21,6 +21,11 @@
 
 #include "pch.h"
 #ifndef USE_PRECOMPILED_HEADER
+#include <wx/string.h>
+#include <wx/timer.h>
+#include <wx/event.h>
+#include <wx/app.h>
+#include <wx/window.h>
 
 #include "mmwind.h"
 #include "argumentutils.h"
@@ -43,13 +48,9 @@
 #include "devwind.h"
 
 #include "localizedstrings.h"
-#include <wx/string.h>
-#include <wx/timer.h>
-#include <wx/event.h>
-#include <wx/app.h>
-#include <wx/window.h>
 #include "CCheckQueueEvent.h"
 #include "logoeventqueue.h"
+
 
 class UCTimer : public wxTimer
 {
