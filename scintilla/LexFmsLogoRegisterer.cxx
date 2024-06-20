@@ -1,9 +1,9 @@
 #include <stddef.h>
 #include <vector>
-#include <../../scintilla/include/Scintilla.h>
-#include "../../scintilla/include/ILexer.h"
-#include <LexerModule.h>
-#include <CatalogueModules.h>
+#include <../stc/scintilla/include/Scintilla.h>
+#include <../stc/scintilla/include/ILexer.h>
+#include <../stc/lexilla/lexlib/LexerModule.h>
+#include <../stc/lexilla/lexlib/CatalogueModules.h>
 
 extern void AddStaticLexerModule(Lexilla::LexerModule* plm);
 

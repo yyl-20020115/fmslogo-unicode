@@ -57,7 +57,6 @@ CAboutFmsLogo::CAboutFmsLogo(wxWindow * Parent)
     }
 
 
-
     wxButton *okButton = new wxButton(
         this,
         wxID_CANCEL,

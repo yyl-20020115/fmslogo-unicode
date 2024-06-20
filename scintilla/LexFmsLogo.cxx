@@ -5,30 +5,30 @@
 #include <vector>
 #include <assert.h>
 #include <stdexcept>
-#include <LexCharacterCategory.h>
+#include <../stc/lexilla/lexlib/LexCharacterCategory.h>
 using namespace Lexilla;
-#include <../../Scintilla.h>
-#include <../../scintilla/include/Scintilla.h>
-#include <../../scintilla/include/ILoader.h>
-#include <../../scintilla/src/SplitVector.h>
-#include <../../scintilla/src/Position.h>
-#include <../../scintilla/include/ILexer.h>
-#include <../../scintilla/src/Partitioning.h>
-#include <../../scintilla/src/RunStyles.h>
-#include <../../scintilla/src/Decoration.h>
-#include <../../scintilla/src/CaseFolder.h>
-#include <../../scintilla/src/CellBuffer.h>
-#include <../../scintilla/src/CharClassify.h>
-#include <../../scintilla/src/Document.h>
-#include <LexAccessor.h>
-#include <StyleContext.h>
-#include <WordList.h>
-#include <Accessor.h>
+#include "Scintilla.h"
+#include <../stc/scintilla/include/Scintilla.h>
+#include <../stc/scintilla/include/ILoader.h>
+#include <../stc/scintilla/src/SplitVector.h>
+#include <../stc/scintilla/src/Position.h>
+#include <../stc/scintilla/include/ILexer.h>
+#include <../stc/scintilla/src/Partitioning.h>
+#include <../stc/scintilla/src/RunStyles.h>
+#include <../stc/scintilla/src/Decoration.h>
+#include <../stc/scintilla/src/CaseFolder.h>
+#include <../stc/scintilla/src/CellBuffer.h>
+#include <../stc/scintilla/src/CharClassify.h>
+#include <../stc/scintilla/src/Document.h>
+#include <../stc/lexilla/lexlib/LexAccessor.h>
+#include <../stc/lexilla/lexlib/StyleContext.h>
+#include <../stc/lexilla/lexlib/WordList.h>
+#include <../stc/lexilla/lexlib/Accessor.h>
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
 #endif
-#include <LexerModule.h>
+#include <../stc/lexilla/lexlib/LexerModule.h>
 
 bool IsADigit(int ch) noexcept {
     return (ch >= '0') && (ch <= '9');

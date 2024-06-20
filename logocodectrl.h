@@ -18,8 +18,8 @@
 //#include "ILexer.h"
 //using namespace Scintilla;
 //using namespace Lexilla;
-#include "../../scintilla/include/ILexer.h"
-#include "LexerModule.h"
+#include <../stc/scintilla/include/ILexer.h>
+#include <../stc/lexilla/lexlib/LexerModule.h>
 extern Lexilla::LexerModule lmFmsLogo;
 
 class CLogoCodeCtrl : public wxStyledTextCtrl

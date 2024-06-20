@@ -74,22 +74,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\wxWidgets\include;D:\wxWidgets\include\msvc;$(IncludePath);C:\Working\wxWidgets\src\stc\lexilla\lexlib</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\wxWidgets\include;C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswu;$(IncludePath);C:\Working\wxWidgets\src\stc\lexilla\lexlib</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
     <LibraryPath>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\wxWidgets\include;D:\wxWidgets\include\msvc;$(IncludePath);C:\Working\wxWidgets\src\stc\lexilla\lexlib</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\wxWidgets\include;C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswu;$(IncludePath);C:\Working\wxWidgets\src\stc\lexilla\lexlib</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
     <LibraryPath>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -102,7 +103,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;D:\wxWidgets\include;D:\wxWidgets\lib\vc_lib\mswud\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswud\;C:\Program Files (x86)\wxWidgets\include\;$(ProjectDir)scintilla\include;D:\wxWidgets\lib\vc_lib\mswud\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -124,7 +125,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__;wxUSE_MENUS=1</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;D:\wxWidgets\include;D:\wxWidgets\lib\vc_x64_lib\mswud\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswud\;C:\Program Files (x86)\wxWidgets\include\;$(ProjectDir)scintilla\include;D:\wxWidgets\lib\vc_x64_lib\mswud\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -149,7 +150,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FMSLOGO_WXWIDGETS;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;D:\wxWidgets\include;D:\wxWidgets\lib\vc_lib\mswu\;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswud\;C:\Program Files (x86)\wxWidgets\include\;$(ProjectDir)scintilla\include;D:\wxWidgets\lib\vc_lib\mswu\;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -177,7 +178,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_WCSTOK;__WINDOWS_DS__</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <DisableSpecificWarnings>4996;4005;4091;</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)scintilla\include;D:\wxWidgets\include;D:\wxWidgets\lib\vc_x64_lib\mswu\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\wxWidgets\lib\vc_x64_dll\mswud\;C:\Program Files (x86)\wxWidgets\include\;$(ProjectDir)scintilla\include;D:\wxWidgets\lib\vc_x64_lib\mswu\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BufferSecurityCheck>false</BufferSecurityCheck>

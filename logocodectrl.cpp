@@ -22,10 +22,10 @@
 //#else
 //#include "scintilla/include/Scintilla.h"
 //#endif
-#include <../../Scintilla.h>
-#include <../../scintilla/include/Scintilla.h>
-#include <CatalogueModules.h>
-#include <LexerModule.h>
+#include "scintilla/Scintilla.h"
+#include <../stc/scintilla/include/Scintilla.h>
+#include <../stc/lexilla/lexlib/CatalogueModules.h>
+#include <../stc/lexilla/lexlib/LexerModule.h>
 #ifndef WX_PURE
 #include <windows.h>    // for MAKELCID and language functions
 #endif
