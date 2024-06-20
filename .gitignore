@@ -266,3 +266,4 @@ __pycache__/
 *.pyc
 *.exe
 *.rar
+/stc/lexilla/.github/workflows
