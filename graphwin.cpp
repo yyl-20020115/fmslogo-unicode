@@ -3569,6 +3569,10 @@ NODE *lmachine(NODE *)
     // Get Screen window's dimensions
     RECT screenWindowRect;
     GetWindowRect(GetScreenWindow(), &screenWindowRect);
+    
+    OSVERSIONINFO osvi = { 0 };
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    GetVersionEx(&osvi);
 
     // return a list with system specific information
     return
@@ -3577,8 +3581,8 @@ NODE *lmachine(NODE *)
         cons(make_intnode((FIXNUM) BitMapWidth),
         cons(make_intnode((FIXNUM) BitMapHeight),
         cons(make_intnode((FIXNUM) 0),
-        cons(make_intnode((FIXNUM) (LOBYTE(LOWORD(GetVersion())))),
-        cons(make_intnode((FIXNUM) (HIBYTE(LOWORD(GetVersion())))),
+        cons(make_intnode((FIXNUM) (osvi.dwMajorVersion/*LOBYTE(LOWORD(GetVersion()))*/)),
+        cons(make_intnode((FIXNUM) (osvi.dwMinorVersion/*HIBYTE(LOWORD(GetVersion()))*/)),
         cons(make_intnode((FIXNUM) workingAreaWidth),
         cons(make_intnode((FIXNUM) workingAreaHeight),
         cons(make_intnode((FIXNUM) ScreenWidth),

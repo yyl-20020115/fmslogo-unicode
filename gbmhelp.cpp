@@ -100,19 +100,19 @@ int gbm_file_create(const wchar_t *fn, int mode)
 }
 void gbm_file_close(int fd)
 {
-    close(fd);
+    _close(fd);
 }
 long gbm_file_lseek(int fd, long pos, int whence)
 {
-    return lseek(fd, pos, whence);
+    return _lseek(fd, pos, whence);
 }
 int gbm_file_read(int fd, void *buf, int len)
 {
-    return read(fd, buf, len);
+    return _read(fd, buf, len);
 }
 int gbm_file_write(int fd, const void *buf, int len)
 {
-    return write(fd, buf, len);
+    return _write(fd, buf, len);
 }
 
 AHEAD *gbm_create_ahead(int fd)

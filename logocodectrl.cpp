@@ -22,7 +22,7 @@
 //#else
 //#include "scintilla/include/Scintilla.h"
 //#endif
-#include "scintilla/Scintilla.h"
+#include "Scintilla.h"
 #include <../stc/scintilla/include/Scintilla.h>
 #include <../stc/lexilla/lexlib/CatalogueModules.h>
 #include <../stc/lexilla/lexlib/LexerModule.h>

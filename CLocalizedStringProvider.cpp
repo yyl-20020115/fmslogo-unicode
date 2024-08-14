@@ -49,19 +49,19 @@ size_t CLocalizedStringProvider::Load(CTextStream * stream)
 		bool any_progress = false;
 		do
 		{
-			for (std::map<wxString, std::vector<wxString>>::iterator it = content.begin(); it != content.end(); it++) {
-				std::vector<wxString>& parts = it->second;
+			for (auto& it : content) {
+				std::vector<wxString>& parts = it.second;
 				bool any_symbol = false;
-				for (std::vector<wxString>::iterator pit = parts.begin(); pit != parts.end(); pit++) {
-					if (pit->StartsWith(NameStartString)
-						&& (content.find(pit->substr(NameStartString.length())) != content.end()))
+				for (auto& pit : parts) {
+					if (pit.StartsWith(NameStartString)
+						&& (content.find(pit.substr(NameStartString.length())) != content.end()))
 					{
 						any_symbol = true;
 						break;
 					}
 				}
 				if (any_symbol) {
-					this->table[it->first] = NameStartString;
+					this->table[it.first] = NameStartString;
 				}
 				else //!any_Symbol
 				{
@@ -70,18 +70,18 @@ size_t CLocalizedStringProvider::Load(CTextStream * stream)
 					wxString full_line;
 					wxString part;
 
-					for (std::vector<wxString>::iterator pit = parts.begin(); pit != parts.end(); pit++) {
-						if (pit->StartsWith(StringStartString) && pit->EndsWith(StringEndString)) {
+					for (auto& pit : parts) {
+						if (pit.StartsWith(StringStartString) && pit.EndsWith(StringEndString)) {
 							//remove L" and "
-							full_line += pit->substr(StringStartString.length(), pit->length() - StringStartString.length() - StringEndString.length());
+							full_line += pit.substr(StringStartString.length(), pit.length() - StringStartString.length() - StringEndString.length());
 						}
 						else { 
 							//this is a direct string
-							full_line += *pit;
+							full_line += pit;
 						}
 					}
-					this->table[it->first] = full_line;
-					done_keys.push_back(it->first);
+					this->table[it.first] = full_line;
+					done_keys.push_back(it.first);
 				}
 			}
 
@@ -97,21 +97,21 @@ size_t CLocalizedStringProvider::Load(CTextStream * stream)
 			done_keys.clear();
 
 			//try unsolved ones
-			for (std::map<wxString, std::vector<wxString>>::iterator it = content.begin(); it != content.end(); it++) {
-				const wxString& key = it->first;
-				std::vector<wxString>& parts = it->second;
+			for (auto& it : content) {
+				const wxString& key = it.first;
+				std::vector<wxString>& parts = it.second;
 
-				for (std::vector<wxString>::iterator pit = parts.begin(); pit != parts.end(); pit++) {
-					if (pit->StartsWith(NameStartString))
+				for (auto& pit : parts) {
+					if (pit.StartsWith(NameStartString))
 					{
-						wxString tofind = *pit;
+						wxString tofind = pit;
 
-						std::unordered_map<wxString, wxString>::iterator fit
+						auto fit
 							= this->table.find(tofind.substr(NameStartString.length()));
 						if (fit != this->table.end()) {
 							any_progress = true;
 							if (!fit->second.StartsWith(NameStartString)) {
-								*pit = fit->second;
+								pit = fit->second;
 							}
 							else {
 								//any_progress = any_progress;
@@ -125,10 +125,10 @@ size_t CLocalizedStringProvider::Load(CTextStream * stream)
 	if (full_count < define_count) {
 #ifdef _DEBUG
 		std::vector<wxString> unresovled;
-		for (std::unordered_map<wxString, wxString>::iterator it = this->table.begin(); it != this->table.end(); it++) {
-			if (it->second.Contains(NameStartString))
+		for (auto& it : this->table) {
+			if (it.second.Contains(NameStartString))
 			{
-				unresovled.push_back(it->first);
+				unresovled.push_back(it.first);
 			}
 		}
 #endif
