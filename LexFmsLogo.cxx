@@ -1,5 +1,8 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
+#ifndef PLATFORM_ASSERT
+#define PLATFORM_ASSERT(x)
+#endif
 #include <string>
 #include <memory>
 #include <vector>
@@ -9,6 +12,7 @@
 using namespace Lexilla;
 #include "Scintilla.h"
 #include <../stc/scintilla/include/Scintilla.h>
+#include <../stc/scintilla/include/Compat.h>
 #include <../stc/scintilla/include/ILoader.h>
 #include <../stc/scintilla/src/SplitVector.h>
 #include <../stc/scintilla/src/Position.h>

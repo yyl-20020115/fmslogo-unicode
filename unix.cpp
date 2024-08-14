@@ -128,8 +128,11 @@ NODE *lchdir(NODE *arg)
     CStringPrintedNode directoryName(car(arg));
     wxString dn = (const wxString&)directoryName;
     if (
-
+#ifdef _WINDOWS
         _chdir((const char*)dn)
+#else
+	chdir((const char*)dn)
+#endif
         )
     {
         printfx(GetResourceString(L"LOCALIZED_FILE_CHDIRFAILED"), dn);
@@ -187,7 +190,11 @@ NODE *lmkdir(NODE *arg)
     else
     {
         // mkdir returns 0 on success
+#ifdef _WINDOWS
 		_chdir((const char*)dn);
+#else
+		chdir((const char*)dn);
+#endif
 		printfx(GetResourceString(L"LOCALIZED_FILE_MKDIRSUCCEEDED"), dn);
     }
 
@@ -198,7 +205,11 @@ NODE *lrmdir(NODE *arg)
 {
     CStringPrintedNode directoryName(car(arg));
     wxString dn = (const wxString&)directoryName;
+#ifdef _WINDOWS
     if (_rmdir((const char*)dn))
+#else
+    if (rmdir((const char*)dn))
+#endif
     {
         printfx(GetResourceString(L"LOCALIZED_FILE_RMDIRFAILED"), (const wxString&)directoryName);
         if (errno == EEXIST)

@@ -7,9 +7,7 @@ endif (POLICY CMP0091)
 project(FMSLogoUnicode LANGUAGES C CXX ASM_MASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-
-
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     SET(LINUX 1)
@@ -20,17 +18,23 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 ELSE ()
     SET(UNKNOW 1)
 ENDIF()
-
+if(WINDOWS)
 set(wxWidgets_ROOT_DIR "C:/Program Files (x86)/wxWidgets")
-
-find_package(wxWidgets COMPONENTS core base stc richtext net scintilla REQUIRED)
-
+elseif(LINUX)
+set(wxWidgets_ROOT_DIR "/usr/local/lib/cmake/wxWidgets/")
+endif()
+set(wxWidgets_LIBRARIES "/usr/local/lib/libwx_baseu-3.3.so")
+if(WINDOWS)
+find_package(wxWidgets REQUIRED COMPONENTS core base stc richtext net scintilla)
+elseif(LINUX)
+find_package(wxWidgets REQUIRED COMPONENTS core base stc richtext net)
+endif()
 if(NOT wxWidgets_FOUND)
     message(FATAL_ERROR "wxWidgets not found")
 endif()
 
 include(${wxWidgets_USE_FILE})
-#message(${wxWidgets_USE_FILE})
+
 set(SRC_FILES 
     3dsolid.cpp
     aboutfmslogo.cpp
@@ -58,8 +62,6 @@ set(SRC_FILES
     cursor.cpp
     CUTF8FileTextStream.cpp
     devwind.cpp
-    dib.cpp
-    dllwind.cpp
     dynamicbuffer.cpp
     editproceduredialog.cpp
     eraseproceduredialog.cpp
@@ -116,7 +118,6 @@ set(SRC_FILES
     sound.cpp
     startup.cpp
     statusdialog.cpp
-    stdafx.cpp
     stringprintednode.cpp
     term.cpp
     threed.cpp
@@ -130,30 +131,32 @@ set(SRC_FILES
 )
 
 #message(WARNING ${wxWidgets_LIBRARIES})
+#message(WARNING ${wxWidgets_INCLUDE_DIRS})
+
 if (WINDOWS)
+    set(SRC_FILES ${SRC_FILES} dib.cpp dllwind.cpp stdafx.cpp)
 if (CMAKE_CL_32)
     set(SRC_FILES ${SRC_FILES} helpers32.asm)
 elseif (CMAKE_CL_64)
     set(SRC_FILES ${SRC_FILES} helpers64.asm)
 endif()
-endif()
-#set(wxWidgets_LIBRARY_DIR "C:/Program Files (x86)/wxWidgets/lib/vc_x64_dll/")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIB_DIR}/wxlexilla.lib")
 else()
 SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIB_DIR}/wxlexillad.lib")
 endif()
+endif()
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${wxWidgets_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${wxWidgets_INCLUDE_DIRS})
-#message(WARNING ${wxWidgets_LIBRARY_DIR})
-#message(WARNING ${wxWidgets_INCLUDE_DIRS})
-if (WINDOWS)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${wxWidgets_LIBRARIES})
+
+if(WINDOWS)
 target_compile_definitions(${PROJECT_NAME} PRIVATE -D_CRT_NON_CONFORMING_WCSTOK -D_CRT_SECURE_NO_WARNINGS -DUNICODE -D_UNICODE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 target_link_options(${PROJECT_NAME} PRIVATE /SUBSYSTEM:WINDOWS /FORCE:MULTIPLE)
-
+elseif(LINUX)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE -DLINUX -DWX_PURE)	
 endif()
 

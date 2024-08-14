@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <string.h>
 #include <vector>
 #include <../stc/scintilla/include/Scintilla.h>
 #include <../stc/scintilla/include/ILexer.h>

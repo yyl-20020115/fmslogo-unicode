@@ -100,19 +100,35 @@ int gbm_file_create(const wchar_t *fn, int mode)
 }
 void gbm_file_close(int fd)
 {
+#ifdef _WINDOWS
     _close(fd);
+#else
+    close(fd);
+#endif
 }
 long gbm_file_lseek(int fd, long pos, int whence)
 {
+#ifdef _WINDOWS
     return _lseek(fd, pos, whence);
+#else
+    return lseek(fd, pos, whence);
+#endif
 }
 int gbm_file_read(int fd, void *buf, int len)
 {
+#ifdef _WINDOWS
     return _read(fd, buf, len);
+#else
+    return read(fd, buf, len);
+#endif
 }
 int gbm_file_write(int fd, const void *buf, int len)
 {
+#ifdef _WINDOWS
     return _write(fd, buf, len);
+#else
+    return write(fd, buf, len);
+#endif
 }
 
 AHEAD *gbm_create_ahead(int fd)
