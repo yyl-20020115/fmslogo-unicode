@@ -23,7 +23,7 @@ ENDIF()
 
 set(wxWidgets_ROOT_DIR "C:/Program Files (x86)/wxWidgets")
 
-find_package(wxWidgets COMPONENTS core base stc richtext net scintilla  REQUIRED)
+find_package(wxWidgets COMPONENTS core base stc richtext net scintilla REQUIRED)
 
 if(NOT wxWidgets_FOUND)
     message(FATAL_ERROR "wxWidgets not found")
@@ -137,12 +137,12 @@ elseif (CMAKE_CL_64)
     set(SRC_FILES ${SRC_FILES} helpers64.asm)
 endif()
 endif()
-set(wxWidgets_LIBRARY_DIR "C:/Program Files (x86)/wxWidgets/lib/vc_x64_dll/")
+#set(wxWidgets_LIBRARY_DIR "C:/Program Files (x86)/wxWidgets/lib/vc_x64_dll/")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIBRARY_DIR}wxlexilla.lib")
+SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIB_DIR}/wxlexilla.lib")
 else()
-SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIBRARY_DIR}wxlexillad.lib")
+SET(wxWidgets_LIBRARIES ${wxWidgets_LIBRARIES} "${wxWidgets_LIB_DIR}/wxlexillad.lib")
 endif()
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
