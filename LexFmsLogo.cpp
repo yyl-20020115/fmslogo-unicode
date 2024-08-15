@@ -34,26 +34,27 @@ using namespace Scintilla;
 #endif
 #include <../stc/lexilla/lexlib/LexerModule.h>
 
-bool IsADigit(int ch) noexcept {
+static bool IsADigit(int ch) noexcept {
     return (ch >= '0') && (ch <= '9');
 }
-bool IsAlphaNumeric(int ch) noexcept {
+static bool IsAlphaNumeric(int ch) noexcept {
     return
         ((ch >= '0') && (ch <= '9')) ||
         ((ch >= 'a') && (ch <= 'z')) ||
         ((ch >= 'A') && (ch <= 'Z'));
 }
-bool isoperator(int ch) noexcept {
+static bool IsOperator(int ch) noexcept {
     if (IsAlphaNumeric(ch))
         return false;
-    if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
+    else if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
         ch == '(' || ch == ')' || ch == '-' || ch == '+' ||
         ch == '=' || ch == '|' || ch == '{' || ch == '}' ||
         ch == '[' || ch == ']' || ch == ':' || ch == ';' ||
         ch == '<' || ch == '>' || ch == ',' || ch == '/' ||
         ch == '?' || ch == '!' || ch == '.' || ch == '~')
         return true;
-    return false;
+    else 
+        return false;
 }
 
 
@@ -82,7 +83,6 @@ static inline bool IsAWordChar(const int ch)
     case '<':
     case '=':
         return false;
-
     default:
         return true;
     }
@@ -116,9 +116,7 @@ static void AdvanceWithinVbar(
     }
 }
 
-static
-void
-ColorizeFmsLogoDoc(
+static void ColorizeFmsLogoDoc(
     Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
     WordList* keywordlists[], Accessor& styler)
 {
@@ -279,7 +277,7 @@ ColorizeFmsLogoDoc(
             {
                 sc.SetState(SCE_FMS_STRING);
             }
-            else if (isoperator(static_cast<char>(sc.ch)))
+            else if (IsOperator(static_cast<char>(sc.ch)))
             {
                 sc.SetState(SCE_FMS_OPERATOR);
             }

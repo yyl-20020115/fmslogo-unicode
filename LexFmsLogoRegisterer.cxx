@@ -32,4 +32,4 @@ private:
 
 // Intanciate the single that registers the module.
 //NOTICE: fixed: we should manualy install the module, otherwise, it's flushed by the constructor of the vector(list)
-//CFmsLogoLexerRegisterer CFmsLogoLexerRegisterer::s_RegisteredModule;
+CFmsLogoLexerRegisterer CFmsLogoLexerRegisterer::s_RegisteredModule;

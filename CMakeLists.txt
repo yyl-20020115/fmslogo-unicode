@@ -105,8 +105,7 @@ set(SRC_FILES
     questionbox.cpp
     RtAudio.cpp
     savebeforeexitdialog.cpp
-    LexFmsLogo.cxx
-    LexFmsLogoRegisterer.cxx
+    LexFmsLogo.cpp
     screen.cpp
     selectbox.cpp
     selectproceduredialog.cpp
@@ -156,6 +155,9 @@ if(WINDOWS)
 target_compile_definitions(${PROJECT_NAME} PRIVATE -D_CRT_NON_CONFORMING_WCSTOK -D_CRT_SECURE_NO_WARNINGS -DUNICODE -D_UNICODE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 target_link_options(${PROJECT_NAME} PRIVATE /SUBSYSTEM:WINDOWS /FORCE:MULTIPLE)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(SolutionDir)..")
+
 elseif(LINUX)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE -DLINUX -DWX_PURE)	
 endif()
